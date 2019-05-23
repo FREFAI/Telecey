@@ -26,20 +26,22 @@
         <div class="card bg-secondary shadow border-0">
           
           <div class="card-body px-lg-5 py-lg-5">
+            @include('flash-message')
             <div class="text-center text-muted mb-4">
               <div class="text-muted text-center mt-2 mb-4"><small>Forgot password</small></div>
             </div>
-            <form role="form">
+            <form role="form" action="{{url('/admin/forgotpassword')}}" method="post">
+              @csrf
               <div class="form-group">
                 <div class="input-group input-group-alternative mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Email" type="email">
+                  <input class="form-control" placeholder="Email" type="email" name="email">
                 </div>
               </div>
               <div class="text-center">
-                <button type="button" class="btn btn-primary mt-4">Create account</button>
+                <button type="submit" class="btn btn-primary mt-4">Create account</button>
               </div>
             </form>
           </div>

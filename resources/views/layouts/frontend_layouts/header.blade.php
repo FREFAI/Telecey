@@ -9,7 +9,7 @@
                         <span class="lni-menu"></span>
                         <span class="lni-menu"></span>
                     </button>
-                    <a href="{{url('/')}}" class="navbar-brand"><img src="assets/img/logo-telco-tales.png" alt="">
+                    <a href="{{url('/')}}" class="navbar-brand"><img src="frontend/assets/img/logo-telco-tales.png" alt="">
                        <span class="logo-title">Telco -Tales </span>
                        <br>
                        <span class="logo-tag-line">Rate Your Telecom Carrier</span>
@@ -23,9 +23,17 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/plans')}}">Plan</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('/devices')}}">Devices</a>
-                        </li>
+                        @if($settings)
+                            @if($settings->device == 1)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/devices')}}">Devices</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url('/devices')}}">Devices</a>
+                            </li>
+                        @endif
                         <li class="dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More</a>
                             <b class="caret"></b>
@@ -46,7 +54,7 @@
                             </div>
                         </li>
                        <!--  <li class="dropdown top">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user_placeholder.png" alt="" width="40"></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="frontend/assets/img/user_placeholder.png" alt="" width="40"></a>
                             <b class="caret"></b>
                             <ul class="dropdown-menu top">
                                 <li>
@@ -72,6 +80,6 @@
                 </div>
             </div>
         </div>
-        <div class="mobile-menu" data-logo="assets/img/logo-telco-tales.png"></div>
+        <div class="mobile-menu" data-logo="frontend/assets/img/logo-telco-tales.png"></div>
     </nav>
 </header>

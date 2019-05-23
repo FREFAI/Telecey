@@ -9,7 +9,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class AdminModel extends Authenticatable
 {
-    // use Notifiable;
 	use Notifiable;
 	use SoftDeletes;
 	protected $table = 'admins';

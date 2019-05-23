@@ -118,7 +118,7 @@
 		        <div class="product-box column">
 		            <a href="#" class="product-item">
 		                <div class="product-item-image">
-		                    <img src="assets/img/airpod.png" alt="Stadium Full Exterior">
+		                    <img src="frontend/assets/img/airpod.png" alt="Stadium Full Exterior">
 		                    <div class="product-item-image-hover">
 		                    </div>
 		                </div>
@@ -143,7 +143,7 @@
 		            <div class="product-box column">
 		                <a href="#" class="product-item">
 		                    <div class="product-item-image">
-		                            <img src="assets/img/phone-case.png" alt="Stadium Full Exterior">
+		                            <img src="frontend/assets/img/phone-case.png" alt="Stadium Full Exterior">
 		                        <div class="product-item-image-hover">
 		                        </div>
 		                    </div>
@@ -168,7 +168,7 @@
 		        <div class="product-box column">
 		            <a href="#" class="product-item">
 		                <div class="product-item-image">
-		                        <img src="assets/img/sony.png" alt="Stadium Full Exterior">
+		                        <img src="frontend/assets/img/sony.png" alt="Stadium Full Exterior">
 		                    <div class="product-item-image-hover">
 		                    </div>
 		                </div>

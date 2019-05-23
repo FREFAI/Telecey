@@ -18,6 +18,7 @@ class CreateAdminTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('reset_password')->nullable();
             $table->integer('is_active')->default(1)->comment('0 for inactive and 1 for active');
             $table->rememberToken();
             $table->softDeletes();

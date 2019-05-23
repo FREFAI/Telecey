@@ -28,16 +28,16 @@
             <div class="card-body px-lg-5 py-lg-5">
               @include('flash-message')
               <div class="text-center text-muted mb-4">
-                <div class="text-muted text-center mt-2 mb-3"><small>Sign in with credentials</small></div>
+                <div class="text-muted text-center mt-2 mb-3"><small>Set your password.</small></div>
               </div>
-              <form role="form" method="post" accept="{{url('/admin/login')}}">
+              <form role="form" method="post" action="{{url('/admin/resetPassword')}}">
                 <div class="form-group mb-3">
                   @csrf
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Email" type="email" name="email">
+                    <input class="form-control" placeholder="New Password" type="password" name="password">
                   </div>
                 </div>
                 <div class="form-group">
@@ -45,18 +45,14 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Password" type="password" name="password">
+                    <input class="form-control" placeholder="Confirm Password" type="password" name="password_confirmation">
                   </div>
                 </div>
+                <input type="hidden" name="token" value="{{$token}}"> 
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary my-4">Sign in</button>
+                  <button type="submit" class="btn btn-primary my-4">Reset password</button>
                 </div>
               </form>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-12">
-              <a href="{{url('/admin/forgotpassword')}}" class="text-light"><small>Forgot password?</small></a>
             </div>
           </div>
         </div>

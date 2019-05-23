@@ -5,7 +5,7 @@
 		<div class="login-form">
 	        <form action="#" method="post">
 	            <div class="avatar">
-	                <img src="assets/img/logo-web.png" alt="">
+	                <img src="frontend/assets/img/logo-web.png" alt="">
 	            </div>
 	            <h2 class="text-center mt-5">Log In User</h2>
 	            <!-- <h5 class="text-center mt-1 mb-4">Already a member? <a href="login.html" class="text-primary"> Log In</a></h5> -->

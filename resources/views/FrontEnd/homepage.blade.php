@@ -7,7 +7,7 @@
 		        <div class="row">
 		            <div class="col-md-12 text-center pl-0 pr-0 video-height">
 		                <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop" class="video-rp rounded">
-		                    <source src="assets/img/file.mp4" type="video/mp4">
+		                    <source src="{{URL::asset('frontend/assets/img/file.mp4')}}" type="video/mp4">
 		                </video>
 		            </div>
 		        </div>
@@ -31,7 +31,13 @@
 		                        Search other users reviews and feed back for the best plan in the area
 		                        Find out the best product that fits your need, budget and expectation with us </p>
 		                <a href="{{url('/plans')}}"class="btn btn-common btn-find black mt-5 mr-4">Plan</a>
-		                <a href="{{url('/devices')}}"class="btn btn-common btn-find bor-black mt-5">Device</a>
+		                @if($settings)
+		                    @if($settings->device == 1)
+		                        <a href="{{url('/devices')}}"class="btn btn-common btn-find bor-black mt-5">Device</a>
+		                    @endif
+		                @else
+		                    <a href="{{url('/devices')}}"class="btn btn-common btn-find bor-black mt-5">Device</a>
+		                @endif
 		            </div>
 		        </div>
 		    </div>
@@ -64,7 +70,7 @@
 			        <div class="article_center2">
 			            <div class="col-lg-3">
 			                <article class="section1_article">
-			                    <img alt="Basket" src="assets/img/dollar_icon.png" width="78" height="77">
+			                    <img alt="Basket" src="{{URL::asset('frontend/assets/img/dollar_icon.png')}}" width="78" height="77">
 			                    <h3>Save Bige</h3>
 			                    <h4>Get the hidden deals,,,,</h4>
 			                    <p>Easily search for the telecom provider or carrier who provides the cheapest mobile plan or internet subscription</p>
@@ -72,7 +78,7 @@
 			            </div>
 			            <div class="col-lg-3">
 			                <article class="section1_article">
-			                        <img alt="Basket" src="assets/img/diamond_icon.png" width="78" height="77">
+			                        <img alt="Basket" src="{{URL::asset('frontend/assets/img/diamond_icon.png')}}" width="78" height="77">
 			                    <h3>Value</h3>
 			                    <h4>(more minutes, more data GB)</h4>
 			                    <p>Whose providing more value from all telecom companies and what they best deal for mobile plan or internet subscription</p>
@@ -80,7 +86,7 @@
 			            </div>
 			            <div class="col-lg-3">
 			                <article class="section1_article">
-			                        <img alt="Basket" src="assets/img/Quality_icon.png" width="78" height="77">
+			                        <img alt="Basket" src="{{URL::asset('frontend/assets/img/Quality_icon.png')}}" width="78" height="77">
 			                    <h3>Quality</h3>
 			                    <h4>Coverage, Speed & Stability</h4>
 			                    <p>Which provider or carrier provides the best coverage service in your location</p>
@@ -88,7 +94,7 @@
 			            </div>
 			            <div class="col-lg-3">
 			                <article class="section1_article">
-			                        <img alt="Basket" src="assets/img/customer_icon.png" width="78" height="77">
+			                        <img alt="Basket" src="{{URL::asset('frontend/assets/img/customer_icon.png')}}" width="78" height="77">
 			                    <h3>Customer Service</h3>
 			                    <h4>Waiting for hours for support?</h4>
 			                    <p>And of course the best telecom customer care & service</p>
@@ -105,7 +111,7 @@
 		                <div class="gif-section">
 	                        <div class="video-size">
 		                        <video  autoplay loop controls muted>
-		                            <source src="assets/img/1file.mp4" type="video/mp4">
+		                            <source src="{{URL::asset('frontend/assets/img/1file.mp4')}}" type="video/mp4">
 		                        </video>
 		                    </div>
 		                </div>
@@ -123,7 +129,7 @@
 		        <div class="product-box column">
 		            <a href="#" class="product-item">
 		                <div class="product-item-image">
-		                    <img src="assets/img/airpod.png" alt="Stadium Full Exterior">
+		                    <img src="{{URL::asset('frontend/assets/img/airpod.png')}}" alt="Stadium Full Exterior">
 		                    <div class="product-item-image-hover">
 		                    </div>
 		                </div>
@@ -148,7 +154,7 @@
 	            <div class="product-box column">
 	                <a href="#" class="product-item">
 	                    <div class="product-item-image">
-                            <img src="assets/img/phone-case.png" alt="Stadium Full Exterior">
+                            <img src="{{URL::asset('frontend/assets/img/phone-case.png')}}" alt="Stadium Full Exterior">
 	                        <div class="product-item-image-hover">
 	                        </div>
 	                    </div>
@@ -173,7 +179,7 @@
 	            <div class="product-box column">
 	                <a href="#" class="product-item">
 	                    <div class="product-item-image">
-                            <img src="assets/img/sony.png" alt="Stadium Full Exterior">
+                            <img src="{{URL::asset('frontend/assets/img/sony.png')}}" alt="Stadium Full Exterior">
 	                        <div class="product-item-image-hover">
 	                        </div>
 	                    </div>
@@ -200,7 +206,7 @@
 	            <div class="row">
 	                <div class="col-lg-4">
 	                    <div class="img-cl-row">
-	                        <img src="assets/img/men-call.png" alt="" >
+	                        <img src="{{URL::asset('frontend/assets/img/men-call.png')}}" alt="" >
 	                    </div>
 	                    <div class="img-conatnt-row mt-5">
 	                        <h3>Voice (min)</h3>
@@ -213,12 +219,12 @@
 	                        <p>Search reviews and see how much Data others are getting. Find out if you’re paying fairly</p>
 	                    </div>
 	                    <div class="img-cl-row mt-5">
-	                        <img src="assets/img/girl-call.png" alt="" >
+	                        <img src="{{URL::asset('frontend/assets/img/girl-call.png')}}" alt="" >
 	                    </div>
 	                </div>
 	                <div class="col-lg-4">
 	                    <div class="img-cl-row">
-	                        <img src="assets/img/men-mac.png" alt="" >
+	                        <img src="{{URL::asset('frontend/assets/img/men-mac.png')}}" alt="" >
 	                    </div>
 	                    <div class="img-conatnt-row mt-5">
 	                        <h3>Register& share your experience</h3>
@@ -229,7 +235,14 @@
 	            <div class="row">
 	                <div class="col text-center mt-4">
 	                        <a href="plan.html"class="btn btn-common btn-find black mt-5 mr-4">Plan</a>
-	                        <a href="device.html"class="btn btn-common btn-find bor-black mt-5">Device</a>
+	                        @if($settings)
+	                            @if($settings->device == 1)
+	                                <a href="device.html"class="btn btn-common btn-find bor-black mt-5">Device</a>
+	                            @endif
+	                        @else
+	                            <a href="device.html"class="btn btn-common btn-find bor-black mt-5">Device</a>
+	                        @endif
+	                        
 	                </div>
 	            </div>
 	        </div>
@@ -249,7 +262,7 @@
 		                 </div>
 		            </div>
                  	<div class="col-lg-6 phone-img-bg">
-                        <img src="assets/img/phone.png" alt="" >
+                        <img src="{{URL::asset('frontend/assets/img/phone.png')}}" alt="" >
                  	</div>
 	            </div>
 	        </div>
@@ -270,7 +283,7 @@
 	                    <div class="blog-post">
 	                        <div class="post-thumb">
 	                            <a href="#">
-	                            	<img class="img-fluid" src="assets/img/blog/blog1.jpg" alt="">
+	                            	<img class="img-fluid" src="{{URL::asset('frontend/assets/img/blog/blog1.jpg')}}" alt="">
 	                            </a>
 	                            <div class="hover-wrap"></div>
 	                        </div>
@@ -296,7 +309,7 @@
 	                <div class="col-lg-4">
 	                    <div class="blog-post">
 	                        <div class="post-thumb">
-	                            <a href="#"><img class="img-fluid" src="assets/img/blog/blog2.jpg" alt=""></a>
+	                            <a href="#"><img class="img-fluid" src="{{URL::asset('frontend/assets/img/blog/blog2.jpg')}}" alt=""></a>
 	                            <div class="hover-wrap"></div>
 	                        </div>
 	                        <div class="post-content">
@@ -315,7 +328,7 @@
 	                <div class="col-lg-4">
 	                    <div class="blog-post">
 	                        <div class="post-thumb">
-	                            <a href="#"><img class="img-fluid" src="assets/img/blog/blog3.jpg" alt=""></a>
+	                            <a href="#"><img class="img-fluid" src="{{URL::asset('frontend/assets/img/blog/blog3.jpg')}}" alt=""></a>
 	                            <div class="hover-wrap"></div>
 	                        </div>
 	                        <div class="post-content">

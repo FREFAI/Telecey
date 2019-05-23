@@ -8,6 +8,9 @@
 		            <div class="col-12 text-center mt-5">
 		                <div class="heading find-div">
 		                    <h1 class="section-title">Find a Plan</h1>
+		                    <div class="location_search">
+		                    	<input type="text" class="form-control" placeholder="Location" id="searchMapInput">
+		                    </div>
 		                    <h4 class="sub-title">Register and share your mobile or telecom experience to unlock Telco Tales</h4>
 		                    <div class="container">
 	                            <div class="row align-items-center justify-content-center">
@@ -157,7 +160,7 @@
 	                        <div class="item">
 	                            <div class="product-item">
 	                                <div class="carousel-thumb">
-	                                    <img class="img-fluid" src="assets/img/slider-img-1.png" alt="">
+	                                    <img class="img-fluid" src="frontend/assets/img/slider-img-1.png" alt="">
 	                                </div>
 	                                <div class="product-content-inner">
 	                                    <div class="product-content">
@@ -172,7 +175,7 @@
 	                        <div class="item">
 	                            <div class="product-item">
 	                                <div class="carousel-thumb">
-	                                    <img class="img-fluid" src="assets/img/slider-img-2.png" alt="">
+	                                    <img class="img-fluid" src="frontend/assets/img/slider-img-2.png" alt="">
 	                                </div>
 	                                <div class="product-content-inner">
 	                                    <div class="product-content">
@@ -187,7 +190,7 @@
 	                        <div class="item">
 	                            <div class="product-item">
 	                                <div class="carousel-thumb">
-	                                    <img class="img-fluid" src="assets/img/slider-img-3.png" alt="">
+	                                    <img class="img-fluid" src="frontend/assets/img/slider-img-3.png" alt="">
 	                                </div>
 	                                <div class="product-content-inner">
 	                                    <div class="product-content">
@@ -202,7 +205,7 @@
 	                        <div class="item">
 	                            <div class="product-item">
 	                                <div class="carousel-thumb">
-	                                    <img class="img-fluid" src="assets/img/slider-img-1.png" alt="">
+	                                    <img class="img-fluid" src="frontend/assets/img/slider-img-1.png" alt="">
 	                                </div>
 	                                <div class="product-content-inner">
 	                                    <div class="product-content">
@@ -236,7 +239,7 @@
 		            <tbody>
 		                <tr>
 		                    <td class="at-int-speedname">
-		                        <img src="assets/img/logo-web.png" width="150">
+		                        <img src="frontend/assets/img/logo-web.png" width="150">
 		                    </td>
 		                    <td class="at-int-dl1">
 		                        <h2 class="at-IntHdr">6.2<span class="time-sep"> hrs</span></h2>
@@ -260,7 +263,7 @@
 		                </tr>
 		                <tr>
 		                    <td class="at-int-speedname">
-		                            <img src="assets/img/logo-web.png" width="150">
+		                            <img src="frontend/assets/img/logo-web.png" width="150">
 		                    </td>
 		                    <td class="at-int-dl1">
 		                        <h2 class="at-IntHdr">6.2<span class="time-sep"> hrs</span></h2>
@@ -284,7 +287,7 @@
 		                </tr>
 		                <tr>
 		                    <td class="at-int-speedname">
-		                            <img src="assets/img/logo-web.png" width="150">
+		                            <img src="frontend/assets/img/logo-web.png" width="150">
 		                    </td>
 		                    <td class="at-int-dl1">
 		                        <h2 class="at-IntHdr">6.2<span class="time-sep"> hrs</span></h2>
@@ -308,7 +311,7 @@
 		                </tr>
 		                <tr>
 		                    <td class="at-int-speedname">
-		                            <img src="assets/img/logo-web.png" width="150">
+		                            <img src="frontend/assets/img/logo-web.png" width="150">
 		                    </td>
 		                    <td class="at-int-dl1">
 		                        <h2 class="at-IntHdr">6.2<span class="time-sep"> hrs</span></h2>
@@ -332,7 +335,7 @@
 		                </tr>
 		                <tr>
 		                    <td class="at-int-speedname">
-		                            <img src="assets/img/logo-web.png" width="150">
+		                            <img src="frontend/assets/img/logo-web.png" width="150">
 		                    </td>
 		                    <td class="at-int-dl1">
 		                        <h2 class="at-IntHdr">6.2<span class="time-sep"> hrs</span></h2>
@@ -360,5 +363,18 @@
 		    </div>
 		</div>
 	<!-- Content End Here -->
+	<script>
+		
+	function initMap() {
+	    var input = document.getElementById('searchMapInput');
+	  
+	    var autocomplete = new google.maps.places.Autocomplete(input);
+	   
+	    autocomplete.addListener('place_changed', function() {
+	        var place = autocomplete.getPlace();
+	    });
+	}
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&callback=initMap" async defer></script>
 
 @endsection

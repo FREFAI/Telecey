@@ -26,6 +26,7 @@
         <div class="card bg-secondary shadow border-0">
           
           <div class="card-body px-lg-5 py-lg-5">
+            @include('flash-message')
             <div class="text-center text-muted mb-4">
               <div class="text-muted text-center mt-2 mb-4"><small>Sign Up</small></div>
             </div>

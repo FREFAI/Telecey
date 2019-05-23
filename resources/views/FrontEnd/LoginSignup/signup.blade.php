@@ -3,9 +3,9 @@
 
 	<!-- Content Start Here -->
 		<div class="login-form">
-            <form action="/examples/actions/confirmation.php" method="post">
+            <form action="#" method="post">
                 <div class="avatar">
-                        <img src="assets/img/logo-web.png" alt="">
+                        <img src="frontend/assets/img/logo-web.png" alt="">
                 </div>
                 <h2 class="text-center mt-5">Sign Up</h2>
                 <h5 class="text-center mt-1 mb-4">Already a member? <a href="{{url('/signin')}}" class="text-primary"> Log In</a></h5>

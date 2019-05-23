@@ -587,6 +587,34 @@ small,
     font-size: 80%;
     font-weight: 400;
 }
+/*Validation style */
+.alert {
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .15rem;
+}
+.alert-success {
+    background-color: #b9f6ca !important;
+    border-color: #a2f3b9 !important;
+    color: #1b5e20 !important;
+}
+.alert-info {
+    background-color: #80d8ff !important;
+    border-color: #5ccdff !important;
+    color: #0d47a1 !important;
+}
+.alert-warning {
+    background-color: #ffe0b2 !important;
+    border-color: #ffd699 !important;
+    color: #e65100 !important;
+}
+.alert-danger {
+    background-color: #ffcdd2 !important;
+    border-color: #ffb4bb !important;
+    color: #b71c1c !important;
+}
+/*End Validation style */
 
 mark,
 .mark

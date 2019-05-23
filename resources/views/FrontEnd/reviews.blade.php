@@ -2,26 +2,26 @@
 @section('content')
 
 	<!-- Content Start Here -->
-		<div class="page-header inner-page start-page" style="background: url(assets/img/bg-1.jpeg);">
+		<div class="page-header inner-page start-page" style="background: url({{URL::asset('frontend/assets/img/bg-1.jpeg')}});">
 		    <div class="container-fluid">
 		        <div class="row">
 		            <div class="col-lg-4 text-center">
 		                <div class="step-section-one">
-		                    <img src="{{URL::asset('assets/img/intro.png')}}">
+		                    <img src="{{URL::asset('frontend/assets/img/intro.png')}}">
 		                    <h2 class="pt-3 text-white">1</h2>
 		                    <h3 class="pt-3 custom-height-cl">PLEASE INTRODUCE YOUR SELF</h3>
 		                </div>
 		            </div>
 		            <div class="col-lg-4 text-center">
 		                <div class="step-section-one">
-		                    <img src="{{URL::asset('assets/img/share.png')}}">
+		                    <img src="{{URL::asset('frontend/assets/img/share.png')}}">
 		                    <h2 class="pt-3 text-white">2</h2>
 		                    <h3 class="pt-3 custom-height-cl">CAN YOU ALSO SHARE YOUR SERVICE DETAILS</h3>
 		                </div>
 		            </div>
 		            <div class="col-lg-4 text-center">
 		                <div class="step-section-one">
-		                    <img src="{{URL::asset('assets/img/rating.png')}}">
+		                    <img src="{{URL::asset('frontend/assets/img/rating.png')}}">
 		                    <h2 class="pt-3 text-white">3</h2>
 		                    <h3 class="pt-3 custom-height-cl">ONE MORE THINGDO YOU RATE THIS SERVICE?</h3>
 		                </div>

@@ -8,7 +8,7 @@
 	                <div class="col-lg-6">
 	                    <div class="blog-post">
 	                        <div class="post-thumb">
-	                            <a href="#"><img class="img-fluid" src="assets/img/blog/blog1.jpg" alt=""></a>
+	                            <a href="#"><img class="img-fluid" src="frontend/assets/img/blog/blog1.jpg" alt=""></a>
 	                            <div class="hover-wrap"></div>
 	                        </div>
 	                        <div class="post-content">
@@ -29,7 +29,7 @@
 	                <div class="col-lg-6">
 	                    <div class="blog-post">
 	                        <div class="post-thumb">
-	                            <a href="#"><img class="img-fluid" src="assets/img/blog/blog2.jpg" alt=""></a>
+	                            <a href="#"><img class="img-fluid" src="frontend/assets/img/blog/blog2.jpg" alt=""></a>
 	                            <div class="hover-wrap"></div>
 	                        </div>
 	                        <div class="post-content">
@@ -52,7 +52,7 @@
 	                <div class="col-lg-6">
 	                    <div class="blog-post">
 	                        <div class="post-thumb">
-	                            <a href="#"><img class="img-fluid" src="assets/img/blog/blog3.jpg" alt=""></a>
+	                            <a href="#"><img class="img-fluid" src="frontend/assets/img/blog/blog3.jpg" alt=""></a>
 	                            <div class="hover-wrap"></div>
 	                        </div>
 	                        <div class="post-content">

@@ -9,7 +9,7 @@
 		                <div class="heading find-div">
 		                    <h1 class="section-title">Find a Plan</h1>
 		                    <div class="location_search">
-		                    	<input type="text" class="form-control" placeholder="Location" id="searchMapInput">
+		                    	<input type="text" class="form-control" placeholder="Location" id="searchMapInput" value="{{$ip_location->region}}">
 		                    </div>
 		                    <h4 class="sub-title">Register and share your mobile or telecom experience to unlock Telco Tales</h4>
 		                    <div class="container">
@@ -376,5 +376,6 @@
 	}
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&callback=initMap" async defer></script>
+	
 
 @endsection

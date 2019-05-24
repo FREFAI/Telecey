@@ -29,7 +29,9 @@ class PlansController extends Controller
      */
     public function plans()
     {
-        
-        return view('FrontEnd.plans');
+        // $ip = '2.22.149.255';
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
+        return view('FrontEnd.plans',['ip_location'=>$details]);
     }
 }

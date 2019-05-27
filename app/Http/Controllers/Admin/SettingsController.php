@@ -34,6 +34,9 @@ class SettingsController extends Controller
     {
         $input = $request->all();
         $setting  = SettingsModel::first();
+        if($setting == null){
+            $setting = new \App\Models\Admin\SettingsModel;
+        }
         if($input['type'] == 'device'){
             $setting->device = $input['status'];
             if($setting->save()){

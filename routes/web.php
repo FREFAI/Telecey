@@ -69,5 +69,7 @@
 		Route::get('/logout', 'Admin\LoginController@logout');
 		Route::get('/settings', 'Admin\SettingsController@allSetting');
 		Route::post('/settings', 'Admin\SettingsController@changeSetting');
+		Route::get('/filetrsettings', 'Admin\FilterSettingsController@allFilterSetting');
+		Route::post('/filetrsettings', 'Admin\FilterSettingsController@changeFilterSetting');
 	});
 // End Admin Section

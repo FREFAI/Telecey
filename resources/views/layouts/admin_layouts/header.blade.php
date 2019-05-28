@@ -6,8 +6,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="{{url('/admin/dashboard')}}">
-        <img src="./assets/img/brand/blue.png" class="navbar-brand-img" alt="...">
+      <a class="navbar-brand pt-0 text-primary" href="{{url('/admin/dashboard')}}">
+        <img src="{{URL::asset('frontend/assets/img/logo-telco-tales.png ')}}" class="navbar-brand-img" alt="...">
+        Telco-Tales
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -26,7 +27,7 @@
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="./assets/img/theme/team-1-800x800.jpg">
+                <img alt="Image placeholder" src="{{URL::asset('admin/assets/img/user.png')}}">
               </span>
             </div>
           </a>
@@ -34,7 +35,7 @@
             <div class=" dropdown-header noti-title">
               <h6 class="text-overflow m-0">Welcome!</h6>
             </div>
-            <a href="./examples/profile.html" class="dropdown-item">
+            <!-- <a href="./examples/profile.html" class="dropdown-item">
               <i class="ni ni-single-02"></i>
               <span>My profile</span>
             </a>
@@ -49,7 +50,7 @@
             <a href="./examples/profile.html" class="dropdown-item">
               <i class="ni ni-support-16"></i>
               <span>Support</span>
-            </a>
+            </a> -->
             <div class="dropdown-divider"></div>
             <a href="#!" class="dropdown-item">
               <i class="ni ni-user-run"></i>

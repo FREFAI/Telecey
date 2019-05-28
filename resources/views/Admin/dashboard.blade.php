@@ -78,7 +78,7 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
+                    <h5 class="card-title text-uppercase text-muted mb-0">Likes</h5>
                     <span class="h2 font-weight-bold mb-0">49,65%</span>
                   </div>
                   <div class="col-auto">
@@ -99,9 +99,9 @@
     </div>
   </div>
   <!-- Page content -->
-  <div class="container-fluid mt--7">
+  <div class="container-fluid mt-7">
     <div class="row">
-      <div class="col-xl-8 mb-5 mb-xl-0">
+      <!-- <div class="col-xl-8 mb-5 mb-xl-0">
         <div class="card bg-gradient-default shadow">
           <div class="card-header bg-transparent">
             <div class="row align-items-center">
@@ -128,9 +128,7 @@
             </div>
           </div>
           <div class="card-body">
-            <!-- Chart -->
             <div class="chart">
-              <!-- Chart wrapper -->
               <canvas id="chart-sales" class="chart-canvas"></canvas>
             </div>
           </div>
@@ -147,16 +145,15 @@
             </div>
           </div>
           <div class="card-body">
-            <!-- Chart -->
             <div class="chart">
               <canvas id="chart-orders" class="chart-canvas"></canvas>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="row mt-5">
-      <div class="col-xl-8 mb-5 mb-xl-0">
+      <!-- <div class="col-xl-8 mb-5 mb-xl-0">
         <div class="card shadow">
           <div class="card-header border-0">
             <div class="row align-items-center">
@@ -169,7 +166,6 @@
             </div>
           </div>
           <div class="table-responsive">
-            <!-- Projects table -->
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
@@ -268,7 +264,6 @@
             </div>
           </div>
           <div class="table-responsive">
-            <!-- Projects table -->
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
@@ -372,7 +367,7 @@
             </table>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <!-- Footer Section Include -->
         @include('layouts.admin_layouts.footer')

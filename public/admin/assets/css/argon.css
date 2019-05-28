@@ -21895,3 +21895,10 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle
 
     height: 3px;
 }
+
+
+/*Jatinder Css*/
+
+.navbar-vertical.navbar-expand-md .navbar-brand-img {
+    max-height: 4.5rem !important;
+}

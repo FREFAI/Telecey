@@ -9,77 +9,117 @@
 		                <div class="heading find-div">
 		                    <h1 class="section-title">Find a Plan</h1>
 		                    <div class="location_search">
-		                    	<input type="text" class="form-control" placeholder="Location" id="searchMapInput" value="{{$ip_location->city}}, {{$ip_location->region}}, {{$ip_location->country}}">
+		                    	<input type="text" class="form-control" placeholder="Location" id="searchMapInput" value="{{$ip_location->country}}, {{$ip_location->region}}, {{$ip_location->city}}, {{$ip_location->postal}}">
 		                    </div>
 		                    <h4 class="sub-title">Register and share your mobile or telecom experience to unlock Telco Tales</h4>
 		                    <div class="container">
 	                            <div class="row align-items-center justify-content-center">
+	                            	@if($filtersetting->personal_business_setting == 1)
 	                                <div class="col-md-2 pt-3 pl-0 pr-1">
 	                                    <div class="form-group ">
-	                                        <select id="inputState " class="form-control drop-dw">
+	                                    	<span class="toggle_label">Personal</span>
+	                                    	<label class="switch">
+	                                    	  <input type="checkbox" id="personal">
+	                                    	  <span class="slider"></span>
+	                                    	</label>
+	                                    	<span class="toggle_label">Business</span>
+	                                        <!-- <select id="inputState " class="form-control drop-dw">
 	                                            <option selected> Personal Business</option>
 	                                            <option>BMW</option>
 	                                            <option>Audi</option>
 	                                            <option>Maruti</option>
 	                                            <option>Tesla</option>
-	                                        </select>
+	                                        </select> -->
 	                                    </div>
 	                                </div>
+	                                @endif
+	                                @if($filtersetting->postpaid_prepaid_setting == 1)
 	                                <div class="col-md-2 pt-3 pl-0 pr-1">
 	                                    <div class="form-group">
-	                                        <select id="inputState" class="form-control drop-dw">
+	                                    	<span class="toggle_label">Postpaid</span>
+	                                    	<label class="switch">
+	                                    	  <input type="checkbox">
+	                                    	  <span class="slider"></span>
+	                                    	</label>
+	                                    	<span class="toggle_label">Prepaid</span>
+	                                        <!-- <select id="inputState" class="form-control drop-dw">
 	                                            <option selected>Postpaid Prepaid</option>
 	                                            <option>BMW</option>
 	                                            <option>Audi</option>
 	                                            <option>Maruti</option>
 	                                            <option>Tesla</option>
-	                                        </select>
+	                                        </select> -->
 	                                    </div>
 	                                </div>
-	                                <div class="col-md-2 pt-3 pl-0 pr-1">
+	                                @endif
+	                                @if($filtersetting->mobile_home_setting == 1)
+	                                <div class="col-md-3 pt-3 pl-0 pr-1">
 	                                    <div class="form-group">
-	                                        <select id="inputState" class="form-control drop-dw">
+	                                    	<span class="toggle_label">Mobile Plan</span>
+	                                    	<label class="switch">
+	                                    	  <input type="checkbox">
+	                                    	  <span class="slider"></span>
+	                                    	</label>
+	                                    	<span class="toggle_label">Home Internet</span>
+	                                        <!-- <select id="inputState" class="form-control drop-dw">
 	                                            <option selected>Mobile plan Home internet</option>
 	                                            <option>BMW</option>
 	                                            <option>Audi</option>
 	                                            <option>Maruti</option>
 	                                            <option>Tesla</option>
+	                                        </select> -->
+	                                    </div>
+	                                </div>
+	                                @endif
+	                                @if($filtersetting->unlimited_calls_setting == 1)
+	                                <div class="col-md-3 pt-3 pl-0 pr-1">
+	                                    <div class="form-group">
+	                                    	<span class="toggle_label">Unlimited Calls</span>
+	                                    	<label class="switch">
+	                                    	  <input type="checkbox" checked="" onclick="myFunction()" id="unlimited">
+	                                    	  <span class="slider"></span>
+	                                    	</label>
+	                                        <select id="unlimited_calls" class="form-control drop-dw d-none w-40">
+	                                            <option value="100" selected>100 mins</option>
+	                                            <option value="200">200 mins</option>
+	                                            <option value="300">300 mins</option>
+	                                            <option value="500">500 mins</option>
 	                                        </select>
 	                                    </div>
 	                                </div>
-	                                <div class="col-md-2 pt-3 pl-0 pr-1">
+	                                @endif
+	                                @if($filtersetting->gb_setting == 1)
+	                                <div class="col-md-1 pt-3 pl-0 pr-1">
 	                                    <div class="form-group">
 	                                        <select id="inputState" class="form-control drop-dw">
-	                                            <option selected>Unlimited Calls</option>
-	                                            <option>BMW</option>
-	                                            <option>Audi</option>
-	                                            <option>Maruti</option>
-	                                            <option>Tesla</option>
+	                                            <option value="0.5">0.5 GB</option>
+	                                            <option value="1">1 GB</option>
+	                                            <option value="2" selected>2 GB</option>
+	                                            <option value="3">3 GB</option>
+	                                            <option value="5">5 GB</option>
+	                                            <option value="7">7 GB</option>
+	                                            <option value="10">10 GB</option>
+	                                            <option value="12">12 GB</option>
+	                                            <option value="15">15 GB</option>
+	                                            <option value="20">20 GB</option>
 	                                        </select>
 	                                    </div>
 	                                </div>
-	                                <div class="col-md-2 pt-3 pl-0 pr-1">
+	                                @endif
+	                                @if($filtersetting->mb_setting == 1)
+	                                <div class="col-md-1 pt-3 pl-0 pr-0">
 	                                    <div class="form-group">
 	                                        <select id="inputState" class="form-control drop-dw">
-	                                            <option selected>10 GB Download</option>
-	                                            <option>BMW</option>
-	                                            <option>Audi</option>
-	                                            <option>Maruti</option>
-	                                            <option>Tesla</option>
+	                                            <option selected value="" disabled="">Mbps</option>
+	                                            <option value="100">100 Mbps</option>
+	                                            <option value="200">200 Mbps</option>
+	                                            <option value="300">300 Mbps</option>
+	                                            <option value="400">400 Mbps</option>
+	                                            <option value="500">500 Mbps</option>
 	                                        </select>
 	                                    </div>
 	                                </div>
-	                                <div class="col-md-2 pt-3 pl-0 pr-0">
-	                                    <div class="form-group">
-	                                        <select id="inputState" class="form-control drop-dw">
-	                                            <option selected>300 MBps</option>
-	                                            <option>BMW</option>
-	                                            <option>Audi</option>
-	                                            <option>Maruti</option>
-	                                            <option>Tesla</option>
-	                                        </select>
-	                                    </div>
-	                                </div>
+	                                @endif
 	                            </div>
 	                        </div>
 		                </div>
@@ -134,11 +174,11 @@
 		                </div>
 		            </div>
 		        </div>
-		        <div class="row">
+		       <!--  <div class="row">
 		            <div class="col text-center">
 		                <a href="sign-in.html" class="btn btn-common btn-find plan ">Register for Free</a>
 		            </div>
-		        </div>
+		        </div> -->
 		    </div>
 		</div>
 		<section class="plan-device-sec">
@@ -373,6 +413,15 @@
 	    autocomplete.addListener('place_changed', function() {
 	        var place = autocomplete.getPlace();
 	    });
+	}
+	function myFunction() {
+	  var checkBox = document.getElementById("unlimited");
+	  var text = document.getElementById("unlimited_calls");
+	  if (checkBox.checked == true){
+	    $('#unlimited_calls').addClass('d-none');
+	  } else {
+	    $('#unlimited_calls').removeClass('d-none');
+	  }
 	}
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&callback=initMap" async defer></script>

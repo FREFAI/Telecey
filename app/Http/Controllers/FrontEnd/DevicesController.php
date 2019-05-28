@@ -4,7 +4,6 @@ namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Models\Admin\SettingsModel;
 
 class DevicesController extends Controller
@@ -29,6 +28,10 @@ class DevicesController extends Controller
      */
     public function devices()
     {
+        $filtersetting = SettingsModel::first();
+        if($filtersetting->device == 0){
+            return redirect('/');
+        }
         return view('FrontEnd.devices');
     }
 }

@@ -16,13 +16,13 @@
   <!-- Page content -->
   <div class="container-fluid mt--5">
     <div class="row">
-    	<div class="col-xl-12 mb-5 mb-xl-0">
+    	<div class="col-xl-12 mb-5 mb-xl-0 ">
 	        <div class="card shadow">
 	          <div class="card-header bg-transparent">
 		    	<div class="row">
 
 		  			<div class="col-lg-12">
-		  				<h6 class="heading-small text-muted mb-4">Settings</h6>
+		  				<h5 class="heading-small text-muted mb-4">Settings</h5>
 		  			</div>
 		  			<div class="col-lg-6 pl-lg-4">
 		  				<h6 class="heading-small text-muted mb-4">Device <b>Hide</b></h6>
@@ -55,5 +55,9 @@
     <!-- End Footer Section Include -->
   </div>
 </div>
-
+<style type="text/css">
+	h6.heading-small{
+		text-transform: capitalize;
+	}
+</style>
 @endsection

@@ -27,7 +27,7 @@ class SettingsController extends Controller
     {
         $settings = SettingsModel::first();
 
-        return view('Admin.settings',['settings'=>$settings]);
+        return view('Admin.Settings.settings',['settings'=>$settings]);
     }
 
     public function changeSetting(Request $request)

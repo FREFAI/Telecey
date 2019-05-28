@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
     <!-- Favicon -->
-    <link href="./assets/img/brand/favicon.png" rel="icon" type="image/png">
+    <link href="{{URL::asset('frontend/assets/img/fav_icon.png')}}" rel="icon" type="image/png">
     <!-- CSS Section Include -->
         @include('layouts.admin_layouts.allcss')
     <!-- End CSS Section Include -->

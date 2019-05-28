@@ -30,20 +30,21 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="{{url('/admin/dashboard')}}">
+            <a class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}" href="{{url('/admin/dashboard')}}">
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url('admin/settings')}}">
-              <i class="ni ni-settings-gear-65 text-info"></i> Settings
+            <a class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}" href="{{url('admin/settings')}}">
+              <i class="ni ni-settings text-info"></i> Settings
             </a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="./examples/maps.html">
-              <i class="ni ni-pin-3 text-orange"></i> Maps
+          <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/filetrsettings') ? 'active' : '' }}" href="{{url('admin/filetrsettings')}}">
+              <i class="fa fa-filter text-orange"></i> Filter Settings
             </a>
           </li>
+          <!--
           <li class="nav-item">
             <a class="nav-link" href="./examples/profile.html">
               <i class="ni ni-single-02 text-yellow"></i> User profile

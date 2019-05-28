@@ -52,24 +52,31 @@
 
 
 // Admin Section
-	Route::get('/home', 'HomeController@index')->name('home');
 	Auth::routes();
+	Route::group(['prefix' => 'admin'], function(){
+		Route::get('/', 'HomeController@index')->name('home');
+		Route::get('/login', 'Admin\LoginController@showLoginForm')->name('admin.login');
 
-	Route::get('/admin/login', 'Admin\LoginController@showLoginForm')->name('admin.login');
-	Route::post('/admin/login', 'Admin\LoginController@authenticate');
-	Route::get('/admin/signup', 'Admin\RegisterController@showSignupForm');
-	Route::post('/admin/signup', 'Admin\RegisterController@registerAdmin');
-	Route::get('/admin/forgotpassword', 'Admin\ForgotPasswordController@showForgotPasswordForm');
-	Route::post('/admin/forgotpassword', 'Admin\ForgotPasswordController@sendEmail');
-	Route::get('/admin/resetPassword/{token}', 'Admin\ForgotPasswordController@setPasswordForm');
-	Route::post('/admin/resetPassword', 'Admin\ForgotPasswordController@setPassword');
+		Route::post('/login', 'Admin\LoginController@authenticate');
+		Route::get('/signup', 'Admin\RegisterController@showSignupForm');
+		Route::post('/signup', 'Admin\RegisterController@registerAdmin');
+		Route::get('/forgotpassword', 'Admin\ForgotPasswordController@showForgotPasswordForm');
+		Route::post('/forgotpassword', 'Admin\ForgotPasswordController@sendEmail');
+		Route::get('/resetPassword/{token}', 'Admin\ForgotPasswordController@setPasswordForm');
+		Route::post('/resetPassword', 'Admin\ForgotPasswordController@setPassword');
 
-	Route::group(['prefix' => 'admin','middleware' => 'auth:admin'], function(){
-		Route::get('/dashboard', 'Admin\DashboardController@dashboard');
-		Route::get('/logout', 'Admin\LoginController@logout');
-		Route::get('/settings', 'Admin\SettingsController@allSetting');
-		Route::post('/settings', 'Admin\SettingsController@changeSetting');
-		Route::get('/filetrsettings', 'Admin\FilterSettingsController@allFilterSetting');
-		Route::post('/filetrsettings', 'Admin\FilterSettingsController@changeFilterSetting');
+
+
+		Route::group(['middleware' => 'auth:admin'], function(){
+			Route::get('/dashboard', 'Admin\DashboardController@dashboard');
+			Route::get('/logout', 'Admin\LoginController@logout');
+			Route::get('/settings', 'Admin\SettingsController@allSetting');
+			Route::post('/settings', 'Admin\SettingsController@changeSetting');
+			Route::get('/filetrsettings', 'Admin\FilterSettingsController@allFilterSetting');
+			Route::post('/filetrsettings', 'Admin\FilterSettingsController@changeFilterSetting');
+		});
+
+
+		
 	});
 // End Admin Section

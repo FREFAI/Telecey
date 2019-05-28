@@ -79,11 +79,11 @@
                 <div class="row">
                   <div class="col">
                     <h5 class="card-title text-uppercase text-muted mb-0">Likes</h5>
-                    <span class="h2 font-weight-bold mb-0">49,65%</span>
+                    <span class="h2 font-weight-bold mb-0">46,965</span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                      <i class="fas fa-percent"></i>
+                      <i class="ni ni-like-2"></i>
                     </div>
                   </div>
                 </div>

@@ -9,7 +9,7 @@
 		                <div class="heading find-div">
 		                    <h1 class="section-title">Find a Plan</h1>
 		                    <div class="location_search">
-		                    	<input type="text" class="form-control" placeholder="Location" id="searchMapInput" value="{{$ip_location->region}}">
+		                    	<input type="text" class="form-control" placeholder="Location" id="searchMapInput" value="{{$ip_location->city}}, {{$ip_location->region}}, {{$ip_location->country}}">
 		                    </div>
 		                    <h4 class="sub-title">Register and share your mobile or telecom experience to unlock Telco Tales</h4>
 		                    <div class="container">

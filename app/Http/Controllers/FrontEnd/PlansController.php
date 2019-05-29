@@ -5,6 +5,8 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\SettingsModel;
+use App\Models\Admin\AdsModel;
+
 
 class PlansController extends Controller
 {
@@ -29,12 +31,18 @@ class PlansController extends Controller
     public function plans()
     {
         $filtersetting = SettingsModel::first();
-        $ip = '122.173.84.243';
-        // $ip = $_SERVER['REMOTE_ADDR'];
-        // $details = json_decode(file_get_contents('http://ip-api.io/json/'.$ip));
-
-        // $details = json_decode(file_get_contents('https://www.iplocate.io/api/lookup/'.$ip));
+        $ip = env('ip_address','live');
+        if($ip == 'live'){
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }else{
+            $ip = '122.173.84.243';
+        }
+        if($filtersetting->ads_setting == 0){
+            $ads = AdsModel::where('type',0)->get();
+        }else{
+            $ads = AdsModel::where('type',1)->first();
+        }
         $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
-        return view('FrontEnd.plans',['ip_location'=>$details,'filtersetting'=>$filtersetting]);
+        return view('FrontEnd.plans',['ip_location'=>$details,'filtersetting'=>$filtersetting,'ads'=>$ads]);
     }
 }

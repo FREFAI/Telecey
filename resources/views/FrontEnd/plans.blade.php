@@ -1,14 +1,13 @@
 @extends('layouts.frontend_layouts.frontend')
 @section('content')
-
 	<!-- Content Start Here -->
-		<div class="page-header inner-page" style="background: url(assets/img/background-img.png);">
+		<div class="page-header inner-page" style="background: url({{URL('frontend/assets/img/background-img.png')}});">
 		    <div class="container">
 		        <div class="row">
 		            <div class="col-12 text-center mt-5">
 		                <div class="heading find-div">
 		                    <h1 class="section-title">Find a Plan</h1>
-		                    <div class="location_search">
+		                    <div class="location_search mb-2">
 		                    	<input type="text" class="form-control" placeholder="Location" id="searchMapInput" value="{{$ip_location->country}}, {{$ip_location->region}}, {{$ip_location->city}}, {{$ip_location->postal}}">
 		                    </div>
 		                    <h4 class="sub-title">Register and share your mobile or telecom experience to unlock Telco Tales</h4>
@@ -23,13 +22,6 @@
 	                                    	  <span class="slider"></span>
 	                                    	</label>
 	                                    	<span class="toggle_label">Business</span>
-	                                        <!-- <select id="inputState " class="form-control drop-dw">
-	                                            <option selected> Personal Business</option>
-	                                            <option>BMW</option>
-	                                            <option>Audi</option>
-	                                            <option>Maruti</option>
-	                                            <option>Tesla</option>
-	                                        </select> -->
 	                                    </div>
 	                                </div>
 	                                @endif
@@ -42,13 +34,6 @@
 	                                    	  <span class="slider"></span>
 	                                    	</label>
 	                                    	<span class="toggle_label">Prepaid</span>
-	                                        <!-- <select id="inputState" class="form-control drop-dw">
-	                                            <option selected>Postpaid Prepaid</option>
-	                                            <option>BMW</option>
-	                                            <option>Audi</option>
-	                                            <option>Maruti</option>
-	                                            <option>Tesla</option>
-	                                        </select> -->
 	                                    </div>
 	                                </div>
 	                                @endif
@@ -61,13 +46,6 @@
 	                                    	  <span class="slider"></span>
 	                                    	</label>
 	                                    	<span class="toggle_label">Home Internet</span>
-	                                        <!-- <select id="inputState" class="form-control drop-dw">
-	                                            <option selected>Mobile plan Home internet</option>
-	                                            <option>BMW</option>
-	                                            <option>Audi</option>
-	                                            <option>Maruti</option>
-	                                            <option>Tesla</option>
-	                                        </select> -->
 	                                    </div>
 	                                </div>
 	                                @endif
@@ -194,70 +172,27 @@
 		</section>
 		<section class="featured-lis section-padding">
 	        <div class="container">
-	            <div class="row">
+	            <div class="row align-items-center">
 	                <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
-	                    <div id="new-products" class="owl-carousel owl-theme">
-	                        <div class="item">
-	                            <div class="product-item">
-	                                <div class="carousel-thumb">
-	                                    <img class="img-fluid" src="frontend/assets/img/slider-img-1.png" alt="">
-	                                </div>
-	                                <div class="product-content-inner">
-	                                    <div class="product-content">
-	                                        <h3 class="product-title"><a href="#">Freedom Mobile</a></h3>
-	                                        <span>Register and reveal all the details .</span>
-	                                        
-	                                    </div>
-	                                   
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <div class="item">
-	                            <div class="product-item">
-	                                <div class="carousel-thumb">
-	                                    <img class="img-fluid" src="frontend/assets/img/slider-img-2.png" alt="">
-	                                </div>
-	                                <div class="product-content-inner">
-	                                    <div class="product-content">
-	                                        <h3 class="product-title"><a href="#">Telus</a></h3>
-	                                        <span>Register and reveal all the details</span>
-	                                        
-	                                    </div>
-	                                    
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <div class="item">
-	                            <div class="product-item">
-	                                <div class="carousel-thumb">
-	                                    <img class="img-fluid" src="frontend/assets/img/slider-img-3.png" alt="">
-	                                </div>
-	                                <div class="product-content-inner">
-	                                    <div class="product-content">
-	                                        <h3 class="product-title"><a href="#">Bell Mobility</a></h3>
-	                                        <span>Register and reveal all the details</span>
-	                                        
-	                                    </div>
-	                                    
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <div class="item">
-	                            <div class="product-item">
-	                                <div class="carousel-thumb">
-	                                    <img class="img-fluid" src="frontend/assets/img/slider-img-1.png" alt="">
-	                                </div>
-	                                <div class="product-content-inner">
-	                                    <div class="product-content">
-	                                        <h3 class="product-title"><a href="#">Freedom Mobile</a></h3>
-	                                        <span>Register and reveal all the details .</span>
-	                                        
-	                                    </div>
-	                                    
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
+	                	@if($filtersetting->ads_setting == 0)
+	                		@if(count($ads) > 0)
+			                    <div id="new-products" class="owl-carousel owl-theme">
+			                        @foreach($ads as $ad)
+				                        <div class="item">
+				                            <div class="product-item">
+				                                <div class="carousel-thumb">
+				                                    <img class="img-fluid" src="{{URL::asset('ads_banner/resized')}}/{{$ad->ads_file}}" alt="">
+				                                </div>
+				                            </div>
+				                        </div>
+			                        @endforeach
+			                    </div>
+                        	@endif
+	                    @else
+		                    @if($ads)
+		                    	{!!$ads->script!!}	
+		                    @endif
+	                    @endif
 	                </div>
 	            </div>
 	        </div>
@@ -423,6 +358,7 @@
 	    $('#unlimited_calls').removeClass('d-none');
 	  }
 	}
+		
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&callback=initMap" async defer></script>
 	

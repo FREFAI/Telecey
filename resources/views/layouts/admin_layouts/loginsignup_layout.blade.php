@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
     <meta name="author" content="Creative Tim">
-    <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
+    <title>Telco-Tales - @yield('title')</title>
     <!-- Favicon -->
     <link href="{{URL::asset('frontend/assets/img/fav_icon.png')}}" rel="icon" type="image/png">
     <!-- CSS Section Include -->

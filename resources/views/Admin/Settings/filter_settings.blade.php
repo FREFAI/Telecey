@@ -1,4 +1,5 @@
 @extends('layouts.admin_layouts.admin_dashboard')
+@section('title', 'Admin | Filter Settings')
 @section('content')
 <!-- Main content -->
 <div class="main-content">
@@ -151,7 +152,7 @@
 		  			<!-- End GB Section -->
 		  			<!-- MB Section -->
 			  			<div class="col-lg-6 pl-lg-4">
-			  				<h6 class="heading-small text-muted mb-4">MB <b>Hide</b></h6>
+			  				<h6 class="heading-small text-muted mb-4">MBPS <b>Hide</b></h6>
 			  			</div>
 			  			<div class="col-lg-6 text-right">
 			  				@if($settings)

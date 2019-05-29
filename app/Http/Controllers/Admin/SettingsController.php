@@ -37,9 +37,9 @@ class SettingsController extends Controller
         if($setting == null){
             $setting = new \App\Models\Admin\SettingsModel;
         }
-        if($input['type'] == 'device'){
-            $setting->device = $input['status'];
-            if($setting->save()){
+        if(!empty($input)){
+            $filtersettings = SettingsModel::where('id',1)->update([$input['type']=>$input['status']]);
+            if($filtersettings){
                 $message = array('success'=>true,'message'=>'Successfull');
                 return json_encode($message);
             }else{

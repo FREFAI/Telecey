@@ -11,7 +11,7 @@
 <script src="{{URL::asset('frontend/assets/js/contact-form-script.min.js')}}"></script>
 <script src="{{URL::asset('frontend/assets/js/summernote.js')}}"></script>
 <script>
- 
+    
     var sections = $('section');
     var nav = $('nav');
     var nav_height = nav.outerHeight();
@@ -81,5 +81,6 @@
                    }
                 });
             });
+            
         // End Review page js
 </script>

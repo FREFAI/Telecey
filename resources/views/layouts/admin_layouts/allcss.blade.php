@@ -7,4 +7,5 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 <!-- Argon CSS -->
 <link type="text/css" href="{{URL::asset('admin/assets/vendor/nucleo/css/nucleo.css')}}" rel="stylesheet">
+<link href="{{URL::asset('admin/assets/css/custom.css')}}" rel="stylesheet">
 <link href="{{URL::asset('admin/assets/css/argon.css')}}" rel="stylesheet">

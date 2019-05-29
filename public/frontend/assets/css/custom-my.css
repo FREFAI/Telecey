@@ -78,3 +78,13 @@ span.toggle_label {
   border-radius: 50%;
 }
 /*End Toggle switch button css*/
+
+#new-products .product-item{
+  margin-bottom: 0px;
+}
+#new-products .owl-nav{
+  top: -150px;
+}
+#new-products .carousel-thumb img{
+  width: 80%;
+}

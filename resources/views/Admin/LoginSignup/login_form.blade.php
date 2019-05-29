@@ -1,4 +1,5 @@
 @extends('layouts.admin_layouts.loginsignup_layout')
+@section('title', 'Admin|Login')
 @section('content')
   <div class="main-content">
     
@@ -30,7 +31,7 @@
               <div class="text-center text-muted mb-4">
                 <div class="text-muted text-center mt-2 mb-3"><small>Sign in with credentials</small></div>
               </div>
-              <form role="form" method="post" accept="{{url('/admin/login')}}">
+              <form role="form" method="post" action="{{url('/admin/login')}}">
                 <div class="form-group mb-3">
                   @csrf
                   <div class="input-group input-group-alternative">

@@ -70,10 +70,18 @@
 		Route::group(['middleware' => 'auth:admin'], function(){
 			Route::get('/dashboard', 'Admin\DashboardController@dashboard');
 			Route::get('/logout', 'Admin\LoginController@logout');
-			Route::get('/settings', 'Admin\SettingsController@allSetting');
-			Route::post('/settings', 'Admin\SettingsController@changeSetting');
-			Route::get('/filetrsettings', 'Admin\FilterSettingsController@allFilterSetting');
-			Route::post('/filetrsettings', 'Admin\FilterSettingsController@changeFilterSetting');
+			// Settings Section
+				Route::get('/settings', 'Admin\SettingsController@allSetting');
+				Route::post('/settings', 'Admin\SettingsController@changeSetting');
+				Route::get('/filetrsettings', 'Admin\FilterSettingsController@allFilterSetting');
+				Route::post('/filetrsettings', 'Admin\FilterSettingsController@changeFilterSetting');
+			// End Settings Section
+
+			// Ads Route Section 
+				Route::get('/ads', 'Admin\AdsController@addAdsForm');
+				Route::post('/ads', 'Admin\AdsController@addAds');
+				Route::post('/delete_ads', 'Admin\AdsController@deleteAds');
+			// End Ads Route Section 
 		});
 
 

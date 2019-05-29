@@ -1,4 +1,5 @@
 @extends('layouts.admin_layouts.loginsignup_layout')
+@section('title', 'Admin|Reset password')
 @section('content')
   <div class="main-content">
     

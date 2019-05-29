@@ -1,4 +1,5 @@
 @extends('layouts.admin_layouts.loginsignup_layout')
+@section('title', 'Admin|Signup')
 @section('content')
   <!-- Header -->
   <div class="header bg-gradient-primary py-4 py-lg-5">
@@ -30,7 +31,7 @@
             <div class="text-center text-muted mb-4">
               <div class="text-muted text-center mt-2 mb-4"><small>Sign Up</small></div>
             </div>
-            <form role="form" method="post" accept="{{url('/admin/signup')}}">
+            <form role="form" method="post" action="{{url('/admin/signup')}}">
               <div class="form-group">
                 @csrf
                 <div class="input-group input-group-alternative mb-3">

@@ -1,4 +1,5 @@
 @extends('layouts.admin_layouts.admin_dashboard')
+@section('title', 'Dashboard')
 @section('content')
 
 <!-- Main content -->

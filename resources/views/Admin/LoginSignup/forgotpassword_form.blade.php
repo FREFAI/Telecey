@@ -1,4 +1,5 @@
 @extends('layouts.admin_layouts.loginsignup_layout')
+@section('title', 'Admin|Forgot password')
 @section('content')
   <!-- Header -->
   <div class="header bg-gradient-primary py-4 py-lg-5">

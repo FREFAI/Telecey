@@ -7,7 +7,7 @@
     <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
     <meta name="author" content="Creative Tim">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
+    <title>Telco-Tales - @yield('title')</title>
     <!-- Favicon -->
     <link href="{{URL::asset('frontend/assets/img/fav_icon.png')}}" rel="icon" type="image/png">
     <!-- CSS Section Include -->

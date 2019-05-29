@@ -46,15 +46,15 @@
               <i class="fa fa-filter text-orange"></i> Filter Settings
             </a>
           </li>
-          <!--
           <li class="nav-item">
-            <a class="nav-link" href="./examples/profile.html">
-              <i class="ni ni-single-02 text-yellow"></i> User profile
+            <a class="nav-link {{ request()->is('admin/ads') ? 'active' : '' }}" href="{{url('admin/ads')}}">
+              <i class="fas fa-ad text-red" style='font-size:20px'></i> ADS
             </a>
           </li>
+          <!--
           <li class="nav-item">
             <a class="nav-link" href="./examples/tables.html">
-              <i class="ni ni-bullet-list-67 text-red"></i> Tables
+              <i class="ni ni-bullet-list-67 text-yellow"></i> Tables
             </a>
           </li>
           <li class="nav-item">

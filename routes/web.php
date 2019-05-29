@@ -54,7 +54,7 @@
 // Admin Section
 	Auth::routes();
 	Route::group(['prefix' => 'admin'], function(){
-		Route::get('/', 'HomeController@index')->name('home');
+		Route::get('/', 'Admin\LoginController@showLoginForm');
 		Route::get('/login', 'Admin\LoginController@showLoginForm')->name('admin.login');
 
 		Route::post('/login', 'Admin\LoginController@authenticate');

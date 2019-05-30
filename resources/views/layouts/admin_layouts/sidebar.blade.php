@@ -5,8 +5,8 @@
           <div class="row align-items-center">
             <div class="col-8 collapse-brand">
               <a href="{{url('/admin/dashboard')}}">
-                <img src="{{URL::asset('frontend/assets/img/logo-telco-tales.png ')}}"  alt="...">
-                Telco-Tales
+                <img src="{{URL::asset('frontend/assets/img/logo-web.png')}}"  alt="...">
+                
               </a>
 
             </div>

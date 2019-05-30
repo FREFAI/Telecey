@@ -53,29 +53,30 @@
                                 <a href="" class="link google-plus"><span class="fa fa-linkedin-in"></span></a>
                             </div>
                         </li>
-                       <!--  <li class="dropdown top">
+                        @if(Auth::guard('customer')->user()['id'] != "")
+                        <li class="dropdown top">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="frontend/assets/img/user_placeholder.png" alt="" width="40"></a>
                             <b class="caret"></b>
                             <ul class="dropdown-menu top">
                                 <li>
                                     <div class="navbar-content">
-                                        <span>John</span>
-                                        <p class="text-muted small">
-                                            John@gmail.com
-                                        </p>
-                                        <div class="divider">
-                                        </div>
-                                        <a href="#" class="view btn-sm active">View Profile</a>
+                                        <a class="nav-link mt-0 mb-0" href="javascript:void(0);">
+                                            {{ Auth::guard('customer')->user()['firstname'] }}
+                                        </a>
+                                        <a class="nav-link mt-0 mb-0" href="{{url('/logout')}}">Logout</a>
+                                        
                                     </div>
                                 </li>
                             </ul>
-                        </li> -->
+                        </li>
+                        @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/signin')}}">Log In</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-signup" href="{{url('/signup')}}">Sign In/Up</a>
                         </li>
+                        @endif
                     </ul>
                 </div>
             </div>

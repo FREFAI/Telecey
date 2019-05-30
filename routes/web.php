@@ -12,39 +12,39 @@
 */
 
 
-// Static Designs Start Here
-	// Route::get('/', function () {
-	//     return view('FrontEnd.homepage');
-	// });
-	// Route::get('/plans', function () {
-	//     return view('FrontEnd.plans');
-	// });
-	// Route::get('/devices', function () {
-	//     return view('FrontEnd.devices');
-	// });
-	// Route::get('/blogs', function () {
-	//     return view('FrontEnd.blogs');
-	// });
-	Route::get('/reviews', function () {
-	    return view('FrontEnd.reviews');
-	});
-	Route::get('/signin', function () {
-	    return view('FrontEnd.LoginSignup.login');
-	});
-	Route::get('/signup', function () {
-	    return view('FrontEnd.LoginSignup.signup');
-	});
-// Static Designs End Here
-
-
-
-
 // FrontEnd Section 
 	Route::get('/', 'FrontEnd\HomeController@homepage');
+	// Login and Sign Up section
+	
+		Route::get('/signin', 'FrontEnd\LoginSignup\LoginController@showLoginForm');
+		Route::post('/signin', 'FrontEnd\LoginSignup\LoginController@authenticate');
+		Route::get('/signup', function () {
+		    return view('FrontEnd.LoginSignup.signup');
+		});
+		Route::get('/emailsignup', function () {
+		    return view('FrontEnd.LoginSignup.emailsignup');
+		});
+		Route::post('/emailsignup', 'FrontEnd\LoginSignup\RegisterController@registerUser');
+		// Google login
+		Route::get('/googlelogin', 'FrontEnd\LoginSignup\SocialAuthGoogleController@redirect');
+		Route::get('/googlecallback', 'FrontEnd\LoginSignup\SocialAuthGoogleController@callback');
+
+		// Facebook Login
+		Route::get('/facebooklogin', 'FrontEnd\LoginSignup\SocialAuthFacebookController@redirect');
+		Route::get('/facebookcallback', 'FrontEnd\LoginSignup\SocialAuthFacebookController@callback');
+
+		
+	// End Login and Sign Up section
+
 	Route::get('/plans', 'FrontEnd\PlansController@plans');
 	Route::get('/devices', 'FrontEnd\DevicesController@devices');
 	Route::get('/blogs', 'FrontEnd\BlogsController@blogs');
-	Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
+
+	Route::group(['middleware' => 'CustomerAuth'], function(){
+		Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
+		Route::get('/logout', 'FrontEnd\LoginSignup\LoginController@logout');
+	});
+
 // End FrontEnd Section 
 
 

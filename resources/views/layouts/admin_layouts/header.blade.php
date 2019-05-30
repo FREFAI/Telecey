@@ -7,8 +7,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0 text-primary" href="{{url('/admin/dashboard')}}">
-        <img src="{{URL::asset('frontend/assets/img/logo-telco-tales.png ')}}" class="navbar-brand-img" alt="...">
-        Telco-Tales
+        <img src="{{URL::asset('frontend/assets/img/logo-web.png')}}" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">

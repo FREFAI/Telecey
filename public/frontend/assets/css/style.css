@@ -142,7 +142,6 @@ a.btn.btn-common.btn-find {
   transform:rotate(180deg);
   position:absolute;
   left:0;
-  top:-300px;
   transition:all .8s ease-in-out;
   z-index:-3;
   
@@ -990,8 +989,7 @@ font-size: 25px;
   padding: 15px;
 }
 .login-form .avatar img {
-  width: 246px;
-  margin-left: 2rem;
+  width: 30%;
 }
   .login-form .btn {
       color: #fff;

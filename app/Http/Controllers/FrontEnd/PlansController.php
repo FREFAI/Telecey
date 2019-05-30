@@ -30,19 +30,28 @@ class PlansController extends Controller
      */
     public function plans()
     {
-        $filtersetting = SettingsModel::first();
+        // Current location section
         $ip = env('ip_address','live');
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
         }else{
             $ip = '122.173.84.243';
         }
+        // $ip = '96.46.34.142';
+        $data = \Location::get($ip);
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
+        $response = json_decode($response->getBody());
+        $current_location = $response->results[0]->formatted_address;
+        // End Current location section
+
+        $filtersetting = SettingsModel::first();
+        
         if($filtersetting->ads_setting == 0){
             $ads = AdsModel::where('type',0)->get();
         }else{
             $ads = AdsModel::where('type',1)->first();
         }
-        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
-        return view('FrontEnd.plans',['ip_location'=>$details,'filtersetting'=>$filtersetting,'ads'=>$ads]);
+        return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads]);
     }
 }

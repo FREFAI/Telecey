@@ -5,7 +5,10 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\FrontEnd\ServiceReview;
+use App\Models\FrontEnd\ServiceRating;
 use App\Models\Admin\SettingsModel;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -31,5 +34,15 @@ class HomeController extends Controller
     {
         $settings = SettingsModel::first();
         return view('FrontEnd.homepage',['settings'=> $settings]);
+    }
+
+    public function profile(Request $request)
+    {
+        $user_id = Auth::guard('customer')->user()['id'];
+        $serviceData = ServiceReview::where('service_reviews.user_id',$user_id)
+                        ->join('service_ratings','service_ratings.service_id','=','service_reviews.id')
+                        ->select('service_reviews.*','service_ratings.*','service_ratings.data_speed as data_speed_rating')
+                        ->get();
+        return view('FrontEnd.profile',['serviceData'=>$serviceData]);
     }
 }

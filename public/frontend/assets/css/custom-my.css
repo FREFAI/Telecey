@@ -88,3 +88,31 @@ span.toggle_label {
 #new-products .carousel-thumb img{
   width: 80%;
 }
+.service_type .buisness{
+  display: none;
+}
+.provider_text{
+  display: none;
+}
+/*Rating star css */
+.rate-base-layer
+  {
+      color: #999;
+  }
+.rate-hover-layer
+  {
+      color: orange;
+  }
+  .rate-select-layer
+  {
+      color: orange;
+  }
+  .rateing {
+    font-size: 35px;
+}a.link:hover span{
+  color: #fff;
+}
+
+ul.first_row_service li {
+    display: inline-flex;
+}

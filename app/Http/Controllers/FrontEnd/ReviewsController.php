@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\SettingsModel;
 use Illuminate\Support\Facades\Validator;
+use App\Models\FrontEnd\ServiceReview;
+use App\Models\FrontEnd\ServiceRating;
 use App\User;
 use Auth;
 
@@ -113,8 +115,38 @@ class ReviewsController extends Controller
                 return json_encode($message);
          }else{
             $message = array('success'=>false,'message'=>"Somthing went wrong!");
-             return json_encode($message);
+            return json_encode($message);
          }
         }
+    }
+    public function reviewService(Request $request)
+    {
+        $input = $request->all();
+        $user_id = Auth::guard('customer')->user()['id'];
+        $input['user_id'] = $user_id;
+        $serviceReview = ServiceReview::create($input);
+        if($serviceReview){
+            $message = array('success'=>true,'message'=>'Add successfully.','service_id'=>$serviceReview->id);
+            return json_encode($message);
+        }else{
+            $message = array('success'=>false,'message'=>"Somthing went wrong!");
+            return json_encode($message);
+        }
+    }
+
+    public function ratingService(Request $request)
+    {
+        $input = $request->all();
+        $user_id = Auth::guard('customer')->user()['id'];
+        $input['user_id'] = $user_id;
+        $serviceRating = ServiceRating::create($input);
+        if($serviceRating){
+            $message = array('success'=>true,'message'=>'Successfully submited.');
+            return json_encode($message);
+        }else{
+            $message = array('success'=>false,'message'=>"Somthing went wrong!");
+            return json_encode($message);
+        }
+        
     }
 }

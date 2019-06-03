@@ -87,7 +87,7 @@
 	                                    <label class="custom-control-label" for="Check33">Agree to terms and conditions</label>
 	                                    </div> -->
 	                                <div class="form-field col-lg-12">
-	                                    <input class="submit-btn" type="submit" value="Subscribe Now">
+	                                    <input class="submit-btn" type="submit" value="Submit">
 	                                </div>
 	                            </form>
 	                        </section>
@@ -118,199 +118,210 @@
 	                        </div>
 	                    </div>
 	                </div>
-	                <section class="product-section section-d-none section-both">
-	                   <div class="row mt-3">
-	                       <div class="col-lg-6 ">
-	                           <h5>Which Device</h5>
-	                           <div class="tg-select form-control">
-	                                <select>
-	                                    <option value="none">Phone</option>
-	                                    <option value="none">Tablite</option>
-	                                    <option value="none">Modem</option>
-	                                    <option value="none">Accessories</option>
-	                                </select>
-	                            </div>
-	                       </div>
-	                       <div class="col-lg-6 ">
-	                            <h5>Brand</h5>
-	                            <div class="tg-select form-control">
-	                                 <select>
-	                                     <option value="none">Apple</option>
-	                                     <option value="none">MI</option>
-	                                     <option value="none">Samsung</option>
-	                                     <option value="none">HTC</option>
-	                                     <option value="none">Nokia</option>
-	                                 </select>
-	                             </div>
-	                        </div>
-	                   </div>
-	                   <div class="row mt-3">
-	                        <div class="col-lg-6 ">
-	                            <h5>Price</h5>
-	                            <div class="form-group">
-	                                    <input type="number" class="form-control price-box" name="Price" placeholder="Price" required="required">		
-	                                </div>
-	                        </div>
-	                        <div class="col-lg-6">
-	                             <h5>Model</h5>
-	                             <div class="tg-select form-control">
-	                                  <select>
-	                                      <option value="none">Apple</option>
-	                                      <option value="none">MI</option>
-	                                      <option value="none">Samsung</option>
-	                                      <option value="none">HTC</option>
-	                                      <option value="none">Nokia</option>
-	                                  </select>
-	                              </div>
-	                         </div>
-	                    </div>
-	                    <div class="row">
-	                        <div class="col-lg-6">
-	                            <h5>Capacity</h5>
-	                            <div class="tg-select form-control">
-	                                <select>
-	                                    <option value="none">64</option>
-	                                    <option value="none">128</option>
-	                                    <option value="none">256</option>
-	                                    <option value="none">512</option>
-	                                    <option value="none">1GB</option>
-	                                </select>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="row">
-	                        <div class="col-lg-12">
-	                            <div class="form-group w-50 ml-auto mr-auto">
-	                                <button type="submit" class="btn btn-primary btn-lg btn-block product-submit-btn">Submit</button>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="row">
-	                        <div class="heading detail-div">
-	                            <h1 class="section-title">Rating</h1>
-	                        </div>
-	                    </div>
-	                    <div class="row">
-	                        <div class="col-lg-6">
-	                            <div class="">
-	                                <h5>Are you happy with the device</h5>
-	                            </div>
-	                        </div>
-	                        <div class="col-lg-6">
-	                            <div class="text-center">
-	                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
-	                                <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
-	                                <span class="fa fa-star rate checked" id="star3" onclick="add(this,3)"></span>
-	                                <span class="fa fa-star rate" id="star4" onclick="add(this,4)"></span>
-	                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="row">
-	                        <div class="col-lg-6">
-	                            <div class="">
-	                                <h5>Rate the operating system</h5>
-	                            </div>
-	                        </div>
-	                        <div class="col-lg-6">
-	                            <div class="text-center">
-	                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
-	                                <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
-	                                <span class="fa fa-star rate " id="star3" onclick="add(this,3)"></span>
-	                                <span class="fa fa-star rate" id="star4" onclick="add(this,4)"></span>
-	                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="row">
-	                        <div class="col-lg-6">
-	                            <div class="">
-	                                <h5>How is you batters  Can you say how much it last for an average</h5>
-	                            </div>
-	                        </div>
-	                        <div class="col-lg-6">
-	                            <div class="text-center">
-	                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
-	                                <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
-	                                <span class="fa fa-star rate checked" id="star3" onclick="add(this,3)"></span>
-	                                <span class="fa fa-star rate checked" id="star4" onclick="add(this,4)"></span>
-	                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="row">
-	                        <div class="col-lg-6">
-	                            <div class="">
-	                                <h5>How isit with charging</h5>
-	                            </div>
-	                        </div>
-	                        <div class="col-lg-6">
-	                            <div class="text-center">
-	                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
-	                                <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
-	                                <span class="fa fa-star rate" id="star3" onclick="add(this,3)"></span>
-	                                <span class="fa fa-star rate " id="star4" onclick="add(this,4)"></span>
-	                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="row">
-	                        <div class="col-lg-6">
-	                            <div class="">
-	                                <h5>Rate the screen ( Images display clarety , Sensitivity)</h5>
-	                            </div>
-	                        </div>
-	                        <div class="col-lg-6">
-	                            <div class="text-center">
-	                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
-	                                <span class="fa fa-star rate" id="star2" onclick="add(this,2)"></span>
-	                                <span class="fa fa-star rate" id="star3" onclick="add(this,3)"></span>
-	                                <span class="fa fa-star rate " id="star4" onclick="add(this,4)"></span>
-	                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="row">
-	                            <div class="col-lg-6">
-	                                <div class="">
-	                                    <h5>Rates Coverage</h5>
-	                                </div>
-	                            </div>
-	                            <div class="col-lg-6">
-	                                <div class="text-center">
-	                                    <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
-	                                    <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
-	                                    <span class="fa fa-star rate checked" id="star3" onclick="add(this,3)"></span>
-	                                    <span class="fa fa-star rate " id="star4" onclick="add(this,4)"></span>
-	                                    <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
-	                                </div>
-	                            </div>
-	                        </div>
-	               	</section>
-	                <section class="services-section section-d-none section-both">
-	                    <div class="row mt-3">
+	            </form> 
+                <section class="product-section section-d-none section-both">
+                   <div class="row mt-3">
+                       <div class="col-lg-6 ">
+                           <h5>Which Device</h5>
+                           <div class="tg-select form-control">
+                                <select>
+                                    <option value="none">Phone</option>
+                                    <option value="none">Tablite</option>
+                                    <option value="none">Modem</option>
+                                    <option value="none">Accessories</option>
+                                </select>
+                            </div>
+                       </div>
+                       <div class="col-lg-6 ">
+                            <h5>Brand</h5>
+                            <div class="tg-select form-control">
+                                 <select>
+                                     <option value="none">Apple</option>
+                                     <option value="none">MI</option>
+                                     <option value="none">Samsung</option>
+                                     <option value="none">HTC</option>
+                                     <option value="none">Nokia</option>
+                                 </select>
+                             </div>
+                        </div>
+                   </div>
+                   <div class="row mt-3">
+                        <div class="col-lg-6 ">
+                            <h5>Price</h5>
+                            <div class="form-group">
+                                    <input type="number" class="form-control price-box" name="price" placeholder="Price" required="required">		
+                                </div>
+                        </div>
+                        <div class="col-lg-6">
+                             <h5>Model</h5>
+                             <div class="tg-select form-control">
+                                  <select>
+                                      <option value="none">Apple</option>
+                                      <option value="none">MI</option>
+                                      <option value="none">Samsung</option>
+                                      <option value="none">HTC</option>
+                                      <option value="none">Nokia</option>
+                                  </select>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h5>Capacity</h5>
+                            <div class="tg-select form-control">
+                                <select>
+                                    <option value="none">64</option>
+                                    <option value="none">128</option>
+                                    <option value="none">256</option>
+                                    <option value="none">512</option>
+                                    <option value="none">1GB</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group w-50 ml-auto mr-auto">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block product-submit-btn">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="heading detail-div">
+                            <h1 class="section-title">Rating</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="">
+                                <h5>Are you happy with the device</h5>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="text-center">
+                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
+                                <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
+                                <span class="fa fa-star rate checked" id="star3" onclick="add(this,3)"></span>
+                                <span class="fa fa-star rate" id="star4" onclick="add(this,4)"></span>
+                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="">
+                                <h5>Rate the operating system</h5>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="text-center">
+                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
+                                <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
+                                <span class="fa fa-star rate " id="star3" onclick="add(this,3)"></span>
+                                <span class="fa fa-star rate" id="star4" onclick="add(this,4)"></span>
+                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="">
+                                <h5>How is you batters  Can you say how much it last for an average</h5>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="text-center">
+                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
+                                <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
+                                <span class="fa fa-star rate checked" id="star3" onclick="add(this,3)"></span>
+                                <span class="fa fa-star rate checked" id="star4" onclick="add(this,4)"></span>
+                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="">
+                                <h5>How isit with charging</h5>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="text-center">
+                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
+                                <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
+                                <span class="fa fa-star rate" id="star3" onclick="add(this,3)"></span>
+                                <span class="fa fa-star rate " id="star4" onclick="add(this,4)"></span>
+                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="">
+                                <h5>Rate the screen ( Images display clarety , Sensitivity)</h5>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="text-center">
+                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
+                                <span class="fa fa-star rate" id="star2" onclick="add(this,2)"></span>
+                                <span class="fa fa-star rate" id="star3" onclick="add(this,3)"></span>
+                                <span class="fa fa-star rate " id="star4" onclick="add(this,4)"></span>
+                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-lg-6">
+                                <div class="">
+                                    <h5>Rates Coverage</h5>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="text-center">
+                                    <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
+                                    <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
+                                    <span class="fa fa-star rate checked" id="star3" onclick="add(this,3)"></span>
+                                    <span class="fa fa-star rate " id="star4" onclick="add(this,4)"></span>
+                                    <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
+                                </div>
+                            </div>
+                        </div>
+               	</section>
+                <section class="services-section section-d-none section-both">
+                	<div class="service_form_section">
+	                	<form class="reveiewing_form_service">
+	                    	<div class="row mt-3">
+	                     
 	                            <div class="col-lg-6 ">
-	                                <h5>Which provider "Carrier"?</h5>
-	                                <div class="tg-select form-control">
-	                                     <select>
-	                                         <option value="none">Vodafone</option>
-	                                         <option value="none">Aritel</option>
-	                                         <option value="none">BSNL</option>
-	                                         <option value="none">JIO</option>
+	                                <h5>Provider Name</h5>
+	                                <!-- <div class="form-group provider_text">
+	                                    <input type="text" class="form-control provider_name text_provider_name" name="provider_name" placeholder="Provider name" required="required">		
+	                                </div> -->
+	                                <div class="tg-select form-control provider_select">
+	                                     <select class="provider_name active" name="provider_name">
+	                                         <option value="" disabled="">Please select provider</option>
+	                                         <option value="Vodafone">Vodafone</option>
+	                                         <option value="Airtel">Airtel</option>
+	                                         <option value="BSNL">BSNL</option>
+	                                         <option value="JIO">JIO</option>
 	                                     </select>
 	                                 </div>
+	                                 <small>
+	                                 	<a href="javascript:void(0)" class="provider_text_show">Couldn't find your Service provider</a>
+	                                 </small>
 	                            </div>
 	                            <div class="col-lg-6 ">
-	                                 <h5>Type of subscription</h5>
+	                             	<h5>Contract type</h5>
 	                                <div class="row">
 	                                    <div class="col-lg-6 pl-0">
 	                                        <div class="button-product">
-	                                            <label class="text-product"><input type="radio" class="radio-inline" name="radios-" value=""><span class="outside"><span class="inside"></span></span>Personal</label>
+	                                            <label class="text-product"><input type="radio" class="radio-inline contract_type" name="contract_type" value="1" checked="" data-type="personal"><span class="outside"><span class="inside"></span></span>Personal</label>
 	                                        </div>
 	                                    </div>
 	                                    <div class="col-lg-6 pl-0">
 	                                        <div class="button-service">
-	                                            <label class="text-product"><input type="radio" class="radio-inline" name="radios-" value=""><span class="outside"><span class="inside"></span></span>Business</label>
+	                                            <label class="text-product"><input type="radio" class="radio-inline contract_type" name="contract_type" value="2" data-type="buisness"><span class="outside"><span class="inside"></span></span>Business</label>
 	                                        </div>
 	                                    </div>
 	                                </div>
@@ -318,18 +329,17 @@
 	                        </div>
 	                        <div class="row mt-3">
 	                            <div class="col-lg-6 ">
-	                                <h5>Price</h5>
+	                                <h5>How much are you paying monthly multi currencies should be supported </h5>
 	                                <div class="form-group">
-	                                    <input type="number" class="form-control price-box" name="Price" placeholder="Price" required="required">		
+	                                    <input type="number" class="form-control price-box price" name="price" placeholder="Price" >		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6">
-	                                <h5>Contract Type</h5>
+	                                <h5>Payment type</h5>
 	                                <div class="tg-select form-control">
-	                                    <select>
-	                                        <option value="none">Postpaid/Prepaid</option>
-	                                        <option value="none">Pre or post</option>
-	                                        <option value="none">Business Name</option>
+	                                    <select class="payment_type" name="payment_type">
+	                                        <option value="postpaid" selected="">Postpaid</option>
+	                                        <option value="prepaid">Prepaid</option>
 	                                    </select>
 	                                </div>
 	                            </div>
@@ -338,165 +348,150 @@
 	                            <div class="col-lg-6">
 	                                <h5>Service type</h5>
 	                                <div class="tg-select form-control">
-	                                    <select>
-	                                        <option value="none">Home internet</option>
-	                                        <option value="none">Landline</option>
-	                                        <option value="none">Mobile plan</option>
-	                                        <option value="none">Package</option>
-	                                        <option value="none">Familly share plan</option>
-	                                        <option value="none">Businesss Internet</option>
-	                                        <option value="none">Business Landline</option>
-	                                        <option value="none">Coorperate mobile plan</option>
+	                                    <select class="service_type">
+	                                    	<option value="">Select service type</option>
+	                                        <option class="personal" value="home_internet">Home internet</option>
+	                                        <option class="personal" value="landline">Landline</option>
+	                                        <option class="personal" value="mobile_plan">Mobile plan</option>
+	                                        <option class="personal" value="package">Package</option>
+	                                        <option class="personal" value="familly_share_plan">Familly share plan</option>
+
+	                                        <option class="buisness" value="businesss_internet">Businesss Internet</option>
+	                                        <option class="buisness" value="business_landline">Business Landline</option>
+	                                        <option class="buisness" value="coorperate_mobile_plan">Coorperate mobile plan</option>
 	                                    </select>
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 ">
-	                                <h5>Did you get a device with this service</h5>
-	                                <div class="row">
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-product">
-	                                            <label class="text-product"><input type="radio" class="radio-inline" name="radios0" value=""><span class="outside"><span class="inside"></span></span>Yes</label>
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-service">
-	                                            <label class="text-product"><input type="radio" class="radio-inline" name="radios0" value=""><span class="outside"><span class="inside"></span></span>No</label>
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <div class="question-section">
-	                        <div class="row mt-2 pb-3 pt-4 ">
-	                            <div class="col-lg-6">
-	                                <h5>If yes What is the type of the device</h5>
+	                                <h5>Local Mintue</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control price-box" name="Price" placeholder="Type of the device" required="required">		
+	                                    <input type="text" class="form-control local_min" name="local_min" placeholder="Local Min" required="required">		
 	                                </div>
 	                            </div>
-	                            <div class="col-lg-6">
-	                                <h5>Did you pay for the device in advance</h5>
-	                                <div class="row">
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-product">
-	                                            <label class="text-product"><input type="radio" class="radio-inline" name="radios1" value=""><span class="outside"><span class="inside"></span></span>Full</label>
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-service">
-	                                            <label class="text-product"><input type="radio" class="radio-inline" name="radios1" value=""><span class="outside"><span class="inside"></span></span>Part</label>
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <div class="row ">
-	                            <div class="col-lg-6">
-	                                <h5>How much ($) with or with our tax</h5>
+	                            <div class="col-lg-6 ">
+	                                <h5>DataVolume</h5>
 	                                <div class="form-group">
-	                                    <input type="Number" class="form-control price-box" name="Price" placeholder="" required="required">		
+	                                    <input type="text" class="form-control datavolume" name="datavolume" placeholder="DataVolume" required="required">		
 	                                </div>
 	                            </div>
-	                            <div class="col-lg-6">
-	                                <h5>Do you want to rate the device at he end?</h5>
-	                                <div class="row">
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-product">
-	                                            <label class="text-product"><input type="radio" class="radio-inline" name="radios2" value=""><span class="outside"><span class="inside"></span></span>Yes</label>
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-service">
-	                                            <label class="text-product"><input type="radio" class="radio-inline" name="radios2" value=""><span class="outside"><span class="inside"></span></span>No</label>
-	                                        </div>
-	                                    </div>
+	                            <div class="col-lg-6 ">
+	                                <h5>Long distance  Mintue</h5>
+	                                <div class="form-group">
+	                                    <input type="text" class="form-control long_distance_min" name="long_distance_min" placeholder="Long distance  Min" required="required" value="Unlimited">		
 	                                </div>
 	                            </div>
-	                        </div>
-	                    </div>
-	                        <div class="row mt-4">
-	                            <div class="col text-left">
-	                                <h5>Whats included in you Service?</h5>
-	                            </div>
-	                        </div>
-	                        <div class="row mt-4">
-	                            <div class="col-lg-6">
-	                                <h5>Home internet</h5>
-	                            </div>
-	                            <div class="col-lg-6">
-	                                <div class="row">
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-product">
-	                                            <label class="text-product mt-0"><input type="radio" class="radio-inline" name="radios3" value=""><span class="outside"><span class="inside"></span></span>Yes</label>
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-service">
-	                                            <label class="text-product mt-0"><input type="radio" class="radio-inline" name="radios3" value=""><span class="outside"><span class="inside"></span></span>No</label>
-	                                        </div>
-	                                    </div>
+	                            <div class="col-lg-6 ">
+	                                <h5>International Mintue</h5>
+	                                <div class="form-group">
+	                                    <input type="text" class="form-control international_min" name="international_min" placeholder="International Min" required="required">		
 	                                </div>
 	                            </div>
-	                        </div>
-	                        <div class="row ">
-	                            <div class="col-lg-6">
-	                                <h5>Landline</h5>
-	                            </div>
-	                            <div class="col-lg-6">
-	                                <div class="row">
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-product">
-	                                            <label class="text-product mt-0"><input type="radio" class="radio-inline" name="radios4" value=""><span class="outside"><span class="inside"></span></span>Yes</label>
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-service">
-	                                            <label class="text-product mt-0"><input type="radio" class="radio-inline" name="radios4" value=""><span class="outside"><span class="inside"></span></span>No</label>
-	                                        </div>
-	                                    </div>
+	                            <div class="col-lg-6 ">
+	                                <h5>Roaming Mintue</h5>
+	                                <div class="form-group">
+	                                    <input type="text" class="form-control roaming_min" name="roaming_min" placeholder="Roaming Min" required="required">		
 	                                </div>
 	                            </div>
-	                        </div>
-	                        <div class="row ">
-	                            <div class="col-lg-6">
-	                                <h5>Mobile plan</h5>
+	                            <div class="col-lg-6 ">
+	                                <h5>Data speed</h5>
+	                                <div class="form-group">
+	                                    <input type="text" class="form-control data_speed" name="data_speed" placeholder="Data speed" required="required">		
+	                                </div>
 	                            </div>
-	                            <div class="col-lg-6">
-	                                <div class="row">
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-product">
-	                                            <label class="text-product mt-0"><input type="radio" class="radio-inline" name="radios5" value=""><span class="outside"><span class="inside"></span></span>Yes</label>
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-service">
-	                                            <label class="text-product mt-0"><input type="radio" class="radio-inline" name="radios5" value=""><span class="outside"><span class="inside"></span></span>No</label>
-	                                        </div>
-	                                    </div>
+	                            <div class="col-lg-6 ">
+	                                <h5>SMS</h5>
+	                                <div class="form-group">
+	                                    <input type="text" class="form-control sms" name="sms" placeholder="SMS" required="required" value="Unlimited">		
 	                                </div>
 	                            </div>
 	                        </div>
 	                        <div class="row">
-	                            <div class="col-lg-6">
-	                                <h5>TV</h5>
-	                            </div>
-	                            <div class="col-lg-6">
-	                                <div class="row">
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-product">
-	                                            <label class="text-product mt-0"><input type="radio" class="radio-inline" name="radios6" value=""><span class="outside"><span class="inside"></span></span>Yes</label>
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-service">
-	                                            <label class="text-product mt-0"><input type="radio" class="radio-inline" name="radios6" value=""><span class="outside"><span class="inside"></span></span>No</label>
-	                                        </div>
-	                                    </div>
+	                            <div class="col-lg-12">
+	                                <div class="form-group w-50 ml-auto mr-auto">
+	                                    <button type="submit" class="btn btn-primary btn-lg btn-block product-submit-btn">Submit</button>
 	                                </div>
 	                            </div>
 	                        </div>
-	               	</section> 
-	            </form> 
+	                    </form>
+	                </div>
+                    <div class="services-rating-section section-d-none section-both">
+	               		<div class="row">
+	               		    <div class="heading detail-div">
+	               		        <h1 class="section-title">Rating</h1>
+	               		    </div>
+	               		</div>
+	               		<div class="row">
+	               		    <div class="col-lg-6">
+	               		        <div class="">
+	               		            <h5>Coverage</h5>
+	               		        </div>
+	               		    </div>
+	               		    <div class="col-lg-6">
+	               		    	<div class="rateing coverage"></div>
+	               		    	<!-- <div class="rateing coverage" data-rate-value=6></div> -->
+	               		    </div>
+	               		</div>
+	               		<div class="row">
+	               		    <div class="col-lg-6">
+	               		        <div class="">
+	               		            <h5>Service Stability some time calls are disconnected, network is up and down , some times there is no coverage </h5>
+	               		        </div>
+	               		    </div>
+	               		    <div class="col-lg-6">
+	               		    	<div class="rateing service_stability"></div>
+	               		    </div>
+	               		</div>
+	               		<div class="row">
+	               		    <div class="col-lg-6">
+	               		        <div class="">
+	               		            <h5>Billing & paymnet accuracy </h5>
+	               		        </div>
+	               		    </div>
+	               		    <div class="col-lg-6">
+	               		    	<div class="rateing billing_payment"></div>
+	               		    </div>
+	               		</div>
+	               		<div class="row">
+	               		    <div class="col-lg-6">
+	               		        <div class="">
+	               		            <h5>Data speed You may use our speed test to get what speed you are getting for real </h5>
+	               		        </div>
+	               		    </div>
+	               		    <div class="col-lg-6">
+	               		    	<div class="rateing data_speed"></div>
+	               		    </div>
+	               		</div>
+	               		<div class="row">
+	               		    <div class="col-lg-6">
+	               		        <div class="">
+	               		            <h5>Customer Service Waiting time, knowlage, response, understanding, final solution time</h5>
+	               		        </div>
+	               		    </div>
+	               		    <div class="col-lg-6">
+	               		    	<div class="rateing service_waiting"></div>
+	               		    </div>
+	               		</div>
+	               		<div class="row">
+	               		    <div class="col-lg-6">
+	               		        <div class="">
+	               		            <h5>Qulaity Such as Voice clearance, echo, some times you can hear your own voice </h5>
+	               		        </div>
+	               		    </div>
+	               		    <div class="col-lg-6">
+	               		    	<div class="rateing voice_quality"></div>
+	               		    </div>
+	               		</div>
+	               		<div class="row">
+	               		    <div class="col-lg-12">
+	               		        <div class="form-group w-50 ml-auto mr-auto">
+	               		        	<input type="hidden" name="service_id" class="service_id">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block service-rating-submit-btn">Submit</button>
+                                </div>
+	               		    </div>
+	               		</div>
+	               	</div>
+               	</section> 
+               	
 		    </div>
 		</section> 
 

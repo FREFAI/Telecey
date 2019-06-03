@@ -44,6 +44,9 @@
 		Route::group(['middleware' => 'IpLocation'], function(){
 			Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
 			Route::post('/reviewsDetail', 'FrontEnd\ReviewsController@reviewsDetail');
+			Route::post('/reviewService', 'FrontEnd\ReviewsController@reviewService');
+			Route::post('/ratingService', 'FrontEnd\ReviewsController@ratingService');
+			Route::get('/profile', 'FrontEnd\HomeController@profile');
 			Route::get('/logout', 'FrontEnd\LoginSignup\LoginController@logout');
 		});
 	});

@@ -60,7 +60,7 @@
                             <ul class="dropdown-menu top">
                                 <li>
                                     <div class="navbar-content">
-                                        <a class="nav-link mt-0 mb-0" href="javascript:void(0);">
+                                        <a class="nav-link mt-0 mb-0" href="{{url('/profile')}}">
                                             {{ Auth::guard('customer')->user()['firstname'] }}
                                         </a>
                                         <a class="nav-link mt-0 mb-0" href="{{url('/logout')}}">Logout</a>

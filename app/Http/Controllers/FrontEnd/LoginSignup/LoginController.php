@@ -43,7 +43,7 @@ class LoginController extends Controller
             $user = User::where('email',$input['email'])->first();
             if($user){
                 if(Auth::guard('customer')->attempt($dataCheck)){
-                    return redirect('/')->with('success','Loged in successfully!');
+                    return redirect('/profile')->with('success','Loged in successfully!');
                 }else{
                     return redirect()->back()->with('error','Please enter valid credentials!');
                 }

@@ -13,3 +13,5 @@
 
 <link rel="stylesheet" type="text/css" href="{{URL::asset('frontend/assets/css/responsive.css')}}">
 <link rel="stylesheet" type="text/css" href="{{URL::asset('frontend/assets/css/custom-my.css')}}">
+<!-- Toster CSS -->
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />

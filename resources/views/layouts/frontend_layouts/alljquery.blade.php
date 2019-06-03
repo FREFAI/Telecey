@@ -10,8 +10,9 @@
 <script src="{{URL::asset('frontend/assets/js/form-validator.min.js')}}"></script>
 <script src="{{URL::asset('frontend/assets/js/contact-form-script.min.js')}}"></script>
 <script src="{{URL::asset('frontend/assets/js/summernote.js')}}"></script>
-<script>
-    
+<!-- Toster JS -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>  
     var sections = $('section');
     var nav = $('nav');
     var nav_height = nav.outerHeight();
@@ -46,11 +47,11 @@
                 var class_hide_show = $(this).attr('data-class');
                 $('.'+class_hide_show).removeClass('section-d-none');
             });
-            $('#firstform').on('submit',function(e){
-                e.preventDefault();
-                $(this).closest('.intro-section').addClass('section-d-none');
-                $('.service-detail').removeClass('section-d-none');
-            });
+            // $('#firstform').on('submit',function(e){
+            //     e.preventDefault();
+            //     $(this).closest('.intro-section').addClass('section-d-none');
+            //     $('.service-detail').removeClass('section-d-none');
+            // });
             $('.select_one').on('change',function(){
                var section_class = $(this).val();
                $('.section-both').addClass('section-d-none');
@@ -83,4 +84,46 @@
             });
             
         // End Review page js
+
+        // Review page ajax
+        $('#firstform').on('submit',function(e){
+          var thisform = $(this);
+          e.preventDefault();
+          var firstname = $('#firstname').val();
+          var lastname = $('#lastname').val();
+          var country = $('#country').val();
+          var city = $('#city').val();
+          var postal_code = $('#postal_code').val();
+          var mobile_number = $('#mobile_number').val();
+          if(window.location.protocol == "http:"){
+              resuesturl = "{{url('/reviewsDetail')}}"
+          }else if(window.location.protocol == "https:"){
+              resuesturl = "{{secure_url('/reviewsDetail')}}"
+          }
+          $.ajax({
+              type: "post",
+              url: resuesturl,
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              dataType:'json',
+              data: {
+                  'firstname':firstname,
+                  'lastname':lastname,
+                  'country':country,
+                  'city':city,
+                  'postal_code':postal_code,
+                  'mobile_number':mobile_number
+              },
+              success: function (data) {
+                  if(data.success){
+                    thisform.closest('.intro-section').addClass('section-d-none');
+                    $('.service-detail').removeClass('section-d-none');
+                  }else{
+                    toastr.error('Add detail', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+                  }
+              }         
+          });
+        });
+        // End Review page ajax
 </script>

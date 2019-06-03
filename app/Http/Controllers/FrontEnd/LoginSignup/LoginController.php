@@ -53,9 +53,10 @@ class LoginController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::guard('customer')->logout();
+        $request->session()->forget('usersDetail');
         return redirect()->back();
     }
 }

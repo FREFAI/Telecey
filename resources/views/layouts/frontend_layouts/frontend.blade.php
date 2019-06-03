@@ -5,6 +5,7 @@
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Teleco Tales</title>
         <link rel="icon" href="{{URL::asset('frontend/assets/img/fav_icon.png')}}" type="image/gif" sizes="16x16">
         <!-- CSS Section Include -->

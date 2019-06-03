@@ -28,8 +28,8 @@
 	            </div>
 	            <div class="or-seperator"><i>or sign up with</i></div>
 	            <div class="text-center mt-5">
-	                    <a class="btn btn-primary social-login-btn social-facebook" href="/auth/facebook"><i class="fa fa-facebook"></i></a>
-	                    <a class="btn btn-primary social-login-btn social-google" href="/auth/google"><i class="fa fa-google"></i></a>
+	                    <a class="btn btn-primary social-login-btn social-facebook" href="{{url('/facebooklogin')}}"><i class="fa fa-facebook"></i></a>
+	                    <a class="btn btn-primary social-login-btn social-google" href="{{url('/googlelogin')}}"><i class="fa fa-google"></i></a>
 	            </div>
 	           <!--  <div class="check-bx mt-4">
 	                <input type="checkbox"> <span>Join this site’s community. <a href="#" class="text-primary">Read more</a> </span>

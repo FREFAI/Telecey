@@ -41,8 +41,11 @@
 	Route::get('/blogs', 'FrontEnd\BlogsController@blogs');
 
 	Route::group(['middleware' => 'CustomerAuth'], function(){
-		Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
-		Route::get('/logout', 'FrontEnd\LoginSignup\LoginController@logout');
+		Route::group(['middleware' => 'IpLocation'], function(){
+			Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
+			Route::post('/reviewsDetail', 'FrontEnd\ReviewsController@reviewsDetail');
+			Route::get('/logout', 'FrontEnd\LoginSignup\LoginController@logout');
+		});
 	});
 
 // End FrontEnd Section 

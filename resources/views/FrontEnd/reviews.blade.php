@@ -55,37 +55,37 @@
 	                            <p class="pt-2 pb-3 text-black text-left">Never miss an update</p>
 	                            <form class="contact-form row" id="firstform">
 	                                <div class="form-field col-lg-6">
-	                                    <input id="name" class="input-text js-input" type="text" required>
+	                                    <input id="firstname" class="input-text js-input" type="text" required value="{{$usersDetail->firstname}}" name="firstname">
 	                                    <label class="label" for="name">First Name</label>
 	                                </div>
 	                                <div class="form-field col-lg-6">
-	                                    <input id="name" class="input-text js-input" type="text" required>
+	                                    <input id="lastname" class="input-text js-input" type="text" required value="{{$usersDetail->lastname}}" name="lastname">
 	                                    <label class="label" for="name">Last Name</label>
 	                                </div>
 	                                <div class="form-field col-lg-6">
-	                                    <input id="name" class="input-text js-input" type="text" required>
+	                                    <input id="country" class="input-text js-input" type="text" value="{{$usersDetail->country}}" name="country">
 	                                    <label class="label" for="name">Country</label>
 	                                </div>
 	                                <div class="form-field col-lg-6">
-	                                    <input id="name" class="input-text js-input" type="text" required>
+	                                    <input id="city" class="input-text js-input" type="text" value="{{$usersDetail->city}}" name="city">
 	                                    <label class="label" for="name">City</label>
 	                                </div>
 	                                <div class="form-field col-lg-12 ">
-	                                    <input id="email" class="input-text js-input" type="email" required>
+	                                    <input id="email" class="input-text js-input" type="email" value="{{$usersDetail->email}}" disabled="">
 	                                    <label class="label" for="email">E-mail</label>
 	                                </div>
 	                                <div class="form-field col-lg-12 ">
-	                                        <input id="Number" class="input-text js-input" type="number" required>
+	                                        <input id="postal_code" class="input-text js-input" type="number" value="{{$usersDetail->postal_code}}" name="postal_code">
 	                                        <label class="label" for="number">Postal Code</label>
 	                                    </div>
 	                                <div class="form-field col-lg-12 ">
-	                                    <input id="phone" class="input-text js-input" type="text" required>
+	                                    <input id="mobile_number" class="input-text js-input" type="text" value="{{$usersDetail->mobile_number}}" name="mobile_number">
 	                                    <label class="label" for="phone">Contact Number</label>
 	                                </div>
-	                                <div class="custom-control custom-checkbox ml-3">
-	                                    <input type="checkbox" class="custom-control-input" id="Check33" required>
+	                               <!--  <div class="custom-control custom-checkbox ml-3">
+	                                    <input type="checkbox" class="custom-control-input" id="Check33" required >
 	                                    <label class="custom-control-label" for="Check33">Agree to terms and conditions</label>
-	                                    </div>
+	                                    </div> -->
 	                                <div class="form-field col-lg-12">
 	                                    <input class="submit-btn" type="submit" value="Subscribe Now">
 	                                </div>

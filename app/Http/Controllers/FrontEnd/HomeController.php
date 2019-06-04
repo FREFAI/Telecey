@@ -42,6 +42,7 @@ class HomeController extends Controller
         $serviceData = ServiceReview::where('service_reviews.user_id',$user_id)
                         ->join('service_ratings','service_ratings.service_id','=','service_reviews.id')
                         ->select('service_reviews.*','service_ratings.*','service_ratings.data_speed as data_speed_rating')
+                        ->orderBy('service_reviews.created_at','DESC')
                         ->get();
         return view('FrontEnd.profile',['serviceData'=>$serviceData]);
     }

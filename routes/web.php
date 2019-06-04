@@ -88,6 +88,24 @@
 				Route::post('/ads', 'Admin\AdsController@addAds');
 				Route::post('/delete_ads', 'Admin\AdsController@deleteAds');
 			// End Ads Route Section 
+
+			// Providers Section
+				Route::get('/addprovider', 'Admin\ProviderController@addProviderForm');
+				Route::post('/addprovider', 'Admin\ProviderController@addProvider');
+				Route::get('/provider-list', 'Admin\ProviderController@providerList');
+				Route::get('/editprovider/{providerId}', 'Admin\ProviderController@editProviderForm');
+				Route::post('/updateprovider', 'Admin\ProviderController@editProvider');
+				Route::post('/deleteProvider', 'Admin\ProviderController@deleteProvider');
+			// End Providers Section
+
+			// Service type Section
+				Route::get('/addservicetype', 'Admin\ServiceTypeController@addServiceTypeForm');
+				Route::post('/addservicetype', 'Admin\ServiceTypeController@addServiceType');
+				Route::get('/servicetype-list', 'Admin\ServiceTypeController@serviceTypeList');
+				Route::get('/editservicetype/{servicetypeId}', 'Admin\ServiceTypeController@editServiceTypeForm');
+				Route::post('/updateservicetype', 'Admin\ServiceTypeController@editServiceType');
+				Route::post('/deleteServicetype', 'Admin\ServiceTypeController@deleteServicetype');
+			// End Service type Section
 		});
 
 

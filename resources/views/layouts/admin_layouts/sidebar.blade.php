@@ -51,17 +51,18 @@
               <i class="fas fa-ad text-red" style='font-size:20px'></i> ADS
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/provider-list') ? 'active' : '' }}" href="{{url('admin/provider-list')}}" >
+              <i class="ni ni-bullet-list-67 text-yellow"></i> Providers
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link { request()->is('admin/servicetype-list') ? 'active' : '' }}" href="{{url('admin/servicetype-list')}}">
+              <i class="ni ni-caps-small text-info"></i> Service Types
+            </a>
+          </li>
           <!--
-          <li class="nav-item">
-            <a class="nav-link" href="./examples/tables.html">
-              <i class="ni ni-bullet-list-67 text-yellow"></i> Tables
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./examples/login.html">
-              <i class="ni ni-key-25 text-info"></i> Login
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link" href="./examples/register.html">
               <i class="ni ni-circle-08 text-pink"></i> Register

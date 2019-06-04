@@ -9,3 +9,4 @@
 <link type="text/css" href="{{URL::asset('admin/assets/vendor/nucleo/css/nucleo.css')}}" rel="stylesheet">
 <link href="{{URL::asset('admin/assets/css/custom.css')}}" rel="stylesheet">
 <link href="{{URL::asset('admin/assets/css/argon.css')}}" rel="stylesheet">
+<link rel=”stylesheet” href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css'>

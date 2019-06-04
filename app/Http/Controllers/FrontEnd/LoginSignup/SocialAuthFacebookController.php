@@ -55,7 +55,7 @@ class SocialAuthFacebookController extends Controller
               if($validation->messages()->first('facebook_id')){
                   $user = User::Where('facebook_id',$input['facebook_id'])->first();
                   if(Auth::guard('customer')->loginUsingId($user->id)){
-                  return redirect()->to('/reviews');
+                  return redirect()->to('/profile');
                 }else{
                   return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
                 }
@@ -64,7 +64,7 @@ class SocialAuthFacebookController extends Controller
                   $user = User::Where('email',$input['email'])->first();
                   if($user->social_login_type == 2){
                     if(Auth::guard('customer')->loginUsingId($user->id)){
-                  return redirect()->to('/reviews');
+                  return redirect()->to('/profile');
                 }else{
                   return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
                 } 
@@ -73,7 +73,7 @@ class SocialAuthFacebookController extends Controller
                     $user->facebook_id = $input['facebook_id'];
                     if($user->save()){
                       if(Auth::guard('customer')->loginUsingId($user->id)){
-                    return redirect()->to('/reviews');
+                    return redirect()->to('/profile');
                   }else{
                     return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
                   }
@@ -97,7 +97,5 @@ class SocialAuthFacebookController extends Controller
                 return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
               }
           }
-           echo "<pre>";
-           print_r($user);
         }
 }

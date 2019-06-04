@@ -196,6 +196,88 @@
 					}else if(window.location.protocol == "https:"){
 					    resuesturl = "{{secure_url('/admin/delete_ads')}}"
 					}
+					swal("Are you sure you want to delete this add?", {
+			          buttons: ["No", "Yes"],
+			        })
+			        .then(name => {
+			          	if(name){
+							$.ajax({
+							    type: "post",
+							    url: resuesturl,
+							    headers: {
+							        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+							    },
+							    dataType:'json',
+							    data: {
+							        'id':id
+							    },
+							    success: function (data) {
+							        if(data.success){
+							        	delete_row.closest('tr').remove();
+							        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+							        }else{
+							        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+							        }
+							    }         
+							});
+						}
+					});
+					
+				});
+			// End Delete Ads
+		// End Ads Section
+		// Delete Service Type
+		$('.delete_servicetype').on('click',function(){
+			var servicetype_id = $(this).attr('data-type_id');
+			var delete_row = $(this);
+			if(window.location.protocol == "http:"){
+			    resuesturl = "{{url('/admin/deleteServicetype')}}"
+			}else if(window.location.protocol == "https:"){
+			    resuesturl = "{{secure_url('/admin/deleteServicetype')}}"
+			}
+			swal("Are you sure you want to delete this service type?", {
+	          buttons: ["No", "Yes"],
+	        })
+	        .then(name => {
+	          if(name){
+	            $.ajax({
+    			    type: "post",
+    			    url: resuesturl,
+    			    headers: {
+    			        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    			    },
+    			    dataType:'json',
+    			    data: {
+    			        'id':servicetype_id
+    			    },
+    			    success: function (data) {
+    			        if(data.success){
+    			        	delete_row.closest('tr').remove();
+    			        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+    			        }else{
+    			        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+    			        }
+    			    }         
+    			});
+	          }
+	        })
+		});
+
+		// Delete Provider
+
+		$('.delete_provider').on('click',function(){
+			var provider_id = $(this).attr('data-provider_id');
+			var delete_row = $(this);
+			if(window.location.protocol == "http:"){
+			    resuesturl = "{{url('/admin/deleteProvider')}}"
+			}else if(window.location.protocol == "https:"){
+			    resuesturl = "{{secure_url('/admin/deleteProvider')}}"
+			}
+			swal("Are you sure you want to delete this provider?", {
+	          buttons: ["No", "Yes"],
+	        })
+	        .then(name => {
+	          	if(name){
 					$.ajax({
 					    type: "post",
 					    url: resuesturl,
@@ -204,7 +286,7 @@
 					    },
 					    dataType:'json',
 					    data: {
-					        'id':id
+					        'id':provider_id
 					    },
 					    success: function (data) {
 					        if(data.success){
@@ -215,10 +297,8 @@
 					        }
 					    }         
 					});
-					
-				});
-			// End Delete Ads
-		// End Ads Section
-
+				}
+			});
+		});
 	});
 </script>

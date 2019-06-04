@@ -50,7 +50,7 @@ class SocialAuthGoogleController extends Controller
         	if($validation->messages()->first('google_id')){
         	    $user = User::Where('google_id',$input['google_id'])->first();
         	    if(Auth::guard('customer')->loginUsingId($user->id)){
-	        		return redirect()->to('/reviews');
+	        		return redirect()->to('/profile');
 	        	}else{
 	        		return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
 	        	}
@@ -59,7 +59,7 @@ class SocialAuthGoogleController extends Controller
                 $user = User::Where('email',$input['email'])->first();
                 if($user->social_login_type == 1){
                 	if(Auth::guard('customer')->loginUsingId($user->id)){
-		        		return redirect()->to('/reviews');
+		        		return redirect()->to('/profile');
 		        	}else{
 		        		return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
 		        	}	
@@ -68,7 +68,7 @@ class SocialAuthGoogleController extends Controller
                 	$user->google_id = $input['google_id'];
                 	if($user->save()){
 	                	if(Auth::guard('customer')->loginUsingId($user->id)){
-			        		return redirect()->to('/reviews');
+			        		return redirect()->to('/profile');
 			        	}else{
 			        		return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
 			        	}

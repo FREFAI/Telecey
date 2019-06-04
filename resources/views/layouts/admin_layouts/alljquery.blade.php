@@ -8,3 +8,5 @@
 <script src="{{URL::asset('admin/assets/vendor/chart.js/dist/Chart.extension.js')}}"></script>
 <!-- Argon JS -->
 <script src="{{URL::asset('admin/assets/js/argon.js')}}"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

@@ -23,7 +23,7 @@
   $(".rateing_disable").rate({
     readonly:true
   });
-    
+
     var sections = $('section');
     var nav = $('nav');
     var nav_height = nav.outerHeight();
@@ -238,6 +238,7 @@
                     toastr.success('Rating', data.message , {displayDuration:3000,position: 'top-right'});
                     ratingform.closest('.services-rating-section').addClass('section-d-none');
                     ratingform.closest('.service-detail').addClass('section-d-none');
+                    window.location.href = "{{url('/profile')}}";
                   }else{
                     toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
                   }

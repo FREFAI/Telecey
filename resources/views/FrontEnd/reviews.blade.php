@@ -107,14 +107,16 @@
 	                    </div>
 	                </div>
 	                <div class="row">
+                        @if($settings->device == 1)
 	                    <div class="col-lg-6 col text-center">
 	                        <div class="button-product">
-	                            <label class="text-product"><input type="radio" class="radio-inline select_one" name="radios" value="product-section"><span class="outside"><span class="inside"></span></span>Product</label>
+	                            <label class="text-product"><input type="radio" class="radio-inline select_one" name="radios" value="product-section"><span class="outside"><span class="inside"></span></span>Devices</label>
 	                        </div>
 	                    </div>
-	                    <div class="col-lg-6 col text-center">
+                        @endif
+	                    <div class="@if($settings->device == 1) col-lg-6  @else  col-lg-12 @endif col text-center">
 	                        <div class="button-service">
-	                            <label class="text-product"><input type="radio" class="radio-inline select_one" name="radios" value="services-section"><span class="outside"><span class="inside"></span></span>Service</label>
+	                            <label class="text-product"><input type="radio" class="radio-inline select_one" name="radios" value="services-section" @if($settings->device == 0) checked="" @endif><span class="outside"><span class="inside"></span></span>Plans</label>
 	                        </div>
 	                    </div>
 	                </div>
@@ -288,7 +290,7 @@
                             </div>
                         </div>
                	</section>
-                <section class="services-section section-d-none section-both">
+                <section class="services-section @if($settings->device == 1) section-d-none @endif section-both">
                 	<div class="service_form_section">
 	                	<form class="reveiewing_form_service">
 	                    	<div class="row mt-3">

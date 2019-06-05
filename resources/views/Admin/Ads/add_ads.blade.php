@@ -131,7 +131,7 @@
                                               </span>
                                             </td>
                                             <td class="text-right">
-                                              <button class="btn btn-icon btn-2 btn-danger btn-sm delete_ad" type="button" data-ad_id="{{$ads->id}}">
+                                              <button class="btn btn-icon btn-2 btn-danger btn-sm delete_ad" type="button" data-ad_id="{{$ads->id}}" data-toggle="tooltip" data-placement="top" title="Delete">
                                                 <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
                                                 
                                               </button>

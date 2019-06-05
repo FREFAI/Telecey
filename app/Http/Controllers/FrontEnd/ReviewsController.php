@@ -8,7 +8,10 @@ use App\Models\Admin\SettingsModel;
 use Illuminate\Support\Facades\Validator;
 use App\Models\FrontEnd\ServiceReview;
 use App\Models\FrontEnd\ServiceRating;
+use App\Models\Admin\Provider;
+use App\Models\Admin\ServiceType;
 use App\User;
+use App\Currencies;
 use Auth;
 
 class ReviewsController extends Controller
@@ -43,6 +46,7 @@ class ReviewsController extends Controller
             }
             // $ip = '96.46.34.142';
             $data = \Location::get($ip);
+            
             $client = new \GuzzleHttp\Client();
             $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
             $response = json_decode($response->getBody());
@@ -94,7 +98,10 @@ class ReviewsController extends Controller
             }
         }
         $settings = SettingsModel::first();
-        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail]);
+        $providers = Provider::get();
+        $currencies = Currencies::get();
+        $service_types = ServiceType::get();
+        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'currencies'=>$currencies]);
     }
 
     public function reviewsDetail(Request $request)
@@ -122,15 +129,49 @@ class ReviewsController extends Controller
     public function reviewService(Request $request)
     {
         $input = $request->all();
-        $user_id = Auth::guard('customer')->user()['id'];
-        $input['user_id'] = $user_id;
-        $serviceReview = ServiceReview::create($input);
-        if($serviceReview){
-            $message = array('success'=>true,'message'=>'Add successfully.','service_id'=>$serviceReview->id);
-            return json_encode($message);
+        if(!array_key_exists('contract_type', $input)){
+            $input['contract_type'] = "1";
+        }
+        $validation = Validator::make($input, [
+            'provider_id' => 'required',
+            'service_type' => 'required',
+            'local_min' => 'required',
+            'datavolume' => 'required',
+        ]);
+        if ( $validation->fails() ) {
+             $message = array('success'=>false,'message'=>$validation->messages()->first());
+             return json_encode($message);
         }else{
-            $message = array('success'=>false,'message'=>"Somthing went wrong!");
-            return json_encode($message);
+            if($input['provider_status'] == 2){
+                $providerData = [
+                    'provider_name' => $input['provider_id'],
+                    'status' => 0
+                ];
+                $providervalidation = Validator::make($providerData, [
+                    'provider_name' => 'required|unique:providers',
+                ]);
+                if ( $providervalidation->fails() ) {
+                     $message = array('success'=>false,'message'=>$providervalidation->messages()->first());
+                     return json_encode($message);
+                }else{
+                    if($provider = Provider::create($providerData)){
+                        $input['provider_id'] = $provider->id;
+                    }else{
+                        $message = array('success'=>false,'message'=>'Add new provider error!');
+                        return json_encode($message);
+                    }
+                }
+            }
+            $user_id = Auth::guard('customer')->user()['id'];
+            $input['user_id'] = $user_id;
+            $serviceReview = ServiceReview::create($input);
+            if($serviceReview){
+                $message = array('success'=>true,'message'=>'Add successfully.','service_id'=>$serviceReview->id);
+                return json_encode($message);
+            }else{
+                $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                return json_encode($message);
+            }
         }
     }
 

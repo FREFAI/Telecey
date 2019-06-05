@@ -300,5 +300,45 @@
 				}
 			});
 		});
+
+		// Approve Provider
+
+		$('.approved_btn').on('click',function(){
+			var provider_id = $(this).attr('data-provider_id');
+					var delete_row = $(this);
+					if(window.location.protocol == "http:"){
+					    resuesturl = "{{url('/admin/approveProvider')}}"
+					}else if(window.location.protocol == "https:"){
+					    resuesturl = "{{secure_url('/admin/approveProvider')}}"
+					}
+					swal("Are you sure you want to approved this provider?", {
+			          buttons: ["No", "Yes"],
+			        })
+			        .then(name => {
+			          	if(name){
+							$.ajax({
+							    type: "post",
+							    url: resuesturl,
+							    headers: {
+							        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+							    },
+							    dataType:'json',
+							    data: {
+							        'id':provider_id
+							    },
+							    success: function (data) {
+							        if(data.success){
+							        	delete_row.closest('tr').find('.not_ap_ms').remove();
+							        	delete_row.closest('tr').find('.approved_ms').removeClass('d-none');
+							        	delete_row.remove();
+							        	toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+							        }else{
+							        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+							        }
+							    }         
+							});
+						}
+					});
+		});
 	});
 </script>

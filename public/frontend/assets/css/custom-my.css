@@ -64,6 +64,16 @@ input:checked + .slider:before {
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
+input:checked + .slider:before {
+    background: #fff;
+}
+.text-default{
+  color: #999 !important;
+}
+.reviewpage_toggle{
+  vertical-align: text-bottom;
+  font-size: 20px;
+}
 span.toggle_label {
     color: #fff;
     font-size: 15px;
@@ -107,9 +117,10 @@ span.toggle_label {
   {
       color: orange;
   }
-  .rateing {
+  .rating {
     font-size: 35px;
-}a.link:hover span{
+}
+a.link:hover span{
   color: #fff;
 }
 
@@ -163,4 +174,20 @@ div#accordion .panel-heading h4 a i{
  }
 a.accordion_btn:after{
   display: none;
+}
+.display-inline {
+    display: inline-flex;
+    width: 100%;
+}
+
+input.form-control.price-box.price {
+    width: 80%;
+    float: left;
+    margin-top: 0;
+    padding: 0 14px;
+    margin-left: 9px;
+}
+select.form-control.currency_id {
+    width: 18%;
+    float: left;
 }

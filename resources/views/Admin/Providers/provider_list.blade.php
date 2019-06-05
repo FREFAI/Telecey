@@ -61,16 +61,21 @@
                                @if($provider->status == 1)
                                <i class="bg-success"></i> Approved
                                @else
-                               <i class="bg-danger"></i> Not approved
-
+                               <span class="not_ap_ms"><i class="bg-danger"></i> Not approved</span>
+                               <span class="d-none approved_ms"><i class="bg-success"></i> Approved</span>
                                @endif
                              </span>
                            </td>
                            <td class="text-right">
-                             <a class="btn btn-icon btn-2 btn-success btn-sm" href="{{url('admin/editprovider')}}/{{base64_encode($provider->id)}}">
+                            @if($provider->status != 1)
+                            <button class="btn btn-icon btn-2 btn-success btn-sm approved_btn" data-toggle="tooltip" data-placement="top" title="Approve" data-provider_id="{{$provider->id}}">
+                               <span class="btn-inner--icon"><i class="ni ni-check-bold"></i></span>
+                            </button>
+                             @endif
+                             <a class="btn btn-icon btn-2 btn-info btn-sm" href="{{url('admin/editprovider')}}/{{base64_encode($provider->id)}}" data-toggle="tooltip" data-placement="top" title="Edit">
                                <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                              </a>
-                             <button class="btn btn-icon btn-2 btn-danger btn-sm delete_provider" type="button" data-provider_id="{{$provider->id}}">
+                             <button class="btn btn-icon btn-2 btn-danger btn-sm delete_provider" type="button" data-provider_id="{{$provider->id}}" data-toggle="tooltip" data-placement="top" title="Delete">
                                <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
                              </button>
                            </td>

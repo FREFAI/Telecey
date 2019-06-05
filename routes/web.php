@@ -96,6 +96,7 @@
 				Route::get('/editprovider/{providerId}', 'Admin\ProviderController@editProviderForm');
 				Route::post('/updateprovider', 'Admin\ProviderController@editProvider');
 				Route::post('/deleteProvider', 'Admin\ProviderController@deleteProvider');
+				Route::post('/approveProvider', 'Admin\ProviderController@approveProvider');
 			// End Providers Section
 
 			// Service type Section

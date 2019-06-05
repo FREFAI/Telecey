@@ -297,42 +297,60 @@
 	                     
 	                            <div class="col-lg-6 ">
 	                                <h5>Provider Name</h5>
-	                                <!-- <div class="form-group provider_text">
-	                                    <input type="text" class="form-control provider_name text_provider_name" name="provider_name" placeholder="Provider name" required="required">		
-	                                </div> -->
 	                                <div class="tg-select form-control provider_select">
-	                                     <select class="provider_name active" name="provider_name">
-	                                         <option value="" disabled="">Please select provider</option>
-	                                         <option value="Vodafone">Vodafone</option>
-	                                         <option value="Airtel">Airtel</option>
-	                                         <option value="BSNL">BSNL</option>
-	                                         <option value="JIO">JIO</option>
+	                                     <select class="provider_name active" name="provider_name" required="required">
+	                                         <option value="">Please select provider</option>
+                                             @if(count($providers) > 0)
+                                                @foreach($providers as $provider)
+                                                    <option value="{{$provider->id}}">{{$provider->provider_name}}</option>
+                                                @endforeach
+                                             @else
+                                                <option value="" disabled="">Not found</option>
+                                             @endif
 	                                     </select>
 	                                 </div>
+                                     <div class="form-group provider_text">
+                                        <input type="text" class="form-control provider_name text_provider_name" name="provider_name" placeholder="Provider name">      
+                                        <input type="hidden" class="form-control provider_status" name="provider_status" placeholder="Provider status">      
+                                    </div>
 	                                 <small>
 	                                 	<a href="javascript:void(0)" class="provider_text_show">Couldn't find your Service provider</a>
 	                                 </small>
 	                            </div>
 	                            <div class="col-lg-6 ">
 	                             	<h5>Contract type</h5>
-	                                <div class="row">
-	                                    <div class="col-lg-6 pl-0">
-	                                        <div class="button-product">
+	                                <div class="row align-items-center">
+	                                    <div class="col-lg-12 pl-0 pt-3">
+                                            <div class="form-group ">
+                                                <span class="ext-default reviewpage_toggle">Personal</span>
+                                                <label class="switch">
+                                                  <input type="checkbox" id="personal" class="contract_type" name="contract_type" value="2">
+                                                  <span class="slider"></span>
+                                                </label>
+                                                <span class="text-default reviewpage_toggle">Business</span>
+                                            </div>
+	                                        <!-- <div class="button-product">
 	                                            <label class="text-product"><input type="radio" class="radio-inline contract_type" name="contract_type" value="1" checked="" data-type="personal"><span class="outside"><span class="inside"></span></span>Personal</label>
-	                                        </div>
+	                                        </div> -->
 	                                    </div>
-	                                    <div class="col-lg-6 pl-0">
+	                                    <!-- <div class="col-lg-6 pl-0">
 	                                        <div class="button-service">
 	                                            <label class="text-product"><input type="radio" class="radio-inline contract_type" name="contract_type" value="2" data-type="buisness"><span class="outside"><span class="inside"></span></span>Business</label>
 	                                        </div>
-	                                    </div>
+	                                    </div> -->
 	                                </div>
 	                             </div>
 	                        </div>
 	                        <div class="row mt-3">
-	                            <div class="col-lg-6 ">
+
+	                            <div class="col-lg-6">
 	                                <h5>How much are you paying monthly multi currencies should be supported </h5>
 	                                <div class="form-group">
+                                        <select class="form-control currency_id">
+                                            @foreach($currencies as $curr)
+                                            <option @if($curr->iso_code == 'USD') selected @endif value="{{$curr->id}}">{{$curr->iso_code}}</option>
+                                            @endforeach
+                                        </select>
 	                                    <input type="number" class="form-control price-box price" name="price" placeholder="Price" >		
 	                                </div>
 	                            </div>
@@ -352,15 +370,13 @@
 	                                <div class="tg-select form-control">
 	                                    <select class="service_type">
 	                                    	<option value="">Select service type</option>
-	                                        <option class="personal" value="home_internet">Home internet</option>
-	                                        <option class="personal" value="landline">Landline</option>
-	                                        <option class="personal" value="mobile_plan">Mobile plan</option>
-	                                        <option class="personal" value="package">Package</option>
-	                                        <option class="personal" value="familly_share_plan">Familly share plan</option>
-
-	                                        <option class="buisness" value="businesss_internet">Businesss Internet</option>
-	                                        <option class="buisness" value="business_landline">Business Landline</option>
-	                                        <option class="buisness" value="coorperate_mobile_plan">Coorperate mobile plan</option>
+                                            @if(count($service_types) > 0)
+                                                @foreach($service_types as $type)
+    	                                           <option class="@if($type->type == 1) personal @else buisness @endif" value="{{$type->id}}">{{$type->service_type_name}}</option>
+                                               @endforeach
+                                            @else
+                                            <option disabled="">Not found</option>
+                                            @endif
 	                                    </select>
 	                                </div>
 	                            </div>
@@ -429,8 +445,8 @@
 	               		        </div>
 	               		    </div>
 	               		    <div class="col-lg-6">
-	               		    	<div class="rateing coverage"></div>
-	               		    	<!-- <div class="rateing coverage" data-rate-value=6></div> -->
+	               		    	<div class="rating coverage"></div>
+	               		    	<!-- <div class="rating coverage" data-rate-value=6></div> -->
 	               		    </div>
 	               		</div>
 	               		<div class="row">
@@ -440,7 +456,7 @@
 	               		        </div>
 	               		    </div>
 	               		    <div class="col-lg-6">
-	               		    	<div class="rateing service_stability"></div>
+	               		    	<div class="rating service_stability"></div>
 	               		    </div>
 	               		</div>
 	               		<div class="row">
@@ -450,7 +466,7 @@
 	               		        </div>
 	               		    </div>
 	               		    <div class="col-lg-6">
-	               		    	<div class="rateing billing_payment"></div>
+	               		    	<div class="rating billing_payment"></div>
 	               		    </div>
 	               		</div>
 	               		<div class="row">
@@ -460,7 +476,7 @@
 	               		        </div>
 	               		    </div>
 	               		    <div class="col-lg-6">
-	               		    	<div class="rateing data_speed"></div>
+	               		    	<div class="rating data_speed"></div>
 	               		    </div>
 	               		</div>
 	               		<div class="row">
@@ -470,7 +486,7 @@
 	               		        </div>
 	               		    </div>
 	               		    <div class="col-lg-6">
-	               		    	<div class="rateing service_waiting"></div>
+	               		    	<div class="rating service_waiting"></div>
 	               		    </div>
 	               		</div>
 	               		<div class="row">
@@ -480,9 +496,20 @@
 	               		        </div>
 	               		    </div>
 	               		    <div class="col-lg-6">
-	               		    	<div class="rateing voice_quality"></div>
+	               		    	<div class="rating voice_quality"></div>
 	               		    </div>
 	               		</div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="">
+                                    <h5 class="font-weight-bold">Average</h5>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="hidden" class="average_input" value="0">
+                                <div class="font-weight-bold average_div">0</div>
+                            </div>
+                        </div>
 	               		<div class="row">
 	               		    <div class="col-lg-12">
 	               		        <div class="form-group w-50 ml-auto mr-auto">

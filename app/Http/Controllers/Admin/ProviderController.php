@@ -83,4 +83,20 @@ class ProviderController extends Controller
                 }
             }
         }
+
+        public function approveProvider(Request $request)
+        {
+            $perameter = $request->all();
+            $provider = Provider::find($perameter['id']);
+            if($provider){
+                $provider->status = 1;
+                if($provider->save()){
+                    $message = array('success'=>true,'message'=>'Approved successfully.');
+                    return json_encode($message);
+                }else{
+                    $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                    return json_encode($message);
+                }
+            }
+        }
 }

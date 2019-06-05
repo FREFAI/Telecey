@@ -41,6 +41,15 @@
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
+                      <select class="form-control" name="type">
+                        <option>Select type</option>
+                        <option value="1">Personal</option>
+                        <option value="2">Business</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
                       <button class="btn btn-primary" type="submit">Save</button>
                     </div>
                   </div>

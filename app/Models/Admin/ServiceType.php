@@ -10,6 +10,6 @@ class ServiceType extends Model
     protected $guard = 'admin';
 
     protected $fillable = [
-        'service_type_name', 'status', 'created_at', 'updated_at'
+        'service_type_name','type', 'status', 'created_at', 'updated_at'
     ];
 }

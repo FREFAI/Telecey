@@ -38,6 +38,7 @@
                        <th scope="col" class="text-center" style="width: 10px;">Sr.No</th>
                        <th scope="col" class="text-center" style="width: 10px;">Type name</th>
                        <th scope="col" class="text-center">Status</th>
+                       <th scope="col" class="text-center">Type</th>
                        <th scope="col" class="text-right">Action</th>
                      </tr>
                    </thead>
@@ -66,11 +67,18 @@
                                @endif
                              </span>
                            </td>
+                           <td class="text-center">
+                             @if($st->type == 1)
+                              Personal
+                             @else
+                              Business
+                             @endif
+                           </td>
                            <td class="text-right">
-                             <a class="btn btn-icon btn-2 btn-success btn-sm" href="{{url('admin/editservicetype')}}/{{base64_encode($st->id)}}">
+                             <a class="btn btn-icon btn-2 btn-info btn-sm" href="{{url('admin/editservicetype')}}/{{base64_encode($st->id)}}" data-toggle="tooltip" data-placement="top" title="Edit">
                                <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                              </a>
-                             <button class="btn btn-icon btn-2 btn-danger btn-sm delete_servicetype" type="button" data-type_id="{{$st->id}}">
+                             <button class="btn btn-icon btn-2 btn-danger btn-sm delete_servicetype" type="button" data-type_id="{{$st->id}}" data-toggle="tooltip" data-placement="top" title="Delete">
                                <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
                              </button>
                            </td>

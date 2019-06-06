@@ -8,7 +8,31 @@
 .w-40 {
     width: 40%;
 }
-
+a.btn.btn-info.pull-right.add_service:hover{
+  background-color: #96fdd4 !important;
+  color: #495057 !important;
+  border-color: #96fdd4 !important;
+}
+.contact-form .submit-btn:hover, button.btn.btn-primary.btn-lg.btn-block.product-submit-btn:hover{
+  background-color: #96fdd4 !important;
+  color: #495057 !important;
+  border-color: #96fdd4 !important;
+}
+.contact-form .submit-btn, button.btn.btn-primary.btn-lg.btn-block.product-submit-btn {
+    background-color: #96fdd4;
+    color: #495057;
+    width: 30%;
+}
+.tg-select.tg-select select{
+  line-height: 37px;
+  padding: 0 10px;
+}
+.tg-select.tg-select:after{
+  top:0;
+}
+.tg-select.form-control {
+    padding: 0;
+}
 /*Toggle switch button css*/
 .switch {
   	position: relative;

@@ -59,7 +59,8 @@
                            <td  class="text-center">
                              <span class="badge badge-dot mr-4">
                                @if($provider->status == 1)
-                               <i class="bg-success"></i> Approved
+                                <span class="d-none not_ap_ms"><i class="bg-danger"></i> Not approved</span>
+                               <span class="approved_ms"><i class="bg-success"></i> Approved</span>
                                @else
                                <span class="not_ap_ms"><i class="bg-danger"></i> Not approved</span>
                                <span class="d-none approved_ms"><i class="bg-success"></i> Approved</span>
@@ -67,11 +68,23 @@
                              </span>
                            </td>
                            <td class="text-right">
-                            @if($provider->status != 1)
-                            <button class="btn btn-icon btn-2 btn-success btn-sm approved_btn" data-toggle="tooltip" data-placement="top" title="Approve" data-provider_id="{{$provider->id}}">
-                               <span class="btn-inner--icon"><i class="ni ni-check-bold"></i></span>
-                            </button>
-                             @endif
+                              <button class="btn btn-icon btn-2 
+                                  @if($provider->status == 1) 
+                                    btn-danger 
+                                  @else 
+                                    btn-success 
+                                  @endif 
+                                  btn-sm approved_btn" data-toggle="tooltip" data-placement="top" title="
+                                  @if($provider->status == 1) 
+                                    Not approve 
+                                  @else 
+                                    Approve 
+                                  @endif" 
+                                  data-status="@if($provider->status == 1) 0 @else 1 @endif"
+                                  data-provider_id="{{$provider->id}}">
+                                 <span class="btn-inner--icon"><i class="@if($provider->status != 1) ni ni-check-bold @else ni ni-fat-remove @endif"></i></span>
+                              </button>
+                            
                              <a class="btn btn-icon btn-2 btn-info btn-sm" href="{{url('admin/editprovider')}}/{{base64_encode($provider->id)}}" data-toggle="tooltip" data-placement="top" title="Edit">
                                <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                              </a>

@@ -62,41 +62,59 @@ class ProviderController extends Controller
     	$providers = Provider::orderBy('id','DESC')->paginate(10);
 
     	return view('Admin.Providers.provider_list',['providers'=>$providers]);
-
     }
     public function deleteProvider(Request $request)
-        {
-            $perameter = $request->all();
-            $validation = Validator::make($perameter,[
-                'id' => 'required'
-            ]);
-            if ($validation->fails()) {
-                return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+    {
+        $perameter = $request->all();
+        $validation = Validator::make($perameter,[
+            'id' => 'required'
+        ]);
+        if ($validation->fails()) {
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+        }else{
+            $deleteType = Provider::where('id',$perameter['id'])->delete();
+            if($deleteType){
+                $message = array('success'=>true,'message'=>'Delete successfully.');
+                return json_encode($message);
             }else{
-                $deleteType = Provider::where('id',$perameter['id'])->delete();
-                if($deleteType){
-                    $message = array('success'=>true,'message'=>'Delete successfully.');
-                    return json_encode($message);
-                }else{
-                    $message = array('success'=>false,'message'=>'Somthing went wrong!');
-                    return json_encode($message);
-                }
+                $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                return json_encode($message);
             }
         }
+    }
 
-        public function approveProvider(Request $request)
-        {
-            $perameter = $request->all();
+    public function approveProvider(Request $request)
+    {
+        $perameter = $request->all();
+        $validation = Validator::make($perameter,[
+            'id' => 'required',
+            'status' => 'required'
+        ]);
+        if ($validation->fails()) {
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+        }else{
             $provider = Provider::find($perameter['id']);
             if($provider){
-                $provider->status = 1;
-                if($provider->save()){
-                    $message = array('success'=>true,'message'=>'Approved successfully.');
-                    return json_encode($message);
+                if($perameter['status'] == 1){
+                    $provider->status = 1;
+                    if($provider->save()){
+                        $message = array('success'=>true,'message'=>'Approved successfully.');
+                        return json_encode($message);
+                    }else{
+                        $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                        return json_encode($message);
+                    }
                 }else{
-                    $message = array('success'=>false,'message'=>'Somthing went wrong!');
-                    return json_encode($message);
+                    $provider->status = 0;
+                    if($provider->save()){
+                        $message = array('success'=>true,'message'=>'Not approved successfully.');
+                        return json_encode($message);
+                    }else{
+                        $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                        return json_encode($message);
+                    }
                 }
             }
         }
+    }
 }

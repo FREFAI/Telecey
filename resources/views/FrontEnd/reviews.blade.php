@@ -425,7 +425,7 @@
 	                        </div>
 	                        <div class="row">
 	                            <div class="col-lg-12">
-	                                <div class="form-group w-50 ml-auto mr-auto">
+	                                <div class="form-group w-50 ml-auto mr-auto text-center">
 	                                    <button type="submit" class="btn btn-primary btn-lg btn-block product-submit-btn">Submit</button>
 	                                </div>
 	                            </div>
@@ -512,7 +512,7 @@
                         </div>
 	               		<div class="row">
 	               		    <div class="col-lg-12">
-	               		        <div class="form-group w-50 ml-auto mr-auto">
+	               		        <div class="form-group w-50 ml-auto mr-auto text-center">
 	               		        	<input type="hidden" name="service_id" class="service_id">
                                     <button type="submit" class="btn btn-primary btn-lg btn-block service-rating-submit-btn">Submit</button>
                                 </div>

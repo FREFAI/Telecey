@@ -197,7 +197,7 @@
 											  					<ul class="first_row_service">
 											  						<li>
 											  							<div>Data speed : </div>
-											  							<div class="value_div">&nbsp;{{$service->data_speed}}</div>
+											  							<div class="value_div">&nbsp;{{$service->data_review_rate}}</div>
 											  						</li>
 											  					</ul>
 											  					</div>
@@ -227,7 +227,7 @@
 											  					<ul class="first_row_service">
 											  						<li>
 											  							<div>How much are you paying monthly multi currencies should be supported : </div>
-											  							<div class="value_div">{{$service->iso_code}}&nbsp;{{$service->price}}</div>
+											  							<div class="value_div">&nbsp;{{$service->c_code}}&nbsp;{{$service->price}}</div>
 											  						</li>
 											  					</ul>
 											  					</div>

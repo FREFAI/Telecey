@@ -102,6 +102,7 @@
   <!-- Page content -->
   <div class="container-fluid mt-7">
     <div class="row">
+      <!-- <iframe width="100%" height="650px" frameborder="0" src="https://softradix.speedtestcustom.com"></iframe> -->
       <!-- <div class="col-xl-8 mb-5 mb-xl-0">
         <div class="card bg-gradient-default shadow">
           <div class="card-header bg-transparent">

@@ -11,7 +11,7 @@ use App\Models\FrontEnd\ServiceRating;
 use App\Models\Admin\Provider;
 use App\Models\Admin\ServiceType;
 use App\User;
-use App\Currencies;
+use App\Countries;
 use Auth;
 
 class ReviewsController extends Controller
@@ -36,17 +36,29 @@ class ReviewsController extends Controller
      */
     public function reviews(Request $request)
     {
+        // $ip = env('ip_address','live');
+        // if($ip == 'live'){
+        //     $ip = $_SERVER['REMOTE_ADDR'];
+        // }else{
+        //     $ip = '122.173.214.129';
+        // }
+        // $data = \Location::get($ip);
+        
+        // echo "<pre>";
+        // print_r($data);
+        // exit;
+
         $user_id = Auth::guard('customer')->user()['id']; 
         if (!$request->session()->has('usersDetail')) {
             $ip = env('ip_address','live');
             if($ip == 'live'){
                 $ip = $_SERVER['REMOTE_ADDR'];
             }else{
-                $ip = '122.173.84.243';
+                $ip = '122.173.214.129';
             }
             // $ip = '96.46.34.142';
             $data = \Location::get($ip);
-            
+        
             $client = new \GuzzleHttp\Client();
             $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
             $response = json_decode($response->getBody());
@@ -76,6 +88,7 @@ class ReviewsController extends Controller
         }
         $usersDetailSession = $request->session()->get('usersDetail');
         $usersDetail = User::find($user_id); 
+        $usersDetail->country_code = $usersDetailSession['country_code'];
         if($usersDetail->country == ""){
             if(array_key_exists('country', $usersDetailSession)){
                 $usersDetail->country = $usersDetailSession['country'];
@@ -97,11 +110,15 @@ class ReviewsController extends Controller
                 $usersDetail->postal_code = null;
             }
         }
+        // echo "<pre>";
+        // print_r($usersDetail);
+        // exit;
         $settings = SettingsModel::first();
         $providers = Provider::get();
-        $currencies = Currencies::get();
+        $countries = Countries::get();
         $service_types = ServiceType::get();
-        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'currencies'=>$currencies]);
+
+        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries]);
     }
 
     public function reviewsDetail(Request $request)

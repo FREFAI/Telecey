@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCurrenciesTable extends Migration
+class DeleteTableCurrencies extends Migration
 {
     /**
      * Run the migrations.
@@ -12,6 +12,16 @@ class CreateCurrenciesTable extends Migration
      * @return void
      */
     public function up()
+    {
+        Schema::dropIfExists('currencies');
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
     {
         Schema::create('currencies', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -28,15 +38,5 @@ class CreateCurrenciesTable extends Migration
             $table->integer('iso_numeric');
             $table->timestamps();
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('currencies');
     }
 }

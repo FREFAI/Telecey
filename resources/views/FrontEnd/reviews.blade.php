@@ -310,7 +310,7 @@
 	                                     </select>
 	                                 </div>
                                      <div class="form-group provider_text">
-                                        <input type="text" class="form-control provider_name text_provider_name" name="provider_name" placeholder="Provider name">      
+                                        <input type="text" class="form-control provider_name text_provider_name" name="provider_name" placeholder="Provider name" maxlength="30">      
                                         <input type="hidden" class="form-control provider_status" name="provider_status" placeholder="Provider status">      
                                     </div>
 	                                 <small>
@@ -347,8 +347,12 @@
 	                                <h5>How much are you paying monthly multi currencies should be supported </h5>
 	                                <div class="form-group">
                                         <select class="form-control currency_id">
-                                            @foreach($currencies as $curr)
-                                            <option @if($curr->iso_code == 'USD') selected @endif value="{{$curr->id}}">{{$curr->iso_code}}</option>
+                                            @foreach($countries as $curr)
+                                                @if($curr->currency_code != '' && $curr->currency_code != " ")
+                                                    <option @if($curr->code == $usersDetail->country_code)
+                                                    selected
+                                                    @elseif($curr->country_code == 'US') selected @endif value="{{$curr->id}}">{{$curr->currency_code}}</option>
+                                                @endif
                                             @endforeach
                                         </select>
 	                                    <input type="number" class="form-control price-box price" name="price" placeholder="Price" >		
@@ -383,43 +387,43 @@
 	                            <div class="col-lg-6 ">
 	                                <h5>Local Mintue</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control local_min" name="local_min" placeholder="Local Min" required="required">		
+	                                    <input type="text" class="form-control local_min" name="local_min" placeholder="Local Min" required="required"  maxlength="20">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 ">
 	                                <h5>DataVolume</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control datavolume" name="datavolume" placeholder="DataVolume" required="required">		
+	                                    <input type="text" class="form-control datavolume" name="datavolume" placeholder="DataVolume" required="required" maxlength="20">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 ">
 	                                <h5>Long distance  Mintue</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control long_distance_min" name="long_distance_min" placeholder="Long distance  Min" required="required" value="Unlimited">		
+	                                    <input type="text" class="form-control long_distance_min" name="long_distance_min" placeholder="Long distance  Min" required="required" value="Unlimited" maxlength="20">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 ">
 	                                <h5>International Mintue</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control international_min" name="international_min" placeholder="International Min" required="required">		
+	                                    <input type="text" class="form-control international_min" name="international_min" placeholder="International Min" required="required" maxlength="20">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 ">
 	                                <h5>Roaming Mintue</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control roaming_min" name="roaming_min" placeholder="Roaming Min" required="required">		
+	                                    <input type="text" class="form-control roaming_min" name="roaming_min" placeholder="Roaming Min" required="required" maxlength="20">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 ">
 	                                <h5>Data speed</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control data_speed" name="data_speed" placeholder="Data speed" required="required">		
+	                                    <input type="text" class="form-control data_speed" name="data_speed" placeholder="Data speed" required="required" maxlength="20">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 ">
 	                                <h5>SMS</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control sms" name="sms" placeholder="SMS" required="required" value="Unlimited">		
+	                                    <input type="text" class="form-control sms" name="sms" placeholder="SMS" required="required" value="Unlimited" maxlength="20">		
 	                                </div>
 	                            </div>
 	                        </div>

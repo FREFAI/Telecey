@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Testing Route 
+	Route::get('/county', 'TestController@index');
+
+// End Testing Route 
 
 
 // FrontEnd Section 

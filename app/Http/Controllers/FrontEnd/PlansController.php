@@ -52,6 +52,9 @@ class PlansController extends Controller
         }else{
             $ads = AdsModel::where('type',1)->first();
         }
+        // echo "<pre>";
+        // print_r($data);
+        // exit;
         return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads]);
     }
 }

@@ -12,16 +12,16 @@
 	            <h5 class="text-center mt-1 mb-4">Already a member? <a href="{{url('/signin')}}" class="text-primary"> Log In</a></h5>
 				@include('flash-message')
 	            <div class="form-group">
-	                <input type="text" class="form-control" name="firstname" placeholder="First name" required="required" autocomplete="off">		
+	                <input type="text" class="form-control" name="firstname" placeholder="First name" required="required" autocomplete="off" maxlength="50">		
 	            </div>
 	            <div class="form-group">
-	                <input type="text" class="form-control" name="lastname" placeholder="Last name" required="required" autocomplete="off">		
+	                <input type="text" class="form-control" name="lastname" placeholder="Last name" required="required" autocomplete="off" maxlength="50">		
 	            </div>
 	            <div class="form-group">
-	                <input type="email" class="form-control" name="email" placeholder="Email" required="required" autocomplete="off">		
+	                <input type="email" class="form-control" name="email" placeholder="Email" required="required" autocomplete="off" maxlength="50">		
 	            </div>
 	            <div class="form-group">
-	                <input type="password" class="form-control" name="password" placeholder="Password" required="required">	
+	                <input type="password" class="form-control" name="password" placeholder="Password" required="required" maxlength="50">	
 	            </div>        
 	            <div class="form-group">
 	                <button type="submit" class="btn btn-primary btn-lg btn-block login-btn">Sign Up</button>

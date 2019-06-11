@@ -20,7 +20,7 @@
 			                                <!-- <span class="meta-part"><a href="#"><i class="lni-folder"></i> Sticky</a></span> -->
 			                                <!-- <span class="meta-part"><a href="#"><i class="lni-comments-alt"></i> 1 Comments</a></span> -->
 			                            </div>
-			                            <h2 class="post-title"><a href="single-post.html">{{$blog->title}}</a></h2>
+			                            <h2 class="post-title"><a href="javascript:void(0);">{{$blog->title}}</a></h2>
 			                            <div class="entry-summary">
 			                                <p>{{substr(html_entity_decode(strip_tags($blog->blog_content)),0,500)}}</p>
 			                            </div>

@@ -299,7 +299,7 @@
 			                            	</span>
 			                            </div> -->
 			                            <h2 class="post-title">
-			                            	<a href="single-post.html">{{$blog->title}}</a>
+			                            	<a href="javascript:void(0);">{{$blog->title}}</a>
 			                            </h2>
 			                            <div class="entry-summary">
 			                                <p>{{substr(html_entity_decode(strip_tags($blog->blog_content)),0,150)}}</p>

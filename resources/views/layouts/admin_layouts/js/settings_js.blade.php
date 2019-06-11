@@ -1,5 +1,32 @@
+
 <script type="text/javascript">
 	$(document).ready(function(){
+		tinymce.init({ 
+			selector:'.text_editor' ,
+			height: 300,
+			plugins: [
+			      'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+			      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+			      'save table contextmenu directionality emoticons template paste textcolor'
+			    ],
+			    content_css: 'css/content.css',
+			    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | preview fullpage | forecolor backcolor emoticons'
+		});
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function(e) {
+		            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+		            $('#imagePreview').hide();
+		            $('#imagePreview').fadeIn(650);
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+		$("#imageUpload").change(function() {
+		    readURL(this);
+		});
+
 		$('.settings').on('change',function(e){
 			var settingbutton = $(this);
 			e.preventDefault();
@@ -359,6 +386,46 @@
 					        	}
 					        }else{
 					        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+					        }
+					    }         
+					});
+				}
+			});
+		});
+
+
+
+		// Delete Blog
+
+		$('.delete_blog').on('click',function(){
+			var blog_id = $(this).attr('data-blog_id');
+			var delete_row = $(this);
+			if(window.location.protocol == "http:"){
+			    resuesturl = "{{url('/admin/deleteBlog')}}"
+			}else if(window.location.protocol == "https:"){
+			    resuesturl = "{{secure_url('/admin/deleteBlog')}}"
+			}
+			swal("Are you sure you want to delete this post?", {
+	          buttons: ["No", "Yes"],
+	        })
+	        .then(name => {
+	          	if(name){
+					$.ajax({
+					    type: "post",
+					    url: resuesturl,
+					    headers: {
+					        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					    },
+					    dataType:'json',
+					    data: {
+					        'id':blog_id
+					    },
+					    success: function (data) {
+					        if(data.success){
+					        	delete_row.closest('tr').remove();
+					        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+					        }else{
+					        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
 					        }
 					    }         
 					});

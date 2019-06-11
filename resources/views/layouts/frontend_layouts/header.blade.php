@@ -41,7 +41,7 @@
                                 <li>
                                     <a class="nav-link mt-0 mb-0" href="{{url('/reviews')}}">Personal-information-and-reviews</a>
                                     <a class="nav-link mt-0 mb-0" href="#">Contact Us</a>
-                                    <a class="nav-link mt-0 mb-0" href="{{url('/blogs')}}">Blog</a>
+                                    <a class="nav-link mt-0 mb-0" href="{{url('/blogs-list')}}">Blog</a>
                                     <a class="nav-link mt-0 mb-0" href="#">Memebers</a>
                                 </li>
                             </ul>

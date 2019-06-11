@@ -10,3 +10,7 @@
 <script src="{{URL::asset('admin/assets/js/argon.js')}}"></script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/r33fht357sb48uzaif4s424d91smk1zo3s41jfq0gkx580ee/tinymce/5/tinymce.min.js"></script>
+
+
+                                      

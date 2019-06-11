@@ -121,6 +121,7 @@
 	                    </div>
 	                </div>
 	            </form> 
+                <!-- Product section  -->
                 <section class="product-section section-d-none section-both">
                    <div class="row mt-3">
                        <div class="col-lg-6 ">
@@ -290,7 +291,9 @@
                             </div>
                         </div>
                	</section>
+                <!-- End product section  -->
                 <section class="services-section @if($settings->device == 1) section-d-none @endif section-both">
+                    <!-- Form Section  -->
                 	<div class="service_form_section">
 	                	<form class="reveiewing_form_service">
 	                    	<div class="row mt-3">
@@ -436,6 +439,9 @@
 	                        </div>
 	                    </form>
 	                </div>
+                    <!-- End Form Section -->
+
+                    <!-- Star rating section -->
                     <div class="services-rating-section section-d-none section-both">
 	               		<div class="row">
 	               		    <div class="heading detail-div">
@@ -518,11 +524,46 @@
 	               		    <div class="col-lg-12">
 	               		        <div class="form-group w-50 ml-auto mr-auto text-center">
 	               		        	<input type="hidden" name="service_id" class="service_id">
-                                    <button type="submit" class="btn btn-primary btn-lg btn-block service-rating-submit-btn">Submit</button>
+                                    <button type="submit" class="btn  btn-lg btn-block service-rating-submit-btn">Submit</button>
                                 </div>
 	               		    </div>
 	               		</div>
 	               	</div>
+                    <!-- End Star rating section -->
+
+                    <!-- Speed testing button section -->
+                    <div class="speed-test-button-section section-d-none section-both mb-5">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="heading-speedtest">
+                                    <div class="heading detail-div">
+                                        <h1 class="section-title">Do you want to check your internet speed?</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mt-3">
+                                <div class="button_section">
+                                    <a class="btn learn-more speedtest continue-btn">Continue</a>
+                                    <a href="{{url('/profile')}}"  class="btn learn-more speedtest">Skip</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Speed testing button section -->
+                    <!-- Speed section -->
+                    <div class="speedtest-section section-d-none mb-5">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="speedsection">
+                                    <iframe width="100%" height="650px" frameborder="0" src="https://softradix.speedtestcustom.com"></iframe> 
+                                </div>
+                                <div class="action-section text-center mt-3">
+                                    <a href="{{url('/profile')}}" class="btn learn-more speedtest">Continue</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Speed section -->
                	</section> 
                	
 		    </div>

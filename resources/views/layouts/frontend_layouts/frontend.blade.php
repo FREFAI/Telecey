@@ -26,6 +26,7 @@
         <!-- Script Section  -->
             @include('layouts.frontend_layouts.alljquery')
         <!-- End Script Section  -->
+      
     </body>
 
 

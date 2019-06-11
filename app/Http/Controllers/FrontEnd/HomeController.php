@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\FrontEnd\ServiceReview;
 use App\Models\FrontEnd\ServiceRating;
 use App\Models\Admin\SettingsModel;
+use App\Models\Admin\BlogsModel;
 use Auth;
 
 class HomeController extends Controller
@@ -33,7 +34,8 @@ class HomeController extends Controller
     public function homepage()
     {
         $settings = SettingsModel::first();
-        return view('FrontEnd.homepage',['settings'=> $settings]);
+        $blogs = BlogsModel::orderBy('created_at','DESC')->take(3)->get();
+        return view('FrontEnd.homepage',['settings'=> $settings,'blogs'=>$blogs]);
     }
 
     public function profile(Request $request)

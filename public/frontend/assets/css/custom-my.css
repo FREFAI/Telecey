@@ -215,3 +215,25 @@ select.form-control.currency_id {
     width: 18%;
     float: left;
 }
+.button_section {
+    text-align: center;
+}
+a.btn.learn-more.speedtest {
+    border-radius: 35px;
+    color: #4b565c;
+    font-size: 17px;
+    width: 12rem;
+    height: auto;
+}
+
+.home_post .post-thumb {
+    position: relative;
+    max-height: 250px;
+    min-height: 210px;
+}
+.home_post .post-thumb img{
+    max-height: 100%;
+}
+.blog_page .post-thumb{
+  text-align: center;
+}

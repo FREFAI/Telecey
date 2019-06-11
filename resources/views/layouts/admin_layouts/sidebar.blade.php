@@ -37,6 +37,16 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/home-content') ? 'active' : '' }}" href="{{url('/admin/home-content')}}">
+              <i class="ni ni-shop text-pink"></i> Home content
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/blogs') ? 'active' : '' }}" href="{{url('/admin/blogs')}}">
+              <i class="fa fa-newspaper text-pink" aria-hidden="true"></i> Blogs
+            </a>
+          </li> 
+          <li class="nav-item">
             <a class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}" href="{{url('admin/settings')}}">
               <i class="ni ni-settings text-info"></i> Settings
             </a>
@@ -62,11 +72,5 @@
               <i class="ni ni-caps-small text-info"></i> Service Types
             </a>
           </li>
-          <!--
-          <li class="nav-item">
-            <a class="nav-link" href="./examples/register.html">
-              <i class="ni ni-circle-08 text-pink"></i> Register
-            </a>
-          </li> -->
         </ul>
       </div>

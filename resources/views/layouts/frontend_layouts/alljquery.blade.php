@@ -120,6 +120,7 @@
     });
         // Review Page Js
             $('.start_btn').on('click',function(){
+            	$(this).hide();
                 var class_hide_show = $(this).attr('data-class');
                 $('.'+class_hide_show).removeClass('section-d-none');
             });
@@ -300,15 +301,23 @@
               },
               success: function (data) {
                   if(data.success){
+
                     toastr.success('Rating', data.message , {displayDuration:3000,position: 'top-right'});
+                    $('.detail-section').addClass('section-d-none');
                     ratingform.closest('.services-rating-section').addClass('section-d-none');
-                    ratingform.closest('.service-detail').addClass('section-d-none');
-                    window.location.href = "{{url('/profile')}}";
+                    ratingform.closest('.services-rating-section').next('.speed-test-button-section').removeClass('section-d-none');
+                    
                   }else{
                     toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
                   }
               }         
           });
+        });
+
+        $('.continue-btn').on('click',function(e){
+        	e.preventDefault();
+        	$(this).closest('.speed-test-button-section').addClass('section-d-none');
+        	$(this).closest('.speed-test-button-section').next('.speedtest-section').removeClass('section-d-none');
         });
         // End Review page ajax
 </script>

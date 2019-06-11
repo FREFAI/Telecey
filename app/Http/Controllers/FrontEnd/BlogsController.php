@@ -4,7 +4,7 @@ namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Admin\BlogsModel;
 use App\Models\Admin\SettingsModel;
 
 class BlogsController extends Controller
@@ -29,6 +29,7 @@ class BlogsController extends Controller
      */
     public function blogs()
     {
-        return view('FrontEnd.blogs');
+        $blogs = BlogsModel::orderBy('created_at','DESC')->paginate(10);
+        return view('FrontEnd.blogs',['blogs'=>$blogs]);
     }
 }

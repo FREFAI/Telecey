@@ -42,7 +42,7 @@
 
 	Route::get('/plans', 'FrontEnd\PlansController@plans');
 	Route::get('/devices', 'FrontEnd\DevicesController@devices');
-	Route::get('/blogs', 'FrontEnd\BlogsController@blogs');
+	Route::get('/blogs-list', 'FrontEnd\BlogsController@blogs');
 
 	Route::group(['middleware' => 'CustomerAuth'], function(){
 		Route::group(['middleware' => 'IpLocation'], function(){
@@ -80,6 +80,24 @@
 		Route::group(['middleware' => 'auth:admin'], function(){
 			Route::get('/dashboard', 'Admin\DashboardController@dashboard');
 			Route::get('/logout', 'Admin\LoginController@logout');
+
+			// Home content section
+
+				Route::get('/home-content', 'Admin\HomeController@index');
+				
+			// End Home content section
+
+			// Blog Section  
+
+				Route::get('/blogs', 'Admin\BlogsController@index');
+				Route::get('/addblog', 'Admin\BlogsController@addBlogForm');
+				Route::post('/addblog', 'Admin\BlogsController@addBlog');
+				Route::get('/editblog/{blogID}', 'Admin\BlogsController@editBlogForm');
+				Route::post('/editblog', 'Admin\BlogsController@editBlog');
+				Route::post('/deleteBlog', 'Admin\BlogsController@deleteBlog');
+
+			// End Blog Section 
+
 			// Settings Section
 				Route::get('/settings', 'Admin\SettingsController@allSetting');
 				Route::post('/settings', 'Admin\SettingsController@changeSetting');

@@ -279,71 +279,38 @@
 	    <section>
 	        <div class="container">
 	            <div class="row">
-	                <div class="col-lg-4">
-	                    <div class="blog-post">
-	                        <div class="post-thumb">
-	                            <a href="#">
-	                            	<img class="img-fluid" src="{{URL::asset('frontend/assets/img/blog/blog1.jpg')}}" alt="">
-	                            </a>
-	                            <div class="hover-wrap"></div>
-	                        </div>
-	                        <div class="post-content">
-	                            <div class="meta">
-	                                <span class="meta-part">
-	                                	<a href="#"><i class="lni-heart-filled"></i> 10</a>
-	                                </span>
-	                                <span class="meta-part">
-	                                	<a href="#"><i class="lni-comments-alt"></i> 1 Comments</a>
-	                            	</span>
-	                            </div>
-	                            <h2 class="post-title">
-	                            	<a href="single-post.html">Eum Iriure Dolor Duis Autem</a>
-	                            </h2>
-	                            <div class="entry-summary">
-	                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis soluta libero molestiae, id reiciendis ipsum consequuntur odit sapiente accusantium odio.</p>
-	                            </div>
-	                            <a href="single-post.html" class="btn btn-common">Read More</a>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="col-lg-4">
-	                    <div class="blog-post">
-	                        <div class="post-thumb">
-	                            <a href="#"><img class="img-fluid" src="{{URL::asset('frontend/assets/img/blog/blog2.jpg')}}" alt=""></a>
-	                            <div class="hover-wrap"></div>
-	                        </div>
-	                        <div class="post-content">
-	                            <div class="meta">
-	                                <span class="meta-part"><a href="#"><i class="lni-heart-filled"></i> 8</a></span>
-	                                <span class="meta-part"><a href="#"><i class="lni-comments-alt"></i> 3 Comments</a></span>
-	                            </div>
-	                            <h2 class="post-title"><a href="single-post.html">Eum Iriure Dolor Duis Autem</a></h2>
-	                            <div class="entry-summary">
-	                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis soluta libero molestiae, id reiciendis ipsum consequuntur odit sapiente accusantium odio.</p>
-	                            </div>
-	                            <a href="single-post.html" class="btn btn-common">Read More</a>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="col-lg-4">
-	                    <div class="blog-post">
-	                        <div class="post-thumb">
-	                            <a href="#"><img class="img-fluid" src="{{URL::asset('frontend/assets/img/blog/blog3.jpg')}}" alt=""></a>
-	                            <div class="hover-wrap"></div>
-	                        </div>
-	                        <div class="post-content">
-	                            <div class="meta">
-	                                <span class="meta-part"><a href="#"><i class="lni-heart-filled"></i> 13</a></span>
-	                                <span class="meta-part"><a href="#"><i class="lni-comments-alt"></i> 5 Comments</a></span>
-	                            </div>
-	                            <h2 class="post-title"><a href="single-post.html">Eum Iriure Dolor Duis Autem</a></h2>
-	                            <div class="entry-summary">
-	                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis soluta libero molestiae, id reiciendis ipsum consequuntur odit sapiente accusantium odio.</p>
-	                            </div>
-	                            <a href="single-post.html" class="btn btn-common">Read More</a>
-	                        </div>
-	                    </div>
-	                </div>
+	            	@if(count($blogs) > 0)
+	            		@foreach($blogs as $blog)
+			                <div class="col-lg-4">
+			                    <div class="blog-post home_post">
+			                        <div class="post-thumb">
+			                            <a href="#">
+			                            	<img class="img-fluid" src="{{URL::asset('blogs/resized')}}/{{$blog->blog_picture}}" alt="">
+			                            </a>
+			                            <div class="hover-wrap"></div>
+			                        </div>
+			                        <div class="post-content">
+			                            <!-- <div class="meta">
+			                                <span class="meta-part">
+			                                	<a href="#"><i class="lni-heart-filled"></i> 10</a>
+			                                </span>
+			                                <span class="meta-part">
+			                                	<a href="#"><i class="lni-comments-alt"></i> 1 Comments</a>
+			                            	</span>
+			                            </div> -->
+			                            <h2 class="post-title">
+			                            	<a href="single-post.html">{{$blog->title}}</a>
+			                            </h2>
+			                            <div class="entry-summary">
+			                                <p>{{substr(html_entity_decode(strip_tags($blog->blog_content)),0,150)}}</p>
+			                            </div>
+			                            <a href="single-post.html" class="btn btn-common">Read More</a>
+			                        </div>
+			                    </div>
+			                </div>
+		                @endforeach
+	                @endif
+	                
 	            </div>
 	        </div>
 	    </section> 

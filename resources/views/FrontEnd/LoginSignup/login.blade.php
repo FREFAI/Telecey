@@ -1,4 +1,5 @@
 @extends('layouts.frontend_layouts.loginsignup_layout')
+@section('title', 'Login')
 @section('content')
 
 	<!-- Content Start Here -->
@@ -6,7 +7,7 @@
 	        <form action="{{url('/signin')}}" method="post">
         		@csrf
 	            <div class="avatar text-center">
-	                <img src="frontend/assets/img/logo-telco-tales.png" alt="">
+	                <img src="{{URL::asset('frontend/assets/img/logo-telco-tales.png')}}" alt="">
 	            </div>
 	            <h2 class="text-center mt-5">Log In User</h2>
 	            
@@ -26,9 +27,9 @@
 	                    <a class="btn btn-primary social-login-btn social-facebook" href="{{url('/facebooklogin')}}"><i class="fa fa-facebook"></i></a>
 	                    <a class="btn btn-primary social-login-btn social-google" href="{{url('/googlelogin')}}"><i class="fa fa-google"></i></a>
 	            </div>
-	            <!-- <div class="check-bx mt-4">
-	                <input type="checkbox"> <span>Join this site’s community. <a href="#" class="text-primary">Read more</a> </span>
-	            </div> -->
+	            <div class="check-bx mt-4 text-center">
+	                <span><a href="{{url('/forgot-password')}}" class="text-primary">Forgotten password?</a> </span>
+	            </div>
 	        </form>
 		</div>
 	<!-- Content End Here -->

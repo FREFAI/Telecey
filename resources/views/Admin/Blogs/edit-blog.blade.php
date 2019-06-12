@@ -51,8 +51,13 @@
                                       <label for="imageUpload"><i class="fas fa-edit"></i></label>
                                   </div>
                                   <div class="avatar-preview">
+                                    @if($blog->blog_picture_original != "")
                                       <div id="imagePreview" style="background-image: url({{URL::asset('blogs/blog_original')}}/{{$blog->blog_picture_original}});">
                                       </div>
+                                    @else
+                                      <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                      </div>
+                                    @endif
                                   </div>
                               </div>
                         </div>

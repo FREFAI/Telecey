@@ -1,4 +1,5 @@
 @extends('layouts.frontend_layouts.frontend')
+@section('title', 'Devices')
 @section('content')
 
 	<!-- Content Start Here -->

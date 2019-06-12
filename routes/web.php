@@ -28,6 +28,19 @@
 		Route::get('/emailsignup', function () {
 		    return view('FrontEnd.LoginSignup.emailsignup');
 		});
+
+		// Forgot password
+
+		Route::get('/forgot-password', function () {
+		    return view('FrontEnd.LoginSignup.forgotpassword');
+		});
+
+		Route::post('/forgot-password', 'FrontEnd\LoginSignup\ForgotPasswordController@sendEmail');
+		Route::get('/resetPassword/{token}', 'FrontEnd\LoginSignup\ForgotPasswordController@setPasswordForm');
+		Route::post('/resetPassword', 'FrontEnd\LoginSignup\ForgotPasswordController@setPassword');
+		
+		// Forgot password
+
 		Route::post('/emailsignup', 'FrontEnd\LoginSignup\RegisterController@registerUser');
 		// Google login
 		Route::get('/googlelogin', 'FrontEnd\LoginSignup\SocialAuthGoogleController@redirect');
@@ -93,6 +106,7 @@
 				Route::get('/addblog', 'Admin\BlogsController@addBlogForm');
 				Route::post('/addblog', 'Admin\BlogsController@addBlog');
 				Route::get('/editblog/{blogID}', 'Admin\BlogsController@editBlogForm');
+				Route::get('/single-blog/{blogID}', 'Admin\BlogsController@viewBlog');
 				Route::post('/editblog', 'Admin\BlogsController@editBlog');
 				Route::post('/deleteBlog', 'Admin\BlogsController@deleteBlog');
 

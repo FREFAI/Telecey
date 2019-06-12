@@ -1,11 +1,12 @@
 @extends('layouts.frontend_layouts.loginsignup_layout')
+@section('title', 'Sign up')
 @section('content')
 
 	<!-- Content Start Here -->
 		<div class="login-form">
             <form action="#" method="post">
                 <div class="avatar text-center">
-                        <img src="frontend/assets/img/logo-telco-tales.png" alt="">
+                        <img src="{{URL::asset('frontend/assets/img/logo-telco-tales.png')}}" alt="">
                 </div>
                 <h2 class="text-center mt-5">Sign Up</h2>
                 <h5 class="text-center mt-1 mb-4">Already a member? <a href="{{url('/signin')}}" class="text-primary"> Log In</a></h5>

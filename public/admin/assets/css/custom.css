@@ -61,3 +61,18 @@ span.toggle_label {
 }
 
 /*End Image preview*/
+/*Single blog page */
+.post_image_single{
+  width: 100%;
+}
+.post_image_single img{
+  width: 100%;
+}
+.post_title_single h1{
+  width: 50%;
+  margin:0 auto !important;
+}
+.post_title_single small{
+  text-decoration: underline;
+}
+/*End Single blog page */

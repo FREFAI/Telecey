@@ -5,7 +5,7 @@
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Teleco Tales</title>
+        <title>Teleco Tales - @yield('title')</title>
         <link rel="icon" href="{{URL::asset('frontend/assets/img/logo-telco-tales.png')}}" type="image/gif" sizes="16x16">
         <!-- CSS Section Include -->
             @include('layouts.frontend_layouts.allcss')

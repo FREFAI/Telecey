@@ -1,4 +1,5 @@
 @extends('layouts.frontend_layouts.frontend')
+@section('title', 'Plans')
 @section('content')
 	<!-- Content Start Here -->
 		<div class="page-header inner-page" style="background: url({{URL('frontend/assets/img/background-img.png')}});">

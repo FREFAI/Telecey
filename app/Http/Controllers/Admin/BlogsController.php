@@ -43,7 +43,7 @@ class BlogsController extends Controller
 	            $destinationPath = public_path('/blogs/resized');
 	            $perameters['blog_picture'] = time().'_blog_resized.'.$fileext;                
 
-	            $image_resize = Image::make($image->getRealPath())->resize(540, 252, function($constraint) {
+	            $image_resize = Image::make($image->getRealPath())->fit(540, 252, function($constraint) {
 	                    $constraint->aspectRatio();
 	                    $constraint->upsize();
 	                    });              
@@ -104,7 +104,7 @@ class BlogsController extends Controller
 		            $destinationPath = public_path('/blogs/resized');
 		            $perameters['blog_picture'] = time().'_blog_resized.'.$fileext;                
 
-		            $image_resize = Image::make($image->getRealPath())->resize(540, 252, function($constraint) {
+		            $image_resize = Image::make($image->getRealPath())->fit(540, 252, function($constraint) {
 		                    $constraint->aspectRatio();
 		                    $constraint->upsize();
 		                    });              
@@ -131,6 +131,14 @@ class BlogsController extends Controller
             }
            
 		}
+    }
+
+
+    public function viewBlog(Request $request,$id)
+    {
+        $id = base64_decode($id);
+        $blog = BlogsModel::find($id);
+        return view('Admin.Blogs.view-blog',['blog'=>$blog]);
     }
     public function deleteBlog(Request $request)
     {

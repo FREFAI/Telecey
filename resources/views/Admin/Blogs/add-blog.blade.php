@@ -50,7 +50,7 @@
                                   <label for="imageUpload"><i class="fas fa-edit"></i></label>
                               </div>
                               <div class="avatar-preview">
-                                  <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+                                  <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
                                   </div>
                               </div>
                           </div>

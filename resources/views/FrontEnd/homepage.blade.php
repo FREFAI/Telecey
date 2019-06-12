@@ -1,4 +1,5 @@
 @extends('layouts.frontend_layouts.frontend')
+@section('title', 'Home')
 @section('content')
 
 	<!-- Content Start Here -->
@@ -285,7 +286,11 @@
 			                    <div class="blog-post home_post">
 			                        <div class="post-thumb">
 			                            <a href="#">
-			                            	<img class="img-fluid" src="{{URL::asset('blogs/resized')}}/{{$blog->blog_picture}}" alt="">
+			                            	@if($blog->blog_picture != "")
+			                            	<img alt="{{$blog->blog_picture}}" src="{{URL::asset('blogs/resized')}}/{{$blog->blog_picture}}" class="img-fluid">
+			                            	@else
+			                            	<img alt="{{$blog->blog_picture}}" src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" class="img-fluid">
+			                            	@endif
 			                            </a>
 			                            <div class="hover-wrap"></div>
 			                        </div>
@@ -304,7 +309,7 @@
 			                            <div class="entry-summary">
 			                                <p>{{substr(html_entity_decode(strip_tags($blog->blog_content)),0,150)}}</p>
 			                            </div>
-			                            <a href="single-post.html" class="btn btn-common">Read More</a>
+			                            <a href="javascript:void(0);" class="btn btn-common">Read More</a>
 			                        </div>
 			                    </div>
 			                </div>

@@ -1,4 +1,5 @@
 @extends('layouts.frontend_layouts.frontend')
+@section('title', 'Profile')
 @section('content')
 <style type="text/css">
 	.profile{

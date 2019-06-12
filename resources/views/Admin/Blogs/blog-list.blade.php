@@ -38,6 +38,7 @@
                        <th scope="col" style="width: 10px;">Sr.No</th>
                        <th scope="col" class="text-center" style="width: 30px;"><i class="ni ni-image"></i></th>
                        <th scope="col" class="text-center">Title</th>
+                       <th scope="col" class="text-center">Date</th>
                        <th scope="col" class="text-right">Action</th>
                      </tr>
                    </thead>
@@ -54,7 +55,11 @@
                                <th scope="row" class="text-center">
                                     <div class="media align-items-center">
                                         <a href="#" class="avatar rounded-circle mr-3">
+                                          @if($blog->blog_picture != "")
                                           <img alt="{{$blog->blog_picture}}" src="{{URL::asset('blogs/resized')}}/{{$blog->blog_picture}}" class="h-100">
+                                          @else
+                                          <img alt="{{$blog->blog_picture}}" src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" class="h-100">
+                                          @endif
                                         </a>
                                     </div>
                                 </th>
@@ -63,7 +68,15 @@
                                       <span class="mb-0 text-sm">{{$blog->title}}</span>
                                   </div>
                                 </td>
+                                <td class="text-center">
+                                  <div class="media-body">
+                                      <span class="mb-0 text-sm">{{date("M d, Y", strtotime($blog->created_at))}}</span>
+                                  </div>
+                                </td>
                                <td class="text-right">
+                                 <a class="btn btn-icon btn-2 btn-primary btn-sm" href="{{url('/admin/single-blog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="View">
+                                   <span class="btn-inner--icon"><i class="fas fa-eye"></i></span>
+                                 </a>
                                  <a class="btn btn-icon btn-2 btn-info btn-sm" href="{{url('/admin/editblog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="Edit">
                                    <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                                  </a>

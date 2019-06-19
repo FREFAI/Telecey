@@ -11,7 +11,8 @@ use App\Models\FrontEnd\ServiceRating;
 use App\Models\Admin\Provider;
 use App\Models\Admin\ServiceType;
 use App\User;
-use App\Countries;
+use App\Currency;
+use App\CountriesModel;
 use Auth;
 
 class ReviewsController extends Controller
@@ -54,6 +55,7 @@ class ReviewsController extends Controller
             if($ip == 'live'){
                 $ip = $_SERVER['REMOTE_ADDR'];
             }else{
+                // $ip = '2606:4580:2:0:a974:e358:829c:412e';
                 $ip = '122.173.214.129';
             }
             // $ip = '96.46.34.142';
@@ -88,13 +90,22 @@ class ReviewsController extends Controller
         }
         $usersDetailSession = $request->session()->get('usersDetail');
         $usersDetail = User::find($user_id); 
-        $usersDetail->country_code = $usersDetailSession['country_code'];
         if($usersDetail->country == ""){
             if(array_key_exists('country', $usersDetailSession)){
                 $usersDetail->country = $usersDetailSession['country'];
+                $usersDetail->country_code = $usersDetailSession['country_code'];
             }else{
                 $usersDetail->country = null;
+                $usersDetail->country_code =$usersDetailSession['country_code'];
             }
+        }else{
+            $countrycode = CountriesModel::where('name',$usersDetail->country)->first();
+            if($countrycode){
+                $usersDetail->country_code = $countrycode->code;
+            }else{
+                $usersDetail->country_code = 'CA';
+            }
+
         }
         if($usersDetail->city == ""){
             if(array_key_exists('city', $usersDetailSession)){
@@ -115,7 +126,7 @@ class ReviewsController extends Controller
         // exit;
         $settings = SettingsModel::first();
         $providers = Provider::get();
-        $countries = Countries::get();
+        $countries = Currency::get();
         $service_types = ServiceType::get();
 
         return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries]);
@@ -148,6 +159,11 @@ class ReviewsController extends Controller
         $input = $request->all();
         if(!array_key_exists('contract_type', $input)){
             $input['contract_type'] = "1";
+        }
+        if(!array_key_exists('payment_type', $input)){
+            $input['payment_type'] = "postpaid";
+        }else{
+            $input['payment_type'] = "prepaid";
         }
         $validation = Validator::make($input, [
             'provider_id' => 'required',
@@ -206,5 +222,18 @@ class ReviewsController extends Controller
             return json_encode($message);
         }
         
+    }
+    public function getCountry(Request $request)
+    {
+
+        $perameters = $request->all();
+        $countries = CountriesModel::orderBy('name','DESC')->where('name', 'LIKE', '%'. $perameters['search']. '%')->select('name','code')->get();
+        if(count($countries)>0){
+            $message = array('success'=>true,'data'=>$countries);
+            return json_encode($message);
+        }else{
+            $message = array('success'=>false,'message'=>"Somthing went wrong!");
+            return json_encode($message);
+        }
     }
 }

@@ -35,7 +35,8 @@ class PlansController extends Controller
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
         }else{
-            $ip = '122.173.84.243';
+            $ip = '2606:4580:2:0:a974:e358:829c:412e';
+            // $ip = '122.173.84.243';
         }
         // $ip = '96.46.34.142';
         $data = \Location::get($ip);

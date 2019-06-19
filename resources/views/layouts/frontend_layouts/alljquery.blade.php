@@ -16,10 +16,77 @@
 <script src="{{URL::asset('frontend/jsplugins/statr_rating/rater.js')}}"></script>
 <!-- Toster JS -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script>
+<script src="{{URL::asset('frontend/jsplugins/jsvalidation/jquery.form.js')}}"></script>
+<script src="{{URL::asset('frontend/jsplugins/jsvalidation/jquery.validate.js')}}"></script>
+<script src="{{URL::asset('frontend/jsplugins/jquery.city-autocomplete.js')}}"></script>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&language=en"></script>
+
+
+  <script>
+    $('input#city').cityAutocomplete();
+    $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo('#country_div');
+    $('#country_div input').keyup(function(){
+        var search = $(this).val();
+        if(window.location.protocol == "http:"){
+            resuesturl = "{{url('/getCountry')}}"
+        }else if(window.location.protocol == "https:"){
+            resuesturl = "{{secure_url('/getCountry')}}"
+        }
+        $.ajax({
+          type: "post",
+          url: resuesturl,
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          dataType:'json',
+          data: {
+              'search':search
+          },
+          success: function (data) {
+              if(data.success){
+                $('.country_list').css('display','block');
+                $('.country-autocomplete').html('');
+                var resp = $.map(data.data,function(obj){
+                    $('.country-autocomplete').append('<li><a href="javascript:void(0);" data-name="'+obj.name+'" data-code="'+obj.code+'">'+obj.name+'</a></li>');
+               }); 
+    
+              }
+          }         
+      });
+    });
+
+    $(document).on('click','.country-autocomplete li',function(){
+        $('#country').val($(this).find('a').attr('data-name'));
+        $('#city').attr('data-country',$(this).find('a').attr('data-code'));
+        $('.country_list').css('display','none');
+        setTimeout(function(){
+            $('input#city').cityAutocomplete();
+        },500);
+    });
+
+
+
+
+  $("#firstform").validate();
+  $(".reveiewing_form_service").validate({
+    rules: {
+        price: {
+          required: true,
+          number: true
+        }
+      }
+  });
   $(".rating").rate({
     // readonly:true
   });
+  $('.mint_input').focusout(function(){
+    var mintval = $(this).val();
+    if(mintval != "Unlimited" && local_min != "unlimited" && $.isNumeric(mintval) != true){
+      $(this).val('');
+    }
+  });
+
   var count = 0;
   var coverage_count = 0;
   var service_stability_count = 0;
@@ -203,7 +270,7 @@
                     thisform.closest('.intro-section').addClass('section-d-none');
                     $('.service-detail').removeClass('section-d-none');
                   }else{
-                    toastr.error('Add detail', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+                    // toastr.error('Add detail', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
                   }
               }         
           });
@@ -216,7 +283,7 @@
           var provider_status = $('.provider_status').val();
           var contract_type = $('.contract_type:checked').val();
           var price = $('.price').val();
-          var payment_type = $('.payment_type').val();
+          var payment_type = $('.payment_type:checked').val();
           var service_type = $('.service_type').val();
           var local_min = $('.local_min').val();
           var datavolume = $('.datavolume').val();
@@ -226,6 +293,27 @@
           var data_speed = $('.data_speed').val();
           var currency_id = $('.currency_id').val();
           var sms = $('.sms').val();
+
+          if(local_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(local_min) != true){
+           return;
+          }
+          if(long_distance_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(long_distance_min) != true){
+           return;
+          }
+          if(international_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(international_min) != true){
+           return;
+          }
+          if(roaming_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(roaming_min) != true){
+           return;
+          }
+          if(data_speed != "Unlimited" && local_min != "unlimited" && $.isNumeric(data_speed) != true){
+           return;
+          }
+          if(sms != "Unlimited" && local_min != "unlimited" && $.isNumeric(sms) != true){
+           return;
+          }
+
+
           if(window.location.protocol == "http:"){
               resuesturl = "{{url('/reviewService')}}"
           }else if(window.location.protocol == "https:"){
@@ -260,7 +348,7 @@
                     reviewform.closest('.service_form_section').addClass('section-d-none');
                     $('.services-rating-section').removeClass('section-d-none');
                   }else{
-                    toastr.error('Add detail', data.message , {displayDuration:3000,position: 'top-right'});
+                    // toastr.error('Add detail', data.message , {displayDuration:3000,position: 'top-right'});
                   }
               }         
           });
@@ -277,6 +365,34 @@
           var voice_quality = $('.voice_quality').rate('getValue');
           var service_id = $('.service_id').val();
           var average = $('.average_input').val();
+
+          if(parseFloat(coverage) > 0){
+            coverage_count = 1;
+          }
+          if(parseFloat(service_stability) > 0){
+            service_stability_count = 1;
+          }
+          if(parseFloat(billing_payment) > 0){
+            billing_payment_count = 1;
+          }
+          if(parseFloat(data_speed) > 0){
+            data_speed_count = 1;
+          }
+          if(parseFloat(service_waiting) > 0){
+            service_waiting_count = 1;
+          }
+          if(parseFloat(voice_quality) > 0){
+            voice_quality_count = 1;
+          }
+          count = parseInt(coverage_count) + parseInt(service_stability_count) + parseInt(billing_payment_count) + parseInt(data_speed_count) + parseInt(service_waiting_count) + parseInt(voice_quality_count);
+          if(count != 6){
+            $('.starrating_error').removeClass('d-none');
+            setTimeout(function(){
+              $('.starrating_error').addClass('d-none');
+            },3000);
+            return false;
+          }
+
           if(window.location.protocol == "http:"){
               resuesturl = "{{url('/ratingService')}}"
           }else if(window.location.protocol == "https:"){
@@ -308,7 +424,7 @@
                     ratingform.closest('.services-rating-section').next('.speed-test-button-section').removeClass('section-d-none');
                     
                   }else{
-                    toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
+                    // toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
                   }
               }         
           });
@@ -320,4 +436,23 @@
         	$(this).closest('.speed-test-button-section').next('.speedtest-section').removeClass('section-d-none');
         });
         // End Review page ajax
+
+        $('.plan_page .switch input').on('change',function(){
+          if($(this).prop("checked") == true){
+            $(this).closest('.plan_page .switch').prev('.toggle_label').removeClass('active');
+            $(this).closest('.plan_page .switch').next('.toggle_label').addClass('active');
+          }else{
+            $(this).closest('.plan_page .switch').next('.toggle_label').removeClass('active');
+            $(this).closest('.plan_page .switch').prev('.toggle_label').addClass('active');
+          }
+        });
+        $('.review_page .switch input').on('change',function(){
+          if($(this).prop("checked") == true){
+            $(this).closest('.review_page .switch').prev('.reviewpage_toggle').removeClass('active');
+            $(this).closest('.review_page .switch').next('.reviewpage_toggle').addClass('active');
+          }else{
+            $(this).closest('.review_page .switch').next('.reviewpage_toggle').removeClass('active');
+            $(this).closest('.review_page .switch').prev('.reviewpage_toggle').addClass('active');
+          }
+        });
 </script>

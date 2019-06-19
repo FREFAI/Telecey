@@ -16,8 +16,8 @@
 	                            <div class="row align-items-center justify-content-center">
 	                            	@if($filtersetting->personal_business_setting == 1)
 	                                <div class="col-md-2 pt-3 pl-0 pr-1">
-	                                    <div class="form-group ">
-	                                    	<span class="toggle_label">Personal</span>
+	                                    <div class="form-group plan_page">
+	                                    	<span class="toggle_label active">Personal</span>
 	                                    	<label class="switch">
 	                                    	  <input type="checkbox" id="personal">
 	                                    	  <span class="slider"></span>
@@ -28,8 +28,8 @@
 	                                @endif
 	                                @if($filtersetting->postpaid_prepaid_setting == 1)
 	                                <div class="col-md-2 pt-3 pl-0 pr-1">
-	                                    <div class="form-group">
-	                                    	<span class="toggle_label">Postpaid</span>
+	                                    <div class="form-group plan_page">
+	                                    	<span class="toggle_label active">Postpaid</span>
 	                                    	<label class="switch">
 	                                    	  <input type="checkbox">
 	                                    	  <span class="slider"></span>
@@ -40,8 +40,8 @@
 	                                @endif
 	                                @if($filtersetting->mobile_home_setting == 1)
 	                                <div class="col-md-3 pt-3 pl-0 pr-1">
-	                                    <div class="form-group">
-	                                    	<span class="toggle_label">Mobile Plan</span>
+	                                    <div class="form-group plan_page">
+	                                    	<span class="toggle_label active">Mobile Plan</span>
 	                                    	<label class="switch">
 	                                    	  <input type="checkbox">
 	                                    	  <span class="slider"></span>
@@ -52,7 +52,7 @@
 	                                @endif
 	                                @if($filtersetting->unlimited_calls_setting == 1)
 	                                <div class="col-md-3 pt-3 pl-0 pr-1">
-	                                    <div class="form-group">
+	                                    <div class="form-group plan_page">
 	                                    	<span class="toggle_label">Unlimited Calls</span>
 	                                    	<label class="switch">
 	                                    	  <input type="checkbox" checked="" onclick="myFunction()" id="unlimited">
@@ -340,7 +340,7 @@
 		</div>
 	<!-- Content End Here -->
 	<script>
-		
+
 	function initMap() {
 	    var input = document.getElementById('searchMapInput');
 	  

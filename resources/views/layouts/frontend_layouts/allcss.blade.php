@@ -18,3 +18,4 @@
 
 <!-- Toster CSS -->
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="{{URL::asset('frontend/jsplugins/city-autocomplete.css')}}"/>

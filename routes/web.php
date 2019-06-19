@@ -59,6 +59,9 @@
 
 	Route::group(['middleware' => 'CustomerAuth'], function(){
 		Route::group(['middleware' => 'IpLocation'], function(){
+
+
+			Route::post('/getCountry', 'FrontEnd\ReviewsController@getCountry');
 			Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
 			Route::post('/reviewsDetail', 'FrontEnd\ReviewsController@reviewsDetail');
 			Route::post('/reviewService', 'FrontEnd\ReviewsController@reviewService');

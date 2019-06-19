@@ -2,6 +2,7 @@
 @section('title', 'Reviews')
 @section('content')
 
+
 	<!-- Content Start Here -->
 		<div class="page-header inner-page start-page" style="background: url({{URL::asset('frontend/assets/img/bg-1.jpeg')}});">
 		    <div class="container-fluid">
@@ -63,12 +64,12 @@
 	                                    <input id="lastname" class="input-text js-input" type="text" required value="{{$usersDetail->lastname}}" name="lastname">
 	                                    <label class="label" for="name">Last Name</label>
 	                                </div>
-	                                <div class="form-field col-lg-6">
-	                                    <input id="country" class="input-text js-input" type="text" value="{{$usersDetail->country}}" name="country">
+	                                <div class="form-field col-lg-6" id="country_div">
+	                                    <input id="country" class="input-text js-input" type="text" value="{{$usersDetail->country}}" name="country" autocomplete="off">
 	                                    <label class="label" for="name">Country</label>
 	                                </div>
-	                                <div class="form-field col-lg-6">
-	                                    <input id="city" class="input-text js-input" type="text" value="{{$usersDetail->city}}" name="city">
+	                                <div class="form-field col-lg-6 city_div" id="city_div">
+	                                    <input id="city" class="input-text js-input" type="text" value="{{$usersDetail->city}}" name="city"  autocomplete="off" data-country="{{$usersDetail->country_code}}">
 	                                    <label class="label" for="name">City</label>
 	                                </div>
 	                                <div class="form-field col-lg-12 ">
@@ -76,7 +77,7 @@
 	                                    <label class="label" for="email">E-mail</label>
 	                                </div>
 	                                <div class="form-field col-lg-12 ">
-	                                        <input id="postal_code" class="input-text js-input" type="number" value="{{$usersDetail->postal_code}}" name="postal_code">
+	                                        <input id="postal_code" class="input-text js-input" type="text" value="{{$usersDetail->postal_code}}" name="postal_code">
 	                                        <label class="label" for="number">Postal Code</label>
 	                                    </div>
 	                                <div class="form-field col-lg-12 ">
@@ -324,9 +325,9 @@
 	                            <div class="col-lg-6 ">
 	                             	<h5>Contract type</h5>
 	                                <div class="row align-items-center">
-	                                    <div class="col-lg-12 pl-0 pt-3">
-                                            <div class="form-group ">
-                                                <span class="ext-default reviewpage_toggle">Personal</span>
+	                                    <div class="col-lg-12 pt-3">
+                                            <div class="form-group review_page">
+                                                <span class="ext-default reviewpage_toggle active">Personal</span>
                                                 <label class="switch">
                                                   <input type="checkbox" id="personal" class="contract_type" name="contract_type" value="2">
                                                   <span class="slider"></span>
@@ -359,24 +360,26 @@
                                                 @endif
                                             @endforeach
                                         </select>
-	                                    <input type="number" class="form-control price-box price" name="price" placeholder="Price" >		
+	                                    <input type="text" class="form-control price-box price" name="price" placeholder="Price" required>		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6">
 	                                <h5>Payment type</h5>
-	                                <div class="tg-select form-control">
-	                                    <select class="payment_type" name="payment_type">
-	                                        <option value="postpaid" selected="">Postpaid</option>
-	                                        <option value="prepaid">Prepaid</option>
-	                                    </select>
-	                                </div>
+                                    <div class="form-group review_page">
+                                        <span class="ext-default reviewpage_toggle active">Postpaid</span>
+                                        <label class="switch">
+                                          <input type="checkbox" id="payment_type" class="payment_type" name="payment_type">
+                                          <span class="slider"></span>
+                                        </label>
+                                        <span class="text-default reviewpage_toggle">Prepaid</span>
+                                    </div>
 	                            </div>
 	                        </div>
 	                        <div class="row">
 	                            <div class="col-lg-6">
 	                                <h5>Service type</h5>
 	                                <div class="tg-select form-control">
-	                                    <select class="service_type">
+	                                    <select class="service_type" required>
 	                                    	<option value="">Select service type</option>
                                             @if(count($service_types) > 0)
                                                 @foreach($service_types as $type)
@@ -391,31 +394,31 @@
 	                            <div class="col-lg-6 ">
 	                                <h5>Local Mintue</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control local_min" name="local_min" placeholder="Local Min" required="required"  maxlength="20">		
+	                                    <input type="text" class="form-control local_min mint_input" name="local_min" placeholder="Local Min" required="required"  maxlength="20" value="Unlimited">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 ">
 	                                <h5>DataVolume</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control datavolume" name="datavolume" placeholder="DataVolume" required="required" maxlength="20">		
+	                                    <input type="text" class="form-control datavolume" name="datavolume" placeholder="DataVolume" required="required" maxlength="20" value="2 GB">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 ">
 	                                <h5>Long distance  Mintue</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control long_distance_min" name="long_distance_min" placeholder="Long distance  Min" required="required" value="Unlimited" maxlength="20">		
+	                                    <input type="text" class="form-control long_distance_min mint_input" name="long_distance_min" placeholder="Long distance  Min" required="required" value="Unlimited" maxlength="20">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 ">
 	                                <h5>International Mintue</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control international_min" name="international_min" placeholder="International Min" required="required" maxlength="20">		
+	                                    <input type="text" class="form-control international_min mint_input" name="international_min" placeholder="International Min" required="required" maxlength="20" value="0">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 ">
 	                                <h5>Roaming Mintue</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control roaming_min" name="roaming_min" placeholder="Roaming Min" required="required" maxlength="20">		
+	                                    <input type="text" class="form-control roaming_min mint_input" name="roaming_min" placeholder="Roaming Min" required="required" maxlength="20">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 ">
@@ -427,7 +430,7 @@
 	                            <div class="col-lg-6 ">
 	                                <h5>SMS</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control sms" name="sms" placeholder="SMS" required="required" value="Unlimited" maxlength="20">		
+	                                    <input type="text" class="form-control sms mint_input" name="sms" placeholder="SMS" required="required" value="Unlimited" maxlength="20">		
 	                                </div>
 	                            </div>
 	                        </div>
@@ -449,6 +452,11 @@
 	               		        <h1 class="section-title">Rating</h1>
 	               		    </div>
 	               		</div>
+                        <div class="row starrating_error d-none">
+                            <div class="error">
+                                All rating rows are required.
+                            </div>
+                        </div>
 	               		<div class="row">
 	               		    <div class="col-lg-6">
 	               		        <div class="">
@@ -582,7 +590,10 @@
 		    </div>
 		</section>
 	<!-- Content End Here -->
-	<script>
+
+<script>
+        
+
 	    function add(ths,sno){
 	        for (var i=1;i<=5;i++){
 	            var cur=document.getElementById("star"+i)
@@ -597,6 +608,8 @@
 	            }
 	        }
 	    }
+       
+
 	</script>
 
 @endsection

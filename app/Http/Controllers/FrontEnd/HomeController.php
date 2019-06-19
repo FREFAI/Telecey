@@ -45,8 +45,8 @@ class HomeController extends Controller
                         ->join('service_ratings','service_ratings.service_id','=','service_reviews.id')
                         ->join('providers','providers.id','=','service_reviews.provider_id')
                         ->join('service_types','service_types.id','=','service_reviews.service_type')
-                        ->leftJoin('countries','countries.id','=','service_reviews.currency_id')
-                        ->select('service_reviews.*','service_reviews.created_at as review_date','service_reviews.data_speed as data_review_rate','service_ratings.*','service_ratings.data_speed as data_speed_rating','providers.provider_name','providers.status','service_types.service_type_name','service_types.status as service_type_status','countries.currency_name','countries.currency_symbol as symbol','countries.currency_code as c_code')
+                        ->leftJoin('currencies','currencies.id','=','service_reviews.currency_id')
+                        ->select('service_reviews.*','service_reviews.created_at as review_date','service_reviews.data_speed as data_review_rate','service_ratings.*','service_ratings.data_speed as data_speed_rating','providers.provider_name','providers.status','service_types.service_type_name','service_types.status as service_type_status','currencies.currency_name','currencies.currency_symbol as symbol','currencies.currency_code as c_code')
                         ->orderBy('service_reviews.created_at','DESC')
                         ->get();
         // echo "<pre>";

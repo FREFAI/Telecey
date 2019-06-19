@@ -70,7 +70,13 @@
 					  	                <h4 class="panel-title display-inline">
 					  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$service->id}}" aria-expanded="true" aria-controls="collapse{{$service->id}}" class="accordion_btn">
 					  	                        <i class="more-less glyphicon glyphicon-plus"></i>
-					  	                        Provider Name : &nbsp;{{$service->provider_name}}
+					  	                        <ul class="inline_list">
+					  	                        	<li><b>Provider Name</b> : &nbsp;{{$service->provider_name}}</li>
+					  	                        	<li><b>Service Type</b> : &nbsp;{{$service->service_type_name}}</li>
+					  	                        	<li><b>Price</b> : &nbsp;&nbsp;{{$service->c_code}}&nbsp;{{$service->price}}</li>
+					  	                        </ul>
+					  	                        
+					  	                        
 					  	                    </a>
 					  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$service->id}}" aria-expanded="true" aria-controls="collapse{{$service->id}}" class="accordion_btn text-right">
 					  	                    	@if($service->status == 1)

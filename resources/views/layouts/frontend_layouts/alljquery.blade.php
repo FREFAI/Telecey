@@ -82,7 +82,7 @@
   });
   $('.mint_input').focusout(function(){
     var mintval = $(this).val();
-    if(mintval != "Unlimited" && local_min != "unlimited" && $.isNumeric(mintval) != true){
+    if(mintval != "Unlimited" && mintval != "unlimited" && $.isNumeric(mintval) != true){
       $(this).val('');
     }
   });
@@ -297,19 +297,19 @@
           if(local_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(local_min) != true){
            return;
           }
-          if(long_distance_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(long_distance_min) != true){
+          if(long_distance_min != "Unlimited" && long_distance_min != "unlimited" && $.isNumeric(long_distance_min) != true){
            return;
           }
-          if(international_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(international_min) != true){
+          if(international_min != "Unlimited" && international_min != "unlimited" && $.isNumeric(international_min) != true){
            return;
           }
-          if(roaming_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(roaming_min) != true){
+          if(roaming_min != "Unlimited" && roaming_min != "unlimited" && $.isNumeric(roaming_min) != true){
            return;
           }
-          if(data_speed != "Unlimited" && local_min != "unlimited" && $.isNumeric(data_speed) != true){
+          if(data_speed != "Unlimited" && data_speed != "unlimited" && $.isNumeric(data_speed) != true){
            return;
           }
-          if(sms != "Unlimited" && local_min != "unlimited" && $.isNumeric(sms) != true){
+          if(sms != "Unlimited" && sms != "unlimited" && $.isNumeric(sms) != true){
            return;
           }
 

@@ -24,6 +24,7 @@
 
 
   <script>
+    
     $('input#city').cityAutocomplete();
     $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo('#country_div');
     $('#country_div input').keyup(function(){
@@ -69,6 +70,18 @@
 
 
   $("#firstform").validate();
+  $("#overage_price_form").validate({
+    rules: {
+        overage_price: {
+          required: true,
+          number: true
+        },
+        data_over_age: {
+          required: true,
+          number: true
+        }
+      }
+  });
   $(".reveiewing_form_service").validate({
     rules: {
         price: {
@@ -284,7 +297,10 @@
           var contract_type = $('.contract_type:checked').val();
           var price = $('.price').val();
           var payment_type = $('.payment_type:checked').val();
+          var overage_price = $('#overage_price:checked').val();
           var service_type = $('.service_type').val();
+          var voice_price = $('#voice_overage_price').val();
+          var data_price = $('#data_over_age').val();
           var local_min = $('.local_min').val();
           var datavolume = $('.datavolume').val();
           var long_distance_min = $('.long_distance_min').val();
@@ -293,7 +309,6 @@
           var data_speed = $('.data_speed').val();
           var currency_id = $('.currency_id').val();
           var sms = $('.sms').val();
-
           if(local_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(local_min) != true){
            return;
           }
@@ -319,6 +334,9 @@
           }else if(window.location.protocol == "https:"){
               resuesturl = "{{secure_url('/reviewService')}}"
           }
+          // console.log('overage_price=>',overage_price);
+          // console.log('voice_price=>',voice_price);
+          // console.log('data_price=>',data_price);
           $.ajax({
               type: "post",
               url: resuesturl,
@@ -340,7 +358,10 @@
                 'roaming_min': roaming_min,
                 'data_speed': data_speed,
                 'sms':sms,
-                'currency_id':currency_id 
+                'currency_id':currency_id,
+                'overage_price':overage_price,
+                'voice_price':voice_price,
+                'data_price':data_price
               },
               success: function (data) {
                   if(data.success){
@@ -365,7 +386,7 @@
           var voice_quality = $('.voice_quality').rate('getValue');
           var service_id = $('.service_id').val();
           var average = $('.average_input').val();
-
+          var comment = $('#comment').val();
           if(parseFloat(coverage) > 0){
             coverage_count = 1;
           }
@@ -414,6 +435,7 @@
                 'voice_quality': voice_quality,
                 'service_id':service_id,
                 'rating_average':average,
+                'comment':comment
               },
               success: function (data) {
                   if(data.success){
@@ -446,7 +468,7 @@
             $(this).closest('.plan_page .switch').prev('.toggle_label').addClass('active');
           }
         });
-        $('.review_page .switch input').on('change',function(){
+        $(document).on('change','.review_page .switch input',function(){
           if($(this).prop("checked") == true){
             $(this).closest('.review_page .switch').prev('.reviewpage_toggle').removeClass('active');
             $(this).closest('.review_page .switch').next('.reviewpage_toggle').addClass('active');

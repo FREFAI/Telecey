@@ -11,7 +11,15 @@ use Auth,Mail;
 
 class ForgotPasswordController extends Controller
 {
- 
+    public function forgotPasswordForm(Request $request)
+    {
+        if(!Auth::guard('customer')->check()){
+            return view('FrontEnd.LoginSignup.forgotpassword');
+        }else{
+            return redirect('profile');
+        }
+        
+    }
     public function sendEmail(Request $request)
     {
         $input = $request->all();
@@ -45,10 +53,14 @@ class ForgotPasswordController extends Controller
     public function setPasswordForm($token)
     {
         $ifexist = User::where('password_reset',$token)->first();
-        if($ifexist){
-            return view('FrontEnd.LoginSignup.resetpassword_form',['token'=>$token]);
+        if(!Auth::guard('customer')->check()){
+            if($ifexist){
+                return view('FrontEnd.LoginSignup.resetpassword_form',['token'=>$token]);
+            }else{
+                return redirect('/signin');
+            }
         }else{
-            return redirect('/signin');
+            return redirect('profile');
         }
     }
     public function setPassword(Request $request)

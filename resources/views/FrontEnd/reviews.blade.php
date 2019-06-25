@@ -2,7 +2,15 @@
 @section('title', 'Reviews')
 @section('content')
 
-
+<style type="text/css">
+    .overage_price {
+        background-color: #ffffff;
+    }
+    #overage_price_model{
+        z-index: 999999;
+        background-color: #00000052;
+    }
+</style>
 	<!-- Content Start Here -->
 		<div class="page-header inner-page start-page" style="background: url({{URL::asset('frontend/assets/img/bg-1.jpeg')}});">
 		    <div class="container-fluid">
@@ -433,6 +441,19 @@
 	                                    <input type="text" class="form-control sms mint_input" name="sms" placeholder="SMS" required="required" value="Unlimited" maxlength="20">		
 	                                </div>
 	                            </div>
+                                <div class="col-lg-6">
+                                    <h5>Would share the overage price?</h5>
+                                    <div class="form-group review_page">
+                                        <span class="ext-default reviewpage_toggle active">No</span>
+                                        <label class="switch">
+                                          <input onchange="overageFunction()" type="checkbox" id="overage_price" class="price_overage">
+                                          <span class="slider overage_price"></span>
+                                        </label>
+                                        <span class="text-default reviewpage_toggle">Yes</span>
+                                    </div>
+                                    <input type="hidden" name="voice_overage_price" id="voice_overage_price">
+                                    <input type="hidden" name="data_over_age" id="data_over_age">
+                                </div>
 	                        </div>
 	                        <div class="row">
 	                            <div class="col-lg-12">
@@ -464,7 +485,7 @@
 	               		        </div>
 	               		    </div>
 	               		    <div class="col-lg-6">
-	               		    	<div class="rating coverage"></div>
+	               		    	<div class="rating coverage float-right"></div>
 	               		    	<!-- <div class="rating coverage" data-rate-value=6></div> -->
 	               		    </div>
 	               		</div>
@@ -475,7 +496,7 @@
 	               		        </div>
 	               		    </div>
 	               		    <div class="col-lg-6">
-	               		    	<div class="rating service_stability"></div>
+	               		    	<div class="rating service_stability float-right"></div>
 	               		    </div>
 	               		</div>
 	               		<div class="row">
@@ -485,7 +506,7 @@
 	               		        </div>
 	               		    </div>
 	               		    <div class="col-lg-6">
-	               		    	<div class="rating billing_payment"></div>
+	               		    	<div class="rating billing_payment float-right"></div>
 	               		    </div>
 	               		</div>
 	               		<div class="row">
@@ -495,7 +516,7 @@
 	               		        </div>
 	               		    </div>
 	               		    <div class="col-lg-6">
-	               		    	<div class="rating data_speed"></div>
+	               		    	<div class="rating data_speed float-right"></div>
 	               		    </div>
 	               		</div>
 	               		<div class="row">
@@ -505,7 +526,7 @@
 	               		        </div>
 	               		    </div>
 	               		    <div class="col-lg-6">
-	               		    	<div class="rating service_waiting"></div>
+	               		    	<div class="rating service_waiting float-right"></div>
 	               		    </div>
 	               		</div>
 	               		<div class="row">
@@ -515,16 +536,28 @@
 	               		        </div>
 	               		    </div>
 	               		    <div class="col-lg-6">
-	               		    	<div class="rating voice_quality"></div>
+	               		    	<div class="rating voice_quality float-right"></div>
 	               		    </div>
 	               		</div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="">
+                                    <h5>Comment</h5>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 text-right">
+                                <div class="form-group">
+                                    <textarea class="form-control" id="comment" placeholder="Write comment here...." rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="">
                                     <h5 class="font-weight-bold">Average</h5>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 text-right">
                                 <input type="hidden" class="average_input" value="0">
                                 <div class="font-weight-bold average_div">0</div>
                             </div>
@@ -564,7 +597,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="speedsection">
-                                    <iframe width="100%" height="650px" frameborder="0" src="https://softradix.speedtestcustom.com"></iframe> 
+                                    <iframe id="iFrameID" width="100%" height="650px" frameborder="0" src="https://softradix.speedtestcustom.com"></iframe> 
                                 </div>
                                 <div class="action-section text-center mt-3">
                                     <a href="{{url('/profile')}}" class="btn learn-more speedtest">Continue</a>
@@ -590,10 +623,46 @@
 		    </div>
 		</section>
 	<!-- Content End Here -->
+    <!-- The Modal -->
+    <div class="modal fade" id="overage_price_model" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
 
-<script>
-        
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Would share the overage price?</h4>
+            <button type="button" class="close" data-dismiss="modal" onclick="resetButton()">&times;</button>
+          </div>
 
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form id="overage_price_form">
+                <div class="row">
+                        <div class="col-lg-12">
+                            <h5>Voice Overage usage price (<b>Per Min</b>)</h5>
+                            <div class="form-group">
+                                <input type="text" id="model_over_price" name="overage_price" class="form-control" placeholder="Voice price" required="">
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <h5>Data Overage usage price (<b>Per MB</b>)</h5>
+                            <div class="form-group">
+                                <input type="text" id="model_data_price" name="data_over_age" class="form-control" placeholder="Data price" required="">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <button type="submit" class="btn btn-primary">Ok</button>
+                        </div>
+                </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+<script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script>
+    <script>
 	    function add(ths,sno){
 	        for (var i=1;i<=5;i++){
 	            var cur=document.getElementById("star"+i)
@@ -608,8 +677,39 @@
 	            }
 	        }
 	    }
-       
+        function overageFunction(){
+            if(document.getElementById('overage_price').checked){
+                $('#overage_price_model').modal({
+                    show: true
+                }); 
+            }else{
+                $('#overage_price_model').modal({
+                    show: false
+                }); 
+            }
+        };
+        function resetButton(){
+            $("#overage_price").trigger('click');
+        }
+        $('#model_over_price').on('input', function (event) { 
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+        $('#model_data_price').on('input', function (event) { 
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+        $('#overage_price_form').on('submit',function(){
 
+            var model_over_price = $('#model_over_price').val();
+            var model_data_price = $('#model_data_price').val();
+            if(model_over_price == "" || model_data_price == ""){
+                return false;
+            }
+            $('#voice_overage_price').val(model_over_price);
+            $('#data_over_age').val(model_data_price);
+            $('#overage_price_model').modal('hide');
+            return false;
+        });
+        
 	</script>
 
 @endsection

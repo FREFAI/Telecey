@@ -157,6 +157,14 @@ class ReviewsController extends Controller
     public function reviewService(Request $request)
     {
         $input = $request->all();
+        if(!array_key_exists('overage_price', $input)){
+            $input['overage_price_type'] = 0;
+            $input['data_price'] = NULL;
+            $input['voice_price'] = NULL;
+
+        }else{
+            $input['overage_price_type'] = 1;
+        }
         if(!array_key_exists('contract_type', $input)){
             $input['contract_type'] = "1";
         }

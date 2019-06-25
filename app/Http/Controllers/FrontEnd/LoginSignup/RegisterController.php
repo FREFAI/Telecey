@@ -22,8 +22,24 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
-
+    public function signupForm(Request $request)
+    {
+        if(!Auth::guard('customer')->check()){
+            return view('FrontEnd.LoginSignup.emailsignup');
+        }else{
+            return redirect('profile');
+        }
+        
+    }
+    public function signupWithFbAndGoogleForm(Request $request)
+    {
+        if(!Auth::guard('customer')->check()){
+            return view('FrontEnd.LoginSignup.signup');
+        }else{
+            return redirect('profile');
+        }
+        
+    }
     public function registerUser(Request $request)
     {
         $input = $request->all();

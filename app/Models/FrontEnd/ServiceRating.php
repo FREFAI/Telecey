@@ -10,6 +10,6 @@ class ServiceRating extends Model
     protected $guard = 'customer';
 
     protected $fillable = [
-        'user_id', 'service_id', 'coverage', 'service_stability', 'billing_payment', 'data_speed', 'service_waiting', 'voice_quality','rating_average'
+        'user_id', 'service_id', 'coverage', 'service_stability', 'billing_payment', 'data_speed', 'service_waiting', 'voice_quality','rating_average','comment'
     ];
 }

@@ -10,7 +10,7 @@ class ServiceReview extends Model
     protected $guard = 'customer';
 
     protected $fillable = [
-        'user_id', 'provider_id', 'contract_type', 'price','currency_id', 'payment_type', 'service_type', 'local_min', 'datavolume', 'long_distance_min', 'international_min', 'roaming_min', 'data_speed', 'sms'
+        'user_id', 'provider_id', 'contract_type', 'price','currency_id', 'payment_type', 'service_type', 'local_min', 'datavolume', 'long_distance_min', 'international_min', 'roaming_min', 'data_speed', 'sms','voice_price','data_price','overage_price_type'
     ];
 
     public function provider(){

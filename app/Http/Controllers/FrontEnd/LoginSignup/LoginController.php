@@ -26,7 +26,11 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('FrontEnd.LoginSignup.login');
+        if(!Auth::guard('customer')->check()){
+            return view('FrontEnd.LoginSignup.login');
+        }else{
+            return redirect('profile');
+        }
     }
 
     public function authenticate(Request $request)

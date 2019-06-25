@@ -72,5 +72,11 @@
               <i class="ni ni-caps-small text-info"></i> Service Types
             </a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link { request()->is('admin/rating-question') ? 'active' : '' }}" href="{{url('admin/rating-question')}}">
+              <i class="ni ni-paper-diploma text-info"></i> Rating Question
+            </a>
+          </li>
         </ul>
       </div>

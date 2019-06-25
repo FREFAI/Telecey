@@ -35,11 +35,15 @@ class PlansController extends Controller
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
         }else{
-            $ip = '2606:4580:2:0:a974:e358:829c:412e';
+            $ip = '96.46.34.142';
+            // $ip = '2606:4580:2:0:a974:e358:829c:412e';
             // $ip = '122.173.84.243';
         }
         // $ip = '96.46.34.142';
         $data = \Location::get($ip);
+        // echo "latitude => ".$data->latitude.'<br>';
+        // echo "longitude => ".$data->longitude;
+        // exit;
         $client = new \GuzzleHttp\Client();
         $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
         $response = json_decode($response->getBody());

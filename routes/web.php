@@ -22,25 +22,18 @@
 	
 		Route::get('/signin', 'FrontEnd\LoginSignup\LoginController@showLoginForm');
 		Route::post('/signin', 'FrontEnd\LoginSignup\LoginController@authenticate');
-		Route::get('/signup', function () {
-		    return view('FrontEnd.LoginSignup.signup');
-		});
-		Route::get('/emailsignup', function () {
-		    return view('FrontEnd.LoginSignup.emailsignup');
-		});
+		Route::get('/signup', 'FrontEnd\LoginSignup\RegisterController@signupWithFbAndGoogleForm');
 
 		// Forgot password
 
-		Route::get('/forgot-password', function () {
-		    return view('FrontEnd.LoginSignup.forgotpassword');
-		});
-
+		Route::get('/forgot-password', 'FrontEnd\LoginSignup\ForgotPasswordController@forgotPasswordForm');
 		Route::post('/forgot-password', 'FrontEnd\LoginSignup\ForgotPasswordController@sendEmail');
 		Route::get('/resetPassword/{token}', 'FrontEnd\LoginSignup\ForgotPasswordController@setPasswordForm');
 		Route::post('/resetPassword', 'FrontEnd\LoginSignup\ForgotPasswordController@setPassword');
 		
-		// Forgot password
-
+		// End Forgot password
+		// Signup section
+		Route::get('/emailsignup', 'FrontEnd\LoginSignup\RegisterController@signupForm');
 		Route::post('/emailsignup', 'FrontEnd\LoginSignup\RegisterController@registerUser');
 		// Google login
 		Route::get('/googlelogin', 'FrontEnd\LoginSignup\SocialAuthGoogleController@redirect');
@@ -146,6 +139,12 @@
 				Route::post('/updateservicetype', 'Admin\ServiceTypeController@editServiceType');
 				Route::post('/deleteServicetype', 'Admin\ServiceTypeController@deleteServicetype');
 			// End Service type Section
+
+			// Rating question section 
+				Route::get('/rating-question','Admin\RatingQuestionController@questionList');
+				Route::get('/add-question','Admin\RatingQuestionController@addRatingQuestionForm');
+				Route::post('/add-question','Admin\RatingQuestionController@addRatingQuestion');
+			// End Rating question section 
 		});
 
 

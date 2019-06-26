@@ -19,7 +19,7 @@ class ServiceReview extends Model
     public function currency(){
         return $this->hasOne('App\Currency', 'id', 'currency_id');
     }
-    public function serviceType(){
+    public function typeOfService(){
         return $this->hasOne('App\Models\Admin\ServiceType', 'id', 'service_type');
     }
     public function ratings() {

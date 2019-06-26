@@ -79,10 +79,11 @@
 					  	                        	-
 					  	                        	@endif
 					  	                        	</li>
-					  	                        	<li><b>Service Type</b> : &nbsp;@if(!is_null($service->service_type)) {{$service->service_type['service_type_name']}}
-					  	                        	@else
-						  	                        	-
-					  	                        	@endif</li>
+					  	                        	<li><b>Service Type</b> : &nbsp;@if(!is_null($service->typeOfService)) 
+											  							{{$service->typeOfService['service_type_name']}}
+											  							@else
+											  	                        	-
+										  	                        	@endif</li>
 					  	                        	<li><b>Price</b> : &nbsp;&nbsp;{{$service->c_code}}&nbsp;{{$service->price}}</li>
 					  	                        </ul>
 					  	                        
@@ -156,9 +157,10 @@
 											  						<li>
 											  							<div>Service type : </div>
 											  							<div class="value_div">
+											  								
 											  							&nbsp;
-											  							@if(!is_null($service->service_type)) 
-											  							{{$service->service_type['service_type_name']}}
+											  							@if(!is_null($service->typeOfService)) 
+											  							{{$service->typeOfService['service_type_name']}}
 											  							@else
 											  	                        	-
 										  	                        	@endif

@@ -46,9 +46,9 @@ class HomeController extends Controller
         $key = [];
         $blankArray = [];
         foreach ($serviceData  as $data) {
-            $date['provider'] = $data->provider;
-            $date['service_type'] = $data->serviceType;
-            $date['currency'] = $data->currency;
+            $data->provider;
+            $data->typeOfService;
+            $data->currency;
             $allratings = $data->get_ratings();
             $plan_device_rating = $data->plan_device_rating->toArray();
             unset($data->plan_device_rating);
@@ -78,6 +78,9 @@ class HomeController extends Controller
             }
             $data->ratings = $blankArray;
         }
+        /*echo "<pre>";
+        print_r($serviceData->toArray());
+        exit;*/
         return view('FrontEnd.profile',['serviceData'=>$serviceData]);
 
     }

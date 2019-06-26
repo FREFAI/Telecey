@@ -37,36 +37,52 @@
                      <tr>
                        <th scope="col" style="width: 10px;">Sr.No</th>
                        <th scope="col" style="width: 10px;">Question</th>
+                       <th scope="col" style="width: 10px;">Type</th>
                        <th scope="col" class="text-right">Action</th>
                      </tr>
                    </thead>
                    <tbody>
+                    @if(count($questions)>0)
+                      @php
+                          $i = ($questions->currentpage()-1)* $questions->perpage() + 1;
+                      @endphp
+                      @foreach($questions as $question)
+                          <tr>
+                             <td class="text-center" style="max-width: 10px;">
+                              {{$i++}}
+                             </td>
+                              <td class="text-left">
+                                <div class="media-body">
+                                    <span class="mb-0 text-sm">{{$question->question}}</span>
+                                </div>
+                              </td>
+                             <td>
+                               @if($question->type == 1)
+                                Plan
+                               @else
+                                Device
+                               @endif
+                             </td>
+                             <td class="text-right">
+                              
+                               <a class="btn btn-icon btn-2 btn-info btn-sm" href="{{url('admin/edit-question')}}/{{base64_encode($question->id)}}" data-toggle="tooltip" data-placement="top" title="Edit">
+                                 <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
+                               </a>
+                               <button class="btn btn-icon btn-2 btn-danger btn-sm delete_question" type="button" data-question_id="{{base64_encode($question->id)}}" data-toggle="tooltip" data-placement="top" title="Delete">
+                                 <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
+                               </button>
+                             </td>
+                          </tr>
+                       @endforeach
+                    @else
                        <tr>
-                           <td class="text-center" style="max-width: 10px;">
-                           </td>
-                            <td class="text-center">
-                              <div class="media-body">
-                                  <span class="mb-0 text-sm"></span>
-                              </div>
-                            </td>
-                           
-                           <td class="text-right">
-                            
-                             <a class="btn btn-icon btn-2 btn-info btn-sm" href="" data-toggle="tooltip" data-placement="top" title="Edit">
-                               <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
-                             </a>
-                             <button class="btn btn-icon btn-2 btn-danger btn-sm delete_provider" type="button" data-provider_id="" data-toggle="tooltip" data-placement="top" title="Delete">
-                               <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
-                             </button>
-                           </td>
-                       </tr>
-                       <!-- <tr>
                          <th colspan="5">
                            <div class="media-body text-center">
                                <span class="mb-0 text-sm">No data found.</span>
                            </div>
                          </th>
-                       </tr> -->
+                       </tr>
+                    @endif
                    </tbody>
                  </table>
                </div>

@@ -28,6 +28,9 @@
 	.value_div{
 		font-weight: bold;
 	}
+	.rating_content {
+	    width: 100%;
+	}
 </style>
 <div class="profile inner-page">
 	<div class="container">
@@ -35,7 +38,7 @@
 			<div class="col-lg-3">
 				<div class="profile_section">
 					<div class="profile_image text-center">
-						<img class="w-50" src="frontend/assets/img/user_placeholder.png">
+						<img class="w-50" src="{{URL::asset('/frontend/assets/img/user_placeholder.png')}}">
 					</div>
 					<div class="user_name text-center mt-3">
 						<h5 class="mb-0">{{ Auth::guard('customer')->user()['firstname'] }} {{Auth::guard('customer')->user()['lastname'] }}</h5>
@@ -71,19 +74,31 @@
 					  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$service->id}}" aria-expanded="true" aria-controls="collapse{{$service->id}}" class="accordion_btn">
 					  	                        <i class="more-less glyphicon glyphicon-plus"></i>
 					  	                        <ul class="inline_list">
-					  	                        	<li><b>Provider Name</b> : &nbsp;{{$service->provider_name}}</li>
-					  	                        	<li><b>Service Type</b> : &nbsp;{{$service->service_type_name}}</li>
+					  	                        	<li><b>Provider Name</b> : &nbsp;@if(!is_null($service->provider)) {{$service->provider->provider_name}}
+					  	                        	@else
+					  	                        	-
+					  	                        	@endif
+					  	                        	</li>
+					  	                        	<li><b>Service Type</b> : &nbsp;@if(!is_null($service->service_type)) {{$service->service_type['service_type_name']}}
+					  	                        	@else
+						  	                        	-
+					  	                        	@endif</li>
 					  	                        	<li><b>Price</b> : &nbsp;&nbsp;{{$service->c_code}}&nbsp;{{$service->price}}</li>
 					  	                        </ul>
 					  	                        
 					  	                        
 					  	                    </a>
 					  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$service->id}}" aria-expanded="true" aria-controls="collapse{{$service->id}}" class="accordion_btn text-right">
-					  	                    	@if($service->status == 1)
-						  	                    	<span class="font-weight-bold">Approved</span>
-						  	                    @else
-						  	                    	<span class="font-weight-bold text-danger">Not approved</span>
-						  	                    @endif
+					  	                    	@if(!is_null($service->provider)) 
+						  	                    	@if($service->provider->status == 1)
+							  	                    	<span class="font-weight-bold">Approved</span>
+							  	                    @else
+							  	                    	<span class="font-weight-bold text-danger">Not approved</span>
+							  	                    @endif
+				  	                        	@else
+				  	                        	-
+				  	                        	@endif
+					  	                    	
 						  	                </a>
 					  	                </h4>
 					  	            </div>
@@ -142,7 +157,11 @@
 											  							<div>Service type : </div>
 											  							<div class="value_div">
 											  							&nbsp;
-											  							{{$service->service_type_name}}
+											  							@if(!is_null($service->service_type)) 
+											  							{{$service->service_type['service_type_name']}}
+											  							@else
+											  	                        	-
+										  	                        	@endif
 											  							</div>
 											  						</li>
 											  					</ul>
@@ -204,7 +223,7 @@
 											  					<ul class="first_row_service">
 											  						<li>
 											  							<div>Data speed : </div>
-											  							<div class="value_div">&nbsp;{{$service->data_review_rate}}</div>
+											  							<div class="value_div">&nbsp;{{$service->data_speed}}</div>
 											  						</li>
 											  					</ul>
 											  					</div>
@@ -219,22 +238,14 @@
 											  					</ul>
 											  					</div>
 											  				</div>
-											  				<div class="col-lg-4 mt-2">
-											  					<div class="card_sm">
-											  					<ul class="first_row_service">
-											  						<li>
-											  							<div>Average : </div>
-											  							<div class="value_div">&nbsp;{{$service->rating_average}}</div>
-											  						</li>
-											  					</ul>
-											  					</div>
-											  				</div>
 											  				<div class="col-lg-12 mt-2">
 											  					<div class="card_sm">
 											  					<ul class="first_row_service">
 											  						<li>
 											  							<div>How much are you paying monthly multi currencies should be supported : </div>
-											  							<div class="value_div">&nbsp;{{$service->c_code}}&nbsp;{{$service->price}}</div>
+											  							<div class="value_div">&nbsp;@if(!is_null($service->currency))
+											  								{{$service->currency->currency_code}}@else-
+											  								@endif&nbsp;{{$service->price}}</div>
 											  						</li>
 											  					</ul>
 											  					</div>
@@ -243,86 +254,55 @@
 											  			<div class="row">
 											  				<div class="col-lg-12">
 											  					<div class="heading detail-div">
-					  					                            <h1 class="section-title">Rating</h1>
+					  					                            <h1 class="section-title">Ratings</h1>
+					  					                        </div>
+					  					                        <div class="add_new_rating_btn">
+					  					                        	<a href="{{url('/reviews')}}/{{base64_encode($service->id)}}" class="btn btn-info pull-right add_service">Add rating</a>
 					  					                        </div>
 											  				</div>
-											  				<div class="col-lg-12 mb-3">
-												  				<div class="card_sm">
-												  					<div class="row">
-													  					<div class="col-lg-8">
-														  					Coverage
-														  				</div>
-														  				<div class="col-lg-4">
-														  					<div class="rating_disable pull-right" data-rate-value={{$service->coverage}}></div>
-														  				</div>
-														  			</div>
-													  			</div>
-													  		</div>
-													  		<div class="division"></div>
-													  		<div class="col-lg-12 mb-3">
-												  				<div class="card_sm">
-												  					<div class="row">
-													  				<div class="col-lg-8">
-													  					Service Stability some time calls are disconnected, network is up and down , some times there is no coverage
-													  				</div>
-													  				<div class="col-lg-4">
-													  					<div class="rating_disable pull-right" data-rate-value={{$service->service_stability}}></div>
-													  				</div>
-													  				</div>
-													  			</div>
-													  		</div>
-													  		<div class="division"></div>
-													  		<div class="col-lg-12 mb-3">
-												  				<div class="card_sm">
-												  					<div class="row">
-													  				<div class="col-lg-8">
-													  					Billing & paymnet accuracy
-													  				</div>
-													  				<div class="col-lg-4">
-													  					<div class="rating_disable pull-right" data-rate-value={{$service->billing_payment}}></div>
-													  				</div>
-													  				</div>
-													  			</div>
-													  		</div>
-													  		<div class="division"></div>
-													  		<div class="col-lg-12 mb-3">
-												  				<div class="card_sm">
-												  					<div class="row">
-													  				<div class="col-lg-8">
-													  					Data speed You may use our speed test to get what speed you are getting for real
-													  				</div>
-													  				<div class="col-lg-4">
-													  					<div class="rating_disable pull-right" data-rate-value={{$service->data_speed_rating}}></div>
-													  				</div>
-													  				</div>
-													  			</div>
-													  		</div>
-													  		<div class="division"></div>
-											  				<div class="col-lg-12 mb-3">
-												  				<div class="card_sm">
-												  					<div class="row">
-													  				<div class="col-lg-8">
-													  					Customer Service Waiting time, knowlage, response, understanding, final solution time
-													  				</div>
-													  				<div class="col-lg-4">
-													  					<div class="rating_disable pull-right" data-rate-value={{$service->service_waiting}}></div>
-													  				</div>
-													  				</div>
-													  			</div>
-													  		</div>
-													  		<div class="division"></div>
-											  				<div class="col-lg-12 mb-3">
-												  				<div class="card_sm">
-												  					<div class="row">
-													  				<div class="col-lg-8">
-													  					Qulaity Such as Voice clearance, echo, some times you can hear your own voice
-													  				</div>
-													  				<div class="col-lg-4">
-													  					<div class="rating_disable pull-right" data-rate-value={{$service->voice_quality}}></div>
-													  				</div>
-													  				</div>
-													  			</div>
-													  		</div>
+											  				<!-- Rating -->
+											  				@if(!is_null($service->ratings)) 
+				  					  	                		@foreach($service->ratings as $key => $rating)
+						  					  	                		@if($rating['plan_id']==$service->id)
+										  					  	            <div class="panel-heading mt-2" role="tab" id="rating{{$service->id}}{{$key}}">
+										  					  	                <h4 class="panel-title display-inline">
+										  					  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#ratingcollapse{{$service->id}}{{$key}}" aria-expanded="true" aria-controls="ratingcollapse{{$service->id}}{{$key}}" class="accordion_btn rating_btn">
+										  					  	                        <i class="more-less glyphicon glyphicon-plus"></i>
+										  					  	                        <ul class="inline_list">
+										  					  	                        	<li><b>Average</b> : &nbsp;{{$rating['average']}}
+										  					  	                        	</li>
+										  					  	                        </ul>
+										  					  	                    </a>
+										  					  	                </h4>
+										  					  	            </div>
+										  					  	            <div id="ratingcollapse{{$service->id}}{{$key}}" class="panel-collapse collapse @if($key == 1) show @endif rating_content" role="tabpanel" aria-labelledby="rating{{$service->id}}{{$key}}">
+										  					  	                <div class="panel-body w-100">
+										  					  	                	<div class="row">
+									  					  	                		@foreach($rating['ratingList'] as $rate)
+									  					  	                		@if($rate['entity_id'] == $service->id)
+						  					  	                	  				<div class="col-lg-12 mb-3">
+						  					  	                		  				<div class="card_sm">
+						  					  	                		  					<div class="row">
+					  					  	                			  					<div class="col-lg-8">
+					  					  	                				  					{{$rate['question_name']}}
+					  					  	                				  				</div>
+					  					  	                				  				<div class="col-lg-4">
+					  					  	                				  					<div class="rating_disable pull-right" data-rate-value="{{$rate['rating']}}"></div>
+					  					  	                				  				</div>
+						  					  	                				  			</div>
+						  					  	                			  			</div>
+						  					  	                			  		</div>
+						  					  	                			  		@endif
+						  					  	                			  		@endforeach
+							  					  	                			  	</div>
+										  					  	                </div>
+										  					  	            </div>
+															  				<div class="division"></div>
+														  				@endif
+		    		  					  	                		@endforeach
+		      					  	                        	@endif
+											  				<!-- Rating -->
+													  		
 											  			</div>
 										  			</div>
 										  		</div>

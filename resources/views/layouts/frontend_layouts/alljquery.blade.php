@@ -99,45 +99,22 @@
       $(this).val('');
     }
   });
-
-  var count = 0;
-  var coverage_count = 0;
-  var service_stability_count = 0;
-  var billing_payment_count = 0;
-  var data_speed_count = 0;
-  var service_waiting_count = 0;
-  var voice_quality_count = 0;
   $(".rating").on("change", function(ev, data){
-    var coverage = $('.coverage').rate('getValue');
-    var service_stability = $('.service_stability').rate('getValue');
-    var billing_payment = $('.billing_payment').rate('getValue');
-    var data_speed = $('.data_speed').rate('getValue');
-    var service_waiting = $('.service_waiting').rate('getValue');
-    var voice_quality = $('.voice_quality').rate('getValue');
-
-    if(parseFloat(coverage) > 0){
-      coverage_count = 1;
-    }
-    if(parseFloat(service_stability) > 0){
-      service_stability_count = 1;
-    }
-    if(parseFloat(billing_payment) > 0){
-      billing_payment_count = 1;
-    }
-    if(parseFloat(data_speed) > 0){
-      data_speed_count = 1;
-    }
-    if(parseFloat(service_waiting) > 0){
-      service_waiting_count = 1;
-    }
-    if(parseFloat(voice_quality) > 0){
-      voice_quality_count = 1;
-    }
-    count = parseInt(coverage_count) + parseInt(service_stability_count) + parseInt(billing_payment_count) + parseInt(data_speed_count) + parseInt(service_waiting_count) + parseInt(voice_quality_count);
-    var counttotal = parseFloat(coverage) + parseFloat(service_stability) + parseFloat(billing_payment) + parseFloat(data_speed) + parseFloat(service_waiting) + parseFloat(voice_quality);
-      var average = counttotal/count;
-      $('.average_div').text(average.toFixed(2));
-      $('.average_input').val(average);
+  var rateTotal=0;
+  var count = 0;
+    var question_count = $('#rating_section .rating').length;
+    var perams = [];
+    $('#rating_section .rating').each(function(index, item){
+      var rate = $(item).rate('getValue');
+      if(rate == 0){
+        count = count+1;
+      }
+      rateTotal += rate;
+    });
+    var count_avr = question_count-count;
+    var average = rateTotal/count_avr;
+    $('.average_div').text(average.toFixed(2));
+    $('.average_input').val(average);
   });
 
   $(".rating_disable").rate({
@@ -377,79 +354,65 @@
 
         $('.service-rating-submit-btn').on('click',function(e){
           e.preventDefault();
-          var ratingform = $(this);
-          var coverage = $('.coverage').rate('getValue');
-          var service_stability = $('.service_stability').rate('getValue');
-          var billing_payment = $('.billing_payment').rate('getValue');
-          var data_speed = $('.data_speed').rate('getValue');
-          var service_waiting = $('.service_waiting').rate('getValue');
-          var voice_quality = $('.voice_quality').rate('getValue');
-          var service_id = $('.service_id').val();
-          var average = $('.average_input').val();
+          var isset = 0;
           var comment = $('#comment').val();
-          if(parseFloat(coverage) > 0){
-            coverage_count = 1;
-          }
-          if(parseFloat(service_stability) > 0){
-            service_stability_count = 1;
-          }
-          if(parseFloat(billing_payment) > 0){
-            billing_payment_count = 1;
-          }
-          if(parseFloat(data_speed) > 0){
-            data_speed_count = 1;
-          }
-          if(parseFloat(service_waiting) > 0){
-            service_waiting_count = 1;
-          }
-          if(parseFloat(voice_quality) > 0){
-            voice_quality_count = 1;
-          }
-          count = parseInt(coverage_count) + parseInt(service_stability_count) + parseInt(billing_payment_count) + parseInt(data_speed_count) + parseInt(service_waiting_count) + parseInt(voice_quality_count);
-          if(count != 6){
-            $('.starrating_error').removeClass('d-none');
-            setTimeout(function(){
-              $('.starrating_error').addClass('d-none');
-            },3000);
-            return false;
-          }
-
-          if(window.location.protocol == "http:"){
-              resuesturl = "{{url('/ratingService')}}"
-          }else if(window.location.protocol == "https:"){
-              resuesturl = "{{secure_url('/ratingService')}}"
-          }
-          $.ajax({
-              type: "post",
-              url: resuesturl,
-              headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              },
-              dataType:'json',
-              data: {
-                'coverage': coverage,
-                'service_stability': service_stability,
-                'billing_payment': billing_payment,
-                'data_speed': data_speed,
-                'service_waiting': service_waiting,
-                'voice_quality': voice_quality,
-                'service_id':service_id,
-                'rating_average':average,
-                'comment':comment
-              },
-              success: function (data) {
-                  if(data.success){
-
-                    toastr.success('Rating', data.message , {displayDuration:3000,position: 'top-right'});
-                    $('.detail-section').addClass('section-d-none');
-                    ratingform.closest('.services-rating-section').addClass('section-d-none');
-                    ratingform.closest('.services-rating-section').next('.speed-test-button-section').removeClass('section-d-none');
-                    
-                  }else{
-                    // toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
-                  }
-              }         
+          var average_input = $('.average_input').val();
+          var service_id = $('.service_id').val();
+          var perams = [];
+          $('#rating_section .rating').each(function(index, item){
+            var rate = $(item).rate('getValue');
+            var question_id = $(item).attr('data-question_id');
+            if(rate==0){
+              $('.starrating_error').removeClass('d-none');
+              setTimeout(function(){
+                $('.starrating_error').addClass('d-none');
+              },3000);
+              isset = 0;
+              return false;
+            }else{
+              isset = 1;
+              if (perams[index] === undefined) {
+                  perams[index] = {question_id: question_id,rate: rate};
+              } else {
+                  perams[index].question_id = question_id;
+                  perams[index].rate = rate;
+              }
+            }
           });
+          if(isset == 1){
+            var ratingform = $(this);
+            if(window.location.protocol == "http:"){
+                resuesturl = "{{url('/ratingService')}}"
+            }else if(window.location.protocol == "https:"){
+                resuesturl = "{{secure_url('/ratingService')}}"
+            }
+            $.ajax({
+                type: "post",
+                url: resuesturl,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType:'json',
+                data: {
+                  'perameters':perams,
+                  'comment':comment,
+                  'average_input':average_input,
+                  'plan_id':service_id
+                },
+                success: function (data) {
+                    if(data.success){
+
+                      toastr.success('Rating', data.message , {displayDuration:3000,position: 'top-right'});
+                      $('.detail-section').addClass('section-d-none');
+                      ratingform.closest('.services-rating-section').addClass('section-d-none');
+                      ratingform.closest('.services-rating-section').next('.speed-test-button-section').removeClass('section-d-none');
+                      
+                    }else{
+                      // toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
+                    }
+                }         
+            });
+          }
         });
 
         $('.continue-btn').on('click',function(e){

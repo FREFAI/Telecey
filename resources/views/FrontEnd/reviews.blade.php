@@ -467,7 +467,7 @@
                     <!-- End Form Section -->
 
                     <!-- Star rating section -->
-                    <div class="services-rating-section section-d-none section-both">
+                    <div class="services-rating-section section-d-none section-both" id="rating_section">
 	               		<div class="row">
 	               		    <div class="heading detail-div">
 	               		        <h1 class="section-title">Rating</h1>
@@ -478,68 +478,22 @@
                                 All rating rows are required.
                             </div>
                         </div>
-	               		<div class="row">
-	               		    <div class="col-lg-6">
-	               		        <div class="">
-	               		            <h5>Coverage</h5>
-	               		        </div>
-	               		    </div>
-	               		    <div class="col-lg-6">
-	               		    	<div class="rating coverage float-right"></div>
-	               		    	<!-- <div class="rating coverage" data-rate-value=6></div> -->
-	               		    </div>
-	               		</div>
-	               		<div class="row">
-	               		    <div class="col-lg-6">
-	               		        <div class="">
-	               		            <h5>Service Stability some time calls are disconnected, network is up and down , some times there is no coverage </h5>
-	               		        </div>
-	               		    </div>
-	               		    <div class="col-lg-6">
-	               		    	<div class="rating service_stability float-right"></div>
-	               		    </div>
-	               		</div>
-	               		<div class="row">
-	               		    <div class="col-lg-6">
-	               		        <div class="">
-	               		            <h5>Billing & paymnet accuracy </h5>
-	               		        </div>
-	               		    </div>
-	               		    <div class="col-lg-6">
-	               		    	<div class="rating billing_payment float-right"></div>
-	               		    </div>
-	               		</div>
-	               		<div class="row">
-	               		    <div class="col-lg-6">
-	               		        <div class="">
-	               		            <h5>Data speed You may use our speed test to get what speed you are getting for real </h5>
-	               		        </div>
-	               		    </div>
-	               		    <div class="col-lg-6">
-	               		    	<div class="rating data_speed float-right"></div>
-	               		    </div>
-	               		</div>
-	               		<div class="row">
-	               		    <div class="col-lg-6">
-	               		        <div class="">
-	               		            <h5>Customer Service Waiting time, knowlage, response, understanding, final solution time</h5>
-	               		        </div>
-	               		    </div>
-	               		    <div class="col-lg-6">
-	               		    	<div class="rating service_waiting float-right"></div>
-	               		    </div>
-	               		</div>
-	               		<div class="row">
-	               		    <div class="col-lg-6">
-	               		        <div class="">
-	               		            <h5>Qulaity Such as Voice clearance, echo, some times you can hear your own voice </h5>
-	               		        </div>
-	               		    </div>
-	               		    <div class="col-lg-6">
-	               		    	<div class="rating voice_quality float-right"></div>
-	               		    </div>
-	               		</div>
-                        <div class="row">
+                        @if(count($questions)>0)
+                            @foreach($questions as $question)
+        	               		<div class="row">
+        	               		    <div class="col-lg-6">
+        	               		        <div class="">
+        	               		            <h5>{{$question->question}}</h5>
+        	               		        </div>
+        	               		    </div>
+        	               		    <div class="col-lg-6">
+        	               		    	<div class="rating float-right" data-question_id="{{$question->id}}"></div>
+        	               		    	<!-- <div class="rating coverage" data-rate-value=6></div> -->
+        	               		    </div>
+        	               		</div>
+                            @endforeach
+                        @endif
+                        <div class="row mt-3">
                             <div class="col-lg-6">
                                 <div class="">
                                     <h5>Comment</h5>

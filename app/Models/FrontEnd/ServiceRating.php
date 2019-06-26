@@ -10,6 +10,11 @@ class ServiceRating extends Model
     protected $guard = 'customer';
 
     protected $fillable = [
-        'user_id', 'service_id', 'coverage', 'service_stability', 'billing_payment', 'data_speed', 'service_waiting', 'voice_quality','rating_average','comment'
+        'id', 'user_id', 'entity_id', 'entity_type', 'rating_id', 'question_id', 'rating', 'created_at', 'updated_at'
     ];
+    
+    public function question()
+    {
+    	return $this->hasOne('App\Models\Admin\RatingQuestion', 'id', 'question_id');
+    }
 }

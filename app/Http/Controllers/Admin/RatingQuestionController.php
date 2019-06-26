@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\RatingQuestion;
+use Illuminate\Support\Facades\Validator;
 
 class RatingQuestionController extends Controller
 {
     
     public function questionList(Request $request)
     {
-    	return view('Admin.RatingQuestion.question-list');
+        $questions = RatingQuestion::paginate(10);
+    	return view('Admin.RatingQuestion.question-list',['questions'=>$questions]);
     }
 
     public function addRatingQuestionForm(Request $request)
@@ -19,6 +22,65 @@ class RatingQuestionController extends Controller
     }
     public function addRatingQuestion(Request $request)
     {
-    	
+    	$perameters = $request->all();
+        $validation = Validator::make($perameters,[
+            'question' => 'required|unique:rating_questions',
+            'type' => 'required'
+        ]);
+        if($validation->fails()){
+            return redirect()->back()->with('error',$validation->messages()->first());
+        }else{
+            $ratingQuestion = RatingQuestion::create($perameters);
+            if($ratingQuestion){
+                return redirect('/admin/rating-question')->with('success','Question added successfully.');
+            }else{
+                return redirect()->back()->with('error','Somthing went wrong!');
+            }
+        }
+    }
+    public function editRatingQuestionForm(Request $request,$question_id)
+    {
+        $question_id = base64_decode($question_id);
+        $question = RatingQuestion::find($question_id);
+        return view('Admin.RatingQuestion.edit-question',['question'=>$question]);
+    }
+    public function editRatingQuestion(Request $request)
+    {
+        $perameter = $request->all();
+        $validation = Validator::make($perameter,[
+            'question' => 'required|unique:rating_questions,question,'.$perameter['id'],
+            'type' => 'required'
+        ]);
+        $question = RatingQuestion::find($perameter['id']);
+        if($question){
+            $question->question = $perameter['question'];
+            $question->type = $perameter['type'];
+            if($question->save()){
+                return redirect('/admin/rating-question')->with('success','Question updated successfully.');
+            }else{
+                return redirect()->back()->with('error','Somthing went wrong!');
+            }
+        }
+    }
+
+    public function deleteRatingQuestion(Request $request)
+    {
+        $perameter = $request->all();
+        $validation = Validator::make($perameter,[
+            'id' => 'required'
+        ]);
+        if ($validation->fails()) {
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+        }else{
+            $perameter['id'] = base64_decode($perameter['id']);
+            $deleteQuestion = RatingQuestion::where('id',$perameter['id'])->delete();
+            if($deleteQuestion){
+                $message = array('success'=>true,'message'=>'Delete successfully.');
+                return json_encode($message);
+            }else{
+                $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                return json_encode($message);
+            }
+        }
     }
 }

@@ -16,4 +16,23 @@ class ServiceReview extends Model
     public function provider(){
         return $this->hasOne('App\Models\Admin\Provider', 'id', 'provider_id');
     }
+    public function currency(){
+        return $this->hasOne('App\Currency', 'id', 'currency_id');
+    }
+    public function serviceType(){
+        return $this->hasOne('App\Models\Admin\ServiceType', 'id', 'service_type');
+    }
+    public function ratings() {
+ 	 	  return $this->hasMany('App\Models\FrontEnd\ServiceRating','entity_id','id');
+  	}
+	  
+  	public function get_ratings() {
+  		return $this->ratings()->where('entity_type', 1)->get();
+  		// return $this->ratings()->where('entity_type', 1)->groupBy('rating_id')->get();
+  	}
+
+  	public function plan_device_rating()
+  	{
+  		return $this->hasMany('App\Models\FrontEnd\PlanDeviceRating','plan_id','id');
+  	}
 }

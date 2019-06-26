@@ -5,7 +5,7 @@
                 <div class="col-lg-4 col-md-4 col-xs-6 col-mb-12">
                     <div class="widget">
                         <div class="footer-logo">
-                            <img src="frontend/assets/img/logo-web.png" alt="" width="200">
+                            <img src="{{URL::asset('frontend/assets/img/logo-web.png')}}" alt="" width="200">
                         </div>
                         <div class="textwidget">
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>

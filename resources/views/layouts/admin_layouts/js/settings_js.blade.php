@@ -432,5 +432,43 @@
 				}
 			});
 		});
+
+		// Delete Question
+
+		$('.delete_question').on('click',function(){
+			var question_id = $(this).attr('data-question_id');
+			var delete_row = $(this);
+			if(window.location.protocol == "http:"){
+			    resuesturl = "{{url('/admin/delete-question')}}"
+			}else if(window.location.protocol == "https:"){
+			    resuesturl = "{{secure_url('/admin/delete-question')}}"
+			}
+			swal("Are you sure you want to delete this question?", {
+	          buttons: ["No", "Yes"],
+	        })
+	        .then(name => {
+	          	if(name){
+					$.ajax({
+					    type: "post",
+					    url: resuesturl,
+					    headers: {
+					        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					    },
+					    dataType:'json',
+					    data: {
+					        'id':question_id
+					    },
+					    success: function (data) {
+					        if(data.success){
+					        	delete_row.closest('tr').remove();
+					        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+					        }else{
+					        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+					        }
+					    }         
+					});
+				}
+			});
+		});
 	});
 </script>

@@ -56,6 +56,7 @@
 
 			Route::post('/getCountry', 'FrontEnd\ReviewsController@getCountry');
 			Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
+			Route::get('/reviews/{planId}', 'FrontEnd\ReviewsController@reviewsRating');
 			Route::post('/reviewsDetail', 'FrontEnd\ReviewsController@reviewsDetail');
 			Route::post('/reviewService', 'FrontEnd\ReviewsController@reviewService');
 			Route::post('/ratingService', 'FrontEnd\ReviewsController@ratingService');
@@ -144,6 +145,9 @@
 				Route::get('/rating-question','Admin\RatingQuestionController@questionList');
 				Route::get('/add-question','Admin\RatingQuestionController@addRatingQuestionForm');
 				Route::post('/add-question','Admin\RatingQuestionController@addRatingQuestion');
+				Route::get('/edit-question/{questionId}','Admin\RatingQuestionController@editRatingQuestionForm');
+				Route::post('/edit-question','Admin\RatingQuestionController@editRatingQuestion');
+				Route::post('/delete-question', 'Admin\RatingQuestionController@deleteRatingQuestion');
 			// End Rating question section 
 		});
 

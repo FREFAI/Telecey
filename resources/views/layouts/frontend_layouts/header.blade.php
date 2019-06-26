@@ -9,7 +9,7 @@
                         <span class="lni-menu"></span>
                         <span class="lni-menu"></span>
                     </button>
-                    <a href="{{url('/')}}" class="navbar-brand"><img src="frontend/assets/img/logo-telco-tales.png" alt="">
+                    <a href="{{url('/')}}" class="navbar-brand"><img src="{{URL::asset('frontend/assets/img/logo-telco-tales.png')}}" alt="">
                        <span class="logo-title">Telco -Tales </span>
                        <br>
                        <span class="logo-tag-line">Rate Your Telecom Carrier</span>
@@ -55,7 +55,7 @@
                         </li>
                         @if(Auth::guard('customer')->user()['id'] != "")
                         <li class="dropdown top">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="frontend/assets/img/user_placeholder.png" alt="" width="40"></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{URL::asset('frontend/assets/img/user_placeholder.png')}}" alt="" width="40"></a>
                             <b class="caret"></b>
                             <ul class="dropdown-menu top">
                                 <li>
@@ -81,6 +81,6 @@
                 </div>
             </div>
         </div>
-        <div class="mobile-menu" data-logo="frontend/assets/img/logo-telco-tales.png"></div>
+        <div class="mobile-menu" data-logo="{{URL::asset('frontend/assets/img/logo-telco-tales.png')}}"></div>
     </nav>
 </header>

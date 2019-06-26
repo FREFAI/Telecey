@@ -8,8 +8,10 @@ use App\Models\Admin\SettingsModel;
 use Illuminate\Support\Facades\Validator;
 use App\Models\FrontEnd\ServiceReview;
 use App\Models\FrontEnd\ServiceRating;
+use App\Models\FrontEnd\PlanDeviceRating;
 use App\Models\Admin\Provider;
 use App\Models\Admin\ServiceType;
+use App\Models\Admin\RatingQuestion;
 use App\User;
 use App\Currency;
 use App\CountriesModel;
@@ -37,18 +39,7 @@ class ReviewsController extends Controller
      */
     public function reviews(Request $request)
     {
-        // $ip = env('ip_address','live');
-        // if($ip == 'live'){
-        //     $ip = $_SERVER['REMOTE_ADDR'];
-        // }else{
-        //     $ip = '122.173.214.129';
-        // }
-        // $data = \Location::get($ip);
-        
-        // echo "<pre>";
-        // print_r($data);
-        // exit;
-
+       
         $user_id = Auth::guard('customer')->user()['id']; 
         if (!$request->session()->has('usersDetail')) {
             $ip = env('ip_address','live');
@@ -128,10 +119,17 @@ class ReviewsController extends Controller
         $providers = Provider::get();
         $countries = Currency::get();
         $service_types = ServiceType::get();
+        $questions = RatingQuestion::get();
 
-        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries]);
+        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions]);
     }
-
+    public function reviewsRating(Request $request, $plan_id)
+    {
+        $plan_id = base64_decode($plan_id);
+        $settings = SettingsModel::first();
+        $questions = RatingQuestion::get();
+        return view('FrontEnd.reviews_rating',['settings'=> $settings,'plan_id'=>$plan_id,'questions'=>$questions]);
+    }
     public function reviewsDetail(Request $request)
     {
         $input = $request->all();
@@ -220,15 +218,66 @@ class ReviewsController extends Controller
     {
         $input = $request->all();
         $user_id = Auth::guard('customer')->user()['id'];
-        $input['user_id'] = $user_id;
-        $serviceRating = ServiceRating::create($input);
-        if($serviceRating){
-            $message = array('success'=>true,'message'=>'Successfully submited.');
-            return json_encode($message);
+        $rating_id = PlanDeviceRating::where('user_id',$user_id)->where('plan_id',$input['plan_id'])->max('rating_id');
+        $rating_id = $rating_id+1;
+        $perameters=[
+            'user_id' => $user_id,
+            'plan_id' => $input['plan_id'],
+            'rating_id'=> $rating_id,
+            'comment'=> $input['comment'],
+            'average' => $input['average_input']
+        ];
+        $validation = Validator::make($perameters, [
+            'user_id' => 'required',
+            'plan_id' => 'required',
+            'average' => 'required',
+        ]);
+        if ( $validation->fails() ) {
+             $message = array('success'=>false,'message'=>$validation->messages()->first());
+             return json_encode($message);
         }else{
-            $message = array('success'=>false,'message'=>"Somthing went wrong!");
-            return json_encode($message);
+            $date = date("Y-m-d H:i:s");
+            $data = [];
+            $plandevicerating = PlanDeviceRating::create($perameters);
+            if($plandevicerating){
+                foreach ($input['perameters'] as $value) {
+                    $dataInsert = [
+                        'user_id'=>$user_id,
+                        'entity_id'=>$plandevicerating->plan_id,
+                        'entity_type'=>1,
+                        'rating_id'=>$plandevicerating->rating_id,
+                        'question_id'=>$value['question_id'],
+                        'rating'=>$value['rate'],
+                        'created_at'=>$date,
+                        'updated_at'=>$date
+                    ];
+                    array_push($data, $dataInsert);
+                }
+                $serviceRating = ServiceRating::insert($data);
+                if($serviceRating){
+                    $message = array('success'=>true,'message'=>'Successfully submited.');
+                    return json_encode($message);
+                }else{
+                    $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                    return json_encode($message);
+                }
+            }else{
+                $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                return json_encode($message);
+            }
         }
+        // exit;
+        
+
+        // $input['user_id'] = $user_id;
+        // $serviceRating = ServiceRating::create($input);
+        // if($serviceRating){
+        //     $message = array('success'=>true,'message'=>'Successfully submited.');
+        //     return json_encode($message);
+        // }else{
+        //     $message = array('success'=>false,'message'=>"Somthing went wrong!");
+        //     return json_encode($message);
+        // }
         
     }
     public function getCountry(Request $request)

@@ -54,7 +54,7 @@
 		<!-- share-serv-detail -->
 		<section class="service-detail">
 		    <div class="container">
-                <section class="services-section @if($settings->device == 1) section-d-none @endif section-both">
+                <section class="services-section section-both">
                     <!-- Star rating section -->
                     <div class="services-rating-section section-both" id="rating_section">
 	               		<div class="row">

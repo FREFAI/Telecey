@@ -119,7 +119,7 @@ class ReviewsController extends Controller
         $providers = Provider::get();
         $countries = Currency::get();
         $service_types = ServiceType::get();
-        $questions = RatingQuestion::get();
+        $questions = RatingQuestion::Where('type',1)->get();
 
         return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions]);
     }
@@ -127,7 +127,7 @@ class ReviewsController extends Controller
     {
         $plan_id = base64_decode($plan_id);
         $settings = SettingsModel::first();
-        $questions = RatingQuestion::get();
+        $questions = RatingQuestion::Where('type',1)->get();
         return view('FrontEnd.reviews_rating',['settings'=> $settings,'plan_id'=>$plan_id,'questions'=>$questions]);
     }
     public function reviewsDetail(Request $request)

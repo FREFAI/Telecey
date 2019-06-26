@@ -71,25 +71,14 @@ class HomeController extends Controller
             }
             foreach ($plan_device_rating as $plan_device) {
                 if($plan_device['plan_id'] == $data->id){
+                    $blankArray[$plan_device['rating_id']]['date']=$plan_device['created_at'];
                     $blankArray[$plan_device['rating_id']]['comment']=$plan_device['comment'];
                     $blankArray[$plan_device['rating_id']]['average']=$plan_device['average'];
                 }
             }
             $data->ratings = $blankArray;
         }
-        // exit;
-        // echo "<pre>";
-        // print_r($serviceData->toArray());
-        // exit;
         return view('FrontEnd.profile',['serviceData'=>$serviceData]);
 
-        // $serviceData = ServiceReview::where('service_reviews.user_id',$user_id)
-        //     ->join('service_ratings','service_ratings.service_id','=','service_reviews.id')
-        //     ->join('providers','providers.id','=','service_reviews.provider_id')
-        //     ->join('service_types','service_types.id','=','service_reviews.service_type')
-        //     ->leftJoin('currencies','currencies.id','=','service_reviews.currency_id')
-        //     ->select('service_reviews.*','service_reviews.created_at as review_date','service_reviews.data_speed as data_review_rate','service_ratings.*','service_ratings.data_speed as data_speed_rating','providers.provider_name','providers.status','service_types.service_type_name','service_types.status as service_type_status','currencies.currency_name','currencies.currency_symbol as symbol','currencies.currency_code as c_code')
-        //     ->orderBy('service_reviews.created_at','DESC')
-        //     ->get();
     }
 }

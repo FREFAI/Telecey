@@ -273,6 +273,7 @@
 										  					  	                        	</li>
 										  					  	                        </ul>
 										  					  	                    </a>
+										  					  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#ratingcollapse{{$service->id}}{{$key}}" aria-expanded="true" aria-controls="ratingcollapse{{$service->id}}{{$key}}" class="accordion_btn text-right">{{ date("d/m/Y", strtotime($rating['date'])) }}</a>
 										  					  	                </h4>
 										  					  	            </div>
 										  					  	            <div id="ratingcollapse{{$service->id}}{{$key}}" class="panel-collapse collapse @if($key == 1) show @endif rating_content" role="tabpanel" aria-labelledby="rating{{$service->id}}{{$key}}">
@@ -294,6 +295,14 @@
 						  					  	                			  		</div>
 						  					  	                			  		@endif
 						  					  	                			  		@endforeach
+							  					  	                			  	</div>
+							  					  	                			  	<div class="row">
+							  					  	                			  		<div class="col-lg-12">
+							  					  	                			  			<h6 class="text-center section-title">
+							  					  	                			  				Comment
+							  					  	                			  			</h6>
+							  					  	                			  			<p>{{$rating['comment']}}</p>
+							  					  	                			  		</div>
 							  					  	                			  	</div>
 										  					  	                </div>
 										  					  	            </div>

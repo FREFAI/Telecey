@@ -73,11 +73,11 @@
 	                                    <label class="label" for="name">Last Name</label>
 	                                </div>
 	                                <div class="form-field col-lg-6" id="country_div">
-	                                    <input id="country" class="input-text js-input" type="text" value="{{$usersDetail->country}}" name="country" autocomplete="off">
+	                                    <input id="country" class="input-text js-input" type="text" required value="{{$usersDetail->country}}" name="country" autocomplete="off">
 	                                    <label class="label" for="name">Country</label>
 	                                </div>
 	                                <div class="form-field col-lg-6 city_div" id="city_div">
-	                                    <input id="city" class="input-text js-input" type="text" value="{{$usersDetail->city}}" name="city"  autocomplete="off" data-country="{{$usersDetail->country_code}}">
+	                                    <input id="city" class="input-text js-input" type="text" required value="{{$usersDetail->city}}" name="city"  autocomplete="off" data-country="{{$usersDetail->country_code}}">
 	                                    <label class="label" for="name">City</label>
 	                                </div>
 	                                <div class="form-field col-lg-12 ">
@@ -120,19 +120,19 @@
                         @if($settings->device == 1)
 	                    <div class="col-lg-6 col text-center">
 	                        <div class="button-product">
-	                            <label class="text-product"><input type="radio" class="radio-inline select_one" name="radios" value="product-section"><span class="outside"><span class="inside"></span></span>Devices</label>
+	                            <label class="text-product"><input @if(Request::get('type') == 2) checked="checked" @endif type="radio" class="radio-inline select_one" name="radios" value="product-section"><span class="outside"><span class="inside"></span></span>Devices</label>
 	                        </div>
 	                    </div>
                         @endif
 	                    <div class="@if($settings->device == 1) col-lg-6  @else  col-lg-12 @endif col text-center">
 	                        <div class="button-service">
-	                            <label class="text-product"><input type="radio" class="radio-inline select_one" name="radios" value="services-section" @if($settings->device == 0) checked="" @endif><span class="outside"><span class="inside"></span></span>Plans</label>
+	                            <label class="text-product"><input type="radio" class="radio-inline select_one" name="radios" value="services-section" @if(Request::get('type') == 1) checked="checked" @endif @if($settings->device == 0) checked="" @endif><span class="outside"><span class="inside"></span></span>Plans</label>
 	                        </div>
 	                    </div>
 	                </div>
 	            </form> 
-                <!-- Product section  -->
-                <section class="product-section section-d-none section-both">
+                <!-- Device section  -->
+                <section class="product-section @if(Request::get('type') == 1) section-d-none @endif @if(!Request::get('type')) section-d-none @endif section-both">
                    <div class="row mt-3">
                        <div class="col-lg-6 ">
                            <h5>Which Device</h5>
@@ -302,7 +302,8 @@
                         </div>
                	</section>
                 <!-- End product section  -->
-                <section class="services-section @if($settings->device == 1) section-d-none @endif section-both">
+                <!-- Plan Section -->
+                <section class="services-section  @if(Request::get('type') == 2) section-d-none @endif @if(!Request::get('type'))  @if($settings->device == 1) section-d-none @endif @endif  section-both">
                     <!-- Form Section  -->
                 	<div class="service_form_section">
 	                	<form class="reveiewing_form_service">
@@ -595,13 +596,13 @@
                         <div class="col-lg-12">
                             <h5>Voice Overage usage price (<b>Per Min</b>)</h5>
                             <div class="form-group">
-                                <input type="text" id="model_over_price" name="overage_price" class="form-control" placeholder="Voice price" required="">
+                                <input type="text" maxlength="20" id="model_over_price" name="overage_price" class="form-control" placeholder="Voice price" required="">
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <h5>Data Overage usage price (<b>Per MB</b>)</h5>
                             <div class="form-group">
-                                <input type="text" id="model_data_price" name="data_over_age" class="form-control" placeholder="Data price" required="">
+                                <input type="text" maxlength="20" id="model_data_price" name="data_over_age" class="form-control" placeholder="Data price" required="">
                             </div>
                         </div>
                         <div class="col-lg-12 text-center">
@@ -646,10 +647,10 @@
             $("#overage_price").trigger('click');
         }
         $('#model_over_price').on('input', function (event) { 
-            this.value = this.value.replace(/[^0-9]/g, '');
+            this.value = this.value.replace(/[^0-9.]/g, '');
         });
         $('#model_data_price').on('input', function (event) { 
-            this.value = this.value.replace(/[^0-9]/g, '');
+            this.value = this.value.replace(/[^0-9.]/g, '');
         });
         $('#overage_price_form').on('submit',function(){
 

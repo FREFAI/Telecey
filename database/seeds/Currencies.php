@@ -13,7 +13,7 @@ class Currencies extends Seeder
     {
         $now = date("Y-m-d H:i:s");
 
-        DB::table("countries")->insert([
+        DB::table("currencies")->insert([
             [
 			    'name' => "Afghanistan",
 			    'code' => "AF",

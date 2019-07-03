@@ -30,6 +30,17 @@ class FilterSettingsController extends Controller
         $setting  = SettingsModel::first();
         if($setting == null){
             $setting = new \App\Models\Admin\SettingsModel;
+            $insertArray = [
+                $input['type'] => $input['status']
+            ];
+            $filtersettings = SettingsModel::create($insertArray);
+            if($filtersettings){
+                $message = array('success'=>true,'message'=>'Successfull');
+                return json_encode($message);
+            }else{
+                $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                return json_encode($message);
+            }
         }
         if(!empty($input)){
             $filtersettings = SettingsModel::where('id',1)->update([$input['type']=>$input['status']]);

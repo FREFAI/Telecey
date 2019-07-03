@@ -13,6 +13,7 @@ use App\Models\Admin\Provider;
 use App\Models\Admin\ServiceType;
 use App\Models\Admin\RatingQuestion;
 use App\User;
+use App\UserAddress;
 use App\Currency;
 use App\CountriesModel;
 use Auth;
@@ -39,7 +40,7 @@ class ReviewsController extends Controller
      */
     public function reviews(Request $request)
     {
-       
+        
         $user_id = Auth::guard('customer')->user()['id']; 
         if (!$request->session()->has('usersDetail')) {
             $ip = env('ip_address','live');
@@ -51,7 +52,6 @@ class ReviewsController extends Controller
             }
             // $ip = '96.46.34.142';
             $data = \Location::get($ip);
-        
             $client = new \GuzzleHttp\Client();
             $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
             $response = json_decode($response->getBody());
@@ -125,6 +125,7 @@ class ReviewsController extends Controller
     }
     public function reviewsRating(Request $request, $plan_id)
     {
+        $pageType = $plan_id;
         $plan_id = base64_decode($plan_id);
         $settings = SettingsModel::first();
         $questions = RatingQuestion::Where('type',1)->get();
@@ -134,6 +135,7 @@ class ReviewsController extends Controller
     {
         $input = $request->all();
         $user_id = Auth::guard('customer')->user()['id']; 
+        $user_address_id = Auth::guard('customer')->user()['user_address_id'];
         $validation = Validator::make($input, [
             'firstname' => 'required',
             'lastname' => 'required',
@@ -142,14 +144,67 @@ class ReviewsController extends Controller
              $message = array('success'=>false,'message'=>$validation->messages()->first());
              return json_encode($message);
         }else{
-            $user = User::where('id',$user_id)->update($input);
-            if($user){
-                $message = array('success'=>true,'message'=>'Updated successfully.');
-                return json_encode($message);
-         }else{
-            $message = array('success'=>false,'message'=>"Somthing went wrong!");
-            return json_encode($message);
-         }
+            if(!$user_address_id){
+                $formatted = $input['city'].' '.$input['country'].' '.$input['postal_code'];
+                $insertAddressTable = [
+                    'user_id' => $user_id,
+                    'city' => $input['city'],
+                    'country' => $input['country'],
+                    'postal_code' => $input['postal_code'],
+                    'is_primary'=>1,
+                    'formatted_address' => $formatted
+                ];
+                $userAddress = UserAddress::create($insertAddressTable);
+                if(!$userAddress){
+                    $message = array('success'=>false,'message'=>"Somthing went wrong in user address!");
+                    return json_encode($message);
+                }else{
+                    $input['user_address_id'] = $userAddress->id;
+                    $user = User::where('id',$user_id)->update($input);
+                    if($user){
+                        $message = array('success'=>true,'message'=>'Updated successfully.');
+                        return json_encode($message);
+                    }else{
+                        $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                        return json_encode($message);
+                    }
+                }
+                
+            }else{
+                $userAddressExistOrNot = UserAddress::where('user_id',$user_id)
+                                                    ->where('city',$input['city'])
+                                                    ->where('country',$input['country'])
+                                                    ->where('postal_code',$input['postal_code'])
+                                                    ->count();
+                if($userAddressExistOrNot == 0){
+                    $is_primary = UserAddress::where('user_id',$user_id)->where('is_primary',1)->count();
+                    if($is_primary > 0){
+                        $is_primary_var = 0;
+                    }else{
+                        $is_primary_var = 1;
+                    }
+                    $formatted = $input['city'].' '.$input['country'].' '.$input['postal_code'];
+                    $insertAddressTable = [
+                        'user_id' => $user_id,
+                        'city' => $input['city'],
+                        'country' => $input['country'],
+                        'postal_code' => $input['postal_code'],
+                        'is_primary'=>$is_primary_var,
+                        'formatted_address' => $formatted
+                    ];
+                    $userAddress = UserAddress::create($insertAddressTable);
+                    if($userAddress){
+                        $message = array('success'=>true,'message'=>'Updated successfully.');
+                        return json_encode($message);
+                    }else{
+                        $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                        return json_encode($message);
+                    }
+                }else{
+                    $message = array('success'=>true,'message'=>'Updated successfully.');
+                    return json_encode($message);
+                }
+            }
         }
     }
     public function reviewService(Request $request)
@@ -225,12 +280,14 @@ class ReviewsController extends Controller
             'plan_id' => $input['plan_id'],
             'rating_id'=> $rating_id,
             'comment'=> $input['comment'],
-            'average' => $input['average_input']
+            'average' => $input['average_input'],
+            'user_address_id' => $input['user_address_id']
         ];
         $validation = Validator::make($perameters, [
             'user_id' => 'required',
             'plan_id' => 'required',
             'average' => 'required',
+            'user_address_id' => 'required'
         ]);
         if ( $validation->fails() ) {
              $message = array('success'=>false,'message'=>$validation->messages()->first());

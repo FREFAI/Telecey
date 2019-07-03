@@ -22,7 +22,7 @@ class RatingQuestionController extends Controller
     }
     public function addRatingQuestion(Request $request)
     {
-    	$perameters = $request->all();
+        $perameters = $request->all();
         $validation = Validator::make($perameters,[
             'question' => 'required|unique:rating_questions',
             'type' => 'required'
@@ -51,14 +51,18 @@ class RatingQuestionController extends Controller
             'question' => 'required|unique:rating_questions,question,'.$perameter['id'],
             'type' => 'required'
         ]);
-        $question = RatingQuestion::find($perameter['id']);
-        if($question){
-            $question->question = $perameter['question'];
-            $question->type = $perameter['type'];
-            if($question->save()){
-                return redirect('/admin/rating-question')->with('success','Question updated successfully.');
-            }else{
-                return redirect()->back()->with('error','Somthing went wrong!');
+        if($validation->fails()){
+            return redirect()->back()->with('error',$validation->messages()->first());
+        }else{
+            $question = RatingQuestion::find($perameter['id']);
+            if($question){
+                $question->question = $perameter['question'];
+                $question->type = $perameter['type'];
+                if($question->save()){
+                    return redirect('/admin/rating-question')->with('success','Question updated successfully.');
+                }else{
+                    return redirect()->back()->with('error','Somthing went wrong!');
+                }
             }
         }
     }

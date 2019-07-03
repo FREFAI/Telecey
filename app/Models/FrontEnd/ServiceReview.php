@@ -27,7 +27,7 @@ class ServiceReview extends Model
   	}
 	  
   	public function get_ratings() {
-  		return $this->ratings()->where('entity_type', 1)->get();
+  		return $this->ratings()->where('entity_type', 1)->orderBy('created_at','DESC')->get();
   		// return $this->ratings()->where('entity_type', 1)->groupBy('rating_id')->get();
   	}
 

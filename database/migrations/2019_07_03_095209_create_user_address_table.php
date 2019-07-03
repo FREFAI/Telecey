@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlanDeviceRatingTable extends Migration
+class CreateUserAddressTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreatePlanDeviceRatingTable extends Migration
      */
     public function up()
     {
-        Schema::create('plan_device_rating', function (Blueprint $table) {
+        Schema::create('user_address', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->integer('plan_id');
-            $table->integer('rating_id')->default(0);
-            $table->longText('comment')->nullable();
-            $table->decimal('average',10,2)->default(0);
+            $table->text('address')->nullable();
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->text('formatted_address')->nullable();
+            $table->integer('is_primary')->default(0);
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ class CreatePlanDeviceRatingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plan_device_rating');
+        Schema::dropIfExists('user_address');
     }
 }

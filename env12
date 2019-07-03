@@ -1,17 +1,17 @@
 APP_NAME=Laravel
 APP_ENV=local
-APP_KEY=
+APP_KEY=base64:zK8wo6+ciR+V8CeGzrnZN4esYMXJ7kX54QwroUYQ3uw=
 APP_DEBUG=true
-APP_URL=http://localhost
+APP_URL=http://telco.com/
 
 LOG_CHANNEL=stack
 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=homestead
-DB_USERNAME=homestead
-DB_PASSWORD=secret
+DB_DATABASE=telco_tales
+DB_USERNAME=root
+DB_PASSWORD=
 
 BROADCAST_DRIVER=log
 CACHE_DRIVER=file

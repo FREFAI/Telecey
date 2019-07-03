@@ -44,7 +44,7 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <select class="form-control" name="type">
-                        <option>Select type</option>
+                        <option value="">Select type</option>
                         <option value="1" @if($question->type == 1) selected @endif>Plan</option>
                         <option value="2" @if($question->type == 2) selected @endif>Device</option>
                       </select>

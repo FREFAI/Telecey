@@ -70,6 +70,7 @@
 
 
   $("#firstform").validate();
+  
   $("#overage_price_form").validate({
     rules: {
         overage_price: {
@@ -235,6 +236,9 @@
           var city = $('#city').val();
           var postal_code = $('#postal_code').val();
           var mobile_number = $('#mobile_number').val();
+          if(firstname == "" || lastname == "" || country == "" || city == ""){
+            return;
+          }
           if(window.location.protocol == "http:"){
               resuesturl = "{{url('/reviewsDetail')}}"
           }else if(window.location.protocol == "https:"){
@@ -358,6 +362,7 @@
           var comment = $('#comment').val();
           var average_input = $('.average_input').val();
           var service_id = $('.service_id').val();
+          var user_address_id = $('#user_address_id').val();
           var perams = [];
           $('#rating_section .rating').each(function(index, item){
             var rate = $(item).rate('getValue');
@@ -380,6 +385,9 @@
             }
           });
           if(isset == 1){
+            $('#user_address').modal({
+                show: true
+            });
             var ratingform = $(this);
             if(window.location.protocol == "http:"){
                 resuesturl = "{{url('/ratingService')}}"
@@ -397,7 +405,8 @@
                   'perameters':perams,
                   'comment':comment,
                   'average_input':average_input,
-                  'plan_id':service_id
+                  'plan_id':service_id,
+                  'user_address_id':user_address_id
                 },
                 success: function (data) {
                     if(data.success){

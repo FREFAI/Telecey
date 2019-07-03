@@ -57,10 +57,10 @@
 					  </li>
 					</ul>
 					<div class="tab-content mt-2" id="myTabContent">
-					  	<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+					  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 						  	<div class="row mb-2">
 						  		<div class="col-lg-12">
-						  			<a class="btn btn-info pull-right add_service" href="{{url('reviews')}}">Add new plan</a>
+						  			<a class="btn btn-info pull-right add_service" href="{{url('reviews?type=1')}}">Add new plan</a>
 						  		</div>
 						  	</div>
 
@@ -278,7 +278,7 @@
 										  					  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#ratingcollapse{{$service->id}}{{$key}}" aria-expanded="true" aria-controls="ratingcollapse{{$service->id}}{{$key}}" class="accordion_btn text-right">{{ date("d/m/Y", strtotime($rating['date'])) }}</a>
 										  					  	                </h4>
 										  					  	            </div>
-										  					  	            <div id="ratingcollapse{{$service->id}}{{$key}}" class="panel-collapse collapse @if($key == 1) show @endif rating_content" role="tabpanel" aria-labelledby="rating{{$service->id}}{{$key}}">
+										  					  	            <div id="ratingcollapse{{$service->id}}{{$key}}" class="panel-collapse collapse @if($key == count($service->ratings)) show @endif rating_content" role="tabpanel" aria-labelledby="rating{{$service->id}}{{$key}}">
 										  					  	                <div class="panel-body w-100">
 										  					  	                	<div class="row">
 									  					  	                		@foreach($rating['ratingList'] as $rate)
@@ -334,7 +334,12 @@
 						  </div>
 					  </div>
 					  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-					  	<div class="row">
+							<div class="row mb-2">
+						  		<div class="col-lg-12">
+						  			<a class="btn btn-info pull-right add_service" href="{{url('reviews?type=2')}}">Add new device</a>
+						  		</div>
+						  	</div>
+						  	<div class="row">
 					  			<div class="col-lg-12">
 					  				<h3 class="text-center pt-3">
 					  					No data found

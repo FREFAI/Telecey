@@ -10,6 +10,10 @@
         z-index: 999999;
         background-color: #00000052;
     }
+    div#user_address {
+        z-index: 999999999;
+        background: #0000002e;
+    }
 </style>
 	<!-- Content Start Here -->
 		<div class="page-header inner-page start-page" style="background: url({{URL::asset('frontend/assets/img/bg-1.jpeg')}});">
@@ -109,7 +113,8 @@
 	               		    <div class="col-lg-12">
 	               		        <div class="form-group w-50 ml-auto mr-auto text-center">
 	               		        	<input type="hidden" name="service_id" class="service_id" value="{{$plan_id}}">
-                                    <button type="submit" class="btn  btn-lg btn-block service-rating-submit-btn">Submit</button>
+                                    <button type="submit" class="btn  btn-lg service-rating-submit-btn-add">Submit</button>
+                                    <button type="submit" class="btn  btn-lg service-rating-submit-btn d-none">Submit</button>
                                 </div>
 	               		    </div>
 	               		</div>
@@ -167,37 +172,73 @@
 		</section>
 	<!-- Content End Here -->
     <!-- The Modal -->
-    <div class="modal fade" id="overage_price_model" data-backdrop="static" data-keyboard="false">
+    <div class="modal fade" id="user_address" data-backdrop="static" data-keyboard="false">
       <div class="modal-dialog">
         <div class="modal-content">
 
           <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Would share the overage price?</h4>
-            <button type="button" class="close" data-dismiss="modal" onclick="resetButton()">&times;</button>
-          </div>
+          <!-- <div class="modal-header">
+            <h4 class="modal-title">Would share the overage price?</h4> -->
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          <!-- </div> -->
 
           <!-- Modal body -->
           <div class="modal-body">
-            <form id="overage_price_form">
-                <div class="row">
-                        <div class="col-lg-12">
-                            <h5>Voice Overage usage price (<b>Per Min</b>)</h5>
-                            <div class="form-group">
-                                <input type="text" id="model_over_price" name="overage_price" class="form-control" placeholder="Voice price" required="">
+                <div class="default_adderss">
+                    <div class="row">
+                        <div class="address_list">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="address">Chandigarh India 160018</div>
+                                </div>
+                                <div class="col-lg-4 text-right">
+                                    <div class="text-green notprimary">Primary</div>
+                                    <!-- <button class="btn btn-primary">Make primary</button> -->
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <h5>Data Overage usage price (<b>Per MB</b>)</h5>
-                            <div class="form-group">
-                                <input type="text" id="model_data_price" name="data_over_age" class="form-control" placeholder="Data price" required="">
+                        <div class="col-lg-12 mt-3 confirm_message_section">
+                            Do you want to associate this rating with above address ?
+                            <div class="confirmation_button text-center mt-3">
+                                <button class="btn btn-primary yes">Yes</button>
+                                <button class="btn btn-primary">No</button>    
                             </div>
                         </div>
-                        <div class="col-lg-12 text-center">
-                            <button type="submit" class="btn btn-primary">Ok</button>
+                    </div>
+                </div>
+                <div class="d-none make_new_address mt-3">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h5>Address</h5>
+                                <div class="form-group">
+                                    <input type="text" id="model_over_price" name="overage_price" class="form-control" placeholder="Address" required="">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <h5>City</h5>
+                                <div class="form-group">
+                                    <input type="text" id="model_data_price" name="data_over_age" class="form-control" placeholder="City" required="">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <h5>Country</h5>
+                                <div class="form-group">
+                                    <input type="text" id="model_data_price" name="data_over_age" class="form-control" placeholder="Country" required="">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <h5>Postal code</h5>
+                                <div class="form-group">
+                                    <input type="text" id="model_data_price" name="data_over_age" class="form-control" placeholder="Postal code" required="">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 text-center">
+                                <button type="button" class="btn btn-primary">Save</button>
+                            </div>
+                                
                         </div>
                 </div>
-            </form>
+                <input type="hidden" value="1" id="user_address_id">
           </div>
 
         </div>
@@ -205,54 +246,40 @@
     </div>
 
 <script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script>
-    <script>
-	    function add(ths,sno){
-	        for (var i=1;i<=5;i++){
-	            var cur=document.getElementById("star"+i)
-	            cur.className="fa fa-star"
-	        }
-	    
-	        for (var i=1;i<=sno;i++){
-	            var cur=document.getElementById("star"+i)
-	            if(cur.className=="fa fa-star")
-	            {
-	                cur.className="fa fa-star checked"
-	            }
-	        }
-	    }
-        function overageFunction(){
-            if(document.getElementById('overage_price').checked){
-                $('#overage_price_model').modal({
-                    show: true
-                }); 
-            }else{
-                $('#overage_price_model').modal({
-                    show: false
-                }); 
-            }
-        };
-        function resetButton(){
-            $("#overage_price").trigger('click');
-        }
-        $('#model_over_price').on('input', function (event) { 
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-        $('#model_data_price').on('input', function (event) { 
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-        $('#overage_price_form').on('submit',function(){
-
-            var model_over_price = $('#model_over_price').val();
-            var model_data_price = $('#model_data_price').val();
-            if(model_over_price == "" || model_data_price == ""){
+<script>
+    $('.service-rating-submit-btn-add').on('click',function(e){
+        e.preventDefault();
+        var isset = 0;
+        var perams = [];
+        $('#rating_section .rating').each(function(index, item){
+            var rate = $(item).rate('getValue');
+            var question_id = $(item).attr('data-question_id');
+            if(rate==0){
+                $('.starrating_error').removeClass('d-none');
+                setTimeout(function(){
+                $('.starrating_error').addClass('d-none');
+                },3000);
+                isset = 0;
                 return false;
+            }else{
+                isset = 1;
             }
-            $('#voice_overage_price').val(model_over_price);
-            $('#data_over_age').val(model_data_price);
-            $('#overage_price_model').modal('hide');
-            return false;
+            if(isset == 1){
+                $('#user_address').modal({
+                    show: true
+                });
+            }
         });
-        
-	</script>
+    });
+    $('.confirmation_button .yes').on('click',function(e){
+        $('.service-rating-submit-btn').trigger('click');
+        $('#user_address').modal('toggle');
+    });
+    $('.confirmation_button .no').on('click',function(e){
+        $('.confirm_message_section').addClass('d-none');
+        $('.make_new_address').removeClass('d-none');
+
+    });
+</script>
 
 @endsection

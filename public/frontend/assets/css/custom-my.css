@@ -41,6 +41,14 @@ a.btn.btn-info.pull-right.add_service:hover{
     color: #495057;
     width: 30%;
 }
+.service-rating-submit-btn{
+  color: #495057;
+}
+.btn-primary:hover,.btn-primary:focus,.btn-primary{
+  background: #96fdd4;
+  color: #495057;
+  border: #96fdd4;
+}
 .tg-select.tg-select select{
   line-height: 37px;
   padding: 0 10px;
@@ -297,4 +305,13 @@ ul.country-autocomplete li:hover {
     border: 1px solid;
     border-radius: 2px;
     background: #ff000038;
+}
+
+.address_list {
+  padding: 0 16px;
+  font-weight: 600;
+  width: 100%;
+}
+.text-green {
+  color: #7ad1ae;
 }

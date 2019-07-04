@@ -12,5 +12,8 @@ class PlanDeviceRating extends Model
     protected $fillable = [
         'id', 'user_id', 'plan_id', 'rating_id', 'comment', 'average', 'user_address_id','created_at', 'updated_at'
     ];
-
+    public function user_address()
+    {
+    	return $this->hasOne('App\UserAddress', 'id', 'user_address_id');
+    }
 }

@@ -10,6 +10,7 @@ use App\Models\FrontEnd\ServiceRating;
 use App\Models\Admin\SettingsModel;
 use App\Models\Admin\BlogsModel;
 use Auth;
+use App\UserAddress;
 
 class HomeController extends Controller
 {
@@ -52,6 +53,7 @@ class HomeController extends Controller
             $data->currency;
             $allratings = $data->get_ratings();
             $plan_device_rating = $data->plan_device_rating->toArray();
+
             unset($data->plan_device_rating);
             foreach ($allratings as $ratings) {
                 if($ratings->entity_id == $data->id){
@@ -72,16 +74,22 @@ class HomeController extends Controller
             }
             foreach ($plan_device_rating as $plan_device) {
                 if($plan_device['plan_id'] == $data->id){
+                    $address = UserAddress::find($plan_device['user_address_id']);
+                    if($address['formatted_address'] != NULL && $address['formatted_address'] != ''){
+                        $blankArray[$plan_device['rating_id']]['formatted_address']=$address['formatted_address'];
+                    }else{
+                        $blankArray[$plan_device['rating_id']]['formatted_address']='N/A';
+                    }
                     $blankArray[$plan_device['rating_id']]['date']=$plan_device['created_at'];
                     $blankArray[$plan_device['rating_id']]['comment']=$plan_device['comment'];
                     $blankArray[$plan_device['rating_id']]['average']=$plan_device['average'];
+                    $blankArray[$plan_device['rating_id']]['user_address_id']=$plan_device['user_address_id'];
+                    
                 }
             }
             $data->ratings = $blankArray;
         }
-        /*echo "<pre>";
-        print_r($serviceData->toArray());
-        exit;*/
+       
         return view('FrontEnd.profile',['serviceData'=>$serviceData]);
 
     }

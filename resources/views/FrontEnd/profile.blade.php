@@ -281,17 +281,29 @@
 										  					  	            <div id="ratingcollapse{{$service->id}}{{$key}}" class="panel-collapse collapse @if($key == count($service->ratings)) show @endif rating_content" role="tabpanel" aria-labelledby="rating{{$service->id}}{{$key}}">
 										  					  	                <div class="panel-body w-100">
 										  					  	                	<div class="row">
+						  					  	                		  				<div class="col-lg-12 mb-3 border-bottom">
+						  					  	                			  				<div class="card_sm">
+						  					  	                			  					<div class="row">
+						  					  	                				  					<div class="col-lg-4">
+						  					  	                					  					<b>Address</b>
+						  					  	                					  				</div>
+						  					  	                					  				<div class="col-lg-8">
+						  					  	                					  					<div class="pull-right" >{{$rating['formatted_address']}}</div>
+						  					  	                					  				</div>
+						  					  	                					  			</div>
+						  					  	                				  			</div>
+						  					  	                				  		</div>
 									  					  	                		@foreach($rating['ratingList'] as $rate)
 									  					  	                		@if($rate['entity_id'] == $service->id)
 						  					  	                	  				<div class="col-lg-12 mb-3">
 						  					  	                		  				<div class="card_sm">
 						  					  	                		  					<div class="row">
-					  					  	                			  					<div class="col-lg-8">
-					  					  	                				  					{{$rate['question_name']}}
-					  					  	                				  				</div>
-					  					  	                				  				<div class="col-lg-4">
-					  					  	                				  					<div class="rating_disable pull-right" data-rate-value="{{$rate['rating']}}"></div>
-					  					  	                				  				</div>
+						  					  	                			  					<div class="col-lg-8">
+						  					  	                				  					{{$rate['question_name']}}
+						  					  	                				  				</div>
+						  					  	                				  				<div class="col-lg-4">
+						  					  	                				  					<div class="rating_disable pull-right" data-rate-value="{{$rate['rating']}}"></div>
+						  					  	                				  				</div>
 						  					  	                				  			</div>
 						  					  	                			  			</div>
 						  					  	                			  		</div>

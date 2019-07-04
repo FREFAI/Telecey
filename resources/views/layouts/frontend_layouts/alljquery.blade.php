@@ -26,6 +26,7 @@
   <script>
     
     $('input#city').cityAutocomplete();
+    $('input#user_city').cityAutocomplete();
     $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo('#country_div');
     $('#country_div input').keyup(function(){
         var search = $(this).val();
@@ -65,12 +66,20 @@
             $('input#city').cityAutocomplete();
         },500);
     });
+    $(document).on('click','.country-autocomplete li',function(){
+        $('#user_country').val($(this).find('a').attr('data-name'));
+        $('#user_city').attr('data-country',$(this).find('a').attr('data-code'));
+        $('.country_list').css('display','none');
+        setTimeout(function(){
+            $('input#user_city').cityAutocomplete();
+        },500);
+    });
 
 
 
 
   $("#firstform").validate();
-  
+  $("#address_form").validate();
   $("#overage_price_form").validate({
     rules: {
         overage_price: {
@@ -363,6 +372,12 @@
           var average_input = $('.average_input').val();
           var service_id = $('.service_id').val();
           var user_address_id = $('#user_address_id').val();
+          var user_full_address = $('#user_full_address').val();
+          var user_city = $('#user_city').val();
+          var user_country = $('#user_country').val();
+          var user_postal_code = $('#user_postal_code').val();
+          var is_primary = $('#is_primary').val();
+          var formatted_address = user_full_address+' '+user_city+' '+user_country+' '+user_postal_code;
           var perams = [];
           $('#rating_section .rating').each(function(index, item){
             var rate = $(item).rate('getValue');
@@ -406,7 +421,14 @@
                   'comment':comment,
                   'average_input':average_input,
                   'plan_id':service_id,
-                  'user_address_id':user_address_id
+                  'user_address_id':user_address_id,
+                  'user_full_address':user_full_address,
+                  'user_city':user_city,
+                  'user_country':user_country,
+                  'user_postal_code':user_postal_code,
+                  'is_primary':is_primary,
+                  'formatted_address':formatted_address
+
                 },
                 success: function (data) {
                     if(data.success){

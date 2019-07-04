@@ -113,8 +113,8 @@
 	               		    <div class="col-lg-12">
 	               		        <div class="form-group w-50 ml-auto mr-auto text-center">
 	               		        	<input type="hidden" name="service_id" class="service_id" value="{{$plan_id}}">
-                                    <button type="submit" class="btn  btn-lg service-rating-submit-btn-add">Submit</button>
-                                    <button type="submit" class="btn  btn-lg service-rating-submit-btn d-none">Submit</button>
+                                    <button type="submit" class="btn  btn-lg btn-primary service-rating-submit-btn-add">Submit</button>
+                                    <button type="submit" class="btn  btn-lg btn-primary service-rating-submit-btn d-none">Submit</button>
                                 </div>
 	               		    </div>
 	               		</div>
@@ -188,57 +188,68 @@
                     <div class="row">
                         <div class="address_list">
                             <div class="row">
+                                @if($userAddress)
                                 <div class="col-lg-8">
-                                    <div class="address">Chandigarh India 160018</div>
+                                    <div class="address">{{$userAddress->formatted_address}}</div>
                                 </div>
                                 <div class="col-lg-4 text-right">
-                                    <div class="text-green notprimary">Primary</div>
-                                    <!-- <button class="btn btn-primary">Make primary</button> -->
+                                    <div class="text-green primary">Primary</div>
+                                    <button class="btn btn-primary d-none make_primary_btn" data-address_id="{{$userAddress->id}}">Make primary</button>
                                 </div>
+                                <input type="hidden" value="{{$userAddress->id}}" id="user_address_id">
+                                <input type="hidden" value="1" id="is_primary">
+                                @else
+                                    <div class="address">No address found.</div>
+                                @endif
                             </div>
                         </div>
                         <div class="col-lg-12 mt-3 confirm_message_section">
                             Do you want to associate this rating with above address ?
                             <div class="confirmation_button text-center mt-3">
                                 <button class="btn btn-primary yes">Yes</button>
-                                <button class="btn btn-primary">No</button>    
+                                <button class="btn btn-primary no">No</button>    
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="d-none make_new_address mt-3">
+                    <form id="address_form">
                         <div class="row">
                             <div class="col-lg-12">
                                 <h5>Address</h5>
                                 <div class="form-group">
-                                    <input type="text" id="model_over_price" name="overage_price" class="form-control" placeholder="Address" required="">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <h5>City</h5>
-                                <div class="form-group">
-                                    <input type="text" id="model_data_price" name="data_over_age" class="form-control" placeholder="City" required="">
+                                    <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="Address" >
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h5>Country</h5>
-                                <div class="form-group">
-                                    <input type="text" id="model_data_price" name="data_over_age" class="form-control" placeholder="Country" required="">
+                                <div class="form-group" id="country_div">
+                                    <input type="text" id="user_country" name="user_country" class="form-control" placeholder="Country" required="">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <h5>City</h5>
+                                <div class="form-group city_div" id="city_div">
+                                    <input type="text" id="user_city" name="user_city" class="form-control js-input" placeholder="City" autocomplete="off" required="" data-country="IN">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h5>Postal code</h5>
                                 <div class="form-group">
-                                    <input type="text" id="model_data_price" name="data_over_age" class="form-control" placeholder="Postal code" required="">
+                                    <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="Postal code" required="">
                                 </div>
                             </div>
                             <div class="col-lg-12 text-center">
-                                <button type="button" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary save_address">Save</button>
                             </div>
                                 
                         </div>
+                    </form>
                 </div>
-                <input type="hidden" value="1" id="user_address_id">
+                <div class="d-none continue-btn-section text-center mt-3">
+                    <button class="btn btn-primary">Continue</button>
+                </div>
+                
           </div>
 
         </div>
@@ -247,6 +258,7 @@
 
 <script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script>
 <script>
+
     $('.service-rating-submit-btn-add').on('click',function(e){
         e.preventDefault();
         var isset = 0;
@@ -264,12 +276,12 @@
             }else{
                 isset = 1;
             }
-            if(isset == 1){
-                $('#user_address').modal({
-                    show: true
-                });
-            }
         });
+        if(isset == 1){
+            $('#user_address').modal({
+                show: true
+            });
+        }
     });
     $('.confirmation_button .yes').on('click',function(e){
         $('.service-rating-submit-btn').trigger('click');
@@ -278,7 +290,57 @@
     $('.confirmation_button .no').on('click',function(e){
         $('.confirm_message_section').addClass('d-none');
         $('.make_new_address').removeClass('d-none');
+        $('#user_address_id').val(0);
+        $('#is_primary').val(0);
+    });
 
+    $('.save_address').on('click',function(e){
+        e.preventDefault();
+        if(!$("#address_form").valid()){
+            return false;
+        }else{
+            var user_full_address = $('#user_full_address').val();
+            var user_city = $('#user_city').val();
+            var user_country = $('#user_country').val();
+            var user_postal_code = $('#user_postal_code').val();
+            var is_primary = $('#is_primary').val();
+            var user_address_id = $('#user_address_id').val();
+            var formatted_address = user_full_address+' '+user_city+' '+user_country+' '+user_postal_code;
+            // alert(formatted_address);
+            $('.address_list').append('<div class="row mt-2 border-top pt-2"><div class="col-lg-8"> <div class="address">'+formatted_address+'</div></div><div class="col-lg-4 text-right"> <div class="text-green primary d-none">Primary</div><button class="btn btn-primary make_primary_btn" data-address_id="0">Make primary</button> </div></div>');
+            $('.make_new_address').addClass('d-none');
+            $('.continue-btn-section').removeClass('d-none');
+        }
+        
+    });
+
+    $(document).on('click','.make_primary_btn',function(){
+        var address_id = $(this).attr('data-address_id');
+        console.log(address_id);
+        if(address_id==0){
+            $('.primary').hide();
+            $('.make_primary_btn').removeClass('d-none');
+            $('.make_primary_btn').show();
+            $(this).hide();
+            $(this).prev('.primary').removeClass('d-none');
+            $(this).prev('.primary').show();
+            $('#user_address_id').val(address_id);
+            $('#is_primary').val(1);
+        }else{
+            $('.primary').hide();
+            $('.make_primary_btn').removeClass('d-none');
+            $('.make_primary_btn').show();
+            $(this).hide();
+            $(this).prev('.primary').removeClass('d-none');
+            $(this).prev('.primary').show();
+            $('#user_address_id').val(address_id);
+            $('#is_primary').val(1);
+        }
+        
+    });
+    $('.continue-btn-section button').on('click',function(){
+        $('.service-rating-submit-btn').trigger('click');
+        $('#user_address').modal('toggle');
     });
 </script>
 

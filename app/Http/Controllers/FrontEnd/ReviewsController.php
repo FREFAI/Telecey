@@ -81,7 +81,8 @@ class ReviewsController extends Controller
         }
         $usersDetailSession = $request->session()->get('usersDetail');
         $usersDetail = User::find($user_id); 
-        if($usersDetail->country == ""){
+        $usersAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first(); 
+        if($usersDetail->user_address_id == "" || $usersDetail->user_address_id == NULL){
             if(array_key_exists('country', $usersDetailSession)){
                 $usersDetail->country = $usersDetailSession['country'];
                 $usersDetail->country_code = $usersDetailSession['country_code'];
@@ -89,32 +90,29 @@ class ReviewsController extends Controller
                 $usersDetail->country = null;
                 $usersDetail->country_code =$usersDetailSession['country_code'];
             }
-        }else{
-            $countrycode = CountriesModel::where('name',$usersDetail->country)->first();
-            if($countrycode){
-                $usersDetail->country_code = $countrycode->code;
-            }else{
-                $usersDetail->country_code = 'CA';
-            }
-
-        }
-        if($usersDetail->city == ""){
             if(array_key_exists('city', $usersDetailSession)){
                 $usersDetail->city = $usersDetailSession['city'];
             }else{
                 $usersDetail->city = null;
             }
-        }
-        if($usersDetail->postal_code == ""){
             if(array_key_exists('postal_code', $usersDetailSession)){
                 $usersDetail->postal_code = $usersDetailSession['postal_code'];
             }else{
                 $usersDetail->postal_code = null;
             }
+        }else{
+            $countrycode = CountriesModel::where('name',$usersAddress->country)->first();
+            if($countrycode){
+                $usersDetail->country = $usersAddress->country;
+                $usersDetail->country_code = $countrycode->code;
+            }else{
+                $usersDetail->country = $usersAddress->country;
+                $usersDetail->country_code = 'CA';
+            }
+            $usersDetail->city = $usersAddress->city;
+            $usersDetail->postal_code = $usersAddress->postal_code;
+
         }
-        // echo "<pre>";
-        // print_r($usersDetail);
-        // exit;
         $settings = SettingsModel::first();
         $providers = Provider::get();
         $countries = Currency::get();
@@ -125,11 +123,13 @@ class ReviewsController extends Controller
     }
     public function reviewsRating(Request $request, $plan_id)
     {
+        $user_id = Auth::guard('customer')->user()['id']; 
         $pageType = $plan_id;
         $plan_id = base64_decode($plan_id);
         $settings = SettingsModel::first();
         $questions = RatingQuestion::Where('type',1)->get();
-        return view('FrontEnd.reviews_rating',['settings'=> $settings,'plan_id'=>$plan_id,'questions'=>$questions]);
+        $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
+        return view('FrontEnd.reviews_rating',['settings'=> $settings,'plan_id'=>$plan_id,'questions'=>$questions,'userAddress'=>$userAddress]);
     }
     public function reviewsDetail(Request $request)
     {
@@ -275,6 +275,37 @@ class ReviewsController extends Controller
         $user_id = Auth::guard('customer')->user()['id'];
         $rating_id = PlanDeviceRating::where('user_id',$user_id)->where('plan_id',$input['plan_id'])->max('rating_id');
         $rating_id = $rating_id+1;
+        if(array_key_exists('user_country', $input)){
+            if($input['user_country'] != ""){
+                if($input['user_address_id'] == 0 && $input['is_primary'] == 1){
+                    UserAddress::where('user_id',$user_id)->update(['is_primary'=>0]);
+                    $is_primary = 1;
+                }else{
+                    $is_primary = 0;
+                }
+                $insertAddress = [
+                    'user_id' => $user_id,
+                    'address' =>$input['user_full_address'],
+                    'country' =>$input['user_country'],
+                    'city' =>$input['user_city'],
+                    'postal_code' => $input['user_postal_code'],
+                    'formatted_address' => $input['formatted_address'],
+                    'is_primary' => $is_primary
+                ];
+                $newAddress = UserAddress::create($insertAddress);
+                if($newAddress){
+                    $input['user_address_id'] = $newAddress->id;
+                }
+            }
+        }else{
+          $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
+          if($userAddress){
+              $input['user_address_id'] = $userAddress->id;
+          }else{
+            $input['user_address_id']=NULL;
+          }
+        }
+
         $perameters=[
             'user_id' => $user_id,
             'plan_id' => $input['plan_id'],

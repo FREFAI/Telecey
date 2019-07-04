@@ -160,6 +160,9 @@ class ReviewsController extends Controller
                     return json_encode($message);
                 }else{
                     $input['user_address_id'] = $userAddress->id;
+                    unset($input['city']);
+                    unset($input['country']);
+                    unset($input['postal_code']);
                     $user = User::where('id',$user_id)->update($input);
                     if($user){
                         $message = array('success'=>true,'message'=>'Updated successfully.');

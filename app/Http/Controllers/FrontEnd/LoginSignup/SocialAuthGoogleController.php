@@ -31,7 +31,7 @@ class SocialAuthGoogleController extends Controller
         $password = str_random(10);
         $password = bcrypt($password);
         $userDetail = $user->user;
-        $nickname = GenerateNickName::nickName($input['firstname']);
+        $nickname = GenerateNickName::nickName($userDetail['given_name']);
 
         $input = [
         	'email' => $userDetail['email'],

@@ -38,7 +38,7 @@ class SocialAuthFacebookController extends Controller
             }else{
               $userDetail['email'] = $userDetail['id'].'@facebook.com';
             }
-            $nickname = GenerateNickName::nickName($input['firstname']);
+            $nickname = GenerateNickName::nickName($userDetail['name']);
             $input = [
               'email' => $userDetail['email'],
               'firstname' => $userDetail['name'],

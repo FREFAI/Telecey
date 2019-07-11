@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEnd\LoginSignup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Helpers\GenerateNickName;
 use Socialite,Auth;
 use App\User;
 
@@ -30,14 +31,16 @@ class SocialAuthGoogleController extends Controller
         $password = str_random(10);
         $password = bcrypt($password);
         $userDetail = $user->user;
+        $nickname = GenerateNickName::nickName($input['firstname']);
+
         $input = [
         	'email' => $userDetail['email'],
         	'firstname' => $userDetail['given_name'],
         	'lastname' => $userDetail['family_name'],
         	'google_id' => $userDetail['sub'],
         	'social_login_type' => 1,
-        	'password' => $password
-
+        	'password' => $password,
+            'nickname' => $nickname
         ];
         $validation = Validator::make($input, [
             'firstname' => 'required',

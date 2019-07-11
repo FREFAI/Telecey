@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Helpers\GenerateNickName;
 use Auth;
 
 class RegisterController extends Controller
@@ -53,6 +54,8 @@ class RegisterController extends Controller
         if ( $validation->fails() ) {
            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
         }else{
+            $nickname = GenerateNickName::nickName($input['firstname']);
+            $input['nickname'] = $nickname;
             $input['password'] = bcrypt($input['password']);
             if(User::create($input)){
                 if (Auth::guard('customer')->attempt($request->only('email', 'password'))) {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEnd\LoginSignup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Helpers\GenerateNickName;
 use Socialite,Auth;
 use App\User;
 
@@ -37,12 +38,14 @@ class SocialAuthFacebookController extends Controller
             }else{
               $userDetail['email'] = $userDetail['id'].'@facebook.com';
             }
+            $nickname = GenerateNickName::nickName($input['firstname']);
             $input = [
               'email' => $userDetail['email'],
               'firstname' => $userDetail['name'],
               'facebook_id' => $userDetail['id'],
               'social_login_type' => 2,
-              'password' => $password
+              'password' => $password,
+              'nickname' => $nickname
 
             ];
             $validation = Validator::make($input, [

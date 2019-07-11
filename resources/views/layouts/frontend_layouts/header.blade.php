@@ -60,8 +60,12 @@
                             <ul class="dropdown-menu top">
                                 <li>
                                     <div class="navbar-content">
-                                        <a class="nav-link mt-0 mb-0" href="{{url('/profile')}}">
-                                            {{ Auth::guard('customer')->user()['firstname'] }}
+                                        <a class="nav-link mt-0 mb-0 text-capitalize" href="{{url('/profile')}}">
+                                            @if(Auth::guard('customer')->user()['nickname'] == "" || Auth::guard('customer')->user()['nickname'] == NULL)
+                                                {{ Auth::guard('customer')->user()['firstname'] }}
+                                            @else
+                                                {{ Auth::guard('customer')->user()['nickname'] }}
+                                            @endif
                                         </a>
                                         <a class="nav-link mt-0 mb-0" href="{{url('/logout')}}">Logout</a>
                                         

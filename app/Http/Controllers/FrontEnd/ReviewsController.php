@@ -119,7 +119,7 @@ class ReviewsController extends Controller
         $service_types = ServiceType::get();
         $questions = RatingQuestion::Where('type',1)->get();
 
-        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions]);
+        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions,'userAddress'=>$usersAddress]);
     }
     public function reviewsRating(Request $request, $plan_id)
     {
@@ -221,6 +221,7 @@ class ReviewsController extends Controller
         }else{
             $input['overage_price_type'] = 1;
         }
+        
         if(!array_key_exists('contract_type', $input)){
             $input['contract_type'] = "1";
         }
@@ -261,6 +262,20 @@ class ReviewsController extends Controller
             }
             $user_id = Auth::guard('customer')->user()['id'];
             $input['user_id'] = $user_id;
+            if(!array_key_exists('pay_as_usage_type', $input)){
+                $input['pay_as_usage_type'] = 0;
+                $input['voice_usage_price'] = NULL;
+                $input['data_usage_price'] = NULL;
+
+            }else{
+                $input['pay_as_usage_type'] = 1;
+                $input['datavolume'] = NULL;
+                $input['local_min'] = NULL;
+                $input['long_distance_min'] = NULL;
+                $input['international_min'] = NULL;
+                $input['roaming_min'] = NULL;
+                $input['sms'] = NULL;
+            }
             $serviceReview = ServiceReview::create($input);
             if($serviceReview){
                 $message = array('success'=>true,'message'=>'Add successfully.','service_id'=>$serviceReview->id);

@@ -10,6 +10,13 @@
         z-index: 999999;
         background-color: #00000052;
     }
+    div#user_address {
+        z-index: 999999;
+    }
+    div#usage_price_model {
+        z-index: 999999;
+        background: #00000040;
+    }
 </style>
 	<!-- Content Start Here -->
 		<div class="page-header inner-page start-page" style="background: url({{URL::asset('frontend/assets/img/bg-1.jpeg')}});">
@@ -37,22 +44,23 @@
 		                </div>
 		            </div>
 		        </div>
-		        <div class="row">
-		                <div class="col text-center">
-		                        <a href="javascript:void(0);" data-class="intro-section" class="start_btn">
-		                        <button class="learn-more mt-5">
-		                            <div class="circle">
-		                            <span class="icon arrow"></span>
-		                            </div>
-		                            <p class="button-text">START</p>
-		                        </button>
-		                    </a>
-		                </div>
-		            </div>
+		        <!-- <div class="row">
+	                <div class="col text-center">
+	                        <a href="javascript:void(0);" data-class="intro-section" class="start_btn">
+	                        <button class="learn-more mt-5">
+	                            <div class="circle">
+	                            <span class="icon arrow"></span>
+	                            </div>
+	                            <p class="button-text">START</p>
+	                        </button>
+	                    </a>
+	                </div>
+	            </div> -->
 		    </div>
 		</div>
 		<!-- intro section -->
-		<section class="intro-section section-d-none">
+        @if(!Request::get('type'))
+		<section class="intro-section">
 	        <div class="container-fluid">
 	            <div class="row step-row">
 	                <div class="col-lg-12 text-center wow animated fadeInRight" data-wow-delay="0.2s">
@@ -106,10 +114,12 @@
 	            </div>
 	        </div>
 		</section>
+         @endif
 		<!-- end-intro-section -->
 		<!-- share-serv-detail -->
-		<section class="service-detail section-d-none">
+		<section class="service-detail @if(!Request::get('type')) section-d-none @endif">
 		    <div class="container">
+                @if(!Request::get('type'))
 	           	<form class="get-in-touch detail-section pt-4 mt-5 mb-5">
 	                <div class="row">
 	                    <div class="heading detail-div">
@@ -131,6 +141,7 @@
 	                    </div>
 	                </div>
 	            </form> 
+                @endif
                 <!-- Device section  -->
                 <section class="product-section @if(Request::get('type') == 1) section-d-none @endif @if(!Request::get('type')) section-d-none @endif section-both">
                    <div class="row mt-3">
@@ -331,10 +342,10 @@
 	                                 	<a href="javascript:void(0)" class="provider_text_show">Couldn't find your Service provider</a>
 	                                 </small>
 	                            </div>
-	                            <div class="col-lg-6 ">
-	                             	<h5>Contract type</h5>
+	                            <div class="col-lg-6">
 	                                <div class="row align-items-center">
-	                                    <div class="col-lg-12 pt-3">
+	                                    <div class="col-lg-6">
+                             	            <h5 class="pt-3">Contract type</h5>
                                             <div class="form-group review_page">
                                                 <span class="ext-default reviewpage_toggle active">Personal</span>
                                                 <label class="switch">
@@ -343,10 +354,22 @@
                                                 </label>
                                                 <span class="text-default reviewpage_toggle">Business</span>
                                             </div>
+
 	                                        <!-- <div class="button-product">
 	                                            <label class="text-product"><input type="radio" class="radio-inline contract_type" name="contract_type" value="1" checked="" data-type="personal"><span class="outside"><span class="inside"></span></span>Personal</label>
 	                                        </div> -->
 	                                    </div>
+                                        <div class="col-lg-6 pt-3">
+                                            <h5>Payment type</h5>
+                                            <div class="form-group review_page">
+                                                <span class="ext-default reviewpage_toggle active">Postpaid</span>
+                                                <label class="switch">
+                                                  <input type="checkbox" id="payment_type" class="payment_type" name="payment_type">
+                                                  <span class="slider"></span>
+                                                </label>
+                                                <span class="text-default reviewpage_toggle">Prepaid</span>
+                                            </div>
+                                        </div>
 	                                    <!-- <div class="col-lg-6 pl-0">
 	                                        <div class="button-service">
 	                                            <label class="text-product"><input type="radio" class="radio-inline contract_type" name="contract_type" value="2" data-type="buisness"><span class="outside"><span class="inside"></span></span>Business</label>
@@ -372,8 +395,19 @@
 	                                    <input type="text" class="form-control price-box price" name="price" placeholder="Price" required>		
 	                                </div>
 	                            </div>
-	                            <div class="col-lg-6">
-	                                <h5>Payment type</h5>
+                                <div class="col-lg-6">
+                                    <h5>Pay as usage</h5>
+                                    <div class="form-group review_page">
+                                        <span class="ext-default reviewpage_toggle active">OFF</span>
+                                        <label class="switch">
+                                          <input onchange="usageFunction()" type="checkbox" id="pay_as_usage" class="pay_as_usage" name="pay_as_usage" value="1">
+                                          <span class="slider"></span>
+                                        </label>
+                                        <span class="text-default reviewpage_toggle">ON</span>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-lg-6">
+                                    <h5>Payment type</h5>
                                     <div class="form-group review_page">
                                         <span class="ext-default reviewpage_toggle active">Postpaid</span>
                                         <label class="switch">
@@ -382,7 +416,7 @@
                                         </label>
                                         <span class="text-default reviewpage_toggle">Prepaid</span>
                                     </div>
-	                            </div>
+                                </div> -->
 	                        </div>
 	                        <div class="row">
 	                            <div class="col-lg-6">
@@ -400,31 +434,31 @@
 	                                    </select>
 	                                </div>
 	                            </div>
-	                            <div class="col-lg-6 ">
+	                            <div class="col-lg-6 pay_as_usage_class">
 	                                <h5>Local Mintue</h5>
 	                                <div class="form-group">
 	                                    <input type="text" class="form-control local_min mint_input" name="local_min" placeholder="Local Min" required="required"  maxlength="20" value="Unlimited">		
 	                                </div>
 	                            </div>
-	                            <div class="col-lg-6 ">
+	                            <div class="col-lg-6 pay_as_usage_class">
 	                                <h5>DataVolume</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control datavolume" name="datavolume" placeholder="DataVolume" required="required" maxlength="20" value="2 GB">		
+	                                    <input type="text" class="form-control datavolume " name="datavolume" placeholder="DataVolume" required="required" maxlength="20" value="2 GB">		
 	                                </div>
 	                            </div>
-	                            <div class="col-lg-6 ">
+	                            <div class="col-lg-6 pay_as_usage_class">
 	                                <h5>Long distance  Mintue</h5>
 	                                <div class="form-group">
 	                                    <input type="text" class="form-control long_distance_min mint_input" name="long_distance_min" placeholder="Long distance  Min" required="required" value="Unlimited" maxlength="20">		
 	                                </div>
 	                            </div>
-	                            <div class="col-lg-6 ">
+	                            <div class="col-lg-6 pay_as_usage_class">
 	                                <h5>International Mintue</h5>
 	                                <div class="form-group">
 	                                    <input type="text" class="form-control international_min mint_input" name="international_min" placeholder="International Min" required="required" maxlength="20" value="0">		
 	                                </div>
 	                            </div>
-	                            <div class="col-lg-6 ">
+	                            <div class="col-lg-6 pay_as_usage_class">
 	                                <h5>Roaming Mintue</h5>
 	                                <div class="form-group">
 	                                    <input type="text" class="form-control roaming_min mint_input" name="roaming_min" placeholder="Roaming Min" required="required" maxlength="20">		
@@ -436,13 +470,13 @@
 	                                    <input type="text" class="form-control data_speed" name="data_speed" placeholder="Data speed" required="required" maxlength="20">		
 	                                </div>
 	                            </div>
-	                            <div class="col-lg-6 ">
+	                            <div class="col-lg-6 pay_as_usage_class">
 	                                <h5>SMS</h5>
 	                                <div class="form-group">
 	                                    <input type="text" class="form-control sms mint_input" name="sms" placeholder="SMS" required="required" value="Unlimited" maxlength="20">		
 	                                </div>
 	                            </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 pay_as_usage_class">
                                     <h5>Would share the overage price?</h5>
                                     <div class="form-group review_page">
                                         <span class="ext-default reviewpage_toggle active">No</span>
@@ -454,6 +488,8 @@
                                     </div>
                                     <input type="hidden" name="voice_overage_price" id="voice_overage_price">
                                     <input type="hidden" name="data_over_age" id="data_over_age">
+                                    <input type="hidden" name="voice_usage_price" id="voice_usage_price">
+                                    <input type="hidden" name="data_usage_age" id="data_usage_age">
                                 </div>
 	                        </div>
 	                        <div class="row">
@@ -521,7 +557,8 @@
 	               		    <div class="col-lg-12">
 	               		        <div class="form-group w-50 ml-auto mr-auto text-center">
 	               		        	<input type="hidden" name="service_id" class="service_id">
-                                    <button type="submit" class="btn  btn-lg btn-block service-rating-submit-btn">Submit</button>
+                                    <button type="submit" class="btn  btn-lg btn-primary service-rating-submit-btn-add">Submit</button>
+                                    <button type="submit" class="btn  btn-lg btn-primary service-rating-submit-btn d-none">Submit</button>                                    
                                 </div>
 	               		    </div>
 	               		</div>
@@ -578,7 +615,7 @@
 		    </div>
 		</section>
 	<!-- Content End Here -->
-    <!-- The Modal -->
+    <!-- Overage price Modal -->
     <div class="modal fade" id="overage_price_model" data-backdrop="static" data-keyboard="false">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -615,7 +652,126 @@
         </div>
       </div>
     </div>
+    <!-- Usage Modal -->
+    <div class="modal fade" id="usage_price_model" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
 
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Pay as usage</h4>
+            <button type="button" class="close" data-dismiss="modal" onclick="resetUsageButton()">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form id="usage_price_form">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h5>Voice usage price (<b>Per Min</b>)</h5>
+                        <div class="form-group">
+                            <input type="text" maxlength="20" id="model_usage_price" name="voice_usage_price" class="form-control" placeholder="Voice usage price" required="">
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <h5>Data usage price (<b>Per MB</b>)</h5>
+                        <div class="form-group">
+                            <input type="text" maxlength="20" id="model_usage_data_price" name="data_usage_age" class="form-control" placeholder="Data usage price" required="">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <button type="submit" class="btn btn-primary">Ok</button>
+                    </div>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- The Modal -->
+<div class="modal fade" id="user_address" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <!-- <div class="modal-header">
+        <h4 class="modal-title">Would share the overage price?</h4> -->
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      <!-- </div> -->
+
+      <!-- Modal body -->
+      <div class="modal-body">
+            <div class="default_adderss">
+                <div class="row">
+                    <div class="address_list">
+                        <div class="row">
+                            @if($userAddress)
+                            <div class="col-lg-8">
+                                <div class="address">{{$userAddress->formatted_address}}</div>
+                            </div>
+                            <div class="col-lg-4 text-right">
+                                <div class="text-green primary">Primary</div>
+                                <button class="btn btn-primary d-none make_primary_btn" data-address_id="{{$userAddress->id}}">Make primary</button>
+                            </div>
+                            <input type="hidden" value="{{$userAddress->id}}" id="user_address_id">
+                            <input type="hidden" value="1" id="is_primary">
+                            @else
+                                <div class="address">No address found.</div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mt-3 confirm_message_section">
+                        Do you want to associate this rating with above address ?
+                        <div class="confirmation_button text-center mt-3">
+                            <button class="btn btn-primary yes">Yes</button>
+                            <button class="btn btn-primary no">No</button>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-none make_new_address mt-3">
+                <form id="address_form">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h5>Address</h5>
+                            <div class="form-group">
+                                <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="Address" >
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <h5>Country</h5>
+                            <div class="form-group" id="country_div">
+                                <input type="text" id="user_country" name="user_country" class="form-control" placeholder="Country" required="">
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <h5>City</h5>
+                            <div class="form-group city_div" id="city_div">
+                                <input type="text" id="user_city" name="user_city" class="form-control js-input" placeholder="City" autocomplete="off" required="" data-country="IN">
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <h5>Postal code</h5>
+                            <div class="form-group">
+                                <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="Postal code" required="">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <button type="submit" class="btn btn-primary save_address">Save</button>
+                        </div>
+                            
+                    </div>
+                </form>
+            </div>
+            <div class="d-none continue-btn-section text-center mt-3">
+                <button class="btn btn-primary">Continue</button>
+            </div>
+            
+      </div>
+
+    </div>
+  </div>
+</div>
 <script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script>
     <script>
 	    function add(ths,sno){
@@ -643,8 +799,22 @@
                 }); 
             }
         };
+        function usageFunction(){
+            if(document.getElementById('pay_as_usage').checked){
+                $('#usage_price_model').modal({
+                    show: true
+                }); 
+            }else{
+                $('#usage_price_model').modal({
+                    show: false
+                }); 
+            }
+        };
         function resetButton(){
             $("#overage_price").trigger('click');
+        }
+        function resetUsageButton(){
+            $("#pay_as_usage").trigger('click');
         }
         $('#model_over_price').on('input', function (event) { 
             this.value = this.value.replace(/[^0-9.]/g, '');
@@ -653,7 +823,9 @@
             this.value = this.value.replace(/[^0-9.]/g, '');
         });
         $('#overage_price_form').on('submit',function(){
-
+            if(!$("#overage_price_form").valid()){
+                return;
+            }
             var model_over_price = $('#model_over_price').val();
             var model_data_price = $('#model_data_price').val();
             if(model_over_price == "" || model_data_price == ""){
@@ -664,7 +836,121 @@
             $('#overage_price_model').modal('hide');
             return false;
         });
-        
+        $('#usage_price_form').on('submit',function(){
+            if(!$("#usage_price_form").valid()){
+                return;
+            }
+            var model_usage_price = $('#model_usage_price').val();
+            var model_usage_data_price = $('#model_usage_data_price').val();
+            if(model_usage_price == "" || model_usage_data_price == ""){
+                return false;
+            }
+            $('#voice_usage_price').val(model_usage_price);
+            $('#data_usage_age').val(model_usage_data_price);
+            $('#usage_price_model').modal('hide');
+            return false;
+        });
+        $('.service-rating-submit-btn-add').on('click',function(e){
+            e.preventDefault();
+            var isset = 0;
+            var perams = [];
+            $('#rating_section .rating').each(function(index, item){
+                var rate = $(item).rate('getValue');
+                var question_id = $(item).attr('data-question_id');
+                if(rate==0){
+                    $('.starrating_error').removeClass('d-none');
+                    setTimeout(function(){
+                    $('.starrating_error').addClass('d-none');
+                    },3000);
+                    isset = 0;
+                    return false;
+                }else{
+                    isset = 1;
+                }
+            });
+            if(isset == 1){
+                $('#user_address').modal({
+                    show: true
+                });
+            }
+        });
+        $('.confirmation_button .yes').on('click',function(e){
+            $('.service-rating-submit-btn').trigger('click');
+            $('#user_address').modal('toggle');
+        });
+        $('.confirmation_button .no').on('click',function(e){
+            $('.confirm_message_section').addClass('d-none');
+            $('.make_new_address').removeClass('d-none');
+            $('#user_address_id').val(0);
+            $('#is_primary').val(0);
+        });
+
+        $('.save_address').on('click',function(e){
+            e.preventDefault();
+            if(!$("#address_form").valid()){
+                return false;
+            }else{
+                var user_full_address = $('#user_full_address').val();
+                var user_city = $('#user_city').val();
+                var user_country = $('#user_country').val();
+                var user_postal_code = $('#user_postal_code').val();
+                var is_primary = $('#is_primary').val();
+                var user_address_id = $('#user_address_id').val();
+                var formatted_address = user_full_address+' '+user_city+' '+user_country+' '+user_postal_code;
+                // alert(formatted_address);
+                $('.address_list').append('<div class="row mt-2 border-top pt-2"><div class="col-lg-8"> <div class="address">'+formatted_address+'</div></div><div class="col-lg-4 text-right"> <div class="text-green primary d-none">Primary</div><button class="btn btn-primary make_primary_btn" data-address_id="0">Make primary</button> </div></div>');
+                $('.make_new_address').addClass('d-none');
+                $('.continue-btn-section').removeClass('d-none');
+            }
+            
+        });
+
+        $(document).on('click','.make_primary_btn',function(){
+            var address_id = $(this).attr('data-address_id');
+            console.log(address_id);
+            if(address_id==0){
+                $('.primary').hide();
+                $('.make_primary_btn').removeClass('d-none');
+                $('.make_primary_btn').show();
+                $(this).hide();
+                $(this).prev('.primary').removeClass('d-none');
+                $(this).prev('.primary').show();
+                $('#user_address_id').val(address_id);
+                $('#is_primary').val(1);
+            }else{
+                $('.primary').hide();
+                $('.make_primary_btn').removeClass('d-none');
+                $('.make_primary_btn').show();
+                $(this).hide();
+                $(this).prev('.primary').removeClass('d-none');
+                $(this).prev('.primary').show();
+                $('#user_address_id').val(address_id);
+                $('#is_primary').val(1);
+            }
+            
+        });
+        $('.continue-btn-section button').on('click',function(){
+            $('.service-rating-submit-btn').trigger('click');
+            $('#user_address').modal('toggle');
+        });
+        $('.pay_as_usage').on('change',function(){
+            $(".reveiewing_form_service").validate({
+                rules: {
+                    price: {
+                      required: true,
+                      number: true
+                    }
+                  }
+              });
+            if($(this).prop("checked") == true){ 
+                $('.pay_as_usage_class').hide();
+                $('.pay_as_usage_class input').removeAttr('required');
+            }else{
+                $('.pay_as_usage_class').show();
+                $('.pay_as_usage_class input').attr('required',true);
+                console.log('hiii');
+            }
+        });
 	</script>
 
 @endsection

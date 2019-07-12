@@ -92,6 +92,18 @@
         }
       }
   });
+  $("#usage_price_form").validate({
+    rules: {
+        voice_usage_price: {
+          required: true,
+          number: true
+        },
+        data_usage_age: {
+          required: true,
+          number: true
+        }
+      }
+  });
   $(".reveiewing_form_service").validate({
     rules: {
         price: {
@@ -285,12 +297,15 @@
           var provider_name = $('.provider_name.active').val();
           var provider_status = $('.provider_status').val();
           var contract_type = $('.contract_type:checked').val();
+          var pay_as_usage = $('.pay_as_usage:checked').val();
           var price = $('.price').val();
           var payment_type = $('.payment_type:checked').val();
           var overage_price = $('#overage_price:checked').val();
           var service_type = $('.service_type').val();
           var voice_price = $('#voice_overage_price').val();
           var data_price = $('#data_over_age').val();
+          var voice_usage_price = $('#voice_usage_price').val();
+          var data_usage_age = $('#data_usage_age').val();
           var local_min = $('.local_min').val();
           var datavolume = $('.datavolume').val();
           var long_distance_min = $('.long_distance_min').val();
@@ -299,34 +314,33 @@
           var data_speed = $('.data_speed').val();
           var currency_id = $('.currency_id').val();
           var sms = $('.sms').val();
-          if(local_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(local_min) != true){
-           return;
-          }
-          if(long_distance_min != "Unlimited" && long_distance_min != "unlimited" && $.isNumeric(long_distance_min) != true){
-           return;
-          }
-          if(international_min != "Unlimited" && international_min != "unlimited" && $.isNumeric(international_min) != true){
-           return;
-          }
-          if(roaming_min != "Unlimited" && roaming_min != "unlimited" && $.isNumeric(roaming_min) != true){
-           return;
+
+          if(pay_as_usage != 1){
+            if(local_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(local_min) != true){
+             return;
+            }
+            if(long_distance_min != "Unlimited" && long_distance_min != "unlimited" && $.isNumeric(long_distance_min) != true){
+             return;
+            }
+            if(international_min != "Unlimited" && international_min != "unlimited" && $.isNumeric(international_min) != true){
+             return;
+            }
+            if(roaming_min != "Unlimited" && roaming_min != "unlimited" && $.isNumeric(roaming_min) != true){
+             return;
+            }
+            if(sms != "Unlimited" && sms != "unlimited" && $.isNumeric(sms) != true){
+             return;
+            }
           }
           if(data_speed != "Unlimited" && data_speed != "unlimited" && $.isNumeric(data_speed) != true){
            return;
           }
-          if(sms != "Unlimited" && sms != "unlimited" && $.isNumeric(sms) != true){
-           return;
-          }
-
 
           if(window.location.protocol == "http:"){
               resuesturl = "{{url('/reviewService')}}"
           }else if(window.location.protocol == "https:"){
               resuesturl = "{{secure_url('/reviewService')}}"
           }
-          // console.log('overage_price=>',overage_price);
-          // console.log('voice_price=>',voice_price);
-          // console.log('data_price=>',data_price);
           $.ajax({
               type: "post",
               url: resuesturl,
@@ -351,7 +365,10 @@
                 'currency_id':currency_id,
                 'overage_price':overage_price,
                 'voice_price':voice_price,
-                'data_price':data_price
+                'data_price':data_price,
+                'voice_usage_price':voice_usage_price,
+                'data_usage_price':data_usage_age,
+                'pay_as_usage_type':pay_as_usage
               },
               success: function (data) {
                   if(data.success){

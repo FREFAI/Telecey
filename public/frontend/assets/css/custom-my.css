@@ -63,7 +63,7 @@ a.btn.btn-info.pull-right.add_service:hover{
 .switch {
   	position: relative;
   	display: inline-block;
-  	width: 50px;
+  	width: 40px;
 	height: 20px;
 	margin-bottom: 0;
 }
@@ -97,9 +97,9 @@ span.reviewpage_toggle.active{
 .slider:before {
     position: absolute;
     content: "";
-    height: 15px;
+    height: 14px;
     border-radius: 13px;
-    width: 15px;
+    width: 14px;
     left: 5px;
     bottom: 3.6px;
     background-color: #ffffff;
@@ -123,6 +123,7 @@ input:checked + .slider:before {
 }
 input:checked + .slider:before {
     background: #fff;
+    left: -6px;
 }
 .text-default{
   color: #999 !important;
@@ -314,4 +315,13 @@ ul.country-autocomplete li:hover {
 }
 .text-green {
   color: #7ad1ae;
+}
+.post_prepaid_class{
+  max-width: 200px;
+}
+.mobile_home_class{
+  max-width: 230px;
+}
+.pay_as_usage{
+  max-width: 230px;
 }

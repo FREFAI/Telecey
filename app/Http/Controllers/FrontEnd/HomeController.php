@@ -45,8 +45,9 @@ class HomeController extends Controller
     {
         $user_id = Auth::guard('customer')->user()['id'];
         $customer = User::find($user_id);
-
-        $customer->userAdderss->toArray();
+        if($customer->userAdderss){
+            $customer->userAdderss->toArray();
+        }
         $serviceData = ServiceReview::where('user_id',$user_id)
                         ->orderBy('created_at','DESC')
                         ->get();

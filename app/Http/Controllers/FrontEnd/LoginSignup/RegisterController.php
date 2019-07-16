@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Helpers\GenerateNickName;
-use Auth;
+use Auth,Mail;
 
 class RegisterController extends Controller
 {
@@ -57,13 +57,39 @@ class RegisterController extends Controller
             $nickname = GenerateNickName::nickName($input['firstname']);
             $input['nickname'] = $nickname;
             $input['password'] = bcrypt($input['password']);
-            if(User::create($input)){
-                if (Auth::guard('customer')->attempt($request->only('email', 'password'))) {
+            $user = User::create($input);
+            if($user){
+                $id = encrypt($user->id);
+                $emaildata = [
+                    'id' => $id,
+                    'name' => $user->firstname,
+                    'email' => $user->email
+                ];
+                Mail::send('emailtemplates.frontend.email_verify', ['emaildata' => $emaildata] , function ($m) use ($emaildata)      {
+                    $m->from('admin@telco.com', 'Telco Tales');
+                    $m->to($emaildata['email'], $emaildata['name'])->subject("Email verification.");
+                });
+                // if (Auth::guard('customer')->attempt($request->only('email', 'password'))) {
                    return redirect('/reviews')->with('success','Account registered successfully!');
-                }
+                // }
             }else{
                 return redirect()->back()->withInput()->with('error',"Somthing went wrong!");
             }
+        }
+    }
+
+    public function confirmEmail($id)
+    {
+        $id = decrypt($id);
+        $user = User::find($id);
+        $user->is_active = 1;
+        $user->email_verified_at = date("Y-m-d H:i:s");
+        if($user->save()){
+            if (Auth::guard('customer')->loginUsingId($user->id)) {
+               return redirect('/reviews')->with('success','Email verify successfully!');
+            }
+        }else{
+            return redirect()->back()->withInput()->with('error',"Somthing went wrong!");
         }
     }
 }

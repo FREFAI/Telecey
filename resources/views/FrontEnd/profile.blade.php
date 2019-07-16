@@ -31,22 +31,64 @@
 	.rating_content {
 	    width: 100%;
 	}
+	div#change_password_model {
+	    z-index: 999999;
+	    background: #0000006b;
+	}
+	div#change_address_model {
+	    z-index: 999999;
+	    background: #0000006b;
+	}
 </style>
 <div class="profile inner-page">
 	<div class="container">
+		@include('flash-message')
 		<div class="row">
-			<div class="col-lg-3">
-				<div class="profile_section">
-					<div class="profile_image text-center">
-						<img class="w-50" src="{{URL::asset('/frontend/assets/img/user_placeholder.png')}}">
+			<div class="col-lg-3 mb-3">
+				<div class="profile-sidebar">
+					<div class="profile_section">
+						<div class="profile_image text-center">
+							<img class="w-50" src="{{URL::asset('/frontend/assets/img/user_placeholder.png')}}">
+						</div>
+						<div class="user_name text-center mt-3">
+							<h4 class="mb-0">{{ Auth::guard('customer')->user()['firstname'] }} {{Auth::guard('customer')->user()['lastname'] }}</h4>
+							<p>({{Auth::guard('customer')->user()['nickname'] }})</p>
+							<small>Member since: {{date('d, F Y', strtotime(Auth::guard('customer')->user()['created_at'])) }}</small>
+							@if(isset($customer->userAdderss))
+								<div class="profile_address mt-2">
+									<p>{{$customer->userAdderss['formatted_address']}}</p>
+									<a data-address_id="{{Auth::guard('customer')->user()['user_address_id']}}" class="edit_address" href="javascript:void(0);"><i class="fa fa-edit"></i></a>
+								</div>
+							@endif
+							<div class="reset_password_button mt-4">
+								<button data-toggle="modal" data-target="#change_password_model" class="btn btn-info rounded change_password_button">Changes password</button>
+							</div>
+						</div>
 					</div>
-					<div class="user_name text-center mt-3">
-						<h5 class="mb-0">{{ Auth::guard('customer')->user()['firstname'] }} {{Auth::guard('customer')->user()['lastname'] }}</h5>
+					<div class="profile-usermenu">
+						<ul class="nav">
+							<li>
+								<a class="font-weight-bold">Total number of plan</a>
+								<small class="pull-right">{{$customer->planCount}}</small>
+							</li>
+							<li>
+								<a class="font-weight-bold">Plans reviews</a>
+								<small class="pull-right">{{$customer->planReviewCount}}</small>
+							</li>
+							<li>
+								<a class="font-weight-bold">Total number of device</a>
+								<small class="pull-right">0</small>
+							</li>
+							<li>
+								<a class="font-weight-bold">Device reviews</a>
+								<small class="pull-right">0</small>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-lg-9">
+			<div class="col-lg-9 mb-3">
 				<div class="profile_section">
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
 					  <li class="nav-item">
@@ -145,7 +187,7 @@
 											  						<li>
 											  							<div>Review Date : </div>
 											  							<div class="value_div">
-											  								&nbsp;{{ date("d/m/Y", strtotime($service->review_date)) }}
+											  								&nbsp;{{ date("d/m/Y", strtotime($service->created_at)) }}
 											  							</div>
 											  						</li>
 											  					</ul>
@@ -365,5 +407,97 @@
 		</div>
 	</div>
 </div>
+<!-- Changes password Modal -->
+    <div class="modal fade" id="change_password_model" >
+      <div class="modal-dialog">
+        <div class="modal-content">
 
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Changes password</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form id="change_password_form" action="{{url('/changePassword')}}" method="post">
+                <div class="row">
+                    <div class="col-lg-12">
+                    	@csrf
+                        <h5>Old password</h5>
+                        <div class="form-group">
+                            <input type="password" maxlength="20" id="old_password" name="old_password" class="form-control" placeholder="Old password" required="">
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <h5>New password</h5>
+                        <div class="form-group">
+                            <input type="password" maxlength="20" id="new_password" name="new_password" class="form-control" placeholder="New password" required="">
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <h5>Confirm new password</h5>
+                        <div class="form-group">
+                            <input type="password" maxlength="20" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirm new password" required="">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- Changes address Modal -->
+<div class="modal fade" id="change_address_model" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Changes Address</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form id="change_address_form" action="{{url('/changeAddress')}}" method="post">
+            <div class="row">
+            	@csrf
+            	<div class="col-lg-12">
+            	    <h5>Address</h5>
+            	    <div class="form-group">
+            	        <input type="text" maxlength="20" id="address" name="address" class="form-control" placeholder="Address" value="" autocomplete="off">
+            	    </div>
+            	</div>
+                <div class="col-lg-12">
+                    <h5>Country</h5>
+                    <div class="form-group" id="country_div">
+                        <input type="text" maxlength="20" id="country" name="country" class="form-control" placeholder="Country" required="" value="" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <h5>City</h5>
+                    <div class="form-group city_div" id="city_div">
+                        <input type="text" maxlength="20" id="city" name="city" class="form-control" placeholder="City" autocomplete="off" required="" data-country="IN" value="">
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <h5>Postal code</h5>
+                    <div class="form-group">
+                        <input type="text" maxlength="20" id="postal_code" name="postal_code" class="form-control" placeholder="Postal code" required="" value="">
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{{Auth::guard('customer')->user()['user_address_id']}}">
+                <div class="col-lg-12 text-center">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection

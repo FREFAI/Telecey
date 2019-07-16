@@ -4,13 +4,15 @@ namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 use App\Models\FrontEnd\ServiceReview;
 use App\Models\FrontEnd\ServiceRating;
 use App\Models\Admin\SettingsModel;
 use App\Models\Admin\BlogsModel;
+use App\Models\FrontEnd\PlanDeviceRating;
 use Auth;
 use App\UserAddress;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -42,9 +44,15 @@ class HomeController extends Controller
     public function profile(Request $request)
     {
         $user_id = Auth::guard('customer')->user()['id'];
+        $customer = User::find($user_id);
+
+        $customer->userAdderss->toArray();
         $serviceData = ServiceReview::where('user_id',$user_id)
                         ->orderBy('created_at','DESC')
                         ->get();
+        $planReviewCount = PlanDeviceRating::where('user_id',$user_id)->count();
+        $customer->planCount = count($serviceData);
+        $customer->planReviewCount = $planReviewCount;
         $key = [];
         $blankArray = [];
         foreach ($serviceData  as $data) {
@@ -89,8 +97,63 @@ class HomeController extends Controller
             }
             $data->ratings = $blankArray;
         }
-       
-        return view('FrontEnd.profile',['serviceData'=>$serviceData]);
-
+       // echo "<pre>";
+       // print_r($customer);
+       // exit;
+        return view('FrontEnd.profile',['serviceData'=>$serviceData,'customer'=>$customer]);
+    }
+    public function getAddress(Request $request)
+    {
+        $input = $request->all();
+        
+        $validation = Validator::make($input, [
+            'address_id' => 'required',
+        ]);
+        if ( $validation->fails() ) {
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+        }else{
+            $address = UserAddress::find($input['address_id'])->toArray();
+            if($address){
+                $ret = array('success'=>1, 'data'=>$address);
+                return json_encode($ret);
+            }else{
+                $ret = array('success'=>0, 'data'=>[]);
+                return json_encode($ret);
+            }
+        }
+    }
+    public function changeAddress(Request $request)
+    {
+        $input = $request->all();
+        $validation = Validator::make($input, [
+            'country' => 'required',
+            'city' => 'required',
+            'postal_code' => 'required',
+            'id' => 'required'
+        ]);
+        if ( $validation->fails() ) {
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+        }else{
+            $addressUpdate = UserAddress::find($input['id']);
+            if($input['address'] != ""){
+                $formatted = $input['address'].' '.$input['city'].' '.$input['country'].' '.$input['postal_code'];
+            }else{
+                $formatted = $input['city'].' '.$input['country'].' '.$input['postal_code'];
+            }
+            $addressUpdate->address = $input['address'];
+            $addressUpdate->country = $input['country'];
+            $addressUpdate->city = $input['city'];
+            $addressUpdate->postal_code = $input['postal_code'];
+            $addressUpdate->formatted_address = $formatted;
+            if($addressUpdate->save()){
+                return redirect()->back()->withInput()->with('success','Address update successfully');
+                // $ret = array('success'=>1, 'message'=>"Address update successfully.",'address'=>$formatted);
+                // return json_encode($ret);
+            }else{
+                return redirect()->back()->withInput()->with('error','Somthing went wrong!');
+                // $ret = array('success'=>0, 'message'=>"Somthing went wrong!",'address'=>"");
+                // return json_encode($ret);
+            }
+        }
     }
 }

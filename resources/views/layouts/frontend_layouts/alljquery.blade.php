@@ -20,6 +20,7 @@
 <script src="{{URL::asset('frontend/jsplugins/jsvalidation/jquery.validate.js')}}"></script>
 <script src="{{URL::asset('frontend/jsplugins/jquery.city-autocomplete.js')}}"></script>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&language=en"></script>
 
 
@@ -79,6 +80,7 @@
 
 
   $("#firstform").validate();
+  $("#device_rating_form").validate();
   $("#address_form").validate();
   $("#overage_price_form").validate({
     rules: {
@@ -91,6 +93,25 @@
           number: true
         }
       }
+  });
+  $("#change_address_form").validate({
+    rules: {
+        postal_code: {
+          required: true,
+          number: true
+        }
+      }
+  });
+  $("#change_password_form").validate({
+    rules: {
+      new_password: "required",
+      confirm_password: {
+        equalTo: "#new_password"
+      },
+      old_password: {
+        required: true,
+      }
+    }
   });
   $("#usage_price_form").validate({
     rules: {
@@ -246,7 +267,6 @@
             });
             
         // End Review page js
-
         // Review page ajax
         $('#firstform').on('submit',function(e){
           var thisform = $(this);
@@ -293,15 +313,21 @@
 
         $('.reveiewing_form_service').on('submit',function(e){
           e.preventDefault();
+          if(!$('.reveiewing_form_service').valid()){
+            return;
+          }
           var reviewform = $(this);
           var provider_name = $('.provider_name.active').val();
           var provider_status = $('.provider_status').val();
           var contract_type = $('.contract_type:checked').val();
           var pay_as_usage = $('.pay_as_usage:checked').val();
           var price = $('.price').val();
+          var currency_id = $('.currency_id').val();
+          var currency_name = $('.currency_id option:checked').text();
           var payment_type = $('.payment_type:checked').val();
           var overage_price = $('#overage_price:checked').val();
           var service_type = $('.service_type').val();
+          var technology_type = $('.technology_type').val();
           var voice_price = $('#voice_overage_price').val();
           var data_price = $('#data_over_age').val();
           var voice_usage_price = $('#voice_usage_price').val();
@@ -312,7 +338,6 @@
           var international_min = $('.international_min').val();
           var roaming_min = $('.roaming_min').val();
           var data_speed = $('.data_speed').val();
-          var currency_id = $('.currency_id').val();
           var sms = $('.sms').val();
 
           if(pay_as_usage != 1){
@@ -336,50 +361,61 @@
            return;
           }
 
-          if(window.location.protocol == "http:"){
-              resuesturl = "{{url('/reviewService')}}"
-          }else if(window.location.protocol == "https:"){
-              resuesturl = "{{secure_url('/reviewService')}}"
-          }
-          $.ajax({
-              type: "post",
-              url: resuesturl,
-              headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              },
-              dataType:'json',
-              data: {
-                'provider_id': provider_name,
-                'provider_status':provider_status,
-                'contract_type': contract_type,
-                'price': price,
-                'payment_type': payment_type,
-                'service_type': service_type,
-                'local_min': local_min,
-                'datavolume': datavolume,
-                'long_distance_min': long_distance_min,
-                'international_min': international_min,
-                'roaming_min': roaming_min,
-                'data_speed': data_speed,
-                'sms':sms,
-                'currency_id':currency_id,
-                'overage_price':overage_price,
-                'voice_price':voice_price,
-                'data_price':data_price,
-                'voice_usage_price':voice_usage_price,
-                'data_usage_price':data_usage_age,
-                'pay_as_usage_type':pay_as_usage
-              },
-              success: function (data) {
-                  if(data.success){
-                    $('.service_id').val(data.service_id);
-                    reviewform.closest('.service_form_section').addClass('section-d-none');
-                    $('.services-rating-section').removeClass('section-d-none');
-                  }else{
-                    // toastr.error('Add detail', data.message , {displayDuration:3000,position: 'top-right'});
-                  }
-              }         
-          });
+          swal({
+              title: currency_name+' '+price,
+              text: "Above price is including tax"
+            })
+          .then(name => {
+              if(name){
+                
+                if(window.location.protocol == "http:"){
+                    resuesturl = "{{url('/reviewService')}}"
+                }else if(window.location.protocol == "https:"){
+                    resuesturl = "{{secure_url('/reviewService')}}"
+                }
+                $.ajax({
+                    type: "post",
+                    url: resuesturl,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType:'json',
+                    data: {
+                      'provider_id': provider_name,
+                      'provider_status':provider_status,
+                      'contract_type': contract_type,
+                      'price': price,
+                      'payment_type': payment_type,
+                      'service_type': service_type,
+                      'local_min': local_min,
+                      'datavolume': datavolume,
+                      'long_distance_min': long_distance_min,
+                      'international_min': international_min,
+                      'roaming_min': roaming_min,
+                      'data_speed': data_speed,
+                      'sms':sms,
+                      'technology':technology_type,
+                      'currency_id':currency_id,
+                      'overage_price':overage_price,
+                      'voice_price':voice_price,
+                      'data_price':data_price,
+                      'voice_usage_price':voice_usage_price,
+                      'data_usage_price':data_usage_age,
+                      'pay_as_usage_type':pay_as_usage
+                    },
+                    success: function (data) {
+                        if(data.success){
+                          $('.service_id').val(data.service_id);
+                          reviewform.closest('.service_form_section').addClass('section-d-none');
+                          $('.services-rating-section').removeClass('section-d-none');
+                        }else{
+                          // toastr.error('Add detail', data.message , {displayDuration:3000,position: 'top-right'});
+                        }
+                    }         
+                });
+              }
+            });
+          
         });
 
         $('.service-rating-submit-btn').on('click',function(e){
@@ -488,4 +524,37 @@
             $(this).closest('.review_page .switch').prev('.reviewpage_toggle').addClass('active');
           }
         });
+        // Changes Address
+        $(".edit_address").on('click',function(e){
+            e.preventDefault();
+            var address_id = $(this).attr('data-address_id');
+            if(window.location.protocol == "http:"){
+                resuesturl = "{{url('/getAddress')}}"
+            }else if(window.location.protocol == "https:"){
+                resuesturl = "{{secure_url('/getAddress')}}"
+            }
+            $.ajax({
+              type: "post",
+              url: resuesturl,
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              dataType:'json',
+              data: {
+                  'address_id':address_id
+              },
+              success: function (data) {
+                  if(data.success){
+                    $('#address').val(data.data.address);
+                    $('#country').val(data.data.country);
+                    $('#city').val(data.data.city);
+                    $('#postal_code').val(data.data.postal_code);
+                    $('#change_address_model').modal({
+                        show: true
+                    });
+                  }
+              }         
+          });
+        });
+        
 </script>

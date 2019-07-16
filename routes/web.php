@@ -31,6 +31,7 @@
 		Route::get('/resetPassword/{token}', 'FrontEnd\LoginSignup\ForgotPasswordController@setPasswordForm');
 		Route::post('/resetPassword', 'FrontEnd\LoginSignup\ForgotPasswordController@setPassword');
 		
+		
 		// End Forgot password
 		// Signup section
 		Route::get('/emailsignup', 'FrontEnd\LoginSignup\RegisterController@signupForm');
@@ -42,7 +43,8 @@
 		// Facebook Login
 		Route::get('/facebooklogin', 'FrontEnd\LoginSignup\SocialAuthFacebookController@redirect');
 		Route::get('/facebookcallback', 'FrontEnd\LoginSignup\SocialAuthFacebookController@callback');
-
+		// Confirm email
+		Route::get('/confirmEmail/{token}', 'FrontEnd\LoginSignup\RegisterController@confirmEmail');
 		
 	// End Login and Sign Up section
 
@@ -52,8 +54,13 @@
 
 	Route::group(['middleware' => 'CustomerAuth'], function(){
 		Route::group(['middleware' => 'IpLocation'], function(){
-
-
+			// Change password
+			Route::post('/changePassword', 'FrontEnd\LoginSignup\ForgotPasswordController@changePassword');
+			// Change password
+			// Change address
+			Route::post('/getAddress', 'FrontEnd\HomeController@getAddress');
+			Route::post('/changeAddress', 'FrontEnd\HomeController@changeAddress');
+			// Change address
 			Route::post('/getCountry', 'FrontEnd\ReviewsController@getCountry');
 			Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
 			Route::get('/reviews/{planId}', 'FrontEnd\ReviewsController@reviewsRating');

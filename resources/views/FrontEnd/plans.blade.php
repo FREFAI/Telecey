@@ -3,7 +3,7 @@
 @section('content')
 	<!-- Content Start Here -->
 		<div class="page-header inner-page" style="background: url({{URL('frontend/assets/img/background-img.png')}});">
-		    <div class="container-fluid">
+		    <div class="container">
 		        <div class="row">
 		            <div class="col-12 text-center mt-5">
 		                <div class="heading find-div">
@@ -12,10 +12,10 @@
 		                    	<input type="text" class="form-control" placeholder="Location" id="searchMapInput" value="{{$ip_location}}">
 		                    </div>
 		                    <h4 class="sub-title">Register and share your mobile or telecom experience to unlock Telco Tales</h4>
-		                    <div class="container-fluid">
+		                    <div class="container">
 	                            <div class="row align-items-center justify-content-center">
 	                            	@if($filtersetting->personal_business_setting == 1)
-	                                <div class="col-lg-2 col-md-4 col-sm-4 pt-3 pl-0 pr-1">
+	                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1">
 	                                    <div class="form-group plan_page">
 	                                    	<span class="toggle_label active">Personal</span>
 	                                    	<label class="switch">
@@ -27,7 +27,7 @@
 	                                </div>
 	                                @endif
 	                                @if($filtersetting->postpaid_prepaid_setting == 1)
-	                                <div class="col-lg-2 col-md-4 col-sm-4 pt-3 pl-0 pr-1 post_prepaid_class">
+	                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1 ">
 	                                    <div class="form-group plan_page">
 	                                    	<span class="toggle_label active">Postpaid</span>
 	                                    	<label class="switch">
@@ -39,7 +39,7 @@
 	                                </div>
 	                                @endif
 	                                @if($filtersetting->mobile_home_setting == 1)
-	                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1 mobile_home_class">
+	                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1 ">
 	                                    <div class="form-group plan_page">
 	                                    	<span class="toggle_label active">Mobile Plan</span>
 	                                    	<label class="switch">
@@ -50,18 +50,18 @@
 	                                    </div>
 	                                </div>
 	                                @endif
-	                                <div class="col-lg-1 col-md-4 col-sm-4 pt-3 pl-0 pr-1 pay_as_usage text-right">
+	                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1">
 	                                    <div class="form-group plan_page">
-	                                    	<span class="toggle_label active">Off</span>
+	                                    	<span class="toggle_label active">Pay as usage</span>
 	                                    	<label class="switch">
 	                                    	  <input type="checkbox" onclick="payAsUsage()" id="pay_as_usage_id">
 	                                    	  <span class="slider"></span>
 	                                    	</label>
-	                                    	<span class="toggle_label">On</span>
+	                                    	<!-- <span class="toggle_label">On</span> -->
 	                                    </div>
 	                                </div>
 	                                @if($filtersetting->unlimited_calls_setting == 1)
-	                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1 pay_as_usage_type">
+	                                <div class="col-lg-4 col-md-4 col-sm-4 pt-3 pl-0 pr-1 pay_as_usage_type">
 	                                    <div class="form-group plan_page">
 	                                    	<span class="toggle_label">Unlimited Calls</span>
 	                                    	<label class="switch">
@@ -78,7 +78,7 @@
 	                                </div>
 	                                @endif
 	                                @if($filtersetting->gb_setting == 1)
-	                                <div class="col-lg-1 col-md-2 col-sm-2 pt-3 pl-0 pr-1 pay_as_usage_type">
+	                                <div class="col-lg-2 col-md-2 col-sm-2 pt-3 pl-0 pr-1 pay_as_usage_type">
 	                                    <div class="form-group">
 	                                        <select id="inputState" class="form-control drop-dw">
 	                                            <option value="0.5">0.5 GB</option>
@@ -96,7 +96,7 @@
 	                                </div>
 	                                @endif
 	                                @if($filtersetting->mb_setting == 1)
-	                                <div class="col-lg-1 col-md-2 col-sm-2 pt-3 pl-0 pr-0 pay_as_usage_type">
+	                                <div class="col-lg-2 col-md-2 col-sm-2 pt-3 pl-0 pr-0 pay_as_usage_type">
 	                                    <div class="form-group">
 	                                        <select id="inputState" class="form-control drop-dw">
 	                                            <option selected value="" disabled="">Mbps</option>
@@ -374,9 +374,9 @@
 	function payAsUsage() {
 	  var checkBox = document.getElementById("pay_as_usage_id");
 	  if (checkBox.checked == true){
-	    $('.pay_as_usage_type').addClass('d-none');
+	    $('.pay_as_usage_type').hide('slow');
 	  } else {
-	    $('.pay_as_usage_type').removeClass('d-none');
+	    $('.pay_as_usage_type').show('slow');
 	  }
 	}
 		

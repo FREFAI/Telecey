@@ -42,7 +42,7 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <select class="form-control" name="type">
-                        <option>Select type</option>
+                        <option value="">Select type</option>
                         <option value="1">Personal</option>
                         <option value="2">Business</option>
                       </select>

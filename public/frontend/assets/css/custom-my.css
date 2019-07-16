@@ -11,6 +11,9 @@ label.error{
   text-transform: capitalize;
   font-size: 15px;
 }
+input.error, select.error {
+    border: 1px solid red !important;
+}
 input.error,select.error{
   border-bottom:1px solid red !important;
 }
@@ -324,4 +327,63 @@ ul.country-autocomplete li:hover {
 }
 .pay_as_usage{
   max-width: 230px;
+}
+
+/* Profile sidebar */
+.profile-usermenu .nav{
+  display: block;
+}
+.profile-usermenu {
+  margin-top: 10px;
+  box-shadow: 0 0 10px rgba(175, 175, 175, 0.65);
+}
+
+.profile-usermenu ul li {
+  border-bottom: 1px solid #f0f4f7;
+  padding: 10px;
+}
+
+.profile-usermenu ul li:last-child {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li a {
+  color: #93a3b5;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.profile-usermenu ul li a i {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.profile-usermenu ul li a:hover {
+  background-color: #fafcfd;
+  color: #5b9bd1;
+}
+
+.profile-usermenu ul li.active {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li.active a {
+  color: #5b9bd1;
+  background-color: #f6f9fb;
+  border-left: 2px solid #5b9bd1;
+  margin-left: -2px;
+}
+
+a.edit_address {
+    position: absolute;
+    top: -1px;
+    right: -18px;
+}
+.profile_address {
+    position: relative;
+}
+.change_password_button,.change_password_button:hover,.change_password_button:active,.change_password_button:focus {
+    color: #4a545a;
+    background-color: #96fdd4;
+    border-color: #96fdd4; 
 }

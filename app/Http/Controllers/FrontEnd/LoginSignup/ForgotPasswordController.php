@@ -83,4 +83,32 @@ class ForgotPasswordController extends Controller
             }
         }
     }
+
+    public function changePassword(Request $request)
+    {
+        $user_id = Auth::guard('customer')->user()['id'];
+        $input = $request->all();
+        $validation = Validator::make($input, [
+            'old_password' => 'required',
+            'new_password' => 'required',            
+            'confirm_password' => 'required'            
+        ]);
+        if ( $validation->fails() ) {
+            return redirect()->back()->with('error', $validation->messages()->first());
+        }else{
+            if (Auth::attempt(['email' => Auth::guard('customer')->user()['email'], 'password' => $input['old_password']])){
+                $user = User::find($user_id);
+                $user->password = bcrypt($input['new_password']);
+                if($user->save()){
+                    return redirect('/profile')->with('success','Password changed successfully.');
+                }else{
+                    return redirect()->back()->withInput()->with('error', "Somthing went wrong!");
+                }
+            }
+            else{
+                return redirect()->back()->withInput()->with('error', "Invalid Old Password");
+            }
+        }
+    }
+
 }

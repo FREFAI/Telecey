@@ -144,27 +144,30 @@
                 @endif
                 <!-- Device section  -->
                 <section class="product-section @if(Request::get('type') == 1) section-d-none @endif @if(!Request::get('type')) section-d-none @endif section-both">
+                 <form id="device_rating_form">
                    <div class="row mt-3">
                        <div class="col-lg-6 ">
                            <h5>Which Device</h5>
                            <div class="tg-select form-control">
-                                <select>
-                                    <option value="none">Phone</option>
-                                    <option value="none">Tablite</option>
-                                    <option value="none">Modem</option>
-                                    <option value="none">Accessories</option>
+                                <select required="required" name="device_name">
+                                    <option value="">Choose device</option>
+                                    <option value="Phone">Phone</option>
+                                    <option value="Tablite">Tablite</option>
+                                    <option value="Modem">Modem</option>
+                                    <option value="Accessories">Accessories</option>
                                 </select>
                             </div>
                        </div>
                        <div class="col-lg-6 ">
                             <h5>Brand</h5>
                             <div class="tg-select form-control">
-                                 <select>
-                                     <option value="none">Apple</option>
-                                     <option value="none">MI</option>
-                                     <option value="none">Samsung</option>
-                                     <option value="none">HTC</option>
-                                     <option value="none">Nokia</option>
+                                 <select required="required" name="brand_name">
+                                    <option value="">Choose brand</option>
+                                     <option value="Apple">Apple</option>
+                                     <option value="MI">MI</option>
+                                     <option value="Samsung">Samsung</option>
+                                     <option value="HTC">HTC</option>
+                                     <option value="Nokia">Nokia</option>
                                  </select>
                              </div>
                         </div>
@@ -173,44 +176,50 @@
                         <div class="col-lg-6 ">
                             <h5>Price</h5>
                             <div class="form-group">
-                                    <input type="number" class="form-control price-box" name="price" placeholder="Price" required="required">		
-                                </div>
+                                <input type="number" class="form-control price-box" name="price" placeholder="Price" required="required">		
+                            </div>
                         </div>
                         <div class="col-lg-6">
                              <h5>Model</h5>
                              <div class="tg-select form-control">
-                                  <select>
-                                      <option value="none">Apple</option>
-                                      <option value="none">MI</option>
-                                      <option value="none">Samsung</option>
-                                      <option value="none">HTC</option>
-                                      <option value="none">Nokia</option>
+                                  <select  required="required" name="model">
+                                        <option value="">Choose model</option>
+                                        <option value="Apple">Apple</option>
+                                        <option value="MI">MI</option>
+                                        <option value="Samsung">Samsung</option>
+                                        <option value="HTC">HTC</option>
+                                        <option value="Nokia">Nokia</option>
                                   </select>
                               </div>
                          </div>
                     </div>
-                    <div class="row">
+                    <div class="row align-items-center">
                         <div class="col-lg-6">
                             <h5>Capacity</h5>
                             <div class="tg-select form-control">
-                                <select>
-                                    <option value="none">64</option>
-                                    <option value="none">128</option>
-                                    <option value="none">256</option>
-                                    <option value="none">512</option>
-                                    <option value="none">1GB</option>
+                                <select required="required" name="storage">
+                                    <option value="">Choose Capacity</option>
+                                    <option value="64">64</option>
+                                    <option value="128">128</option>
+                                    <option value="256">256</option>
+                                    <option value="512">512</option>
+                                    <option value="1GB">1GB</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <a  href="{{url('/reviews?type=1')}}"><h5>Do you want to rate a plan instead?</h5></a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="form-group w-50 ml-auto mr-auto">
+                            <div class="form-group w-50 ml-auto mr-auto text-center">
                                 <button type="submit" class="btn btn-primary btn-lg btn-block product-submit-btn">Submit</button>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                </form>
+                    <!-- <div class="row">
                         <div class="heading detail-div">
                             <h1 class="section-title">Rating</h1>
                         </div>
@@ -310,7 +319,7 @@
                                     <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
                                 </div>
                             </div>
-                        </div>
+                    </div> -->
                	</section>
                 <!-- End product section  -->
                 <!-- Plan Section -->
@@ -392,20 +401,29 @@
                                                 @endif
                                             @endforeach
                                         </select>
-	                                    <input type="text" class="form-control price-box price" name="price" placeholder="Price" required>		
+	                                    <input type="text" class="form-control price-box price" name="price" placeholder="Price" required>	
+                                        <small>Including Tax</small>	
 	                                </div>
 	                            </div>
                                 <div class="col-lg-6">
-                                    <h5>Pay as usage</h5>
-                                    <div class="form-group review_page">
-                                        <span class="ext-default reviewpage_toggle active">OFF</span>
-                                        <label class="switch">
-                                          <input onchange="usageFunction()" type="checkbox" id="pay_as_usage" class="pay_as_usage" name="pay_as_usage" value="1">
-                                          <span class="slider"></span>
-                                        </label>
-                                        <span class="text-default reviewpage_toggle">ON</span>
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-4">
+                                            <h5>Pay as usage</h5>
+                                            <div class="form-group review_page">
+                                                <span class="ext-default reviewpage_toggle active">OFF</span>
+                                                <label class="switch">
+                                                  <input onchange="usageFunction()" type="checkbox" id="pay_as_usage" class="pay_as_usage" name="pay_as_usage" value="1">
+                                                  <span class="slider"></span>
+                                                </label>
+                                                <span class="text-default reviewpage_toggle">ON</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <a  href="{{url('/reviews?type=2')}}"><h5>Do you want to rate a device instead?</h5></a>
+                                        </div>
                                     </div>
                                 </div>
+
                                 <!-- <div class="col-lg-6">
                                     <h5>Payment type</h5>
                                     <div class="form-group review_page">
@@ -434,6 +452,19 @@
 	                                    </select>
 	                                </div>
 	                            </div>
+                                <div class="col-lg-6 d-none technology">
+                                    <h5>Technology</h5>
+                                    <div class="form-group">
+                                        <div class="tg-select form-control">
+                                            <select class="technology_type" >
+                                                <option value="">Select technology</option>
+                                                <option value="GPRS">GPRS</option>
+                                                <option value="LTE">LTE</option>
+                                                <option value="5G">5G</option>
+                                            </select>   
+                                        </div>     
+                                    </div>
+                                </div>
 	                            <div class="col-lg-6 pay_as_usage_class">
 	                                <h5>Local Mintue</h5>
 	                                <div class="form-group">
@@ -461,7 +492,7 @@
 	                            <div class="col-lg-6 pay_as_usage_class">
 	                                <h5>Roaming Mintue</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control roaming_min mint_input" name="roaming_min" placeholder="Roaming Min" required="required" maxlength="20">		
+	                                    <input type="text" class="form-control roaming_min mint_input" name="roaming_min" placeholder="Roaming Min" required="required" maxlength="20" value="0">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 ">
@@ -951,6 +982,19 @@
                 console.log('hiii');
             }
         });
+
+
+       $('.service_type').on('change', function (e) {
+           var optionSelected = $("option:selected", this);
+           var valueSelected = this.value;
+           if(valueSelected == 5){
+            $('.technology').removeClass('d-none');
+           }else{
+            $(".technology option:selected").removeAttr("selected");
+            $(".technology option:nth-child(1)").attr("selected");
+            $('.technology').addClass('d-none');
+           }
+       });
 	</script>
 
 @endsection

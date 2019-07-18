@@ -8,7 +8,7 @@
 	}
 	.profile_section{
 		box-shadow: 0 0 10px rgba(175, 175, 175, 0.65);
-	    padding: 25px 30px 30px;
+	    padding: 25px 24px 30px;
 	    margin-bottom: 10px;
 	}
 	/*.service_list_design{
@@ -18,7 +18,10 @@
 	    margin-bottom: 10px;
 	}*/
 	ul.first_row_service {
-		font-size: 16px;
+		font-size: 14px;
+	}
+	.question, .comment {
+	    font-size: 16px;
 	}
 	/*.card_sm{
 		box-shadow: 0 0 5px rgba(175, 175, 175, 0.78);
@@ -57,11 +60,11 @@
 							@if(isset($customer->userAdderss))
 								<div class="profile_address mt-2">
 									<p>{{$customer->userAdderss['formatted_address']}}</p>
-									<a data-address_id="{{Auth::guard('customer')->user()['user_address_id']}}" class="edit_address" href="javascript:void(0);"><i class="fa fa-edit"></i></a>
+									<a data-user_id="{{Auth::guard('customer')->user()['id']}}" class="edit_address" href="javascript:void(0);"><i class="fa fa-edit"></i></a>
 								</div>
 							@endif
 							<div class="reset_password_button mt-4">
-								<button data-toggle="modal" data-target="#change_password_model" class="btn btn-info rounded change_password_button">Changes password</button>
+								<button data-toggle="modal" data-target="#change_password_model" class="btn btn-info rounded change_password_button">Change Password</button>
 							</div>
 						</div>
 					</div>
@@ -175,7 +178,7 @@
 											  						<li>
 											  							<div>Payment type : </div>
 											  							<div class="value_div">
-											  								&nbsp;{{$service->payment_type}}
+											  								&nbsp;{{$service->payment_type ?? 'N/A'}}
 											  							</div>
 											  						</li>
 											  					</ul>
@@ -204,7 +207,7 @@
 											  							@if(!is_null($service->typeOfService)) 
 											  							{{$service->typeOfService['service_type_name']}}
 											  							@else
-											  	                        	-
+											  	                        	N/A
 										  	                        	@endif
 											  							</div>
 											  						</li>
@@ -216,7 +219,7 @@
 											  					<ul class="first_row_service">
 											  						<li>
 											  							<div>Local Min : </div>
-											  							<div class="value_div">&nbsp;{{$service->local_min}}
+											  							<div class="value_div">&nbsp;{{$service->local_min ?? 'N/A'}}
 											  							</div>
 											  						</li>
 											  					</ul>
@@ -227,7 +230,7 @@
 											  					<ul class="first_row_service">
 											  						<li>
 											  							<div>DataVolume : </div>
-											  							<div class="value_div">&nbsp;{{$service->datavolume}}</div>
+											  							<div class="value_div">&nbsp;{{$service->datavolume ?? 'N/A'}}</div>
 											  						</li>
 											  					</ul>
 											  					</div>
@@ -237,7 +240,7 @@
 											  					<ul class="first_row_service">
 											  						<li>
 											  							<div>Long distance Min : </div>
-											  							<div class="value_div">&nbsp;{{$service->long_distance_min}}</div>
+											  							<div class="value_div">&nbsp;{{$service->long_distance_min ?? 'N/A'}}</div>
 											  						</li>
 											  					</ul>
 											  					</div>
@@ -247,7 +250,7 @@
 											  					<ul class="first_row_service">
 											  						<li>
 											  							<div>International Min : </div>
-											  							<div class="value_div">&nbsp;{{$service->international_min}}</div>
+											  							<div class="value_div">&nbsp;{{$service->international_min ?? 'N/A'}}</div>
 											  						</li>
 											  					</ul>
 											  					</div>
@@ -257,7 +260,7 @@
 											  					<ul class="first_row_service">
 											  						<li>
 											  							<div>Roaming Min : </div>
-											  							<div class="value_div">&nbsp;{{$service->roaming_min}}</div>
+											  							<div class="value_div">&nbsp;{{$service->roaming_min ?? 'N/A'}}</div>
 											  						</li>
 											  					</ul>
 											  					</div>
@@ -266,8 +269,19 @@
 											  					<div class="card_sm">
 											  					<ul class="first_row_service">
 											  						<li>
-											  							<div>Data speed : </div>
-											  							<div class="value_div">&nbsp;{{$service->data_speed}}</div>
+											  							<div>Downloading speed : </div>
+											  							<div class="value_div">&nbsp;{{$service->downloading_speed ?? 0}} Mbps @if($service->speedtest_type == 1) <i class="fa fa-tachometer"></i> @endif</div>
+											  						</li>
+											  					</ul>
+											  					</div>
+											  				</div>
+											  				<div class="col-lg-4 mt-2">
+											  					<div class="card_sm">
+											  					<ul class="first_row_service">
+											  						<li>
+											  							<div>Uploading speed : </div>
+											  							<div class="value_div">&nbsp;{{$service->uploading_speed ?? 0}} Mbps @if($service->speedtest_type == 1) <i class="fa fa-tachometer"></i> @endif
+											  							</div>
 											  						</li>
 											  					</ul>
 											  					</div>
@@ -277,7 +291,7 @@
 											  					<ul class="first_row_service">
 											  						<li>
 											  							<div>SMS : </div>
-											  							<div class="value_div">&nbsp;{{$service->sms}}</div>
+											  							<div class="value_div">&nbsp;{{$service->sms ?? 'N/A'}}</div>
 											  						</li>
 											  					</ul>
 											  					</div>
@@ -341,7 +355,9 @@
 						  					  	                		  				<div class="card_sm">
 						  					  	                		  					<div class="row">
 						  					  	                			  					<div class="col-lg-8">
-						  					  	                				  					{{$rate['question_name']}}
+						  					  	                			  						<div class="question">
+							  					  	                				  					{{$rate['question_name']}}
+							  					  	                				  				</div>
 						  					  	                				  				</div>
 						  					  	                				  				<div class="col-lg-4">
 						  					  	                				  					<div class="rating_disable pull-right" data-rate-value="{{$rate['rating']}}"></div>
@@ -357,7 +373,7 @@
 							  					  	                			  			<h6 class="text-center section-title">
 							  					  	                			  				Comment
 							  					  	                			  			</h6>
-							  					  	                			  			<p>{{$rating['comment']}}</p>
+							  					  	                			  			<p class="comment">{{$rating['comment']}}</p>
 							  					  	                			  		</div>
 							  					  	                			  	</div>
 										  					  	                </div>
@@ -414,7 +430,7 @@
 
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Changes password</h4>
+            <h4 class="modal-title">Change Password</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
 
@@ -490,7 +506,7 @@
                         <input type="text" maxlength="20" id="postal_code" name="postal_code" class="form-control" placeholder="Postal code" required="" value="">
                     </div>
                 </div>
-                <input type="hidden" name="id" value="{{Auth::guard('customer')->user()['user_address_id']}}">
+                <input type="hidden" name="id" value="" id="address_id">
                 <div class="col-lg-12 text-center">
                     <button type="submit" class="btn btn-primary">Update</button>
                 </div>

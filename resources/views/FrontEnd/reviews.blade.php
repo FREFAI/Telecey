@@ -17,6 +17,10 @@
         z-index: 999999;
         background: #00000040;
     }
+    div#speedTestModel {
+        z-index: 999999;
+        background: #00000040;
+    }
 </style>
 	<!-- Content Start Here -->
 		<div class="page-header inner-page start-page" style="background: url({{URL::asset('frontend/assets/img/bg-1.jpeg')}});">
@@ -80,12 +84,12 @@
 	                                    <input id="lastname" class="input-text js-input" type="text" required value="{{$usersDetail->lastname}}" name="lastname">
 	                                    <label class="label" for="name">Last Name</label>
 	                                </div>
-	                                <div class="form-field col-lg-6" id="country_div">
+	                                <div class="form-field col-lg-6 country_div" id="country_div">
 	                                    <input id="country" class="input-text js-input" type="text" required value="{{$usersDetail->country}}" name="country" autocomplete="off">
 	                                    <label class="label" for="name">Country</label>
 	                                </div>
 	                                <div class="form-field col-lg-6 city_div" id="city_div">
-	                                    <input id="city" class="input-text js-input" type="text" required value="{{$usersDetail->city}}" name="city"  autocomplete="off" data-country="{{$usersDetail->country_code}}">
+	                                    <input id="city" class="input-text js-input city_input" type="text" required value="{{$usersDetail->city}}" name="city"  autocomplete="off" data-country="{{$usersDetail->country_code}}">
 	                                    <label class="label" for="name">City</label>
 	                                </div>
 	                                <div class="form-field col-lg-12 ">
@@ -495,12 +499,18 @@
 	                                    <input type="text" class="form-control roaming_min mint_input" name="roaming_min" placeholder="Roaming Min" required="required" maxlength="20" value="0">		
 	                                </div>
 	                            </div>
-	                            <div class="col-lg-6 ">
-	                                <h5>Data speed</h5>
+	                            <div class="col-lg-6 speedtestDiv">
+	                                <h5>Downloading speed</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control data_speed" name="data_speed" placeholder="Data speed" required="required" maxlength="20">		
+	                                    <input type="text" class="form-control downloading_speed" name="data_speed" id="downloading_speed" placeholder="Downloading speed" required="required" maxlength="20">		
 	                                </div>
 	                            </div>
+                                <div class="col-lg-6 speedtestDiv">
+                                    <h5>Uploading speed</h5>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control uploading_speed" name="uploading_speed" id="uploading_speed" placeholder="Uploading speed" required="required" maxlength="20">       
+                                    </div>
+                                </div>
 	                            <div class="col-lg-6 pay_as_usage_class">
 	                                <h5>SMS</h5>
 	                                <div class="form-group">
@@ -518,9 +528,19 @@
                                         <span class="text-default reviewpage_toggle">Yes</span>
                                     </div>
                                     <input type="hidden" name="voice_overage_price" id="voice_overage_price">
+                                    <input type="hidden" name="speedtest_type" id="speedtest_type" value="0">
                                     <input type="hidden" name="data_over_age" id="data_over_age">
                                     <input type="hidden" name="voice_usage_price" id="voice_usage_price">
                                     <input type="hidden" name="data_usage_age" id="data_usage_age">
+                                </div>
+                                <div class="col-lg-6 speedtestshow">
+                                    <p><b>Downloading speed: </b> &nbsp;<span id="dspeedshow"></span></p><br>
+                                    <p><b>Uploading speed: </b> &nbsp;<span id="uspeedshow"></span></p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="speedtestpopuplink">
+                                        <a href="javascript:void(0);" onclick="speedTestFunction()" data-toggle="modal" data-target="#speedTestModel">Do you want to perform speedtest ?</a>
+                                    </div>
                                 </div>
 	                        </div>
 	                        <div class="row">
@@ -596,39 +616,6 @@
 	               	</div>
                     <!-- End Star rating section -->
 
-                    <!-- Speed testing button section -->
-                    <div class="speed-test-button-section section-d-none section-both mb-5">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="heading-speedtest">
-                                    <div class="heading detail-div">
-                                        <h1 class="section-title">Do you want to check your internet speed?</h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 mt-3">
-                                <div class="button_section">
-                                    <a class="btn learn-more speedtest continue-btn">Continue</a>
-                                    <a href="{{url('/profile')}}"  class="btn learn-more speedtest">Skip</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Speed testing button section -->
-                    <!-- Speed section -->
-                    <div class="speedtest-section section-d-none mb-5">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="speedsection">
-                                    <iframe id="iFrameID" width="100%" height="650px" frameborder="0" src="https://softradix.speedtestcustom.com"></iframe> 
-                                </div>
-                                <div class="action-section text-center mt-3">
-                                    <a href="{{url('/profile')}}" class="btn learn-more speedtest">Continue</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Speed section -->
                	</section> 
                	
 		    </div>
@@ -719,282 +706,487 @@
         </div>
       </div>
     </div>
-<!-- The Modal -->
-<div class="modal fade" id="user_address" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog">
-    <div class="modal-content">
+    <!-- User address Modal -->
+    <div class="modal fade" id="user_address" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
 
-      <!-- Modal Header -->
-      <!-- <div class="modal-header">
-        <h4 class="modal-title">Would share the overage price?</h4> -->
-        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-      <!-- </div> -->
+          <!-- Modal Header -->
+          <!-- <div class="modal-header">
+            <h4 class="modal-title">Would share the overage price?</h4> -->
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          <!-- </div> -->
 
-      <!-- Modal body -->
-      <div class="modal-body">
-            <div class="default_adderss">
-                <div class="row">
-                    <div class="address_list">
-                        <div class="row">
-                            @if($userAddress)
-                            <div class="col-lg-8">
-                                <div class="address">{{$userAddress->formatted_address}}</div>
+          <!-- Modal body -->
+          <div class="modal-body">
+                <div class="default_adderss">
+                    <div class="row">
+                        <div class="address_list">
+                            <div class="row">
+                                @if($userAddress)
+                                <div class="col-lg-8">
+                                    <div class="address">{{$userAddress->formatted_address}}</div>
+                                </div>
+                                <div class="col-lg-4 text-right">
+                                    <div class="text-green primary">Primary</div>
+                                    <button class="btn btn-primary d-none make_primary_btn" data-address_id="{{$userAddress->id}}">Make primary</button>
+                                </div>
+                                <input type="hidden" value="{{$userAddress->id}}" id="user_address_id">
+                                <input type="hidden" value="1" id="is_primary">
+                                @else
+                                    <div class="address">No address found.</div>
+                                @endif
                             </div>
-                            <div class="col-lg-4 text-right">
-                                <div class="text-green primary">Primary</div>
-                                <button class="btn btn-primary d-none make_primary_btn" data-address_id="{{$userAddress->id}}">Make primary</button>
-                            </div>
-                            <input type="hidden" value="{{$userAddress->id}}" id="user_address_id">
-                            <input type="hidden" value="1" id="is_primary">
-                            @else
-                                <div class="address">No address found.</div>
-                            @endif
                         </div>
-                    </div>
-                    <div class="col-lg-12 mt-3 confirm_message_section">
-                        Do you want to associate this rating with above address ?
-                        <div class="confirmation_button text-center mt-3">
-                            <button class="btn btn-primary yes">Yes</button>
-                            <button class="btn btn-primary no">No</button>    
+                        <div class="col-lg-12 mt-3 confirm_message_section">
+                            Do you want to associate this rating with above address ?
+                            <div class="confirmation_button text-center mt-3">
+                                <button class="btn btn-primary yes">Yes</button>
+                                <button class="btn btn-primary no">No</button>    
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="d-none make_new_address mt-3">
-                <form id="address_form">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h5>Address</h5>
-                            <div class="form-group">
-                                <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="Address" >
+                <div class="d-none make_new_address mt-3">
+                    <form id="address_form">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h5>Address</h5>
+                                <div class="form-group">
+                                    <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="Address" >
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <h5>Country</h5>
-                            <div class="form-group" id="country_div">
-                                <input type="text" id="user_country" name="user_country" class="form-control" placeholder="Country" required="">
+                            <div class="col-lg-12">
+                                <h5>Country</h5>
+                                <div class="form-group country_div" id="country_div">
+                                    <input type="text" id="user_country" name="user_country" class="form-control" placeholder="Country" required="">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <h5>City</h5>
-                            <div class="form-group city_div" id="city_div">
-                                <input type="text" id="user_city" name="user_city" class="form-control js-input" placeholder="City" autocomplete="off" required="" data-country="IN">
+                            <div class="col-lg-12">
+                                <h5>City</h5>
+                                <div class="form-group user_city_add city_div" id="city_div">
+                                    <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="City" autocomplete="off" required="" data-country="IN">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <h5>Postal code</h5>
-                            <div class="form-group">
-                                <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="Postal code" required="">
+                            <div class="col-lg-12">
+                                <h5>Postal code</h5>
+                                <div class="form-group">
+                                    <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="Postal code" required="">
+                                </div>
                             </div>
+                            <div class="col-lg-12 text-center">
+                                <button type="submit" class="btn btn-primary save_address">Save</button>
+                            </div>
+                                
                         </div>
-                        <div class="col-lg-12 text-center">
-                            <button type="submit" class="btn btn-primary save_address">Save</button>
-                        </div>
-                            
-                    </div>
-                </form>
-            </div>
-            <div class="d-none continue-btn-section text-center mt-3">
-                <button class="btn btn-primary">Continue</button>
-            </div>
-            
+                    </form>
+                </div>
+                <div class="d-none continue-btn-section text-center mt-3">
+                    <button class="btn btn-primary">Continue</button>
+                </div>
+                
+          </div>
+
+        </div>
       </div>
-
     </div>
-  </div>
-</div>
+    <!-- Speed test Modal -->
+    <div class="modal fade" id="speedTestModel" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <!-- Modal body -->
+            <div class="modal-body">
+                <div id="testWrapper" class="text-center">
+                    <div id="startStopBtn" onclick="startStop()"></div>
+                    <div id="test" class="row">
+                        <div class="testGroup col-lg-6">
+                            <div class="testArea col-lg-6">
+                                <div class="testName">Download</div>
+                                <canvas id="dlMeter" class="meter"></canvas>
+                                <div id="dlText" class="meterText"></div>
+                                <div class="unit">Mbps</div>
+                            </div>
+                            <div class="testArea col-lg-6">
+                                <div class="testName">Upload</div>
+                                <canvas id="ulMeter" class="meter"></canvas>
+                                <div id="ulText" class="meterText"></div>
+                                <div class="unit">Mbps</div>
+                            </div>
+                        </div>
+                        <div class="testGroup col-lg-6">
+                            <div class="testArea col-lg-6">
+                                <div class="testName">Ping</div>
+                                <canvas id="pingMeter" class="meter"></canvas>
+                                <div id="pingText" class="meterText"></div>
+                                <div class="unit">ms</div>
+                            </div>
+                            <div class="testArea col-lg-6">
+                                <div class="testName">Jitter</div>
+                                <canvas id="jitMeter" class="meter"></canvas>
+                                <div id="jitText" class="meterText"></div>
+                                <div class="unit">ms</div>
+                            </div>
+                        </div>
+                        <div id="ipArea" class="col-lg-12">
+                            IP Address: <span id="ip"></span>
+                        </div>
+                        <div id="resultDiv" class="col-lg-12 pt-2">
+                            <button type="button" data-dismiss="modal" aria-hidden="true"class="btn btn-primary rounted continueBtn" >Continue</button>
+                            <input type="hidden" id="dspeedhidden"/>
+                            <input type="hidden" id="uspeedhidden"/>
+                            <input type="hidden" id="pingtimehidden"/>
+                            <input type="hidden" id="jittimehidden"/>
+                            <!-- <p>Downloading Speed: <span id="dspeed"></span></p>
+                            <p>Uploading Speed: <span id="uspeed"></span></p>
+                            <p>Ping time: <span id="pingtime"></span></p>
+                            <p>Jitter time: <span id="jittertime"></span></p> -->
+                        </div>
+                  </div>
+                </div>              
+            </div>
+        </div>
+      </div>
+    </div>
 <script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script>
-    <script>
-	    function add(ths,sno){
-	        for (var i=1;i<=5;i++){
-	            var cur=document.getElementById("star"+i)
-	            cur.className="fa fa-star"
-	        }
-	    
-	        for (var i=1;i<=sno;i++){
-	            var cur=document.getElementById("star"+i)
-	            if(cur.className=="fa fa-star")
-	            {
-	                cur.className="fa fa-star checked"
-	            }
-	        }
-	    }
-        function overageFunction(){
-            if(document.getElementById('overage_price').checked){
-                $('#overage_price_model').modal({
-                    show: true
-                }); 
-            }else{
-                $('#overage_price_model').modal({
-                    show: false
-                }); 
-            }
-        };
-        function usageFunction(){
-            if(document.getElementById('pay_as_usage').checked){
-                $('#usage_price_model').modal({
-                    show: true
-                }); 
-            }else{
-                $('#usage_price_model').modal({
-                    show: false
-                }); 
-            }
-        };
-        function resetButton(){
-            $("#overage_price").trigger('click');
+<script src="{{URL::asset('frontend/jsplugins/speedtest/speedtest.js')}}"></script>
+<script>
+    function add(ths,sno){
+        for (var i=1;i<=5;i++){
+            var cur=document.getElementById("star"+i)
+            cur.className="fa fa-star"
         }
-        function resetUsageButton(){
-            $("#pay_as_usage").trigger('click');
+    
+        for (var i=1;i<=sno;i++){
+            var cur=document.getElementById("star"+i)
+            if(cur.className=="fa fa-star")
+            {
+                cur.className="fa fa-star checked"
+            }
         }
-        $('#model_over_price').on('input', function (event) { 
-            this.value = this.value.replace(/[^0-9.]/g, '');
-        });
-        $('#model_data_price').on('input', function (event) { 
-            this.value = this.value.replace(/[^0-9.]/g, '');
-        });
-        $('#overage_price_form').on('submit',function(){
-            if(!$("#overage_price_form").valid()){
-                return;
-            }
-            var model_over_price = $('#model_over_price').val();
-            var model_data_price = $('#model_data_price').val();
-            if(model_over_price == "" || model_data_price == ""){
-                return false;
-            }
-            $('#voice_overage_price').val(model_over_price);
-            $('#data_over_age').val(model_data_price);
-            $('#overage_price_model').modal('hide');
+    }
+    function overageFunction(){
+        if(document.getElementById('overage_price').checked){
+            $('#overage_price_model').modal({
+                show: true
+            }); 
+        }else{
+            $('#overage_price_model').modal({
+                show: false
+            }); 
+        }
+    };
+    function usageFunction(){
+        if(document.getElementById('pay_as_usage').checked){
+            $('#usage_price_model').modal({
+                show: true
+            }); 
+        }else{
+            $('#usage_price_model').modal({
+                show: false
+            }); 
+        }
+    };
+    function resetButton(){
+        $("#overage_price").trigger('click');
+    }
+    function resetUsageButton(){
+        $("#pay_as_usage").trigger('click');
+    }
+    $('#model_over_price').on('input', function (event) { 
+        this.value = this.value.replace(/[^0-9.]/g, '');
+    });
+    $('#model_data_price').on('input', function (event) { 
+        this.value = this.value.replace(/[^0-9.]/g, '');
+    });
+    $('#overage_price_form').on('submit',function(){
+        if(!$("#overage_price_form").valid()){
+            return;
+        }
+        var model_over_price = $('#model_over_price').val();
+        var model_data_price = $('#model_data_price').val();
+        if(model_over_price == "" || model_data_price == ""){
             return false;
-        });
-        $('#usage_price_form').on('submit',function(){
-            if(!$("#usage_price_form").valid()){
-                return;
-            }
-            var model_usage_price = $('#model_usage_price').val();
-            var model_usage_data_price = $('#model_usage_data_price').val();
-            if(model_usage_price == "" || model_usage_data_price == ""){
-                return false;
-            }
-            $('#voice_usage_price').val(model_usage_price);
-            $('#data_usage_age').val(model_usage_data_price);
-            $('#usage_price_model').modal('hide');
+        }
+        $('#voice_overage_price').val(model_over_price);
+        $('#data_over_age').val(model_data_price);
+        $('#overage_price_model').modal('hide');
+        return false;
+    });
+    $('#usage_price_form').on('submit',function(){
+        if(!$("#usage_price_form").valid()){
+            return;
+        }
+        var model_usage_price = $('#model_usage_price').val();
+        var model_usage_data_price = $('#model_usage_data_price').val();
+        if(model_usage_price == "" || model_usage_data_price == ""){
             return false;
+        }
+        $('#voice_usage_price').val(model_usage_price);
+        $('#data_usage_age').val(model_usage_data_price);
+        $('#usage_price_model').modal('hide');
+        return false;
+    });
+    $('.service-rating-submit-btn-add').on('click',function(e){
+        e.preventDefault();
+        var isset = 0;
+        var perams = [];
+        $('#rating_section .rating').each(function(index, item){
+            var rate = $(item).rate('getValue');
+            var question_id = $(item).attr('data-question_id');
+            if(rate==0){
+                $('.starrating_error').removeClass('d-none');
+                setTimeout(function(){
+                $('.starrating_error').addClass('d-none');
+                },3000);
+                isset = 0;
+                return false;
+            }else{
+                isset = 1;
+            }
         });
-        $('.service-rating-submit-btn-add').on('click',function(e){
-            e.preventDefault();
-            var isset = 0;
-            var perams = [];
-            $('#rating_section .rating').each(function(index, item){
-                var rate = $(item).rate('getValue');
-                var question_id = $(item).attr('data-question_id');
-                if(rate==0){
-                    $('.starrating_error').removeClass('d-none');
-                    setTimeout(function(){
-                    $('.starrating_error').addClass('d-none');
-                    },3000);
-                    isset = 0;
-                    return false;
-                }else{
-                    isset = 1;
-                }
+        if(isset == 1){
+            $('#user_address').modal({
+                show: true
             });
-            if(isset == 1){
-                $('#user_address').modal({
-                    show: true
-                });
-            }
-        });
-        $('.confirmation_button .yes').on('click',function(e){
-            $('.service-rating-submit-btn').trigger('click');
-            $('#user_address').modal('toggle');
-        });
-        $('.confirmation_button .no').on('click',function(e){
-            $('.confirm_message_section').addClass('d-none');
-            $('.make_new_address').removeClass('d-none');
-            $('#user_address_id').val(0);
-            $('#is_primary').val(0);
-        });
+        }
+    });
+    $('.confirmation_button .yes').on('click',function(e){
+        $('.service-rating-submit-btn').trigger('click');
+        $('#user_address').modal('toggle');
+    });
+    $('.confirmation_button .no').on('click',function(e){
+        $('.confirm_message_section').addClass('d-none');
+        $('.make_new_address').removeClass('d-none');
+        $('#user_address_id').val(0);
+        $('#is_primary').val(0);
+    });
+    $('.save_address').on('click',function(e){
+        e.preventDefault();
+        if(!$("#address_form").valid()){
+            return false;
+        }else{
+            var user_full_address = $('#user_full_address').val();
+            var user_city = $('#user_city').val();
+            var user_country = $('#user_country').val();
+            var user_postal_code = $('#user_postal_code').val();
+            var is_primary = $('#is_primary').val();
+            var user_address_id = $('#user_address_id').val();
+            var formatted_address = user_full_address+' '+user_city+' '+user_country+' '+user_postal_code;
+            // alert(formatted_address);
+            $('.address_list').append('<div class="row mt-2 border-top pt-2"><div class="col-lg-8"> <div class="address">'+formatted_address+'</div></div><div class="col-lg-4 text-right"> <div class="text-green primary d-none">Primary</div><button class="btn btn-primary make_primary_btn" data-address_id="0">Make primary</button> </div></div>');
+            $('.make_new_address').addClass('d-none');
+            $('.continue-btn-section').removeClass('d-none');
+        }       
+    });
+    $(document).on('click','.make_primary_btn',function(){
+        var address_id = $(this).attr('data-address_id');
+        console.log(address_id);
+        if(address_id==0){
+            $('.primary').hide();
+            $('.make_primary_btn').removeClass('d-none');
+            $('.make_primary_btn').show();
+            $(this).hide();
+            $(this).prev('.primary').removeClass('d-none');
+            $(this).prev('.primary').show();
+            $('#user_address_id').val(address_id);
+            $('#is_primary').val(1);
+        }else{
+            $('.primary').hide();
+            $('.make_primary_btn').removeClass('d-none');
+            $('.make_primary_btn').show();
+            $(this).hide();
+            $(this).prev('.primary').removeClass('d-none');
+            $(this).prev('.primary').show();
+            $('#user_address_id').val(address_id);
+            $('#is_primary').val(1);
+        }     
+    });
+    $('.continue-btn-section button').on('click',function(){
+        $('.service-rating-submit-btn').trigger('click');
+        $('#user_address').modal('toggle');
+    });
+    $('.pay_as_usage').on('change',function(){
+        $(".reveiewing_form_service").validate({
+            rules: {
+                price: {
+                  required: true,
+                  number: true
+                }
+              }
+          });
+        if($(this).prop("checked") == true){ 
+            $('.pay_as_usage_class').hide();
+            $('.pay_as_usage_class input').removeAttr('required');
+        }else{
+            $('.pay_as_usage_class').show();
+            $('.pay_as_usage_class input').attr('required',true);
+            console.log('hiii');
+        }
+    });
+    $('.service_type').on('change', function (e) {
+       var optionSelected = $("option:selected", this);
+       var valueSelected = this.value;
+       if(valueSelected == 5){
+        $('.technology').removeClass('d-none');
+       }else{
+        $(".technology option:selected").removeAttr("selected");
+        $(".technology option:nth-child(1)").attr("selected");
+        $('.technology').addClass('d-none');
+       }
+    });
 
-        $('.save_address').on('click',function(e){
-            e.preventDefault();
-            if(!$("#address_form").valid()){
-                return false;
-            }else{
-                var user_full_address = $('#user_full_address').val();
-                var user_city = $('#user_city').val();
-                var user_country = $('#user_country').val();
-                var user_postal_code = $('#user_postal_code').val();
-                var is_primary = $('#is_primary').val();
-                var user_address_id = $('#user_address_id').val();
-                var formatted_address = user_full_address+' '+user_city+' '+user_country+' '+user_postal_code;
-                // alert(formatted_address);
-                $('.address_list').append('<div class="row mt-2 border-top pt-2"><div class="col-lg-8"> <div class="address">'+formatted_address+'</div></div><div class="col-lg-4 text-right"> <div class="text-green primary d-none">Primary</div><button class="btn btn-primary make_primary_btn" data-address_id="0">Make primary</button> </div></div>');
-                $('.make_new_address').addClass('d-none');
-                $('.continue-btn-section').removeClass('d-none');
-            }
-            
-        });
+    function speedTestFunction(){
+        $('#speedtest_type').val(1);
+        $('.speedtestDiv').hide();
+        setTimeout(function(){
+            startStop();
+        },1000);
+    }
+    function hideSpeedTestModal(){
+        $('.speedtestDiv').show();
+        $('#speedtest_type').val(0);
+        $('.speedtestDiv input').val('');
+        $('#speedTestModel').modal('hide');
+    }
+    function showhideContinueBtn($type){
+        if($type == 1){
+            $('.continueBtn').hide();
+        }else{
+            $('.speedtestshow').show();
+            $('.continueBtn').show();
+        }
+    }
+    // Speed Test Sections 
+        function I(i){return document.getElementById(i);}
+        //INITIALIZE SPEEDTEST
+        var s=new Speedtest(); //create speedtest object
 
-        $(document).on('click','.make_primary_btn',function(){
-            var address_id = $(this).attr('data-address_id');
-            console.log(address_id);
-            if(address_id==0){
-                $('.primary').hide();
-                $('.make_primary_btn').removeClass('d-none');
-                $('.make_primary_btn').show();
-                $(this).hide();
-                $(this).prev('.primary').removeClass('d-none');
-                $(this).prev('.primary').show();
-                $('#user_address_id').val(address_id);
-                $('#is_primary').val(1);
+        var meterBk=/Trident.*rv:(\d+\.\d+)/i.test(navigator.userAgent)?"#EAEAEA":"#80808040";
+        var dlColor="#6060AA",
+            ulColor="#309030",
+            pingColor="#AA6060",
+            jitColor="#AA6060";
+        var progColor=meterBk;
+
+        //CODE FOR GAUGES
+        function drawMeter(c,amount,bk,fg,progress,prog){
+            var ctx=c.getContext("2d");
+            var dp=window.devicePixelRatio||1;
+            var cw=c.clientWidth*dp, ch=c.clientHeight*dp;
+            var sizScale=ch*0.0055;
+            if(c.width==cw&&c.height==ch){
+                ctx.clearRect(0,0,cw,ch);
             }else{
-                $('.primary').hide();
-                $('.make_primary_btn').removeClass('d-none');
-                $('.make_primary_btn').show();
-                $(this).hide();
-                $(this).prev('.primary').removeClass('d-none');
-                $(this).prev('.primary').show();
-                $('#user_address_id').val(address_id);
-                $('#is_primary').val(1);
+                c.width=cw;
+                c.height=ch;
             }
-            
-        });
-        $('.continue-btn-section button').on('click',function(){
-            $('.service-rating-submit-btn').trigger('click');
-            $('#user_address').modal('toggle');
-        });
-        $('.pay_as_usage').on('change',function(){
-            $(".reveiewing_form_service").validate({
-                rules: {
-                    price: {
-                      required: true,
-                      number: true
+            ctx.beginPath();
+            ctx.strokeStyle=bk;
+            ctx.lineWidth=12*sizScale;
+            ctx.arc(c.width/2,c.height-58*sizScale,c.height/1.8-ctx.lineWidth,-Math.PI*1.1,Math.PI*0.1);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.strokeStyle=fg;
+            ctx.lineWidth=12*sizScale;
+            ctx.arc(c.width/2,c.height-58*sizScale,c.height/1.8-ctx.lineWidth,-Math.PI*1.1,amount*Math.PI*1.2-Math.PI*1.1);
+            ctx.stroke();
+            if(typeof progress !== "undefined"){
+                ctx.fillStyle=prog;
+                ctx.fillRect(c.width*0.3,c.height-16*sizScale,c.width*0.4*progress,4*sizScale);
+            }
+        }
+        function mbpsToAmount(s){
+            return 1-(1/(Math.pow(1.3,Math.sqrt(s))));
+        }
+        function msToAmount(s){
+            return 1-(1/(Math.pow(1.08,Math.sqrt(s))));
+        }
+
+        //UI CODE
+        var uiData=null;
+        function startStop(){
+            showhideContinueBtn(1);
+            if(s.getState()==3){
+                //speedtest is running, abort
+                s.abort();
+                data=null;
+                I("startStopBtn").className="";
+                initUI();
+                hideSpeedTestModal();
+            }else{
+                //test is not running, begin
+                I("startStopBtn").className="running";
+                s.onupdate=function(data){
+                    uiData=data;
+                };
+                s.onend=function(aborted){
+                    showhideContinueBtn(2);
+                    var dspeedhidden = I('downloading_speed').value;
+                    if(dspeedhidden != ""){
+                        I('dspeedshow').textContent = dspeedhidden;
                     }
-                  }
-              });
-            if($(this).prop("checked") == true){ 
-                $('.pay_as_usage_class').hide();
-                $('.pay_as_usage_class input').removeAttr('required');
-            }else{
-                $('.pay_as_usage_class').show();
-                $('.pay_as_usage_class input').attr('required',true);
-                console.log('hiii');
+                    var uspeedhidden = I('uploading_speed').value;
+                    if(uspeedhidden != ""){
+                        I('uspeedshow').textContent = uspeedhidden;
+                    }
+                    // var pingtimehidden = I('pingtimehidden').value;
+
+                    // if(pingtimehidden != ""){
+                    //     I('pingtime').textContent = pingtimehidden;
+                    // }
+                    // var jittimehidden = I('jittimehidden').value;
+
+                    // if(jittimehidden != ""){
+                    //     I('jittertime').textContent = jittimehidden;
+                    // }
+                    I("startStopBtn").className="";
+                    updateUI(true);
+                };
+                s.start();
             }
-        });
-
-
-       $('.service_type').on('change', function (e) {
-           var optionSelected = $("option:selected", this);
-           var valueSelected = this.value;
-           if(valueSelected == 5){
-            $('.technology').removeClass('d-none');
-           }else{
-            $(".technology option:selected").removeAttr("selected");
-            $(".technology option:nth-child(1)").attr("selected");
-            $('.technology').addClass('d-none');
-           }
-       });
-	</script>
+        }
+        //this function reads the data sent back by the test and updates the UI
+        function updateUI(forced){
+            if(!forced&&s.getState()!=3) return;
+            if(uiData==null) return;
+            var status=uiData.testState;
+            I("ip").textContent=uiData.clientIp;
+            I("dlText").textContent=(status==1&&uiData.dlStatus==0)?"...":uiData.dlStatus;
+            I("downloading_speed").value=(status==1&&uiData.dlStatus==0)?"...":uiData.dlStatus;
+            drawMeter(I("dlMeter"),mbpsToAmount(Number(uiData.dlStatus*(status==1?oscillate():1))),meterBk,dlColor,Number(uiData.dlProgress),progColor);
+            I("ulText").textContent=(status==3&&uiData.ulStatus==0)?"...":uiData.ulStatus;
+            I("uploading_speed").value=(status==3&&uiData.ulStatus==0)?"...":uiData.ulStatus;
+            drawMeter(I("ulMeter"),mbpsToAmount(Number(uiData.ulStatus*(status==3?oscillate():1))),meterBk,ulColor,Number(uiData.ulProgress),progColor);
+            I("pingText").textContent=uiData.pingStatus;
+            I("pingtimehidden").value=uiData.pingStatus;
+            drawMeter(I("pingMeter"),msToAmount(Number(uiData.pingStatus*(status==2?oscillate():1))),meterBk,pingColor,Number(uiData.pingProgress),progColor);
+            I("jitText").textContent=uiData.jitterStatus;
+            I("jittimehidden").value=uiData.jitterStatus;
+            drawMeter(I("jitMeter"),msToAmount(Number(uiData.jitterStatus*(status==2?oscillate():1))),meterBk,jitColor,Number(uiData.pingProgress),progColor);
+        }
+        function oscillate(){
+            return 1+0.02*Math.sin(Date.now()/100);
+        }
+        //update the UI every frame
+        window.requestAnimationFrame=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.msRequestAnimationFrame||(function(callback,element){setTimeout(callback,1000/60);});
+        function frame(){
+            requestAnimationFrame(frame);
+            updateUI();
+        }
+        frame(); //start frame loop
+        //function to (re)initialize UI
+        function initUI(){
+            drawMeter(I("dlMeter"),0,meterBk,dlColor,0);
+            drawMeter(I("ulMeter"),0,meterBk,ulColor,0);
+            drawMeter(I("pingMeter"),0,meterBk,pingColor,0);
+            drawMeter(I("jitMeter"),0,meterBk,jitColor,0);
+            I("dlText").textContent="";
+            I("ulText").textContent="";
+            I("pingText").textContent="";
+            I("jitText").textContent="";
+            I("ip").textContent="";
+        }
+    // End Speed Test Sections 
+</script>
 
 @endsection

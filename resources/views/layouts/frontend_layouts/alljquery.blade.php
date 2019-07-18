@@ -26,10 +26,10 @@
 
   <script>
     
-    $('input#city').cityAutocomplete();
-    $('input#user_city').cityAutocomplete();
-    $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo('#country_div');
-    $('#country_div input').keyup(function(){
+    $('input.city_input').cityAutocomplete();
+    // $('.user_city_add input#user_city').cityAutocomplete();
+    $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo('.country_div');
+    $('.country_div input').keyup(function(){
         var search = $(this).val();
         if(window.location.protocol == "http:"){
             resuesturl = "{{url('/getCountry')}}"
@@ -64,7 +64,7 @@
         $('#city').attr('data-country',$(this).find('a').attr('data-code'));
         $('.country_list').css('display','none');
         setTimeout(function(){
-            $('input#city').cityAutocomplete();
+            $('input.city_input').cityAutocomplete();
         },500);
     });
     $(document).on('click','.country-autocomplete li',function(){
@@ -72,7 +72,7 @@
         $('#user_city').attr('data-country',$(this).find('a').attr('data-code'));
         $('.country_list').css('display','none');
         setTimeout(function(){
-            $('input#user_city').cityAutocomplete();
+            $('input.city_input').cityAutocomplete();
         },500);
     });
 
@@ -269,6 +269,7 @@
         // End Review page js
         // Review page ajax
         $('#firstform').on('submit',function(e){
+          $('.ajaxloader').show();
           var thisform = $(this);
           e.preventDefault();
           var firstname = $('#firstname').val();
@@ -301,6 +302,7 @@
                   'mobile_number':mobile_number
               },
               success: function (data) {
+                  $('.ajaxloader').hide();
                   if(data.success){
                     thisform.closest('.intro-section').addClass('section-d-none');
                     $('.service-detail').removeClass('section-d-none');
@@ -337,7 +339,9 @@
           var long_distance_min = $('.long_distance_min').val();
           var international_min = $('.international_min').val();
           var roaming_min = $('.roaming_min').val();
-          var data_speed = $('.data_speed').val();
+          var downloading_speed = $('.downloading_speed').val();
+          var speedtest_type = $('#speedtest_type').val();
+          var uploading_speed = $('.uploading_speed').val();
           var sms = $('.sms').val();
 
           if(pay_as_usage != 1){
@@ -357,7 +361,10 @@
              return;
             }
           }
-          if(data_speed != "Unlimited" && data_speed != "unlimited" && $.isNumeric(data_speed) != true){
+          if(downloading_speed != "Unlimited" && downloading_speed != "unlimited" && $.isNumeric(downloading_speed) != true){
+           return;
+          }
+          if(uploading_speed != "Unlimited" && uploading_speed != "unlimited" && $.isNumeric(uploading_speed) != true){
            return;
           }
 
@@ -367,7 +374,7 @@
             })
           .then(name => {
               if(name){
-                
+                $('.ajaxloader').show();
                 if(window.location.protocol == "http:"){
                     resuesturl = "{{url('/reviewService')}}"
                 }else if(window.location.protocol == "https:"){
@@ -392,7 +399,8 @@
                       'long_distance_min': long_distance_min,
                       'international_min': international_min,
                       'roaming_min': roaming_min,
-                      'data_speed': data_speed,
+                      'downloading_speed': downloading_speed,
+                      'uploading_speed': uploading_speed,
                       'sms':sms,
                       'technology':technology_type,
                       'currency_id':currency_id,
@@ -401,9 +409,11 @@
                       'data_price':data_price,
                       'voice_usage_price':voice_usage_price,
                       'data_usage_price':data_usage_age,
-                      'pay_as_usage_type':pay_as_usage
+                      'pay_as_usage_type':pay_as_usage,
+                      'speedtest_type':speedtest_type
                     },
                     success: function (data) {
+                      $('.ajaxloader').hide();
                         if(data.success){
                           $('.service_id').val(data.service_id);
                           reviewform.closest('.service_form_section').addClass('section-d-none');
@@ -462,6 +472,7 @@
             }else if(window.location.protocol == "https:"){
                 resuesturl = "{{secure_url('/ratingService')}}"
             }
+            $('.ajaxloader').show();
             $.ajax({
                 type: "post",
                 url: resuesturl,
@@ -484,13 +495,14 @@
 
                 },
                 success: function (data) {
+                    $('.ajaxloader').hide();
                     if(data.success){
 
                       toastr.success('Rating', data.message , {displayDuration:3000,position: 'top-right'});
                       $('.detail-section').addClass('section-d-none');
-                      ratingform.closest('.services-rating-section').addClass('section-d-none');
-                      ratingform.closest('.services-rating-section').next('.speed-test-button-section').removeClass('section-d-none');
-                      
+                      // ratingform.closest('.services-rating-section').addClass('section-d-none');
+                      // ratingform.closest('.services-rating-section').next('.speed-test-button-section').removeClass('section-d-none');
+                      window.location.href = "{{url('/profile')}}";
                     }else{
                       // toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
                     }
@@ -527,12 +539,13 @@
         // Changes Address
         $(".edit_address").on('click',function(e){
             e.preventDefault();
-            var address_id = $(this).attr('data-address_id');
+            var user_id = $(this).attr('data-user_id');
             if(window.location.protocol == "http:"){
                 resuesturl = "{{url('/getAddress')}}"
             }else if(window.location.protocol == "https:"){
                 resuesturl = "{{secure_url('/getAddress')}}"
             }
+            $('.ajaxloader').show();
             $.ajax({
               type: "post",
               url: resuesturl,
@@ -541,14 +554,16 @@
               },
               dataType:'json',
               data: {
-                  'address_id':address_id
+                  'user_id':user_id
               },
               success: function (data) {
+                  $('.ajaxloader').hide();
                   if(data.success){
                     $('#address').val(data.data.address);
                     $('#country').val(data.data.country);
                     $('#city').val(data.data.city);
                     $('#postal_code').val(data.data.postal_code);
+                    $('#address_id').val(data.data.id);
                     $('#change_address_model').modal({
                         show: true
                     });

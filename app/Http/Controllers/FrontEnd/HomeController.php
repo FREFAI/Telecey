@@ -44,9 +44,10 @@ class HomeController extends Controller
     public function profile(Request $request)
     {
         $user_id = Auth::guard('customer')->user()['id'];
+        $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
         $customer = User::find($user_id);
-        if($customer->userAdderss){
-            $customer->userAdderss->toArray();
+        if($userAddress){
+            $customer->userAdderss= $userAddress->toArray();
         }
         $serviceData = ServiceReview::where('user_id',$user_id)
                         ->orderBy('created_at','DESC')
@@ -108,14 +109,14 @@ class HomeController extends Controller
         $input = $request->all();
         
         $validation = Validator::make($input, [
-            'address_id' => 'required',
+            'user_id' => 'required',
         ]);
         if ( $validation->fails() ) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());
         }else{
-            $address = UserAddress::find($input['address_id'])->toArray();
+            $address = UserAddress::where('user_id',$input['user_id'])->where('is_primary',1)->first();
             if($address){
-                $ret = array('success'=>1, 'data'=>$address);
+                $ret = array('success'=>1, 'data'=>$address->toArray());
                 return json_encode($ret);
             }else{
                 $ret = array('success'=>0, 'data'=>[]);

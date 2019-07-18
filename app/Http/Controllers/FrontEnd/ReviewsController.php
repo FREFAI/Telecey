@@ -82,7 +82,7 @@ class ReviewsController extends Controller
         $usersDetailSession = $request->session()->get('usersDetail');
         $usersDetail = User::find($user_id); 
         $usersAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first(); 
-        if($usersDetail->user_address_id == "" || $usersDetail->user_address_id == NULL){
+        if(!$usersAddress){
             if(array_key_exists('country', $usersDetailSession)){
                 $usersDetail->country = $usersDetailSession['country'];
                 $usersDetail->country_code = $usersDetailSession['country_code'];
@@ -144,69 +144,35 @@ class ReviewsController extends Controller
              $message = array('success'=>false,'message'=>$validation->messages()->first());
              return json_encode($message);
         }else{
-            if(!$user_address_id){
-                $formatted = $input['city'].' '.$input['country'].' '.$input['postal_code'];
-                $insertAddressTable = [
-                    'user_id' => $user_id,
-                    'city' => $input['city'],
-                    'country' => $input['country'],
-                    'postal_code' => $input['postal_code'],
-                    'is_primary'=>1,
-                    'formatted_address' => $formatted
-                ];
-                $userAddress = UserAddress::create($insertAddressTable);
-                if(!$userAddress){
-                    $message = array('success'=>false,'message'=>"Somthing went wrong in user address!");
-                    return json_encode($message);
-                }else{
-                    $input['user_address_id'] = $userAddress->id;
-                    unset($input['city']);
-                    unset($input['country']);
-                    unset($input['postal_code']);
-                    $user = User::where('id',$user_id)->update($input);
-                    if($user){
-                        $message = array('success'=>true,'message'=>'Updated successfully.');
-                        return json_encode($message);
-                    }else{
-                        $message = array('success'=>false,'message'=>"Somthing went wrong!");
-                        return json_encode($message);
-                    }
-                }
-                
-            }else{
-                $userAddressExistOrNot = UserAddress::where('user_id',$user_id)
-                                                    ->where('city',$input['city'])
-                                                    ->where('country',$input['country'])
-                                                    ->where('postal_code',$input['postal_code'])
-                                                    ->count();
-                if($userAddressExistOrNot == 0){
-                    $is_primary = UserAddress::where('user_id',$user_id)->where('is_primary',1)->count();
-                    if($is_primary > 0){
-                        $is_primary_var = 0;
-                    }else{
-                        $is_primary_var = 1;
-                    }
+            $userUpdate = [
+                'firstname'=>$input['firstname'],
+                'lastname'=>$input['lastname'],
+                'mobile_number'=>$input['mobile_number'],
+            ];
+            $user = User::where('id',$user_id)->update($userUpdate);
+            if($user){
+                $user_address = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
+                if($user_address){
                     $formatted = $input['city'].' '.$input['country'].' '.$input['postal_code'];
-                    $insertAddressTable = [
-                        'user_id' => $user_id,
-                        'city' => $input['city'],
-                        'country' => $input['country'],
-                        'postal_code' => $input['postal_code'],
-                        'is_primary'=>$is_primary_var,
-                        'formatted_address' => $formatted
-                    ];
-                    $userAddress = UserAddress::create($insertAddressTable);
-                    if($userAddress){
+                    $user_address->city = $input['city'];
+                    $user_address->country = $input['country'];
+                    $user_address->postal_code = $input['postal_code'];
+                    $user_address->formatted_address = $formatted;
+                    if($user_address->save()){
                         $message = array('success'=>true,'message'=>'Updated successfully.');
                         return json_encode($message);
                     }else{
-                        $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                        $message = array('success'=>false,'message'=>"Somthing went wrong in user address!");
                         return json_encode($message);
                     }
+                    
                 }else{
-                    $message = array('success'=>true,'message'=>'Updated successfully.');
+                    $message = array('success'=>false,'message'=>"Address not found!");
                     return json_encode($message);
                 }
+            }else{
+                    $message = array('success'=>false,'message'=>"User not update successfully.");
+                    return json_encode($message);
             }
         }
     }

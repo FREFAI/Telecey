@@ -1433,6 +1433,12 @@ span.fa.fa-star.rate {
   overflow: hidden;
 }
 }
+@media (min-width: 1200px){
+  .modal-xl {
+      max-width: 1140px;
+  }
+}
+
 @media(max-width:1024px){
   .page-header.inner-page.step-page {
     height: auto;
@@ -1450,6 +1456,13 @@ span.fa.fa-star.rate {
   overflow: hidden;
 }
 }
+
+@media (max-width: 992px){
+  .modal-lg, .modal-xl {
+      max-width: 800px;
+  }
+}
+
 @media(max-width:768px){
   div#typedtext {
     font-size: 35px;

@@ -499,18 +499,6 @@
 	                                    <input type="text" class="form-control roaming_min mint_input" name="roaming_min" placeholder="Roaming Min" required="required" maxlength="20" value="0">		
 	                                </div>
 	                            </div>
-	                            <div class="col-lg-6 speedtestDiv">
-	                                <h5>Downloading speed</h5>
-	                                <div class="form-group">
-	                                    <input type="text" class="form-control downloading_speed" name="data_speed" id="downloading_speed" placeholder="Downloading speed" required="required" maxlength="20">		
-	                                </div>
-	                            </div>
-                                <div class="col-lg-6 speedtestDiv">
-                                    <h5>Uploading speed</h5>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control uploading_speed" name="uploading_speed" id="uploading_speed" placeholder="Uploading speed" required="required" maxlength="20">       
-                                    </div>
-                                </div>
 	                            <div class="col-lg-6 pay_as_usage_class">
 	                                <h5>SMS</h5>
 	                                <div class="form-group">
@@ -533,11 +521,26 @@
                                     <input type="hidden" name="voice_usage_price" id="voice_usage_price">
                                     <input type="hidden" name="data_usage_age" id="data_usage_age">
                                 </div>
+
+                                <div class="col-lg-6 speedtestDiv">
+                                    <h5>Downloading speed</h5>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control downloading_speed" name="data_speed" id="downloading_speed" placeholder="Downloading speed" required="required" maxlength="20">      
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 speedtestDiv">
+                                    <h5>Uploading speed</h5>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control uploading_speed" name="uploading_speed" id="uploading_speed" placeholder="Uploading speed" required="required" maxlength="20">       
+                                    </div>
+                                </div>
                                 <div class="col-lg-6 speedtestshow">
-                                    <p><b>Downloading speed: </b> &nbsp;<span id="dspeedshow"></span></p><br>
+                                    <p><b>Downloading speed: </b> &nbsp;<span id="dspeedshow"></span></p>
+                                </div>
+                                <div class="col-lg-6 speedtestshow">
                                     <p><b>Uploading speed: </b> &nbsp;<span id="uspeedshow"></span></p>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 mt-3">
                                     <div class="speedtestpopuplink">
                                         <a href="javascript:void(0);" onclick="speedTestFunction()" data-toggle="modal" data-target="#speedTestModel">Do you want to perform speedtest ?</a>
                                     </div>
@@ -1123,11 +1126,11 @@
                     showhideContinueBtn(2);
                     var dspeedhidden = I('downloading_speed').value;
                     if(dspeedhidden != ""){
-                        I('dspeedshow').textContent = dspeedhidden;
+                        I('dspeedshow').textContent = dspeedhidden+' Mbps';
                     }
                     var uspeedhidden = I('uploading_speed').value;
                     if(uspeedhidden != ""){
-                        I('uspeedshow').textContent = uspeedhidden;
+                        I('uspeedshow').textContent = uspeedhidden+' Mbps';
                     }
                     // var pingtimehidden = I('pingtimehidden').value;
 

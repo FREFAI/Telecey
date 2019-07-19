@@ -253,6 +253,37 @@ class ReviewsController extends Controller
         }
     }
 
+    public function saveSpeedTest(Request $request)
+    {
+        $input = $request->all();
+        $validation = Validator::make($input, [
+            'downloading_speed' => 'required',
+            'uploading_speed' => 'required',
+            'plan_id' => 'required',
+            'speedtest_type' => 'required',
+        ]);
+        if ( $validation->fails() ) {
+             $message = array('success'=>false,'message'=>$validation->messages()->first());
+             return json_encode($message);
+        }else{
+            $review = ServiceReview::find($input['plan_id']);
+            if($review){
+                $review->downloading_speed = $input['downloading_speed'];
+                $review->uploading_speed = $input['uploading_speed'];
+                $review->speedtest_type = $input['speedtest_type'];
+                if($review->save()){
+                    $message = array('success'=>true,'message'=>'Speed testing saved.');
+                    return json_encode($message);
+                }else{
+                    $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                    return json_encode($message);
+                }
+            }else{
+                $message = array('success'=>false,'message'=>'Service review not found!');
+                return json_encode($message);
+            }
+        }
+    }
     public function ratingService(Request $request)
     {
         $input = $request->all();

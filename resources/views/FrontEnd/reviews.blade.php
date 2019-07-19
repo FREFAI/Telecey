@@ -516,35 +516,15 @@
                                         <span class="text-default reviewpage_toggle">Yes</span>
                                     </div>
                                     <input type="hidden" name="voice_overage_price" id="voice_overage_price">
-                                    <input type="hidden" name="speedtest_type" id="speedtest_type" value="0">
                                     <input type="hidden" name="data_over_age" id="data_over_age">
                                     <input type="hidden" name="voice_usage_price" id="voice_usage_price">
                                     <input type="hidden" name="data_usage_age" id="data_usage_age">
                                 </div>
-
-                                <div class="col-lg-6 speedtestDiv">
-                                    <h5>Downloading speed</h5>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control downloading_speed" name="data_speed" id="downloading_speed" placeholder="Downloading speed" required="required" maxlength="20">      
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 speedtestDiv">
-                                    <h5>Uploading speed</h5>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control uploading_speed" name="uploading_speed" id="uploading_speed" placeholder="Uploading speed" required="required" maxlength="20">       
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 speedtestshow">
-                                    <p><b>Downloading speed: </b> &nbsp;<span id="dspeedshow"></span></p>
-                                </div>
-                                <div class="col-lg-6 speedtestshow">
-                                    <p><b>Uploading speed: </b> &nbsp;<span id="uspeedshow"></span></p>
-                                </div>
-                                <div class="col-lg-6 mt-3">
+                                <!-- <div class="col-lg-6 mt-3">
                                     <div class="speedtestpopuplink">
                                         <a href="javascript:void(0);" onclick="speedTestFunction()" data-toggle="modal" data-target="#speedTestModel">Do you want to perform speedtest ?</a>
                                     </div>
-                                </div>
+                                </div> -->
 	                        </div>
 	                        <div class="row">
 	                            <div class="col-lg-12">
@@ -833,19 +813,37 @@
                         <div id="ipArea" class="col-lg-12">
                             IP Address: <span id="ip"></span>
                         </div>
-                        <div id="resultDiv" class="col-lg-12 pt-2">
-                            <button type="button" data-dismiss="modal" aria-hidden="true"class="btn btn-primary rounted continueBtn" >Continue</button>
-                            <input type="hidden" id="dspeedhidden"/>
-                            <input type="hidden" id="uspeedhidden"/>
-                            <input type="hidden" id="pingtimehidden"/>
-                            <input type="hidden" id="jittimehidden"/>
-                            <!-- <p>Downloading Speed: <span id="dspeed"></span></p>
-                            <p>Uploading Speed: <span id="uspeed"></span></p>
-                            <p>Ping time: <span id="pingtime"></span></p>
-                            <p>Jitter time: <span id="jittertime"></span></p> -->
-                        </div>
                   </div>
-                </div>              
+                </div>  
+                <form id="speedtestForm">
+                    <div class="row">
+                        <div class="col-lg-6 speedtestDiv">
+                            <h5>Downloading speed</h5>
+                            <div class="form-group">
+                                <input type="text" class="form-control downloading_speed" name="data_speed" id="downloading_speed" placeholder="Downloading speed" required="required" maxlength="20">      
+                            </div>
+                        </div>
+                        <div class="col-lg-6 speedtestDiv">
+                            <h5>Uploading speed</h5>
+                            <div class="form-group">
+                                <input type="text" class="form-control uploading_speed" name="uploading_speed" id="uploading_speed" placeholder="Uploading speed" required="required" maxlength="20">
+                            </div>
+                        </div>
+                        <input type="hidden" name="plan_id" id="plan_id" class="plan_id">
+                        <input type="hidden" name="speedtest_type" id="speedtest_type" value="1">
+                            <div id="resultDiv" class="col-lg-12 pt-2 text-center">
+                                <button type="submit" class="btn btn-primary rounted continueBtn" >Continue</button>
+                                <input type="hidden" id="dspeedhidden"/>
+                                <input type="hidden" id="uspeedhidden"/>
+                                <input type="hidden" id="pingtimehidden"/>
+                                <input type="hidden" id="jittimehidden"/>
+                                <!-- <p>Downloading Speed: <span id="dspeed"></span></p>
+                                <p>Uploading Speed: <span id="uspeed"></span></p>
+                                <p>Ping time: <span id="pingtime"></span></p>
+                                <p>Jitter time: <span id="jittertime"></span></p> -->
+                            </div>
+                    </div>            
+                </form>
             </div>
         </div>
       </div>
@@ -1023,7 +1021,6 @@
         }else{
             $('.pay_as_usage_class').show();
             $('.pay_as_usage_class input').attr('required',true);
-            console.log('hiii');
         }
     });
     $('.service_type').on('change', function (e) {
@@ -1039,6 +1036,9 @@
     });
 
     function speedTestFunction(){
+        $('#speedTestModel').modal({
+            show: true
+        });
         $('#speedtest_type').val(1);
         $('.speedtestDiv').hide();
         setTimeout(function(){
@@ -1049,11 +1049,11 @@
         $('.speedtestDiv').show();
         $('#speedtest_type').val(0);
         $('.speedtestDiv input').val('');
-        $('#speedTestModel').modal('hide');
     }
     function showhideContinueBtn($type){
         if($type == 1){
             $('.continueBtn').hide();
+            $('.speedtestDiv').hide();
         }else{
             $('.speedtestshow').show();
             $('.continueBtn').show();
@@ -1108,7 +1108,7 @@
         //UI CODE
         var uiData=null;
         function startStop(){
-            showhideContinueBtn(1);
+            showhideContinueBtn(1)
             if(s.getState()==3){
                 //speedtest is running, abort
                 s.abort();
@@ -1117,6 +1117,7 @@
                 initUI();
                 hideSpeedTestModal();
             }else{
+                I("speedtest_type").value ='1';
                 //test is not running, begin
                 I("startStopBtn").className="running";
                 s.onupdate=function(data){
@@ -1124,14 +1125,6 @@
                 };
                 s.onend=function(aborted){
                     showhideContinueBtn(2);
-                    var dspeedhidden = I('downloading_speed').value;
-                    if(dspeedhidden != ""){
-                        I('dspeedshow').textContent = dspeedhidden+' Mbps';
-                    }
-                    var uspeedhidden = I('uploading_speed').value;
-                    if(uspeedhidden != ""){
-                        I('uspeedshow').textContent = uspeedhidden+' Mbps';
-                    }
                     // var pingtimehidden = I('pingtimehidden').value;
 
                     // if(pingtimehidden != ""){

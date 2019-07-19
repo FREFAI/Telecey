@@ -125,6 +125,18 @@
         }
       }
   });
+  $("#speedtestForm").validate({
+    rules: {
+        data_speed: {
+          required: true,
+          number: true
+        },
+        uploading_speed: {
+          required: true,
+          number: true
+        }
+      }
+  });
   $(".reveiewing_form_service").validate({
     rules: {
         price: {
@@ -339,9 +351,6 @@
           var long_distance_min = $('.long_distance_min').val();
           var international_min = $('.international_min').val();
           var roaming_min = $('.roaming_min').val();
-          var downloading_speed = $('.downloading_speed').val();
-          var speedtest_type = $('#speedtest_type').val();
-          var uploading_speed = $('.uploading_speed').val();
           var sms = $('.sms').val();
 
           if(pay_as_usage != 1){
@@ -360,12 +369,6 @@
             if(sms != "Unlimited" && sms != "unlimited" && $.isNumeric(sms) != true){
              return;
             }
-          }
-          if(downloading_speed != "Unlimited" && downloading_speed != "unlimited" && $.isNumeric(downloading_speed) != true){
-           return;
-          }
-          if(uploading_speed != "Unlimited" && uploading_speed != "unlimited" && $.isNumeric(uploading_speed) != true){
-           return;
           }
 
           swal({
@@ -399,8 +402,6 @@
                       'long_distance_min': long_distance_min,
                       'international_min': international_min,
                       'roaming_min': roaming_min,
-                      'downloading_speed': downloading_speed,
-                      'uploading_speed': uploading_speed,
                       'sms':sms,
                       'technology':technology_type,
                       'currency_id':currency_id,
@@ -409,15 +410,15 @@
                       'data_price':data_price,
                       'voice_usage_price':voice_usage_price,
                       'data_usage_price':data_usage_age,
-                      'pay_as_usage_type':pay_as_usage,
-                      'speedtest_type':speedtest_type
+                      'pay_as_usage_type':pay_as_usage
                     },
                     success: function (data) {
                       $('.ajaxloader').hide();
                         if(data.success){
+                          speedTestFunction();
                           $('.service_id').val(data.service_id);
-                          reviewform.closest('.service_form_section').addClass('section-d-none');
-                          $('.services-rating-section').removeClass('section-d-none');
+                          $('.plan_id').val(data.service_id);
+                          reviewform.closest('.service_form_section').addClass('section-d-none');                   
                         }else{
                           // toastr.error('Add detail', data.message , {displayDuration:3000,position: 'top-right'});
                         }
@@ -427,7 +428,43 @@
             });
           
         });
-
+        $('#speedtestForm').on('submit',function(e){
+          e.preventDefault();
+          if(!$('#speedtestForm').valid()){
+            return;
+          }
+          $('.ajaxloader').show();
+          var downloading_speed = $('#downloading_speed').val();
+          var uploading_speed = $('#uploading_speed').val();
+          var plan_id = $('#plan_id').val();
+          var speedtest_type = $('#speedtest_type').val();
+          if(window.location.protocol == "http:"){
+              resuesturl = "{{url('/saveSpeedTest')}}"
+          }else if(window.location.protocol == "https:"){
+              resuesturl = "{{secure_url('/saveSpeedTest')}}"
+          }
+          $.ajax({
+              type: "post",
+              url: resuesturl,
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              dataType:'json',
+              data: {
+                'downloading_speed': downloading_speed,
+                'uploading_speed':uploading_speed,
+                'plan_id': plan_id,
+                'speedtest_type':speedtest_type
+              },
+              success: function (data) {
+                $('.ajaxloader').hide();
+                  if(data.success){
+                    $('.services-rating-section').removeClass('section-d-none');
+                    $('#speedTestModel').modal('hide');
+                  }
+              }         
+          });
+        });
         $('.service-rating-submit-btn').on('click',function(e){
           e.preventDefault();
           var isset = 0;

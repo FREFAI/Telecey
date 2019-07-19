@@ -66,6 +66,7 @@
 			Route::get('/reviews/{planId}', 'FrontEnd\ReviewsController@reviewsRating');
 			Route::post('/reviewsDetail', 'FrontEnd\ReviewsController@reviewsDetail');
 			Route::post('/reviewService', 'FrontEnd\ReviewsController@reviewService');
+			Route::post('/saveSpeedTest', 'FrontEnd\ReviewsController@saveSpeedTest');
 			Route::post('/ratingService', 'FrontEnd\ReviewsController@ratingService');
 			Route::get('/profile', 'FrontEnd\HomeController@profile');
 			Route::get('/logout', 'FrontEnd\LoginSignup\LoginController@logout');

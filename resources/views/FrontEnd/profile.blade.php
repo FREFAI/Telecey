@@ -485,19 +485,19 @@
             	<div class="col-lg-12">
             	    <h5>Address</h5>
             	    <div class="form-group">
-            	        <input type="text" maxlength="20" id="address" name="address" class="form-control" placeholder="Address" value="" autocomplete="off">
+            	        <input type="text" maxlength="70" id="address" name="address" class="form-control" placeholder="Address" value="" autocomplete="off">
             	    </div>
             	</div>
                 <div class="col-lg-12">
                     <h5>Country</h5>
                     <div class="form-group" id="country_div">
-                        <input type="text" maxlength="20" id="country" name="country" class="form-control" placeholder="Country" required="" value="" autocomplete="off">
+                        <input type="text" maxlength="50" id="country" name="country" class="form-control" placeholder="Country" required="" value="" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-lg-12">
                     <h5>City</h5>
                     <div class="form-group city_div" id="city_div">
-                        <input type="text" maxlength="20" id="city" name="city" class="form-control" placeholder="City" autocomplete="off" required="" data-country="IN" value="">
+                        <input type="text" maxlength="50" id="city" name="city" class="form-control" placeholder="City" autocomplete="off" required="" data-country="IN" value="">
                     </div>
                 </div>
                 <div class="col-lg-12">

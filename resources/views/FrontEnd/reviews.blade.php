@@ -148,30 +148,35 @@
                 @endif
                 <!-- Device section  -->
                 <section class="product-section @if(Request::get('type') == 1) section-d-none @endif @if(!Request::get('type')) section-d-none @endif section-both">
-                 <form id="device_rating_form">
+                 <form id="device_rating_form" method="post" action="javascript:void(0);">
                    <div class="row mt-3">
                        <div class="col-lg-6 ">
                            <h5>Which Device</h5>
                            <div class="tg-select form-control">
-                                <select required="required" name="device_name">
-                                    <option value="">Choose device</option>
-                                    <option value="Phone">Phone</option>
-                                    <option value="Tablite">Tablite</option>
-                                    <option value="Modem">Modem</option>
-                                    <option value="Accessories">Accessories</option>
+                                <select required="required" name="device_name" id="device_id">
+                                    @if(count($devices) > 0)
+                                        <option value="">Choose device</option>
+                                    @foreach($devices as $device)
+                                        <option value="{{$device->id}}">{{$device->device_name}}</option>
+                                    @endforeach
+                                    @else
+                                        <option value="">No data found.</option>
+                                    @endif
                                 </select>
                             </div>
                        </div>
                        <div class="col-lg-6 ">
                             <h5>Brand</h5>
                             <div class="tg-select form-control">
-                                 <select required="required" name="brand_name">
-                                    <option value="">Choose brand</option>
-                                     <option value="Apple">Apple</option>
-                                     <option value="MI">MI</option>
-                                     <option value="Samsung">Samsung</option>
-                                     <option value="HTC">HTC</option>
-                                     <option value="Nokia">Nokia</option>
+                                 <select required="required" name="brand_name" id="brand">
+                                    @if(count($brands) > 0)
+                                        <option value="">Choose brand</option>
+                                    @foreach($brands as $brand)
+                                        <option value="{{$brand->id}}">{{$brand->brand_name}}</option>
+                                    @endforeach
+                                    @else
+                                        <option value="">No data found.</option>
+                                    @endif
                                  </select>
                              </div>
                         </div>
@@ -180,20 +185,25 @@
                         <div class="col-lg-6 ">
                             <h5>Price</h5>
                             <div class="form-group">
-                                <input type="number" class="form-control price-box" name="price" placeholder="Price" required="required">		
+                                <select class="form-control currency_id">
+                                    @foreach($countries as $curr)
+                                        @if($curr->currency_code != '' && $curr->currency_code != " ")
+                                            <option @if($curr->code == $usersDetail->country_code)
+                                            selected
+                                            @elseif($curr->country_code == 'US') selected @endif value="{{$curr->id}}">{{$curr->currency_code}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <input type="text" class="form-control price-box price" name="price" placeholder="Price" required id="price">  
+                                <small>Including Tax</small>    
                             </div>
                         </div>
                         <div class="col-lg-6">
                              <h5>Model</h5>
                              <div class="tg-select form-control">
-                                  <select  required="required" name="model">
-                                        <option value="">Choose model</option>
-                                        <option value="Apple">Apple</option>
-                                        <option value="MI">MI</option>
-                                        <option value="Samsung">Samsung</option>
-                                        <option value="HTC">HTC</option>
-                                        <option value="Nokia">Nokia</option>
-                                  </select>
+                                <select  name="model" id="models">
+                                    <option value="">Choose model</option>
+                                </select>
                               </div>
                          </div>
                     </div>
@@ -201,7 +211,7 @@
                         <div class="col-lg-6">
                             <h5>Capacity</h5>
                             <div class="tg-select form-control">
-                                <select required="required" name="storage">
+                                <select required="required" name="storage" id="storage">
                                     <option value="">Choose Capacity</option>
                                     <option value="64">64</option>
                                     <option value="128">128</option>
@@ -1034,6 +1044,41 @@
         $('.technology').addClass('d-none');
        }
     });
+
+    $('#brand').on('change',function(){
+         var brand_id = $(this).find("option:selected").val();
+         if(window.location.protocol == "http:"){
+             resuesturl = "{{url('/getModels')}}"
+         }else if(window.location.protocol == "https:"){
+             resuesturl = "{{secure_url('/getModels')}}"
+         }
+         $.ajax({
+             type: "post",
+             url: resuesturl,
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+             },
+             dataType:'json',
+             data: {
+                 'brand_id':brand_id
+             },
+             success: function (data) {
+                if(data.success){
+                    $('#models option').remove();
+                    var items = data.data;
+                    for (var i = 0; i < items.length; i++) {
+                        $('#models').append($('<option>', { 
+                                value: items[i].id,
+                                text : items[i].model_name 
+                            }));
+                    }
+                }else{
+                
+                }
+             }         
+         });
+    });
+
 
     function speedTestFunction(){
         $('#speedTestModel').modal({

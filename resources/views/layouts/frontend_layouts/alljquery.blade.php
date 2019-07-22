@@ -609,4 +609,59 @@
           });
         });
         
+
+        // Device section  
+
+          $('#device_rating_form').on('submit',function(e){
+            e.preventDefault();
+            if(!$('#device_rating_form').valid()){
+              return;
+            }
+            var reviewform = $(this);
+            var device = $('#device_id').val();
+            var currency_id = $('.currency_id').val();
+            var currency_name = $('.currency_id option:checked').text();
+            var brand = $('#brand').val();
+            var price = $('#price').val();
+            var models = $('#models').val();
+            var storage = $('#storage').val();
+            swal({
+                title: currency_name+' '+price,
+                text: "Above price is including tax"
+              })
+            .then(name => {
+                if(name){
+                  $('.ajaxloader').show();
+                  if(window.location.protocol == "http:"){
+                      resuesturl = "{{url('/reviewDevice')}}"
+                  }else if(window.location.protocol == "https:"){
+                      resuesturl = "{{secure_url('/reviewDevice')}}"
+                  }
+                  $.ajax({
+                      type: "post",
+                      url: resuesturl,
+                      headers: {
+                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      },
+                      dataType:'json',
+                      data: {
+                        'currency_id':currency_id,
+                        'device_id':device,
+                        'brand_id':brand,
+                        'price':price,
+                        'model_id':models,
+                        'storage':storage
+                      },
+                      success: function (data) {
+                        $('.ajaxloader').hide();
+                          if(data.success){
+                                               
+                          }
+                      }         
+                  });
+                }
+              });
+            
+          });
+        // End Device section  
 </script>

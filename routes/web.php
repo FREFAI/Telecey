@@ -63,6 +63,7 @@
 			// Change address
 			Route::post('/getCountry', 'FrontEnd\ReviewsController@getCountry');
 			Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
+			Route::post('/getModels', 'FrontEnd\BrandsController@getModels');
 			Route::get('/reviews/{planId}', 'FrontEnd\ReviewsController@reviewsRating');
 			Route::post('/reviewsDetail', 'FrontEnd\ReviewsController@reviewsDetail');
 			Route::post('/reviewService', 'FrontEnd\ReviewsController@reviewService');
@@ -70,6 +71,7 @@
 			Route::post('/ratingService', 'FrontEnd\ReviewsController@ratingService');
 			Route::get('/profile', 'FrontEnd\HomeController@profile');
 			Route::get('/logout', 'FrontEnd\LoginSignup\LoginController@logout');
+			Route::post('/reviewDevice', 'FrontEnd\DeviceReviewController@reviewDevice');
 		});
 	});
 

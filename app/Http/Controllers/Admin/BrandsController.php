@@ -15,7 +15,7 @@ class BrandsController extends Controller
 
     public function brandsList(Request $request)
     {
-    	$brands = Brands::withCount('brandModels')->paginate(10);
+    	$brands = Brands::withCount('brandModels')->orderBy('id','DESC')->paginate(10);
     	return view('Admin.Brands.brand-list',['brands'=>$brands]);
     }
     public function addBrandForm(Request $request)

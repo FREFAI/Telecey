@@ -12,6 +12,9 @@ use App\Models\FrontEnd\PlanDeviceRating;
 use App\Models\Admin\Provider;
 use App\Models\Admin\ServiceType;
 use App\Models\Admin\RatingQuestion;
+use App\Models\Admin\BrandModels;
+use App\Models\Admin\Devices;
+use App\Models\Admin\Brands;
 use App\User;
 use App\UserAddress;
 use App\Currency;
@@ -116,10 +119,13 @@ class ReviewsController extends Controller
         $settings = SettingsModel::first();
         $providers = Provider::get();
         $countries = Currency::get();
+        $brandModels = BrandModels::get();
+        $devices = Devices::get();
+        $brands = Brands::get();
         $service_types = ServiceType::get();
         $questions = RatingQuestion::Where('type',1)->get();
 
-        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions,'userAddress'=>$usersAddress]);
+        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions,'userAddress'=>$usersAddress,'brandModels'=>$brandModels,'brands'=>$brands,'devices'=>$devices]);
     }
     public function reviewsRating(Request $request, $plan_id)
     {

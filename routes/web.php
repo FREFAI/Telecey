@@ -157,6 +157,32 @@
 				Route::post('/edit-question','Admin\RatingQuestionController@editRatingQuestion');
 				Route::post('/delete-question', 'Admin\RatingQuestionController@deleteRatingQuestion');
 			// End Rating question section 
+
+			// Devices Section  
+				Route::get('/devices-list','Admin\DevicesController@devicesList');
+				Route::get('/add-device','Admin\DevicesController@addDevicesForm');
+				Route::post('/add-device','Admin\DevicesController@addDevices');
+				Route::get('/edit-device/{deviceId}','Admin\DevicesController@editDevicesForm');
+				Route::post('/edit-device','Admin\DevicesController@editDevices');
+				Route::post('/delete-device', 'Admin\DevicesController@deleteDevices');
+			// End Devices Section  
+
+			// Brands Section  
+				Route::get('/brands-list','Admin\BrandsController@brandsList');
+				Route::get('/add-brand','Admin\BrandsController@addBrandForm');
+				Route::post('/add-brand','Admin\BrandsController@addBrand');
+				Route::get('/edit-brand/{deviceId}','Admin\BrandsController@editBrandForm');
+				Route::post('/edit-brand','Admin\BrandsController@editBrand');
+				Route::post('/delete-brand', 'Admin\BrandsController@deleteBrand');
+			// End Brands Section  
+			// Brands Model Section  
+				Route::get('/brand-models/{brandId}','Admin\BrandsModelController@brandModelsList');
+				Route::get('/add-brand-models/{brandId}','Admin\BrandsModelController@addBrandModelsForm');
+				Route::post('/add-brand-model','Admin\BrandsModelController@addBrandModels');
+				Route::get('/edit-brand-model/{brandId}','Admin\BrandsModelController@editBrandModelsForm');
+				Route::post('/edit-brand-model','Admin\BrandsModelController@editBrandModels');
+				Route::post('/delete-model','Admin\BrandsModelController@deleteBrandModel');
+			// End Brands Model Section  
 		});
 
 

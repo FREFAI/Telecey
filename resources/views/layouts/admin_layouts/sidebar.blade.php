@@ -78,5 +78,15 @@
               <i class="ni ni-paper-diploma text-info"></i> Rating Question
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link { request()->is('admin/devices-list') ? 'active' : '' }}" href="{{url('admin/devices-list')}}">
+              <i class="ni ni-mobile-button text-success"></i> Device List
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link { request()->is('admin/brands-list') ? 'active' : '' }}" href="{{url('admin/brands-list')}}">
+              <i class="ni ni-paper-diploma text-danger"></i> Brands List
+            </a>
+          </li>
         </ul>
       </div>

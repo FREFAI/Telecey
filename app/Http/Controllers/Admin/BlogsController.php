@@ -147,7 +147,8 @@ class BlogsController extends Controller
             'id' => 'required'
         ]);
         if ($validation->fails()) {
-            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+            $message = array('success'=>false,'message'=>$validation->messages()->first());
+            return json_encode($message);
         }else{
             $deleteType = BlogsModel::where('id',$perameter['id'])->delete();
             if($deleteType){

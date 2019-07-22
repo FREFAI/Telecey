@@ -470,5 +470,118 @@
 				}
 			});
 		});
+
+
+		// Device Delete 
+			$('.delete_device').on('click',function(){
+				var device_id = $(this).attr('data-device_id');
+				var delete_row = $(this);
+				if(window.location.protocol == "http:"){
+				    resuesturl = "{{url('/admin/delete-device')}}"
+				}else if(window.location.protocol == "https:"){
+				    resuesturl = "{{secure_url('/admin/delete-device')}}"
+				}
+				swal("Are you sure you want to delete this device?", {
+		          buttons: ["No", "Yes"],
+		        })
+		        .then(name => {
+		          	if(name){
+						$.ajax({
+						    type: "post",
+						    url: resuesturl,
+						    headers: {
+						        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						    },
+						    dataType:'json',
+						    data: {
+						        'id':device_id
+						    },
+						    success: function (data) {
+						        if(data.success){
+						        	delete_row.closest('tr').remove();
+						        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        }else{
+						        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        }
+						    }         
+						});
+					}
+				});
+			});
+		// End Device Delete 
+		// Brand Delete 
+			$('.delete_brand').on('click',function(){
+				var brand_id = $(this).attr('data-brand_id');
+				var delete_row = $(this);
+				if(window.location.protocol == "http:"){
+				    resuesturl = "{{url('/admin/delete-brand')}}"
+				}else if(window.location.protocol == "https:"){
+				    resuesturl = "{{secure_url('/admin/delete-brand')}}"
+				}
+				swal("Are you sure you want to delete this brand?", {
+		          buttons: ["No", "Yes"],
+		        })
+		        .then(name => {
+		          	if(name){
+						$.ajax({
+						    type: "post",
+						    url: resuesturl,
+						    headers: {
+						        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						    },
+						    dataType:'json',
+						    data: {
+						        'id':brand_id
+						    },
+						    success: function (data) {
+						        if(data.success){
+						        	delete_row.closest('tr').remove();
+						        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        }else{
+						        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        }
+						    }         
+						});
+					}
+				});
+			});
+		// End Brand Delete 
+		// Model Delete 
+			$('.delete_model').on('click',function(){
+				var model_id = $(this).attr('data-model_id');
+				var delete_row = $(this);
+				if(window.location.protocol == "http:"){
+				    resuesturl = "{{url('/admin/delete-model')}}"
+				}else if(window.location.protocol == "https:"){
+				    resuesturl = "{{secure_url('/admin/delete-model')}}"
+				}
+				swal("Are you sure you want to delete this model?", {
+		          buttons: ["No", "Yes"],
+		        })
+		        .then(name => {
+		          	if(name){
+						$.ajax({
+						    type: "post",
+						    url: resuesturl,
+						    headers: {
+						        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						    },
+						    dataType:'json',
+						    data: {
+						        'id':model_id
+						    },
+						    success: function (data) {
+						        if(data.success){
+						        	delete_row.closest('tr').remove();
+						        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        }else{
+						        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        }
+						    }         
+						});
+					}
+				});
+			});
+		// End Model Delete 
 	});
 </script>

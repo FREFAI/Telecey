@@ -123,7 +123,7 @@ class ReviewsController extends Controller
         $devices = Devices::get();
         $brands = Brands::get();
         $service_types = ServiceType::get();
-        $questions = RatingQuestion::Where('type',1)->get();
+        $questions = RatingQuestion::get();
 
         return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions,'userAddress'=>$usersAddress,'brandModels'=>$brandModels,'brands'=>$brands,'devices'=>$devices]);
     }
@@ -173,7 +173,17 @@ class ReviewsController extends Controller
                     }
                     
                 }else{
-                    $message = array('success'=>false,'message'=>"Address not found!");
+                    $formatted = $input['city'].' '.$input['country'].' '.$input['postal_code'];
+                    $address=[
+                        'user_id'=>$user_id,
+                        'formatted_address'=>$formatted,
+                        'city'=> $input['city'],
+                        'country'=> $input['country'],
+                        'postal_code'=> $input['postal_code'],
+                        'is_primary'=>1
+                    ];
+                    UserAddress::create($address);
+                    $message = array('success'=>true,'message'=>'Add new address successfully.');
                     return json_encode($message);
                 }
             }else{

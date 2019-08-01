@@ -48,6 +48,13 @@ ul.inline_list li {
 .w-40 {
     width: 40%;
 }
+input.form-control.price-box.device-price {
+    width: 80%;
+    float: left;
+    margin-top: 0;
+    padding: 0 14px;
+    margin-left: 9px;
+}
 a.btn.btn-info.pull-right.add_service:hover{
   background-color: #96fdd4 !important;
   color: #495057 !important;
@@ -329,7 +336,16 @@ ul.country-autocomplete li:hover {
     border-radius: 2px;
     background: #ff000038;
 }
-
+.row.device_starrating_error div {
+    text-align: center;
+    width: 64%;
+    padding: 10px;
+    color: #f00;
+    margin: 0px auto 21px;
+    border: 1px solid;
+    border-radius: 2px;
+    background: #ff000038;
+}
 .address_list {
   padding: 0 16px;
   font-weight: 600;

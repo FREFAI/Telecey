@@ -10,7 +10,7 @@ class PlanDeviceRating extends Model
     protected $guard = 'customer';
 
     protected $fillable = [
-        'id', 'user_id', 'plan_id', 'rating_id', 'comment', 'average', 'user_address_id','created_at', 'updated_at'
+        'id', 'user_id', 'plan_id','device_id', 'rating_id', 'comment', 'average', 'user_address_id','created_at', 'updated_at'
     ];
     public function user_address()
     {

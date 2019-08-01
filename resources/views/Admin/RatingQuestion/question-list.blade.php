@@ -87,6 +87,7 @@
                  </table>
                </div>
                <div class="ads_pagination mt-3 mb-0">
+                {{$questions->links()}}
                </div>
             </div>
 		    	</div>

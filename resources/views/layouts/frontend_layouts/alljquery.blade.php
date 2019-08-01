@@ -155,8 +155,8 @@
     }
   });
   $(".rating").on("change", function(ev, data){
-  var rateTotal=0;
-  var count = 0;
+    var rateTotal=0;
+    var count = 0;
     var question_count = $('#rating_section .rating').length;
     var perams = [];
     $('#rating_section .rating').each(function(index, item){
@@ -185,7 +185,6 @@
         $('.provider_text input').removeClass('active');
         $('.provider_text input').attr('required',false);
         $('.provider_text').hide();
-
     } else {
 
         $('.provider_status').val(2);
@@ -197,9 +196,7 @@
         $('.provider_text input').addClass('active');
         $('.provider_text input').attr('required',true);
         $('.provider_text').show();
-
-    }
-    
+    } 
   });
     var sections = $('section');
     var nav = $('nav');
@@ -352,7 +349,7 @@
           var international_min = $('.international_min').val();
           var roaming_min = $('.roaming_min').val();
           var sms = $('.sms').val();
-
+          console.log(price);
           if(pay_as_usage != 1){
             if(local_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(local_min) != true){
              return;
@@ -655,13 +652,115 @@
                       success: function (data) {
                         $('.ajaxloader').hide();
                           if(data.success){
-                                               
+                            $('.device_id').val(data.device_id);  
+                            reviewform.addClass('section-d-none');
+                            reviewform.next('#device_rating_section').removeClass('section-d-none');         
                           }
                       }         
                   });
                 }
+              });   
+          });
+
+          $(".device-rating").on("change", function(ev, data){
+            var rateTotal=0;
+            var count = 0;
+            var question_count = $('#device_rating_section .device-rating').length;
+            var perams = [];
+            $('#device_rating_section .device-rating').each(function(index, item){
+              var rate = $(item).rate('getValue');
+              if(rate == 0){
+                count = count+1;
+              }
+              rateTotal += rate;
+            });
+            var count_avr = question_count-count;
+            var average = rateTotal/count_avr;
+            $('.device_average_div').text(average.toFixed(2));
+            $('.device_average_input').val(average);
+          });
+
+          $('.device-rating-submit-btn').on('click',function(e){
+            e.preventDefault();
+            var isset = 0;
+            var comment = $('#device_comment').val();
+            var average_input = $('.device_average_input').val();
+            var device_id = $('.device_id').val();
+            var user_address_id = $('#user_address_id').val();
+            var user_full_address = $('#user_full_address').val();
+            var user_city = $('#user_city').val();
+            var user_country = $('#user_country').val();
+            var user_postal_code = $('#user_postal_code').val();
+            var is_primary = $('#is_primary').val();
+            var formatted_address = user_full_address+' '+user_city+' '+user_country+' '+user_postal_code;
+            var perams = [];
+            $('#device_rating_section .device-rating').each(function(index, item){
+              var rate = $(item).rate('getValue');
+              var question_id = $(item).attr('data-question_id');
+              if(rate==0){
+                $('.device_starrating_error').removeClass('d-none');
+                setTimeout(function(){
+                  $('.device_starrating_error').addClass('d-none');
+                },3000);
+                isset = 0;
+                return false;
+              }else{
+                isset = 1;
+                if (perams[index] === undefined) {
+                    perams[index] = {question_id: question_id,rate: rate};
+                } else {
+                    perams[index].question_id = question_id;
+                    perams[index].rate = rate;
+                }
+              }
+            });
+            if(isset == 1){
+              $('#user_address').modal({
+                  show: true
               });
-            
+              var ratingform = $(this);
+              if(window.location.protocol == "http:"){
+                  resuesturl = "{{url('/ratingDevice')}}"
+              }else if(window.location.protocol == "https:"){
+                  resuesturl = "{{secure_url('/ratingDevice')}}"
+              }
+              $('.ajaxloader').show();
+              $.ajax({
+                  type: "post",
+                  url: resuesturl,
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                  dataType:'json',
+                  data: {
+                    'perameters':perams,
+                    'comment':comment,
+                    'average_input':average_input,
+                    'device_id':device_id,
+                    'user_address_id':user_address_id,
+                    'user_full_address':user_full_address,
+                    'user_city':user_city,
+                    'user_country':user_country,
+                    'user_postal_code':user_postal_code,
+                    'is_primary':is_primary,
+                    'formatted_address':formatted_address
+
+                  },
+                  success: function (data) {
+                      $('.ajaxloader').hide();
+                      if(data.success){
+
+                        toastr.success('Rating', data.message , {displayDuration:3000,position: 'top-right'});
+                        $('.detail-section').addClass('section-d-none');
+                        // ratingform.closest('.services-rating-section').addClass('section-d-none');
+                        // ratingform.closest('.services-rating-section').next('.speed-test-button-section').removeClass('section-d-none');
+                        window.location.href = "{{url('/profile')}}";
+                      }else{
+                        // toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
+                      }
+                  }         
+              });
+            }
           });
         // End Device section  
 </script>

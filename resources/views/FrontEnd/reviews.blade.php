@@ -148,7 +148,7 @@
                 @endif
                 <!-- Device section  -->
                 <section class="product-section @if(Request::get('type') == 1) section-d-none @endif @if(!Request::get('type')) section-d-none @endif section-both">
-                 <form id="device_rating_form" method="post" action="javascript:void(0);">
+                <form id="device_rating_form" method="post" action="javascript:void(0);">
                    <div class="row mt-3">
                        <div class="col-lg-6 ">
                            <h5>Which Device</h5>
@@ -194,7 +194,7 @@
                                         @endif
                                     @endforeach
                                 </select>
-                                <input type="text" class="form-control price-box price" name="price" placeholder="Price" required id="price">  
+                                <input type="text" class="form-control price-box device-price" name="price" placeholder="Price" required id="price">  
                                 <small>Including Tax</small>    
                             </div>
                         </div>
@@ -233,6 +233,69 @@
                         </div>
                     </div>
                 </form>
+                <!-- Star rating section -->
+                <div class="services-rating-section section-d-none section-both" id="device_rating_section">
+                    <div class="row">
+                        <div class="heading detail-div">
+                            <h1 class="section-title">Rating</h1>
+                        </div>
+                    </div>
+                    <div class="row device_starrating_error d-none">
+                        <div class="error">
+                            All rating rows are required.
+                        </div>
+                    </div>
+                    @if(count($questions)>0)
+                        @foreach($questions as $question)
+                            @if($question->type == 2)
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="">
+                                        <h5>{{$question->question}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="rating float-right device-rating" data-question_id="{{$question->id}}"></div>
+                                    <!-- <div class="rating coverage" data-rate-value=6></div> -->
+                                </div>
+                            </div>
+                            @endif
+                        @endforeach
+                    @endif
+                    <div class="row mt-3">
+                        <div class="col-lg-6">
+                            <div class="">
+                                <h5>Comment</h5>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 text-right">
+                            <div class="form-group">
+                                <textarea class="form-control" id="device_comment" placeholder="Write comment here...." rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="">
+                                <h5 class="font-weight-bold">Average</h5>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 text-right">
+                            <input type="hidden" class="device_average_input" value="0">
+                            <div class="font-weight-bold device_average_div">0</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group w-50 ml-auto mr-auto text-center">
+                                <input type="hidden" name="device_id" class="device_id">
+                                <button type="submit" class="btn  btn-lg btn-primary device-rating-submit-btn-add">Submit</button>
+                                <button type="submit" class="btn  btn-lg btn-primary device-rating-submit-btn d-none">Submit</button>                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Star rating section -->
                     <!-- <div class="row">
                         <div class="heading detail-div">
                             <h1 class="section-title">Rating</h1>
@@ -561,6 +624,7 @@
                         </div>
                         @if(count($questions)>0)
                             @foreach($questions as $question)
+                                @if($question->type == 1)
         	               		<div class="row">
         	               		    <div class="col-lg-6">
         	               		        <div class="">
@@ -572,6 +636,7 @@
         	               		    	<!-- <div class="rating coverage" data-rate-value=6></div> -->
         	               		    </div>
         	               		</div>
+                                @endif
                             @endforeach
                         @endif
                         <div class="row mt-3">
@@ -956,13 +1021,19 @@
             }
         });
         if(isset == 1){
+            $('.save_address').attr('data-type',2);
             $('#user_address').modal({
                 show: true
             });
         }
     });
     $('.confirmation_button .yes').on('click',function(e){
-        $('.service-rating-submit-btn').trigger('click');
+        var type = $('.save_address').attr('data-type');
+        if(type == 1){
+            $('.device-rating-submit-btn').trigger('click');
+        }else{
+            $('.service-rating-submit-btn').trigger('click');
+        }
         $('#user_address').modal('toggle');
     });
     $('.confirmation_button .no').on('click',function(e){
@@ -1013,7 +1084,12 @@
         }     
     });
     $('.continue-btn-section button').on('click',function(){
-        $('.service-rating-submit-btn').trigger('click');
+        var type = $('.save_address').attr('data-type');
+        if(type == 1){
+            $('.device-rating-submit-btn').trigger('click');
+        }else{
+            $('.service-rating-submit-btn').trigger('click');
+        }
         $('#user_address').modal('toggle');
     });
     $('.pay_as_usage').on('change',function(){
@@ -1228,6 +1304,34 @@
             I("ip").textContent="";
         }
     // End Speed Test Sections 
+
+    // Device Section 
+    $('.device-rating-submit-btn-add').on('click',function(e){
+        e.preventDefault();
+        var isset = 0;
+        var perams = [];
+        $('#device_rating_section .device-rating').each(function(index, item){
+            var rate = $(item).rate('getValue');
+            var question_id = $(item).attr('data-question_id');
+            if(rate==0){
+                $('.device_starrating_error').removeClass('d-none');
+                setTimeout(function(){
+                $('.device_starrating_error').addClass('d-none');
+                },3000);
+                isset = 0;
+                return false;
+            }else{
+                isset = 1;
+            }
+        });
+        if(isset == 1){
+            $('.save_address').attr('data-type',1);
+            $('#user_address').modal({
+                show: true
+            });
+        }
+    });
+    // End Device section
 </script>
 
 @endsection

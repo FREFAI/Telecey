@@ -71,7 +71,11 @@
 			Route::post('/ratingService', 'FrontEnd\ReviewsController@ratingService');
 			Route::get('/profile', 'FrontEnd\HomeController@profile');
 			Route::get('/logout', 'FrontEnd\LoginSignup\LoginController@logout');
+
+			// Device Section 
 			Route::post('/reviewDevice', 'FrontEnd\DeviceReviewController@reviewDevice');
+			Route::post('/ratingDevice', 'FrontEnd\DeviceReviewController@ratingDevice');
+			// End Device Section 
 		});
 	});
 

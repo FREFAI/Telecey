@@ -197,11 +197,12 @@ class HomeController extends Controller
                 }
             }
             $device->ratings = $blankArray;
+            unset($device->device);
+            unset($device->brand);
+            unset($device->model);
+            unset($device->plan_device_rating);
         }              
-        unset($device->device);
-        unset($device->brand);
-        unset($device->model);
-        unset($device->plan_device_rating);
+        
         // echo "<pre>";
         // print_r($deviceData->toArray());
         // exit;

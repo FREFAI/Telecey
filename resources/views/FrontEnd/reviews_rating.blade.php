@@ -112,7 +112,13 @@
 	               		<div class="row">
 	               		    <div class="col-lg-12">
 	               		        <div class="form-group w-50 ml-auto mr-auto text-center">
+                                    @if($type == 1)
 	               		        	<input type="hidden" name="service_id" class="service_id" value="{{$plan_id}}">
+                                    <input type="hidden" name="type" class="plan-type" value="1">
+                                    @else
+                                    <input type="hidden" name="service_id" class="service_id" value="{{$device_id}}">
+                                    <input type="hidden" name="type" class="plan-type" value="2">
+                                    @endif
                                     <button type="submit" class="btn  btn-lg btn-primary service-rating-submit-btn-add">Submit</button>
                                     <button type="submit" class="btn  btn-lg btn-primary service-rating-submit-btn d-none">Submit</button>
                                 </div>
@@ -223,14 +229,14 @@
                             </div>
                             <div class="col-lg-12">
                                 <h5>Country</h5>
-                                <div class="form-group" id="country_div">
+                                <div class="form-group country_div" id="country_div">
                                     <input type="text" id="user_country" name="user_country" class="form-control" placeholder="Country" required="">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h5>City</h5>
                                 <div class="form-group city_div" id="city_div">
-                                    <input type="text" id="user_city" name="user_city" class="form-control js-input" placeholder="City" autocomplete="off" required="" data-country="IN">
+                                    <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="City" autocomplete="off" required="" data-country="IN">
                                 </div>
                             </div>
                             <div class="col-lg-12">

@@ -63,8 +63,8 @@
 			// Change address
 			Route::post('/getCountry', 'FrontEnd\ReviewsController@getCountry');
 			Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
-			Route::post('/getModels', 'FrontEnd\BrandsController@getModels');
 			Route::get('/reviews/{planId}', 'FrontEnd\ReviewsController@reviewsRating');
+			Route::post('/getModels', 'FrontEnd\BrandsController@getModels');
 			Route::post('/reviewsDetail', 'FrontEnd\ReviewsController@reviewsDetail');
 			Route::post('/reviewService', 'FrontEnd\ReviewsController@reviewService');
 			Route::post('/saveSpeedTest', 'FrontEnd\ReviewsController@saveSpeedTest');
@@ -75,6 +75,7 @@
 			// Device Section 
 			Route::post('/reviewDevice', 'FrontEnd\DeviceReviewController@reviewDevice');
 			Route::post('/ratingDevice', 'FrontEnd\DeviceReviewController@ratingDevice');
+			Route::get('/device-review/{deviceId}', 'FrontEnd\DeviceReviewController@deviceReviewsRating');
 			// End Device Section 
 		});
 	});
@@ -104,7 +105,9 @@
 		Route::group(['middleware' => 'auth:admin'], function(){
 			Route::get('/dashboard', 'Admin\DashboardController@dashboard');
 			Route::get('/logout', 'Admin\LoginController@logout');
-
+			// Users Section 
+			Route::get('/users', 'Admin\UsersController@index');
+			// End Users Section 
 			// Home content section
 
 				Route::get('/home-content', 'Admin\HomeController@index');

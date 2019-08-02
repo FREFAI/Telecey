@@ -58,7 +58,7 @@ class HomeController extends Controller
         $serviceData = $data['serviceData'];
         $customer = $data['customer'];
        // echo "<pre>";
-       // print_r($data[]);
+       // print_r($serviceData->toArray());
        // exit;
         return view('FrontEnd.profile',['serviceData'=>$serviceData,'customer'=>$customer]);
     }
@@ -71,12 +71,14 @@ class HomeController extends Controller
         if($userAddress){
             $customer->userAdderss= $userAddress->toArray();
         }
-        $serviceDatacount = ServiceReview::where('user_id',$user_id)
-                        ->orderBy('created_at','DESC')
-                        ->count();
-        $planReviewCount = PlanDeviceRating::where('user_id',$user_id)->count();
+        $serviceDatacount = ServiceReview::where('user_id',$user_id)->count();
+        $planReviewCount = PlanDeviceRating::where('user_id',$user_id)->where('plan_id','!=','0')->count();
+        $deviceDatacount = DeviceReview::where('user_id',$user_id)->count();
+        $deviceReviewCount = PlanDeviceRating::where('user_id',$user_id)->where('device_id','!=','0')->count();
         $customer->planCount = $serviceDatacount;
         $customer->planReviewCount = $planReviewCount;
+        $customer->deviceDatacount = $deviceDatacount;
+        $customer->deviceReviewCount = $deviceReviewCount;
 
 
         $serviceData = ServiceReview::where('user_id',$user_id)
@@ -92,7 +94,7 @@ class HomeController extends Controller
             $plan_device_rating = $data->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
             unset($data->plan_device_rating);
             foreach ($allratings as $ratings) {
-                if($ratings->entity_id == $data->id){    //Check entity id is equal to plan id
+                if($ratings->entity_id == $data->id && $ratings->entity_type==1){    //Check entity id is equal to plan id
                     $ratings->question_name = $ratings->question['question'];
                     $ratings->question_type = $ratings->question['type'];
                     unset( $ratings->question);
@@ -141,12 +143,14 @@ class HomeController extends Controller
         if($userAddress){
             $customer->userAdderss= $userAddress->toArray();
         }
-        $serviceDatacount = ServiceReview::where('user_id',$user_id)
-                        ->orderBy('created_at','DESC')
-                        ->count();
-        $planReviewCount = PlanDeviceRating::where('user_id',$user_id)->count();
+        $serviceDatacount = ServiceReview::where('user_id',$user_id)->count();
+        $planReviewCount = PlanDeviceRating::where('user_id',$user_id)->where('plan_id','!=','0')->count();
+        $deviceDatacount = DeviceReview::where('user_id',$user_id)->count();
+        $deviceReviewCount = PlanDeviceRating::where('user_id',$user_id)->where('device_id','!=','0')->count();
         $customer->planCount = $serviceDatacount;
         $customer->planReviewCount = $planReviewCount;
+        $customer->deviceDatacount = $deviceDatacount;
+        $customer->deviceReviewCount = $deviceReviewCount;
 
         $deviceData = DeviceReview::where('user_id',$user_id)
                         ->orderBy('created_at','DESC')
@@ -163,7 +167,7 @@ class HomeController extends Controller
             $allratings = $device->get_ratings();  // Get all ratings of this plan questions
             $plan_device_rating = $device->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
             foreach ($allratings as $ratings) {
-                if($ratings->entity_id == $device->id){    //Check entity id is equal to plan id
+                if($ratings->entity_id == $device->id && $ratings->entity_type==2){    //Check entity id is equal to plan id
                     $ratings->question_name = $ratings->question['question'];
                     $ratings->question_type = $ratings->question['type'];
                     unset( $ratings->question);

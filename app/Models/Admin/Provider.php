@@ -10,6 +10,6 @@ class Provider extends Model
     protected $guard = 'admin';
 
     protected $fillable = [
-        'provider_name', 'status', 'created_at', 'updated_at'
+        'provider_name', 'user_id', 'status', 'created_at', 'updated_at'
     ];
 }

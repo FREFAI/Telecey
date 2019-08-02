@@ -86,11 +86,11 @@
 							</li>
 							<li>
 								<a class="font-weight-bold">Total number of device</a>
-								<small class="pull-right">0</small>
+								<small class="pull-right">{{$customer->deviceDatacount}}</small>
 							</li>
 							<li>
 								<a class="font-weight-bold">Device reviews</a>
-								<small class="pull-right">0</small>
+								<small class="pull-right">{{$customer->deviceReviewCount}}</small>
 							</li>
 						</ul>
 					</div>
@@ -480,9 +480,9 @@
 	  												  					<div class="heading detail-div">
 	  						  					                            <h1 class="section-title">Ratings</h1>
 	  						  					                        </div>
-	  						  					                        <!-- <div class="add_new_rating_btn">
-	  						  					                        	<a href="{{url('/reviews')}}/{{base64_encode($device->id)}}" class="btn btn-info pull-right add_service">Add rating</a>
-	  						  					                        </div> -->
+	  						  					                        <div class="add_new_rating_btn">
+	  						  					                        	<a href="{{url('/device-review')}}/{{base64_encode($device->id)}}" class="btn btn-info pull-right add_service">Add rating</a>
+	  						  					                        </div>
 	  												  				</div>
 	  												  				<!-- Rating -->
 	  												  				@if(!is_null($device->ratings)) 

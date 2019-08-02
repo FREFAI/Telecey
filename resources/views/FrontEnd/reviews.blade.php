@@ -288,6 +288,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group w-50 ml-auto mr-auto text-center">
+                                <input type="hidden" name="type" class="device-type" value="2">
                                 <input type="hidden" name="device_id" class="device_id">
                                 <button type="submit" class="btn  btn-lg btn-primary device-rating-submit-btn-add">Submit</button>
                                 <button type="submit" class="btn  btn-lg btn-primary device-rating-submit-btn d-none">Submit</button>                                    
@@ -295,108 +296,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- End Star rating section -->
-                    <!-- <div class="row">
-                        <div class="heading detail-div">
-                            <h1 class="section-title">Rating</h1>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="">
-                                <h5>Are you happy with the device</h5>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="text-center">
-                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
-                                <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
-                                <span class="fa fa-star rate checked" id="star3" onclick="add(this,3)"></span>
-                                <span class="fa fa-star rate" id="star4" onclick="add(this,4)"></span>
-                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="">
-                                <h5>Rate the operating system</h5>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="text-center">
-                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
-                                <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
-                                <span class="fa fa-star rate " id="star3" onclick="add(this,3)"></span>
-                                <span class="fa fa-star rate" id="star4" onclick="add(this,4)"></span>
-                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="">
-                                <h5>How is you batters  Can you say how much it last for an average</h5>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="text-center">
-                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
-                                <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
-                                <span class="fa fa-star rate checked" id="star3" onclick="add(this,3)"></span>
-                                <span class="fa fa-star rate checked" id="star4" onclick="add(this,4)"></span>
-                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="">
-                                <h5>How isit with charging</h5>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="text-center">
-                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
-                                <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
-                                <span class="fa fa-star rate" id="star3" onclick="add(this,3)"></span>
-                                <span class="fa fa-star rate " id="star4" onclick="add(this,4)"></span>
-                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="">
-                                <h5>Rate the screen ( Images display clarety , Sensitivity)</h5>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="text-center">
-                                <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
-                                <span class="fa fa-star rate" id="star2" onclick="add(this,2)"></span>
-                                <span class="fa fa-star rate" id="star3" onclick="add(this,3)"></span>
-                                <span class="fa fa-star rate " id="star4" onclick="add(this,4)"></span>
-                                <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                            <div class="col-lg-6">
-                                <div class="">
-                                    <h5>Rates Coverage</h5>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="text-center">
-                                    <span class="fa fa-star rate checked" id="star1" onclick="add(this,1)"></span>
-                                    <span class="fa fa-star rate checked" id="star2" onclick="add(this,2)"></span>
-                                    <span class="fa fa-star rate checked" id="star3" onclick="add(this,3)"></span>
-                                    <span class="fa fa-star rate " id="star4" onclick="add(this,4)"></span>
-                                    <span class="fa fa-star rate" id="star5" onclick="add(this,5)"></span>
-                                </div>
-                            </div>
-                    </div> -->
                	</section>
                 <!-- End product section  -->
                 <!-- Plan Section -->
@@ -665,6 +564,8 @@
 	               		<div class="row">
 	               		    <div class="col-lg-12">
 	               		        <div class="form-group w-50 ml-auto mr-auto text-center">
+                                    
+                                    <input type="hidden" name="type" class="plan-type" value="1">
 	               		        	<input type="hidden" name="service_id" class="service_id">
                                     <button type="submit" class="btn  btn-lg btn-primary service-rating-submit-btn-add">Submit</button>
                                     <button type="submit" class="btn  btn-lg btn-primary service-rating-submit-btn d-none">Submit</button>                                    
@@ -769,12 +670,6 @@
       <div class="modal-dialog">
         <div class="modal-content">
 
-          <!-- Modal Header -->
-          <!-- <div class="modal-header">
-            <h4 class="modal-title">Would share the overage price?</h4> -->
-            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-          <!-- </div> -->
-
           <!-- Modal body -->
           <div class="modal-body">
                 <div class="default_adderss">
@@ -842,9 +737,7 @@
                 <div class="d-none continue-btn-section text-center mt-3">
                     <button class="btn btn-primary">Continue</button>
                 </div>
-                
           </div>
-
         </div>
       </div>
     </div>

@@ -30,12 +30,30 @@
           </div>
         </form>
         <!-- Navigation -->
-        <ul class="navbar-nav">
+        <ul class="navbar-nav sidebar_nav">
           <li class="nav-item">
             <a class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}" href="{{url('/admin/dashboard')}}">
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/users') ? 'active' : '' }}" href="{{url('/admin/users')}}">
+              <i class="ni ni-single-02 text-info"></i>
+              <span class="d-md-inline-block">Users</span>
+            </a>
+          </li>
+          <!-- <li class="nav-item dropdown  {{ request()->is('admin/settings') ? 'show' : '' }} {{ request()->is('admin/filetrsettings') ? 'show' : '' }}">
+            <a class="nav-link dropdown-toggle text-nowrap" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="ni ni-single-02 text-info"></i>
+              <span class="d-md-inline-block">Users</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-small {{ request()->is('admin/settings') ? 'show' : '' }} {{ request()->is('admin/filetrsettings') ? 'show' : '' }}">
+              <a class="dropdown-item {{ request()->is('admin/settings') ? 'active' : '' }}" href="{{url('admin/settings')}}">
+                <i class="ni ni-fat-add text-info"></i> Add user
+              <a class="dropdown-item {{ request()->is('admin/filetrsettings') ? 'active' : '' }}" href="{{url('admin/filetrsettings')}}">
+                <i class="ni ni-circle-08 text-orange"></i> Users list </a>
+            </div>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link {{ request()->is('admin/home-content') ? 'active' : '' }}" href="{{url('/admin/home-content')}}">
               <i class="ni ni-shop text-pink"></i> Home content
@@ -46,46 +64,50 @@
               <i class="fa fa-newspaper text-pink" aria-hidden="true"></i> Blogs
             </a>
           </li> 
-          <li class="nav-item">
-            <a class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}" href="{{url('admin/settings')}}">
-              <i class="ni ni-settings text-info"></i> Settings
+          <li class="nav-item dropdown  {{ request()->is('admin/settings') ? 'show' : '' }} {{ request()->is('admin/filetrsettings') ? 'show' : '' }}">
+            <a class="nav-link dropdown-toggle text-nowrap" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="ni ni-settings text-info"></i>
+              <span class="d-md-inline-block">Settings</span>
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {{ request()->is('admin/filetrsettings') ? 'active' : '' }}" href="{{url('admin/filetrsettings')}}">
-              <i class="fa fa-filter text-orange"></i> Filter Settings
-            </a>
+            <div class="dropdown-menu dropdown-menu-small {{ request()->is('admin/settings') ? 'show' : '' }} {{ request()->is('admin/filetrsettings') ? 'show' : '' }}">
+              <a class="dropdown-item {{ request()->is('admin/settings') ? 'active' : '' }}" href="{{url('admin/settings')}}">
+                <i class="ni ni-settings text-info"></i> Settings
+              <a class="dropdown-item {{ request()->is('admin/filetrsettings') ? 'active' : '' }}" href="{{url('admin/filetrsettings')}}">
+                <i class="fa fa-filter text-orange"></i> Filter Settings </a>
+            </div>
           </li>
           <li class="nav-item">
             <a class="nav-link {{ request()->is('admin/ads') ? 'active' : '' }}" href="{{url('admin/ads')}}">
               <i class="fas fa-ad text-red" style='font-size:20px'></i> ADS
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link {{ request()->is('admin/provider-list') ? 'active' : '' }}" href="{{url('admin/provider-list')}}" >
-              <i class="ni ni-bullet-list-67 text-yellow"></i> Providers
+          <li class="nav-item dropdown  {{ request()->is('admin/provider-list') ? 'show' : '' }} {{ request()->is('admin/servicetype-list') ? 'show' : '' }}">
+            <a class="nav-link dropdown-toggle text-nowrap" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="ni ni-bullet-list-67 text-yellow"></i>
+              <span class="d-md-inline-block">Plans</span>
             </a>
+            <div class="dropdown-menu dropdown-menu-small {{ request()->is('admin/provider-list') ? 'show' : '' }} {{ request()->is('admin/servicetype-list') ? 'show' : '' }}">
+              <a class="dropdown-item {{ request()->is('admin/provider-list') ? 'active' : '' }}" href="{{url('admin/provider-list')}}">
+                <i class="ni ni-bullet-list-67 text-yellow"></i> Providers
+              <a class="dropdown-item {{request()->is('admin/servicetype-list') ? 'active' : '' }}" href="{{url('admin/servicetype-list')}}">
+                <i class="ni ni-caps-small text-info"></i> Service Types </a>
+            </div>
           </li>
-          
-          <li class="nav-item">
-            <a class="nav-link { request()->is('admin/servicetype-list') ? 'active' : '' }}" href="{{url('admin/servicetype-list')}}">
-              <i class="ni ni-caps-small text-info"></i> Service Types
+          <li class="nav-item dropdown  {{ request()->is('admin/devices-list') ? 'show' : '' }} {{ request()->is('admin/brands-list') ? 'show' : '' }}">
+            <a class="nav-link dropdown-toggle text-nowrap" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="ni ni-mobile-button text-success"></i>
+              <span class="d-md-inline-block">Devices</span>
             </a>
+            <div class="dropdown-menu dropdown-menu-small {{ request()->is('admin/devices-list') ? 'show' : '' }} {{ request()->is('admin/brands-list') ? 'show' : '' }}">
+              <a class="dropdown-item {{ request()->is('admin/devices-list') ? 'active' : '' }}" href="{{url('admin/devices-list')}}">
+                <i class="ni ni-mobile-button text-success"></i> Device List
+              <a class="dropdown-item {{request()->is('admin/brands-list') ? 'active' : '' }}" href="{{url('admin/brands-list')}}">
+                <i class="ni ni-paper-diploma text-danger"></i> Brands List </a>
+            </div>
           </li>
-
           <li class="nav-item">
             <a class="nav-link { request()->is('admin/rating-question') ? 'active' : '' }}" href="{{url('admin/rating-question')}}">
               <i class="ni ni-paper-diploma text-info"></i> Rating Question
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link { request()->is('admin/devices-list') ? 'active' : '' }}" href="{{url('admin/devices-list')}}">
-              <i class="ni ni-mobile-button text-success"></i> Device List
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link { request()->is('admin/brands-list') ? 'active' : '' }}" href="{{url('admin/brands-list')}}">
-              <i class="ni ni-paper-diploma text-danger"></i> Brands List
             </a>
           </li>
         </ul>

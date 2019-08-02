@@ -41,4 +41,16 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\UserAddress', 'id', 'user_address_id');
     }
+    public function plans() {
+          return $this->hasMany('App\Models\FrontEnd\ServiceReview','user_id','id');
+    }
+    public function devices() {
+          return $this->hasMany('App\Models\FrontEnd\DeviceReview','user_id','id');
+    }
+    public function providers() {
+          return $this->hasMany('App\Models\Admin\Provider','user_id','id');
+    }
+    public function getUnapprovedProviders() {
+        return $this->providers()->where('status', 0)->get();
+    }
 }

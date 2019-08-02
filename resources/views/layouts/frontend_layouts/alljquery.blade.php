@@ -80,7 +80,14 @@
 
 
   $("#firstform").validate();
-  $("#device_rating_form").validate();
+  $("#device_rating_form").validate({
+    rules: {
+        price: {
+          required: true,
+          number: true
+        }
+      }
+  });
   $("#address_form").validate();
   $("#overage_price_form").validate({
     rules: {
@@ -468,6 +475,7 @@
           var comment = $('#comment').val();
           var average_input = $('.average_input').val();
           var service_id = $('.service_id').val();
+          var type = $('.plan-type').val();
           var user_address_id = $('#user_address_id').val();
           var user_full_address = $('#user_full_address').val();
           var user_city = $('#user_city').val();
@@ -518,7 +526,8 @@
                   'perameters':perams,
                   'comment':comment,
                   'average_input':average_input,
-                  'plan_id':service_id,
+                  'service_id':service_id,
+                  'type':type,
                   'user_address_id':user_address_id,
                   'user_full_address':user_full_address,
                   'user_city':user_city,
@@ -536,7 +545,11 @@
                       $('.detail-section').addClass('section-d-none');
                       // ratingform.closest('.services-rating-section').addClass('section-d-none');
                       // ratingform.closest('.services-rating-section').next('.speed-test-button-section').removeClass('section-d-none');
-                      window.location.href = "{{url('/profile')}}";
+                      if(type==1){
+                        window.location.href = "{{url('/profile')}}";
+                      }else{
+                        window.location.href = "{{url('/profile')}}?type=2";
+                      }
                     }else{
                       // toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
                     }
@@ -686,6 +699,7 @@
             var comment = $('#device_comment').val();
             var average_input = $('.device_average_input').val();
             var device_id = $('.device_id').val();
+            var type = $('.device-type').val();
             var user_address_id = $('#user_address_id').val();
             var user_full_address = $('#user_full_address').val();
             var user_city = $('#user_city').val();
@@ -734,6 +748,7 @@
                   dataType:'json',
                   data: {
                     'perameters':perams,
+                    'type':type,
                     'comment':comment,
                     'average_input':average_input,
                     'device_id':device_id,
@@ -754,7 +769,7 @@
                         $('.detail-section').addClass('section-d-none');
                         // ratingform.closest('.services-rating-section').addClass('section-d-none');
                         // ratingform.closest('.services-rating-section').next('.speed-test-button-section').removeClass('section-d-none');
-                        window.location.href = "{{url('/profile')}}";
+                        window.location.href = "{{url('/profile')}}?type=2";
                       }else{
                         // toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
                       }

@@ -76,3 +76,12 @@ span.toggle_label {
   text-decoration: underline;
 }
 /*End Single blog page */
+
+/*Side bar css */
+.dropdown-menu.dropdown-menu-small.show {
+    left: 20px;
+}
+/*.sidebar_nav .dropdown-menu.dropdown-menu-small.show{
+  position: relative;
+}*/
+/*End Side bar css */

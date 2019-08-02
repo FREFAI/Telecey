@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\FrontEnd\DeviceReview;
 use App\Models\FrontEnd\PlanDeviceRating;
 use App\Models\FrontEnd\ServiceRating;
+use App\Models\Admin\SettingsModel;
+use App\Models\Admin\RatingQuestion;
 use App\UserAddress;
 use Auth;
 
@@ -122,5 +124,16 @@ class DeviceReviewController extends Controller
                 return json_encode($message);
             }
         }
+    }
+
+    public function deviceReviewsRating(Request $request, $device_id)
+    {
+        $user_id = Auth::guard('customer')->user()['id']; 
+        $pageType = $device_id;
+        $device_id = base64_decode($device_id);
+        $settings = SettingsModel::first();
+        $questions = RatingQuestion::Where('type',2)->get();
+        $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
+        return view('FrontEnd.reviews_rating',['settings'=> $settings,'device_id'=>$device_id,'questions'=>$questions,'userAddress'=>$userAddress,'type'=>2]);
     }
 }

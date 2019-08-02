@@ -43,6 +43,8 @@ class ReviewsController extends Controller
      */
     public function reviews(Request $request)
     {
+        $perameters = $request->all();
+        
         
         $user_id = Auth::guard('customer')->user()['id']; 
         if (!$request->session()->has('usersDetail')) {
@@ -135,7 +137,7 @@ class ReviewsController extends Controller
         $settings = SettingsModel::first();
         $questions = RatingQuestion::Where('type',1)->get();
         $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
-        return view('FrontEnd.reviews_rating',['settings'=> $settings,'plan_id'=>$plan_id,'questions'=>$questions,'userAddress'=>$userAddress]);
+        return view('FrontEnd.reviews_rating',['settings'=> $settings,'plan_id'=>$plan_id,'questions'=>$questions,'userAddress'=>$userAddress,'type'=>1]);
     }
     public function reviewsDetail(Request $request)
     {
@@ -194,6 +196,7 @@ class ReviewsController extends Controller
     }
     public function reviewService(Request $request)
     {
+        $user_id = Auth::guard('customer')->user()['id'];
         $input = $request->all();
         if(!array_key_exists('overage_price', $input)){
             $input['overage_price_type'] = 0;
@@ -225,7 +228,8 @@ class ReviewsController extends Controller
             if($input['provider_status'] == 2){
                 $providerData = [
                     'provider_name' => $input['provider_id'],
-                    'status' => 0
+                    'status' => 0,
+                    'user_id' => $user_id
                 ];
                 $providervalidation = Validator::make($providerData, [
                     'provider_name' => 'required|unique:providers',
@@ -242,7 +246,6 @@ class ReviewsController extends Controller
                     }
                 }
             }
-            $user_id = Auth::guard('customer')->user()['id'];
             $input['user_id'] = $user_id;
             if(!array_key_exists('pay_as_usage_type', $input)){
                 $input['pay_as_usage_type'] = 0;
@@ -304,99 +307,171 @@ class ReviewsController extends Controller
     {
         $input = $request->all();
         $user_id = Auth::guard('customer')->user()['id'];
-        $rating_id = PlanDeviceRating::where('user_id',$user_id)->where('plan_id',$input['plan_id'])->max('rating_id');
-        $rating_id = $rating_id+1;
-        if(array_key_exists('user_country', $input)){
-            if($input['user_country'] != ""){
-                if($input['user_address_id'] == 0 && $input['is_primary'] == 1){
-                    UserAddress::where('user_id',$user_id)->update(['is_primary'=>0]);
-                    $is_primary = 1;
-                }else{
-                    $is_primary = 0;
-                }
-                $insertAddress = [
-                    'user_id' => $user_id,
-                    'address' =>$input['user_full_address'],
-                    'country' =>$input['user_country'],
-                    'city' =>$input['user_city'],
-                    'postal_code' => $input['user_postal_code'],
-                    'formatted_address' => $input['formatted_address'],
-                    'is_primary' => $is_primary
-                ];
-                $newAddress = UserAddress::create($insertAddress);
-                if($newAddress){
-                    $input['user_address_id'] = $newAddress->id;
-                }
-            }
-        }else{
-          $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
-          if($userAddress){
-              $input['user_address_id'] = $userAddress->id;
-          }else{
-            $input['user_address_id']=NULL;
-          }
-        }
-
-        $perameters=[
-            'user_id' => $user_id,
-            'plan_id' => $input['plan_id'],
-            'rating_id'=> $rating_id,
-            'comment'=> $input['comment'],
-            'average' => $input['average_input'],
-            'user_address_id' => $input['user_address_id']
-        ];
-        $validation = Validator::make($perameters, [
-            'user_id' => 'required',
-            'plan_id' => 'required',
-            'average' => 'required',
-            'user_address_id' => 'required'
-        ]);
-        if ( $validation->fails() ) {
-             $message = array('success'=>false,'message'=>$validation->messages()->first());
-             return json_encode($message);
-        }else{
-            $date = date("Y-m-d H:i:s");
-            $data = [];
-            $plandevicerating = PlanDeviceRating::create($perameters);
-            if($plandevicerating){
-                foreach ($input['perameters'] as $value) {
-                    $dataInsert = [
-                        'user_id'=>$user_id,
-                        'entity_id'=>$plandevicerating->plan_id,
-                        'entity_type'=>1,
-                        'rating_id'=>$plandevicerating->rating_id,
-                        'question_id'=>$value['question_id'],
-                        'rating'=>$value['rate'],
-                        'created_at'=>$date,
-                        'updated_at'=>$date
+        if($input['type'] == 1){
+            $rating_id = PlanDeviceRating::where('user_id',$user_id)->where('plan_id',$input['service_id'])->max('rating_id');
+            $rating_id = $rating_id+1;
+            if(array_key_exists('user_country', $input)){
+                if($input['user_country'] != ""){
+                    if($input['user_address_id'] == 0 && $input['is_primary'] == 1){
+                        UserAddress::where('user_id',$user_id)->update(['is_primary'=>0]);
+                        $is_primary = 1;
+                    }else{
+                        $is_primary = 0;
+                    }
+                    $insertAddress = [
+                        'user_id' => $user_id,
+                        'address' =>$input['user_full_address'],
+                        'country' =>$input['user_country'],
+                        'city' =>$input['user_city'],
+                        'postal_code' => $input['user_postal_code'],
+                        'formatted_address' => $input['formatted_address'],
+                        'is_primary' => $is_primary
                     ];
-                    array_push($data, $dataInsert);
+                    $newAddress = UserAddress::create($insertAddress);
+                    if($newAddress){
+                        $input['user_address_id'] = $newAddress->id;
+                    }
                 }
-                $serviceRating = ServiceRating::insert($data);
-                if($serviceRating){
-                    $message = array('success'=>true,'message'=>'Successfully submited.');
-                    return json_encode($message);
+            }else{
+              $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
+              if($userAddress){
+                  $input['user_address_id'] = $userAddress->id;
+              }else{
+                $input['user_address_id']=NULL;
+              }
+            }
+
+            $perameters=[
+                'user_id' => $user_id,
+                'plan_id' => $input['service_id'],
+                'rating_id'=> $rating_id,
+                'comment'=> $input['comment'],
+                'average' => $input['average_input'],
+                'user_address_id' => $input['user_address_id']
+            ];
+            $validation = Validator::make($perameters, [
+                'user_id' => 'required',
+                'plan_id' => 'required',
+                'average' => 'required',
+                'user_address_id' => 'required'
+            ]);
+            if ( $validation->fails() ) {
+                 $message = array('success'=>false,'message'=>$validation->messages()->first());
+                 return json_encode($message);
+            }else{
+                $date = date("Y-m-d H:i:s");
+                $data = [];
+                $plandevicerating = PlanDeviceRating::create($perameters);
+                if($plandevicerating){
+                    foreach ($input['perameters'] as $value) {
+                        $dataInsert = [
+                            'user_id'=>$user_id,
+                            'entity_id'=>$plandevicerating->plan_id,
+                            'entity_type'=>1,
+                            'rating_id'=>$plandevicerating->rating_id,
+                            'question_id'=>$value['question_id'],
+                            'rating'=>$value['rate'],
+                            'created_at'=>$date,
+                            'updated_at'=>$date
+                        ];
+                        array_push($data, $dataInsert);
+                    }
+                    $serviceRating = ServiceRating::insert($data);
+                    if($serviceRating){
+                        $message = array('success'=>true,'message'=>'Successfully submited.');
+                        return json_encode($message);
+                    }else{
+                        $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                        return json_encode($message);
+                    }
                 }else{
                     $message = array('success'=>false,'message'=>"Somthing went wrong!");
                     return json_encode($message);
                 }
+            }
+        }else{
+            $rating_id = PlanDeviceRating::where('user_id',$user_id)->where('device_id',$input['service_id'])->max('rating_id');
+            $rating_id = $rating_id+1;
+            if(array_key_exists('user_country', $input)){
+                if($input['user_country'] != ""){
+                    if($input['user_address_id'] == 0 && $input['is_primary'] == 1){
+                        UserAddress::where('user_id',$user_id)->update(['is_primary'=>0]);
+                        $is_primary = 1;
+                    }else{
+                        $is_primary = 0;
+                    }
+                    $insertAddress = [
+                        'user_id' => $user_id,
+                        'address' =>$input['user_full_address'],
+                        'country' =>$input['user_country'],
+                        'city' =>$input['user_city'],
+                        'postal_code' => $input['user_postal_code'],
+                        'formatted_address' => $input['formatted_address'],
+                        'is_primary' => $is_primary
+                    ];
+                    $newAddress = UserAddress::create($insertAddress);
+                    if($newAddress){
+                        $input['user_address_id'] = $newAddress->id;
+                    }
+                }
             }else{
-                $message = array('success'=>false,'message'=>"Somthing went wrong!");
-                return json_encode($message);
+              $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
+              if($userAddress){
+                  $input['user_address_id'] = $userAddress->id;
+              }else{
+                $input['user_address_id']=NULL;
+              }
+            }
+
+            $perameters=[
+                'user_id' => $user_id,
+                'device_id' => $input['service_id'],
+                'rating_id'=> $rating_id,
+                'comment'=> $input['comment'],
+                'average' => $input['average_input'],
+                'user_address_id' => $input['user_address_id']
+            ];
+            $validation = Validator::make($perameters, [
+                'user_id' => 'required',
+                'device_id' => 'required',
+                'average' => 'required',
+                'user_address_id' => 'required'
+            ]);
+            if ( $validation->fails() ) {
+                 $message = array('success'=>false,'message'=>$validation->messages()->first());
+                 return json_encode($message);
+            }else{
+                $date = date("Y-m-d H:i:s");
+                $data = [];
+                $plandevicerating = PlanDeviceRating::create($perameters);
+                if($plandevicerating){
+                    foreach ($input['perameters'] as $value) {
+                        $dataInsert = [
+                            'user_id'=>$user_id,
+                            'entity_id'=>$plandevicerating->device_id,
+                            'entity_type'=>2,
+                            'rating_id'=>$plandevicerating->rating_id,
+                            'question_id'=>$value['question_id'],
+                            'rating'=>$value['rate'],
+                            'created_at'=>$date,
+                            'updated_at'=>$date
+                        ];
+                        array_push($data, $dataInsert);
+                    }
+                    $serviceRating = ServiceRating::insert($data);
+                    if($serviceRating){
+                        $message = array('success'=>true,'message'=>'Successfully submited.');
+                        return json_encode($message);
+                    }else{
+                        $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                        return json_encode($message);
+                    }
+                }else{
+                    $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                    return json_encode($message);
+                }
             }
         }
-        // exit;
-        
-
-        // $input['user_id'] = $user_id;
-        // $serviceRating = ServiceRating::create($input);
-        // if($serviceRating){
-        //     $message = array('success'=>true,'message'=>'Successfully submited.');
-        //     return json_encode($message);
-        // }else{
-        //     $message = array('success'=>false,'message'=>"Somthing went wrong!");
-        //     return json_encode($message);
-        // }
         
     }
     public function getCountry(Request $request)

@@ -53,4 +53,11 @@ class User extends Authenticatable
     public function getUnapprovedProviders() {
         return $this->providers()->where('status', 0)->get();
     }
+    public function userPrimaryAdderss()
+    {
+        return $this->hasOne('App\UserAddress', 'user_id', 'id');
+    }
+    public function getUserPrimaryAdderss() {
+        return $this->userPrimaryAdderss()->where('is_primary', 1)->first();
+    }
 }

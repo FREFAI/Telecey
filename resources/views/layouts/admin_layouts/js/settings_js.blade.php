@@ -1,6 +1,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		$(".rating_disable").rate({
+		  readonly:true
+		});
 		tinymce.init({ 
 			selector:'.text_editor' ,
 			height: 300,

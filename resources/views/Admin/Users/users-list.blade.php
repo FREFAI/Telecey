@@ -90,7 +90,7 @@
                           <td>{{ date("d/m/Y", strtotime($user->created_at)) }}</td>
                           <td>{{ date("d/m/Y", strtotime($user->updated_at)) }}</td>
                           <td>
-                            <a class="btn btn-icon btn-2 btn-primary btn-sm" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="View">
+                            <a class="btn btn-icon btn-2 btn-primary btn-sm" href="{{url('/admin/userDetail')}}/{{base64_encode($user->id)}}" data-toggle="tooltip" data-placement="top" title="View">
                               <span class="btn-inner--icon"><i class="fas fa-eye"></i></span>
                             </a>
                           </td>

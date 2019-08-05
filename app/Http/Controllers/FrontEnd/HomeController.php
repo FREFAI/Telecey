@@ -57,9 +57,6 @@ class HomeController extends Controller
         }
         $serviceData = $data['serviceData'];
         $customer = $data['customer'];
-       // echo "<pre>";
-       // print_r($serviceData->toArray());
-       // exit;
         return view('FrontEnd.profile',['serviceData'=>$serviceData,'customer'=>$customer]);
     }
 

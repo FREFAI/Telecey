@@ -2,6 +2,15 @@
 @section('title', 'Admin | Users list')
 @section('content')
 
+@php
+  if(isset($request)){
+    $request['name'] = $request['name'];
+    $request['email'] = $request['email'];
+  }else{
+    $request['name'] = '';
+    $request['email'] = '';
+  } 
+@endphp
 <!-- Main content -->
 <div class="main-content">
   @include('layouts.admin_layouts.top_navbar')
@@ -23,16 +32,23 @@
 	          <div class="card-header bg-transparent">
 		    	<div class="row">
 
-            <div class="col-md-6">
+            <div class="col-md-2">
                <h5 class="heading-small text-muted mb-4">Users List</h5>
              </div>
-             <!-- <div class="col-md-6 text-right">
-               <a href="{{url('admin/addprovider')}}" class="btn btn-sm btn-primary"><i class="ni ni-fat-add"></i> &nbsp;Add users</a>
-             </div> -->
+             <div class="col-md-10 text-right">
+              <div class="user-search-form">
+                <form method="post">
+                  @csrf
+                   <input class="form-control" type="text" placeholder="Search by name" name="name" value="{{$request['name']}}">
+                   <input class="form-control" type="email" placeholder="Search by email" name="email" value="{{$request['email']}}">
+                   <button type="submit" class="btn btn-sm btn-primary">Search</button>
+                </form>
+              </div>
+             </div>
 		  			<div class="col-lg-12">
             @include('flash-message')
                <div class="table-responsive">
-                 <table class="table align-items-center">
+                 <table class="table align-items-center text-center">
                    <thead class="thead-light">
                      <tr>
                        <th scope="col" style="width: 10px;">Sr.No</th>
@@ -90,6 +106,22 @@
                           <td>{{ date("d/m/Y", strtotime($user->created_at)) }}</td>
                           <td>{{ date("d/m/Y", strtotime($user->updated_at)) }}</td>
                           <td>
+                            <button class="btn btn-icon btn-2 
+                                @if($user->active == 1) 
+                                  btn-danger 
+                                @else 
+                                  btn-success 
+                                @endif 
+                                btn-sm approved_user_btn" data-toggle="tooltip" data-placement="top" title="
+                                @if($user->active == 1) 
+                                  Not approve 
+                                @else 
+                                  Approve 
+                                @endif" 
+                                data-status="@if($user->active == 1) 0 @else 1 @endif"
+                                data-provider_id="{{$user->id}}">
+                               <span class="btn-inner--icon"><i class="@if($user->active != 1) ni ni-check-bold @else ni ni-fat-remove @endif"></i></span>
+                            </button>
                             <a class="btn btn-icon btn-2 btn-primary btn-sm" href="{{url('/admin/userDetail')}}/{{base64_encode($user->id)}}" data-toggle="tooltip" data-placement="top" title="View">
                               <span class="btn-inner--icon"><i class="fas fa-eye"></i></span>
                             </a>

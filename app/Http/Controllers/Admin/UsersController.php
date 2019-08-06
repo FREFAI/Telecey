@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\UserAddress;
 use App\Models\FrontEnd\ServiceReview;
@@ -26,7 +27,37 @@ class UsersController extends Controller
     	}
     	return view('Admin.Users.users-list',['users'=>$users]);
     }
-
+    public function searchUser(Request $request)
+    {
+        $perameters = $request->all();
+        if($perameters['name'] != "" && $perameters['email'] == ""){
+            $users = User::where(function ($query) use ($perameters){
+                $query->where('firstname','LIKE',"%{$perameters['name']}%")
+                      ->orwhere('lastname','LIKE',"%{$perameters['name']}%");
+            })->orderBy('id','DESC')->paginate(10);
+        }elseif($perameters['name'] == "" && $perameters['email'] != ""){
+            $users = User::where(function ($query) use ($perameters){
+                $query->where('email','LIKE',"%{$perameters['email']}%");
+            })->orderBy('id','DESC')->paginate(10);
+        }else{
+            $users = User::where(function ($query) use ($perameters){
+                $query->where('firstname','LIKE',"%{$perameters['name']}%")
+                      ->orwhere('lastname','LIKE',"%{$perameters['name']}%");
+            })->where(function ($query) use ($perameters){
+                $query->where('email','LIKE',"%{$perameters['email']}%");
+            })->orderBy('id','DESC')->paginate(10);
+        }
+        foreach ($users as $user) {
+            $plans = $user->plans;
+            foreach ($plans as $plan) {
+                $plan->provider;
+            }
+            $user->unApprovedCount = $user->getUnapprovedProviders()->count();
+            $user->plansCount = $user->plans->count();
+            $user->devicesCount = $user->devices->count();
+        }
+        return view('Admin.Users.users-list',['users'=>$users,'request'=>$perameters]);
+    }
     public function getSingleUserDetail(Request $request,$userId)
     {
         $perameters = $request->all();
@@ -53,7 +84,6 @@ class UsersController extends Controller
         // exit;
         return view('Admin.Users.users-detail',['serviceData'=>$serviceData,'user'=>$user]);
     }
-
 
     public function getAllPlans($userId)
     {
@@ -182,5 +212,39 @@ class UsersController extends Controller
         // print_r($deviceData->toArray());
         // exit;
         return  $deviceData;
+    }
+    public function approveUser(Request $request)
+    {
+        $perameter = $request->all();
+        $validation = Validator::make($perameter,[
+            'id' => 'required',
+            'status' => 'required'
+        ]);
+        if ($validation->fails()) {
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+        }else{
+            $user = User::find($perameter['id']);
+            if($user){
+                if($perameter['status'] == 1){
+                    $user->active = 1;
+                    if($user->save()){
+                        $message = array('success'=>true,'message'=>'Approved successfully.');
+                        return json_encode($message);
+                    }else{
+                        $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                        return json_encode($message);
+                    }
+                }else{
+                    $user->active = 0;
+                    if($user->save()){
+                        $message = array('success'=>true,'message'=>'Not approved successfully.');
+                        return json_encode($message);
+                    }else{
+                        $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                        return json_encode($message);
+                    }
+                }
+            }
+        }
     }
 }

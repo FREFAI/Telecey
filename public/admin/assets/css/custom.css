@@ -86,6 +86,27 @@ span.toggle_label {
 }*/
 /*End Side bar css */
 
+
+
+
+/*User list page*/
+  
+  /*Search css*/
+  .user-search-form form {
+      display: inline-flex;
+  }
+  .user-search-form input {
+      padding: 0px 8px;
+      height: 34px;
+      margin-right: 9px;
+  }
+  /*End Search css*/
+
+/*End User list page*/
+
+
+
+
 /*Profile page accordians */
 [data-toggle="collapse"] .fa:before {
   content: "\f139";

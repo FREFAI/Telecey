@@ -107,7 +107,9 @@
 			Route::get('/logout', 'Admin\LoginController@logout');
 			// Users Section 
 			Route::get('/users', 'Admin\UsersController@index');
+			Route::post('/users', 'Admin\UsersController@searchUser');
 			Route::get('/userDetail/{userId}', 'Admin\UsersController@getSingleUserDetail');
+			Route::post('/approveUser', 'Admin\UsersController@approveUser');
 			// End Users Section 
 			// Home content section
 

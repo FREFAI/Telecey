@@ -37,7 +37,7 @@
              </div>
              <div class="col-md-10 text-right">
               <div class="user-search-form">
-                <form method="post">
+                <form method="post" action="{{url('/admin/users')}}">
                   @csrf
                    <input class="form-control" type="text" placeholder="Search by name" name="name" value="{{$request['name']}}">
                    <input class="form-control" type="email" placeholder="Search by email" name="email" value="{{$request['email']}}">

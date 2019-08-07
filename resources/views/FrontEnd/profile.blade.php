@@ -92,6 +92,9 @@
 								<a class="font-weight-bold">Device reviews</a>
 								<small class="pull-right">{{$customer->deviceReviewCount}}</small>
 							</li>
+							<li>
+								<a href="{{url('/contact-us')}}" class="font-weight-bold">Contact us</a>
+							</li>
 						</ul>
 					</div>
 				</div>

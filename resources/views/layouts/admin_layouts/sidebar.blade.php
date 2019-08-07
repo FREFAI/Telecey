@@ -36,6 +36,14 @@
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
+          @if(Auth::guard('admin')->user()['type'] == 1)
+          <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/admin-list') ? 'active' : '' }}" href="{{url('/admin/admin-list')}}">
+              <i class="fa fa-users text-success" aria-hidden="true"></i>
+              <span class="d-md-inline-block">Admin</span>
+            </a>
+          </li>
+          @endif
           <li class="nav-item">
             <a class="nav-link {{ request()->is('admin/users') ? 'active' : '' }}" href="{{url('/admin/users')}}">
               <i class="ni ni-single-02 text-info"></i>

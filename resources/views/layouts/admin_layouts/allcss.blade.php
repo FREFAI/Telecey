@@ -10,3 +10,4 @@
 <link href="{{URL::asset('admin/assets/css/custom.css')}}" rel="stylesheet">
 <link href="{{URL::asset('admin/assets/css/argon.css')}}" rel="stylesheet">
 <link rel=”stylesheet” href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css'>
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />

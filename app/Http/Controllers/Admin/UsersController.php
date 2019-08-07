@@ -213,38 +213,4 @@ class UsersController extends Controller
         // exit;
         return  $deviceData;
     }
-    public function approveUser(Request $request)
-    {
-        $perameter = $request->all();
-        $validation = Validator::make($perameter,[
-            'id' => 'required',
-            'status' => 'required'
-        ]);
-        if ($validation->fails()) {
-            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
-        }else{
-            $user = User::find($perameter['id']);
-            if($user){
-                if($perameter['status'] == 1){
-                    $user->active = 1;
-                    if($user->save()){
-                        $message = array('success'=>true,'message'=>'Approved successfully.');
-                        return json_encode($message);
-                    }else{
-                        $message = array('success'=>false,'message'=>'Somthing went wrong!');
-                        return json_encode($message);
-                    }
-                }else{
-                    $user->active = 0;
-                    if($user->save()){
-                        $message = array('success'=>true,'message'=>'Not approved successfully.');
-                        return json_encode($message);
-                    }else{
-                        $message = array('success'=>false,'message'=>'Somthing went wrong!');
-                        return json_encode($message);
-                    }
-                }
-            }
-        }
-    }
 }

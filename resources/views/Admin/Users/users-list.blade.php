@@ -106,22 +106,6 @@
                           <td>{{ date("d/m/Y", strtotime($user->created_at)) }}</td>
                           <td>{{ date("d/m/Y", strtotime($user->updated_at)) }}</td>
                           <td>
-                            <button class="btn btn-icon btn-2 
-                                @if($user->active == 1) 
-                                  btn-danger 
-                                @else 
-                                  btn-success 
-                                @endif 
-                                btn-sm approved_user_btn" data-toggle="tooltip" data-placement="top" title="
-                                @if($user->active == 1) 
-                                  Not approve 
-                                @else 
-                                  Approve 
-                                @endif" 
-                                data-status="@if($user->active == 1) 0 @else 1 @endif"
-                                data-provider_id="{{$user->id}}">
-                               <span class="btn-inner--icon"><i class="@if($user->active != 1) ni ni-check-bold @else ni ni-fat-remove @endif"></i></span>
-                            </button>
                             <a class="btn btn-icon btn-2 btn-primary btn-sm" href="{{url('/admin/userDetail')}}/{{base64_encode($user->id)}}" data-toggle="tooltip" data-placement="top" title="View">
                               <span class="btn-inner--icon"><i class="fas fa-eye"></i></span>
                             </a>

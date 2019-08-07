@@ -77,6 +77,10 @@
 			Route::post('/ratingDevice', 'FrontEnd\DeviceReviewController@ratingDevice');
 			Route::get('/device-review/{deviceId}', 'FrontEnd\DeviceReviewController@deviceReviewsRating');
 			// End Device Section 
+
+			// Suport case section
+			Route::get('/contact-us', 'FrontEnd\SupportCaseController@index');
+			// End Suport case section
 		});
 	});
 
@@ -109,8 +113,18 @@
 			Route::get('/users', 'Admin\UsersController@index');
 			Route::post('/users', 'Admin\UsersController@searchUser');
 			Route::get('/userDetail/{userId}', 'Admin\UsersController@getSingleUserDetail');
-			Route::post('/approveUser', 'Admin\UsersController@approveUser');
 			// End Users Section 
+
+			// Sub Admin Section
+			Route::get('/add-admin', 'Admin\RegisterController@registerSubAdminForm');
+			Route::post('/add-admin', 'Admin\RegisterController@registerSubAdmin');
+			Route::get('/edit-admin/{adminID}', 'Admin\RegisterController@editSubAdminForm');
+			Route::post('/edit-admin', 'Admin\RegisterController@editSubAdmin');
+			Route::post('/delete-admin', 'Admin\RegisterController@deleteSubAdmin');
+			Route::get('/admin-list', 'Admin\RegisterController@subAdminList');
+			Route::post('/approveOrUnapproveAdmin', 'Admin\RegisterController@approveOrUnapproveAdmin');
+			// End Sub Admin Section
+
 			// Home content section
 
 				Route::get('/home-content', 'Admin\HomeController@index');

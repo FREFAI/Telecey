@@ -1,6 +1,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		$('.datepicker').datepicker();
 		$(".rating_disable").rate({
 		  readonly:true
 		});
@@ -651,5 +652,110 @@
 				});
 			});
 		// End User approved or not  
+
+		// Sub Admin Section 
+
+			// Delete Provider
+			$('.delete_admin').on('click',function(){
+				var admin_id = $(this).attr('data-admin_id');
+				var delete_row = $(this);
+				if(window.location.protocol == "http:"){
+				    resuesturl = "{{url('/admin/delete-admin')}}"
+				}else if(window.location.protocol == "https:"){
+				    resuesturl = "{{secure_url('/admin/delete-admin')}}"
+				}
+				swal("Are you sure you want to delete this admin?", {
+		          buttons: ["No", "Yes"],
+		        })
+		        .then(name => {
+		          	if(name){
+						$.ajax({
+						    type: "post",
+						    url: resuesturl,
+						    headers: {
+						        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						    },
+						    dataType:'json',
+						    data: {
+						        'id':admin_id
+						    },
+						    success: function (data) {
+						        if(data.success){
+						        	delete_row.closest('tr').remove();
+						        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        }else{
+						        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        }
+						    }         
+						});
+					}
+				});
+			});
+
+			// User approved or not  
+				$(document).on('click','.approved_admin_btn',function(){
+					var admin_id = $(this).attr('data-admin_id');
+					var status = $(this).attr('data-status');
+					status = $.trim(status);
+					var current_row = $(this);
+					if(window.location.protocol == "http:"){
+					    resuesturl = "{{url('/admin/approveOrUnapproveAdmin')}}"
+					}else if(window.location.protocol == "https:"){
+					    resuesturl = "{{secure_url('/admin/approveOrUnapproveAdmin')}}"
+					}
+					if(status == 1){
+						var mesages = 'Are you sure you want to approved this admin?';
+					}else{
+						var mesages = 'Are you sure you want to not approved this admin?';
+					}
+					swal(mesages, {
+			          buttons: ["No", "Yes"],
+			        })
+			        .then(name => {
+			          	if(name){
+							$.ajax({
+							    type: "post",
+							    url: resuesturl,
+							    headers: {
+							        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+							    },
+							    dataType:'json',
+							    data: {
+							        'id':admin_id,
+							        'status':status
+							    },
+							    success: function (data) {
+							        if(data.success){
+							        	if(status == 1){
+							        		current_row.closest('tr').find('.not_ap_ms').addClass('d-none');
+							        		current_row.closest('tr').find('.approved_ms').removeClass('d-none');
+							        		current_row.removeClass('btn-success');
+							        		current_row.attr('data-original-title','Not approve');
+							        		current_row.attr('data-status',0);
+							        		current_row.addClass('btn-danger');
+							        		current_row.find('i').removeClass('ni ni-check-bold');
+							        		current_row.find('i').addClass('ni ni-fat-remove');
+							        		toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+							        	}else{
+							        		current_row.closest('tr').find('.approved_ms').addClass('d-none');
+							        		current_row.closest('tr').find('.not_ap_ms').removeClass('d-none');
+							        		current_row.removeClass('btn-danger');
+							        		current_row.addClass('btn-success');
+							        		current_row.attr('data-original-title','Approve');
+							        		current_row.attr('data-status',1);
+							        		current_row.find('i').removeClass('ni ni-fat-remove');
+							        		current_row.find('i').addClass('ni ni-check-bold');
+							        		toastr.success('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+							        	}
+							        }else{
+							        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+							        }
+							    }         
+							});
+						}
+					});
+				});
+			// End User approved or not  
+		// End Sub Admin Section 
 	});
 </script>

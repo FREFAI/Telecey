@@ -8,6 +8,7 @@ use App\Models\Admin\AdminModel;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use App\Mail\ResetPassword;
+use App\User;
 use Mail;
 
 class ForgotPasswordController extends Controller
@@ -73,6 +74,28 @@ class ForgotPasswordController extends Controller
         	}else{
         		return redirect()->back()->withInput()->with('error', "Somthing went wrong!");
         	}
+        }
+    }
+
+    public function sendEmailManually(Request $request,$user_id)
+    {
+        $user_id = base64_decode($user_id);
+        $resetToken = str_random(40);
+        $user = User::find($user_id);
+        if($user){
+            $user->password_reset = $resetToken;
+            if($user->save()){
+                $emaildata = [
+                    'token_link' => url('/resetPassword/'.$resetToken),
+                    'user_name' => $user->firstname
+                ];
+                Mail::to($user->email)->send(new ResetPassword($emaildata));
+                return redirect()->back()->with('success','Email is send');
+            }else{
+              return redirect()->back()->withInput()->with('error', "Email is not sent.");  
+            }
+        }else{
+            return redirect()->back()->withInput()->with('error', "This email account is not registered.");
         }
     }
 }

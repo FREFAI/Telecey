@@ -25,7 +25,6 @@
 
 
   <script>
-    
     $('input.city_input').cityAutocomplete();
     // $('.user_city_add input#user_city').cityAutocomplete();
     $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo('.country_div');
@@ -80,6 +79,7 @@
 
 
   $("#firstform").validate();
+  $("#caseGenerateForm").validate();
   $("#device_rating_form").validate({
     rules: {
         price: {
@@ -778,4 +778,5 @@
             }
           });
         // End Device section  
+
 </script>

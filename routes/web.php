@@ -80,6 +80,9 @@
 
 			// Suport case section
 			Route::get('/contact-us', 'FrontEnd\SupportCaseController@index');
+			Route::post('/generateCase', 'FrontEnd\SupportCaseController@generateCase');
+			Route::get('/inbox/{caseID}', 'FrontEnd\SupportCaseController@caseInbox');
+			Route::post('/sendMessage', 'FrontEnd\SupportCaseController@sendMessage');
 			// End Suport case section
 		});
 	});
@@ -113,6 +116,7 @@
 			Route::get('/users', 'Admin\UsersController@index');
 			Route::post('/users', 'Admin\UsersController@searchUser');
 			Route::get('/userDetail/{userId}', 'Admin\UsersController@getSingleUserDetail');
+			Route::get('/forgotEmail/{userId}', 'Admin\ForgotPasswordController@sendEmailManually');
 			// End Users Section 
 
 			// Sub Admin Section
@@ -208,7 +212,15 @@
 				Route::get('/edit-brand-model/{brandId}','Admin\BrandsModelController@editBrandModelsForm');
 				Route::post('/edit-brand-model','Admin\BrandsModelController@editBrandModels');
 				Route::post('/delete-model','Admin\BrandsModelController@deleteBrandModel');
-			// End Brands Model Section  
+			// End Brands Model Section 
+
+			// Messages section  
+				Route::get('/messages','Admin\SupportCaseController@index');
+				Route::post('/messages','Admin\SupportCaseController@searchCases');
+				Route::get('/inbox/{caseID}','Admin\SupportCaseController@caseInbox');
+				Route::post('/sendMessage', 'Admin\SupportCaseController@sendMessage');
+				Route::post('/closeCaseRequest', 'Admin\SupportCaseController@closeCaseRequest');
+			// End Messages section  
 		});
 
 

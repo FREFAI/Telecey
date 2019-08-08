@@ -88,9 +88,12 @@
         <div class="card bg-secondary shadow">
           <div class="card-header bg-white border-0">
             <div class="row align-items-center">
-              <div class="col-12">
+              <div class="col-6">
                 <a href="{{url('admin/userDetail')}}/{{base64_encode($user->id)}}?type={{base64_encode(1)}}" class="btn btn-sm btn-primary @if(!Request::get('type') || base64_decode(Request::get('type')) == 1) active @endif">Plans</a>
                 <a href="{{url('admin/userDetail')}}/{{base64_encode($user->id)}}?type={{base64_encode(2)}}" class="btn btn-sm btn-primary @if(base64_decode(Request::get('type')) == 2) active @endif">Devices</a>
+              </div>
+              <div class="col-6 text-right">
+                  <a href="{{url('admin/users')}}" class="btn btn-sm btn-primary"><i class="ni ni-bold-left"></i> Back</a>
               </div>
             </div>
           </div>

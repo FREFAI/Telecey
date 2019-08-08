@@ -45,6 +45,12 @@
           </li>
           @endif
           <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/messages') ? 'active' : '' }}" href="{{url('/admin/messages')}}">
+              <i class="fas fa-comment text-danger" aria-hidden="true"></i>
+              <span class="d-md-inline-block">Message</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link {{ request()->is('admin/users') ? 'active' : '' }}" href="{{url('/admin/users')}}">
               <i class="ni ni-single-02 text-info"></i>
               <span class="d-md-inline-block">Users</span>

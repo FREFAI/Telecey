@@ -91,7 +91,7 @@
                           <td>
                             <span class="badge badge-dot mr-4">
                               @if($user->is_active == 0)
-                                <span class="not_ap_ms"><i class="bg-danger"></i>In-active</span>
+                                <span class="not_ap_ms"><i class="bg-danger"></i>Pending verification</span>
                               @else
                                 @if($user->unApprovedCount!=0)
                                   <span class="not_ap_ms"><i class="bg-danger"></i>Pending Product approval</span>
@@ -106,6 +106,9 @@
                           <td>{{ date("d/m/Y", strtotime($user->created_at)) }}</td>
                           <td>{{ date("d/m/Y", strtotime($user->updated_at)) }}</td>
                           <td>
+                            <a class="btn btn-icon btn-2 btn-success btn-sm forgot_email" href="javascript:void(0);" data-url="{{url('/admin/forgotEmail')}}/{{base64_encode($user->id)}}" data-toggle="tooltip" data-placement="top" title="Send forgot password email">
+                              <span class="btn-inner--icon"><i class="ni ni-email-83"></i></span>
+                            </a>
                             <a class="btn btn-icon btn-2 btn-primary btn-sm" href="{{url('/admin/userDetail')}}/{{base64_encode($user->id)}}" data-toggle="tooltip" data-placement="top" title="View">
                               <span class="btn-inner--icon"><i class="fas fa-eye"></i></span>
                             </a>

@@ -21,12 +21,13 @@
 	                	    <h3 class="pt-3 custom-height-cl">PLEASE INTRODUCE YOUR SELF</h3> -->
 	                	    <section class="get-in-touch">
 	                	        <p class="title pt-3">Support case</p>
-	                	        <form class="contact-form row">
+	                	        <form id="caseGenerateForm" class="contact-form row" action="{{url('/generateCase')}}" method="post">
+	                	        	@csrf
 	                	            <div class="form-field col-lg-12">
-	                	                <input id="firstname" class="input-text js-input" type="text" required name="firstname" placeholder="Subject">
+	                	                <input id="subject" class="input-text js-input" type="text" required name="subject" placeholder="Subject">
 	                	            </div>
 	                	            <div class="form-field col-lg-12">
-	                	                <textarea rows="4" id="lastname" class="input-text js-input" type="text" required name="lastname" placeholder="Message"></textarea>
+	                	                <textarea rows="4" id="message" class="input-text js-input" type="text" required name="message" placeholder="Message"></textarea>
 	                	            </div>
 	                	            
 	                	            <div class="form-field col-lg-12">
@@ -51,40 +52,52 @@
 	        </div>
 	        <div class="row">
 	            <div class="col-12 text-center">
-	                <div class="support-case-table">
+	                <div class="support-case-table table-responsive">
 	                	<table class="table table-hover">
 	                	    <thead>
 	                	      <tr>
+	                	      	<th>Sr. No.</th>
 	                	        <th class="text-left">Subject</th>
 	                	        <th>Status</th>
 	                	        <th>Date</th>
 	                	      </tr>
 	                	    </thead>
 	                	    <tbody>
+	                	    	@if(count($allCases)>0)
+	                	    	@php
+		                           $i = ($allCases->currentpage()-1)* $allCases->perpage() + 1;
+		                       	@endphp
+	                	    		@foreach($allCases as $case)
 	                	      	<tr>
-	                	        	<td class="text-left">At w3schools.com you will learn how to make a website.</td>
-		                	        <td>Closed</td>
-		                	        <td>5, July 2019</td>
+	                	      		<td>{{$i++}}</td>
+	                	        	<td class="text-left"><a href="{{url('inbox')}}/{{base64_encode($case->id)}}">{{$case->subject}}</a></td>
+		                	        <td>
+		                	        	@if($case->status == 0)
+		                	        		Open
+		                	        	@elseif($case->status == 1)
+		                	        		Answered
+		                	        	@else
+		                	        		Closed
+		                	        	@endif
+		                	        </td>
+		                	        <td>{{ date('d, M Y', strtotime($case->created_at)) }}</td>
 	                	      	</tr>
+	                	      		@endforeach
+	                	      	@else
 	                	      	<tr>
-	                	        	<td class="text-left">At w3schools.com you will learn how to make a website.</td>
-		                	        <td>Closed</td>
-		                	        <td>5, July 2019</td>
-	                	      	</tr>
-	                	      	<tr>
-	                	        	<td class="text-left">At w3schools.com you will learn how to make a website.</td>
-		                	        <td>Closed</td>
-		                	        <td>5, July 2019</td>
-	                	      	</tr>
-	                	      	<tr>
-	                	        	<td class="text-left">At w3schools.com you will learn how to make a website.</td>
-		                	        <td>Closed</td>
-		                	        <td>5, July 2019</td>
-	                	      	</tr>
-	                	      
+		                         	<th colspan="4">
+			                           	<div class="media-body text-center">
+			                               	<span class="mb-0 text-sm">No data found.</span>
+			                           	</div>
+		                         	</th>
+		                       	</tr>
+	                	      	@endif
 	                	    </tbody>
 	            	  	</table>
 	                </div>
+	                <div class="ads_pagination mt-3 mb-0">
+	                 {{$allCases->links()}}
+	               </div>
 	            </div>
 	        </div>
 	    </div>

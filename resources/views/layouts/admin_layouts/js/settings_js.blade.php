@@ -1,6 +1,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		
 		$('.datepicker').datepicker();
 		$(".rating_disable").rate({
 		  readonly:true
@@ -693,6 +694,19 @@
 			});
 
 			// User approved or not  
+
+				$(document).on('click','.forgot_email',function(e){
+					e.preventDefault();
+					var url = $(this).attr('data-url');
+					swal('Are you sure you want to sent forgot password email?', {
+			          buttons: ["No", "Yes"],
+			        })
+			        .then(name => {
+			        	if(name){
+			        		window.location = url;
+			        	}
+			        });
+				});
 				$(document).on('click','.approved_admin_btn',function(){
 					var admin_id = $(this).attr('data-admin_id');
 					var status = $(this).attr('data-status');
@@ -757,5 +771,48 @@
 				});
 			// End User approved or not  
 		// End Sub Admin Section 
+
+		// Chat Section
+			$(document).on('click','.close_case_btn',function(){
+				var case_id = $(this).attr('data-case_id');
+				var status = $(this).attr('data-status');
+				status = $.trim(status);
+				var current_row = $(this);
+				if(window.location.protocol == "http:"){
+				    resuesturl = "{{url('/admin/closeCaseRequest')}}"
+				}else if(window.location.protocol == "https:"){
+				    resuesturl = "{{secure_url('/admin/closeCaseRequest')}}"
+				}
+				swal('Are you sure you want to close this case?', {
+		          buttons: ["No", "Yes"],
+		        })
+		        .then(name => {
+		          	if(name){
+						$.ajax({
+						    type: "post",
+						    url: resuesturl,
+						    headers: {
+						        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						    },
+						    dataType:'json',
+						    data: {
+						        'case_id':case_id,
+						        'status':status
+						    },
+						    success: function (data) {
+						        if(data.success){
+						        		current_row.closest('tr').find('.status-td').text('Closed');
+						        		current_row.removeClass('close_case_btn');
+						        		toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        }else{
+						        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        }
+						    }         
+						});
+					}
+				});
+			});
+		
+		// End Chat Section
 	});
 </script>

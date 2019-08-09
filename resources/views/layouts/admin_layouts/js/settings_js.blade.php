@@ -1158,7 +1158,7 @@
 		          		        if(data.success){
 		          		        	if(data.status == 1){
 		          		        		$('.default_check_brand').prop("checked", false); 
-		          		        		$('#customCheck'+supplier_id).prop("checked", true);
+		          		        		$('#customCheck'+device_id).prop("checked", true);
 		          		        	}
 		          		        	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
 		          		        }else{

@@ -84,6 +84,10 @@
 			Route::get('/inbox/{caseID}', 'FrontEnd\SupportCaseController@caseInbox');
 			Route::post('/sendMessage', 'FrontEnd\SupportCaseController@sendMessage');
 			// End Suport case section
+
+			// Email verify Section
+			Route::get('/resendVerifyEmail', 'FrontEnd\LoginSignup\RegisterController@resendVerifyEmail');
+			// End Email verify Section
 		});
 	});
 
@@ -195,6 +199,7 @@
 				Route::get('/edit-device/{deviceId}','Admin\DevicesController@editDevicesForm');
 				Route::post('/edit-device','Admin\DevicesController@editDevices');
 				Route::post('/delete-device', 'Admin\DevicesController@deleteDevices');
+				Route::post('/set-default-device', 'Admin\DevicesController@setDefaultDevice');
 			// End Devices Section  
 
 			// Brands Section  
@@ -204,14 +209,16 @@
 				Route::get('/edit-brand/{deviceId}','Admin\BrandsController@editBrandForm');
 				Route::post('/edit-brand','Admin\BrandsController@editBrand');
 				Route::post('/delete-brand', 'Admin\BrandsController@deleteBrand');
+				Route::post('/set-default-model', 'Admin\BrandsController@setDefaultModel');
+				Route::post('/approveBrand','Admin\BrandsController@approveBrand');
 			// End Brands Section  
 			// Brands Model Section  
-				Route::get('/brand-models/{brandId}','Admin\BrandsModelController@brandModelsList');
-				Route::get('/add-brand-models/{brandId}','Admin\BrandsModelController@addBrandModelsForm');
-				Route::post('/add-brand-model','Admin\BrandsModelController@addBrandModels');
-				Route::get('/edit-brand-model/{brandId}','Admin\BrandsModelController@editBrandModelsForm');
-				Route::post('/edit-brand-model','Admin\BrandsModelController@editBrandModels');
-				Route::post('/delete-model','Admin\BrandsModelController@deleteBrandModel');
+				// Route::get('/brand-models/{brandId}','Admin\BrandsModelController@brandModelsList');
+				// Route::get('/add-brand-models/{brandId}','Admin\BrandsModelController@addBrandModelsForm');
+				// Route::post('/add-brand-model','Admin\BrandsModelController@addBrandModels');
+				// Route::get('/edit-brand-model/{brandId}','Admin\BrandsModelController@editBrandModelsForm');
+				// Route::post('/edit-brand-model','Admin\BrandsModelController@editBrandModels');
+				// Route::post('/delete-model','Admin\BrandsModelController@deleteBrandModel');
 			// End Brands Model Section 
 
 			// Messages section  
@@ -221,6 +228,17 @@
 				Route::post('/sendMessage', 'Admin\SupportCaseController@sendMessage');
 				Route::post('/closeCaseRequest', 'Admin\SupportCaseController@closeCaseRequest');
 			// End Messages section  
+
+			// Supplier section 
+				Route::get('/suppliers','Admin\SupplierController@supplierList');
+				Route::get('/add-supplier','Admin\SupplierController@addSupplierForm');
+				Route::post('/addsupplier','Admin\SupplierController@addSupplier');
+				Route::get('/edit-supplier/{supplierID}','Admin\SupplierController@editSupplierForm');
+				Route::post('/editsupplier','Admin\SupplierController@editSupplier');
+				Route::post('/delete-supplier','Admin\SupplierController@deleteSupplier');
+				Route::post('/approveSupplier','Admin\SupplierController@approveSupplier');
+				Route::post('/set-default-supplies', 'Admin\SupplierController@setDefaultSupplies');
+			// End Supplier section 
 		});
 
 

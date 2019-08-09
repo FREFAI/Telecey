@@ -151,7 +151,7 @@
                 <form id="device_rating_form" method="post" action="javascript:void(0);">
                    <div class="row mt-3">
                        <div class="col-lg-6 ">
-                           <h5>Which Device</h5>
+                           <h5>Device type</h5>
                            <div class="tg-select form-control">
                                 <select required="required" name="device_name" id="device_id">
                                     @if(count($devices) > 0)
@@ -167,18 +167,27 @@
                        </div>
                        <div class="col-lg-6 ">
                             <h5>Brand</h5>
-                            <div class="tg-select form-control">
-                                 <select required="required" name="brand_name" id="brand">
+                            <div class="tg-select form-control brand_select">
+                                 <select class="brand_name active" required="required" name="brand_name" id="brand">
                                     @if(count($brands) > 0)
                                         <option value="">Choose brand</option>
                                     @foreach($brands as $brand)
-                                        <option value="{{$brand->id}}">{{$brand->brand_name}}</option>
+                                        <option value="{{$brand->id}}">{{$brand->brand_name}} {{$brand->model_name}}</option>
                                     @endforeach
                                     @else
                                         <option value="">No data found.</option>
                                     @endif
                                  </select>
                              </div>
+                              <div class="form-group brand_text">
+                                  <input type="text" class="form-control brand_name text_brand_name" name="brand_name" placeholder="Brand name" maxlength="30">  
+                                  <br>    
+                                  <input type="text" class="form-control model_name text_model_name" name="model_name" placeholder="Model name" maxlength="30">      
+                                  <input type="hidden" class="form-control brand_status" name="brand_status" placeholder="Brand status" value="1">      
+                              </div>
+                             <small>
+                                <a href="javascript:void(0)" class="brand_text_show">Couldn't find your brand</a>
+                             </small>
                         </div>
                    </div>
                    <div class="row mt-3">
@@ -199,12 +208,26 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                             <h5>Model</h5>
-                             <div class="tg-select form-control">
-                                <select  name="model" id="models">
-                                    <option value="">Choose model</option>
+                             <h5>Supplier</h5>
+                             <div class="tg-select form-control supplier_select">
+                                <select name="supplier" id="supplier" class="supplier_name active">
+                                    @if(count($suppliers) > 0)
+                                        <option value="">Choose brand</option>
+                                    @foreach($suppliers as $supplier)
+                                        <option value="{{$supplier->id}}">{{$supplier->brand_name}} {{$supplier->supplier_name}}</option>
+                                    @endforeach
+                                    @else
+                                        <option value="">No data found.</option>
+                                    @endif
                                 </select>
                               </div>
+                              <div class="form-group supplier_text">
+                                  <input type="text" class="form-control supplier_name text_supplier_name" name="supplier_name" placeholder="Supplier name" maxlength="30">      
+                                  <input type="hidden" class="form-control supplier_status" name="supplier_status" placeholder="Supplier status" value="1">      
+                              </div>
+                             <small>
+                                <a href="javascript:void(0)" class="supplier_text_show">Couldn't find your supplier</a>
+                             </small>
                          </div>
                     </div>
                     <div class="row align-items-center">
@@ -319,7 +342,7 @@
                                              @endif
 	                                     </select>
 	                                 </div>
-                                     <div class="form-group provider_text">
+                                    <div class="form-group provider_text">
                                         <input type="text" class="form-control provider_name text_provider_name" name="provider_name" placeholder="Provider name" maxlength="30">      
                                         <input type="hidden" class="form-control provider_status" name="provider_status" placeholder="Provider status">      
                                     </div>
@@ -819,20 +842,20 @@
 <script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script>
 <script src="{{URL::asset('frontend/jsplugins/speedtest/speedtest.js')}}"></script>
 <script>
-    function add(ths,sno){
-        for (var i=1;i<=5;i++){
-            var cur=document.getElementById("star"+i)
-            cur.className="fa fa-star"
-        }
+    // function add(ths,sno){
+    //     for (var i=1;i<=5;i++){
+    //         var cur=document.getElementById("star"+i)
+    //         cur.className="fa fa-star"
+    //     }
     
-        for (var i=1;i<=sno;i++){
-            var cur=document.getElementById("star"+i)
-            if(cur.className=="fa fa-star")
-            {
-                cur.className="fa fa-star checked"
-            }
-        }
-    }
+    //     for (var i=1;i<=sno;i++){
+    //         var cur=document.getElementById("star"+i)
+    //         if(cur.className=="fa fa-star")
+    //         {
+    //             cur.className="fa fa-star checked"
+    //         }
+    //     }
+    // }
     function overageFunction(){
         if(document.getElementById('overage_price').checked){
             $('#overage_price_model').modal({
@@ -1012,40 +1035,6 @@
         $(".technology option:nth-child(1)").attr("selected");
         $('.technology').addClass('d-none');
        }
-    });
-
-    $('#brand').on('change',function(){
-         var brand_id = $(this).find("option:selected").val();
-         if(window.location.protocol == "http:"){
-             resuesturl = "{{url('/getModels')}}"
-         }else if(window.location.protocol == "https:"){
-             resuesturl = "{{secure_url('/getModels')}}"
-         }
-         $.ajax({
-             type: "post",
-             url: resuesturl,
-             headers: {
-                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-             },
-             dataType:'json',
-             data: {
-                 'brand_id':brand_id
-             },
-             success: function (data) {
-                if(data.success){
-                    $('#models option').remove();
-                    var items = data.data;
-                    for (var i = 0; i < items.length; i++) {
-                        $('#models').append($('<option>', { 
-                                value: items[i].id,
-                                text : items[i].model_name 
-                            }));
-                    }
-                }else{
-                
-                }
-             }         
-         });
     });
 
 

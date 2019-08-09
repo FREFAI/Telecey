@@ -15,6 +15,7 @@ use App\Models\Admin\RatingQuestion;
 use App\Models\Admin\BrandModels;
 use App\Models\Admin\Devices;
 use App\Models\Admin\Brands;
+use App\Models\Admin\Supplier;
 use App\User;
 use App\UserAddress;
 use App\Currency;
@@ -124,10 +125,11 @@ class ReviewsController extends Controller
         $brandModels = BrandModels::get();
         $devices = Devices::get();
         $brands = Brands::get();
+        $suppliers = Supplier::get();
         $service_types = ServiceType::get();
         $questions = RatingQuestion::get();
 
-        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions,'userAddress'=>$usersAddress,'brandModels'=>$brandModels,'brands'=>$brands,'devices'=>$devices]);
+        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions,'userAddress'=>$usersAddress,'brandModels'=>$brandModels,'brands'=>$brands,'devices'=>$devices,'suppliers'=>$suppliers]);
     }
     public function reviewsRating(Request $request, $plan_id)
     {

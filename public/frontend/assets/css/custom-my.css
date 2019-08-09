@@ -188,9 +188,10 @@ span.toggle_label {
 .service_type .buisness{
   display: none;
 }
-.provider_text{
+.provider_text,.supplier_text,.brand_text{
   display: none;
 }
+
 /*Rating star css */
 .rate-base-layer
   {

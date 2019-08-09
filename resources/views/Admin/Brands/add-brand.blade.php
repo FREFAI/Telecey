@@ -41,6 +41,11 @@
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
+                          <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Model name" name="model_name" required="">
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
                           <button class="btn btn-primary" type="submit">Save</button>
                         </div>
                       </div>

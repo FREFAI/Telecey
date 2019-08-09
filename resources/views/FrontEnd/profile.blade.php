@@ -51,7 +51,13 @@
 </style>
 <div class="profile inner-page">
 	<div class="container">
-		@include('flash-message')
+		@if(Auth::guard('customer')->user()['is_active'] == 0)
+		<div class="alert alert-danger alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+	        We have sent an email with a confirmation link to your email address. Please verify your email <strong><a href="{{url('/resendVerifyEmail')}}">Click here</a></strong> to resend verification email.
+		</div>
+		@endif
+		<!-- @include('flash-message') -->
 		<div class="row">
 			<div class="col-lg-3 mb-3">
 				<div class="profile-sidebar">
@@ -435,10 +441,10 @@
 	  						  	                        		<b>Device Name</b> : &nbsp; {{$device->device_name}}
 	  						  	                        	</div>
 	  						  	                        	<div class="col-4 text-center">
-	  						  	                        		<b>Brand Name</b> : &nbsp;{{$device->brand_name}}
+	  						  	                        		<b>Brand Name</b> : &nbsp;{{$device->brand_name}} {{$device->model_name}}
 	  						  	                        	</div>
 	  						  	                        	<div class="col-4 text-center">
-	  						  	                        		<b>Model</b> : &nbsp;&nbsp;{{$device->model_name}}
+	  						  	                        		<b>Supplier Name</b> : &nbsp;&nbsp;{{$device->supplier_name}}
 	  						  	                        	</div>
 	  						  	                        </div>
 	  						  	                    </a>

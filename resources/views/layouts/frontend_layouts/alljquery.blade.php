@@ -205,6 +205,7 @@
         $('.provider_text').show();
     } 
   });
+
     var sections = $('section');
     var nav = $('nav');
     var nav_height = nav.outerHeight();
@@ -621,19 +622,45 @@
         
 
         // Device section  
+        $(".supplier_text_show").on('click',function(){
+          if ($(".supplier_select select").attr("disabled")) {
+            
+              $('.supplier_status').val(1);
+              $('.supplier_select select').attr('disabled',false);
+              $('.supplier_select select').attr('required',true);
+              $('.supplier_select select').addClass('active');
+              $('.supplier_text input').removeClass('active');
+              $('.supplier_text input').attr('required',false);
+              $('.supplier_text').hide();
+          } else {
+
+              $('.supplier_status').val(2);
+              $('.supplier_select select option').prop('selected',false);
+              $('.supplier_select select').attr('required',false);
+              $('.supplier_select select option:nth-child(1)').prop('selected',true);
+              $('.supplier_select select').attr('disabled',true);
+              $('.supplier_select select').removeClass('active');
+              $('.supplier_text input').addClass('active');
+              $('.supplier_text input').attr('required',true);
+              $('.supplier_text').show();
+          } 
+        });
 
           $('#device_rating_form').on('submit',function(e){
             e.preventDefault();
             if(!$('#device_rating_form').valid()){
               return;
             }
+            var brand_name = $('.brand_name.active').val();
+            var model_name = $('.model_name.active').val();
+            var supplier_name = $('.supplier_name.active').val();
+            var brand_status = $('.brand_status').val();
+            var supplier_status = $('.supplier_status').val();
             var reviewform = $(this);
             var device = $('#device_id').val();
             var currency_id = $('.currency_id').val();
             var currency_name = $('.currency_id option:checked').text();
-            var brand = $('#brand').val();
             var price = $('#price').val();
-            var models = $('#models').val();
             var storage = $('#storage').val();
             swal({
                 title: currency_name+' '+price,
@@ -655,11 +682,14 @@
                       },
                       dataType:'json',
                       data: {
+                        'brand_id':brand_name,
+                        'model_name':model_name,
+                        'supplier_id':supplier_name,
+                        'brand_status':brand_status,
+                        'supplier_status':supplier_status,
                         'currency_id':currency_id,
                         'device_id':device,
-                        'brand_id':brand,
                         'price':price,
-                        'model_id':models,
                         'storage':storage
                       },
                       success: function (data) {
@@ -778,5 +808,29 @@
             }
           });
         // End Device section  
+        // Brand Section
+        $(".brand_text_show").on('click',function(){
+          if ($(".brand_select select").attr("disabled")) {
+            
+              $('.brand_status').val(1);
+              $('.brand_select select').attr('disabled',false);
+              $('.brand_select select').attr('required',true);
+              $('.brand_select select').addClass('active');
+              $('.brand_text input').removeClass('active');
+              $('.brand_text input').attr('required',false);
+              $('.brand_text').hide();
+          } else {
 
+              $('.brand_status').val(2);
+              $('.brand_select select option').prop('selected',false);
+              $('.brand_select select').attr('required',false);
+              $('.brand_select select option:nth-child(1)').prop('selected',true);
+              $('.brand_select select').attr('disabled',true);
+              $('.brand_select select').removeClass('active');
+              $('.brand_text input').addClass('active');
+              $('.brand_text input').attr('required',true);
+              $('.brand_text').show();
+          } 
+        });
+        // End Brand Section
 </script>

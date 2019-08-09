@@ -550,6 +550,142 @@
 					}
 				});
 			});
+			$('.default_check_brand').on('change',function(){
+				var brand_id = $(this).attr('data-brand_id');
+				var delete_row = $(this);
+				if(window.location.protocol == "http:"){
+				    resuesturl = "{{url('/admin/set-default-model')}}"
+				}else if(window.location.protocol == "https:"){
+				    resuesturl = "{{secure_url('/admin/set-default-model')}}"
+				}
+				if($(this).prop("checked") == true){
+					swal("Are you sure you want to choose as default this model?", {
+			          buttons: ["No", "Yes"],
+			        })
+			        .then(res => {
+			          	if(res){
+			          		$.ajax({
+			          		    type: "post",
+			          		    url: resuesturl,
+			          		    headers: {
+			          		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			          		    },
+			          		    dataType:'json',
+			          		    data: {
+			          		        'id':brand_id,
+			          		        'status':1
+			          		    },
+			          		    success: function (data) {
+			          		        if(data.success){
+			          		        	$('.default_check_brand').prop("checked", false); 
+			          		        	$('#customCheck'+brand_id).prop("checked", true); 
+			          		        	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+			          		        }else{
+			          		        	toastr.error('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+			          		        }
+			          		    }         
+			          		});
+			          	}else{
+			          		$(this).prop("checked", false); 
+			          	}
+		          	});
+			    }else if($(this).prop("checked") == false){
+    				swal("Are you sure you want to remove as default this model?", {
+    		          buttons: ["No", "Yes"],
+    		        })
+    		        .then(res => {
+    		          	if(res){
+    		          		$.ajax({
+    		          		    type: "post",
+    		          		    url: resuesturl,
+    		          		    headers: {
+    		          		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    		          		    },
+    		          		    dataType:'json',
+    		          		    data: {
+    		          		        'id':brand_id,
+    		          		        'status':0
+    		          		    },
+    		          		    success: function (data) {
+    		          		        if(data.success){
+    		          		        	if(data.status == 1){
+    		          		        		$('.default_check_brand').prop("checked", false); 
+    		          		        		$('#customCheck'+brand_id).prop("checked", true);
+    		          		        	}
+    		          		        	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+    		          		        }else{
+    		          		        	toastr.error('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+    		          		        }
+    		          		    }         
+    		          		});
+    		          	}else{
+    		          		$(this).prop("checked", false); 
+    		          	}
+    	          	});
+			    }
+			});
+			$(document).on('click','.approved_brand_btn',function(){
+				var brand_id = $(this).attr('data-brand_id');
+				var status = $(this).attr('data-status');
+				status = $.trim(status);
+				var current_row = $(this);
+				if(window.location.protocol == "http:"){
+				    resuesturl = "{{url('/admin/approveBrand')}}"
+				}else if(window.location.protocol == "https:"){
+				    resuesturl = "{{secure_url('/admin/approveBrand')}}"
+				}
+				if(status == 1){
+					var mesages = 'Are you sure you want to approved this supplier?';
+				}else{
+					var mesages = 'Are you sure you want to not approved this supplier?';
+				}
+				swal(mesages, {
+		          buttons: ["No", "Yes"],
+		        })
+		        .then(name => {
+		          	if(name){
+						$.ajax({
+						    type: "post",
+						    url: resuesturl,
+						    headers: {
+						        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						    },
+						    dataType:'json',
+						    data: {
+						        'id':brand_id,
+						        'status':status
+						    },
+						    success: function (data) {
+						        if(data.success){
+						        	if(status == 1){
+						        		current_row.closest('tr').find('.not_ap_ms').addClass('d-none');
+						        		current_row.closest('tr').find('.approved_ms').removeClass('d-none');
+						        		current_row.removeClass('btn-success');
+						        		current_row.attr('data-original-title','Not approve');
+						        		current_row.attr('data-status',0);
+						        		current_row.addClass('btn-danger');
+						        		current_row.find('i').removeClass('ni ni-check-bold');
+						        		current_row.find('i').addClass('ni ni-fat-remove');
+						        		toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        	}else{
+						        		current_row.closest('tr').find('.approved_ms').addClass('d-none');
+						        		current_row.closest('tr').find('.not_ap_ms').removeClass('d-none');
+						        		current_row.removeClass('btn-danger');
+						        		current_row.addClass('btn-success');
+						        		current_row.attr('data-original-title','Approve');
+						        		current_row.attr('data-status',1);
+						        		current_row.find('i').removeClass('ni ni-fat-remove');
+						        		current_row.find('i').addClass('ni ni-check-bold');
+						        		toastr.success('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        	}
+						        }else{
+						        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        }
+						    }         
+						});
+					}
+				});
+			});		
 		// End Brand Delete 
 		// Model Delete 
 			$('.delete_model').on('click',function(){
@@ -814,5 +950,260 @@
 			});
 		
 		// End Chat Section
+
+		// Supplier Section
+			$('.delete_supplier').on('click',function(){
+				var supplier_id = $(this).attr('data-supplier_id');
+				var delete_row = $(this);
+				if(window.location.protocol == "http:"){
+				    resuesturl = "{{url('/admin/delete-supplier')}}"
+				}else if(window.location.protocol == "https:"){
+				    resuesturl = "{{secure_url('/admin/delete-supplier')}}"
+				}
+				swal("Are you sure you want to delete this Supplier?", {
+		          buttons: ["No", "Yes"],
+		        })
+		        .then(name => {
+		          	if(name){
+						$.ajax({
+						    type: "post",
+						    url: resuesturl,
+						    headers: {
+						        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						    },
+						    dataType:'json',
+						    data: {
+						        'id':supplier_id
+						    },
+						    success: function (data) {
+						        if(data.success){
+						        	delete_row.closest('tr').remove();
+						        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        }else{
+						        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        }
+						    }         
+						});
+					}
+				});
+			});
+
+			$(document).on('click','.approved_supplier_btn',function(){
+				var supplier_id = $(this).attr('data-supplier_id');
+				var status = $(this).attr('data-status');
+				status = $.trim(status);
+				var current_row = $(this);
+				if(window.location.protocol == "http:"){
+				    resuesturl = "{{url('/admin/approveSupplier')}}"
+				}else if(window.location.protocol == "https:"){
+				    resuesturl = "{{secure_url('/admin/approveSupplier')}}"
+				}
+				if(status == 1){
+					var mesages = 'Are you sure you want to approved this supplier?';
+				}else{
+					var mesages = 'Are you sure you want to not approved this supplier?';
+				}
+				swal(mesages, {
+		          buttons: ["No", "Yes"],
+		        })
+		        .then(name => {
+		          	if(name){
+						$.ajax({
+						    type: "post",
+						    url: resuesturl,
+						    headers: {
+						        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						    },
+						    dataType:'json',
+						    data: {
+						        'id':supplier_id,
+						        'status':status
+						    },
+						    success: function (data) {
+						        if(data.success){
+						        	if(status == 1){
+						        		current_row.closest('tr').find('.not_ap_ms').addClass('d-none');
+						        		current_row.closest('tr').find('.approved_ms').removeClass('d-none');
+						        		current_row.removeClass('btn-success');
+						        		current_row.attr('data-original-title','Not approve');
+						        		current_row.attr('data-status',0);
+						        		current_row.addClass('btn-danger');
+						        		current_row.find('i').removeClass('ni ni-check-bold');
+						        		current_row.find('i').addClass('ni ni-fat-remove');
+						        		toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        	}else{
+						        		current_row.closest('tr').find('.approved_ms').addClass('d-none');
+						        		current_row.closest('tr').find('.not_ap_ms').removeClass('d-none');
+						        		current_row.removeClass('btn-danger');
+						        		current_row.addClass('btn-success');
+						        		current_row.attr('data-original-title','Approve');
+						        		current_row.attr('data-status',1);
+						        		current_row.find('i').removeClass('ni ni-fat-remove');
+						        		current_row.find('i').addClass('ni ni-check-bold');
+						        		toastr.success('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        	}
+						        }else{
+						        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        }
+						    }         
+						});
+					}
+				});
+			});
+
+		// End Supplier Section
+
+		$('.default_check_suppliers').on('change',function(){
+			var supplier_id = $(this).attr('data-supplier_id');
+			var delete_row = $(this);
+			if(window.location.protocol == "http:"){
+			    resuesturl = "{{url('/admin/set-default-supplies')}}"
+			}else if(window.location.protocol == "https:"){
+			    resuesturl = "{{secure_url('/admin/set-default-supplies')}}"
+			}
+			if($(this).prop("checked") == true){
+				swal("Are you sure you want to choose as default this supplies?", {
+		          buttons: ["No", "Yes"],
+		        })
+		        .then(res => {
+		          	if(res){
+		          		$.ajax({
+		          		    type: "post",
+		          		    url: resuesturl,
+		          		    headers: {
+		          		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		          		    },
+		          		    dataType:'json',
+		          		    data: {
+		          		        'id':supplier_id,
+		          		        'status':1
+		          		    },
+		          		    success: function (data) {
+		          		        if(data.success){
+		          		        	if(data.status == 1){
+		          		        		$('.default_check_brand').prop("checked", false); 
+		          		        		$('#customCheck'+supplier_id).prop("checked", true);
+		          		        	} 
+		          		        	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        }else{
+		          		        	toastr.error('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        }
+		          		    }         
+		          		});
+		          	}else{
+		          		$(this).prop("checked", false); 
+		          	}
+	          	});
+		    }else if($(this).prop("checked") == false){
+				swal("Are you sure you want to remove as default this supplies?", {
+		          buttons: ["No", "Yes"],
+		        })
+		        .then(res => {
+		          	if(res){
+		          		$.ajax({
+		          		    type: "post",
+		          		    url: resuesturl,
+		          		    headers: {
+		          		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		          		    },
+		          		    dataType:'json',
+		          		    data: {
+		          		        'id':supplier_id,
+		          		        'status':0
+		          		    },
+		          		    success: function (data) {
+		          		        if(data.success){
+		          		        	if(data.status == 1){
+		          		        		$('.default_check_brand').prop("checked", false); 
+		          		        		$('#customCheck'+supplier_id).prop("checked", true);
+		          		        	}
+		          		        	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        }else{
+		          		        	toastr.error('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        }
+		          		    }         
+		          		});
+		          	}else{
+		          		$(this).prop("checked", false); 
+		          	}
+	          	});
+		    }
+		});
+		$('.default_check_device').on('change',function(){
+			var device_id = $(this).attr('data-device_id');
+			var delete_row = $(this);
+			if(window.location.protocol == "http:"){
+			    resuesturl = "{{url('/admin/set-default-device')}}"
+			}else if(window.location.protocol == "https:"){
+			    resuesturl = "{{secure_url('/admin/set-default-device')}}"
+			}
+			if($(this).prop("checked") == true){
+				swal("Are you sure you want to choose as default this device?", {
+		          buttons: ["No", "Yes"],
+		        })
+		        .then(res => {
+		          	if(res){
+		          		$.ajax({
+		          		    type: "post",
+		          		    url: resuesturl,
+		          		    headers: {
+		          		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		          		    },
+		          		    dataType:'json',
+		          		    data: {
+		          		        'id':device_id,
+		          		        'status':1
+		          		    },
+		          		    success: function (data) {
+		          		        if(data.success){
+		          		        	if(data.status == 1){
+		          		        		$('.default_check_brand').prop("checked", false); 
+		          		        		$('#customCheck'+supplier_id).prop("checked", true);
+		          		        	}
+		          		        	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        }else{
+		          		        	toastr.error('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        }
+		          		    }         
+		          		});
+		          	}else{
+		          		$(this).prop("checked", false); 
+		          	}
+	          	});
+		    }else if($(this).prop("checked") == false){
+				swal("Are you sure you want to remove as default this device?", {
+		          buttons: ["No", "Yes"],
+		        })
+		        .then(res => {
+		          	if(res){
+		          		$.ajax({
+		          		    type: "post",
+		          		    url: resuesturl,
+		          		    headers: {
+		          		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		          		    },
+		          		    dataType:'json',
+		          		    data: {
+		          		        'id':device_id,
+		          		        'status':0
+		          		    },
+		          		    success: function (data) {
+		          		        if(data.success){
+		          		        	if(data.status == 1){
+		          		        		$('.default_check_brand').prop("checked", false); 
+		          		        		$('#customCheck'+device_id).prop("checked", true);
+		          		        	}
+		          		        	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        }else{
+		          		        	toastr.error('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        }
+		          		    }         
+		          		});
+		          	}else{
+		          		$(this).prop("checked", false); 
+		          	}
+	          	});
+		    }
+		});
 	});
 </script>

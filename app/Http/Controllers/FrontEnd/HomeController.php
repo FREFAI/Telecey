@@ -159,8 +159,9 @@ class HomeController extends Controller
             $device->device_status = $device->device->status;
             $device->brand_name = $device->brand->brand_name;
             $device->brand_status = $device->brand->status;
-            $device->model_name = $device->model->model_name;
-            $device->model_status = $device->model->status;
+            $device->model_name = $device->brand->model_name;
+            $device->model_status = $device->brand->status;
+            $device->supplier_name = $device->supplier['supplier_name'];
             $allratings = $device->get_ratings();  // Get all ratings of this plan questions
             $plan_device_rating = $device->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
             foreach ($allratings as $ratings) {
@@ -200,7 +201,7 @@ class HomeController extends Controller
             $device->ratings = $blankArray;
             unset($device->device);
             unset($device->brand);
-            unset($device->model);
+            unset($device->supplier);
             unset($device->plan_device_rating);
         }              
         

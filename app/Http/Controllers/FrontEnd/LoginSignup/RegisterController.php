@@ -127,7 +127,21 @@ class RegisterController extends Controller
             }
         }
     }
-
+    public function resendVerifyEmail($value='')
+    {
+        $user = Auth::guard('customer')->user();
+        $id = encrypt($user->id);
+        $emaildata = [
+            'id' => $id,
+            'name' => $user->firstname,
+            'email' => $user->email
+        ];
+        Mail::send('emailtemplates.frontend.email_verify', ['emaildata' => $emaildata] , function ($m) use ($emaildata)      {
+            $m->from('admin@telco.com', 'Telco Tales');
+            $m->to($emaildata['email'], $emaildata['name'])->subject("Email verification.");
+        });
+        return redirect()->back();
+    }
     public function confirmEmail($id)
     {
         $id = decrypt($id);

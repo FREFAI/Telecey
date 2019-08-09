@@ -10,7 +10,7 @@ class DeviceReview extends Model
     protected $guard = 'customer';
 
     protected $fillable = [
-        'id', 'user_id', 'device_id', 'brand_id', 'model_id', 'price', 'currency_id', 'storage', 'created_at', 'updated_at'
+        'id', 'user_id', 'device_id', 'brand_id', 'supplier_id', 'price', 'currency_id', 'storage', 'created_at', 'updated_at'
     ];
 
  	  public function device(){
@@ -22,8 +22,8 @@ class DeviceReview extends Model
     public function brand(){
         return $this->hasOne('App\Models\Admin\Brands', 'id', 'brand_id');
     }
-    public function model(){
-        return $this->hasOne('App\Models\Admin\BrandModels', 'id', 'model_id');
+    public function supplier(){
+        return $this->hasOne('App\Models\Admin\Supplier', 'id', 'supplier_id');
     }
     public function ratings() {
  	 	  return $this->hasMany('App\Models\FrontEnd\ServiceRating','entity_id','id');

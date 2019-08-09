@@ -84,4 +84,49 @@ class DevicesController extends Controller
             }
         }
     }
+
+    public function setDefaultDevice(Request $request)
+    {
+        $perameters = $request->all();
+        $validation = Validator::make($perameters, [
+            'id' => 'required',
+            'status' => 'required',
+        ]);
+        if ( $validation->fails() ) {
+            $message = array('success'=>false,'message'=>$validation->messages()->first());
+            return json_encode($message);
+        }else{
+            $defaultBrand = Devices::where('default',1)->first();
+            if($defaultBrand){
+                $defaultBrand->default = 0;
+                if($defaultBrand->save()){
+                    if($brand = Devices::find($perameters['id'])){
+                        $brand->default = $perameters['status'];
+                        if($brand->save()){
+                            $message = array('success'=>true,'message'=>'Device set default successfully.','status'=>$perameters['status']);
+                        }else{
+                            $message = array('success'=>false,'message'=>'Device not set default.');
+                        }
+                    }else{
+                        $message = array('success'=>false,'message'=>'Device not set default.');
+                    }
+                }else{
+                    $message = array('success'=>false,'message'=>'Somthing went wrong.');
+                }
+            }else{
+                if($brand = Devices::find($perameters['id'])){
+                    $brand->default = $perameters['status'];
+                    if($brand->save()){
+                        $message = array('success'=>true,'message'=>'Device set default successfully.','status'=>$perameters['status']);
+                    }else{
+                        $message = array('success'=>false,'message'=>'Device not set default.');
+                    }
+                }else{
+                    $message = array('success'=>false,'message'=>'Device not set default.');
+                }
+            }
+            return json_encode($message);
+            
+        }
+    }
 }

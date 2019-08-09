@@ -38,7 +38,7 @@
                                <th scope="col" style="width: 10px;">Sr.No</th>
                                <th scope="col">Brands name</th>
                                <th scope="col">Status</th>
-                               <th scope="col" style="width: 10px;" class="text-right">Models</th>
+                               <th scope="col">Default</th>
                                <th scope="col" style="width: 10px;" class="text-right">Action</th>
                              </tr>
                            </thead>
@@ -52,22 +52,43 @@
                                   <td class="text-center" style="max-width: 10px;">{{$i++}}</td>
                                   <td class="text-left">
                                     <div class="media-body">
-                                      <span class="mb-0 text-sm">{{$brand->brand_name}}</span>
+                                      <span class="mb-0 text-sm">{{$brand->brand_name}} {{$brand->model_name}}</span>
                                     </div>
                                   </td>
                                   <td>
-                                    @if($brand->status == 1)
-                                      Active
-                                    @else
-                                      In-active
-                                    @endif
+                                    <span class="badge badge-dot mr-4">
+                                       @if($brand->status == 1)
+                                        <span class="d-none not_ap_ms"><i class="bg-danger"></i> Not approved</span>
+                                       <span class="approved_ms"><i class="bg-success"></i> Approved</span>
+                                       @else
+                                       <span class="not_ap_ms"><i class="bg-danger"></i> Not approved</span>
+                                       <span class="d-none approved_ms"><i class="bg-success"></i> Approved</span>
+                                       @endif
+                                    </span>
+                                  </td>
+                                  <td>
+                                    <div class="custom-control custom-checkbox mb-3">
+                                      <input class="custom-control-input default_check_brand" id="customCheck{{$brand->id}}" data-brand_id="{{$brand->id}}" name="default" type="checkbox" @if($brand->default == 1) checked="" @endif>
+                                      <label class="custom-control-label" for="customCheck{{$brand->id}}"></label>
+                                    </div>
                                   </td>
                                   <td class="text-right">
-                                    <a class="btn btn-icon btn-2 btn-info btn-sm" href="{{url('admin/brand-models')}}/{{base64_encode($brand->id)}}" data-toggle="tooltip" data-placement="top" title="Models">
-                                      <span class="btn-inner--icon">{{$brand->brand_models_count}}</span>
-                                    </a>
-                                  </td>
-                                  <td class="text-right">
+                                    <button class="btn btn-icon btn-2 
+                                        @if($brand->status == 1) 
+                                          btn-danger 
+                                        @else 
+                                          btn-success 
+                                        @endif 
+                                        btn-sm approved_brand_btn" data-toggle="tooltip" data-placement="top" title="
+                                        @if($brand->status == 1) 
+                                          Not approve 
+                                        @else 
+                                          Approve 
+                                        @endif" 
+                                        data-status="@if($brand->status == 1) 0 @else 1 @endif"
+                                        data-brand_id="{{$brand->id}}">
+                                       <span class="btn-inner--icon"><i class="@if($brand->status != 1) ni ni-check-bold @else ni ni-fat-remove @endif"></i></span>
+                                    </button>
                                      <a class="btn btn-icon btn-2 btn-info btn-sm" href="{{url('admin/edit-brand')}}/{{base64_encode($brand->id)}}" data-toggle="tooltip" data-placement="top" title="Edit">
                                        <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                                      </a>

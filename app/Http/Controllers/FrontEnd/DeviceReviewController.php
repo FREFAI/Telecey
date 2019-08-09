@@ -10,6 +10,8 @@ use App\Models\FrontEnd\PlanDeviceRating;
 use App\Models\FrontEnd\ServiceRating;
 use App\Models\Admin\SettingsModel;
 use App\Models\Admin\RatingQuestion;
+use App\Models\Admin\Supplier;
+use App\Models\Admin\Brands;
 use App\UserAddress;
 use Auth;
 
@@ -23,13 +25,57 @@ class DeviceReviewController extends Controller
     	    'device_id' => 'required',
 			'brand_id' => 'required',
 			'price' => 'required',
-			'model_id' => 'required',
+			'supplier_id' => 'required',
 			'storage' => 'required'
     	]);
     	if ( $validation->fails() ) {
     	     $message = array('success'=>false,'message'=>$validation->messages()->first());
     	     return json_encode($message);
     	}else{
+            if($perameter['brand_status'] == 2){
+                $brandData = [
+                    'brand_name' => $perameter['brand_id'],
+                    'model_name' => $perameter['model_name'],
+                    'status' => 0,
+                    'user_id' => $user_id
+                ];
+                $brandvalidation = Validator::make($brandData, [
+                    'brand_name' => 'required',
+                    'model_name' => 'required'
+                ]);
+                if ( $brandvalidation->fails() ) {
+                     $message = array('success'=>false,'message'=>$brandvalidation->messages()->first());
+                     return json_encode($message);
+                }else{
+                    if($brands = Brands::create($brandData)){
+                        $perameter['brand_id'] = $brands->id;
+                    }else{
+                        $message = array('success'=>false,'message'=>'Add new brands error!');
+                        return json_encode($message);
+                    }
+                }
+            }
+            if($perameter['supplier_status'] == 2){
+                $supplierData = [
+                    'supplier_name' => $perameter['supplier_id'],
+                    'status' => 0,
+                    'user_id' => $user_id
+                ];
+                $suppliervalidation = Validator::make($supplierData, [
+                    'supplier_name' => 'required'
+                ]);
+                if ( $suppliervalidation->fails() ) {
+                     $message = array('success'=>false,'message'=>$suppliervalidation->messages()->first());
+                     return json_encode($message);
+                }else{
+                    if($supplier = Supplier::create($supplierData)){
+                        $perameter['supplier_id'] = $supplier->id;
+                    }else{
+                        $message = array('success'=>false,'message'=>'Add new brands error!');
+                        return json_encode($message);
+                    }
+                }
+            }
     		$perameter['user_id'] = $user_id;
     		if($deviceReview = DeviceReview::create($perameter)){
     			$message = array('success'=>true,'message'=>'Device review add successfully.','device_id'=>$deviceReview->id);

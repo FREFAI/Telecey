@@ -38,6 +38,7 @@
                                <th scope="col" style="width: 10px;">Sr.No</th>
                                <th scope="col">Device name</th>
                                <th scope="col">Status</th>
+                               <th scope="col">Default</th>
                                <th scope="col" class="text-right">Action</th>
                              </tr>
                            </thead>
@@ -60,6 +61,12 @@
                                     @else
                                       In-active
                                     @endif
+                                  </td>
+                                   <td>
+                                    <div class="custom-control custom-checkbox mb-3">
+                                      <input class="custom-control-input default_check_device" id="customCheck{{$device->id}}" data-device_id="{{$device->id}}" name="default" type="checkbox" @if($device->default == 1) checked="" @endif>
+                                      <label class="custom-control-label" for="customCheck{{$device->id}}"></label>
+                                    </div>
                                   </td>
                                   <td class="text-right">
                                      <a class="btn btn-icon btn-2 btn-info btn-sm" href="{{url('admin/edit-device')}}/{{base64_encode($device->id)}}" data-toggle="tooltip" data-placement="top" title="Edit">

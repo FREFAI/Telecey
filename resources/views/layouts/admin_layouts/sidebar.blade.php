@@ -112,11 +112,13 @@
               <i class="ni ni-mobile-button text-success"></i>
               <span class="d-md-inline-block">Devices</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-small {{ request()->is('admin/devices-list') ? 'show' : '' }} {{ request()->is('admin/brands-list') ? 'show' : '' }}">
+            <div class="dropdown-menu dropdown-menu-small {{ request()->is('admin/devices-list') ? 'show' : '' }} {{ request()->is('admin/brands-list') ? 'show' : '' }} {{ request()->is('admin/suppliers') ? 'show' : '' }}">
               <a class="dropdown-item {{ request()->is('admin/devices-list') ? 'active' : '' }}" href="{{url('admin/devices-list')}}">
                 <i class="ni ni-mobile-button text-success"></i> Device List
               <a class="dropdown-item {{request()->is('admin/brands-list') ? 'active' : '' }}" href="{{url('admin/brands-list')}}">
                 <i class="ni ni-paper-diploma text-danger"></i> Brands List </a>
+              <a class="dropdown-item {{request()->is('admin/suppliers') ? 'active' : '' }}" href="{{url('admin/suppliers')}}">
+                <i class="ni ni-delivery-fast text-info"></i> Supplier </a>
             </div>
           </li>
           <li class="nav-item">

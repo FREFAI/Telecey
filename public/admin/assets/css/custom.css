@@ -192,7 +192,40 @@ span.toggle_label {
     background-clip: padding-box;
     box-shadow: none;
 }
+
+.form-control.datepicker-one {
+    font-size: 1rem;
+    line-height: 1.5;
+    display: block;
+    width: 100%;
+    padding: .625rem .75rem;
+    transition: all .2s cubic-bezier(.68, -.55, .265, 1.55);
+    color: #8898aa;
+    border: 1px solid #cad1d7;
+    border-radius: .375rem;
+    background-color: #fff;
+    background-clip: padding-box;
+    box-shadow: none;
+}
+.form-control.datepicker-two {
+    font-size: 1rem;
+    line-height: 1.5;
+    display: block;
+    width: 100%;
+    padding: .625rem .75rem;
+    transition: all .2s cubic-bezier(.68, -.55, .265, 1.55);
+    color: #8898aa;
+    border: 1px solid #cad1d7;
+    border-radius: .375rem;
+    background-color: #fff;
+    background-clip: padding-box;
+    box-shadow: none;
+}
 .form-control.datepicker::placeholder{
+  color: #b5bcc3;
+}.form-control.datepicker-one::placeholder{
+  color: #b5bcc3;
+}.form-control.datepicker-two::placeholder{
   color: #b5bcc3;
 }
 .form-control.datepicker + i {
@@ -200,7 +233,18 @@ span.toggle_label {
     top: 12px;
     color: #b5bcc3;
 }
-
+.form-control.datepicker-one + i {
+    right: 12px;
+    top: 9px;
+    color: #b5bcc3;
+    font-size: 19px;
+}
+.form-control.datepicker-two + i {
+    right: 12px;
+    top: 9px;
+    color: #b5bcc3;
+    font-size: 19px;
+}
 
 /*Chat css */
   img{ max-width:100%;}

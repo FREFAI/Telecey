@@ -14,4 +14,3 @@
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 <script src="{{URL::asset('frontend/jsplugins/statr_rating/jquery.rateit.js')}}"></script>
 <script src="{{URL::asset('frontend/jsplugins/statr_rating/rater.js')}}"></script>
-                                      

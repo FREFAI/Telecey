@@ -1,14 +1,40 @@
 @extends('layouts.admin_layouts.admin_dashboard')
 @section('title', 'Admin | Cases list')
+<style type="text/css">
+  .gj-datepicker.gj-datepicker-md.gj-unselectable{
+    width: 100%;
+    margin-right: 9px;
+  }
+</style>
 @section('content')
 
 @php
   if(isset($request)){
-    $request['search_by'] = $request['search_by'];
-    $request['search'] = $request['search'];
+    if($request['search_status'] == ''){
+      $request['search_status'] = '3';
+    }else{
+      $request['search_status'] = $request['search_status'];
+    }
+    $request['search_by_subject'] = $request['search_by_subject'];
+    $request['search_by_name'] = $request['search_by_name'];
+    $request['search_by_email'] = $request['search_by_email'];
+    if($request['start_date'] != ''){
+      $request['start_date'] = date('m/d/Y',strtotime($request['start_date']));
+    }else{
+      $request['start_date'] = "";
+    }
+    if($request['end_date'] != ''){
+      $request['end_date'] = date('m/d/Y',strtotime($request['end_date']));
+    }else{
+      $request['end_date'] = "";
+    }
   }else{
-    $request['search_by'] = '';
-    $request['search'] = '';
+    $request['search_status'] = '3';
+    $request['search_by_subject'] = '';
+    $request['search_by_name'] = '';
+    $request['search_by_email'] = '';
+    $request['start_date'] = '';
+    $request['end_date'] = '';
   } 
 @endphp
 <!-- Main content -->
@@ -32,19 +58,24 @@
 	          <div class="card-header bg-transparent">
 		    	<div class="row">
 
-            <div class="col-md-2">
+            <div class="col-md-12">
                <h5 class="heading-small text-muted mb-4">Cases List</h5>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-12 pb-2">
               <div class="user-search-form text-right">
                 <form method="post" action="{{url('/admin/messages')}}">
                   @csrf
-                  <select class="form-control" name="search_by">
-                    <option @if($request['search_by'] == 0) selected="" @endif value="0">Search By Subject</option>
-                    <option @if($request['search_by'] == 1) selected="" @endif value="1">Search By Name</option>
-                    <option @if($request['search_by'] == 2) selected="" @endif value="2">Search By Email</option>
-                  </select>
-                   <input class="form-control" type="text" placeholder="Search" name="search" required="" value="{{$request['search']}}">
+                   <input class="form-control" type="text" placeholder="Search by subject" name="search_by_subject" value="{{$request['search_by_subject']}}">
+                   <input class="form-control" type="text" placeholder="Search by name" name="search_by_name" value="{{$request['search_by_name']}}">
+                   <input class="form-control" type="text" placeholder="Search by email" name="search_by_email" value="{{$request['search_by_email']}}">
+                   <input class="form-control datepicker-one" type="text" placeholder="Start date" name="start_date" value="{{$request['start_date']}}">
+                   <input class="form-control datepicker-two" type="text" placeholder="End date" name="end_date"  value="{{$request['end_date']}}">
+                   <select class="form-control" name="search_status">
+                     <option @if($request['search_status'] == 3) selected="" @endif  value="">Choose status</option>
+                     <option @if($request['search_status'] == 0) selected="" @endif value="0">Open</option>
+                     <option @if($request['search_status'] == 1) selected="" @endif value="1">Answered</option>
+                     <option @if($request['search_status'] == 2) selected="" @endif value="2">Closed</option>
+                   </select>
                    <button type="submit" class="btn btn-sm btn-primary">Search</button>
                 </form>
               </div>
@@ -92,7 +123,7 @@
                                 Closed
                               @endif
                              </td>
-                             <td>{{ date('d/m/Y', strtotime($case->created_at)) }}</td>
+                             <td>{{ date('m/d/Y', strtotime($case->created_at)) }}</td>
                              <td class="text-right">
                               <button class="btn btn-icon btn-2 btn-danger
                                   btn-sm @if($case->status != 2) close_case_btn @endif" data-toggle="tooltip" data-placement="top" title="

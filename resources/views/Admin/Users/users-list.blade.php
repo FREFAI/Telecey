@@ -1,16 +1,37 @@
 @extends('layouts.admin_layouts.admin_dashboard')
 @section('title', 'Admin | Users list')
+<style type="text/css">
+  .gj-datepicker.gj-datepicker-md.gj-unselectable{
+    width: 100%;
+    margin-right: 9px;
+  }
+</style>
 @section('content')
 
 @php
   if(isset($request)){
     $request['name'] = $request['name'];
     $request['email'] = $request['email'];
+    $request['status'] = $request['status'];
+    if($request['created_at'] != ''){
+      $request['created_at'] = date('m/d/Y',strtotime($request['created_at']));
+    }else{
+      $request['created_at'] = "";
+    }
+    if($request['updated_at'] != ''){
+      $request['updated_at'] = date('m/d/Y',strtotime($request['updated_at']));
+    }else{
+      $request['updated_at'] = "";
+    }
   }else{
     $request['name'] = '';
     $request['email'] = '';
+    $request['status'] = '';
+    $request['created_at'] = '';
+    $request['updated_at'] = '';
   } 
 @endphp
+
 <!-- Main content -->
 <div class="main-content">
   @include('layouts.admin_layouts.top_navbar')
@@ -32,15 +53,25 @@
 	          <div class="card-header bg-transparent">
 		    	<div class="row">
 
-            <div class="col-md-2">
+            <div class="col-md-12">
                <h5 class="heading-small text-muted mb-4">Users List</h5>
              </div>
-             <div class="col-md-10 text-right">
+             <div class="col-md-12 text-right pb-2">
               <div class="user-search-form">
                 <form method="post" action="{{url('/admin/users')}}">
                   @csrf
                    <input class="form-control" type="text" placeholder="Search by name" name="name" value="{{$request['name']}}">
-                   <input class="form-control" type="email" placeholder="Search by email" name="email" value="{{$request['email']}}">
+                   <input class="form-control" type="text" placeholder="Search by email" name="email" value="{{$request['email']}}">
+                   <!-- <input class="form-control" type="number" placeholder="No. of plans" name="plans" value="{{$request['email']}}">
+                   <input class="form-control" type="number" placeholder="No. of Device" name="devices" value="{{$request['email']}}"> -->
+                   <input class="form-control datepicker-one" type="text" placeholder="Created" name="created_at" value="{{$request['created_at']}}">
+                   <input class="form-control datepicker-two" type="text" placeholder="Update" name="updated_at" value="{{$request['updated_at']}}">
+                   <select class="form-control" name="status">
+                     <option @if($request['status'] == '') selected="" @endif value="">Choose status</option>
+                     <option @if($request['status'] == '1') selected="" @endif value="1">Active</option>
+                     <option @if($request['status'] == '2') selected="" @endif value="2">Pending Verfication</option>
+                     <option @if($request['status'] == '3') selected="" @endif value="3">Pending Product approval</option>
+                   </select>
                    <button type="submit" class="btn btn-sm btn-primary">Search</button>
                 </form>
               </div>
@@ -103,8 +134,8 @@
                           </td>
                           <td>{{$user->plansCount}}</td>
                           <td>{{$user->devicesCount}}</td>
-                          <td>{{ date("d/m/Y", strtotime($user->created_at)) }}</td>
-                          <td>{{ date("d/m/Y", strtotime($user->updated_at)) }}</td>
+                          <td>{{ date("m/d/Y", strtotime($user->created_at)) }}</td>
+                          <td>{{ date("m/d/Y", strtotime($user->updated_at)) }}</td>
                           <td>
                             <a class="btn btn-icon btn-2 btn-success btn-sm forgot_email" href="javascript:void(0);" data-url="{{url('/admin/forgotEmail')}}/{{base64_encode($user->id)}}" data-toggle="tooltip" data-placement="top" title="Send forgot password email">
                               <span class="btn-inner--icon"><i class="ni ni-email-83"></i></span>

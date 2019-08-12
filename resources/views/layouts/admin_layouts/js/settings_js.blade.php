@@ -3,6 +3,8 @@
 	$(document).ready(function(){
 		
 		$('.datepicker').datepicker();
+		$('.datepicker-one').datepicker();
+		$('.datepicker-two').datepicker();
 		$(".rating_disable").rate({
 		  readonly:true
 		});

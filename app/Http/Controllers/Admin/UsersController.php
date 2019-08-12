@@ -29,24 +29,83 @@ class UsersController extends Controller
     }
     public function searchUser(Request $request)
     {
-        $perameters = $request->all();
-        if($perameters['name'] != "" && $perameters['email'] == ""){
-            $users = User::where(function ($query) use ($perameters){
-                $query->where('firstname','LIKE',"%{$perameters['name']}%")
-                      ->orwhere('lastname','LIKE',"%{$perameters['name']}%");
-            })->orderBy('id','DESC')->paginate(10);
-        }elseif($perameters['name'] == "" && $perameters['email'] != ""){
-            $users = User::where(function ($query) use ($perameters){
-                $query->where('email','LIKE',"%{$perameters['email']}%");
-            })->orderBy('id','DESC')->paginate(10);
-        }else{
-            $users = User::where(function ($query) use ($perameters){
-                $query->where('firstname','LIKE',"%{$perameters['name']}%")
-                      ->orwhere('lastname','LIKE',"%{$perameters['name']}%");
-            })->where(function ($query) use ($perameters){
-                $query->where('email','LIKE',"%{$perameters['email']}%");
-            })->orderBy('id','DESC')->paginate(10);
+        $parameter = $request->all();
+        $query = User::query();
+        // echo "<pre>";
+        // print_r($parameter);
+        // exit;
+        if($parameter['name'] != ""){
+            if($parameter['status'] != 3){
+                $query->where('firstname','LIKE',"%{$parameter['name']}%")
+                      ->orwhere('lastname','LIKE',"%{$parameter['name']}%");
+            }else{
+                $query->where('users.firstname','LIKE',"%{$parameter['name']}%")
+                      ->orwhere('users.lastname','LIKE',"%{$parameter['name']}%");
+            }
         }
+        if($parameter['email'] != ""){
+            if($parameter['status'] != 3){
+                $query->where('email','LIKE',"%{$parameter['email']}%");
+            }else{
+                $query->where('users.email','LIKE',"%{$parameter['email']}%");
+            }
+        }
+        if($parameter['created_at'] != ""){
+            if($parameter['status'] != 3){
+                $parameter['created_at'] = date('Y-m-d',strtotime($parameter['created_at']));
+                $query->where('created_at','LIKE',"%{$parameter['created_at']}%");
+            }else{
+                $parameter['created_at'] = date('Y-m-d',strtotime($parameter['created_at']));
+                $query->where('users.created_at','LIKE',"%{$parameter['created_at']}%");
+            }
+        }
+        if($parameter['updated_at'] != ""){
+            if($parameter['status'] != 3){
+                $parameter['updated_at'] = date('Y-m-d',strtotime($parameter['updated_at']));
+                $query->where('updated_at','LIKE',"%{$parameter['updated_at']}%");
+            }else{
+                $parameter['updated_at'] = date('Y-m-d',strtotime($parameter['updated_at']));
+                $query->where('users.updated_at','LIKE',"%{$parameter['updated_at']}%");
+            }
+        }
+        // if($parameter['plans'] != ""){
+        //     if($parameter['status'] != 3){
+        //         $query->withCount('plans')->having('plans_count', '=', $parameter['plans']);
+        //     }else{
+        //         $query->withCount('plans')->having('plans_count', '=', $parameter['plans']);
+        //     }
+        // }
+        // if($parameter['devices'] != ""){
+        //     if($parameter['status'] != 3){
+        //         $query->withCount('devices')->having('devices_count', '=', $parameter['devices']);
+        //     }else{
+        //         $query->withCount('devices')->having('devices_count', '=', $parameter['devices']);
+        //     }
+        // }
+        if($parameter['status'] != "" && $parameter['status'] != 3){
+            if($parameter['status'] == 2){
+                $query->where('is_active','LIKE',"%0%");
+            }else{
+                $query->where('is_active','LIKE',"%{$parameter['status']}%");
+            }
+        }elseif($parameter['status'] != "" && $parameter['status'] == 3){
+            $query->select('users.*')->join('providers','providers.user_id','=','users.id')
+                    ->where('providers.status','=',0);
+        }
+
+        
+
+        $users = $query->orderBy('id','DESC')->paginate(10);
+        // if($parameter['plans'] != ""){
+        //     $users = $users->filter(function ($value, $key) use ($parameter) {
+        //         return $value->plans_count == $parameter['plans'];
+        //     });
+        // }
+        // if($parameter['devices'] != ""){
+        //     $users = $users->filter(function ($value, $key) use ($parameter) {
+        //         return $value->devices_count == $parameter['devices'];
+        //     });
+        // }
         foreach ($users as $user) {
             $plans = $user->plans;
             foreach ($plans as $plan) {
@@ -55,21 +114,24 @@ class UsersController extends Controller
             $user->unApprovedCount = $user->getUnapprovedProviders()->count();
             $user->plansCount = $user->plans->count();
             $user->devicesCount = $user->devices->count();
+
         }
-        return view('Admin.Users.users-list',['users'=>$users,'request'=>$perameters]);
+        // echo "<pre>";print_r($users->toArray());
+        // exit;
+        return view('Admin.Users.users-list',['users'=>$users,'request'=>$parameter]);
     }
     public function getSingleUserDetail(Request $request,$userId)
     {
-        $perameters = $request->all();
+        $parameter = $request->all();
         $userId = base64_decode($userId);
         $user = User::find($userId);
         $user->userPrimaryAddress = $user->getUserPrimaryAdderss();
         $user->providers;
         $user->plansCount = $user->plans->count();
         $user->devicesCount = $user->devices->count();
-        if(array_key_exists('type', $perameters)){
-            $perameters['type'] = base64_decode($perameters['type']);
-            if($perameters['type'] == 1){
+        if(array_key_exists('type', $parameter)){
+            $parameter['type'] = base64_decode($parameter['type']);
+            if($parameter['type'] == 1){
                 $data = $this->getAllPlans($userId);
             }else{
                 // $data = $this->getAllPlans();
@@ -163,8 +225,9 @@ class UsersController extends Controller
             $device->device_status = $device->device->status;
             $device->brand_name = $device->brand->brand_name;
             $device->brand_status = $device->brand->status;
-            $device->model_name = $device->model->model_name;
-            $device->model_status = $device->model->status;
+            $device->model_name = $device->brand->model_name;
+            $device->model_status = $device->brand->status;
+            $device->supplier_name = $device->supplier['supplier_name'];
             $allratings = $device->get_ratings();  // Get all ratings of this plan questions
             $plan_device_rating = $device->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
             foreach ($allratings as $ratings) {

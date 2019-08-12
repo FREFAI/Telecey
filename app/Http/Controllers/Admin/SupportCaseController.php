@@ -23,23 +23,44 @@ class SupportCaseController extends Controller
     public function searchCases(Request $request)
     {
     	// search by 0 For subject 1 for user name and 2 for user email 
-    	$perameters = $request->all();
-    	if($perameters['search_by'] == 0){
-    		$casesList = SupportCase::where('subject','LIKE',"%{$perameters['search']}%")->paginate(10);
-    	}elseif($perameters['search_by'] == 1){
-    		$user_ids = User::where(function ($query) use ($perameters){
-    	        $query->where('firstname','LIKE',"%{$perameters['search']}%")
-    	              ->orwhere('lastname','LIKE',"%{$perameters['search']}%");
-    	    })->pluck('id')->toArray();
-    	    $casesList = SupportCase::whereIn('user_id',$user_ids)->paginate(10);
-    	}else{
-			$user_ids = User::where('email','LIKE',"%{$perameters['search']}%")->pluck('id')->toArray();
-			$casesList = SupportCase::whereIn('user_id',$user_ids)->paginate(10);
-    	}
+        $caseQuery = SupportCase::query();
+    	$parameters = $request->all();
+        // echo "<pre>";print_r($parameters);exit;
+        if($parameters['search_by_subject'] != ''){
+            $caseQuery->where('subject','LIKE',"%{$parameters['search_by_subject']}%");
+        }
+        if($parameters['search_by_name'] != ''){
+            $user_ids_by_name = User::where(function ($query) use ($parameters){
+                $query->where('firstname','LIKE',"%{$parameters['search_by_name']}%")
+                      ->orwhere('lastname','LIKE',"%{$parameters['search_by_name']}%");
+            })->pluck('id')->toArray();
+            $caseQuery->whereIn('user_id',$user_ids_by_name);
+        }
+        if($parameters['search_by_email'] != ''){
+            $user_ids_by_email = User::where('email','LIKE',"%{$parameters['search_by_email']}%")->pluck('id')->toArray();
+            $caseQuery->whereIn('user_id',$user_ids_by_email);
+        }
+        if($parameters['start_date'] != '' && $parameters['end_date'] != ''){
+            $parameters['start_date'] = date('Y-m-d', strtotime($parameters['start_date']));
+            $parameters['end_date'] = date('Y-m-d', strtotime($parameters['end_date']));
+            $caseQuery->whereBetween('created_at',[$parameters['start_date'],$parameters['end_date']]);
+        }
+        if($parameters['start_date'] != '' && $parameters['end_date'] == ''){
+            $parameters['start_date'] = date('Y-m-d', strtotime($parameters['start_date']));
+            $caseQuery->whereDate('created_at',$parameters['start_date']);
+        }
+        if($parameters['start_date'] == '' && $parameters['end_date'] != ''){
+            $parameters['end_date'] = date('Y-m-d', strtotime($parameters['end_date']));
+            $caseQuery->whereDate('created_at',$parameters['end_date']);
+        }
+        if($parameters['search_status'] != ""){
+            $caseQuery->where('status',$parameters['search_status']);
+        }
+        $casesList = $caseQuery->paginate(10);
     	foreach ($casesList as $case) {
     		$case->user;
     	}
-    	return view('Admin.CaseChat.index',['allCase'=>$casesList,'request'=>$perameters]);
+    	return view('Admin.CaseChat.index',['allCase'=>$casesList,'request'=>$parameters]);
     }
     public function caseInbox(Request $request, $caseID)
     {

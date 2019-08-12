@@ -84,6 +84,7 @@
                      <tr>
                        <th scope="col" style="width: 10px;">Sr.No</th>
                        <th scope="col" style="width: 10px;">Name</th>
+                       <th scope="col" style="width: 10px;">Nick Name</th>
                        <th scope="col" class="text-center">Account type</th>
                        <th scope="col" class="text-center">Status</th>
                        <th scope="col" class="text-center">No. of plans</th>
@@ -106,6 +107,11 @@
                           <td class="text-center">
                             <div class="media-body">
                                 <span class="mb-0 text-sm">{{$user->firstname}} {{$user->lastname}}</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div class="media-body">
+                                <span class="mb-0 text-sm">{{$user->nickname}}</span>
                             </div>
                           </td>
                           <td>

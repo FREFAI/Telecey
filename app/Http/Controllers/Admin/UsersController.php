@@ -84,9 +84,9 @@ class UsersController extends Controller
         // }
         if($parameter['status'] != "" && $parameter['status'] != 3){
             if($parameter['status'] == 2){
-                $query->where('is_active','LIKE',"%0%");
+                $query->where('is_active',"0");
             }else{
-                $query->where('is_active','LIKE',"%{$parameter['status']}%");
+                $query->where('is_active',$parameter['status']);
             }
         }elseif($parameter['status'] != "" && $parameter['status'] == 3){
             $query->select('users.*')->join('providers','providers.user_id','=','users.id')

@@ -26,7 +26,8 @@ class UsersController extends Controller
     		$user->unApprovedCount = $user->getUnapprovedProviders()->count();
     		$user->plansCount = $user->plans->count();
     		$user->devicesCount = $user->devices->count();
-    	}
+        }
+        // echo "<pre>";print_r($users->toArray());die;
     	return view('Admin.Users.users-list',['users'=>$users]);
     }
     public function searchUser(Request $request)
@@ -289,5 +290,55 @@ class UsersController extends Controller
         // print_r($deviceData->toArray());
         // exit;
         return  $deviceData;
+    }
+
+    public function exportUsers(){
+        
+        $users = User::orderBy('id','DESC')->get();
+    	foreach ($users as $user) {
+    		$plans = $user->plans;
+    		foreach ($plans as $plan) {
+    			$plan->provider;
+    		}
+    		$user->unApprovedCount = $user->getUnapprovedProviders()->count();
+    		$user->plansCount = $user->plans->count();
+            $user->devicesCount = $user->devices->count();
+            $user->name = $user->firstname." ".$user->lastname;
+            if($user->plansCount == 0 && $user->devicesCount == 0){
+                $user->account_type = "none";
+            }elseif($user->plansCount != 0 && $user->devicesCount != 0){
+                $user->account_type = "Plan & Device";
+            }elseif($user->plansCount != 0 && $user->devicesCount == 0){
+                $user->account_type = "Plan";
+            }elseif($user->plansCount == 0 && $user->devicesCount != 0){
+                $user->account_type = "Device";
+            }
+            if($user->is_active == 0){
+                $user->status = "Pending verification";
+            }elseif($user->unApprovedCount != 0){
+                $user->status = "Pending Product approval";
+            }elseif($user->is_active == 1){
+                $user->status = "Active";
+            }
+            $user->creation_date = date("m/d/Y", strtotime($user->created_at));
+            $user->last_update = date("m/d/Y", strtotime($user->updated_at));
+        }
+        if(count($users)>0){
+            $delimiter = ",";
+            $filename = "user" . date('d-m-Y') . ".xls";
+            $f = fopen('php://memory', 'w');
+            $fields = array('NAME','NICK NAME','ACCOUNT TYPE','STATUS','NO. OF PLANS','NO. OF DEVICES','CREATION DATE','LAST UPDATE');
+            fputcsv($f, $fields, $delimiter);
+            foreach($users as $user){
+                $lineData = array($user->name,$user->nickname,$user->account_type,$user->status,$user->plansCount,$user->devicesCount,$user->creation_date,$user->last_update);
+                fputcsv($f, $lineData, $delimiter);
+            }
+            fseek($f, 0);
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment; filename="' . $filename . '";');
+            fpassthru($f);
+        }else{
+            return redirect('/admin/users')->with('warning','No Data To Export');
+        }
     }
 }

@@ -55,8 +55,11 @@
 	          <div class="card-header bg-transparent">
 		    	<div class="row">
 
-            <div class="col-md-12">
+            <div class="col-md-10">
                <h5 class="heading-small text-muted mb-4">Users List</h5>
+            </div>
+            <div class="col-md-2 text-right">
+            <a class="heading-small btn btn-primary" href="{{url('/admin/exportUsers')}}">Export</a>
              </div>
              <div class="col-md-12 text-right pb-2">
               <div class="user-search-form">

@@ -13,6 +13,7 @@
     $request['name'] = $request['name'];
     $request['email'] = $request['email'];
     $request['status'] = $request['status'];
+    $request['search_by_properties'] = $request['search_by_properties'];
     if($request['created_at'] != ''){
       $request['created_at'] = date('m/d/Y',strtotime($request['created_at']));
     }else{
@@ -29,6 +30,7 @@
     $request['status'] = '';
     $request['created_at'] = '';
     $request['updated_at'] = '';
+    $request['search_by_properties'] = '';
   } 
 @endphp
 
@@ -64,6 +66,7 @@
                    <input class="form-control" type="text" placeholder="Search by email" name="email" value="{{$request['email']}}">
                    <!-- <input class="form-control" type="number" placeholder="No. of plans" name="plans" value="{{$request['email']}}">
                    <input class="form-control" type="number" placeholder="No. of Device" name="devices" value="{{$request['email']}}"> -->
+                   <input class="form-control" type="text" placeholder="Carrier,Brand or Model" name="search_by_properties" value="{{$request['search_by_properties']}}">
                    <input class="form-control datepicker-one" type="text" placeholder="Created" name="created_at" value="{{$request['created_at']}}">
                    <input class="form-control datepicker-two" type="text" placeholder="Update" name="updated_at" value="{{$request['updated_at']}}">
                    <select class="form-control" name="status">
@@ -95,14 +98,14 @@
                      </tr>
                    </thead>
                    <tbody>
-                     @if(count($users) > 0)
-                       @php
-                           $i = ($users->currentpage()-1)* $users->perpage() + 1;
-                       @endphp
+                      @if(count($users)>0)
+                        @php
+                            $i = ($users->currentpage()-1)* $users->perpage() + 1;
+                        @endphp
                        @foreach($users as $user)
                        <tr>
                           <td class="text-center" style="max-width: 10px;">
-                               {{$i++}}
+                            {{$i++}}
                           </td>
                           <td class="text-center">
                             <div class="media-body">
@@ -166,7 +169,7 @@
                  </table>
                </div>
                <div class="ads_pagination mt-3 mb-0">
-                 {{$users->links()}}
+                   {{$users->links()}}
                </div>
             </div>
 		    	</div>

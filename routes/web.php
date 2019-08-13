@@ -238,6 +238,7 @@
 				Route::post('/delete-supplier','Admin\SupplierController@deleteSupplier');
 				Route::post('/approveSupplier','Admin\SupplierController@approveSupplier');
 				Route::post('/set-default-supplies', 'Admin\SupplierController@setDefaultSupplies');
+				Route::get('/exportUsers', 'Admin\UsersController@exportUsers');
 			// End Supplier section 
 		});
 

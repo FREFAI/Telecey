@@ -17,18 +17,25 @@ class UsersController extends Controller
 {
     public function index(Request $request)
     {
-    	$users = User::orderBy('id','DESC')->paginate(10);
-    	foreach ($users as $user) {
-    		$plans = $user->plans;
-    		foreach ($plans as $plan) {
-    			$plan->provider;
-    		}
-    		$user->unApprovedCount = $user->getUnapprovedProviders()->count();
-    		$user->plansCount = $user->plans->count();
-    		$user->devicesCount = $user->devices->count();
+        $current_url = \Request::getRequestUri();
+        $request->session()->put('backUrlUser', $current_url);
+        $parameter = $request->all();
+        if(count($parameter) > 0){
+            $users = $this->searchUser($request);
+        }else{
+        	$users = User::orderBy('id','DESC')->paginate(10);
+        	foreach ($users as $user) {
+        		$plans = $user->plans;
+        		foreach ($plans as $plan) {
+        			$plan->provider;
+        		}
+        		$user->unApprovedCount = $user->getUnapprovedProviders()->count();
+        		$user->plansCount = $user->plans->count();
+        		$user->devicesCount = $user->devices->count();
+            }
+            // echo "<pre>";print_r($users->toArray());die;
         }
-        // echo "<pre>";print_r($users->toArray());die;
-    	return view('Admin.Users.users-list',['users'=>$users]);
+    	return view('Admin.Users.users-list',['users'=>$users,'request'=>$parameter]);
     }
     public function searchUser(Request $request)
     {
@@ -93,8 +100,8 @@ class UsersController extends Controller
 
             $brands_IDs = Brands::where(function ($brandquery) use ($parameter){
                 $brandquery->where('brand_name','LIKE',"%{$parameter['search_by_properties']}%")
-                      ->orwhere('model_name','LIKE',"%{$parameter['search_by_properties']}%");
-            })->pluck('id')->toArray();
+                           ->orwhere('model_name','LIKE',"%{$parameter['search_by_properties']}%");
+                })->pluck('id')->toArray();
             $deviceIds = DeviceReview::whereIn('brand_id',$brands_IDs)->distinct()->pluck('user_id')->toArray();
             $providers_IDs = Provider::where(function ($providerquery) use ($parameter){
                 $providerquery->where('provider_name','LIKE',"%{$parameter['search_by_properties']}%");
@@ -128,15 +135,17 @@ class UsersController extends Controller
             $user->devicesCount = $user->devices->count();
 
         }
+        return $users;
         // $userCount = 100;
 
         // $total_pages = ceil($userCount / $limit);
         // echo "<pre>";print_r($users);
         // exit;
-        return view('Admin.Users.users-list',['users'=>$users,'request'=>$parameter]);
+        // return view('Admin.Users.users-list',['users'=>$users,'request'=>$parameter]);
     }
     public function getSingleUserDetail(Request $request,$userId)
     {
+
         $parameter = $request->all();
         $userId = base64_decode($userId);
         $user = User::find($userId);

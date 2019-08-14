@@ -9,7 +9,7 @@
 @section('content')
 
 @php
-  if(isset($request)){
+  if(count($request)>0){
     $request['name'] = $request['name'];
     $request['email'] = $request['email'];
     $request['status'] = $request['status'];
@@ -63,8 +63,8 @@
              </div>
              <div class="col-md-12 text-right pb-2">
               <div class="user-search-form">
-                <form method="post" action="{{url('/admin/users')}}">
-                  @csrf
+                <form method="get" action="{{url('/admin/users')}}">
+                  
                    <input class="form-control" type="text" placeholder="Search by name" name="name" value="{{$request['name']}}">
                    <input class="form-control" type="text" placeholder="Search by email" name="email" value="{{$request['email']}}">
                    <!-- <input class="form-control" type="number" placeholder="No. of plans" name="plans" value="{{$request['email']}}">

@@ -13,11 +13,18 @@ class SupportCaseController extends Controller
 {
     public function index(Request $request)
     {
-    	$allCase = SupportCase::orderBy('status','ASC')->paginate(10);
-    	foreach ($allCase as $case) {
-    		$case->user;
-    	}
-    	return view('Admin.CaseChat.index',['allCase'=>$allCase]);
+        $current_url = \Request::getRequestUri();
+        $request->session()->put('backUrlCase', $current_url);
+        $parameter = $request->all();
+        if(count($parameter) > 0){
+            $allCase = $this->searchCases($request);
+        }else{
+        	$allCase = SupportCase::orderBy('status','ASC')->paginate(10);
+        	foreach ($allCase as $case) {
+        		$case->user;
+        	}
+        }
+        return view('Admin.CaseChat.index',['allCase'=>$allCase,'request'=>$parameter]);
     }
 
     public function searchCases(Request $request)
@@ -60,7 +67,8 @@ class SupportCaseController extends Controller
     	foreach ($casesList as $case) {
     		$case->user;
     	}
-    	return view('Admin.CaseChat.index',['allCase'=>$casesList,'request'=>$parameters]);
+        return $casesList;
+    	// return view('Admin.CaseChat.index',['allCase'=>$casesList,'request'=>$parameters]);
     }
     public function caseInbox(Request $request, $caseID)
     {

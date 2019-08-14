@@ -118,7 +118,7 @@
 			Route::get('/logout', 'Admin\LoginController@logout');
 			// Users Section 
 			Route::get('/users', 'Admin\UsersController@index');
-			Route::post('/users', 'Admin\UsersController@searchUser');
+			// Route::post('/users', 'Admin\UsersController@searchUser');
 			Route::get('/userDetail/{userId}', 'Admin\UsersController@getSingleUserDetail');
 			Route::get('/forgotEmail/{userId}', 'Admin\ForgotPasswordController@sendEmailManually');
 			// End Users Section 
@@ -223,7 +223,7 @@
 
 			// Messages section  
 				Route::get('/messages','Admin\SupportCaseController@index');
-				Route::post('/messages','Admin\SupportCaseController@searchCases');
+				// Route::post('/messages','Admin\SupportCaseController@searchCases');
 				Route::get('/inbox/{caseID}','Admin\SupportCaseController@caseInbox');
 				Route::post('/sendMessage', 'Admin\SupportCaseController@sendMessage');
 				Route::post('/closeCaseRequest', 'Admin\SupportCaseController@closeCaseRequest');

@@ -93,7 +93,7 @@
                 <a href="{{url('admin/userDetail')}}/{{base64_encode($user->id)}}?type={{base64_encode(2)}}" class="btn btn-sm btn-primary @if(base64_decode(Request::get('type')) == 2) active @endif">Devices</a>
               </div>
               <div class="col-6 text-right">
-                  <a href="{{url('admin/users')}}" class="btn btn-sm btn-primary"><i class="ni ni-bold-left"></i> Back</a>
+                  <a href="{{url(Request::session()->get('backUrlUser'))}}" class="btn btn-sm btn-primary"><i class="ni ni-bold-left"></i> Back</a>
               </div>
             </div>
           </div>

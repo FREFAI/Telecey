@@ -9,7 +9,7 @@
 @section('content')
 
 @php
-  if(isset($request)){
+  if(count($request)>0){
     if($request['search_status'] == ''){
       $request['search_status'] = '3';
     }else{
@@ -63,8 +63,7 @@
             </div>
             <div class="col-md-12 pb-2">
               <div class="user-search-form text-right">
-                <form method="post" action="{{url('/admin/messages')}}">
-                  @csrf
+                <form method="get" action="{{url('/admin/messages')}}">
                    <input class="form-control" type="text" placeholder="Search by subject" name="search_by_subject" value="{{$request['search_by_subject']}}">
                    <input class="form-control" type="text" placeholder="Search by name" name="search_by_name" value="{{$request['search_by_name']}}">
                    <input class="form-control" type="text" placeholder="Search by email" name="search_by_email" value="{{$request['search_by_email']}}">

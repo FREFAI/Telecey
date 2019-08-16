@@ -12,6 +12,7 @@ use App\Models\FrontEnd\PlanDeviceRating;
 use App\Models\FrontEnd\DeviceReview;
 use App\Models\Admin\Brands;
 use App\Models\Admin\Provider;
+use Excel;
 
 class UsersController extends Controller
 {
@@ -333,19 +334,29 @@ class UsersController extends Controller
             $user->last_update = date("m/d/Y", strtotime($user->updated_at));
         }
         if(count($users)>0){
-            $delimiter = ",";
-            $filename = "user" . date('d-m-Y') . ".xls";
-            $f = fopen('php://memory', 'w');
-            $fields = array('NAME','NICK NAME','ACCOUNT TYPE','STATUS','NO. OF PLANS','NO. OF DEVICES','CREATION DATE','LAST UPDATE');
-            fputcsv($f, $fields, $delimiter);
-            foreach($users as $user){
-                $lineData = array($user->name,$user->nickname,$user->account_type,$user->status,$user->plansCount,$user->devicesCount,$user->creation_date,$user->last_update);
-                fputcsv($f, $lineData, $delimiter);
+            $customer_array[] = array('NAME','NICK NAME','ACCOUNT TYPE','STATUS','NO. OF PLANS','NO. OF DEVICES','CREATION DATE','LAST UPDATE');
+
+            foreach($users as $user)
+            {
+              $customer_array[] = array(
+                'NAME'=> $user->name,
+                'NICK NAME'=> $user->nickname,
+                'ACCOUNT TYPE'=> $user->account_type,
+                'STATUS'=> $user->status,
+                'NO. OF PLANS'=> $user->plansCount,
+                'NO. OF DEVICES'=> $user->devicesCount,
+                'CREATION DATE'=> $user->creation_date,
+                'LAST UPDATE'=> $user->last_update
+                );
             }
-            fseek($f, 0);
-            header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment; filename="' . $filename . '";');
-            fpassthru($f);
+            $filename = "user" . date('d-m-Y');
+            return Excel::create($filename, function($excel) use ($customer_array){
+              $excel->setTitle('Customer Data');
+              $excel->sheet('Customer Data', function($sheet) use ($customer_array){
+               $sheet->fromArray($customer_array, null, 'A1', false, false);
+              });
+            })->export('xlsx');
+
         }else{
             return redirect('/admin/users')->with('warning','No Data To Export');
         }

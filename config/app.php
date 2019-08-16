@@ -176,6 +176,7 @@ return [
         'Intervention\Image\ImageServiceProvider',
         Stevebauman\Location\LocationServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -229,6 +230,7 @@ return [
         'Image' => 'Intervention\Image\Facades\Image',
         'Location' => 'Stevebauman\Location\Facades\Location',
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

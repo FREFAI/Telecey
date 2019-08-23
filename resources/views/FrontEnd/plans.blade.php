@@ -4,123 +4,126 @@
 	<!-- Content Start Here -->
 		<div class="page-header inner-page" style="background: url({{URL('frontend/assets/img/background-img.png')}});">
 		    <div class="container">
-		        <div class="row">
-		            <div class="col-12 text-center mt-5">
-		                <div class="heading find-div">
-		                    <h1 class="section-title">Find a Plan</h1>
-		                    <div class="location_search mb-2">
-		                    	<input type="text" class="form-control" placeholder="Location" id="searchMapInput" value="{{$ip_location}}">
-		                    </div>
-		                    <h4 class="sub-title">Register and share your mobile or telecom experience to unlock Telco Tales</h4>
-		                    <div class="container">
-	                            <div class="row align-items-center justify-content-center">
-	                            	@if($filtersetting->personal_business_setting == 1)
-	                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1">
-	                                    <div class="form-group plan_page">
-	                                    	<span class="toggle_label active">Personal</span>
-	                                    	<label class="switch">
-	                                    	  <input type="checkbox" id="personal">
-	                                    	  <span class="slider"></span>
-	                                    	</label>
-	                                    	<span class="toggle_label">Business</span>
-	                                    </div>
-	                                </div>
-	                                @endif
-	                                @if($filtersetting->postpaid_prepaid_setting == 1)
-	                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1 ">
-	                                    <div class="form-group plan_page">
-	                                    	<span class="toggle_label active">Postpaid</span>
-	                                    	<label class="switch">
-	                                    	  <input type="checkbox">
-	                                    	  <span class="slider"></span>
-	                                    	</label>
-	                                    	<span class="toggle_label">Prepaid</span>
-	                                    </div>
-	                                </div>
-	                                @endif
-	                                @if($filtersetting->mobile_home_setting == 1)
-	                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1 ">
-	                                    <div class="form-group plan_page">
-	                                    	<span class="toggle_label active">Mobile Plan</span>
-	                                    	<label class="switch">
-	                                    	  <input type="checkbox">
-	                                    	  <span class="slider"></span>
-	                                    	</label>
-	                                    	<span class="toggle_label">Home Internet</span>
-	                                    </div>
-	                                </div>
-	                                @endif
-	                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1">
-	                                    <div class="form-group plan_page">
-	                                    	<span class="toggle_label active">Pay as usage</span>
-	                                    	<label class="switch">
-	                                    	  <input type="checkbox" onclick="payAsUsage()" id="pay_as_usage_id">
-	                                    	  <span class="slider"></span>
-	                                    	</label>
-	                                    	<!-- <span class="toggle_label">On</span> -->
-	                                    </div>
-	                                </div>
-	                                @if($filtersetting->unlimited_calls_setting == 1)
-	                                <div class="col-lg-4 col-md-4 col-sm-4 pt-3 pl-0 pr-1 pay_as_usage_type">
-	                                    <div class="form-group plan_page">
-	                                    	<span class="toggle_label">Unlimited Calls</span>
-	                                    	<label class="switch">
-	                                    	  <input type="checkbox" checked="" onclick="myFunction()" id="unlimited">
-	                                    	  <span class="slider"></span>
-	                                    	</label>
-	                                        <select id="unlimited_calls" class="form-control drop-dw d-none w-40">
-	                                            <option value="100" selected>100 mins</option>
-	                                            <option value="200">200 mins</option>
-	                                            <option value="300">300 mins</option>
-	                                            <option value="500">500 mins</option>
-	                                        </select>
-	                                    </div>
-	                                </div>
-	                                @endif
-	                                @if($filtersetting->gb_setting == 1)
-	                                <div class="col-lg-2 col-md-2 col-sm-2 pt-3 pl-0 pr-1 pay_as_usage_type">
-	                                    <div class="form-group">
-	                                        <select id="inputState" class="form-control drop-dw">
-	                                            <option value="0.5">0.5 GB</option>
-	                                            <option value="1">1 GB</option>
-	                                            <option value="2" selected>2 GB</option>
-	                                            <option value="3">3 GB</option>
-	                                            <option value="5">5 GB</option>
-	                                            <option value="7">7 GB</option>
-	                                            <option value="10">10 GB</option>
-	                                            <option value="12">12 GB</option>
-	                                            <option value="15">15 GB</option>
-	                                            <option value="20">20 GB</option>
-	                                        </select>
-	                                    </div>
-	                                </div>
-	                                @endif
-	                                @if($filtersetting->mb_setting == 1)
-	                                <div class="col-lg-2 col-md-2 col-sm-2 pt-3 pl-0 pr-0 pay_as_usage_type">
-	                                    <div class="form-group">
-	                                        <select id="inputState" class="form-control drop-dw">
-	                                            <option selected value="" disabled="">Mbps</option>
-	                                            <option value="100">100 Mbps</option>
-	                                            <option value="200">200 Mbps</option>
-	                                            <option value="300">300 Mbps</option>
-	                                            <option value="400">400 Mbps</option>
-	                                            <option value="500">500 Mbps</option>
-	                                        </select>
-	                                    </div>
-	                                </div>
-	                                @endif
-	                            </div>
-	                        </div>
-		                </div>
-		            </div>
-		        </div>
+		    	<form action="">
+			        <div class="row">
+			            <div class="col-12 text-center mt-5">
+			                <div class="heading find-div">
+			                    <h1 class="section-title">Find a Plan</h1>
+			                    <div class="location_search mb-2">
+			                    	<input type="text" class="form-control" placeholder="Location" id="searchMapInput" value="{{$ip_location}}" name="address">
+			                    </div>
+			                    <h4 class="sub-title">Register and share your mobile or telecom experience to unlock Telco Tales</h4>
+			                    <div class="container">
+		                            <div class="row align-items-center justify-content-center">
+		                            	@if($filtersetting->personal_business_setting == 1)
+		                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1">
+		                                    <div class="form-group plan_page">
+		                                    	<span class="toggle_label active">Personal</span>
+		                                    	<label class="switch">
+		                                    	  <input type="checkbox" id="personal" name="contract_type">
+		                                    	  <span class="slider"></span>
+		                                    	</label>
+		                                    	<span class="toggle_label">Business</span>
+		                                    </div>
+		                                </div>
+		                                @endif
+		                                @if($filtersetting->postpaid_prepaid_setting == 1)
+		                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1 ">
+		                                    <div class="form-group plan_page">
+		                                    	<span class="toggle_label active">Postpaid</span>
+		                                    	<label class="switch">
+		                                    	  <input type="checkbox" name="payment_type">
+		                                    	  <span class="slider"></span>
+		                                    	</label>
+		                                    	<span class="toggle_label">Prepaid</span>
+		                                    </div>
+		                                </div>
+		                                @endif
+		                                @if($filtersetting->mobile_home_setting == 1)
+		                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1 ">
+		                                    <div class="form-group plan_page">
+		                                    	<span class="toggle_label active">Mobile Plan</span>
+		                                    	<label class="switch">
+		                                    	  <input type="checkbox">
+		                                    	  <span class="slider"></span>
+		                                    	</label>
+		                                    	<span class="toggle_label">Home Internet</span>
+		                                    </div>
+		                                </div>
+		                                @endif
+		                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1">
+		                                    <div class="form-group plan_page">
+		                                    	<span class="toggle_label active">Pay as usage</span>
+		                                    	<label class="switch">
+		                                    	  <input type="checkbox" onclick="payAsUsage()" id="pay_as_usage_id" name="pay_as_usage">
+		                                    	  <span class="slider"></span>
+		                                    	</label>
+		                                    	<!-- <span class="toggle_label">On</span> -->
+		                                    </div>
+		                                </div>
+		                                @if($filtersetting->unlimited_calls_setting == 1)
+		                                <div class="col-lg-4 col-md-4 col-sm-4 pt-3 pl-0 pr-1 pay_as_usage_type">
+		                                    <div class="form-group plan_page">
+		                                    	<span class="toggle_label">Unlimited Calls</span>
+		                                    	<label class="switch">
+		                                    	  <input type="checkbox" checked="" onclick="myFunction()" id="unlimited">
+		                                    	  <span class="slider"></span>
+		                                    	</label>
+		                                        <select id="unlimited_calls" class="form-control drop-dw d-none w-40">
+		                                            <option value="100" selected>100 mins</option>
+		                                            <option value="200">200 mins</option>
+		                                            <option value="300">300 mins</option>
+		                                            <option value="500">500 mins</option>
+		                                        </select>
+		                                    </div>
+		                                </div>
+		                                @endif
+		                                @if($filtersetting->gb_setting == 1)
+		                                <div class="col-lg-2 col-md-2 col-sm-2 pt-3 pl-0 pr-1 pay_as_usage_type">
+		                                    <div class="form-group">
+		                                        <select id="inputState" class="form-control drop-dw">
+		                                            <option value="0.5">0.5 GB</option>
+		                                            <option value="1">1 GB</option>
+		                                            <option value="2" selected>2 GB</option>
+		                                            <option value="3">3 GB</option>
+		                                            <option value="5">5 GB</option>
+		                                            <option value="7">7 GB</option>
+		                                            <option value="10">10 GB</option>
+		                                            <option value="12">12 GB</option>
+		                                            <option value="15">15 GB</option>
+		                                            <option value="20">20 GB</option>
+		                                        </select>
+		                                    </div>
+		                                </div>
+		                                @endif
+		                                @if($filtersetting->mb_setting == 1)
+		                                <div class="col-lg-2 col-md-2 col-sm-2 pt-3 pl-0 pr-0 pay_as_usage_type">
+		                                    <div class="form-group">
+		                                        <select id="inputState" class="form-control drop-dw">
+		                                            <option selected value="" disabled="">Mbps</option>
+		                                            <option value="100">100 Mbps</option>
+		                                            <option value="200">200 Mbps</option>
+		                                            <option value="300">300 Mbps</option>
+		                                            <option value="400">400 Mbps</option>
+		                                            <option value="500">500 Mbps</option>
+		                                        </select>
+		                                    </div>
+		                                </div>
+		                                @endif
+		                            </div>
+		                        </div>
+			                </div>
+			            </div>
+			        </div>
+			        <div class="row">
+			            <div class="col text-center">
+			                <button class="btn btn-common" type="submit"><i class="lni-search"></i> Search Now</button>
+			            </div>
+			        </div>
+		        </form>
 		    </div>
 	        <div class="container">
-		        <div class="row">
-		            <div class="col text-center">
-		                <button class="btn btn-common" type="button"><i class="lni-search"></i> Search Now</button>
-		            </div>
-		        </div>
+		        
 		        <div class="row mt-4">
 		            <div class="col-md-4 col-sm-4">
 		                <div class="service-post">

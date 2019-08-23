@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\SettingsModel;
 use App\Models\Admin\AdsModel;
+use App\Models\FrontEnd\ServiceReview;
+use Illuminate\Support\Facades\Auth;
 
 
 class PlansController extends Controller
@@ -57,9 +59,11 @@ class PlansController extends Controller
         }else{
             $ads = AdsModel::where('type',1)->first();
         }
+        $user_id = Auth::guard('customer')->id();
+        $serviceReviewsData = ServiceReview::where('user_id',$user_id)->with('provider','currency','typeOfService')->get()->toArray();
         // echo "<pre>";
-        // print_r($data);
+        // print_r($serviceReviewsData);
         // exit;
-        return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads]);
+        return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$serviceReviewsData]);
     }
 }

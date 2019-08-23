@@ -353,6 +353,61 @@
 		    </div>
 		    </div>
 		</div>
+
+		<div class="main-container section-padding py-3">
+			<div class="container mt-0 mt-lg-4">
+				<div class="table-responsive">
+					<table class="table table-striped text-center table-bordered">
+						<thead>
+							<tr>
+								<th class="text-left">Contract type</th>
+								<th class="text-left">price</th>
+								<th class="text-left">voice_price</th>
+								<th class="text-left">data_price</th>
+								<th class="text-left">payment_type</th>
+								<th class="text-left">local_min</th>
+								<th class="text-left">datavolume</th>
+								<th class="text-left">long_distance_min</th>
+								<th class="text-left">international_min</th>
+								<th class="text-left">roaming_min</th>
+								<th class="text-left">downloading_speed</th>
+								<th class="text-left">uploading_speed</th>
+								<th class="text-left">sms</th>
+								<th class="text-left">currency_name</th>
+								<th class="text-left">currency_symbol</th>
+								<th class="text-left">currency_code</th>
+								<th class="text-left">service_type_name</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($data as $value)
+							<tr>
+								<td class="text-left">personal</td>
+								<td class="text-left">{{$value['price']}}</td>
+								<td class="text-left">{{$value['voice_price']}}</td>
+								<td class="text-left">{{$value['data_price']}}</td>
+								<td class="text-left">{{$value['payment_type']}}</td>
+								<td class="text-left">{{$value['local_min']}}</td>
+								<td class="text-left">{{$value['datavolume']}}</td>
+								<td class="text-left">{{$value['long_distance_min']}}</td>
+								<td class="text-left">{{$value['international_min']}}</td>
+								<td class="text-left">{{$value['roaming_min']}}</td>
+								<td class="text-left">{{$value['downloading_speed']}}</td>
+								<td class="text-left">{{$value['uploading_speed']}}</td>
+								<td class="text-left">{{$value['sms']}}</td>
+								<td class="text-left">{{$value['currency']['currency_name']}}</td>
+								<td class="text-left">{{$value['currency']['currency_symbol']}}</td>
+								<td class="text-left">{{$value['currency']['currency_code']}}</td>
+								<td class="text-left">{{$value['type_of_service']['service_type_name']}}</td>
+							</tr>
+								@endforeach
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
 	<!-- Content End Here -->
 	<script>
 

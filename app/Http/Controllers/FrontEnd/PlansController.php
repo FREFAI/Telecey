@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\SettingsModel;
 use App\Models\Admin\AdsModel;
+use App\Models\Admin\ServiceType;
 use App\Models\FrontEnd\ServiceReview;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,7 +31,7 @@ class PlansController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function plans()
+    public function plans(Request $request)
     {
         // Current location section
         $ip = env('ip_address','live');
@@ -60,10 +61,33 @@ class PlansController extends Controller
             $ads = AdsModel::where('type',1)->first();
         }
         $user_id = Auth::guard('customer')->id();
+        $service_types = ServiceType::get();
         $serviceReviewsData = ServiceReview::where('user_id',$user_id)->with('provider','currency','typeOfService')->get()->toArray();
         // echo "<pre>";
         // print_r($serviceReviewsData);
         // exit;
-        return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$serviceReviewsData]);
+        $data=$request->all();
+        if($data){
+            $contract_type="";
+            $payment_type="";
+            $pay_as_usage_type="";
+            $user_id = Auth::guard('customer')->id();
+            if(array_key_exists("contract_type",$data)){
+                $contract_type = $data['contract_type'];
+            }elseif(array_key_exists("payment_type",$data)){
+                $payment_type = $data['payment_type'];
+            }elseif(array_key_exists("pay_as_usage_type",$data)){
+                $pay_as_usage_type = $data['pay_as_usage_type'];
+            }
+            // echo "<pre>";print_r($user_id);die;
+            $searchResult = ServiceReview::where('user_id',$user_id)
+            ->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type) {
+                $query->orWhere('contract_type',$contract_type)->orWhere('payment_type',$payment_type)->orWhere('pay_as_usage_type',$pay_as_usage_type);
+            })->with('provider','currency','typeOfService')->get()->toArray();
+            echo "<pre>";print_r($searchResult);die;
+            return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$serviceReviewsData,'service_types' => $service_types,'searchResult' => $searchResult]);
+
+        }
+        return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$serviceReviewsData,'service_types' => $service_types]);
     }
 }

@@ -49,7 +49,7 @@
 		                                    	</label>
 												<span class="toggle_label">Home Internet</span> --}}
 												<div class="tg-select form-control" style="width:160px;height:30px !important; min-height:15px">
-													<select style="height:26px;line-height:28px !important" class="service_type" name="service_type" required>
+													<select style="height:26px;line-height:28px !important" class="service_type" name="service_type">
 														<option value="">Select service type</option>
 														@if(count($service_types) > 0)
 															@foreach($service_types as $type)
@@ -372,48 +372,57 @@
 					<table class="table table-striped text-center table-bordered">
 						<thead>
 							<tr>
-								<th class="text-left">Contract type</th>
-								<th class="text-left">price</th>
-								<th class="text-left">voice_price</th>
-								<th class="text-left">data_price</th>
-								<th class="text-left">payment_type</th>
-								<th class="text-left">local_min</th>
-								<th class="text-left">datavolume</th>
-								<th class="text-left">long_distance_min</th>
-								<th class="text-left">international_min</th>
-								<th class="text-left">roaming_min</th>
-								<th class="text-left">downloading_speed</th>
-								<th class="text-left">uploading_speed</th>
-								<th class="text-left">sms</th>
-								<th class="text-left">currency_name</th>
+								<th class="text-left">Plans Type</th>
+								<th class="text-left">Price</th>
+								<th class="text-left">Voice Price</th>
+								<th class="text-left">Data Price</th>
+								<th class="text-left">Type of Payment</th>
+								<th class="text-left">Local Minutes</th>
+								<th class="text-left">Data Volume</th>
+								<th class="text-left">Long Distance Minutes</th>
+								<th class="text-left">International Minutes</th>
+								<th class="text-left">Roaming Minutes</th>
+								<th class="text-left">Downloading speed</th>
+								<th class="text-left">Uploading speed</th>
+								<th class="text-left">Sms</th>
+								{{-- <th class="text-left">currency_name</th>
 								<th class="text-left">currency_symbol</th>
-								<th class="text-left">currency_code</th>
-								<th class="text-left">service_type_name</th>
+								<th class="text-left">currency_code</th> --}}
+								<th class="text-left">Type of Service</th>
 								
 							</tr>
 						</thead>
 						<tbody>
+							@if(count($data)>0)
 							@foreach($data as $value)
 							<tr>
-								<td class="text-left">personal</td>
-								<td class="text-left">{{$value['price']}}</td>
-								<td class="text-left">{{$value['voice_price']}}</td>
-								<td class="text-left">{{$value['data_price']}}</td>
+								@if($value['contract_type'] == 1)
+								<td class="text-left">Personal</td>
+								@else
+								<td class="text-left">Business</td>
+								@endif
+								{{-- <td class="text-left">{{$value['contract_type']}}</td> --}}
+								<td class="text-left">{{$value['currency']['currency_symbol']}}{{$value['price']}}</td>
+								<td class="text-left">{{$value['currency']['currency_symbol']}}{{$value['voice_price']}}</td>
+								<td class="text-left">{{$value['currency']['currency_symbol']}}{{$value['data_price']}}</td>
 								<td class="text-left">{{$value['payment_type']}}</td>
 								<td class="text-left">{{$value['local_min']}}</td>
 								<td class="text-left">{{$value['datavolume']}}</td>
 								<td class="text-left">{{$value['long_distance_min']}}</td>
 								<td class="text-left">{{$value['international_min']}}</td>
 								<td class="text-left">{{$value['roaming_min']}}</td>
-								<td class="text-left">{{$value['downloading_speed']}}</td>
-								<td class="text-left">{{$value['uploading_speed']}}</td>
+								<td class="text-left">{{$value['downloading_speed']}} Mbps</td>
+								<td class="text-left">{{$value['uploading_speed']}} Mbps</td>
 								<td class="text-left">{{$value['sms']}}</td>
-								<td class="text-left">{{$value['currency']['currency_name']}}</td>
+								{{-- <td class="text-left">{{$value['currency']['currency_name']}}</td>
 								<td class="text-left">{{$value['currency']['currency_symbol']}}</td>
-								<td class="text-left">{{$value['currency']['currency_code']}}</td>
+								<td class="text-left">{{$value['currency']['currency_code']}}</td> --}}
 								<td class="text-left">{{$value['type_of_service']['service_type_name']}}</td>
 							</tr>
 								@endforeach
+								@else
+								<td class="text-center" colspan="15">No Data Found</td>
+							@endif
 						</tbody>
 					</table>
 				</div>

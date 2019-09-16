@@ -62,15 +62,17 @@ class PlansController extends Controller
         }
         $user_id = Auth::guard('customer')->id();
         $service_types = ServiceType::get();
-        $serviceReviewsData = ServiceReview::where('user_id',$user_id)->with('provider','currency','typeOfService')->get()->toArray();
+        // $serviceReviewsData = ServiceReview::where('user_id',$user_id)->with('provider','currency','typeOfService')->get()->toArray();
         // echo "<pre>";
         // print_r($serviceReviewsData);
         // exit;
+        $data=array();
         $data=$request->all();
         if($data){
             $contract_type="";
             $payment_type="";
             $pay_as_usage_type="";
+            $service_type= $data['service_type'];
             $user_id = Auth::guard('customer')->id();
             if(array_key_exists("contract_type",$data)){
                 $contract_type = $data['contract_type'];
@@ -79,15 +81,19 @@ class PlansController extends Controller
             }elseif(array_key_exists("pay_as_usage_type",$data)){
                 $pay_as_usage_type = $data['pay_as_usage_type'];
             }
-            // echo "<pre>";print_r($user_id);die;
+            // echo "<pre>";print_r($data);die;
             $searchResult = ServiceReview::where('user_id',$user_id)
-            ->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type) {
-                $query->orWhere('contract_type',$contract_type)->orWhere('payment_type',$payment_type)->orWhere('pay_as_usage_type',$pay_as_usage_type);
-            })->with('provider','currency','typeOfService')->get()->toArray();
-            echo "<pre>";print_r($searchResult);die;
-            return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$serviceReviewsData,'service_types' => $service_types,'searchResult' => $searchResult]);
+                            ->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
+                                $query->orWhere('contract_type',$contract_type)
+                                ->orWhere('payment_type',$payment_type)
+                                ->orWhere('pay_as_usage_type',$pay_as_usage_type)
+                                ->orWhere('service_type',$service_type);
+                            })->with('provider','currency','typeOfService')
+                            ->get()->toArray();
+            // echo "<pre>";print_r($searchResult);die;
+            return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'service_types' => $service_types,'data' => $searchResult]);
 
         }
-        return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$serviceReviewsData,'service_types' => $service_types]);
+        return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$data,'service_types' => $service_types]);
     }
 }

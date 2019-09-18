@@ -1,6 +1,28 @@
 @extends('layouts.frontend_layouts.frontend')
 @section('title', 'Plans')
 @section('content')
+<style>
+	tr.custom-row-cl {
+		background-color: #77fdc8;
+		color: #333;
+		border: 5px solid #fff;
+	}
+	tr.custom-row-cl:hover {
+		background-color: #dcdcdc;
+		color: #333;
+	}
+	tr.custom-row-cl td {
+		vertical-align: middle;
+	}
+	a.form-control.btn.table-row-btn {
+		background-color: #77fdc8;
+		border: 0;
+	}
+	a.form-control.btn.table-row-btn:hover {
+		background-color: #333;
+		color: #fff;
+	}
+</style>
 	<!-- Content Start Here -->
 		<div class="page-header inner-page" style="background: url({{URL('frontend/assets/img/background-img.png')}});">
 		    <div class="container">
@@ -225,7 +247,7 @@
 	            </div>
 	        </div>
 		</section>
-		<div class="main-container section-padding py-3">
+		{{-- <div class="main-container section-padding py-3">
 		    <div class="container mt-0 mt-lg-4">
 		        <div class="table-responsive">
 		        <table class="at-intenet-package" id="pack">
@@ -364,71 +386,51 @@
 		        </table>
 		    </div>
 		    </div>
-		</div>
-
-		<div class="main-container section-padding py-3">
-			<div class="container mt-0 mt-lg-4">
-				<div class="table-responsive">
-					<table class="table table-striped text-center table-bordered">
-						<thead>
-							<tr>
-								<th class="text-left">Plans Type</th>
-								<th class="text-left">Price</th>
-								<th class="text-left">Voice Price</th>
-								<th class="text-left">Data Price</th>
-								<th class="text-left">Type of Payment</th>
-								<th class="text-left">Local Minutes</th>
-								<th class="text-left">Data Volume</th>
-								<th class="text-left">Long Distance Minutes</th>
-								<th class="text-left">International Minutes</th>
-								<th class="text-left">Roaming Minutes</th>
-								<th class="text-left">Downloading speed</th>
-								<th class="text-left">Uploading speed</th>
-								<th class="text-left">Sms</th>
-								{{-- <th class="text-left">currency_name</th>
-								<th class="text-left">currency_symbol</th>
-								<th class="text-left">currency_code</th> --}}
-								<th class="text-left">Type of Service</th>
-								
-							</tr>
-						</thead>
-						<tbody>
-							@if(count($data)>0)
-							@foreach($data as $value)
-							<tr>
-								@if($value['contract_type'] == 1)
-								<td class="text-left">Personal</td>
+		</div> --}}
+		@if(count($data)>0)
+		<div class="container mb-5">
+			<div class="row">
+				<table class="table">
+					<thead class="bg-primary text-white">
+						<tr>
+						<th scope="col">Location</th>
+						<th scope="col">Provider</th>
+						<th scope="col">Price</th>
+						<th scope="col">Local Min</th>
+						<th scope="col">Volume GB</th>
+						<th scope="col">Review</th>
+						<th scope="col">Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($data as $value)
+							<tr class="custom-row-cl">
+								<td>{{$value['user_address']}}</td>
+								@if($value['provider']['provider_image_original'] != "")
+								<td>
+									<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" />
+								</td>
 								@else
-								<td class="text-left">Business</td>
+								<td>
+									<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" style="width:100px;height:50px;"/>
+								</td>
 								@endif
-								{{-- <td class="text-left">{{$value['contract_type']}}</td> --}}
-								<td class="text-left">{{$value['currency']['currency_symbol']}}{{$value['price']}}</td>
-								<td class="text-left">{{$value['currency']['currency_symbol']}}{{$value['voice_price']}}</td>
-								<td class="text-left">{{$value['currency']['currency_symbol']}}{{$value['data_price']}}</td>
-								<td class="text-left">{{$value['payment_type']}}</td>
-								<td class="text-left">{{$value['local_min']}}</td>
-								<td class="text-left">{{$value['datavolume']}}</td>
-								<td class="text-left">{{$value['long_distance_min']}}</td>
-								<td class="text-left">{{$value['international_min']}}</td>
-								<td class="text-left">{{$value['roaming_min']}}</td>
-								<td class="text-left">{{$value['downloading_speed']}} Mbps</td>
-								<td class="text-left">{{$value['uploading_speed']}} Mbps</td>
-								<td class="text-left">{{$value['sms']}}</td>
-								{{-- <td class="text-left">{{$value['currency']['currency_name']}}</td>
-								<td class="text-left">{{$value['currency']['currency_symbol']}}</td>
-								<td class="text-left">{{$value['currency']['currency_code']}}</td> --}}
-								<td class="text-left">{{$value['type_of_service']['service_type_name']}}</td>
-							</tr>
-								@endforeach
+								<td>{{$value['price']}}</td>
+								<td>{{$value['local_min']}}</td>
+								<td>{{$value['datavolume']}}</td>
+								<td>{{$value['average_review']}}</td>
+								@if(Auth::guard('customer')->check())
+									<td><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</td>
 								@else
-								<td class="text-center" colspan="15">No Data Found</td>
-							@endif
-						</tbody>
-					</table>
-				</div>
+									<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
+								@endif
+							</tr>
+							@endforeach
+					</tbody>
+				</table>
 			</div>
 		</div>
-
+		@endif
 	<!-- Content End Here -->
 	<script>
 

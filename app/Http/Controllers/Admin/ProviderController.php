@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Provider;
 use Illuminate\Support\Facades\Validator;
+use File,Image;
 
 class ProviderController extends Controller
 {
@@ -15,13 +16,39 @@ class ProviderController extends Controller
     }
     public function addProvider(Request $request)
     {
-    	$perameter = $request->all();
+        $perameter = $request->all();
     	$validation = Validator::make($perameter,[
-			'provider_name' => 'required|unique:providers'
+            'provider_name' => 'required|unique:providers',
+			'provider_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'            
 		]);
 		if($validation->fails()){
 			return redirect()->back()->with('error',$validation->messages()->first());
 		}else{
+            if (! File::exists(public_path()."/providers/provider_original")) {
+                File::makeDirectory(public_path()."/providers/provider_original", 0777, true);
+            } 
+            if (! File::exists(public_path()."/providers/provider_resized")) {
+                File::makeDirectory(public_path()."/providers/provider_resized", 0777, true);
+            }            
+            if($request->hasFile('provider_image')){
+		    	$image       = $request->file('provider_image');
+	            $fileext    = $image->getClientOriginalExtension();
+	            $destinationPath = public_path('/providers/provider_resized');
+	            $perameter['provider_image_resize'] = time().'_provider_resized.'.$fileext;                
+
+	            $image_resize = Image::make($image->getRealPath())->fit(540, 252, function($constraint) {
+	                    $constraint->aspectRatio();
+	                    $constraint->upsize();
+	                    });              
+	            $image_resize->save(public_path('/providers/provider_resized/' .$perameter['provider_image_resize']));
+	            // End Resized Image section 
+	            // Original Image section 
+	            $perameter['provider_image_original'] = time().'_provider_original.'.$image->getClientOriginalExtension();
+	        	
+	        	$image->move(public_path()."/providers/provider_original", $perameter['provider_image_original']);
+
+	    	 	// End Original Image section
+            }
     		$provider = Provider::create($perameter);
     		if($provider){
     			return redirect('/admin/provider-list')->with('success','Provider added successfully.');
@@ -43,19 +70,50 @@ class ProviderController extends Controller
     }
     public function editProvider(Request $request)
     {
-    	$perameter = $request->all();
+        $perameter = $request->all();
     	$validation = Validator::make($perameter,[
-    		'provider_name' => 'required|unique:providers,provider_name,'.$perameter['id']
-    	]);
-    	$provider = Provider::find($perameter['id']);
-    	if($provider){
-    		$provider->provider_name = $perameter['provider_name'];
-    		if($provider->save()){
-    			return redirect('/admin/provider-list')->with('success','Provider updated successfully.');
-    		}else{
-    			return redirect()->back()->with('error','Somthing went wrong!');
-    		}
-    	}
+            'provider_name' => 'required|unique:providers,provider_name,'.$perameter['id'],
+			'provider_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'                        
+        ]);
+        if ($validation->fails()) {
+			return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+		}else{
+            if (! File::exists(public_path()."/providers/provider_original")) {
+                File::makeDirectory(public_path()."/providers/provider_original", 0777, true);
+            } 
+            if (! File::exists(public_path()."/providers/provider_resized")) {
+                File::makeDirectory(public_path()."/providers/provider_resized", 0777, true);
+            }
+    	    $provider = Provider::find($perameter['id']);
+            if($provider){
+                if($request->hasFile('provider_image')){
+                    $image       = $request->file('provider_image');
+                    $fileext    = $image->getClientOriginalExtension();
+                    $destinationPath = public_path('/providers/provider_resized');
+                    $perameter['provider_image_resize'] = time().'_provider_resized.'.$fileext;
+                    $image_resize = Image::make($image->getRealPath())->fit(540, 252, function($constraint) {
+                            $constraint->aspectRatio();
+                            $constraint->upsize();
+                            });              
+                    $image_resize->save(public_path('/providers/provider_resized/' .$perameter['provider_image_resize']));
+                    // End Resized Image section 
+                    // Original Image section 
+                    $perameter['provider_image_original'] = time().'_provider_original.'.$image->getClientOriginalExtension();
+                    $image->move(public_path()."/providers/provider_original", $perameter['provider_image_original']);
+                     // End Original Image section
+                }
+                $id = $perameter['id'];
+                unset($perameter['provider_image']);
+                unset($perameter['_token']);
+	            unset($perameter['id']);
+                $edited_provider = Provider::where('id',$id)->update($perameter);
+                if($edited_provider){
+                    return redirect('/admin/provider-list')->with('success','Provider updated successfully.');
+                }else{
+                    return redirect()->back()->with('error','Somthing went wrong!');
+                }
+            }
+        }   
     }
     public function providerList(Request $request)
     {

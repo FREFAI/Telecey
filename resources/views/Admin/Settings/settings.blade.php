@@ -20,39 +20,55 @@
     	<div class="col-xl-12 mb-5 mb-xl-0 ">
 	        <div class="card shadow">
 	          <div class="card-header bg-transparent">
+					@include('flash-message')
 		    	<div class="row">
-
 		  			<div class="col-lg-12">
 		  				<h5 class="heading-small text-muted mb-4">Settings</h5>
 		  			</div>
 		  			<!-- Device Filter section -->
-			  			<div class="col-lg-6 pl-lg-4">
-			  				<h6 class="heading-small text-muted mb-4">Device <b>Hide</b></h6>
-			  			</div>
-			  			<div class="col-lg-6 text-right">
-			  				@if($settings)
-				  			<div class="pl-lg-4">
-				  				<label class="custom-toggle" >
-				  				  <input type="checkbox" data-setting_key="device" value="1" id="device_setting" class="settings" 
-				  				  @if($settings->device == 0)checked="" @endif>
-				  				  <span class="custom-toggle-slider rounded-circle"></span>
-				  				</label>
-				  				<span class="clearfix"></span>
-				  			</div>
-				  			@else
-				  			<div class="pl-lg-4">
-				  				<label class="custom-toggle" >
-				  				  <input type="checkbox" data-setting_key="device" value="1" id="device_setting" class="settings">
-				  				  <span class="custom-toggle-slider rounded-circle"></span>
-				  				</label>
-				  				<span class="clearfix"></span>
-				  			</div>
-				  			@endif
-			  			</div>
-		  			<!-- End Device filter section -->
+					<div class="col-lg-6 pl-lg-4">
+						<h6 class="heading-small text-muted mb-4">Device <b>Hide</b></h6>
+					</div>
+					<div class="col-lg-6 text-right">
+						@if($settings)
+						<div class="pl-lg-4">
+							<label class="custom-toggle" >
+								<input type="checkbox" data-setting_key="device" value="1" id="device_setting" class="settings" 
+								@if($settings->device == 0)checked="" @endif>
+								<span class="custom-toggle-slider rounded-circle"></span>
+							</label>
+							<span class="clearfix"></span>
+						</div>
+						@else
+						<div class="pl-lg-4">
+							<label class="custom-toggle" >
+								<input type="checkbox" data-setting_key="device" value="1" id="device_setting" class="settings">
+								<span class="custom-toggle-slider rounded-circle"></span>
+							</label>
+							<span class="clearfix"></span>
+						</div>
+						@endif
+						</div>
+					</div>
+					  <!-- End Device filter section -->
+					<div class="row">
+		  			 <div class="col-lg-12">
+					  <form action="{{ url('/admin/addNoSearchMessage') }}" method="post" enctype="multipart/form-data">
+						@csrf
+						<div class="form-group">
+							<label class="text-muted mb-3">No Search Message :</label>
+						<textarea class="from-control text_editor" id="first-test" name="no_search_message">{{$settings->no_search_message}}</textarea>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<button class="btn btn-primary" type="submit">Save</button>
+							</div>
+						</div>
+					   </form>
+					  </div>
+					</div>
 		    	</div>
-		    </div>
-		</div>
+			</div>
     <!-- Footer Section Include -->
         @include('layouts.admin_layouts.footer')
     <!-- End Footer Section Include -->

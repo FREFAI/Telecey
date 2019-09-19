@@ -75,6 +75,9 @@
         color: #fff;
         position: relative;
     }
+    .rating-sec{
+        padding-top: 15px;
+    }
 </style>
 <div class="profile inner-page">
 	<div class="container">
@@ -298,10 +301,10 @@
                                                             <div class="col-lg-12 mb-3 border-bottom">
                                                                 <div class="card_sm">
                                                                     <div class="row">
-                                                                        <div class="col-lg-4">
+                                                                        <div class="col-lg-4 rating-sec">
                                                                             <b>Address</b>
                                                                         </div>
-                                                                        <div class="col-lg-8">
+                                                                        <div class="col-lg-8 rating-sec">
                                                                             <div class="pull-right" >{{$rating['formatted_address']}}</div>
                                                                         </div>
                                                                     </div>

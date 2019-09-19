@@ -154,6 +154,7 @@
 			// End Blog Section 
 
 			// Settings Section
+				Route::post('/addNoSearchMessage', 'Admin\SettingsController@addNoSearchMessage');
 				Route::get('/settings', 'Admin\SettingsController@allSetting');
 				Route::post('/settings', 'Admin\SettingsController@changeSetting');
 				Route::get('/filetrsettings', 'Admin\FilterSettingsController@allFilterSetting');

@@ -97,7 +97,11 @@ class PlansController extends Controller
                 foreach($plan_device_rating as $key2 => $value2){
                     $sum = $sum + $value2; 
                 }
-                $average = $sum/$plan_device_rating_count;
+                if($plan_device_rating_count == 0){
+                    $average = $sum;
+                }else{
+                    $average = $sum/$plan_device_rating_count;
+                }
                 $searchResult[$key]['average_review'] = $average;
             }                
                 // echo "<pre>";print_r($searchResult);die;

@@ -83,7 +83,7 @@ a.btn.btn-info.pull-right.add_service:hover{
   padding: 0 10px;
 }
 .tg-select.tg-select:after{
-  top:0;
+  top:-4px;
 }
 .tg-select.form-control {
     padding: 0;

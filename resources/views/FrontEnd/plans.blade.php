@@ -1,10 +1,32 @@
 @extends('layouts.frontend_layouts.frontend')
 @section('title', 'Plans')
 @section('content')
+<style>
+	tr.custom-row-cl {
+		background-color: #77fdc8;
+		color: #333;
+		border: 5px solid #fff;
+	}
+	tr.custom-row-cl:hover {
+		background-color: #dcdcdc;
+		color: #333;
+	}
+	tr.custom-row-cl td {
+		vertical-align: middle;
+	}
+	a.form-control.btn.table-row-btn {
+		background-color: #77fdc8;
+		border: 0;
+	}
+	a.form-control.btn.table-row-btn:hover {
+		background-color: #333;
+		color: #fff;
+	}
+</style>
 	<!-- Content Start Here -->
 		<div class="page-header inner-page" style="background: url({{URL('frontend/assets/img/background-img.png')}});">
 		    <div class="container">
-		    	<form action="">
+		    	<form action="{{url('/plans')}}" method="get">
 			        <div class="row">
 			            <div class="col-12 text-center mt-5">
 			                <div class="heading find-div">
@@ -20,7 +42,7 @@
 		                                    <div class="form-group plan_page">
 		                                    	<span class="toggle_label active">Personal</span>
 		                                    	<label class="switch">
-		                                    	  <input type="checkbox" id="personal" name="contract_type">
+		                                    	  <input type="checkbox" id="personal" value="1" onClick="personalToggle()" name="contract_type">
 		                                    	  <span class="slider"></span>
 		                                    	</label>
 		                                    	<span class="toggle_label">Business</span>
@@ -32,7 +54,7 @@
 		                                    <div class="form-group plan_page">
 		                                    	<span class="toggle_label active">Postpaid</span>
 		                                    	<label class="switch">
-		                                    	  <input type="checkbox" name="payment_type">
+		                                    	  <input type="checkbox" id="paymentTypeId" name="payment_type" value="postpaid" onClick=paymentType()>
 		                                    	  <span class="slider"></span>
 		                                    	</label>
 		                                    	<span class="toggle_label">Prepaid</span>
@@ -42,12 +64,24 @@
 		                                @if($filtersetting->mobile_home_setting == 1)
 		                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1 ">
 		                                    <div class="form-group plan_page">
-		                                    	<span class="toggle_label active">Mobile Plan</span>
+		                                    	{{-- <span class="toggle_label active">Mobile Plan</span>
 		                                    	<label class="switch">
 		                                    	  <input type="checkbox">
 		                                    	  <span class="slider"></span>
 		                                    	</label>
-		                                    	<span class="toggle_label">Home Internet</span>
+												<span class="toggle_label">Home Internet</span> --}}
+												<div class="tg-select form-control" style="width:160px;height:30px !important; min-height:15px">
+													<select style="height:26px;line-height:28px !important" class="service_type" name="service_type">
+														<option value="">Select service type</option>
+														@if(count($service_types) > 0)
+															@foreach($service_types as $type)
+													<option value="{{$type->id}}">{{$type->service_type_name}}</option>
+														   @endforeach
+														@else
+															<option disabled="">Not found</option>
+														@endif
+													</select>
+												</div>
 		                                    </div>
 		                                </div>
 		                                @endif
@@ -55,13 +89,13 @@
 		                                    <div class="form-group plan_page">
 		                                    	<span class="toggle_label active">Pay as usage</span>
 		                                    	<label class="switch">
-		                                    	  <input type="checkbox" onclick="payAsUsage()" id="pay_as_usage_id" name="pay_as_usage">
+		                                    	  <input type="checkbox" onclick="payAsUsage()" value="0" id="pay_as_usage_id" name="pay_as_usage_type">
 		                                    	  <span class="slider"></span>
 		                                    	</label>
 		                                    	<!-- <span class="toggle_label">On</span> -->
 		                                    </div>
 		                                </div>
-		                                @if($filtersetting->unlimited_calls_setting == 1)
+		                                {{-- @if($filtersetting->unlimited_calls_setting == 1)
 		                                <div class="col-lg-4 col-md-4 col-sm-4 pt-3 pl-0 pr-1 pay_as_usage_type">
 		                                    <div class="form-group plan_page">
 		                                    	<span class="toggle_label">Unlimited Calls</span>
@@ -77,8 +111,8 @@
 		                                        </select>
 		                                    </div>
 		                                </div>
-		                                @endif
-		                                @if($filtersetting->gb_setting == 1)
+		                                @endif --}}
+		                                {{-- @if($filtersetting->gb_setting == 1)
 		                                <div class="col-lg-2 col-md-2 col-sm-2 pt-3 pl-0 pr-1 pay_as_usage_type">
 		                                    <div class="form-group">
 		                                        <select id="inputState" class="form-control drop-dw">
@@ -95,8 +129,8 @@
 		                                        </select>
 		                                    </div>
 		                                </div>
-		                                @endif
-		                                @if($filtersetting->mb_setting == 1)
+		                                @endif --}}
+		                                {{-- @if($filtersetting->mb_setting == 1)
 		                                <div class="col-lg-2 col-md-2 col-sm-2 pt-3 pl-0 pr-0 pay_as_usage_type">
 		                                    <div class="form-group">
 		                                        <select id="inputState" class="form-control drop-dw">
@@ -109,7 +143,7 @@
 		                                        </select>
 		                                    </div>
 		                                </div>
-		                                @endif
+		                                @endif --}}
 		                            </div>
 		                        </div>
 			                </div>
@@ -213,7 +247,7 @@
 	            </div>
 	        </div>
 		</section>
-		<div class="main-container section-padding py-3">
+		{{-- <div class="main-container section-padding py-3">
 		    <div class="container mt-0 mt-lg-4">
 		        <div class="table-responsive">
 		        <table class="at-intenet-package" id="pack">
@@ -352,7 +386,51 @@
 		        </table>
 		    </div>
 		    </div>
+		</div> --}}
+		@if(count($data)>0)
+		<div class="container mb-5">
+			<div class="row">
+				<table class="table">
+					<thead class="bg-primary text-white">
+						<tr>
+						<th scope="col">Location</th>
+						<th scope="col">Provider</th>
+						<th scope="col">Price</th>
+						<th scope="col">Local Min</th>
+						<th scope="col">Volume GB</th>
+						<th scope="col">Review</th>
+						<th scope="col">Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($data as $value)
+							<tr class="custom-row-cl">
+								<td>{{$value['user_address']}}</td>
+								@if($value['provider']['provider_image_original'] != "")
+								<td>
+									<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" />
+								</td>
+								@else
+								<td>
+									<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" style="width:100px;height:50px;"/>
+								</td>
+								@endif
+								<td>{{$value['price']}}</td>
+								<td>{{$value['local_min']}}</td>
+								<td>{{$value['datavolume']}}</td>
+								<td>{{$value['average_review']}}</td>
+								@if(Auth::guard('customer')->check())
+									<td><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</td>
+								@else
+									<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
+								@endif
+							</tr>
+							@endforeach
+					</tbody>
+				</table>
+			</div>
 		</div>
+		@endif
 	<!-- Content End Here -->
 	<script>
 
@@ -365,21 +443,45 @@
 	        var place = autocomplete.getPlace();
 	    });
 	}
-	function myFunction() {
-	  var checkBox = document.getElementById("unlimited");
-	  var text = document.getElementById("unlimited_calls");
-	  if (checkBox.checked == true){
-	    $('#unlimited_calls').addClass('d-none');
-	  } else {
-	    $('#unlimited_calls').removeClass('d-none');
-	  }
-	}
+	// function myFunction() {
+	//   var checkBox = document.getElementById("unlimited");
+	//   var text = document.getElementById("unlimited_calls");
+	//   if (checkBox.checked == true){
+	//     $('#unlimited_calls').addClass('d-none');
+	//   } else {
+	//     $('#unlimited_calls').removeClass('d-none');
+	//   }
+	// }
+	// function payAsUsage() {
+	//   var checkBox = document.getElementById("pay_as_usage_id");
+	//   if (checkBox.checked == true){
+	//     $('.pay_as_usage_type').hide('slow');
+	//   } else {
+	//     $('.pay_as_usage_type').show('slow');
+	//   }
+	// }
 	function payAsUsage() {
 	  var checkBox = document.getElementById("pay_as_usage_id");
 	  if (checkBox.checked == true){
-	    $('.pay_as_usage_type').hide('slow');
+		$('#pay_as_usage_id').val(1);
 	  } else {
-	    $('.pay_as_usage_type').show('slow');
+	    $('#pay_as_usage_id').val(0);
+	  }
+	}
+	function personalToggle() {
+	  var checkBox = document.getElementById("personal");
+	  if (checkBox.checked == true){
+		$('#personal').val(2);
+	  } else {
+	    $('#personal').val(1);
+	  }
+	}
+	function paymentType() {
+	  var checkBox = document.getElementById("paymentTypeId");
+	  if (checkBox.checked == true){
+		$('#paymentTypeId').val('prepaid');
+	  } else {
+	    $('#paymentTypeId').val('postpaid');
 	  }
 	}
 		

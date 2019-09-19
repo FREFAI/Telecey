@@ -71,6 +71,8 @@
 			Route::post('/ratingService', 'FrontEnd\ReviewsController@ratingService');
 			Route::get('/profile', 'FrontEnd\HomeController@profile');
 			Route::get('/logout', 'FrontEnd\LoginSignup\LoginController@logout');
+			Route::get('/planDetails/{id}', 'FrontEnd\PlansController@planDetails');
+			
 
 			// Device Section 
 			Route::post('/reviewDevice', 'FrontEnd\DeviceReviewController@reviewDevice');

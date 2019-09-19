@@ -39,6 +39,20 @@
                       <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Provider name" name="provider_name">
                     </div>
                   </div>
+                  <div class="col-lg-12 mb-4">
+                    <div class="blog_image">
+                      <div class="avatar-upload">
+                        <div class="avatar-edit">
+                            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="provider_image" />
+                            <label for="imageUpload"><i class="fas fa-edit"></i></label>
+                        </div>
+                        <div class="avatar-preview">
+                            <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div class="col-md-12">
                     <div class="form-group">
                       <button class="btn btn-primary" type="submit">Save</button>

@@ -28,35 +28,7 @@
     $('input.city_input').cityAutocomplete();
     // $('.user_city_add input#user_city').cityAutocomplete();
     $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo('.country_div');
-    $('.country_div input').keyup(function(){
-        var search = $(this).val();
-        if(window.location.protocol == "http:"){
-            resuesturl = "{{url('/getCountry')}}"
-        }else if(window.location.protocol == "https:"){
-            resuesturl = "{{secure_url('/getCountry')}}"
-        }
-        $.ajax({
-          type: "post",
-          url: resuesturl,
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          dataType:'json',
-          data: {
-              'search':search
-          },
-          success: function (data) {
-              if(data.success){
-                $('.country_list').css('display','block');
-                $('.country-autocomplete').html('');
-                var resp = $.map(data.data,function(obj){
-                    $('.country-autocomplete').append('<li><a href="javascript:void(0);" data-name="'+obj.name+'" data-code="'+obj.code+'">'+obj.name+'</a></li>');
-               }); 
     
-              }
-          }         
-      });
-    });
 
     $(document).on('click','.country-autocomplete li',function(){
         $('#country').val($(this).find('a').attr('data-name'));
@@ -182,6 +154,35 @@
   $(".rating_disable").rate({
     readonly:true
   });
+  $('.country_div input').keyup(function(){
+    var search = $(this).val();
+    if(window.location.protocol == "http:"){
+        resuesturl = "{{url('/getCountry')}}"
+    }else if(window.location.protocol == "https:"){
+        resuesturl = "{{secure_url('/getCountry')}}"
+    }
+    $.ajax({
+      type: "post",
+      url: resuesturl,
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      dataType:'json',
+      data: {
+          'search':search
+      },
+      success: function (data) {
+          if(data.success){
+            $('.country_list').css('display','block');
+            $('.country-autocomplete').html('');
+            var resp = $.map(data.data,function(obj){
+                $('.country-autocomplete').append('<li><a href="javascript:void(0);" data-name="'+obj.name+'" data-code="'+obj.code+'">'+obj.name+'</a></li>');
+            }); 
+
+          }
+      }         
+  });
+});
   $(".provider_text_show").on('click',function(){
     if ($(".provider_select select").attr("disabled")) {
       

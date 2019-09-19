@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\SettingsModel;
+use Illuminate\Support\Facades\Validator;
+
 
 class SettingsController extends Controller
 {
@@ -26,7 +28,6 @@ class SettingsController extends Controller
     public function allSetting()
     {
         $settings = SettingsModel::first();
-
         return view('Admin.Settings.settings',['settings'=>$settings]);
     }
 
@@ -59,5 +60,22 @@ class SettingsController extends Controller
             }
         }
         
+    }
+
+    public function addNoSearchMessage(Request $request){
+        $data = $request->all();
+    	$validation = Validator::make($data,[
+            'no_search_message' => 'required'           
+		]);
+		if($validation->fails()){
+			return redirect()->back()->with('error',$validation->messages()->first());
+		}else{
+            $result = SettingsModel::where('id',1)->update(['no_search_message'=>$data['no_search_message']]);
+            if($result){
+    			return redirect('/admin/settings')->with('success','Message updated successfully.');
+    		}else{
+    			return redirect()->back()->with('error','Somthing went wrong!');
+    		}
+        }
     }
 }

@@ -22,6 +22,10 @@
 		background-color: #333;
 		color: #fff;
 	}
+	.noSearchMessage p{
+		font-size: 33px;
+		font-weight: bold;
+	}
 </style>
 	<!-- Content Start Here -->
 		<div class="page-header inner-page" style="background: url({{URL('frontend/assets/img/background-img.png')}});">
@@ -62,7 +66,7 @@
 		                                </div>
 		                                @endif
 		                                @if($filtersetting->mobile_home_setting == 1)
-		                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1 ">
+		                                <div class="col-lg-3 col-md-4 col-sm-4 pt-2 pl-0 pr-1 ">
 		                                    <div class="form-group plan_page">
 		                                    	{{-- <span class="toggle_label active">Mobile Plan</span>
 		                                    	<label class="switch">
@@ -428,6 +432,16 @@
 							@endforeach
 					</tbody>
 				</table>
+			</div>
+		</div>
+		@else
+		<div class="container">
+			<div class="row pt-5 pb-5 mt-5 mb-5">
+				<div class="col text-center">
+					<div class="heading noSearchMessage">
+						<p>{!!$filtersetting->no_search_message!!}</p>
+					</div>
+				</div>
 			</div>
 		</div>
 		@endif

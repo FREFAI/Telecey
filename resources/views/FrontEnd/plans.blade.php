@@ -66,7 +66,7 @@
 		                                </div>
 		                                @endif
 		                                @if($filtersetting->mobile_home_setting == 1)
-		                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1 ">
+		                                <div class="col-lg-3 col-md-4 col-sm-4 pt-2 pl-0 pr-1 ">
 		                                    <div class="form-group plan_page">
 		                                    	{{-- <span class="toggle_label active">Mobile Plan</span>
 		                                    	<label class="switch">

@@ -56,7 +56,7 @@
 					  <form action="{{ url('/admin/addNoSearchMessage') }}" method="post" enctype="multipart/form-data">
 						@csrf
 						<div class="form-group">
-							<label class="text-muted mb-3">No Search Message :</label>
+							<label class="mb-3"><strong>No Search Message :</strong></label>
 						<textarea class="from-control text_editor" id="first-test" name="no_search_message">{{$settings->no_search_message}}</textarea>
 						</div>
 						<div class="col-md-12">

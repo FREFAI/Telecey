@@ -26,7 +26,7 @@
                <h5 class="heading-small text-muted mb-4">Add Provider</h5>
              </div>
              <div class="col-md-6 text-right">
-               <a href="{{ url()->previous() }}" class="btn btn-sm btn-primary"><i class="ni ni-bold-left"></i> &nbsp;Back</a>
+               <a href="{{ url('/admin/provider-list')}}" class="btn btn-sm btn-primary"><i class="ni ni-bold-left"></i> &nbsp;Back</a>
              </div>
             
 		  			<div class="col-lg-12">

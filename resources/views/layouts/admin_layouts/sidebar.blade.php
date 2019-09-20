@@ -78,6 +78,11 @@
               <i class="fa fa-newspaper text-pink" aria-hidden="true"></i> Blogs
             </a>
           </li> 
+          <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/classes') ? 'active' : '' }}" href="{{url('/admin/classes')}}">
+              <i class="fa fa-newspaper text-pink" aria-hidden="true"></i> Classes
+            </a>
+          </li> 
           <li class="nav-item dropdown  {{ request()->is('admin/settings') ? 'show' : '' }} {{ request()->is('admin/filetrsettings') ? 'show' : '' }}">
             <a class="nav-link dropdown-toggle text-nowrap" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">
               <i class="ni ni-settings text-info"></i>

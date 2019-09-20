@@ -52,7 +52,7 @@
 	Route::get('/devices', 'FrontEnd\DevicesController@devices');
 	Route::get('/blogs-list', 'FrontEnd\BlogsController@blogs');
 
-	Route::group(['middleware' => 'CustomerAuth'], function(){
+	Route::group(['middleware' => ['CustomerAuth','PreventBackHistory']], function(){
 		Route::group(['middleware' => 'IpLocation'], function(){
 			// Change password
 			Route::post('/changePassword', 'FrontEnd\LoginSignup\ForgotPasswordController@changePassword');
@@ -115,7 +115,7 @@
 
 
 
-		Route::group(['middleware' => 'auth:admin'], function(){
+		Route::group(['middleware' => ['auth:admin','PreventBackHistory']], function(){
 			Route::get('/dashboard', 'Admin\DashboardController@dashboard');
 			Route::get('/logout', 'Admin\LoginController@logout');
 			// Users Section 
@@ -141,7 +141,7 @@
 				
 			// End Home content section
 
-			// Blog Section  
+			// Blog Section 
 
 				Route::get('/blogs', 'Admin\BlogsController@index');
 				Route::get('/addblog', 'Admin\BlogsController@addBlogForm');
@@ -151,7 +151,18 @@
 				Route::post('/editblog', 'Admin\BlogsController@editBlog');
 				Route::post('/deleteBlog', 'Admin\BlogsController@deleteBlog');
 
-			// End Blog Section 
+			// End Blog Section
+
+			// Classes Section
+
+			Route::get('/classes', 'Admin\ClassesController@index');
+			Route::get('/addClass', 'Admin\ClassesController@addClassForm');
+			Route::post('/addClass', 'Admin\ClassesController@addClass');
+			Route::get('/editClass/{id}/{page}', 'Admin\ClassesController@editClass');
+			Route::post('/editClass', 'Admin\ClassesController@editClassMethod');
+			Route::post('/deleteClass', 'Admin\ClassesController@deleteClass');
+
+			// Classes Section
 
 			// Settings Section
 				Route::post('/addNoSearchMessage', 'Admin\SettingsController@addNoSearchMessage');

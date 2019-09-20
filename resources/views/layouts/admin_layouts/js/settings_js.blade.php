@@ -440,6 +440,44 @@
 			});
 		});
 
+		// Delete Class
+
+		$('.delete_class').on('click',function(){
+			var class_id = $(this).attr('data-class_id');
+			var delete_row = $(this);
+			if(window.location.protocol == "http:"){
+			    resuesturl = "{{url('/admin/deleteClass')}}"
+			}else if(window.location.protocol == "https:"){
+			    resuesturl = "{{secure_url('/admin/deleteClass')}}"
+			}
+			swal("Are you sure you want to delete this class?", {
+	          buttons: ["No", "Yes"],
+	        })
+	        .then(name => {
+	          	if(name){
+					$.ajax({
+					    type: "post",
+					    url: resuesturl,
+					    headers: {
+					        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					    },
+					    dataType:'json',
+					    data: {
+					        'id':class_id
+					    },
+					    success: function (data) {
+					        if(data.success){
+					        	delete_row.closest('tr').remove();
+					        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+					        }else{
+					        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+					        }
+					    }         
+					});
+				}
+			});
+		});
+
 		// Delete Question
 
 		$('.delete_question').on('click',function(){
@@ -1207,5 +1245,9 @@
 	          	});
 		    }
 		});
+		// AutoHide alert boxes
+		setTimeout(function(){
+        	$('.autoHide').fadeOut();
+		}, 2000);
 	});
 </script>

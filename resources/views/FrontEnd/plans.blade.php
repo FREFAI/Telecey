@@ -397,13 +397,26 @@
 				<table class="table">
 					<thead class="bg-primary text-white">
 						<tr>
-						<th scope="col">Location</th>
-						<th scope="col">Provider</th>
-						<th scope="col">Price</th>
-						<th scope="col">Local Min</th>
-						<th scope="col">Volume GB</th>
-						<th scope="col">Review</th>
-						<th scope="col">Details</th>
+							<th scope="col">Location</th>
+							<th scope="col">Provider</th>
+							<th scope="col">Price</th>
+							<th scope="col">Local Min</th>
+							<th scope="col">Volume GB</th>
+							<th scope="col">Review</th>
+							@if($filterType == 1)
+							<th scope="col">Distance</th>
+							@endif
+							<th scope="col" colspan="2">
+								<form action="{{ url('/plans') }}" method="get" id="sortBy" onchange="sortingFunc()">
+										<div class="form-group">
+											<select class="form-control" name="filter">
+											<option value="1" @if($filterType == 1) selected="" @endif>Location</option>
+											<option value="2" @if($filterType == 2) selected="" @endif>Price</option>
+											</select>
+										</div>
+								</form>
+								Details
+							</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -412,7 +425,7 @@
 								<td>{{$value['user_address']}}</td>
 								@if($value['provider']['provider_image_original'] != "")
 								<td>
-									<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" />
+									<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" style="width:100px;height:50px;" />
 								</td>
 								@else
 								<td>
@@ -423,6 +436,10 @@
 								<td>{{$value['local_min']}}</td>
 								<td>{{$value['datavolume']}}</td>
 								<td>{{$value['average_review']}}</td>
+								@if(isset($value['distance']))
+									<td>{{$value['distance']}} KM</td>
+								@endif
+								<td></>
 								@if(Auth::guard('customer')->check())
 									<td><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</td>
 								@else
@@ -497,6 +514,10 @@
 	  } else {
 	    $('#paymentTypeId').val('postpaid');
 	  }
+	}
+
+	function sortingFunc(){
+		$('#sortBy').submit();
 	}
 		
 	</script>

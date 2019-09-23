@@ -514,6 +514,8 @@
                                     <input type="hidden" name="data_over_age" id="data_over_age">
                                     <input type="hidden" name="voice_usage_price" id="voice_usage_price">
                                     <input type="hidden" name="data_usage_age" id="data_usage_age">
+                                    <input type="hidden" name="latitude" id="lat" value="{{$userAddress->latitude}}">
+                                    <input type="hidden" name="longitude" id="long" value="{{$userAddress->longitude}}">
                                 </div>
                                 <!-- <div class="col-lg-6 mt-3">
                                     <div class="speedtestpopuplink">

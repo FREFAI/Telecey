@@ -352,6 +352,8 @@
           var data_price = $('#data_over_age').val();
           var voice_usage_price = $('#voice_usage_price').val();
           var data_usage_age = $('#data_usage_age').val();
+          var latitude = $('#lat').val();
+          var longitude = $('#long').val();
           var local_min = $('.local_min').val();
           var datavolume = $('.datavolume').val();
           var long_distance_min = $('.long_distance_min').val();
@@ -416,7 +418,9 @@
                       'data_price':data_price,
                       'voice_usage_price':voice_usage_price,
                       'data_usage_price':data_usage_age,
-                      'pay_as_usage_type':pay_as_usage
+                      'pay_as_usage_type':pay_as_usage,
+                      'latitude':latitude,
+                      'longitude':longitude
                     },
                     success: function (data) {
                       $('.ajaxloader').hide();

@@ -11,6 +11,7 @@ use App\Models\FrontEnd\ServiceReview;
 use App\Models\FrontEnd\PlanDeviceRating;
 use Illuminate\Support\Facades\Auth;
 use App\UserAddress;
+use DB;
 
 
 class PlansController extends Controller
@@ -53,7 +54,8 @@ class PlansController extends Controller
         $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
         $response = json_decode($response->getBody());
         $current_location = $response->results[0]->formatted_address;
-        // End Current location section
+        $current_lat = $data->latitude;
+        $current_long = $data->longitude;
 
         $filtersetting = SettingsModel::first();
         
@@ -66,11 +68,13 @@ class PlansController extends Controller
         $service_types = ServiceType::get();
         $data=array();
         $data=$request->all();
+                // echo "<pre>";print_r($data);die;
         if($data){
             $contract_type="";
             $payment_type="";
             $pay_as_usage_type="";
-            $service_type= $data['service_type'];
+            $service_type= "";
+            $filter = 1;
             $user_id = Auth::guard('customer')->id();
             if(array_key_exists("contract_type",$data)){
                 $contract_type = $data['contract_type'];
@@ -78,14 +82,31 @@ class PlansController extends Controller
                 $payment_type = $data['payment_type'];
             }elseif(array_key_exists("pay_as_usage_type",$data)){
                 $pay_as_usage_type = $data['pay_as_usage_type'];
+            }elseif(array_key_exists("service_type",$data)){
+                $service_type = $data['service_type'];
+            }elseif(array_key_exists("filter",$data)){
+                $filter = $data['filter'];
             }
-            $searchResult = ServiceReview::where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
-                                $query->orWhere('contract_type',$contract_type)
-                                ->orWhere('payment_type',$payment_type)
-                                ->orWhere('pay_as_usage_type',$pay_as_usage_type)
-                                ->orWhere('service_type',$service_type);
-                            })->with('provider','currency','typeOfService')
-                            ->get()->toArray();
+            if($filter == 1){
+                $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                    ->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
+                                        $query->orWhere('contract_type',$contract_type)
+                                        ->orWhere('payment_type',$payment_type)
+                                        ->orWhere('pay_as_usage_type',$pay_as_usage_type)
+                                        ->orWhere('service_type',$service_type);
+                                            })->with('provider','currency','typeOfService')
+                                            ->orderBy('distance','ASC')
+                                            ->get()->toArray();
+            }elseif($filter == 2){
+                $searchResult = ServiceReview::where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
+                                        $query->orWhere('contract_type',$contract_type)
+                                        ->orWhere('payment_type',$payment_type)
+                                        ->orWhere('pay_as_usage_type',$pay_as_usage_type)
+                                        ->orWhere('service_type',$service_type);
+                                            })->with('provider','currency','typeOfService')
+                                            ->orderBy('price','ASC')
+                                            ->get()->toArray();
+            }
             foreach($searchResult as $key => $value){
                 $user_address = '';
                 $sum = 0;
@@ -105,7 +126,7 @@ class PlansController extends Controller
                 $searchResult[$key]['average_review'] = $average;
             }                
                 // echo "<pre>";print_r($searchResult);die;
-            return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'service_types' => $service_types,'data' => $searchResult]);
+            return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
 
         }
         return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$data,'service_types' => $service_types]);
@@ -151,5 +172,8 @@ class PlansController extends Controller
         $planDetailData->ratings = $blankArray;
             // echo "<pre>";print_r($planDetailData->ratings);die;
         return view('FrontEnd.planDetail',['service' => $planDetailData]);
+    }
+    public function sortResult(Request $request){
+        echo "yes";
     }
 }

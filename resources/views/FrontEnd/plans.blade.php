@@ -408,12 +408,15 @@
 							@endif
 							<th scope="col" colspan="2">
 								<form action="{{ url('/plans') }}" method="get" id="sortBy" onchange="sortingFunc()">
-										<div class="form-group">
-											<select class="form-control" name="filter">
-											<option value="1" @if($filterType == 1) selected="" @endif>Location</option>
-											<option value="2" @if($filterType == 2) selected="" @endif>Price</option>
-											</select>
-										</div>
+									<div class="form-group">
+										<select class="form-control" name="filter">
+										<option value="1" @if($filterType == 1) selected="" @endif>Location</option>
+										<option value="2" @if($filterType == 2) selected="" @endif>Price</option>
+										<option value="3" @if($filterType == 3) selected="" @endif>Minutes</option>
+										<option value="4" @if($filterType == 4) selected="" @endif>Data</option>
+										<option value="5" @if($filterType == 5) selected="" @endif>Review</option>
+										</select>
+									</div>
 								</form>
 								Details
 							</th>

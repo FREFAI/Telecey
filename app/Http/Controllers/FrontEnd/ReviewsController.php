@@ -58,6 +58,8 @@ class ReviewsController extends Controller
             }
             // $ip = '96.46.34.142';
             $data = \Location::get($ip);
+            $current_lat = $data->latitude;
+            $current_long = $data->longitude;
             $client = new \GuzzleHttp\Client();
             $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
             $response = json_decode($response->getBody());
@@ -263,6 +265,14 @@ class ReviewsController extends Controller
                 $input['roaming_min'] = NULL;
                 $input['sms'] = NULL;
             }
+            $ip = env('ip_address','live');
+            if($ip == 'live'){
+                $ip = $_SERVER['REMOTE_ADDR'];
+            }else{
+                $ip = '96.46.34.142';
+            }
+            $data = \Location::get($ip);
+            $input['country_code'] = $data->countryCode;
             $serviceReview = ServiceReview::create($input);
             if($serviceReview){
                 $message = array('success'=>true,'message'=>'Add successfully.','service_id'=>$serviceReview->id);
@@ -379,6 +389,20 @@ class ReviewsController extends Controller
                         array_push($data, $dataInsert);
                     }
                     $serviceRating = ServiceRating::insert($data);
+                    // save average in service_reviews table
+                    $sum = 0;
+                    $average = 0;
+                    $plan_device_rating_count = PlanDeviceRating::where('plan_id',$plandevicerating->plan_id)->count();
+                    $plan_device_rating = PlanDeviceRating::where('plan_id',$plandevicerating->plan_id)->pluck('average');
+                    foreach($plan_device_rating as $key => $value){
+                        $sum = $sum + $value; 
+                    }
+                    if($plan_device_rating_count == 0){
+                        $average = $sum;
+                    }else{
+                        $average = $sum/$plan_device_rating_count;
+                    }
+                    ServiceReview::where('id',$plandevicerating->plan_id)->update(['average_review' => $average]);
                     if($serviceRating){
                         $message = array('success'=>true,'message'=>'Successfully submited.');
                         return json_encode($message);

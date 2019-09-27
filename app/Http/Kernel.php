@@ -62,6 +62,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'CustomerAuth' => \App\Http\Middleware\CustomerAuth::class,
         'IpLocation' => \App\Http\Middleware\IpLocation::class,
+        'PreventBackHistory' => \App\Http\Middleware\PreventBackHistory::class,
     ];
 
     /**

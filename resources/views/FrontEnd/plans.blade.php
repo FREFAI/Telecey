@@ -22,6 +22,10 @@
 		background-color: #333;
 		color: #fff;
 	}
+	.noSearchMessage p{
+		font-size: 33px;
+		font-weight: bold;
+	}
 </style>
 	<!-- Content Start Here -->
 		<div class="page-header inner-page" style="background: url({{URL('frontend/assets/img/background-img.png')}});">
@@ -62,7 +66,7 @@
 		                                </div>
 		                                @endif
 		                                @if($filtersetting->mobile_home_setting == 1)
-		                                <div class="col-lg-3 col-md-4 col-sm-4 pt-3 pl-0 pr-1 ">
+		                                <div class="col-lg-3 col-md-4 col-sm-4 pt-2 pl-0 pr-1 ">
 		                                    <div class="form-group plan_page">
 		                                    	{{-- <span class="toggle_label active">Mobile Plan</span>
 		                                    	<label class="switch">
@@ -393,13 +397,29 @@
 				<table class="table">
 					<thead class="bg-primary text-white">
 						<tr>
-						<th scope="col">Location</th>
-						<th scope="col">Provider</th>
-						<th scope="col">Price</th>
-						<th scope="col">Local Min</th>
-						<th scope="col">Volume GB</th>
-						<th scope="col">Review</th>
-						<th scope="col">Details</th>
+							<th scope="col">Location</th>
+							<th scope="col">Provider</th>
+							<th scope="col">Price</th>
+							<th scope="col">Local Min</th>
+							<th scope="col">Volume GB</th>
+							<th scope="col">Review</th>
+							@if($filterType == 1)
+							<th scope="col">Distance</th>
+							@endif
+							<th scope="col" colspan="2">
+								<form action="{{ url('/plans') }}" method="get" id="sortBy" onchange="sortingFunc()">
+									<div class="form-group">
+										<select class="form-control" name="filter">
+										<option value="1" @if($filterType == 1) selected="" @endif>Location</option>
+										<option value="2" @if($filterType == 2) selected="" @endif>Price</option>
+										<option value="3" @if($filterType == 3) selected="" @endif>Minutes</option>
+										<option value="4" @if($filterType == 4) selected="" @endif>Data</option>
+										<option value="5" @if($filterType == 5) selected="" @endif>Review</option>
+										</select>
+									</div>
+								</form>
+								Details
+							</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -408,7 +428,7 @@
 								<td>{{$value['user_address']}}</td>
 								@if($value['provider']['provider_image_original'] != "")
 								<td>
-									<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" />
+									<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" style="width:100px;height:50px;" />
 								</td>
 								@else
 								<td>
@@ -419,6 +439,10 @@
 								<td>{{$value['local_min']}}</td>
 								<td>{{$value['datavolume']}}</td>
 								<td>{{$value['average_review']}}</td>
+								@if(isset($value['distance']))
+									<td>{{$value['distance']}} KM</td>
+								@endif
+								<td></>
 								@if(Auth::guard('customer')->check())
 									<td><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</td>
 								@else
@@ -428,6 +452,16 @@
 							@endforeach
 					</tbody>
 				</table>
+			</div>
+		</div>
+		@else
+		<div class="container">
+			<div class="row pt-5 pb-5 mt-5 mb-5">
+				<div class="col text-center">
+					<div class="heading noSearchMessage">
+						<p>{!!$filtersetting->no_search_message!!}</p>
+					</div>
+				</div>
 			</div>
 		</div>
 		@endif
@@ -483,6 +517,10 @@
 	  } else {
 	    $('#paymentTypeId').val('postpaid');
 	  }
+	}
+
+	function sortingFunc(){
+		$('#sortBy').submit();
 	}
 		
 	</script>

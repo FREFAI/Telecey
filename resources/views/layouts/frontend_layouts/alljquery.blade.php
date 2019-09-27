@@ -28,35 +28,7 @@
     $('input.city_input').cityAutocomplete();
     // $('.user_city_add input#user_city').cityAutocomplete();
     $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo('.country_div');
-    $('.country_div input').keyup(function(){
-        var search = $(this).val();
-        if(window.location.protocol == "http:"){
-            resuesturl = "{{url('/getCountry')}}"
-        }else if(window.location.protocol == "https:"){
-            resuesturl = "{{secure_url('/getCountry')}}"
-        }
-        $.ajax({
-          type: "post",
-          url: resuesturl,
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          dataType:'json',
-          data: {
-              'search':search
-          },
-          success: function (data) {
-              if(data.success){
-                $('.country_list').css('display','block');
-                $('.country-autocomplete').html('');
-                var resp = $.map(data.data,function(obj){
-                    $('.country-autocomplete').append('<li><a href="javascript:void(0);" data-name="'+obj.name+'" data-code="'+obj.code+'">'+obj.name+'</a></li>');
-               }); 
     
-              }
-          }         
-      });
-    });
 
     $(document).on('click','.country-autocomplete li',function(){
         $('#country').val($(this).find('a').attr('data-name'));
@@ -182,6 +154,35 @@
   $(".rating_disable").rate({
     readonly:true
   });
+  $('.country_div input').keyup(function(){
+    var search = $(this).val();
+    if(window.location.protocol == "http:"){
+        resuesturl = "{{url('/getCountry')}}"
+    }else if(window.location.protocol == "https:"){
+        resuesturl = "{{secure_url('/getCountry')}}"
+    }
+    $.ajax({
+      type: "post",
+      url: resuesturl,
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      dataType:'json',
+      data: {
+          'search':search
+      },
+      success: function (data) {
+          if(data.success){
+            $('.country_list').css('display','block');
+            $('.country-autocomplete').html('');
+            var resp = $.map(data.data,function(obj){
+                $('.country-autocomplete').append('<li><a href="javascript:void(0);" data-name="'+obj.name+'" data-code="'+obj.code+'">'+obj.name+'</a></li>');
+            }); 
+
+          }
+      }         
+  });
+});
   $(".provider_text_show").on('click',function(){
     if ($(".provider_select select").attr("disabled")) {
       
@@ -351,6 +352,8 @@
           var data_price = $('#data_over_age').val();
           var voice_usage_price = $('#voice_usage_price').val();
           var data_usage_age = $('#data_usage_age').val();
+          var latitude = $('#lat').val();
+          var longitude = $('#long').val();
           var local_min = $('.local_min').val();
           var datavolume = $('.datavolume').val();
           var long_distance_min = $('.long_distance_min').val();
@@ -415,7 +418,9 @@
                       'data_price':data_price,
                       'voice_usage_price':voice_usage_price,
                       'data_usage_price':data_usage_age,
-                      'pay_as_usage_type':pay_as_usage
+                      'pay_as_usage_type':pay_as_usage,
+                      'latitude':latitude,
+                      'longitude':longitude
                     },
                     success: function (data) {
                       $('.ajaxloader').hide();

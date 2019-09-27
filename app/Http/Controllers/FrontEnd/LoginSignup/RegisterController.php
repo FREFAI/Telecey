@@ -58,6 +58,8 @@ class RegisterController extends Controller
             $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
             $response = json_decode($response->getBody());
             $storableLocation = [];
+            $storableLocation['latitude'] = $data->latitude;
+            $storableLocation['longitude'] = $data->longitude;
             $data = [];
             $k = 0;
             $localitydata = $response->results[0]->address_components;
@@ -103,6 +105,8 @@ class RegisterController extends Controller
                 $userAddress = [
                     'user_id' => $user->id,
                     'city' => $usersDetailSession['city'],
+                    'latitude' => $usersDetailSession['latitude'],
+                    'longitude' => $usersDetailSession['longitude'],
                     'country' => $usersDetailSession['country'],
                     'postal_code' => $usersDetailSession['postal_code'],
                     'formatted_address' => $formatted,

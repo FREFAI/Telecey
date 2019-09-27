@@ -465,31 +465,52 @@
                                     </div>
                                 </div>
 	                            <div class="col-lg-6 pay_as_usage_class">
-	                                <h5>Local Mintue</h5>
-	                                <div class="form-group">
+                                    <h5>Local Minutes</h5>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control local_min mint_input" name="local_min" placeholder="Local Minutes" required="required"  maxlength="20" value="100">		
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">                                     
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" required="required"  maxlength="20" value="Minute" readonly>		
+                                            </div>
+                                        </div>
+                                    </div>
+	                                {{-- <div class="form-group">
 	                                    <input type="text" class="form-control local_min mint_input" name="local_min" placeholder="Local Min" required="required"  maxlength="20" value="Unlimited">		
-	                                </div>
+	                                </div> --}}
 	                            </div>
 	                            <div class="col-lg-6 pay_as_usage_class">
-	                                <h5>DataVolume</h5>
-	                                <div class="form-group">
-	                                    <input type="text" class="form-control datavolume " name="datavolume" placeholder="DataVolume" required="required" maxlength="20" value="2 GB">		
-	                                </div>
+                                    <h5>DataVolume</h5>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control datavolume " name="datavolume" placeholder="Data Volume" required="required" maxlength="20" value="2">		
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">                                     
+                                            <div class="form-group">
+                                                <input type="text" class="form-control datavolume" placeholder="DataVolume" required="required" maxlength="20" value="GB" readonly>		
+                                            </div>
+                                        </div>
+                                    </div>
 	                            </div>
 	                            <div class="col-lg-6 pay_as_usage_class">
-	                                <h5>Long distance  Mintue</h5>
+	                                <h5>Long distance  Minutes</h5>
 	                                <div class="form-group">
 	                                    <input type="text" class="form-control long_distance_min mint_input" name="long_distance_min" placeholder="Long distance  Min" required="required" value="Unlimited" maxlength="20">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 pay_as_usage_class">
-	                                <h5>International Mintue</h5>
+	                                <h5>International Minutes</h5>
 	                                <div class="form-group">
 	                                    <input type="text" class="form-control international_min mint_input" name="international_min" placeholder="International Min" required="required" maxlength="20" value="0">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-6 pay_as_usage_class">
-	                                <h5>Roaming Mintue</h5>
+	                                <h5>Roaming Minutes</h5>
 	                                <div class="form-group">
 	                                    <input type="text" class="form-control roaming_min mint_input" name="roaming_min" placeholder="Roaming Min" required="required" maxlength="20" value="0">		
 	                                </div>
@@ -514,6 +535,8 @@
                                     <input type="hidden" name="data_over_age" id="data_over_age">
                                     <input type="hidden" name="voice_usage_price" id="voice_usage_price">
                                     <input type="hidden" name="data_usage_age" id="data_usage_age">
+                                    <input type="hidden" name="latitude" id="lat" value="{{$usersDetail->latitude}}">
+                                    <input type="hidden" name="longitude" id="long" value="{{$usersDetail->longitude}}">
                                 </div>
                                 <!-- <div class="col-lg-6 mt-3">
                                     <div class="speedtestpopuplink">

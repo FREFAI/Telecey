@@ -121,6 +121,17 @@ class ReviewsController extends Controller
             $usersDetail->postal_code = $usersAddress->postal_code;
 
         }
+        $ip = env('ip_address','live');
+        if($ip == 'live'){
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }else{
+            // $ip = '2606:4580:2:0:a974:e358:829c:412e';
+            $ip = '122.173.214.129';
+        }
+        // $ip = '96.46.34.142';
+        $data = \Location::get($ip);
+        $current_lat = $data->latitude;
+        $current_long = $data->longitude;
         $settings = SettingsModel::first();
         $providers = Provider::get();
         $countries = Currency::get();
@@ -131,7 +142,7 @@ class ReviewsController extends Controller
         $service_types = ServiceType::get();
         $questions = RatingQuestion::get();
 
-        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions,'userAddress'=>$usersAddress,'brandModels'=>$brandModels,'brands'=>$brands,'devices'=>$devices,'suppliers'=>$suppliers]);
+        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions,'userAddress'=>$usersAddress,'brandModels'=>$brandModels,'brands'=>$brands,'devices'=>$devices,'suppliers'=>$suppliers,'lat' =>  $current_lat,'long'=>$current_long]);
     }
     public function reviewsRating(Request $request, $plan_id)
     {

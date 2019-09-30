@@ -96,6 +96,10 @@ class PlansController extends Controller
                                         ->orWhere('service_type',$service_type);
                                             })->with('provider','currency','typeOfService')
                                             ->orderBy('distance','ASC')
+                                            ->orderBy('local_min','DESC')
+                                            ->orderBy('datavolume','DESC')
+                                            ->orderBy('price','ASC')
+                                            ->orderBy('average_review','DESC')
                                             ->get()->toArray();
             }elseif($filter == 2){
                 $searchResult = ServiceReview::where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {

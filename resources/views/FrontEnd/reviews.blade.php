@@ -103,7 +103,9 @@
 	                                <div class="form-field col-lg-12 ">
 	                                    <input id="mobile_number" class="input-text js-input" type="text" value="{{$usersDetail->mobile_number}}" name="mobile_number">
 	                                    <label class="label" for="phone">Contact Number</label>
-	                                </div>
+                                    </div>
+                                    <input type="hidden" name="latitude" id="lat" value="{{$lat}}">
+                                    <input type="hidden" name="longitude" id="long" value="{{$long}}">
 	                               <!--  <div class="custom-control custom-checkbox ml-3">
 	                                    <input type="checkbox" class="custom-control-input" id="Check33" required >
 	                                    <label class="custom-control-label" for="Check33">Agree to terms and conditions</label>

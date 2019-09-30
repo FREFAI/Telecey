@@ -181,6 +181,8 @@ class ReviewsController extends Controller
                     $user_address->country = $input['country'];
                     $user_address->postal_code = $input['postal_code'];
                     $user_address->formatted_address = $formatted;
+                    $user_address->latitude = $input['latitude'];
+                    $user_address->longitude = $input['longitude'];
                     if($user_address->save()){
                         $message = array('success'=>true,'message'=>'Updated successfully.');
                         return json_encode($message);
@@ -197,6 +199,8 @@ class ReviewsController extends Controller
                         'city'=> $input['city'],
                         'country'=> $input['country'],
                         'postal_code'=> $input['postal_code'],
+                        'latitude'=> $input['latitude'],
+                        'longitude'=> $input['longitude'],
                         'is_primary'=>1
                     ];
                     UserAddress::create($address);
@@ -342,6 +346,8 @@ class ReviewsController extends Controller
                         $is_primary = 0;
                     }
                     $insertAddress = [
+                        'latitude' => $input['latitude'],
+                        'longitude' => $input['longitude'],
                         'user_id' => $user_id,
                         'address' =>$input['user_full_address'],
                         'country' =>$input['user_country'],

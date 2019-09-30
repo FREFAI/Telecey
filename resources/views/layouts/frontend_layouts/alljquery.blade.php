@@ -290,6 +290,8 @@
           $('.ajaxloader').show();
           var thisform = $(this);
           e.preventDefault();
+          var latitude = $('#lat').val();
+          var longitude = $('#long').val();
           var firstname = $('#firstname').val();
           var lastname = $('#lastname').val();
           var country = $('#country').val();
@@ -312,6 +314,8 @@
               },
               dataType:'json',
               data: {
+                  'latitude':latitude,
+                  'longitude':longitude,
                   'firstname':firstname,
                   'lastname':lastname,
                   'country':country,
@@ -478,6 +482,8 @@
         $('.service-rating-submit-btn').on('click',function(e){
           e.preventDefault();
           var isset = 0;
+          var latitude = $('#lat').val();
+          var longitude = $('#long').val();
           var comment = $('#comment').val();
           var average_input = $('.average_input').val();
           var service_id = $('.service_id').val();
@@ -530,6 +536,8 @@
                 dataType:'json',
                 data: {
                   'perameters':perams,
+                  'latitude':latitude,
+                  'longitude':longitude,
                   'comment':comment,
                   'average_input':average_input,
                   'service_id':service_id,

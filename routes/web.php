@@ -72,6 +72,7 @@
 			Route::get('/profile', 'FrontEnd\HomeController@profile');
 			Route::get('/logout', 'FrontEnd\LoginSignup\LoginController@logout');
 			Route::get('/planDetails/{id}', 'FrontEnd\PlansController@planDetails');
+			Route::get('/deviceDetails/{id}', 'FrontEnd\DevicesController@deviceDetails');
 			
 
 			// Device Section 

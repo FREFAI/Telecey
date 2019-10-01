@@ -202,10 +202,7 @@ class PlansController extends Controller
             }
         }
         $planDetailData->ratings = $blankArray;
-            // echo "<pre>";print_r($planDetailData->ratings);die;
+            // echo "<pre>";print_r($planDetailData->toArray());die;
         return view('FrontEnd.planDetail',['service' => $planDetailData]);
-    }
-    public function sortResult(Request $request){
-        echo "yes";
     }
 }

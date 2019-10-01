@@ -20,7 +20,7 @@ class DeviceReviewController extends Controller
     public function reviewDevice(Request $request)
     {
     	$user_id = Auth::guard('customer')->user()['id']; 
-    	$perameter = $request->all();
+        $perameter = $request->all();
     	$validation = Validator::make($perameter, [
     	    'device_id' => 'required',
 			'brand_id' => 'required',
@@ -76,7 +76,15 @@ class DeviceReviewController extends Controller
                     }
                 }
             }
-    		$perameter['user_id'] = $user_id;
+            $perameter['user_id'] = $user_id;
+            $ip = env('ip_address','live');
+            if($ip == 'live'){
+                $ip = $_SERVER['REMOTE_ADDR'];
+            }else{
+                $ip = '96.46.34.142';
+            }
+            $ip_details = \Location::get($ip);
+            $perameter['country_code'] = $ip_details->countryCode;
     		if($deviceReview = DeviceReview::create($perameter)){
     			$message = array('success'=>true,'message'=>'Device review add successfully.','device_id'=>$deviceReview->id);
     			return json_encode($message);

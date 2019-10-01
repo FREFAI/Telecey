@@ -664,6 +664,8 @@
             if(!$('#device_rating_form').valid()){
               return;
             }
+            var latitude = $('#lat').val();
+            var longitude = $('#long').val();
             var brand_name = $('.brand_name.active').val();
             var model_name = $('.model_name.active').val();
             var supplier_name = $('.supplier_name.active').val();
@@ -695,6 +697,8 @@
                       },
                       dataType:'json',
                       data: {
+                        'latitude':latitude,
+                        'longitude':longitude,
                         'brand_id':brand_name,
                         'model_name':model_name,
                         'supplier_id':supplier_name,

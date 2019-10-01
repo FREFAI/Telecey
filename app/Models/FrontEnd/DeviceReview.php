@@ -10,10 +10,10 @@ class DeviceReview extends Model
     protected $guard = 'customer';
 
     protected $fillable = [
-        'id', 'user_id', 'device_id', 'brand_id', 'supplier_id', 'price', 'currency_id', 'storage', 'created_at', 'updated_at'
+        'id', 'user_id', 'device_id', 'brand_id', 'supplier_id', 'price', 'currency_id', 'storage', 'latitude','longitude','country_code','created_at', 'updated_at'
     ];
 
- 	  public function device(){
+ 	public function device(){
         return $this->hasOne('App\Models\Admin\Devices', 'id', 'device_id');
     }
     public function currency(){

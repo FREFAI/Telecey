@@ -21,7 +21,7 @@
 <script src="{{URL::asset('frontend/jsplugins/jquery.city-autocomplete.js')}}"></script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&language=en"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&language=en"></script>
 
 
   <script>
@@ -664,6 +664,8 @@
             if(!$('#device_rating_form').valid()){
               return;
             }
+            var latitude = $('#lat').val();
+            var longitude = $('#long').val();
             var brand_name = $('.brand_name.active').val();
             var model_name = $('.model_name.active').val();
             var supplier_name = $('.supplier_name.active').val();
@@ -695,6 +697,8 @@
                       },
                       dataType:'json',
                       data: {
+                        'latitude':latitude,
+                        'longitude':longitude,
                         'brand_id':brand_name,
                         'model_name':model_name,
                         'supplier_id':supplier_name,

@@ -23,7 +23,18 @@
 	            </div>
 	            <div class="form-group">
 	                <input type="password" class="form-control" name="password" placeholder="Password" required="required" maxlength="50">	
-	            </div>        
+	            </div>   
+
+
+
+
+
+	            	<input type="checkbox" name="checkboxTerms" value="check" id="agree" required="required"/> <font size="4px">I agree to the terms and conditions </font>
+
+
+
+ 
+
 	            <div class="form-group">
 	                <button type="submit" class="btn btn-primary btn-lg btn-block login-btn">Sign Up</button>
 	            </div>

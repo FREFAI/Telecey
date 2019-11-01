@@ -22,6 +22,7 @@ class SettingsTableSeeder extends Seeder
                 'unlimited_calls_setting'=> 1,
                 'gb_setting'=> 1,
                 'mb_setting'=> 1,
+                'no_search_message'=> 1,
                 "created_at" => $now,
                 "updated_at" => $now,
             ]

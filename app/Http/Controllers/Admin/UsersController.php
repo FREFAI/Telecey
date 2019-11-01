@@ -16,24 +16,35 @@ use Excel;
 
 class UsersController extends Controller
 {
+
+
+
+
+
+
     public function index(Request $request)
     {
+    
         $current_url = \Request::getRequestUri();
         $request->session()->put('backUrlUser', $current_url);
+
+        $name=$request->get('name');
+        $email=$request->get('email');
         $parameter = $request->all();
-        if(count($parameter) > 0){
-            $users = $this->searchUser($request);
-        }else{
-        	$users = User::orderBy('id','DESC')->paginate(10);
-        	foreach ($users as $user) {
-        		$plans = $user->plans;
-        		foreach ($plans as $plan) {
-        			$plan->provider;
-        		}
-        		$user->unApprovedCount = $user->getUnapprovedProviders()->count();
-        		$user->plansCount = $user->plans->count();
-        		$user->devicesCount = $user->devices->count();
+      if( empty($name) && empty($email) ){
+            $users = User::orderBy('id','DESC')->paginate(10);
+            foreach ($users as $user) {
+                $plans = $user->plans;
+                foreach ($plans as $plan) {
+                    $plan->provider;
+                }
+                $user->unApprovedCount = $user->getUnapprovedProviders()->count();
+                $user->plansCount = $user->plans->count();
+                $user->devicesCount = $user->devices->count();
             }
+        } 
+        else{
+                $users = $this->searchUser($request);
             // echo "<pre>";print_r($users->toArray());die;
         }
     	return view('Admin.Users.users-list',['users'=>$users,'request'=>$parameter]);
@@ -44,8 +55,8 @@ class UsersController extends Controller
         // $page = $request->has('page') ? $request->get('page') : 1;
         // $limit = $request->has('limit') ? $request->get('limit') : 10;
         $query = User::query();
-        if($parameter['name'] != ""){
-            if($parameter['status'] != 3){
+        if(isset($parameter['name']) != ""){
+            if(isset($parameter['status']) != 3){
                 $query->where(function ($query) use ($parameter){
                     $query->where('firstname','LIKE',"%{$parameter['name']}%")
                           ->orwhere('lastname','LIKE',"%{$parameter['name']}%");
@@ -57,15 +68,15 @@ class UsersController extends Controller
                 });
             }
         }
-        if($parameter['email'] != ""){
-            if($parameter['status'] != 3){
+        if(isset($parameter['email']) != ""){
+            if(isset($parameter['status']) != 3){
                 $query->where('email','LIKE',"%{$parameter['email']}%");
             }else{
                 $query->where('users.email','LIKE',"%{$parameter['email']}%");
             }
         }
-        if($parameter['created_at'] != ""){
-            if($parameter['status'] != 3){
+        if(isset($parameter['created_at']) != ""){
+            if(isset($parameter['status']) != 3){
                 $parameter['created_at'] = date('Y-m-d',strtotime($parameter['created_at']));
                 $query->where('created_at','LIKE',"%{$parameter['created_at']}%");
             }else{
@@ -73,7 +84,7 @@ class UsersController extends Controller
                 $query->where('users.created_at','LIKE',"%{$parameter['created_at']}%");
             }
         }
-        if($parameter['updated_at'] != ""){
+        if(isset($parameter['updated_at']) != ""){
             if($parameter['status'] != 3){
                 $parameter['updated_at'] = date('Y-m-d',strtotime($parameter['updated_at']));
                 $query->where('updated_at','LIKE',"%{$parameter['updated_at']}%");
@@ -97,7 +108,7 @@ class UsersController extends Controller
         //         $query->withCount('devices')->having('devices_count', '=', $parameter['devices']);
         //     }
         // }
-        if($parameter['search_by_properties'] != ""){
+        if(isset($parameter['search_by_properties']) != ""){
 
             $brands_IDs = Brands::where(function ($brandquery) use ($parameter){
                 $brandquery->where('brand_name','LIKE',"%{$parameter['search_by_properties']}%")
@@ -112,13 +123,13 @@ class UsersController extends Controller
             $ids = array_unique($ids);
             $query->whereIn('id',$ids);
         }
-        if($parameter['status'] != "" && $parameter['status'] != 3){
+        if(isset($parameter['status']) != "" && $parameter['status'] != 3){
             if($parameter['status'] == 2){
                 $query->where('is_active',0);
             }else{
                 $query->where('is_active',$parameter['status']);
             }
-        }elseif($parameter['status'] != "" && $parameter['status'] == 3){
+        }elseif(isset($parameter['status']) != "" && $parameter['status'] == 3){
             $query->select('users.*')->join('providers','providers.user_id','=','users.id')
                     ->where('providers.status','=',0);
         }

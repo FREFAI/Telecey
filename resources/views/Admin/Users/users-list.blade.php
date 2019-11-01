@@ -10,16 +10,16 @@
 
 @php
   if(count($request)>0){
-    $request['name'] = $request['name'];
-    $request['email'] = $request['email'];
-    $request['status'] = $request['status'];
-    $request['search_by_properties'] = $request['search_by_properties'];
-    if($request['created_at'] != ''){
+    $request['name'] = isset($request['name']) ? $request['name'] : '';
+    $request['email'] = isset($request['email']) ? $request['email']: '';
+    $request['status'] =isset( $request['status']) ? $request['status'] : '';
+    $request['search_by_properties'] = isset($request['search_by_properties']) ? $request['search_by_properties']: '';
+    if(isset($request['created_at']) != ''){
       $request['created_at'] = date('m/d/Y',strtotime($request['created_at']));
     }else{
       $request['created_at'] = "";
     }
-    if($request['updated_at'] != ''){
+    if(isset($request['updated_at']) != ''){
       $request['updated_at'] = date('m/d/Y',strtotime($request['updated_at']));
     }else{
       $request['updated_at'] = "";
@@ -172,7 +172,7 @@
                  </table>
                </div>
                <div class="ads_pagination mt-3 mb-0">
-                   {{$users->links()}}
+                   {{$users->appends(request()->except('page'))->links()}}
                </div>
             </div>
 		    	</div>

@@ -47,6 +47,7 @@ class RegisterController extends Controller
                 return redirect()->back()->withInput()->with('error',$validation->messages()->first('password'));
             }
         }else{
+            $input['firstname'] = $input['name'];
             $input['password'] = bcrypt($input['password']);
             if(AdminModel::create($input)){
                 return redirect('admin/login')->with('success','Account registered successfully!');

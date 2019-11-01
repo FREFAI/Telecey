@@ -12,6 +12,10 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Helpers\GenerateNickName;
 use Auth,Mail;
 
+
+
+
+
 class RegisterController extends Controller
 {
     /*
@@ -54,6 +58,7 @@ class RegisterController extends Controller
             }
             // $ip = '96.46.34.142';
             $data = \Location::get($ip);
+          
             $client = new \GuzzleHttp\Client();
             $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
             $response = json_decode($response->getBody());
@@ -92,6 +97,8 @@ class RegisterController extends Controller
             'lastname' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
+            'checkboxTerms' => 'required',
+
         ]);
         if ( $validation->fails() ) {
            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
@@ -161,3 +168,4 @@ class RegisterController extends Controller
         }
     }
 }
+// error_message" : "Invalid request. Invalid 'latlng' parameter

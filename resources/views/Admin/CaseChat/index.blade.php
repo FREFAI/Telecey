@@ -64,11 +64,11 @@
             <div class="col-md-12 pb-2">
               <div class="user-search-form text-right">
                 <form method="get" action="{{url('/admin/messages')}}">
-                   <input class="form-control" type="text" placeholder="Search by subject" name="search_by_subject" value="{{$request['search_by_subject']}}">
-                   <input class="form-control" type="text" placeholder="Search by name" name="search_by_name" value="{{$request['search_by_name']}}">
-                   <input class="form-control" type="text" placeholder="Search by email" name="search_by_email" value="{{$request['search_by_email']}}">
-                   <input class="form-control datepicker-one" type="text" placeholder="Start date" name="start_date" value="{{$request['start_date']}}">
-                   <input class="form-control datepicker-two" type="text" placeholder="End date" name="end_date"  value="{{$request['end_date']}}">
+                   <input autocomplete="off" class="form-control" type="text" placeholder="Search by subject" name="search_by_subject" value="{{$request['search_by_subject']}}">
+                   <input autocomplete="off" class="form-control" type="text" placeholder="Search by name" name="search_by_name" value="{{$request['search_by_name']}}">
+                   <input autocomplete="off" class="form-control" type="text" placeholder="Search by email" name="search_by_email" value="{{$request['search_by_email']}}">
+                   <input autocomplete="off" class="form-control datepicker-one" type="text" placeholder="Start date" name="start_date" value="{{$request['start_date']}}">
+                   <input autocomplete="off" class="form-control datepicker-two" type="text" placeholder="End date" name="end_date"  value="{{$request['end_date']}}">
                    <select class="form-control" name="search_status">
                      <option @if($request['search_status'] == 3) selected="" @endif  value="">Choose status</option>
                      <option @if($request['search_status'] == 0) selected="" @endif value="0">Open</option>

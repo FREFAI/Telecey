@@ -1,6 +1,7 @@
 @extends('layouts.frontend_layouts.frontend')
 @section('title', 'Devices')
 @section('content')
+
 <style>
 	tr.custom-row-cl {
 		background-color: #77fdc8;
@@ -26,71 +27,90 @@
 		font-size: 33px;
 		font-weight: bold;
 	}
+	.search-bar .form-group{
+		width: 39%;
+	}
+	.search-bar .search-inner {
+		width: 90%;
+	}
+	div#example_wrapper {
+		width: 100%;
+	}
+	.paginate_button a {
+		padding: 5px 14px !important;
+		border-radius: 2px !important;
+	}
+	.location_search {
+		width: 50%;
+	}
 </style>
 	<!-- Content Start Here -->
 		<div class="page-header inner-page" style="background: url(assets/img/background-img.png);">
 		    <div class="container">
-		        <div class="row">
-		            <div class="col-12 text-center mt-5">
-		                <div class="heading find-div">
-		                    <h1 class="section-title">Find a Device</h1>
-		                    <h4 class="sub-title">Register and share your mobile or telecom experience to unlock Telco Tales</h4>
-		                    <div class="search-bar">
-		                        <div class="search-inner">
-		                            <form class="search-form" action="{{url('/devices')}}" method="get">
+				<form id="searchForm" class="search-form" action="{{url('/devices')}}" method="get">
+					<div class="row">
+						<div class="col-12 text-center mt-5">
+							<div class="heading find-div">
+								<h1 class="section-title">Find a Device</h1>
+								<div class="location_search mb-2">
+									<input type="text" class="form-control" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address">
+								</div>
+								<h4 class="sub-title">Register and share your mobile or telecom experience to unlock Telco Tales</h4>
+								<div class="search-bar">
+									<div class="search-inner">
 										<div class="form-group inputwithicon">
 											<div class="select">
 												<select required="required" name="brand_name">
 													<option value="">Brand</option>
 													@foreach($brands as $v)
-												<option value="{{$v->id}}">{{$v->brand_name}} {{$v->model_name}}</option>
+														<option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
 													@endforeach
 												</select>
 											</div>
 											<i class="lni-chevron-down"></i>
 										</div>
-		                                {{-- <div class="form-group inputwithicon">
-		                                    <div class="select" ">
-		                                        <select required="required" name="model_name" id="model_name">
-		                                            <option value="">Model</option>
+										{{-- <div class="form-group inputwithicon">
+											<div class="select" ">
+												<select required="required" name="model_name" id="model_name">
+													<option value="">Model</option>
 													@foreach($brands as $v)
 														<option value="{{$v->id}}">{{$v->model_name}}</option>
 													@endforeach
-		                                        </select>
-		                                    </div>
-		                                    <i class="lni-chevron-down"></i>
-		                                </div> --}}
-		                                <div class="form-group inputwithicon">
-		                                    <div class="select">
+												</select>
+											</div>
+											<i class="lni-chevron-down"></i>
+										</div> --}}
+										<div class="form-group inputwithicon">
+											<div class="select">
 												<select required="required" name="storage" id="storage">
-														<option value="">Storage</option>
-														<option value="64">64</option>
-														<option value="128">128</option>
-														<option value="256">256</option>
-														<option value="512">512</option>
-														<option value="1GB">1GB</option>
+														<option value="">Capacity</option>
+														<option value="64" @if( request()->get('storage') ) @if( request()->get('storage') == '64') selected @endif @endif>64</option>
+														<option value="128" @if( request()->get('storage') ) @if( request()->get('storage') == '128') selected @endif @endif>128</option>
+														<option value="256" @if( request()->get('storage') ) @if( request()->get('storage') == '256') selected @endif @endif>256</option>
+														<option value="512" @if( request()->get('storage') ) @if( request()->get('storage') == '512') selected @endif @endif>512</option>
+														<option value="1GB" @if( request()->get('storage') ) @if( request()->get('storage') == '1GB') selected @endif @endif>1GB</option>
 													</select>
-		                                    </div>
-		                                    <i class="lni-chevron-down"></i>
-		                                </div>
-		                                <div class="form-group inputwithicon">
-		                                    <div class="select">
+											</div>
+											<i class="lni-chevron-down"></i>
+										</div>
+										{{-- <div class="form-group inputwithicon">
+											<div class="select">
 												<select required="required" name="supplier" id="supplier">
 													<option value="">Supplier</option>
 													@foreach($suppliers as $v)
-														<option value="{{$v->id}}">{{$v->supplier_name}}</option>
+														<option value="{{$v->id}}"  @if( request()->get('supplier') ) @if( request()->get('supplier') == $v->id) selected @endif @endif>{{$v->supplier_name}}</option>
 													@endforeach	
 													</select>
-		                                    </div>
-		                                    <i class="lni-chevron-down"></i>
-		                                </div>
-		                                <button class="btn btn-common" type="submit"><i class="lni-search"></i> Search Now</button>
-		                            </form>
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
+											</div>
+											<i class="lni-chevron-down"></i>
+										</div> --}}
+										<button class="btn btn-common search_btn" type="submit"><i class="lni-search"></i> Search Now</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
 		        <div class="row mt-4">
 		            <div class="col-md-4 col-sm-4">
 		                <div class="service-post">
@@ -388,73 +408,105 @@
 		        </div>
 		    </div>
 		</div> --}}
-
-		@if(count($data)>0)
-		<div class="container mb-5 mt-5">
-			<div class="row">
-				<table class="table">
-					<thead class="bg-primary text-white">
-						<tr>
-							<th scope="col">Brand</th>
-							<th scope="col">Model</th>
-							<th scope="col">Price</th>
-							<th scope="col">Storage</th>
-							<th scope="col">Supplier</th>
-							@if($filterType == 1)
-							<th scope="col">Distance</th>
-							@endif
-							<th scope="col" colspan="2" style="text-align:center">
-								{{-- <form action="{{ url('/devices') }}" method="get" id="sortBy" onchange="sortingFunc()">
-									<div class="form-group">
-										<select class="form-control" name="filter">
-										<option value="1" @if($filterType == 1) selected="" @endif>Distance</option>
-										<option value="2" @if($filterType == 2) selected="" @endif>Price</option>
-										</select>
-									</div>
-								</form> --}}
-								Details
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach($data as $value)
-							<tr class="custom-row-cl">
-								<td>{{$value['brand']['brand_name']}}</td>
-								<td>{{$value['brand']['model_name']}}</td>
-								<td>{{$value['price']}}</td>
-								<td>{{$value['storage']}}</td>
-								<td>{{$value['supplier']['supplier_name']}}</td>
-								<td>{{$value['distance']}} KM</td>
-								<td>
-								@if(Auth::guard('customer')->check())
-									<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value['id'])}}">Details</td>
-								@else
-									<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
-								@endif
-								</td>
-							</tr>
-							@endforeach
-					</tbody>
-				</table>
-			</div>
-		</div>
-		@else
-		<div class="container">
-			<div class="row pt-5 pb-5 mt-5 mb-5">
-				<div class="col text-center">
-					<div class="heading noSearchMessage">
-						<p>{!!$filtersetting->no_search_message!!}</p>
+		<div id="searchResult">
+			@if(count($data)>0)
+				<div class="container mb-5 mt-5">
+					<div class="row">
+						<table id="example" class="table table-striped table-bordered" style="width:100%">
+							<thead>
+								<tr>
+									<th>Brand</th>
+									<th>Model</th>
+									<th>Supplier</th>
+									<th>Price</th>
+									<th>Capacity</th>
+									{{-- @if($filterType == 1) --}}
+									<th>Distance</th>
+									{{-- @endif --}}
+									<th>Details</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach($data as $value)
+								<tr class="custom-row-cl">
+									<td>{{$value['brand']['brand_name']}}</td>
+									<td>{{$value['brand']['model_name']}}</td>
+									<td>{{$value['supplier']['supplier_name']}}</td>
+									<td>{{$value['price']}}</td>
+									<td>{{$value['storage']}}</td>
+									<td>{{round($value['distance'])}} KM</td>
+									@if(Auth::guard('customer')->check())
+										<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value['id'])}}">Details</td>
+									@else
+										<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
+									@endif
+								</tr>
+								@endforeach
+							</tbody>
+						</table>
 					</div>
 				</div>
-			</div>
+				@else
+				<div class="container">
+					<div class="row pt-5 pb-5 mt-5 mb-5">
+						<div class="col text-center">
+							<div class="heading noSearchMessage">
+								<p>{!!$filtersetting->no_search_message!!}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				@endif
+			{{-- <div class="container">
+				<div class="row pt-5 pb-5 mt-5 mb-5">
+					<div class="col text-center">
+						<div class="heading noSearchMessage">
+							<p>{!!$filtersetting->no_search_message!!}</p>
+						</div>
+					</div>
+				</div>
+			</div> --}}
 		</div>
-		@endif
+		
 	<!-- Content End Here -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
 <script>
 
 function sortingFunc(){
 	$('#sortBy').submit();
 }
+function initMap() {
+	var input = document.getElementById('searchMapInput');
+	
+	var autocomplete = new google.maps.places.Autocomplete(input);
+	
+	autocomplete.addListener('place_changed', function() {
+		var place = autocomplete.getPlace();
+	});
+}
+// $('#searchForm').on('submit',function(e){
+// 	$('#loader').show();
+// 	e.preventDefault();
+// 	var actionurl = $(this).attr('action');
+// 	var form = $('#searchForm');
+// 	form = form.serialize();
+// 	$.ajax({
+// 		url:actionurl,
+// 		type: "GET",
+// 		data: form,
+// 		success: function(response){
+// 			$('#loader').hide();
+// 			$('#searchResult').html(response);
+// 			$('html, body').animate({
+// 				scrollTop: $("#searchResult").offset().top - 100
+// 			}, 1000);
+//             console.log(response);  
+//         }
+// 	});
+	
+// });
 	
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&callback=initMap" async defer></script>
 @endsection

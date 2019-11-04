@@ -3,6 +3,10 @@
 <script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script>
 <script src="{{URL::asset('frontend/assets/js/popper.min.js')}}"></script>
 <script src="{{URL::asset('frontend/assets/js/bootstrap.min.js')}}"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+
 <script src="{{URL::asset('frontend/assets/js/jquery.counterup.min.js')}}"></script>
 <script src="{{URL::asset('frontend/assets/js/waypoints.min.js')}}"></script>
 <script src="{{URL::asset('frontend/assets/js/wow.js')}}"></script>
@@ -28,7 +32,12 @@
     $('input.city_input').cityAutocomplete();
     // $('.user_city_add input#user_city').cityAutocomplete();
     $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo('.country_div');
-    
+    $(document).ready(function() {
+      $('#example').DataTable({
+        "searching": false,
+        "lengthChange": false
+      });
+    });
 
     $(document).on('click','.country-autocomplete li',function(){
         $('#country').val($(this).find('a').attr('data-name'));

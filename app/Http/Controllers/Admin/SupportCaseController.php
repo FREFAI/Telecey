@@ -50,7 +50,9 @@ class SupportCaseController extends Controller
         if($parameters['start_date'] != '' && $parameters['end_date'] != ''){
             $parameters['start_date'] = date('Y-m-d', strtotime($parameters['start_date']));
             $parameters['end_date'] = date('Y-m-d', strtotime($parameters['end_date']));
-            $caseQuery->whereBetween('created_at',[$parameters['start_date'],$parameters['end_date']]);
+            $caseQuery->whereDate('created_at',$parameters['start_date']);
+            $caseQuery->whereDate('created_at',$parameters['end_date']);
+            // $caseQuery->whereBetween('created_at',[$parameters['start_date'],$parameters['end_date']]);
         }
         if($parameters['start_date'] != '' && $parameters['end_date'] == ''){
             $parameters['start_date'] = date('Y-m-d', strtotime($parameters['start_date']));

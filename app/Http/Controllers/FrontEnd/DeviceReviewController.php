@@ -25,7 +25,7 @@ class DeviceReviewController extends Controller
     	    'device_id' => 'required',
 			'brand_id' => 'required',
 			'price' => 'required',
-			'supplier_id' => 'required',
+			// 'supplier_id' => 'required',
 			'storage' => 'required'
     	]);
     	if ( $validation->fails() ) {

@@ -87,89 +87,117 @@ class PlansController extends Controller
             }elseif(array_key_exists("filter",$data)){
                 $filter = $data['filter'];
             }
-            if($filter == 1){
-                $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
-                    ->where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
-                                        $query->orWhere('contract_type',$contract_type)
-                                        ->orWhere('payment_type',$payment_type)
-                                        ->orWhere('pay_as_usage_type',$pay_as_usage_type)
-                                        ->orWhere('service_type',$service_type);
-                                            })->with('provider','currency','typeOfService')
-                                            ->orderBy('distance','ASC')
-                                            ->orderBy('local_min','DESC')
-                                            ->orderBy('datavolume','DESC')
-                                            ->orderBy('price','ASC')
-                                            ->orderBy('average_review','DESC')
-                                            ->get()->toArray();
-            }elseif($filter == 2){
-                $searchResult = ServiceReview::where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
-                                        $query->orWhere('contract_type',$contract_type)
-                                        ->orWhere('payment_type',$payment_type)
-                                        ->orWhere('pay_as_usage_type',$pay_as_usage_type)
-                                        ->orWhere('service_type',$service_type);
-                                            })->with('provider','currency','typeOfService')
-                                            ->orderBy('price','ASC')
-                                            ->get()->toArray();
-            }elseif($filter == 3){
-                $searchResult = ServiceReview::where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
+            $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                ->where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
                     $query->orWhere('contract_type',$contract_type)
                     ->orWhere('payment_type',$payment_type)
                     ->orWhere('pay_as_usage_type',$pay_as_usage_type)
                     ->orWhere('service_type',$service_type);
                         })->with('provider','currency','typeOfService')
+                        ->orderBy('distance','ASC')
                         ->orderBy('local_min','DESC')
-                        ->get()->toArray();
-            }elseif($filter == 4){
-                $searchResult = ServiceReview::where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
-                    $query->orWhere('contract_type',$contract_type)
-                    ->orWhere('payment_type',$payment_type)
-                    ->orWhere('pay_as_usage_type',$pay_as_usage_type)
-                    ->orWhere('service_type',$service_type);
-                        })->with('provider','currency','typeOfService')
                         ->orderBy('datavolume','DESC')
-                        ->get()->toArray();
-            }elseif($filter == 5){
-                $searchResult = ServiceReview::where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
-                    $query->orWhere('contract_type',$contract_type)
-                    ->orWhere('payment_type',$payment_type)
-                    ->orWhere('pay_as_usage_type',$pay_as_usage_type)
-                    ->orWhere('service_type',$service_type);
-                        })->with('provider','currency','typeOfService')
+                        ->orderBy('price','ASC')
                         ->orderBy('average_review','DESC')
                         ->get()->toArray();
-            }
+                // if($filter == 1){
+                //     $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                //     ->where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
+                //                         $query->orWhere('contract_type',$contract_type)
+                //                         ->orWhere('payment_type',$payment_type)
+                //                         ->orWhere('pay_as_usage_type',$pay_as_usage_type)
+                //                         ->orWhere('service_type',$service_type);
+                //                             })->with('provider','currency','typeOfService')
+                //                             ->orderBy('distance','ASC')
+                //                             ->orderBy('local_min','DESC')
+                //                             ->orderBy('datavolume','DESC')
+                //                             ->orderBy('price','ASC')
+                //                             ->orderBy('average_review','DESC')
+                //                             ->get()->toArray();
+                // }elseif($filter == 2){
+                //     $searchResult = ServiceReview::where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
+                //                             $query->orWhere('contract_type',$contract_type)
+                //                             ->orWhere('payment_type',$payment_type)
+                //                             ->orWhere('pay_as_usage_type',$pay_as_usage_type)
+                //                             ->orWhere('service_type',$service_type);
+                //                                 })->with('provider','currency','typeOfService')
+                //                                 ->orderBy('price','ASC')
+                //                                 ->get()->toArray();
+                // }elseif($filter == 3){
+                //     $searchResult = ServiceReview::where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
+                //         $query->orWhere('contract_type',$contract_type)
+                //         ->orWhere('payment_type',$payment_type)
+                //         ->orWhere('pay_as_usage_type',$pay_as_usage_type)
+                //         ->orWhere('service_type',$service_type);
+                //             })->with('provider','currency','typeOfService')
+                //             ->orderBy('local_min','DESC')
+                //             ->get()->toArray();
+                // }elseif($filter == 4){
+                //     $searchResult = ServiceReview::where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
+                //         $query->orWhere('contract_type',$contract_type)
+                //         ->orWhere('payment_type',$payment_type)
+                //         ->orWhere('pay_as_usage_type',$pay_as_usage_type)
+                //         ->orWhere('service_type',$service_type);
+                //             })->with('provider','currency','typeOfService')
+                //             ->orderBy('datavolume','DESC')
+                //             ->get()->toArray();
+                // }elseif($filter == 5){
+                //     $searchResult = ServiceReview::where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
+                //         $query->orWhere('contract_type',$contract_type)
+                //         ->orWhere('payment_type',$payment_type)
+                //         ->orWhere('pay_as_usage_type',$pay_as_usage_type)
+                //         ->orWhere('service_type',$service_type);
+                //             })->with('provider','currency','typeOfService')
+                //             ->orderBy('average_review','DESC')
+                //             ->get()->toArray();
+                // }
                 // print "<pre>"; print_r($searchResult);die;
-            foreach($searchResult as $key => $value){
-                $user_address = '';
-                $sum = 0;
-                $average = 0;
-                $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
-                $searchResult[$key]['user_address'] = $user_address;
-                // $plan_device_rating_count = PlanDeviceRating::where('plan_id',$searchResult[$key]['id'])->count();
-                // $plan_device_rating = PlanDeviceRating::where('plan_id',$searchResult[$key]['id'])->pluck('average');
-                // foreach($plan_device_rating as $key2 => $value2){
-                //     $sum = $sum + $value2; 
-                // }
-                // if($plan_device_rating_count == 0){
-                //     $average = $sum;
-                // }else{
-                //     $average = $sum/$plan_device_rating_count;
-                // }
-                // $searchResult[$key]['average_review'] = $average;
-            }                
+                foreach($searchResult as $key => $value){
+                    $user_address = '';
+                    $sum = 0;
+                    $average = 0;
+                    $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
+                    $searchResult[$key]['user_address'] = $user_address;
+                    // $plan_device_rating_count = PlanDeviceRating::where('plan_id',$searchResult[$key]['id'])->count();
+                    // $plan_device_rating = PlanDeviceRating::where('plan_id',$searchResult[$key]['id'])->pluck('average');
+                    // foreach($plan_device_rating as $key2 => $value2){
+                    //     $sum = $sum + $value2; 
+                    // }
+                    // if($plan_device_rating_count == 0){
+                    //     $average = $sum;
+                    // }else{
+                    //     $average = $sum/$plan_device_rating_count;
+                    // }
+                    // $searchResult[$key]['average_review'] = $average;
+                }                
                 // echo "<pre>";print_r($searchResult);die;
             return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
 
-        }
-        return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$data,'service_types' => $service_types]);
+        }else{
+            $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+            ->where('country_code',$current_country_code)
+            ->with('provider','currency','typeOfService')
+                    ->orderBy('distance','ASC')
+                    ->orderBy('local_min','DESC')
+                    ->orderBy('datavolume','DESC')
+                    ->orderBy('price','ASC')
+                    ->orderBy('average_review','DESC')
+                    ->get()->toArray();
+            return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$searchResult,'service_types' => $service_types,]);
+        }               
+        
     }
 
     public function planDetails($id){
         $planDetailData = ServiceReview::where('id',$id)->with('provider','currency','typeOfService')->first();
+       
+        $user_address = UserAddress::where('user_id',$planDetailData->user_id)->where('is_primary',1)->value('formatted_address');
+        $planDetailData->user_address = $user_address;
         $allratings = $planDetailData->get_ratings();
         $plan_device_rating = $planDetailData->plan_device_rating->toArray();
         $key = [];
         $blankArray = [];
+        
         foreach ($allratings as $ratings) {
             if($ratings->entity_id == $planDetailData->id && $ratings->entity_type==1){    //Check entity id is equal to plan id
                 $ratings->question_name = $ratings->question['question'];

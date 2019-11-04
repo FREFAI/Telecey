@@ -257,7 +257,7 @@
                                 </ul>
                                 </div>
                             </div>
-                            <div class="col-lg-12 mt-2">
+                            <div class="col-lg-6 mt-2">
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
@@ -265,6 +265,16 @@
                                         <div class="value_div">&nbsp;@if(!is_null($service->currency))
                                             {{$service->currency->currency_code}}@else-
                                             @endif&nbsp;{{$service->price}}</div>
+                                    </li>
+                                </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mt-2">
+                                <div class="card_sm">
+                                <ul class="first_row_service">
+                                    <li>
+                                        <div>Location : </div>
+                                        <div class="value_div">&nbsp;{{$service->user_address ?? 'N/A'}}</div>
                                     </li>
                                 </ul>
                                 </div>

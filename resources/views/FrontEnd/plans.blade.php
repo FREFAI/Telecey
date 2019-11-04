@@ -26,6 +26,13 @@
 		font-size: 33px;
 		font-weight: bold;
 	}
+	div#example_wrapper {
+		width: 100%;
+	}
+	.paginate_button a {
+		padding: 5px 14px !important;
+		border-radius: 2px !important;
+	}
 </style>
 	<!-- Content Start Here -->
 		<div class="page-header inner-page" style="background: url({{URL('frontend/assets/img/background-img.png')}});">
@@ -36,7 +43,7 @@
 			                <div class="heading find-div">
 			                    <h1 class="section-title">Find a Plan</h1>
 			                    <div class="location_search mb-2">
-			                    	<input type="text" class="form-control" placeholder="Location" id="searchMapInput" value="{{$ip_location}}" name="address">
+								<input type="text" class="form-control" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address">
 			                    </div>
 			                    <h4 class="sub-title">Register and share your mobile or telecom experience to unlock Telco Tales</h4>
 			                    <div class="container">
@@ -46,7 +53,7 @@
 		                                    <div class="form-group plan_page">
 		                                    	<span class="toggle_label active">Personal</span>
 		                                    	<label class="switch">
-		                                    	  <input type="checkbox" id="personal" value="1" onClick="personalToggle()" name="contract_type">
+		                                    	  <input type="checkbox" id="personal" value="1" onClick="personalToggle()" name="contract_type" @if( request()->get('contract_type') ) @if( request()->get('contract_type') == 2) checked @endif @endif>
 		                                    	  <span class="slider"></span>
 		                                    	</label>
 		                                    	<span class="toggle_label">Business</span>
@@ -58,7 +65,7 @@
 		                                    <div class="form-group plan_page">
 		                                    	<span class="toggle_label active">Postpaid</span>
 		                                    	<label class="switch">
-		                                    	  <input type="checkbox" id="paymentTypeId" name="payment_type" value="postpaid" onClick=paymentType()>
+		                                    	  <input type="checkbox" id="paymentTypeId" name="payment_type" value="postpaid" onClick=paymentType()  @if( request()->get('payment_type') ) @if( request()->get('payment_type') == 'prepaid') checked @endif @endif>
 		                                    	  <span class="slider"></span>
 		                                    	</label>
 		                                    	<span class="toggle_label">Prepaid</span>
@@ -79,8 +86,8 @@
 														<option value="">Select service type</option>
 														@if(count($service_types) > 0)
 															@foreach($service_types as $type)
-													<option value="{{$type->id}}">{{$type->service_type_name}}</option>
-														   @endforeach
+																<option value="{{$type->id}}" @if( request()->get('service_type') ) @if( request()->get('service_type') == $type->id) selected @endif @endif>{{$type->service_type_name}}</option>
+														   	@endforeach
 														@else
 															<option disabled="">Not found</option>
 														@endif
@@ -93,7 +100,7 @@
 		                                    <div class="form-group plan_page">
 		                                    	<span class="toggle_label active">Pay as usage</span>
 		                                    	<label class="switch">
-		                                    	  <input type="checkbox" onclick="payAsUsage()" value="0" id="pay_as_usage_id" name="pay_as_usage_type">
+		                                    	  <input type="checkbox" onclick="payAsUsage()" value="0" id="pay_as_usage_id" name="pay_as_usage_type" @if( request()->get('pay_as_usage_type') ) @if( request()->get('pay_as_usage_type') == 1) checked @endif @endif>
 		                                    	  <span class="slider"></span>
 		                                    	</label>
 		                                    	<!-- <span class="toggle_label">On</span> -->
@@ -394,30 +401,29 @@
 		@if(count($data)>0)
 		<div class="container mb-5">
 			<div class="row">
-				<table class="table">
-					<thead class="bg-primary text-white">
+				<table id="example" class="table table-striped table-bordered" style="width:100%">
+					<thead>
 						<tr>
-							<th scope="col">Location</th>
-							<th scope="col">Provider</th>
-							<th scope="col">Price</th>
-							<th scope="col">Local Min</th>
-							<th scope="col">Volume GB</th>
-							<th scope="col">Review</th>
-							@if($filterType == 1)
-							<th scope="col">Distance</th>
-							@endif
-							<th scope="col" colspan="2">
-								<form action="{{ url('/plans') }}" method="get" id="sortBy" onchange="sortingFunc()">
+							{{-- <th scope="col">Location</th> --}}
+							<th>Provider</th>
+							<th>Price</th>
+							<th>Local Min</th>
+							<th>Volume GB</th>
+							<th>Review</th>
+							{{-- @if($filterType == 1) --}}
+								<th>Distance</th>
+							{{-- @endif --}}
+							<th>
+								{{-- <form action="{{ url('/plans') }}" method="get" id="sortBy" onchange="sortingFunc()">
 									<div class="form-group">
 										<select class="form-control" name="filter">
-										<option value="1" @if($filterType == 1) selected="" @endif>Location</option>
 										<option value="2" @if($filterType == 2) selected="" @endif>Price</option>
 										<option value="3" @if($filterType == 3) selected="" @endif>Minutes</option>
 										<option value="4" @if($filterType == 4) selected="" @endif>Data</option>
 										<option value="5" @if($filterType == 5) selected="" @endif>Review</option>
 										</select>
 									</div>
-								</form>
+								</form> --}}
 								Details
 							</th>
 						</tr>
@@ -425,7 +431,7 @@
 					<tbody>
 						@foreach($data as $value)
 							<tr class="custom-row-cl">
-								<td>{{$value['user_address']}}</td>
+								{{-- <td>{{$value['user_address']}}</td> --}}
 								@if($value['provider']['provider_image_original'] != "")
 								<td>
 									<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" style="width:100px;height:50px;" />
@@ -438,18 +444,17 @@
 								<td>{{$value['price']}}</td>
 								<td>{{$value['local_min']}}</td>
 								<td>{{$value['datavolume']}}</td>
-								<td>{{$value['average_review']}}</td>
+								<td data-order="{{$value['average_review']}}"><div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div></td>
 								@if(isset($value['distance']))
-									<td>{{$value['distance']}} KM</td>
+									<td>{{round($value['distance'])}} KM</td>
 								@endif
-								<td></>
 								@if(Auth::guard('customer')->check())
-									<td><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</td>
+									<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</td>
 								@else
 									<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
 								@endif
 							</tr>
-							@endforeach
+						@endforeach
 					</tbody>
 				</table>
 			</div>

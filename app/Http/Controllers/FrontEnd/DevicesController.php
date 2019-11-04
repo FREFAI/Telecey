@@ -44,7 +44,12 @@ class DevicesController extends Controller
         }else{
             $ip = '96.46.34.142';
         }
+
         $data = \Location::get($ip);
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
+        $response = json_decode($response->getBody());
+        $current_location = $response->results[0]->formatted_address;
         $current_lat = $data->latitude;
         $current_long = $data->longitude;
         $current_country_code = $data->countryCode;
@@ -77,10 +82,23 @@ class DevicesController extends Controller
                                     ->orderBy('distance','ASC')
                                     ->orderBy('price','ASC')
                                     ->get()->toArray();
+            foreach($searchResult as $key => $value){
+                $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
+                $searchResult[$key]['user_address'] = $user_address;
+            }
             // echo "<pre>";print_r($searchResult);exit;
-            return view('FrontEnd.devices',['brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'filterType' => $filter]);
+            return view('FrontEnd.devices',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting]);
+            // return view('FrontEnd.devices-search-list',['brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'filterType' => $filter]);
+        }else{
+            $searchResult = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                    ->where('country_code',$current_country_code)
+                    ->with('brand','supplier')
+                    ->orderBy('distance','ASC')
+                    ->orderBy('price','ASC')
+                    ->get()
+                    ->toArray();
+            return view('FrontEnd.devices',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data' => $searchResult,'filtersetting' => $filtersetting]);
         }
-        return view('FrontEnd.devices',['brands' => $brands,'suppliers' => $suppliers,'data' => $data,'filtersetting' => $filtersetting]);
     }
 
     public function deviceDetails($id){

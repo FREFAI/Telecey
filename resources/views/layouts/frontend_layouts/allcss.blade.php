@@ -27,3 +27,8 @@
 <link rel="stylesheet" type="text/css" href="{{URL::asset('frontend/jsplugins/city-autocomplete.css')}}"/>
 
 <link rel=”stylesheet” href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css'>
+<style>
+    .tg-select.tg-select select::-ms-expand{
+        display:none !important;
+    }
+</style>

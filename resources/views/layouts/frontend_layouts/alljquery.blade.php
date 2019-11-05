@@ -29,6 +29,7 @@
 
 
   <script>
+   
     $('input.city_input').cityAutocomplete();
     // $('.user_city_add input#user_city').cityAutocomplete();
     $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo('.country_div');
@@ -192,29 +193,7 @@
       }         
   });
 });
-  $(".provider_text_show").on('click',function(){
-    if ($(".provider_select select").attr("disabled")) {
-      
-        $('.provider_status').val(1);
-        $('.provider_select select').attr('disabled',false);
-        $('.provider_select select').attr('required',true);
-        $('.provider_select select').addClass('active');
-        $('.provider_text input').removeClass('active');
-        $('.provider_text input').attr('required',false);
-        $('.provider_text').hide();
-    } else {
 
-        $('.provider_status').val(2);
-        $('.provider_select select option').prop('selected',false);
-        $('.provider_select select').attr('required',false);
-        $('.provider_select select option:nth-child(1)').prop('selected',true);
-        $('.provider_select select').attr('disabled',true);
-        $('.provider_select select').removeClass('active');
-        $('.provider_text input').addClass('active');
-        $('.provider_text input').attr('required',true);
-        $('.provider_text').show();
-    } 
-  });
 
     var sections = $('section');
     var nav = $('nav');
@@ -643,31 +622,6 @@
         });
         
 
-        // Device section  
-        $(".supplier_text_show").on('click',function(){
-          if ($(".supplier_select select").attr("disabled")) {
-            
-              $('.supplier_status').val(1);
-              $('.supplier_select select').attr('disabled',false);
-              $('.supplier_select select').attr('required',true);
-              $('.supplier_select select').addClass('active');
-              $('.supplier_text input').removeClass('active');
-              $('.supplier_text input').attr('required',false);
-              $('.supplier_text').hide();
-          } else {
-
-              $('.supplier_status').val(2);
-              $('.supplier_select select option').prop('selected',false);
-              $('.supplier_select select').attr('required',false);
-              $('.supplier_select select option:nth-child(1)').prop('selected',true);
-              $('.supplier_select select').attr('disabled',true);
-              $('.supplier_select select').removeClass('active');
-              $('.supplier_text input').addClass('active');
-              $('.supplier_text input').attr('required',true);
-              $('.supplier_text').show();
-          } 
-        });
-
           $('#device_rating_form').on('submit',function(e){
             e.preventDefault();
             if(!$('#device_rating_form').valid()){
@@ -834,29 +788,5 @@
             }
           });
         // End Device section  
-        // Brand Section
-        $(".brand_text_show").on('click',function(){
-          if ($(".brand_select select").attr("disabled")) {
-            
-              $('.brand_status').val(1);
-              $('.brand_select select').attr('disabled',false);
-              $('.brand_select select').attr('required',true);
-              $('.brand_select select').addClass('active');
-              $('.brand_text input').removeClass('active');
-              $('.brand_text input').attr('required',false);
-              $('.brand_text').hide();
-          } else {
-
-              $('.brand_status').val(2);
-              $('.brand_select select option').prop('selected',false);
-              $('.brand_select select').attr('required',false);
-              $('.brand_select select option:nth-child(1)').prop('selected',true);
-              $('.brand_select select').attr('disabled',true);
-              $('.brand_select select').removeClass('active');
-              $('.brand_text input').addClass('active');
-              $('.brand_text input').attr('required',true);
-              $('.brand_text').show();
-          } 
-        });
-        // End Brand Section
+        
 </script>

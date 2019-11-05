@@ -188,7 +188,7 @@
                                   <input type="hidden" class="form-control brand_status" name="brand_status" placeholder="Brand status" value="1">      
                               </div>
                              <small>
-                                <a href="javascript:void(0)" class="brand_text_show">Couldn't find your brand</a>
+                                <a href="javascript:void(0)" onclick="brand_text_show();" class="brand_text_show">Couldn't find your brand</a>
                              </small>
                         </div>
                    </div>
@@ -228,7 +228,7 @@
                                   <input type="hidden" class="form-control supplier_status" name="supplier_status" placeholder="Supplier status" value="1">      
                               </div>
                              <small>
-                                <a href="javascript:void(0)" class="supplier_text_show">Couldn't find your supplier</a>
+                                <a href="javascript:void(0)" class="supplier_text_show" onclick="supplier_text_show()">Couldn't find your supplier</a>
                              </small>
                          </div>
                     </div>
@@ -349,7 +349,7 @@
                                         <input type="hidden" class="form-control provider_status" name="provider_status" placeholder="Provider status">      
                                     </div>
 	                                 <small>
-	                                 	<a href="javascript:void(0)" class="provider_text_show">Couldn't find your Service provider</a>
+	                                 	<a href="javascript:void(0)" class="provider_text_show" onclick="provider_text_show()">Couldn't find your Service provider</a>
 	                                 </small>
 	                            </div>
 	                            <div class="col-lg-6">
@@ -881,6 +881,89 @@
     //         }
     //     }
     // }
+    if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) //IF IE > 10
+    {
+      $('select').css({padding:"10px 10px"}); 
+    }
+    //   $("a.provider_text_show").on('click',function(){
+        function provider_text_show(){
+            if ($(".provider_select select").attr("disabled")) {
+              
+                $('.provider_status').val(1);
+                $('.provider_select select').attr('disabled',false);
+                $('.provider_select select').attr('required',true);
+                $('.provider_select select').addClass('active');
+                $('.provider_text input').removeClass('active');
+                $('.provider_text input').attr('required',false);
+                $('.provider_text').hide();
+            } else {
+        
+                $('.provider_status').val(2);
+                $('.provider_select select option').prop('selected',false);
+                $('.provider_select select').attr('required',false);
+                $('.provider_select select option:nth-child(1)').prop('selected',true);
+                $('.provider_select select').attr('disabled',true);
+                $('.provider_select select').removeClass('active');
+                $('.provider_text input').addClass('active');
+                $('.provider_text input').attr('required',true);
+                $('.provider_text').show();
+            } 
+        }
+    //   });
+    // Brand Section
+        // $(".brand_text_show").on('click',function(){
+        function brand_text_show(){
+          if ($(".brand_select select").attr("disabled")) {
+            
+              $('.brand_status').val(1);
+              $('.brand_select select').attr('disabled',false);
+              $('.brand_select select').attr('required',true);
+              $('.brand_select select').addClass('active');
+              $('.brand_text input').removeClass('active');
+              $('.brand_text input').attr('required',false);
+              $('.brand_text').hide();
+          } else {
+
+              $('.brand_status').val(2);
+              $('.brand_select select option').prop('selected',false);
+              $('.brand_select select').attr('required',false);
+              $('.brand_select select option:nth-child(1)').prop('selected',true);
+              $('.brand_select select').attr('disabled',true);
+              $('.brand_select select').removeClass('active');
+              $('.brand_text input').addClass('active');
+              $('.brand_text input').attr('required',true);
+              $('.brand_text').show();
+          } 
+        }
+        // });
+    // End Brand Section
+    
+    // Device section  
+    // $(".supplier_text_show").on('click',function(){
+    function supplier_text_show(){
+      if ($(".supplier_select select").attr("disabled")) {
+        
+          $('.supplier_status').val(1);
+          $('.supplier_select select').attr('disabled',false);
+          $('.supplier_select select').attr('required',true);
+          $('.supplier_select select').addClass('active');
+          $('.supplier_text input').removeClass('active');
+          $('.supplier_text input').attr('required',false);
+          $('.supplier_text').hide();
+      } else {
+
+          $('.supplier_status').val(2);
+          $('.supplier_select select option').prop('selected',false);
+          $('.supplier_select select').attr('required',false);
+          $('.supplier_select select option:nth-child(1)').prop('selected',true);
+          $('.supplier_select select').attr('disabled',true);
+          $('.supplier_select select').removeClass('active');
+          $('.supplier_text input').addClass('active');
+          $('.supplier_text input').attr('required',true);
+          $('.supplier_text').show();
+      } 
+    }
+    // });
     function overageFunction(){
         if(document.getElementById('overage_price').checked){
             $('#overage_price_model').modal({

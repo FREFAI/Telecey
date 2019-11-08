@@ -233,7 +233,7 @@
                          </div>
                     </div>
                     <div class="row align-items-center">
-                        <div class="col-lg-6">
+                        <div class="col-lg-3">
                             <h5>Capacity</h5>
                             <div class="tg-select form-control">
                                 <select required="required" name="storage" id="storage">
@@ -243,6 +243,21 @@
                                     <option value="256">256</option>
                                     <option value="512">512</option>
                                     <option value="1GB">1GB</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <h5>Color</h5>
+                            <div class="tg-select form-control">
+                                <select required="required" name="device_color" id="device_color">
+                                    @if($colors)
+                                        <option value="">Choose Color</option>
+                                        @foreach($colors as $color)
+                                            <option value="{{$color->id}}">{{$color->color_name}}</option>
+                                        @endforeach
+                                    @else
+                                    <option value="">Colors not found</option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -280,7 +295,19 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="rating float-right device-rating" data-question_id="{{$question->id}}"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                        @if($question->text_field == 1)
+                                            <div class="form-group mb-2">
+                                                <input type="text" class="form-control" id="text_field_value{{$question->id}}">		
+                                            </div>
+                                        @endif
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="rating float-right device-rating" data-question_id="{{$question->id}}"></div>
+                                        </div>
+                                    </div>
+                                    
                                     <!-- <div class="rating coverage" data-rate-value=6></div> -->
                                 </div>
                             </div>
@@ -579,7 +606,18 @@
         	               		        </div>
         	               		    </div>
         	               		    <div class="col-lg-6">
-        	               		    	<div class="rating float-right" data-question_id="{{$question->id}}"></div>
+                                       <div class="row">
+                                            <div class="col-lg-6">
+                                            @if($question->text_field == 1)
+                                                <div class="form-group mb-2">
+                                                    <input type="text" class="form-control" id="text_field_value{{$question->id}}">		
+                                                </div>
+                                            @endif
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="rating float-right" data-question_id="{{$question->id}}"></div>
+                                            </div>
+                                       </div>
         	               		    	<!-- <div class="rating coverage" data-rate-value=6></div> -->
         	               		    </div>
         	               		</div>

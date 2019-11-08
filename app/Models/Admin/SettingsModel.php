@@ -10,6 +10,6 @@ class SettingsModel extends Model
     protected $guard = 'admin';
 
     protected $fillable = [
-        'setting_key', 'status',
+        'setting_key','terms_and_conditions', 'status',
     ];
 }

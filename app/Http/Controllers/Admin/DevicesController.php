@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Admin\Devices;
+use App\Models\Admin\DeviceColor;
 
 class DevicesController extends Controller
 {
@@ -129,4 +130,83 @@ class DevicesController extends Controller
             
         }
     }
+
+
+    // Device Color Section 
+
+    public function deviceColorList(Request $request)
+    {
+        $colors = DeviceColor::orderBy('id','DESC')->paginate(10);
+        return view('Admin.Devices.color.color-list',['colors'=>$colors]);
+    }
+    public function addColorForm(Request $request)
+    {
+        return view('Admin.Devices.color.add-device-color');
+    }
+    public function addColor(Request $request)
+    {
+        $perameters = $request->all();
+        $validation = Validator::make($perameters, [
+            'color_name' => 'required|unique:device_colors',
+        ]);
+        if ( $validation->fails() ) {
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+        }else{
+            unset($perameters['_token']);
+            $addColor = DeviceColor::create($perameters);
+            if($addColor){
+                return redirect('admin/colors-list')->withInput()->with('success','Color add successfully.');
+            }else{
+                return redirect()->back()->withInput()->with('error','Color not add.');
+            }
+        }
+    }
+    public function editColorForm(Request $request,$id)
+    {
+        $id = base64_decode($id);
+        $color = DeviceColor::find($id);
+        return view('Admin.Devices.color.edit-device-color',['color'=>$color]);
+    }
+    public function editColor(Request $request)
+    {
+        $perameters = $request->all();
+        $perameters['id'] = base64_decode($perameters['id']);
+        $validation = Validator::make($perameters, [
+            'id' => 'required',
+            'color_name' => 'required|unique:device_colors,color_name,'.$perameters['id'],
+        ]);
+        if ( $validation->fails() ) {
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+        }else{
+            $editColor = DeviceColor::find($perameters['id']);
+            $editColor->color_name = $perameters['color_name'];
+            if($editColor->save()){
+                return redirect('admin/colors-list')->withInput()->with('success','Color update successfully.');
+            }else{
+                return redirect()->back()->withInput()->with('error','Color not add.');
+            }
+        }
+    }
+    public function deleteColor(Request $request)
+    {
+        $perameters = $request->all();
+        $perameters['id'] = base64_decode($perameters['id']);
+
+        $validation = Validator::make($perameters, [
+            'id' => 'required',
+        ]);
+        if ( $validation->fails() ) {
+            $message = array('success'=>false,'message'=>$validation->messages()->first());
+            return json_encode($message);;
+        }else{
+            if(DeviceColor::where('id',$perameters['id'])->delete()){
+                $message = array('success'=>true,'message'=>'Color delete successfully.');
+                return json_encode($message);
+            }else{
+                $message = array('success'=>false,'message'=>'Color not delete.');
+                return json_encode($message);
+            }
+        }
+    }
+    // End Device Color Section 
 }

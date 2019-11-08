@@ -141,6 +141,12 @@
 				Route::get('/home-content', 'Admin\HomeController@index');
 				
 			// End Home content section
+			// Terms Adn Conditions content section
+
+				Route::get('/terms-conditions', 'Admin\HomeController@termsAndConditionsForm');
+				Route::post('/terms-conditions', 'Admin\HomeController@termsAndConditions');
+				
+			// End Terms Adn Conditions content section
 
 			// Blog Section 
 
@@ -215,6 +221,12 @@
 				Route::post('/edit-device','Admin\DevicesController@editDevices');
 				Route::post('/delete-device', 'Admin\DevicesController@deleteDevices');
 				Route::post('/set-default-device', 'Admin\DevicesController@setDefaultDevice');
+				Route::get('/colors-list','Admin\DevicesController@deviceColorList');
+				Route::get('/add-color','Admin\DevicesController@addColorForm');
+				Route::post('/add-color','Admin\DevicesController@addColor');
+				Route::get('/edit-color/{colorId}','Admin\DevicesController@editColorForm');
+				Route::post('/edit-color','Admin\DevicesController@editColor');
+				Route::post('/delete-color','Admin\DevicesController@deleteColor');
 			// End Devices Section  
 
 			// Brands Section  

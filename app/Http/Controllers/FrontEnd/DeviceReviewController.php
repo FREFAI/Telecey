@@ -19,7 +19,13 @@ class DeviceReviewController extends Controller
 {
     public function reviewDevice(Request $request)
     {
-    	$user_id = Auth::guard('customer')->user()['id']; 
+        $user_id = Auth::guard('customer')->user()['id']; 
+        $userAddress = UserAddress::select('country')->where('user_id',$user_id)->where('is_primary',1)->first();
+        if($userAddress){
+            $country = $userAddress->country;
+        }else{
+            $country=null;
+        }
         $perameter = $request->all();
     	$validation = Validator::make($perameter, [
     	    'device_id' => 'required',
@@ -58,6 +64,7 @@ class DeviceReviewController extends Controller
             if($perameter['supplier_status'] == 2){
                 $supplierData = [
                     'supplier_name' => $perameter['supplier_id'],
+                    'country' => $country,
                     'status' => 0,
                     'user_id' => $user_id
                 ];
@@ -85,6 +92,7 @@ class DeviceReviewController extends Controller
             }
             $ip_details = \Location::get($ip);
             $perameter['country_code'] = $ip_details->countryCode;
+            
     		if($deviceReview = DeviceReview::create($perameter)){
     			$message = array('success'=>true,'message'=>'Device review add successfully.','device_id'=>$deviceReview->id);
     			return json_encode($message);
@@ -160,6 +168,7 @@ class DeviceReviewController extends Controller
                         'rating_id'=>$plandevicerating->rating_id,
                         'question_id'=>$value['question_id'],
                         'rating'=>$value['rate'],
+                        'text_field_value'=>$value['text_field_value'], 
                         'created_at'=>$date,
                         'updated_at'=>$date
                     ];

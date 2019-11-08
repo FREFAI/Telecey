@@ -12,7 +12,7 @@ class RatingQuestionController extends Controller
     
     public function questionList(Request $request)
     {
-        $questions = RatingQuestion::paginate(10);
+        $questions = RatingQuestion::orderBy('id','DESC')->paginate(10);
     	return view('Admin.RatingQuestion.question-list',['questions'=>$questions]);
     }
 
@@ -30,6 +30,8 @@ class RatingQuestionController extends Controller
         if($validation->fails()){
             return redirect()->back()->with('error',$validation->messages()->first());
         }else{
+            $perameters['text_field'] = isset($perameters['text_field']) ? 1 : 0;
+            
             $ratingQuestion = RatingQuestion::create($perameters);
             if($ratingQuestion){
                 return redirect('/admin/rating-question')->with('success','Question added successfully.');
@@ -55,9 +57,11 @@ class RatingQuestionController extends Controller
             return redirect()->back()->with('error',$validation->messages()->first());
         }else{
             $question = RatingQuestion::find($perameter['id']);
+            $perameter['text_field'] = isset($perameter['text_field']) ? 1 : 0;
             if($question){
                 $question->question = $perameter['question'];
                 $question->type = $perameter['type'];
+                $question->text_field = $perameter['text_field'];
                 if($question->save()){
                     return redirect('/admin/rating-question')->with('success','Question updated successfully.');
                 }else{

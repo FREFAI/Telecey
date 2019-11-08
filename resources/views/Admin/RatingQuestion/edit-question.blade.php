@@ -50,6 +50,18 @@
                       </select>
                     </div>
                   </div>
+                  <div class="col-md-6">
+                    <h6 class="heading-small text-muted mb-4">Add Field</h6>
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <div class="form-group">
+                    <label class="custom-toggle" >
+                      <input type="checkbox" value="1" name="text_field" @if($question->text_field == 1) checked @endif>
+                      <span class="custom-toggle-slider rounded-circle"></span>
+                    </label>
+                    <span class="clearfix"></span>
+                    </div>
+                  </div>
                   <div class="col-md-12">
                     <input type="hidden" name="id" value="{{$question->id}}">
                     <div class="form-group">

@@ -29,7 +29,7 @@
 
 
 
-	            	<input type="checkbox" name="checkboxTerms" value="check" id="agree" required="required"/> <font size="4px">I agree to the terms and conditions </font>
+	            	<input type="checkbox" name="checkboxTerms" value="check" id="agree" required="required"/> <font size="4px">I agree to the <a style="color:blue;" href="javascript:void(0)" data-toggle="modal" data-target="#termAndCondition">terms and conditions</a> </font>
 
 
 
@@ -49,5 +49,23 @@
 	        </form>
 		</div>
 	<!-- Content End Here -->
+<!-- The Modal -->
+<div class="modal" id="termAndCondition">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
 
+      <!-- Modal Header -->
+      <div class="modal-header px-3 py-2">
+        <h4 class="modal-title">Terms and conditions</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        {!!$setting->terms_and_conditions!!}
+      </div>
+
+    </div>
+  </div>
+</div>
 @endsection

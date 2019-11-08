@@ -39,6 +39,20 @@
                       <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Provider name" name="provider_name">
                     </div>
                   </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                        <select class="form-control select2" name="country">
+                          @if($countries)
+                            <option value="">Select Country</option>
+                            @foreach($countries as $country)
+                              <option value="{{$country->name}}">{{$country->name}}</option>
+                            @endforeach
+                          @else
+                            <option value="">Countries not found</option>
+                          @endif
+                        </select>
+                    </div>
+                  </div>
                   <div class="col-lg-12 mb-4">
                     <div class="blog_image">
                       <div class="avatar-upload">

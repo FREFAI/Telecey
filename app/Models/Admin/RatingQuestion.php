@@ -10,6 +10,6 @@ class RatingQuestion extends Model
     protected $guard = 'admin';
 
     protected $fillable = [
-        'id', 'question', 'type', 'created_at', 'updated_at'
+        'id', 'question', 'type', 'text_field', 'created_at', 'updated_at'
     ];
 }

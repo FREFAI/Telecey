@@ -496,11 +496,14 @@
               return false;
             }else{
               isset = 1;
+              var text_field = $('#text_field_value'+question_id).val();
+              var text_field_value = text_field != undefined ? text_field : null;
               if (perams[index] === undefined) {
-                  perams[index] = {question_id: question_id,rate: rate};
+                  perams[index] = {question_id: question_id,rate: rate,text_field_value: text_field_value};
               } else {
                   perams[index].question_id = question_id;
                   perams[index].rate = rate;
+                  perams[index].text_field_value = text_field_value;
               }
             }
           });
@@ -514,6 +517,7 @@
             }else if(window.location.protocol == "https:"){
                 resuesturl = "{{secure_url('/ratingService')}}"
             }
+            
             $('.ajaxloader').show();
             $.ajax({
                 type: "post",
@@ -640,6 +644,7 @@
             var currency_name = $('.currency_id option:checked').text();
             var price = $('#price').val();
             var storage = $('#storage').val();
+            var device_color = $('#device_color').val();
             swal({
                 title: currency_name+' '+price,
                 text: "Above price is including tax"
@@ -670,7 +675,8 @@
                         'currency_id':currency_id,
                         'device_id':device,
                         'price':price,
-                        'storage':storage
+                        'storage':storage,
+                        'device_color':device_color
                       },
                       success: function (data) {
                         $('.ajaxloader').hide();
@@ -730,11 +736,14 @@
                 return false;
               }else{
                 isset = 1;
+                var text_field = $('#text_field_value'+question_id).val();
+                var text_field_value = text_field != undefined ? text_field : null;
                 if (perams[index] === undefined) {
-                    perams[index] = {question_id: question_id,rate: rate};
+                    perams[index] = {question_id: question_id,rate: rate,text_field_value: text_field_value};
                 } else {
                     perams[index].question_id = question_id;
                     perams[index].rate = rate;
+                    perams[index].text_field_value = text_field_value;
                 }
               }
             });

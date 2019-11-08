@@ -27,12 +27,6 @@
 		font-size: 33px;
 		font-weight: bold;
 	}
-	.search-bar .form-group{
-		width: 39%;
-	}
-	.search-bar .search-inner {
-		width: 90%;
-	}
 	div#example_wrapper {
 		width: 100%;
 	}
@@ -93,17 +87,17 @@
 											</div>
 											<i class="lni-chevron-down"></i>
 										</div>
-										{{-- <div class="form-group inputwithicon">
+										<div class="form-group inputwithicon">
 											<div class="select">
-												<select required="required" name="supplier" id="supplier">
-													<option value="">Supplier</option>
-													@foreach($suppliers as $v)
-														<option value="{{$v->id}}"  @if( request()->get('supplier') ) @if( request()->get('supplier') == $v->id) selected @endif @endif>{{$v->supplier_name}}</option>
+												<select required="required" name="device_color" id="device_color">
+													<option value="">Color</option>
+													@foreach($colors as $v)
+														<option value="{{$v->id}}"  @if( request()->get('device_color') ) @if( request()->get('device_color') == $v->id) selected @endif @endif>{{$v->color_name}}</option>
 													@endforeach	
 													</select>
 											</div>
 											<i class="lni-chevron-down"></i>
-										</div> --}}
+										</div>
 										<button class="btn btn-common search_btn" type="submit"><i class="lni-search"></i> Search Now</button>
 									</div>
 								</div>
@@ -446,7 +440,7 @@
 						</table>
 					</div>
 				</div>
-				@else
+			@else
 				<div class="container">
 					<div class="row pt-5 pb-5 mt-5 mb-5">
 						<div class="col text-center">
@@ -456,7 +450,7 @@
 						</div>
 					</div>
 				</div>
-				@endif
+			@endif
 			{{-- <div class="container">
 				<div class="row pt-5 pb-5 mt-5 mb-5">
 					<div class="col text-center">

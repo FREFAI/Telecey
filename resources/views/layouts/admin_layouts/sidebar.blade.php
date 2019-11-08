@@ -74,6 +74,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/terms-conditions') ? 'active' : '' }}" href="{{url('/admin/terms-conditions')}}">
+              <i class="ni ni-support-16 text-pink"></i> Terms and Conditions
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link {{ request()->is('admin/blogs') ? 'active' : '' }}" href="{{url('/admin/blogs')}}">
               <i class="fa fa-newspaper text-pink" aria-hidden="true"></i> Blogs
             </a>
@@ -124,6 +129,8 @@
                 <i class="ni ni-paper-diploma text-danger"></i> Brands List </a>
               <a class="dropdown-item {{request()->is('admin/suppliers') ? 'active' : '' }}" href="{{url('admin/suppliers')}}">
                 <i class="ni ni-delivery-fast text-info"></i> Supplier </a>
+              <a class="dropdown-item {{request()->is('admin/colors-list') ? 'active' : '' }}" href="{{url('admin/colors-list')}}">
+                <i class="ni ni-palette text-info"></i> Device Colors </a>
             </div>
           </li>
           <li class="nav-item">

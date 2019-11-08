@@ -16,6 +16,7 @@ use App\Models\Admin\BrandModels;
 use App\Models\Admin\Devices;
 use App\Models\Admin\Brands;
 use App\Models\Admin\Supplier;
+use App\Models\Admin\DeviceColor;
 use App\User;
 use App\UserAddress;
 use App\Currency;
@@ -128,21 +129,24 @@ class ReviewsController extends Controller
             // $ip = '2606:4580:2:0:a974:e358:829c:412e';
             $ip = '122.173.214.129';
         }
+        
         // $ip = '96.46.34.142';
         $data = \Location::get($ip);
         $current_lat = $data->latitude;
         $current_long = $data->longitude;
         $settings = SettingsModel::first();
-        $providers = Provider::get();
+        $providers = Provider::where('country',$usersAddress->country)->get();
+       
         $countries = Currency::get();
         $brandModels = BrandModels::get();
         $devices = Devices::get();
         $brands = Brands::get();
-        $suppliers = Supplier::get();
+        $suppliers = Supplier::where('country',$usersAddress->country)->get();
         $service_types = ServiceType::get();
         $questions = RatingQuestion::get();
+        $colors = DeviceColor::get();
 
-        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions,'userAddress'=>$usersAddress,'brandModels'=>$brandModels,'brands'=>$brands,'devices'=>$devices,'suppliers'=>$suppliers,'lat' =>  $current_lat,'long'=>$current_long]);
+        return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions,'userAddress'=>$usersAddress,'brandModels'=>$brandModels,'brands'=>$brands,'devices'=>$devices,'suppliers'=>$suppliers,'lat' =>  $current_lat,'long'=>$current_long,'colors'=>$colors]);
     }
     public function reviewsRating(Request $request, $plan_id)
     {
@@ -216,6 +220,12 @@ class ReviewsController extends Controller
     public function reviewService(Request $request)
     {
         $user_id = Auth::guard('customer')->user()['id'];
+        $userAddress = UserAddress::select('country')->where('user_id',$user_id)->where('is_primary',1)->first();
+        if($userAddress){
+            $country = $userAddress->country;
+        }else{
+            $country=null;
+        }
         $input = $request->all();
         if(!array_key_exists('overage_price', $input)){
             $input['overage_price_type'] = 0;
@@ -247,6 +257,7 @@ class ReviewsController extends Controller
             if($input['provider_status'] == 2){
                 $providerData = [
                     'provider_name' => $input['provider_id'],
+                    'country' => $country,
                     'status' => 0,
                     'user_id' => $user_id
                 ];
@@ -400,6 +411,7 @@ class ReviewsController extends Controller
                             'rating_id'=>$plandevicerating->rating_id,
                             'question_id'=>$value['question_id'],
                             'rating'=>$value['rate'],
+                            'text_field_value'=>$value['text_field_value'],
                             'created_at'=>$date,
                             'updated_at'=>$date
                         ];
@@ -496,6 +508,7 @@ class ReviewsController extends Controller
                             'rating_id'=>$plandevicerating->rating_id,
                             'question_id'=>$value['question_id'],
                             'rating'=>$value['rate'],
+                            'text_field_value'=>$value['text_field_value'],
                             'created_at'=>$date,
                             'updated_at'=>$date
                         ];

@@ -370,12 +370,17 @@
 								  					  	                	  				<div class="col-lg-12 mb-3">
 								  					  	                		  				<div class="card_sm">
 								  					  	                		  					<div class="row">
-								  					  	                			  					<div class="col-lg-8">
+								  					  	                			  					<div class="col-lg-6">
 								  					  	                			  						<div class="question">
 									  					  	                				  					{{$rate['question_name']}}
 									  					  	                				  				</div>
 								  					  	                				  				</div>
 								  					  	                				  				<div class="col-lg-4">
+																											<div class="question">
+									  					  	                				  					{{$rate['text_field_value']}}
+									  					  	                				  				</div>
+								  					  	                				  				</div>
+								  					  	                				  				<div class="col-lg-2">
 								  					  	                				  					<div class="rating_disable pull-right" data-rate-value="{{$rate['rating']}}"></div>
 								  					  	                				  				</div>
 								  					  	                				  			</div>
@@ -457,7 +462,7 @@
 	  											  			<div class="service_list_design">
 								  				  				<div class="row">
 								  					  				
-								  					  				<div class="col-lg-6 text-center">
+								  					  				<div class="col-lg-4 text-center">
 								  					  					<div class="card_sm">
 								  						  					<ul class="first_row_service">
 								  						  						<li>
@@ -471,13 +476,29 @@
 								  						  					</ul>
 								  					  					</div>
 								  					  				</div>
-								  					  				<div class="col-lg-6 text-center">
+								  					  				<div class="col-lg-4 text-center">
 								  					  					<div class="card_sm">
 								  						  					<ul class="first_row_service">
 								  						  						<li>
 								  						  							<div>Storage : </div>
 								  						  							<div class="value_div">&nbsp;
 								  						  								{{$device->storage}}
+								  						  							</div>
+								  						  						</li>
+								  						  					</ul>
+								  					  					</div>
+								  					  				</div>
+								  					  				<div class="col-lg-4 text-center">
+								  					  					<div class="card_sm">
+								  						  					<ul class="first_row_service">
+								  						  						<li>
+								  						  							<div>Color : </div>
+								  						  							<div class="value_div">&nbsp;
+																						@if($device->device_color_info) 
+																							{{$device->device_color_info->color_name}}
+																						@else
+																							N/A
+																						@endif 
 								  						  							</div>
 								  						  						</li>
 								  						  					</ul>
@@ -529,12 +550,17 @@
   							  					  	                	  				<div class="col-lg-12 mb-3">
   							  					  	                		  				<div class="card_sm">
   							  					  	                		  					<div class="row">
-  							  					  	                			  					<div class="col-lg-8">
-  							  					  	                			  						<div class="question">
-  								  					  	                				  					{{$rate['question_name']}}
-  								  					  	                				  				</div>
-  							  					  	                				  				</div>
-  							  					  	                				  				<div class="col-lg-4">
+																									<div class="col-lg-6">
+																										<div class="question">
+																											{{$rate['question_name']}}
+																										</div>
+																									</div>
+																									<div class="col-lg-4">
+																										<div class="question">
+																											{{$rate['text_field_value']}}
+																										</div>
+																									</div>
+  							  					  	                				  				<div class="col-lg-2">
   							  					  	                				  					<div class="rating_disable pull-right" data-rate-value="{{$rate['rating']}}"></div>
   							  					  	                				  				</div>
   							  					  	                				  			</div>

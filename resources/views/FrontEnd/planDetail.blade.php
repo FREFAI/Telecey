@@ -325,12 +325,15 @@
                                                         <div class="col-lg-12 mb-3">
                                                             <div class="card_sm">
                                                                 <div class="row">
-                                                                    <div class="col-lg-8">
+                                                                    <div class="col-lg-6">
                                                                         <div class="question">
                                                                             {{$rate['question_name']}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-lg-4">
+                                                                    {{$rate['text_field_value']}}
+                                                                    </div>
+                                                                    <div class="col-lg-2">
                                                                         <div class="rating_disable pull-right" data-rate-value="{{$rate['rating']}}"></div>
                                                                     </div>
                                                                 </div>

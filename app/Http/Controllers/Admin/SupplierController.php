@@ -6,18 +6,21 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Admin\Supplier;
+use App\CountriesModel;
 
 class SupplierController extends Controller
 {
     public function addSupplierForm(Request $request)
     {
-    	return view('Admin.Supplier.add_supplier');
+        $countries = CountriesModel::get();
+    	return view('Admin.Supplier.add_supplier',['countries'=>$countries]);
     }
     public function addSupplier(Request $request)
     {
-    	$perameters = $request->all();
+        $perameters = $request->all();
     	$validation = Validator::make($perameters,[
-			'supplier_name' => 'required|unique:suppliers'
+			'supplier_name' => 'required|unique:suppliers',
+			'country' => 'required'
 		]);
 		if ($validation->fails()) {
 			return redirect()->back()->withInput()->with('error',$validation->messages()->first());
@@ -34,8 +37,9 @@ class SupplierController extends Controller
     public function editSupplierForm(Request $request, $supplierID)
     {
     	$supplierID = base64_decode($supplierID);
-    	$supplier = Supplier::find($supplierID);
-    	return view('Admin.Supplier.edit_supplier',['supplier'=>$supplier]);
+        $supplier = Supplier::find($supplierID);
+        $countries = CountriesModel::get();
+    	return view('Admin.Supplier.edit_supplier',['supplier'=>$supplier,'countries'=>$countries]);
     }
     public function editSupplier(Request $request)
     {
@@ -43,13 +47,15 @@ class SupplierController extends Controller
     	$perameters['id'] = base64_decode($perameters['id']);
     	$validation = Validator::make($perameters,[
     		'id' 			=> 'required',
-			'supplier_name' => 'required|unique:suppliers,supplier_name,'.$perameters['id']
+			'supplier_name' => 'required|unique:suppliers,supplier_name,'.$perameters['id'],
+            'country'       => 'required'
 		]);
 		if ($validation->fails()) {
 			return redirect()->back()->withInput()->with('error',$validation->messages()->first());
 		}else{
 			$supplier = Supplier::find($perameters['id']);
 			$supplier->supplier_name = $perameters['supplier_name'];
+			$supplier->country = $perameters['country'];
 			if($supplier->save()){
 				return redirect('/admin/suppliers')->with('success','Suppliers updated successfully.');
 			}else{

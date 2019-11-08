@@ -10,6 +10,6 @@ class Supplier extends Model
     protected $guard = 'admin';
 
     protected $fillable = [
-        'supplier_name', 'user_id', 'status', 'created_at', 'updated_at'
+        'supplier_name','country', 'user_id', 'status', 'created_at', 'updated_at'
     ];
 }

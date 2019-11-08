@@ -1,7 +1,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		
+		$('.select2').select2();
 		$('.datepicker').datepicker();
 		$('.datepicker-one').datepicker();
 		$('.datepicker-two').datepicker();
@@ -1027,6 +1027,45 @@
 					}
 				});
 			});
+			// Color Delete
+
+			$('.delete_color').on('click',function(){
+				var supplier_id = $(this).attr('data-color_id');
+				var delete_row = $(this);
+				if(window.location.protocol == "http:"){
+				    resuesturl = "{{url('/admin/delete-color')}}"
+				}else if(window.location.protocol == "https:"){
+				    resuesturl = "{{secure_url('/admin/delete-color')}}"
+				}
+				swal("Are you sure you want to delete this color?", {
+		          buttons: ["No", "Yes"],
+		        })
+		        .then(name => {
+		          	if(name){
+						$.ajax({
+						    type: "post",
+						    url: resuesturl,
+						    headers: {
+						        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						    },
+						    dataType:'json',
+						    data: {
+						        'id':supplier_id
+						    },
+						    success: function (data) {
+						        if(data.success){
+						        	delete_row.closest('tr').remove();
+						        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        }else{
+						        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        }
+						    }         
+						});
+					}
+				});
+			});
+
+
 
 			$(document).on('click','.approved_supplier_btn',function(){
 				var supplier_id = $(this).attr('data-supplier_id');

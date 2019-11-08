@@ -37,6 +37,7 @@
                      <tr>
                        <th scope="col" class="text-center" style="width: 10px;">Sr.No</th>
                        <th scope="col" class="">Supplier name</th>
+                       <th scope="col" class="">Country</th>
                        <th scope="col" class="">Status</th>
                        <th scope="col" class="">Default</th>
                        <th scope="col" class="text-right">Action</th>
@@ -55,6 +56,11 @@
                             <td class="">
                               <div class="media-body">
                                   <span class="mb-0 text-sm">{{$supplier->supplier_name}}</span>
+                              </div>
+                            </td>
+                            <td class="">
+                              <div class="media-body">
+                                  <span class="mb-0 text-sm">{{$supplier->country ? $supplier->country : 'N/A'}}</span>
                               </div>
                             </td>
                            <td  class="">

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Helpers\GenerateNickName;
 use Auth,Mail;
+use App\Models\Admin\SettingsModel;
 
 
 
@@ -30,8 +31,9 @@ class RegisterController extends Controller
     */
     public function signupForm(Request $request)
     {
+        $setting = SettingsModel::first();
         if(!Auth::guard('customer')->check()){
-            return view('FrontEnd.LoginSignup.emailsignup');
+            return view('FrontEnd.LoginSignup.emailsignup',['setting'=>$setting]);
         }else{
             return redirect('profile');
         }
@@ -101,7 +103,11 @@ class RegisterController extends Controller
 
         ]);
         if ( $validation->fails() ) {
-           return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+            if($validation->messages('email')){
+                return redirect()->back()->withInput()->with('error',"Email already in use by another account. You can use log in or use the forgot password page to reset your password");
+            }else{
+                return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+            }
         }else{
             $nickname = GenerateNickName::nickName($input['firstname']);
             $input['nickname'] = $nickname;

@@ -73,14 +73,26 @@
                         </div>
                         @if(count($questions)>0)
                             @foreach($questions as $question)
-        	               		<div class="row">
+        	               		<div class="row align-items-center">
         	               		    <div class="col-lg-6">
         	               		        <div class="">
         	               		            <h5>{{$question->question}}</h5>
         	               		        </div>
         	               		    </div>
         	               		    <div class="col-lg-6">
-        	               		    	<div class="rating float-right" data-question_id="{{$question->id}}"></div>
+                                       <div class="row">
+                                            <div class="col-lg-6">
+                                            @if($question->text_field == 1)
+                                                <div class="form-group mb-2">
+                                                    <input type="text" class="form-control" id="text_field_value{{$question->id}}">		
+                                                </div>
+                                            @endif
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="rating float-right" data-question_id="{{$question->id}}"></div>
+                                            </div>
+                                       </div>
+        	               		    	
         	               		    	<!-- <div class="rating coverage" data-rate-value=6></div> -->
         	               		    </div>
         	               		</div>

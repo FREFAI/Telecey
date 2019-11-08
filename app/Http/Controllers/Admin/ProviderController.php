@@ -6,19 +6,22 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Provider;
 use Illuminate\Support\Facades\Validator;
+use App\CountriesModel;
 use File,Image;
 
 class ProviderController extends Controller
 {
     public function addProviderForm(Request $request)
     {
-    	return view('Admin.Providers.add_provider');
+        $countries = CountriesModel::get();
+    	return view('Admin.Providers.add_provider',['countries'=>$countries]);
     }
     public function addProvider(Request $request)
     {
         $perameter = $request->all();
     	$validation = Validator::make($perameter,[
             'provider_name' => 'required|unique:providers',
+            'country' => 'required',
 			'provider_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'            
 		]);
 		if($validation->fails()){
@@ -61,9 +64,10 @@ class ProviderController extends Controller
     public function editProviderForm($provider_id)
     {
     	$provider_id = base64_decode($provider_id);
-    	$provider = Provider::find($provider_id);
+        $provider = Provider::find($provider_id);
+        $countries = CountriesModel::get();
     	if($provider){
-    		return view('Admin.Providers.edit_provider',['provider'=>$provider]);
+    		return view('Admin.Providers.edit_provider',['provider'=>$provider,'countries'=>$countries]);
     	}else{
     		abort(404);
     	}
@@ -73,6 +77,7 @@ class ProviderController extends Controller
         $perameter = $request->all();
     	$validation = Validator::make($perameter,[
             'provider_name' => 'required|unique:providers,provider_name,'.$perameter['id'],
+            'country'       => 'required',
 			'provider_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'                        
         ]);
         if ($validation->fails()) {

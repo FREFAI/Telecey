@@ -266,7 +266,7 @@ span.toggle_label {
   .srch_bar {
     display: inline-block;
     text-align: right;
-    width: 60%; padding:
+    width: 60%;
   }
   .headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
 
@@ -410,3 +410,35 @@ span.toggle_label {
       padding: 0 60px 0px 10px;
   }
 /*End Chat css */
+
+/* 08-Nov-2019 */
+span.select2-selection.select2-selection--single {
+  font-size: .875rem !important;
+  /* line-height: 1.5; */
+  display: block;
+  width: 100%;
+  height: calc(2.75rem + 2px);
+  padding: .625rem 5px;
+  transition: all .2s cubic-bezier(.68, -.55, .265, 1.55);
+  color: #8898aa;
+  border: 1px solid #cad1d7;
+  border-radius: .375rem;
+  background-color: #fff;
+  background-clip: padding-box;
+  box-shadow: none;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+  color: #b3bac2 !important;
+  line-height: unset !important;
+}
+span.select2.select2-container.select2-container--default.select2-container--below.select2-container--focus {
+  width: 100%;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  top: 10px !important;
+}
+span.select2.select2-container.select2-container--default.select2-container--focus{
+  width: 100% !important;
+}
+/* 08-Nov-2019 */

@@ -41,6 +41,20 @@
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
+                        <select class="form-control select2" name="country">
+                          @if($countries)
+                            <option value="">Select Country</option>
+                            @foreach($countries as $country)
+                              <option value="{{$country->name}}">{{$country->name}}</option>
+                            @endforeach
+                          @else
+                            <option value="">Countries not found</option>
+                          @endif
+                        </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
                       <button class="btn btn-primary" type="submit">Save</button>
                     </div>
                   </div>

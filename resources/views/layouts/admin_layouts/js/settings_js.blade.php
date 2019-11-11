@@ -1,13 +1,6 @@
-
-<script type="text/javascript">
+@if(!request()->is('admin/users'))
+<script>
 	$(document).ready(function(){
-		$('.select2').select2();
-		$('.datepicker').datepicker();
-		$('.datepicker-one').datepicker();
-		$('.datepicker-two').datepicker();
-		$(".rating_disable").rate({
-		  readonly:true
-		});
 		tinymce.init({ 
 			selector:'.text_editor' ,
 			height: 300,
@@ -19,6 +12,20 @@
 			    content_css: 'css/content.css',
 			    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | preview fullpage | forecolor backcolor emoticons'
 		});
+	});
+</script>
+@endif
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.select2').select2();
+		$('.datepicker').datepicker();
+		$('.datepicker-one').datepicker();
+		$('.datepicker-two').datepicker();
+		$(".rating_disable").rate({
+		  readonly:true
+		});
+		CKEDITOR.replace( 'text_editor' );
+		
 		function readURL(input) {
 		    if (input.files && input.files[0]) {
 		        var reader = new FileReader();
@@ -1288,5 +1295,109 @@
 		setTimeout(function(){
         	$('.autoHide').fadeOut();
 		}, 2000);
+
+		var id = [];
+		$(".default_check_user").change(function() {
+			var removeItem = $(this).val();
+			if(this.checked) {
+				id.push($(this).val());
+				sessionStorage.setItem('ids',id);
+			}else{
+				id.splice($.inArray(removeItem, id), 1);
+				sessionStorage.setItem('ids',id);
+			}
+		});
+		$('#customCheck0').change(function(){
+			id = [];
+			if(this.checked) {
+				$('.default_check_user').each(function(){
+					id.push($(this).val());
+				});
+				sessionStorage.setItem('ids',id);
+				$(".default_check_user").attr('checked',true);
+			}else{
+				$('.default_check_user').each(function(){
+					id.splice($.inArray($(this).val(), id), 1);
+				});
+				sessionStorage.setItem('ids',id);
+				$(".default_check_user").attr('checked',false);
+			}
+		});
+		$('.sendEmailToUser').on('click',function(){
+			if(id.length == 0){
+				swal({
+					title: "Please select user.",
+					icon: "warning",
+					button: "ok",
+				});
+				return false;
+			}
+		});
+		// Send Email To User Section
+		$('#send_email_to_user_form').on('submit',function(e){
+			e.preventDefault();
+			if(window.location.protocol == "http:"){
+			    resuesturl = "{{url('/admin/sendEmailToUsers')}}"
+			}else if(window.location.protocol == "https:"){
+			    resuesturl = "{{secure_url('/admin/sendEmailToUsers')}}"
+			}
+			var fd = new FormData(); 
+			fd.append( 'ids', id );
+			fd.append( 'subject', $('#subject').val() );
+			fd.append( 'text_editor', $('#text_editor').val() );
+			fd.append( 'attached_file', $('#attached_file')[0].files[0] );   
+
+			$.ajax({
+				url: resuesturl,
+				data: fd,
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				processData: false,
+				contentType: false,
+				type: 'POST',
+			success: function(data){
+				console.log(data);
+			}
+			});
+			return;
+
+
+
+
+			var form = $('#send_email_to_user_form')[0];
+			var formDataAll = new FormData();
+			formDataAll.append( 'ids', id );
+			console.log(formDataAll);
+			return;
+			
+			swal("Are you sure you want to send email?", {
+				buttons: ["No", "Yes"],
+			})
+			.then(res => {
+				if(res){
+					$.ajax({
+						type: "post",
+						url: resuesturl,
+						headers: {
+							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						},
+						dataType:'json',
+						data: formDataAll,
+						success: function (data) {
+							// if(data.success){
+							// 	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+							// }else{
+							// 	toastr.error('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+							// }
+						}         
+					});
+				}else{
+					$(this).prop("checked", false); 
+				}
+			});
+
+		});
+		// End Send Email To User Section
 	});
 </script>

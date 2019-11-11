@@ -55,10 +55,12 @@
 	          <div class="card-header bg-transparent">
 		    	<div class="row">
 
-            <div class="col-md-10">
+            <div class="col-md-8">
                <h5 class="heading-small text-muted mb-4">Users List</h5>
             </div>
-            <div class="col-md-2 text-right">
+            <div class="col-md-4 text-right">
+            <!-- <a class="heading-small btn btn-primary" href="javascript:void(0);" id="send_email_to_user">Send Email</a> -->
+            <a class="heading-small btn btn-primary sendEmailToUser" href="javascript:void(0);" data-toggle="modal" data-target="#sendEmailToUser" >Send Email</a>
             <a class="heading-small btn btn-primary" href="{{url('/admin/exportUsers')}}">Export</a>
              </div>
              <div class="col-md-12 text-right pb-2">
@@ -88,6 +90,12 @@
                  <table class="table align-items-center text-center">
                    <thead class="thead-light">
                      <tr>
+                       <th scope="col" style="width: 10px;">
+                        <div class="custom-control custom-checkbox">
+                              <input value="-1" class="custom-control-input" id="customCheck0" name="default" type="checkbox">
+                              <label class="custom-control-label" for="customCheck0"></label>
+                            </div>
+                       </th>
                        <th scope="col" style="width: 10px;">Sr.No</th>
                        <th scope="col" style="width: 10px;">Name</th>
                        <th scope="col" style="width: 10px;">Nick Name</th>
@@ -107,6 +115,12 @@
                         @endphp
                        @foreach($users as $user)
                        <tr>
+                          <td class="text-center" style="max-width: 10px;">
+                            <div class="custom-control custom-checkbox">
+                              <input value="{{$user->email}}" class="custom-control-input default_check_user" id="customCheck{{$user->id}}" data-user_id="{{$user->id}}" name="default" type="checkbox">
+                              <label class="custom-control-label" for="customCheck{{$user->id}}"></label>
+                            </div>
+                          </td>
                           <td class="text-center" style="max-width: 10px;">
                             {{$i++}}
                           </td>
@@ -177,10 +191,54 @@
             </div>
 		    	</div>
 		    </div>
-		</div>
+    </div>
+    <div class="modal fade" id="sendEmailToUser" tabindex="-1" role="dialog" aria-labelledby="sendEmailToUser" aria-hidden="true">
+      <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="modal-title-default">Type your modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                  </button>
+              </div>
+              <div class="modal-body pt-0">
+                <form role="form" enctype="multipart/form-data" id="send_email_to_user_form">
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                            </div>
+                            <input class="form-control" placeholder="Subject" type="subject" id="subject" name="subject">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <textarea name="email_content" class="from-control text_editor" id="text_editor">Next, get a free Tiny Cloud API key!</textarea>
+                    </div>
+                    <div class="form-group">
+                      <input type="file" class="form-control" id="attached_file" name="attached_file">
+                    </div>
+                    <div class="text-center">
+                        <button id="send_email_to_user" class="btn btn-primary float-right">Sign in</button>
+                    </div>
+                </form>
+              </div>
+          </div>
+      </div>
+  </div>
     <!-- Footer Section Include -->
         @include('layouts.admin_layouts.footer')
     <!-- End Footer Section Include -->
   </div>
 </div>
+<style type="text/css">
+	h6.heading-small{
+		text-transform: capitalize;
+	}
+  .custom-toggle-slider:before{
+    background-color: #5e72e4;
+  }
+  .custom-toggle-slider, .custom-toggle-slider{
+    border: 1px solid #5e72e4;
+  }
+</style>
 @endsection

@@ -45,7 +45,6 @@ class UsersController extends Controller
         } 
         else{
                 $users = $this->searchUser($request);
-            // echo "<pre>";print_r($users->toArray());die;
         }
     	return view('Admin.Users.users-list',['users'=>$users,'request'=>$parameter]);
     }

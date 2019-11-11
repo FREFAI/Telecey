@@ -93,7 +93,7 @@
                                 <div class="row">
                                   <div class="col-md-12">
                                     <div class="form-group">
-                                      <textarea class="from-control text_editor" id="first-test">Next, get a free Tiny Cloud API key!</textarea>
+                                      <textarea class="from-control" id="first-test">Next, get a free Tiny Cloud API key!</textarea>
                                     </div>
                                     <div class="form-group">
                                       <button class="btn btn-primary">Submit</button>

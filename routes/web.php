@@ -51,6 +51,7 @@
 	Route::get('/plans', 'FrontEnd\PlansController@plans');
 	Route::get('/devices', 'FrontEnd\DevicesController@devices');
 	Route::get('/blogs-list', 'FrontEnd\BlogsController@blogs');
+	Route::get('/searchBrand', 'FrontEnd\DevicesController@searchBrand');
 
 	Route::group(['middleware' => ['CustomerAuth','PreventBackHistory']], function(){
 		Route::group(['middleware' => 'IpLocation'], function(){
@@ -124,6 +125,7 @@
 			// Route::post('/users', 'Admin\UsersController@searchUser');
 			Route::get('/userDetail/{userId}', 'Admin\UsersController@getSingleUserDetail');
 			Route::get('/forgotEmail/{userId}', 'Admin\ForgotPasswordController@sendEmailManually');
+			Route::post('/sendEmailToUsers', 'Admin\SendEmailsController@sendEmailToUsers');
 			// End Users Section 
 
 			// Sub Admin Section

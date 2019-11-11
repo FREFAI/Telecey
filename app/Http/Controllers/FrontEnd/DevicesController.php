@@ -146,4 +146,18 @@ class DevicesController extends Controller
             // echo "<pre>";print_r($planDetailData->toArray());die;
         return view('FrontEnd.deviceDetail',['service' => $planDetailData]);
     }
+
+    public function searchBrand(Request $request)
+    {
+        $params = $request->all();
+        $brands = Brands::where('brand_name', 'LIKE', '%'. $params['search']. '%')->get()->toArray();
+        if($brands){
+            $message = array('sucess' => true, 'data' => $brands);
+            echo json_encode($message);
+        }else{
+            $message = array('sucess' => false, 'data' => null);
+            echo json_encode($message);
+        }
+        
+    }
 }

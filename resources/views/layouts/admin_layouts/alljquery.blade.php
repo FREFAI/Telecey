@@ -10,6 +10,7 @@
 <script src="{{URL::asset('admin/assets/js/argon.js')}}"></script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.13.0/full/ckeditor.js"></script>
 <script src="https://cdn.tiny.cloud/1/r33fht357sb48uzaif4s424d91smk1zo3s41jfq0gkx580ee/tinymce/5/tinymce.min.js"></script>
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 <script src="{{URL::asset('frontend/jsplugins/statr_rating/jquery.rateit.js')}}"></script>

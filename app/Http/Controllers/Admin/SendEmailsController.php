@@ -37,7 +37,7 @@ class SendEmailsController extends Controller
         if (File::exists($params['file'])) {
             unlink($params['file']);
         }
-        return json_encode(array('sucess'=>true, 'message'=>'Emails are send.'));
+        return json_encode(array('success'=>true, 'message'=>'Emails are send.'));
         
     }
 }

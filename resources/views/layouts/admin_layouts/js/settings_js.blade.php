@@ -1355,45 +1355,17 @@
 				},
 				processData: false,
 				contentType: false,
+				dataType:'json',
 				type: 'POST',
-			success: function(data){
-				console.log(data);
-			}
-			});
-			return;
-
-
-
-
-			var form = $('#send_email_to_user_form')[0];
-			var formDataAll = new FormData();
-			formDataAll.append( 'ids', id );
-			console.log(formDataAll);
-			return;
-			
-			swal("Are you sure you want to send email?", {
-				buttons: ["No", "Yes"],
-			})
-			.then(res => {
-				if(res){
-					$.ajax({
-						type: "post",
-						url: resuesturl,
-						headers: {
-							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-						},
-						dataType:'json',
-						data: formDataAll,
-						success: function (data) {
-							// if(data.success){
-							// 	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
-							// }else{
-							// 	toastr.error('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
-							// }
-						}         
-					});
-				}else{
-					$(this).prop("checked", false); 
+				success: function(data){
+					$('#send_email_to_user_form')[0].reset();
+					$('#sendEmailToUser').modal('hide');
+					$(".default_check_user").attr('checked',false);
+					if(data.success){
+						toastr.success('Email Send to user.', data.message , {displayDuration:3000,position: 'top-right'});
+					}else{
+						toastr.error('Email Send to user.', 'Somthing went wrong!' , {displayDuration:3000,position: 'top-right'});
+					}
 				}
 			});
 

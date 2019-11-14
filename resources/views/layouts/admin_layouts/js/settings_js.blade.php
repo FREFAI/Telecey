@@ -18,6 +18,12 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.select2').select2();
+		$('.select2color').select2({
+			placeholder: {
+				id: '-1', // the value of the option
+				text: 'Color'
+			}
+		});
 		$('.datepicker').datepicker();
 		$('.datepicker-one').datepicker();
 		$('.datepicker-two').datepicker();

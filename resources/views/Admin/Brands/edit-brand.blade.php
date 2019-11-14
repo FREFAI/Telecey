@@ -48,6 +48,21 @@
                         </div>
                         <div class="col-md-12">
                           <div class="form-group">
+                              <select class="form-control select2color" name="color[]" multiple >
+                                @php
+                                  $colors_ids = explode(',',$brand->colors_id)
+                                @endphp
+                                @if($colors)
+                                    @foreach($colors as $color)
+                                      <option value="{{$color->id}}" {{in_array($color->id,$colors_ids) ? 'selected' : '' }}>{{$color->color_name}}</option>
+                                    @endforeach
+                                @else
+                                  <option value="">Colors not found</option>
+                                @endif
+                              </select>
+                          </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
                             <button class="btn btn-primary" type="submit">Update</button>
                           </div>
                         </div>

@@ -46,6 +46,19 @@
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
+                            <select class="form-control select2color" name="color[]" multiple >
+                              @if($colors)
+                                @foreach($colors as $color)
+                                  <option value="{{$color->id}}">{{$color->color_name}}</option>
+                                @endforeach
+                              @else
+                                <option value="">Colors not found</option>
+                              @endif
+                            </select>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
                           <button class="btn btn-primary" type="submit">Save</button>
                         </div>
                       </div>

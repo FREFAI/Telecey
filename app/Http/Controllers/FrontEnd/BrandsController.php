@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Admin\BrandModels;
+use App\Models\Admin\Brands;
+use App\Models\Admin\DeviceColor;
 
 class BrandsController extends Controller
 {
@@ -24,5 +26,18 @@ class BrandsController extends Controller
     		$message = array('success'=>true,'message'=>'','data'=>$models);
 	     	return json_encode($message);
     	}
-    }
+	}
+	public function getBrandColor(Request $request)
+	{
+		$perameter = $request->all();
+		$models = Brands::find($perameter['id']);
+		if($models){
+			$ids = explode(',',$models->colors_id);
+			$colors = DeviceColor::whereIn('id',$ids)->get();
+			return json_encode(array('success'=>true,'message'=>'','data'=>$colors));
+		}else{
+			return json_encode(array('success'=>false,'message'=>'Brand is not found','data'=>'{}'));
+		}
+	}
+
 }

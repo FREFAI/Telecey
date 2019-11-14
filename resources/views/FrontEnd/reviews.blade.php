@@ -250,14 +250,7 @@
                             <h5>Color</h5>
                             <div class="tg-select form-control">
                                 <select required="required" name="device_color" id="device_color">
-                                    @if($colors)
-                                        <option value="">Choose Color</option>
-                                        @foreach($colors as $color)
-                                            <option value="{{$color->id}}">{{$color->color_name}}</option>
-                                        @endforeach
-                                    @else
-                                    <option value="">Colors not found</option>
-                                    @endif
+                                    
                                 </select>
                             </div>
                         </div>

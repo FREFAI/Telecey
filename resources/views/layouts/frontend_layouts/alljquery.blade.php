@@ -274,251 +274,26 @@
             
         // End Review page js
         // Review page ajax
-        $('#firstform').on('submit',function(e){
-          $('.ajaxloader').show();
-          var thisform = $(this);
-          e.preventDefault();
-          var latitude = $('#lat').val();
-          var longitude = $('#long').val();
-          var firstname = $('#firstname').val();
-          var lastname = $('#lastname').val();
-          var country = $('#country').val();
-          var city = $('#city').val();
-          var postal_code = $('#postal_code').val();
-          var mobile_number = $('#mobile_number').val();
-          if(firstname == "" || lastname == "" || country == "" || city == ""){
-            return;
-          }
-          if(window.location.protocol == "http:"){
-              resuesturl = "{{url('/reviewsDetail')}}"
-          }else if(window.location.protocol == "https:"){
-              resuesturl = "{{secure_url('/reviewsDetail')}}"
-          }
-          $.ajax({
-              type: "post",
-              url: resuesturl,
-              headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              },
-              dataType:'json',
-              data: {
-                  'latitude':latitude,
-                  'longitude':longitude,
-                  'firstname':firstname,
-                  'lastname':lastname,
-                  'country':country,
-                  'city':city,
-                  'postal_code':postal_code,
-                  'mobile_number':mobile_number
-              },
-              success: function (data) {
-                  $('.ajaxloader').hide();
-                  if(data.success){
-                    thisform.closest('.intro-section').addClass('section-d-none');
-                    $('.service-detail').removeClass('section-d-none');
-                  }else{
-                    // toastr.error('Add detail', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
-                  }
-              }         
-          });
-        });
-
-        $('.reveiewing_form_service').on('submit',function(e){
-          e.preventDefault();
-          if(!$('.reveiewing_form_service').valid()){
-            return;
-          }
-          var reviewform = $(this);
-          var provider_name = $('.provider_name.active').val();
-          var provider_status = $('.provider_status').val();
-          var contract_type = $('.contract_type:checked').val();
-          var pay_as_usage = $('.pay_as_usage:checked').val();
-          var price = $('.price').val();
-          var currency_id = $('.currency_id').val();
-          var currency_name = $('.currency_id option:checked').text();
-          var payment_type = $('.payment_type:checked').val();
-          var overage_price = $('#overage_price:checked').val();
-          var service_type = $('.service_type').val();
-          var technology_type = $('.technology_type').val();
-          var voice_price = $('#voice_overage_price').val();
-          var data_price = $('#data_over_age').val();
-          var voice_usage_price = $('#voice_usage_price').val();
-          var data_usage_age = $('#data_usage_age').val();
-          var latitude = $('#lat').val();
-          var longitude = $('#long').val();
-          var local_min = $('.local_min').val();
-          var datavolume = $('.datavolume').val();
-          var long_distance_min = $('.long_distance_min').val();
-          var international_min = $('.international_min').val();
-          var roaming_min = $('.roaming_min').val();
-          var sms = $('.sms').val();
-          console.log(price);
-          if(pay_as_usage != 1){
-            if(local_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(local_min) != true){
-             return;
-            }
-            if(long_distance_min != "Unlimited" && long_distance_min != "unlimited" && $.isNumeric(long_distance_min) != true){
-             return;
-            }
-            if(international_min != "Unlimited" && international_min != "unlimited" && $.isNumeric(international_min) != true){
-             return;
-            }
-            if(roaming_min != "Unlimited" && roaming_min != "unlimited" && $.isNumeric(roaming_min) != true){
-             return;
-            }
-            if(sms != "Unlimited" && sms != "unlimited" && $.isNumeric(sms) != true){
-             return;
-            }
-          }
-
-          swal({
-              title: currency_name+' '+price,
-              text: "Above price is including tax"
-            })
-          .then(name => {
-              if(name){
-                $('.ajaxloader').show();
-                if(window.location.protocol == "http:"){
-                    resuesturl = "{{url('/reviewService')}}"
-                }else if(window.location.protocol == "https:"){
-                    resuesturl = "{{secure_url('/reviewService')}}"
-                }
-                $.ajax({
-                    type: "post",
-                    url: resuesturl,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    dataType:'json',
-                    data: {
-                      'provider_id': provider_name,
-                      'provider_status':provider_status,
-                      'contract_type': contract_type,
-                      'price': price,
-                      'payment_type': payment_type,
-                      'service_type': service_type,
-                      'local_min': local_min,
-                      'datavolume': datavolume,
-                      'long_distance_min': long_distance_min,
-                      'international_min': international_min,
-                      'roaming_min': roaming_min,
-                      'sms':sms,
-                      'technology':technology_type,
-                      'currency_id':currency_id,
-                      'overage_price':overage_price,
-                      'voice_price':voice_price,
-                      'data_price':data_price,
-                      'voice_usage_price':voice_usage_price,
-                      'data_usage_price':data_usage_age,
-                      'pay_as_usage_type':pay_as_usage,
-                      'latitude':latitude,
-                      'longitude':longitude
-                    },
-                    success: function (data) {
-                      $('.ajaxloader').hide();
-                        if(data.success){
-                          speedTestFunction();
-                          $('.service_id').val(data.service_id);
-                          $('.plan_id').val(data.service_id);
-                          reviewform.closest('.service_form_section').addClass('section-d-none');                   
-                        }else{
-                          // toastr.error('Add detail', data.message , {displayDuration:3000,position: 'top-right'});
-                        }
-                    }         
-                });
-              }
-            });
-          
-        });
-        $('#speedtestForm').on('submit',function(e){
-          e.preventDefault();
-          if(!$('#speedtestForm').valid()){
-            return;
-          }
-          $('.ajaxloader').show();
-          var downloading_speed = $('#downloading_speed').val();
-          var uploading_speed = $('#uploading_speed').val();
-          var plan_id = $('#plan_id').val();
-          var speedtest_type = $('#speedtest_type').val();
-          if(window.location.protocol == "http:"){
-              resuesturl = "{{url('/saveSpeedTest')}}"
-          }else if(window.location.protocol == "https:"){
-              resuesturl = "{{secure_url('/saveSpeedTest')}}"
-          }
-          $.ajax({
-              type: "post",
-              url: resuesturl,
-              headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              },
-              dataType:'json',
-              data: {
-                'downloading_speed': downloading_speed,
-                'uploading_speed':uploading_speed,
-                'plan_id': plan_id,
-                'speedtest_type':speedtest_type
-              },
-              success: function (data) {
-                $('.ajaxloader').hide();
-                  if(data.success){
-                    $('.services-rating-section').removeClass('section-d-none');
-                    $('#speedTestModel').modal('hide');
-                  }
-              }         
-          });
-        });
-        $('.service-rating-submit-btn').on('click',function(e){
-          e.preventDefault();
-          var isset = 0;
-          var latitude = $('#lat').val();
-          var longitude = $('#long').val();
-          var comment = $('#comment').val();
-          var average_input = $('.average_input').val();
-          var service_id = $('.service_id').val();
-          var type = $('.plan-type').val();
-          var user_address_id = $('#user_address_id').val();
-          var user_full_address = $('#user_full_address').val();
-          var user_city = $('#user_city').val();
-          var user_country = $('#user_country').val();
-          var user_postal_code = $('#user_postal_code').val();
-          var is_primary = $('#is_primary').val();
-          var formatted_address = user_full_address+' '+user_city+' '+user_country+' '+user_postal_code;
-          var perams = [];
-          $('#rating_section .rating').each(function(index, item){
-            var rate = $(item).rate('getValue');
-            var question_id = $(item).attr('data-question_id');
-            if(rate==0){
-              $('.starrating_error').removeClass('d-none');
-              setTimeout(function(){
-                $('.starrating_error').addClass('d-none');
-              },3000);
-              isset = 0;
-              return false;
-            }else{
-              isset = 1;
-              var text_field = $('#text_field_value'+question_id).val();
-              var text_field_value = text_field != undefined ? text_field : null;
-              if (perams[index] === undefined) {
-                  perams[index] = {question_id: question_id,rate: rate,text_field_value: text_field_value};
-              } else {
-                  perams[index].question_id = question_id;
-                  perams[index].rate = rate;
-                  perams[index].text_field_value = text_field_value;
-              }
-            }
-          });
-          if(isset == 1){
-            $('#user_address').modal({
-                show: true
-            });
-            var ratingform = $(this);
-            if(window.location.protocol == "http:"){
-                resuesturl = "{{url('/ratingService')}}"
-            }else if(window.location.protocol == "https:"){
-                resuesturl = "{{secure_url('/ratingService')}}"
-            }
-            
+          $('#firstform').on('submit',function(e){
             $('.ajaxloader').show();
+            var thisform = $(this);
+            e.preventDefault();
+            var latitude = $('#lat').val();
+            var longitude = $('#long').val();
+            var firstname = $('#firstname').val();
+            var lastname = $('#lastname').val();
+            var country = $('#country').val();
+            var city = $('#city').val();
+            var postal_code = $('#postal_code').val();
+            var mobile_number = $('#mobile_number').val();
+            if(firstname == "" || lastname == "" || country == "" || city == ""){
+              return;
+            }
+            if(window.location.protocol == "http:"){
+                resuesturl = "{{url('/reviewsDetail')}}"
+            }else if(window.location.protocol == "https:"){
+                resuesturl = "{{secure_url('/reviewsDetail')}}"
+            }
             $.ajax({
                 type: "post",
                 url: resuesturl,
@@ -527,48 +302,273 @@
                 },
                 dataType:'json',
                 data: {
-                  'perameters':perams,
-                  'latitude':latitude,
-                  'longitude':longitude,
-                  'comment':comment,
-                  'average_input':average_input,
-                  'service_id':service_id,
-                  'type':type,
-                  'user_address_id':user_address_id,
-                  'user_full_address':user_full_address,
-                  'user_city':user_city,
-                  'user_country':user_country,
-                  'user_postal_code':user_postal_code,
-                  'is_primary':is_primary,
-                  'formatted_address':formatted_address
-
+                    'latitude':latitude,
+                    'longitude':longitude,
+                    'firstname':firstname,
+                    'lastname':lastname,
+                    'country':country,
+                    'city':city,
+                    'postal_code':postal_code,
+                    'mobile_number':mobile_number
                 },
                 success: function (data) {
                     $('.ajaxloader').hide();
                     if(data.success){
-
-                      toastr.success('Rating', data.message , {displayDuration:3000,position: 'top-right'});
-                      $('.detail-section').addClass('section-d-none');
-                      // ratingform.closest('.services-rating-section').addClass('section-d-none');
-                      // ratingform.closest('.services-rating-section').next('.speed-test-button-section').removeClass('section-d-none');
-                      if(type==1){
-                        window.location.href = "{{url('/profile')}}";
-                      }else{
-                        window.location.href = "{{url('/profile')}}?type=2";
-                      }
+                      thisform.closest('.intro-section').addClass('section-d-none');
+                      $('.service-detail').removeClass('section-d-none');
                     }else{
-                      // toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
+                      // toastr.error('Add detail', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
                     }
                 }         
             });
-          }
-        });
+          });
 
-        $('.continue-btn').on('click',function(e){
-        	e.preventDefault();
-        	$(this).closest('.speed-test-button-section').addClass('section-d-none');
-        	$(this).closest('.speed-test-button-section').next('.speedtest-section').removeClass('section-d-none');
-        });
+          $('.reveiewing_form_service').on('submit',function(e){
+            e.preventDefault();
+            if(!$('.reveiewing_form_service').valid()){
+              return;
+            }
+            var reviewform = $(this);
+            var provider_name = $('.provider_name.active').val();
+            var provider_status = $('.provider_status').val();
+            var contract_type = $('.contract_type:checked').val();
+            var pay_as_usage = $('.pay_as_usage:checked').val();
+            var price = $('.price').val();
+            var currency_id = $('.currency_id').val();
+            var currency_name = $('.currency_id option:checked').text();
+            var payment_type = $('.payment_type:checked').val();
+            var overage_price = $('#overage_price:checked').val();
+            var service_type = $('.service_type').val();
+            var technology_type = $('.technology_type').val();
+            var voice_price = $('#voice_overage_price').val();
+            var data_price = $('#data_over_age').val();
+            var voice_usage_price = $('#voice_usage_price').val();
+            var data_usage_age = $('#data_usage_age').val();
+            var latitude = $('#lat').val();
+            var longitude = $('#long').val();
+            var local_min = $('.local_min').val();
+            var datavolume = $('.datavolume').val();
+            var long_distance_min = $('.long_distance_min').val();
+            var international_min = $('.international_min').val();
+            var roaming_min = $('.roaming_min').val();
+            var sms = $('.sms').val();
+            console.log(price);
+            if(pay_as_usage != 1){
+              if(local_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(local_min) != true){
+              return;
+              }
+              if(long_distance_min != "Unlimited" && long_distance_min != "unlimited" && $.isNumeric(long_distance_min) != true){
+              return;
+              }
+              if(international_min != "Unlimited" && international_min != "unlimited" && $.isNumeric(international_min) != true){
+              return;
+              }
+              if(roaming_min != "Unlimited" && roaming_min != "unlimited" && $.isNumeric(roaming_min) != true){
+              return;
+              }
+              if(sms != "Unlimited" && sms != "unlimited" && $.isNumeric(sms) != true){
+              return;
+              }
+            }
+
+            swal({
+                title: currency_name+' '+price,
+                text: "Above price is including tax"
+              })
+            .then(name => {
+                if(name){
+                  $('.ajaxloader').show();
+                  if(window.location.protocol == "http:"){
+                      resuesturl = "{{url('/reviewService')}}"
+                  }else if(window.location.protocol == "https:"){
+                      resuesturl = "{{secure_url('/reviewService')}}"
+                  }
+                  $.ajax({
+                      type: "post",
+                      url: resuesturl,
+                      headers: {
+                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      },
+                      dataType:'json',
+                      data: {
+                        'provider_id': provider_name,
+                        'provider_status':provider_status,
+                        'contract_type': contract_type,
+                        'price': price,
+                        'payment_type': payment_type,
+                        'service_type': service_type,
+                        'local_min': local_min,
+                        'datavolume': datavolume,
+                        'long_distance_min': long_distance_min,
+                        'international_min': international_min,
+                        'roaming_min': roaming_min,
+                        'sms':sms,
+                        'technology':technology_type,
+                        'currency_id':currency_id,
+                        'overage_price':overage_price,
+                        'voice_price':voice_price,
+                        'data_price':data_price,
+                        'voice_usage_price':voice_usage_price,
+                        'data_usage_price':data_usage_age,
+                        'pay_as_usage_type':pay_as_usage,
+                        'latitude':latitude,
+                        'longitude':longitude
+                      },
+                      success: function (data) {
+                        $('.ajaxloader').hide();
+                          if(data.success){
+                            speedTestFunction();
+                            $('.service_id').val(data.service_id);
+                            $('.plan_id').val(data.service_id);
+                            reviewform.closest('.service_form_section').addClass('section-d-none');                   
+                          }else{
+                            // toastr.error('Add detail', data.message , {displayDuration:3000,position: 'top-right'});
+                          }
+                      }         
+                  });
+                }
+              });
+            
+          });
+          $('#speedtestForm').on('submit',function(e){
+            e.preventDefault();
+            if(!$('#speedtestForm').valid()){
+              return;
+            }
+            $('.ajaxloader').show();
+            var downloading_speed = $('#downloading_speed').val();
+            var uploading_speed = $('#uploading_speed').val();
+            var plan_id = $('#plan_id').val();
+            var speedtest_type = $('#speedtest_type').val();
+            if(window.location.protocol == "http:"){
+                resuesturl = "{{url('/saveSpeedTest')}}"
+            }else if(window.location.protocol == "https:"){
+                resuesturl = "{{secure_url('/saveSpeedTest')}}"
+            }
+            $.ajax({
+                type: "post",
+                url: resuesturl,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType:'json',
+                data: {
+                  'downloading_speed': downloading_speed,
+                  'uploading_speed':uploading_speed,
+                  'plan_id': plan_id,
+                  'speedtest_type':speedtest_type
+                },
+                success: function (data) {
+                  $('.ajaxloader').hide();
+                    if(data.success){
+                      $('.services-rating-section').removeClass('section-d-none');
+                      $('#speedTestModel').modal('hide');
+                    }
+                }         
+            });
+          });
+          $('.service-rating-submit-btn').on('click',function(e){
+            e.preventDefault();
+            var isset = 0;
+            var latitude = $('#lat').val();
+            var longitude = $('#long').val();
+            var comment = $('#comment').val();
+            var average_input = $('.average_input').val();
+            var service_id = $('.service_id').val();
+            var type = $('.plan-type').val();
+            var user_address_id = $('#user_address_id').val();
+            var user_full_address = $('#user_full_address').val();
+            var user_city = $('#user_city').val();
+            var user_country = $('#user_country').val();
+            var user_postal_code = $('#user_postal_code').val();
+            var is_primary = $('#is_primary').val();
+            var formatted_address = user_full_address+' '+user_city+' '+user_country+' '+user_postal_code;
+            var perams = [];
+            $('#rating_section .rating').each(function(index, item){
+              var rate = $(item).rate('getValue');
+              var question_id = $(item).attr('data-question_id');
+              if(rate==0){
+                $('.starrating_error').removeClass('d-none');
+                setTimeout(function(){
+                  $('.starrating_error').addClass('d-none');
+                },3000);
+                isset = 0;
+                return false;
+              }else{
+                isset = 1;
+                var text_field = $('#text_field_value'+question_id).val();
+                var text_field_value = text_field != undefined ? text_field : null;
+                if (perams[index] === undefined) {
+                    perams[index] = {question_id: question_id,rate: rate,text_field_value: text_field_value};
+                } else {
+                    perams[index].question_id = question_id;
+                    perams[index].rate = rate;
+                    perams[index].text_field_value = text_field_value;
+                }
+              }
+            });
+            if(isset == 1){
+              $('#user_address').modal({
+                  show: true
+              });
+              var ratingform = $(this);
+              if(window.location.protocol == "http:"){
+                  resuesturl = "{{url('/ratingService')}}"
+              }else if(window.location.protocol == "https:"){
+                  resuesturl = "{{secure_url('/ratingService')}}"
+              }
+              
+              $('.ajaxloader').show();
+              $.ajax({
+                  type: "post",
+                  url: resuesturl,
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                  dataType:'json',
+                  data: {
+                    'perameters':perams,
+                    'latitude':latitude,
+                    'longitude':longitude,
+                    'comment':comment,
+                    'average_input':average_input,
+                    'service_id':service_id,
+                    'type':type,
+                    'user_address_id':user_address_id,
+                    'user_full_address':user_full_address,
+                    'user_city':user_city,
+                    'user_country':user_country,
+                    'user_postal_code':user_postal_code,
+                    'is_primary':is_primary,
+                    'formatted_address':formatted_address
+
+                  },
+                  success: function (data) {
+                      $('.ajaxloader').hide();
+                      if(data.success){
+
+                        toastr.success('Rating', data.message , {displayDuration:3000,position: 'top-right'});
+                        $('.detail-section').addClass('section-d-none');
+                        // ratingform.closest('.services-rating-section').addClass('section-d-none');
+                        // ratingform.closest('.services-rating-section').next('.speed-test-button-section').removeClass('section-d-none');
+                        if(type==1){
+                          window.location.href = "{{url('/profile')}}";
+                        }else{
+                          window.location.href = "{{url('/profile')}}?type=2";
+                        }
+                      }else{
+                        // toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
+                      }
+                  }         
+              });
+            }
+          });
+
+          $('.continue-btn').on('click',function(e){
+            e.preventDefault();
+            $(this).closest('.speed-test-button-section').addClass('section-d-none');
+            $(this).closest('.speed-test-button-section').next('.speedtest-section').removeClass('section-d-none');
+          });
         // End Review page ajax
 
         $('.plan_page .switch input').on('change',function(){
@@ -797,5 +797,43 @@
             }
           });
         // End Device section  
-        
+        // Start Brand Section
+          $('#brand').on('change',function(){
+            var brandId = $(this).val();
+            if(window.location.protocol == "http:"){
+                resuesturl = "{{url('/getBrandColor')}}"
+            }else if(window.location.protocol == "https:"){
+                resuesturl = "{{secure_url('/getBrandColor')}}"
+            }
+            $.ajax({
+                type: "post",
+                url: resuesturl,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType:'json',
+                data: {
+                  id:brandId
+                },
+                success: function (data) {
+                    $('#device_color').html('');
+                    if(data.success){
+                      var colors = data.data;
+                      console.log(colors);
+                      
+                      if(colors != ''){
+                        for(var i=0; i <= colors.length;i++){
+                          $('#device_color').append('<option value="'+colors[i].id+'">'+colors[i].color_name+'</option>');
+                        }
+                      }else{
+                        $('#device_color').append('<option value="">Color not found</option>');
+                      }
+                    }else{
+
+                    }
+                }         
+            });
+            
+          })
+        // End Brand Section
 </script>

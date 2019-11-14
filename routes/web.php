@@ -88,10 +88,14 @@
 			Route::get('/inbox/{caseID}', 'FrontEnd\SupportCaseController@caseInbox');
 			Route::post('/sendMessage', 'FrontEnd\SupportCaseController@sendMessage');
 			// End Suport case section
-
+			
 			// Email verify Section
 			Route::get('/resendVerifyEmail', 'FrontEnd\LoginSignup\RegisterController@resendVerifyEmail');
 			// End Email verify Section
+			
+			// Brand Section
+			Route::post('/getBrandColor', 'FrontEnd\BrandsController@getBrandColor');
+			// End Brand Section
 		});
 	});
 

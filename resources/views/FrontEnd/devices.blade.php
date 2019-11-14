@@ -257,10 +257,8 @@
 											<div class="select">
 												<select required="required" name="device_color" id="device_color">
 													<option value="">Color</option>
-													@foreach($colors as $v)
-														<option value="{{$v->id}}"  @if( request()->get('device_color') ) @if( request()->get('device_color') == $v->id) selected @endif @endif>{{$v->color_name}}</option>
-													@endforeach	
-													</select>
+													
+												</select>
 											</div>
 											<i class="lni-chevron-down"></i>
 										</div>
@@ -633,7 +631,41 @@
 
 <script>
 // Select Box of model
+		$(document).on('click','.dropdown-select ul li',function(){
+			var brandId = $(this).attr('data-value');
+			if(window.location.protocol == "http:"){
+                resuesturl = "{{url('/getBrandColor')}}"
+            }else if(window.location.protocol == "https:"){
+                resuesturl = "{{secure_url('/getBrandColor')}}"
+            }
+            $.ajax({
+                type: "post",
+                url: resuesturl,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType:'json',
+                data: {
+                  id:brandId
+                },
+                success: function (data) {
+                    $('#device_color').html('');
+                    if(data.success){
+                      var colors = data.data;
+                      
+                      if(colors != ''){
+                        for(var i=0; i <= colors.length;i++){
+                          $('#device_color').append('<option value="'+colors[i].id+'">'+colors[i].color_name+'</option>');
+                        }
+                      }else{
+                        $('#device_color').append('<option value="">Color</option>');
+                      }
+                    }else{
 
+                    }
+                }         
+            });
+		});
 	function create_custom_dropdowns() {
 		$('#brand_select').each(function (i, select) {
 			if (!$(this).next().hasClass('dropdown-select')) {
@@ -705,7 +737,8 @@
 		$('.dropdown-select ul > li').each(function(){
 		var text = $(this).text();
 			(text.toLowerCase().indexOf(valThis.toLowerCase()) > -1) ? $(this).show() : $(this).hide();         
-	});
+		});
+		
 	};
 	// Search
 

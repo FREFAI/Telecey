@@ -53,6 +53,10 @@
 	Route::get('/blogs-list', 'FrontEnd\BlogsController@blogs');
 	Route::get('/searchBrand', 'FrontEnd\DevicesController@searchBrand');
 
+	// Brand Section
+	Route::post('/getBrandColor', 'FrontEnd\BrandsController@getBrandColor');
+	// End Brand Section
+	
 	Route::group(['middleware' => ['CustomerAuth','PreventBackHistory']], function(){
 		Route::group(['middleware' => 'IpLocation'], function(){
 			// Change password
@@ -93,9 +97,6 @@
 			Route::get('/resendVerifyEmail', 'FrontEnd\LoginSignup\RegisterController@resendVerifyEmail');
 			// End Email verify Section
 			
-			// Brand Section
-			Route::post('/getBrandColor', 'FrontEnd\BrandsController@getBrandColor');
-			// End Brand Section
 		});
 	});
 

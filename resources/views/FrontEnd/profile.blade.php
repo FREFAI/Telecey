@@ -57,6 +57,7 @@
 	        We have sent an email with a confirmation link to your email address. Please verify your email <strong><a href="{{url('/resendVerifyEmail')}}">Click here</a></strong> to resend verification email.
 		</div>
 		@endif
+		@include('flash-message')
 		<!-- @include('flash-message') -->
 		<div class="row">
 			<div class="col-lg-3 mb-3">

@@ -30,7 +30,7 @@
            	    	        		<div class="heading_case pt-2">
            		    	        		<h4><i class="fas fa-comment"></i> {{$case->subject}}</h4>
            		    	        		<div class="close_btn">
-           			    	        		<a href="{{url(Request::session()->get('backUrlCase'))}}" class="float-right"><i class="fa fa-times"></i></a>
+           			    	        		<a href="{{url(Request::session()->get('backUrlCase'))}}" class="float-right btn btn-info btn-sm">Close</a>
            			    	        	</div>
            		    	        	</div>
            	        	          	<div class="msg_history pt-3">

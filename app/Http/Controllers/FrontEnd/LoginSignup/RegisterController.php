@@ -167,7 +167,7 @@ class RegisterController extends Controller
         $user->email_verified_at = date("Y-m-d H:i:s");
         if($user->save()){
             if (Auth::guard('customer')->loginUsingId($user->id)) {
-               return redirect('/reviews')->with('success','Email verify successfully!');
+               return redirect('/profile')->with('success','Thank you for confirming your email address');
             }
         }else{
             return redirect()->back()->withInput()->with('error',"Somthing went wrong!");

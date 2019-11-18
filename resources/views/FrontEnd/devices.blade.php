@@ -220,7 +220,7 @@
 									<div class="search-inner">
 										<div class="form-group inputwithicon">
 											<div class="select">
-												<select required="required" name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">
+												<select name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">
 													<option value="">Brand</option>
 													@foreach($brands as $v)
 														<option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
@@ -231,7 +231,7 @@
 										</div>
 										{{-- <div class="form-group inputwithicon">
 											<div class="select" ">
-												<select required="required" name="model_name" id="model_name">
+												<select  name="model_name" id="model_name">
 													<option value="">Model</option>
 													@foreach($brands as $v)
 														<option value="{{$v->id}}">{{$v->model_name}}</option>
@@ -242,7 +242,7 @@
 										</div> --}}
 										<div class="form-group inputwithicon">
 											<div class="select">
-												<select required="required" name="storage" id="storage">
+												<select name="storage" id="storage">
 														<option value="">Capacity</option>
 														<option value="64" @if( request()->get('storage') ) @if( request()->get('storage') == '64') selected @endif @endif>64</option>
 														<option value="128" @if( request()->get('storage') ) @if( request()->get('storage') == '128') selected @endif @endif>128</option>
@@ -255,7 +255,7 @@
 										</div>
 										<div class="form-group inputwithicon">
 											<div class="select">
-												<select required="required" name="device_color" id="device_color">
+												<select name="device_color" id="device_color">
 													<option value="">Color</option>
 													
 												</select>

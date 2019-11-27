@@ -4,7 +4,7 @@
 		// sessionStorage.removeItem('ids');
 		var allEmailIds = sessionStorage.getItem('ids');
 		id = sessionStorage.getItem('ids');
-		allEmailIds = allEmailIds.split(',');
+		allEmailIds = allEmailIds ? allEmailIds.split(',') : [];
 		var totalEmails = $('.default_check_user').length;
 		
 		jQuery.each( allEmailIds, function( i, val ) {

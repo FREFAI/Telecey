@@ -212,7 +212,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                      <textarea name="email_content" class="from-control text_editor" id="text_editor">Next, get a free Tiny Cloud API key!</textarea>
+                      <textarea name="email_content" class="from-control text_editor" id="text_editor"></textarea>
                     </div>
                     <div class="form-group">
                       <input type="file" class="form-control" id="attached_file" name="attached_file">

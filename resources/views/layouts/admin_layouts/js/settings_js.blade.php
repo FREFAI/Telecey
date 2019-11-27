@@ -1316,12 +1316,15 @@
 
 		var id = [];
 		$(".default_check_user").change(function() {
-			id = sessionStorage.getItem('ids') ? [sessionStorage.getItem('ids')] : [];
+			id = sessionStorage.getItem('ids') ? sessionStorage.getItem('ids').split(',') : [];
 			var removeItem = $(this).val();
+			
 			if(this.checked) {
 				id.push($(this).val());
 				sessionStorage.setItem('ids',id);
 			}else{
+				// // id = id.split(',')
+				// console.log($.inArray(removeItem, id));
 				id.splice($.inArray(removeItem, id), 1);
 				sessionStorage.setItem('ids',id);
 			}

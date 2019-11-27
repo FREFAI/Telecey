@@ -1,7 +1,23 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		sessionStorage.removeItem('ids');
+		// sessionStorage.removeItem('ids');
+		var allEmailIds = sessionStorage.getItem('ids');
+		id = sessionStorage.getItem('ids');
+		allEmailIds = allEmailIds.split(',');
+		var totalEmails = $('.default_check_user').length;
+		
+		jQuery.each( allEmailIds, function( i, val ) {
+			$("input[value='" + val + "']").prop('checked', true);
+			
+		});
+		var totalEmailsChecked = $('.default_check_user:checked').length;
+		if(totalEmails <= totalEmailsChecked){
+			$("#customCheck0").prop('checked', true);
+		}
+		console.log(totalEmailsChecked);
+		// console.log(allEmailIds);
+		
 		tinymce.init({ 
 			selector:'.text_editor' ,
 			height: 300,
@@ -1300,6 +1316,7 @@
 
 		var id = [];
 		$(".default_check_user").change(function() {
+			id = sessionStorage.getItem('ids') ? [sessionStorage.getItem('ids')] : [];
 			var removeItem = $(this).val();
 			if(this.checked) {
 				id.push($(this).val());
@@ -1312,20 +1329,46 @@
 		$('#customCheck0').change(function(){
 			id = [];
 			if(this.checked) {
-				$('.default_check_user').each(function(){
-					id.push($(this).val());
+				if(window.location.protocol == "http:"){
+					resuesturl = "{{url('/admin/getAllEmailsOfUsers')}}"
+				}else if(window.location.protocol == "https:"){
+					resuesturl = "{{secure_url('/admin/getAllEmailsOfUsers')}}"
+				}
+
+				$.ajax({
+					url: resuesturl,
+					data: {
+						'status':1
+					},
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					dataType:'json',
+					type: 'POST',
+					success: function(data){
+						if(data.success){
+							id = data.ids;
+							sessionStorage.setItem('ids',id);
+							$(".default_check_user").prop('checked',true);
+						}
+					}
 				});
-				sessionStorage.setItem('ids',id);
-				$(".default_check_user").attr('checked',true);
+				// $('.default_check_user').each(function(){
+				// 	id.push($(this).val());
+				// });
+				
 			}else{
+				$(".default_check_user").prop('checked',false);
 				$('.default_check_user').each(function(){
 					id.splice($.inArray($(this).val(), id), 1);
 				});
 				sessionStorage.setItem('ids',id);
-				$(".default_check_user").attr('checked',false);
 			}
 		});
 		$('.sendEmailToUser').on('click',function(){
+			id = sessionStorage.getItem('ids') ? sessionStorage.getItem('ids') : [];
+			// console.log('HElo',id);
+			
 			if(id.length == 0){
 				swal({
 					title: "Please select user.",
@@ -1371,6 +1414,7 @@
 					$('#sendEmailToUser').hide();
 					$(".default_check_user").attr('checked',false);
 					if(data.success){
+						sessionStorage.removeItem('ids')
 						toastr.success('Email Send to user.', data.message , {displayDuration:3000,position: 'top-right'});
 					}else{
 						toastr.error('Email Send to user.', 'Somthing went wrong!' , {displayDuration:3000,position: 'top-right'});

@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendEmailToUserJob;
 use Mail,File;
+use App\User;
 
 class SendEmailsController extends Controller
 {
+    
     public function sendEmailToUsers(Request $request)
     {
         $params = $request->all();
@@ -39,5 +41,11 @@ class SendEmailsController extends Controller
         }
         return json_encode(array('success'=>true, 'message'=>'Emails are send.'));
         
+    }
+    public function getAllEmailsOfUsers(Request $request){
+        $users = User::pluck('email');
+        if($users){
+            return json_encode(array('success'=>true,'ids'=>$users));
+        }
     }
 }

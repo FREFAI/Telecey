@@ -35,7 +35,5 @@ class SendEmailToUserJob implements ShouldQueue
         $emails = $this->emails;
         $params = $this->params;
         Mail::to($emails)->send(new SendEmailToUser($params));
-        // SesMail::enableAllTracking()
-        //             ->to($emails['email'])->send(new WelcomeEmail($emails));
     }
 }

@@ -127,6 +127,7 @@
 			Route::get('/logout', 'Admin\LoginController@logout');
 			// Users Section 
 			Route::get('/users', 'Admin\UsersController@index');
+			Route::post('/getAllEmailsOfUsers','Admin\SendEmailsController@getAllEmailsOfUsers');
 			// Route::post('/users', 'Admin\UsersController@searchUser');
 			Route::get('/userDetail/{userId}', 'Admin\UsersController@getSingleUserDetail');
 			Route::get('/forgotEmail/{userId}', 'Admin\ForgotPasswordController@sendEmailManually');

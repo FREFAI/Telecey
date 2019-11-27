@@ -1412,6 +1412,7 @@
 				success: function(data){
 					$('#send_email_to_user_form')[0].reset();
 					$('.sendEmailModal').hide();
+					$('.sendEmailModalOverLay').hide();
 					sessionStorage.removeItem('ids')
 					$(".default_check_user").prop('checked',false);
 					if(data.success){

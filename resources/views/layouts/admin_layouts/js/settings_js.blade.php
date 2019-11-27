@@ -1394,7 +1394,7 @@
 			    resuesturl = "{{secure_url('/admin/sendEmailToUsers')}}"
 			}
 			var fd = new FormData(); 
-			fd.append( 'ids', id );
+			fd.append( 'ids', sessionStorage.getItem('ids') );
 			fd.append( 'subject', $('#subject').val() );
 			fd.append( 'text_editor', $('#text_editor').val() );
 			fd.append( 'attached_file', $('#attached_file')[0].files[0] );   
@@ -1412,9 +1412,9 @@
 				success: function(data){
 					$('#send_email_to_user_form')[0].reset();
 					$('#sendEmailToUser').hide();
-					$(".default_check_user").attr('checked',false);
+					sessionStorage.removeItem('ids')
+					$(".default_check_user").prop('checked',false);
 					if(data.success){
-						sessionStorage.removeItem('ids')
 						toastr.success('Email Send to user.', data.message , {displayDuration:3000,position: 'top-right'});
 					}else{
 						toastr.error('Email Send to user.', 'Somthing went wrong!' , {displayDuration:3000,position: 'top-right'});

@@ -28,6 +28,8 @@
     <!-- Custome Script Section  -->
         @include('layouts.admin_layouts.js.settings_js')
     <!-- Custome Script Section  -->
+
+    <div class="sendEmailModalOverLay"></div>
   </body>
 
 </html>

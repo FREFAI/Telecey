@@ -1,6 +1,7 @@
-@if(!request()->is('admin/users'))
-<script>
+
+<script type="text/javascript">
 	$(document).ready(function(){
+		sessionStorage.removeItem('ids');
 		tinymce.init({ 
 			selector:'.text_editor' ,
 			height: 300,
@@ -9,14 +10,9 @@
 			      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
 			      'save table contextmenu directionality emoticons template paste textcolor'
 			    ],
-			    content_css: 'css/content.css',
-			    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | preview fullpage | forecolor backcolor emoticons'
+			content_css: 'css/content.css',
+			toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | preview fullpage | forecolor backcolor emoticons | image'
 		});
-	});
-</script>
-@endif
-<script type="text/javascript">
-	$(document).ready(function(){
 		$('.select2').select2();
 		$('.select2color').select2({
 			placeholder: {
@@ -30,7 +26,7 @@
 		$(".rating_disable").rate({
 		  readonly:true
 		});
-		CKEDITOR.replace( 'text_editor' );
+		// CKEDITOR.replace( 'text_editor' );
 		
 		function readURL(input) {
 		    if (input.files && input.files[0]) {
@@ -1337,7 +1333,14 @@
 					button: "ok",
 				});
 				return false;
+			}else{
+				$('.sendEmailModal').show();
+				$('.sendEmailModalOverLay').show();
 			}
+		});
+		$('.sendEmailClose').on('click',function(){
+			$('.sendEmailModal').hide();
+			$('.sendEmailModalOverLay').hide();
 		});
 		// Send Email To User Section
 		$('#send_email_to_user_form').on('submit',function(e){
@@ -1365,7 +1368,7 @@
 				type: 'POST',
 				success: function(data){
 					$('#send_email_to_user_form')[0].reset();
-					$('#sendEmailToUser').modal('hide');
+					$('#sendEmailToUser').hide();
 					$(".default_check_user").attr('checked',false);
 					if(data.success){
 						toastr.success('Email Send to user.', data.message , {displayDuration:3000,position: 'top-right'});

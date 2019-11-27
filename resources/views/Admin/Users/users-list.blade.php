@@ -1,11 +1,5 @@
 @extends('layouts.admin_layouts.admin_dashboard')
 @section('title', 'Admin | Users list')
-<style type="text/css">
-  .gj-datepicker.gj-datepicker-md.gj-unselectable{
-    width: 100%;
-    margin-right: 9px;
-  }
-</style>
 @section('content')
 
 @php
@@ -192,39 +186,40 @@
 		    	</div>
 		    </div>
     </div>
-    <div class="modal fade" id="sendEmailToUser" tabindex="-1" role="dialog" aria-labelledby="sendEmailToUser" aria-hidden="true">
-      <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="modal-title-default">Type your modal title</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                  </button>
-              </div>
-              <div class="modal-body pt-0">
-                <form role="form" enctype="multipart/form-data" id="send_email_to_user_form">
-                    <div class="form-group mb-3">
-                        <div class="input-group input-group-alternative">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                            </div>
-                            <input class="form-control" placeholder="Subject" type="subject" id="subject" name="subject">
-                        </div>
+    <div class="sendEmailModal">
+      <div class="row">
+        <div class="col-md-6">
+          <h5 class="heading-small text-muted mb-4">Send Email</h5>
+        </div>
+        <div class="col-md-6 text-right">
+          <button type="button" class="close sendEmailClose" >
+              <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="col-lg-12">
+          <form role="form" enctype="multipart/form-data" id="send_email_to_user_form">
+            <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <div class="form-group">
-                      <textarea name="email_content" class="from-control text_editor" id="text_editor"></textarea>
-                    </div>
-                    <div class="form-group">
-                      <input type="file" class="form-control" id="attached_file" name="attached_file">
-                    </div>
-                    <div class="text-center">
-                        <button id="send_email_to_user" class="btn btn-primary float-right">Sign in</button>
-                    </div>
-                </form>
-              </div>
-          </div>
+                    <input class="form-control" placeholder="Subject" type="subject" id="subject" name="subject">
+                </div>
+            </div>
+            <div class="form-group">
+              <textarea name="email_content" class="from-control text_editor textarea" id="text_editor"></textarea>
+            </div>
+            <div class="form-group">
+              <input type="file" class="form-control" id="attached_file" name="attached_file">
+            </div>
+            <div class="text-center">
+                <button id="send_email_to_user" class="btn btn-primary float-right">Send</button>
+            </div>
+          </form>
+        </div>
       </div>
-  </div>
+    </div>
+  
     <!-- Footer Section Include -->
         @include('layouts.admin_layouts.footer')
     <!-- End Footer Section Include -->
@@ -239,6 +234,36 @@
   }
   .custom-toggle-slider, .custom-toggle-slider{
     border: 1px solid #5e72e4;
+  }
+  .gj-datepicker.gj-datepicker-md.gj-unselectable{
+    width: 100%;
+    margin-right: 9px;
+  }
+  .sendEmailModal {
+    display:none;
+    position: absolute;
+    top: -60px;
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 27px 0px #0000007a;
+    z-index: 123;
+  }
+  .sendEmailModalOverLay {
+    display:none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0;
+    overflow-y: auto;
+    background-color: rgba(0,0,0,.4);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity .3s;
   }
 </style>
 @endsection

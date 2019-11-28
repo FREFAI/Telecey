@@ -12,6 +12,7 @@
 */
 // Testing Route 
 	Route::get('/county', 'TestController@index');
+	Route::get('/addNikNameIfNotExist', 'IndependentController@addNikNameIfNotExist');
 
 // End Testing Route 
 

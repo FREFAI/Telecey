@@ -30,7 +30,7 @@
            	    	        		<div class="heading_case pt-2">
            		    	        		<h4><i class="fas fa-comment"></i> {{$case->subject}}</h4>
            		    	        		<div class="close_btn">
-           			    	        		<a href="{{url(Request::session()->get('backUrlCase'))}}" class="float-right btn btn-info btn-sm">Close</a>
+           			    	        		<a href="{{url(Request::session()->get('backUrlCase'))}}" class="float-right"><i class="fa fa-times"></i></a>
            			    	        	</div>
            		    	        	</div>
            	        	          	<div class="msg_history pt-3">
@@ -68,6 +68,21 @@
                                   @endif
            	        	        </div>
 				            </div>
+							<div class="col-lg-12 mt-2">
+								<button class="float-right btn btn-icon btn-2 btn-danger
+                                  btn-sm @if($case->status != 2) close_case_btn_inner @endif" data-toggle="tooltip" data-placement="top" title="
+                                  @if($case->status != 2) 
+                                    Close Chat
+                                  @else 
+                                    Closed 
+                                  @endif" 
+                                  data-status="2"
+                                  data-case_id="{{base64_encode($case->id)}}" data-backurl="{{url(Request::session()->get('backUrlCase'))}}">@if($case->status != 2) 
+                                    Close Chat
+                                  @else 
+                                    Closed 
+                                  @endif</button>
+							</div>
 				    	</div>
 			    	</div>
 				</div>

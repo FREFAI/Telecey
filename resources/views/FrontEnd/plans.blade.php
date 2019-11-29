@@ -441,9 +441,7 @@
 								<td>{{$value['price']}}</td>
 								<td>{{$value['local_min']}}</td>
 								<td>{{$value['datavolume']}}</td>
-								<td >
-									<div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div>
-								</td>
+								<td data-order="{{$value['average_review']}}"><div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div></td>
 								@if(isset($value['distance']))
 									<td>{{round($value['distance'])}} KM</td>
 								@else

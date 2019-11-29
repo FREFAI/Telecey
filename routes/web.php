@@ -11,8 +11,11 @@
 |
 */
 // Testing Route 
-	Route::get('/county', 'TestController@index');
+	Route::get('/country', 'TestController@index');
+
+// Start Independent Routes
 	Route::get('/addNikNameIfNotExist', 'IndependentController@addNikNameIfNotExist');
+// End Independent Routes
 
 // End Testing Route 
 

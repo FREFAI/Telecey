@@ -431,22 +431,23 @@
 					<tbody>
 						@foreach($data as $value)
 							<tr class="custom-row-cl">
-								{{-- <td>{{$value['user_address']}}</td> --}}
-								@if($value['provider']['provider_image_original'] != "")
 								<td>
-									<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" style="width:100px;height:50px;" />
+									@if($value['provider']['provider_image_original'] != "")
+										<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" style="width:100px;height:50px;" />
+									@else
+										<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" style="width:100px;height:50px;"/>
+									@endif
 								</td>
-								@else
-								<td>
-									<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" style="width:100px;height:50px;"/>
-								</td>
-								@endif
 								<td>{{$value['price']}}</td>
 								<td>{{$value['local_min']}}</td>
 								<td>{{$value['datavolume']}}</td>
-								<td data-order="{{$value['average_review']}}"><div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div></td>
+								<td >
+									<div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div>
+								</td>
 								@if(isset($value['distance']))
 									<td>{{round($value['distance'])}} KM</td>
+								@else
+									<td>N/A</td>
 								@endif
 								@if(Auth::guard('customer')->check())
 									<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</td>
@@ -457,6 +458,9 @@
 						@endforeach
 					</tbody>
 				</table>
+				<div class="pagination">
+					{{$data->appends(request()->input())->links()}}
+				</div>
 			</div>
 		</div>
 		@else

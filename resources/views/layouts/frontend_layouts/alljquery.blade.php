@@ -36,7 +36,9 @@
     $(document).ready(function() {
       $('#example').DataTable({
         "searching": false,
-        "lengthChange": false
+        "lengthChange": false,
+        "paging": false,
+        "info": false
       });
     });
 

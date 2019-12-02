@@ -77,6 +77,9 @@ class IndependentController extends Controller
                     }else{
                         $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
                         if($userAddress){
+                            $addresses['formatted_address'] = $userAddress->formatted_address;
+                            $addresses['location']->lng = $userAddress->longitude;
+                            $addresses['location']->lat = $userAddress->latitude;
                             $address_id = $userAddress->id;
                         }else{
                             $address_id = NULL;
@@ -130,7 +133,7 @@ class IndependentController extends Controller
                         $ip = $_SERVER['REMOTE_ADDR'];
                     }else{
                         // $ip = '2606:4580:2:0:a974:e358:829c:412e';
-                        $ip = '96.46.34.142';
+                        $ip = '122.160.255.87';
                     }
                     
                     // $ip = '96.46.34.142';
@@ -158,8 +161,8 @@ class IndependentController extends Controller
                     'sms'                 => 'Unlimited',
                     'average_review'      => $value['average_rate'],
                     'country_code'        => $countries_code,
-                    'latitude'            => $current_lat, 
-                    'longitude'           => $current_long
+                    'longitude'           => $addresses['location']->lng,
+                    'latitude'            => $addresses['location']->lat 
                     ];
                     $allData[] =  $value;
                     $addedPlan = ServiceReview::create($planReviewDataInsert);

@@ -9,6 +9,7 @@ use App\Models\Admin\Supplier;
 use App\Models\Admin\Brands;
 use App\Models\Admin\DeviceColor;
 use App\Models\FrontEnd\DeviceReview;
+use App\Helpers\CreateLogs;
 use DB;
 use App\UserAddress;
 
@@ -38,7 +39,7 @@ class DevicesController extends Controller
         if($filtersetting->device == 0){
             return redirect('/');
         }
-
+        $user = \Auth::guard('customer')->user();
         $ip = env('ip_address','live');
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
@@ -56,6 +57,7 @@ class DevicesController extends Controller
         $current_country_code = $data->countryCode;
 
         $user_id = \Auth::guard('customer')->id();
+        
         $brands = Brands::all();
         $colors = DeviceColor::all();
         $suppliers = Supplier::where('status',1)->get();
@@ -64,6 +66,12 @@ class DevicesController extends Controller
         $data = $request->all();
         if($data){
             if($data['brand_name'] == "" && $data['storage'] == "" && $data['device_color'] == ""){
+                $searchResultCount = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                    ->where('country_code',$current_country_code)
+                    ->with('brand','supplier','device_color_info')
+                    ->orderBy('distance','ASC')
+                    ->orderBy('price','ASC')
+                    ->count();
                 $searchResult = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
                     ->where('country_code',$current_country_code)
                     ->with('brand','supplier','device_color_info')
@@ -74,6 +82,31 @@ class DevicesController extends Controller
                 // echo "<pre>";print_r($searchResult);exit;       
                 return view('FrontEnd.devices',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data' => $searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
             }else{
+                if($user_id){
+                    $logData = [
+                        'user_id'                       => $user->id,
+                        'log_type'                      => 4,
+                        'type'                          => 2,
+                        'filter_type'                   => 2,
+                        'user_status'                   => $user->is_active,
+                        'user_name'                     => $user->firstname.' '.$user->lastname,
+                        'user_number'                   => $user->mobile_number,
+                        'email'                         => $user->email,
+                        'filter_params'                 => json_encode($data),
+                        'filter_search_result_count'    => $searchResultCount
+                    ];
+                }else{
+                    $logData = [
+                        'log_type'                      => 4,
+                        'type'                          => 2,
+                        'filter_type'                   => 2,
+                        'ip'                            => $ip,
+                        'filter_params'                 => json_encode($data),
+                        'filter_search_result_count'    => $searchResultCount
+                    ];
+                }
+                
+                CreateLogs::createLog($logData);
                 $brand_name = "";
                 $storage = "";
                 $device_color = "";

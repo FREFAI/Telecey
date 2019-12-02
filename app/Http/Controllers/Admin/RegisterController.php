@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Helpers\CreateLogs;
 
 class RegisterController extends Controller
 {
@@ -77,7 +78,18 @@ class RegisterController extends Controller
             $perameters['password'] = bcrypt($perameters['password']);
             $perameters['type'] = 2;
             $perameters['date_of_birth'] = \DateTime::createFromFormat('m/d/Y', $perameters['date_of_birth'])->format('Y-m-d');
-            if(AdminModel::create($perameters)){
+            $admin = AdminModel::create($perameters);
+            if($admin){
+                $logData = [
+                    'user_id'           => $admin->id,
+                    'log_type'          => 1,
+                    'login_signup_type' => 1,
+                    'type'              => 1,
+                    'user_status'       => $admin->is_active,
+                    'user_name'         => $admin->firstname.' '.$admin->lastname,
+                    'email'             => $admin->email,
+                ];
+                CreateLogs::createLog($logData);
                 return redirect('admin/admin-list')->with('success','Account registered successfully!');
             }else{
                 return redirect()->back()->withInput()->with('error',"Somthing went wrong!");

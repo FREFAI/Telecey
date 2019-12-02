@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Admin\Supplier;
 use App\CountriesModel;
+use App\Helpers\CreateLogs;
 
 class SupplierController extends Controller
 {
@@ -101,11 +102,24 @@ class SupplierController extends Controller
         if ($validation->fails()) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());
         }else{
+            $user = \Auth::guard('admin')->user();
             $supplier = Supplier::find($perameter['id']);
             if($supplier){
                 if($perameter['status'] == 1){
                     $supplier->status = 1;
                     if($supplier->save()){
+                        $logData = [
+                            'user_id'           => $user->id,
+                            'log_type'          => 7,
+                            'type'              => 1,
+                            'user_status'       => $user->is_active,
+                            'user_name'         => $user->firstname.' '.$user->lastname,
+                            'email'             => $user->email,
+                            'request_type'      => 3,
+                            'reuqest_param_name'=> $supplier->supplier_name,
+                            'appr_disapp_status'=> 1 
+                        ];
+                        CreateLogs::createLog($logData);
                         $message = array('success'=>true,'message'=>'Approved successfully.');
                         return json_encode($message);
                     }else{
@@ -115,6 +129,18 @@ class SupplierController extends Controller
                 }else{
                     $supplier->status = 0;
                     if($supplier->save()){
+                        $logData = [
+                            'user_id'           => $user->id,
+                            'log_type'          => 7,
+                            'type'              => 1,
+                            'user_status'       => $user->is_active,
+                            'user_name'         => $user->firstname.' '.$user->lastname,
+                            'email'             => $user->email,
+                            'request_type'      => 3,
+                            'reuqest_param_name'=> $supplier->supplier_name,
+                            'appr_disapp_status'=> 0 
+                        ];
+                        CreateLogs::createLog($logData);
                         $message = array('success'=>true,'message'=>'Not approved successfully.');
                         return json_encode($message);
                     }else{

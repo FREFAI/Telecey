@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Helpers\GenerateNickName;
+use App\Helpers\CreateLogs;
 use Auth,Mail;
 use App\Models\Admin\SettingsModel;
 
@@ -113,6 +114,17 @@ class RegisterController extends Controller
             $input['nickname'] = $nickname;
             $input['password'] = bcrypt($input['password']);
             $user = User::create($input);
+            $logData = [
+                'user_id'           => $user->id,
+                'log_type'          => 1,
+                'login_signup_type' => 1,
+                'type'              => 2,
+                'user_status'       => $user->is_active,
+                'user_name'         => $user->firstname.' '.$user->lastname,
+                'user_number'       => $user->mobile_number,
+                'email'             => $user->email,
+            ];
+            CreateLogs::createLog($logData);
             if($user){
                 $formatted = $usersDetailSession['city'].' '.$usersDetailSession['country'].' '.$usersDetailSession['postal_code'];
                 $userAddress = [
@@ -165,6 +177,16 @@ class RegisterController extends Controller
         $user = User::find($id);
         $user->is_active = 1;
         $user->email_verified_at = date("Y-m-d H:i:s");
+        $logData = [
+            'user_id'           => $user->id,
+            'log_type'          => 2,
+            'type'              => 2,
+            'user_status'       => $user->is_active,
+            'user_name'         => $user->firstname.' '.$user->lastname,
+            'user_number'       => $user->mobile_number,
+            'email'             => $user->email,
+        ];
+        CreateLogs::createLog($logData);
         if($user->save()){
             if (Auth::guard('customer')->loginUsingId($user->id)) {
                return redirect('/profile')->with('success','Thank you for confirming your email address');

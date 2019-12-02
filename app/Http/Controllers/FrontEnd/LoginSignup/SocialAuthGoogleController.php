@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\GenerateNickName;
+use App\Helpers\CreateLogs;
 use Socialite,Auth;
 use App\User;
 
@@ -86,6 +87,17 @@ class SocialAuthGoogleController extends Controller
         }else{
 	        $add = User::create($input);
 	        if($add){
+                $logData = [
+                    'user_id'           => $add->id,
+                    'log_type'          => 1,
+                    'login_signup_type' => 3,
+                    'type'              => 2,
+                    'user_status'       => $add->is_active,
+                    'user_name'         => $add->firstname.' '.$add->lastname,
+                    'user_number'       => $add->mobile_number,
+                    'email'             => $add->email,
+                ];
+                CreateLogs::createLog($logData);
 	        	if(Auth::guard('customer')->loginUsingId($add->id)){
 	        		return redirect()->to('/reviews');
 	        	}else{

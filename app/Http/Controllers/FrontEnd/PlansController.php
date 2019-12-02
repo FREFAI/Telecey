@@ -11,6 +11,7 @@ use App\Models\FrontEnd\ServiceReview;
 use App\Models\FrontEnd\PlanDeviceRating;
 use Illuminate\Support\Facades\Auth;
 use App\UserAddress;
+use App\Helpers\CreateLogs;
 use DB;
 
 
@@ -38,11 +39,10 @@ class PlansController extends Controller
     public function plans(Request $request)
     {
         // Current location section
-        $ip = env('ip_address','live');
+        $ip = env('ip_address','live'); 
+        $ip = '96.46.34.142';
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
-        }else{
-            $ip = '96.46.34.142';
         }
         $location = \Location::get($ip);
         $client = new \GuzzleHttp\Client();
@@ -59,6 +59,7 @@ class PlansController extends Controller
         }else{
             $ads = AdsModel::where('type',1)->first();
         }
+        $user = Auth::guard('customer')->user();
         $user_id = Auth::guard('customer')->id();
         $service_types = ServiceType::get();
         
@@ -81,6 +82,21 @@ class PlansController extends Controller
             }elseif(array_key_exists("filter",$data)){
                 $filter = $data['filter'];
             }
+            
+            $searchResultCount = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+            ->where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
+                $query->orWhere('contract_type',$contract_type)
+                ->orWhere('payment_type',$payment_type)
+                ->orWhere('pay_as_usage_type',$pay_as_usage_type)
+                ->orWhere('service_type',$service_type);
+                    })->with('provider','currency','typeOfService')
+                    ->orderBy('distance','ASC')
+                    ->orderBy('local_min','DESC')
+                    ->orderBy('datavolume','DESC')
+                    ->orderBy('price','ASC')
+                    ->orderBy('average_review','DESC')
+                    ->count();
+
             $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
                 ->where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
                     $query->orWhere('contract_type',$contract_type)
@@ -101,6 +117,31 @@ class PlansController extends Controller
                     $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
                     $searchResult[$key]['user_address'] = $user_address;
                 }
+                if($user_id){
+                    $logData = [
+                        'user_id'                       => $user->id,
+                        'log_type'                      => 5,
+                        'type'                          => 2,
+                        'filter_type'                   => 1,
+                        'user_status'                   => $user->is_active,
+                        'user_name'                     => $user->firstname.' '.$user->lastname,
+                        'user_number'                   => $user->mobile_number,
+                        'email'                         => $user->email,
+                        'filter_params'                 => json_encode($data),
+                        'filter_search_result_count'    => $searchResultCount
+                    ];
+                }else{
+                    $logData = [
+                        'log_type'                      => 5,
+                        'type'                          => 2,
+                        'filter_type'                   => 1,
+                        'ip'                            => $ip,
+                        'filter_params'                 => json_encode($data),
+                        'filter_search_result_count'    => $searchResultCount
+                    ];
+                }
+                
+                CreateLogs::createLog($logData);
             return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
 
         }else{

@@ -279,6 +279,13 @@
 				Route::post('/set-default-supplies', 'Admin\SupplierController@setDefaultSupplies');
 				Route::get('/exportUsers', 'Admin\UsersController@exportUsers');
 			// End Supplier section 
+
+
+
+			// Start Logs Section 
+				Route::get('/adminLogs', 'Admin\LogsController@adminLog');
+				Route::get('/userLogs', 'Admin\LogsController@userLog');
+			// End Logs Section 
 		});
 
 

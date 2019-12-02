@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\SettingsModel;
 use Illuminate\Support\Facades\Validator;
 use App\SupportCase;
+use App\Helpers\CreateLogs;
 use App\SupportCaseMessage;
 use Auth;
 class SupportCaseController extends Controller
@@ -30,6 +31,7 @@ class SupportCaseController extends Controller
              return redirect()->back()->withInput()->with('error',$validation->messages()->first());
         }else{
         	$user_id = Auth::guard('customer')->user()['id'];
+        	$user = Auth::guard('customer')->user();
         	$case = [
         		'user_id' => $user_id,
         		'subject' => $perameters['subject'],
@@ -46,6 +48,16 @@ class SupportCaseController extends Controller
         		];
         		$firstMessage = SupportCaseMessage::create($message);
         		if($firstMessage){
+					$logData = [
+                        'user_id'                       => $user->id,
+                        'log_type'                      => 6,
+                        'type'                          => 2,
+                        'user_status'                   => $user->is_active,
+                        'user_name'                     => $user->firstname.' '.$user->lastname,
+                        'user_number'                   => $user->mobile_number,
+                        'email'                         => $user->email
+					];
+					CreateLogs::createLog($logData);
 					return redirect()->back()->with('success','Case generate successfully.');
         		}else{
         			return redirect()->back()->withInput()->with('error',"Somthing went wrong!");
@@ -74,6 +86,7 @@ class SupportCaseController extends Controller
     {
     	$perameters = $request->all();
     	$user_id = Auth::guard('customer')->user()['id'];
+    	$user = Auth::guard('customer')->user();
 		$perameters['case_id'] = base64_decode($perameters['case_id']);
     	$message = [
 			'sender_id'   => $user_id,
@@ -84,6 +97,16 @@ class SupportCaseController extends Controller
 		];
 		$message = SupportCaseMessage::create($message);
 		if($message){
+			$logData = [
+				'user_id'                       => $user->id,
+				'log_type'                      => 6,
+				'type'                          => 2,
+				'user_status'                   => $user->is_active,
+				'user_name'                     => $user->firstname.' '.$user->lastname,
+				'user_number'                   => $user->mobile_number,
+				'email'                         => $user->email
+			];
+			CreateLogs::createLog($logData);
 			$caseStatus = SupportCase::find($perameters['case_id']);
 			$caseStatus->status = 0;
 			if($caseStatus->save()){

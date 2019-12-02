@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Admin\Brands;
 use App\Models\Admin\BrandModels;
 use App\Models\Admin\DeviceColor;
+use App\Helpers\CreateLogs;
+
 class BrandsController extends Controller
 {
 	// Brands section 
@@ -151,6 +153,7 @@ class BrandsController extends Controller
             'id' => 'required',
             'status' => 'required'
         ]);
+        $user = \Auth::guard('admin')->user();
         if ($validation->fails()) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());
         }else{
@@ -159,6 +162,18 @@ class BrandsController extends Controller
                 if($perameter['status'] == 1){
                     $brand->status = 1;
                     if($brand->save()){
+                        $logData = [
+                            'user_id'           => $user->id,
+                            'log_type'          => 7,
+                            'type'              => 1,
+                            'user_status'       => $user->is_active,
+                            'user_name'         => $user->firstname.' '.$user->lastname,
+                            'email'             => $user->email,
+                            'request_type'      => 2,
+                            'reuqest_param_name'=> $brand->brand_name,
+                            'appr_disapp_status'=> 0 
+                        ];
+                        CreateLogs::createLog($logData);
                         $message = array('success'=>true,'message'=>'Approved successfully.');
                     }else{
                         $message = array('success'=>false,'message'=>'Somthing went wrong!');
@@ -166,6 +181,18 @@ class BrandsController extends Controller
                 }else{
                     $brand->status = 0;
                     if($brand->save()){
+                        $logData = [
+                            'user_id'           => $user->id,
+                            'log_type'          => 7,
+                            'type'              => 1,
+                            'user_status'       => $user->is_active,
+                            'user_name'         => $user->firstname.' '.$user->lastname,
+                            'email'             => $user->email,
+                            'request_type'      => 2,
+                            'reuqest_param_name'=> $brand->brand_name,
+                            'appr_disapp_status'=> 1 
+                        ];
+                        CreateLogs::createLog($logData);
                         $message = array('success'=>true,'message'=>'Not approved successfully.');
                     }else{
                         $message = array('success'=>false,'message'=>'Somthing went wrong!');

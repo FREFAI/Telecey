@@ -74,6 +74,16 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/adminLogs') ? 'active' : '' }}" href="{{url('/admin/adminLogs')}}">
+              <i class="ni ni-collection text-pink"></i> Admin logs
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/userLogs') ? 'active' : '' }}" href="{{url('/admin/userLogs')}}">
+              <i class="ni ni-collection text-pink"></i> User logs
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link {{ request()->is('admin/terms-conditions') ? 'active' : '' }}" href="{{url('/admin/terms-conditions')}}">
               <i class="ni ni-support-16 text-pink"></i> Terms and Conditions
             </a>

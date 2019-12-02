@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\SupportCaseMessage;
 use App\SupportCase;
+use App\Helpers\CreateLogs;
 use App\User;
 use Auth;
 class SupportCaseController extends Controller
@@ -96,12 +97,22 @@ class SupportCaseController extends Controller
 			'case_id'	  => $perameters['case_id'],
 			'message'	  => $perameters['message'],
 			'is_read'     => 0
-		];
+        ];
+        $user = Auth::guard('admin')->user();
 		$message = SupportCaseMessage::create($message);
 		if($message){
 			$caseStatus = SupportCase::find($perameters['case_id']);
 			$caseStatus->status = 1;
 			if($caseStatus->save()){
+                $logData = [
+                    'user_id'                       => $user->id,
+                    'log_type'                      => 6,
+                    'type'                          => 1,
+                    'user_status'                   => $user->is_active,
+                    'user_name'                     => $user->firstname.' '.$user->lastname,
+                    'email'                         => $user->email
+                ];
+                CreateLogs::createLog($logData);
 				return redirect()->back();
 			}else{
 				return redirect()->back();

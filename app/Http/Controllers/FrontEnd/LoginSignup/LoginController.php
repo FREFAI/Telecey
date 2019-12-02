@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Helpers\CreateLogs;
 use App\User;
 use Auth;
 
@@ -47,6 +48,17 @@ class LoginController extends Controller
             $user = User::where('email',$input['email'])->first();
             if($user){
                 if(Auth::guard('customer')->attempt($dataCheck)){
+                    $logData = [
+                        'user_id'           => $user->id,
+                        'log_type'          => 3,
+                        'login_signup_type' => 1,
+                        'type'              => 2,
+                        'user_status'       => $user->is_active,
+                        'user_name'         => $user->firstname.' '.$user->lastname,
+                        'user_number'       => $user->mobile_number,
+                        'email'             => $user->email,
+                    ];
+                    CreateLogs::createLog($logData);
                     return redirect('/profile')->with('success','Logged in successfully!');
                 }else{
                     return redirect()->back()->with('error','Please enter valid credentials!');

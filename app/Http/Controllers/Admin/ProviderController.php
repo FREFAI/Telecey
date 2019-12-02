@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Provider;
 use Illuminate\Support\Facades\Validator;
 use App\CountriesModel;
+use App\Helpers\CreateLogs;
 use File,Image;
 
 class ProviderController extends Controller
@@ -153,6 +154,7 @@ class ProviderController extends Controller
             'id' => 'required',
             'status' => 'required'
         ]);
+        $user = \Auth::guard('admin')->user();
         if ($validation->fails()) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());
         }else{
@@ -161,6 +163,18 @@ class ProviderController extends Controller
                 if($perameter['status'] == 1){
                     $provider->status = 1;
                     if($provider->save()){
+                        $logData = [
+                            'user_id'           => $user->id,
+                            'log_type'          => 7,
+                            'type'              => 1,
+                            'user_status'       => $user->is_active,
+                            'user_name'         => $user->firstname.' '.$user->lastname,
+                            'email'             => $user->email,
+                            'request_type'      => 1,
+                            'reuqest_param_name'=> $provider->provider_name,
+                            'appr_disapp_status'=> 1 
+                        ];
+                        CreateLogs::createLog($logData);
                         $message = array('success'=>true,'message'=>'Approved successfully.');
                         return json_encode($message);
                     }else{
@@ -170,6 +184,18 @@ class ProviderController extends Controller
                 }else{
                     $provider->status = 0;
                     if($provider->save()){
+                        $logData = [
+                            'user_id'           => $user->id,
+                            'log_type'          => 7,
+                            'type'              => 1,
+                            'user_status'       => $user->is_active,
+                            'user_name'         => $user->firstname.' '.$user->lastname,
+                            'email'             => $user->email,
+                            'request_type'      => 1,
+                            'reuqest_param_name'=> $provider->provider_name,
+                            'appr_disapp_status'=> 0 
+                        ];
+                        CreateLogs::createLog($logData);
                         $message = array('success'=>true,'message'=>'Not approved successfully.');
                         return json_encode($message);
                     }else{

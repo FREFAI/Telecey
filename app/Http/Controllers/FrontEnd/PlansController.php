@@ -93,7 +93,7 @@ class PlansController extends Controller
                         ->orderBy('datavolume','DESC')
                         ->orderBy('price','ASC')
                         ->orderBy('average_review','DESC')
-                        ->paginate(30);
+                        ->paginate(20);
                 foreach($searchResult as $key => $value){
                     $user_address = '';
                     $sum = 0;
@@ -112,7 +112,7 @@ class PlansController extends Controller
                     ->orderBy('datavolume','DESC')
                     ->orderBy('price','ASC')
                     ->orderBy('average_review','DESC')
-                    ->paginate(30);
+                    ->paginate(20);
             return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$searchResult,'service_types' => $service_types,]);
         }               
         

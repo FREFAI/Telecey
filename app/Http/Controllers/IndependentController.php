@@ -44,151 +44,186 @@ class IndependentController extends Controller
         'user_id' => 'required'
     	]);
     	if ($validation->fails()) {
-        $message = array('success'=>false,'message'=>$validation->messages()->first());
-        return json_encode($message);
+            $message = array('success'=>false,'message'=>$validation->messages()->first());
+            return json_encode($message);
     	}else{
-        $path = $request->file('excelFile')->getRealPath();
-        $data = Excel::load($path)->get()[0];
-        $user_id = $input['user_id'];
-        // $allData = [];
-        if($data->count() > 0 ){
-          foreach($data->toArray() as $key => $value)
-            {
-              DB::beginTransaction();
-              try {
-                // Add Provider If Not Exist
-                $provider = Provider::where('provider_name',$value['provider'])->first();
-                if($provider){
-                  $provider_id = $provider->id;
-                }else{
-                  $dataInsertProvider = [
-                    'provider_name' => $value['provider'],
-                    'country' => ucfirst(strtolower($value['country'])),
-                    'user_id' => 0,
-                    'status' => 1
-                  ];
-                  $newProvider = Provider::create($dataInsertProvider);
-                  $provider_id = $newProvider->id;
-                }
-                $value['contrcat_type'] = preg_replace('/\s/', '',$value['contrcat_type']);
-                $contract_type = $value['contrcat_type'] == "personal" ? 1 : 2;
-                // Add Service Type if not exist
-                $service_type = ServiceType::where('service_type_name',$value['service_type'])->first();
-                if($service_type){
-                  $service_type_id = $service_type->id;
-                }else{
-                  $dataInsertServiceType = [
-                    'service_type_name' => $value['service_type'],
-                    'status' => 1,
-                    'type' => $contract_type
-                  ];
-                  $newServiceType = ServiceType::create($dataInsertServiceType);
-                  $service_type_id = $newServiceType->id;
-                }
-
-
-                $currency = Currency::where('name',$value['country'])->first();
-                if($currency){
-                  $currency_id = $currency->id;
-                }else{
-                  $currency_id = NULL;
-                }
-                $countries = CountriesModel::where('name',$value['country'])->first();
-                if($countries){
-                  $countries_code = $countries->code;
-                }else{
-                  $countries_code = NULL;
-                }
-                
-                $planReviewDataInsert = [
-                  'user_id' => $user_id,
-                  'provider_id' => $provider_id ,
-                  'contract_type' => $contract_type,
-                  'price' => $value['price'],
-                  'currency_id' => $currency_id,
-                  'payment_type' => strtolower($value['paymnet_type']),
-                  'service_type' => $service_type_id,
-                  'technology' => $value['technology'],
-                  'local_min' => 100,
-                  'datavolume' => $value['data_volume'],
-                  'long_distance_min' => 'Unlimited',
-                  'international_min' => 0,
-                  'roaming_min' => 0,
-                  'downloading_speed' => 0,
-                  'uploading_speed' => 0,
-                  'speedtest_type' => 0,
-                  'sms' => 'Unlimited',
-                  'average_review' => $value['average_rate'],
-                  'country_code' => $countries_code
-                ];
-                $allData[] =  $value;
-                $addedPlan = ServiceReview::create($planReviewDataInsert);
-                
-                $rating_id = PlanDeviceRating::where('user_id',$user_id)->where('plan_id',$addedPlan->id)->max('rating_id');
-                $rating_id = $rating_id+1;
-                $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
-                if($userAddress){
-                    $input['user_address_id'] = $userAddress->id;
-                }else{
-                  $input['user_address_id']=NULL;
-                }
-
-                $perameters=[
-                    'user_id' => $user_id,
-                    'plan_id' => $addedPlan->id,
-                    'rating_id'=> $rating_id,
-                    'comment'=> NULL,
-                    'average' => 5,
-                    'user_address_id' => $input['user_address_id']
-                ];
-                $validation = Validator::make($perameters, [
-                    'user_id' => 'required',
-                    'plan_id' => 'required',
-                    'average' => 'required',
-                    'user_address_id' => 'required'
-                ]);
-                if ( $validation->fails() ) {
-                    $message = array('success'=>false,'message'=>$validation->messages()->first());
-                    return json_encode($message);
-                }else{
-                    $date = date("Y-m-d H:i:s");
-                    $data = [];
-                    $plandevicerating = PlanDeviceRating::create($perameters);
-                    if($plandevicerating){
-                      $questions = RatingQuestion::Where('type',1)->get();
-                        foreach ($questions as $question) {
-                            $dataInsert = [
-                                'user_id'=>$user_id,
-                                'entity_id'=>$plandevicerating->plan_id,
-                                'entity_type'=>1,
-                                'rating_id'=>$plandevicerating->rating_id,
-                                'question_id'=>$question->id,
-                                'rating'=>5,
-                                'text_field_value'=>NULL,
-                                'created_at'=>$date,
-                                'updated_at'=>$date
-                            ];
-                            array_push($data, $dataInsert);
+            $path = $request->file('excelFile')->getRealPath();
+            $data = Excel::load($path)->get()[0];
+            $user_id = $input['user_id'];
+            // $allData = [];
+            if($data->count() > 0 ){
+            foreach($data->toArray() as $key => $value)
+                {
+                DB::beginTransaction();
+                try {
+                    $client = new \GuzzleHttp\Client();
+                    $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&address='.$value['city'].' '.$value['postal_code'].' '.strtolower($value['country']));
+                    $response = json_decode($response->getBody());
+                    if($response->results){
+                        $addresses['formatted_address'] = $response->results[0]->formatted_address;
+                        $addresses['location'] = $response->results[0]->geometry->location;
+                        $insertAddress = [
+                            'user_id' => $user_id,
+                            'country' => ucfirst(strtolower($value['country'])),
+                            'city' => $value['city'],
+                            'longitude' => $addresses['location']->lng,
+                            'latitude' => $addresses['location']->lat,
+                            'postal_code' => $value['postal_code'],
+                            'formatted_address' => $addresses['formatted_address'],
+                            'is_primary' => 0,
+                        ];
+                        $reviewAddress = UserAddress::create($insertAddress);
+                        $address_id = $reviewAddress->id;
+                    }else{
+                        $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
+                        if($userAddress){
+                            $address_id = $userAddress->id;
+                        }else{
+                            $address_id = NULL;
                         }
-                        $serviceRating = ServiceRating::insert($data);
-                        $average = 5;
-                        ServiceReview::where('id',$plandevicerating->plan_id)->update(['average_review' => $average]);  
                     }
+                    // Add Provider If Not Exist
+                    $provider = Provider::where('provider_name',$value['provider'])->first();
+                    if($provider){
+                    $provider_id = $provider->id;
+                    }else{
+                    $dataInsertProvider = [
+                        'provider_name' => $value['provider'],
+                        'country' => ucfirst(strtolower($value['country'])),
+                        'user_id' => 0,
+                        'status' => 1
+                    ];
+                    $newProvider = Provider::create($dataInsertProvider);
+                    $provider_id = $newProvider->id;
+                    }
+                    $value['contrcat_type'] = preg_replace('/\s/', '',$value['contrcat_type']);
+                    $contract_type = $value['contrcat_type'] == "personal" ? 1 : 2;
+                    // Add Service Type if not exist
+                    $service_type = ServiceType::where('service_type_name',$value['service_type'])->first();
+                    if($service_type){
+                    $service_type_id = $service_type->id;
+                    }else{
+                    $dataInsertServiceType = [
+                        'service_type_name' => $value['service_type'],
+                        'status' => 1,
+                        'type' => $contract_type
+                    ];
+                    $newServiceType = ServiceType::create($dataInsertServiceType);
+                    $service_type_id = $newServiceType->id;
+                    }
+                    $value['country'] = ucfirst(strtolower($value['country']));
+
+                    $currency = Currency::where('name',$value['country'])->first();
+                    if($currency){
+                    $currency_id = $currency->id;
+                    }else{
+                    $currency_id = NULL;
+                    }
+                    $countries = CountriesModel::where('name',$value['country'])->first();
+                    if($countries){
+                    $countries_code = $countries->code;
+                    }else{
+                    $countries_code = NULL;
+                    }
+                    $ip = env('ip_address','live');
+                    if($ip == 'live'){
+                        $ip = $_SERVER['REMOTE_ADDR'];
+                    }else{
+                        // $ip = '2606:4580:2:0:a974:e358:829c:412e';
+                        $ip = '122.173.214.129';
+                    }
+                    
+                    // $ip = '96.46.34.142';
+                    $data = \Location::get($ip);
+                    $current_lat = $data->latitude;
+                    $current_long = $data->longitude;
+
+                    $planReviewDataInsert = [
+                    'user_id'             => $user_id,
+                    'provider_id'         => $provider_id ,
+                    'contract_type'       => $contract_type,
+                    'price'               => $value['price'],
+                    'currency_id'         => $currency_id,
+                    'payment_type'        => strtolower($value['paymnet_type']),
+                    'service_type'        => $service_type_id,
+                    'technology'          => $value['technology'],
+                    'local_min'           => 100,
+                    'datavolume'          => $value['data_volume'],
+                    'long_distance_min'   => 'Unlimited',
+                    'international_min'   => 0,
+                    'roaming_min'         => 0,
+                    'downloading_speed'   => 0,
+                    'uploading_speed'     => 0,
+                    'speedtest_type'      => 0,
+                    'sms'                 => 'Unlimited',
+                    'average_review'      => $value['average_rate'],
+                    'country_code'        => $countries_code,
+                    'latitude'            => $current_lat, 
+                    'longitude'           => $current_long
+                    ];
+                    $allData[] =  $value;
+                    $addedPlan = ServiceReview::create($planReviewDataInsert);
+                    
+                    $rating_id = PlanDeviceRating::where('user_id',$user_id)->where('plan_id',$addedPlan->id)->max('rating_id');
+                    $rating_id = $rating_id+1;
+                    $input['user_address_id'] = $address_id;
+
+                    $perameters=[
+                        'user_id' => $user_id,
+                        'plan_id' => $addedPlan->id,
+                        'rating_id'=> $rating_id,
+                        'comment'=> NULL,
+                        'average' => 5,
+                        'user_address_id' => $input['user_address_id']
+                    ];
+                    $validation = Validator::make($perameters, [
+                        'user_id' => 'required',
+                        'plan_id' => 'required',
+                        'average' => 'required',
+                        'user_address_id' => 'required'
+                    ]);
+                    if ( $validation->fails() ) {
+                        $message = array('success'=>false,'message'=>$validation->messages()->first());
+                        return json_encode($message);
+                    }else{
+                        $date = date("Y-m-d H:i:s");
+                        $data = [];
+                        $plandevicerating = PlanDeviceRating::create($perameters);
+                        if($plandevicerating){
+                        $questions = RatingQuestion::Where('type',1)->get();
+                            foreach ($questions as $question) {
+                                $dataInsert = [
+                                    'user_id'=>$user_id,
+                                    'entity_id'=>$plandevicerating->plan_id,
+                                    'entity_type'=>1,
+                                    'rating_id'=>$plandevicerating->rating_id,
+                                    'question_id'=>$question->id,
+                                    'rating'=>5,
+                                    'text_field_value'=>NULL,
+                                    'created_at'=>$date,
+                                    'updated_at'=>$date
+                                ];
+                                array_push($data, $dataInsert);
+                            }
+                            $serviceRating = ServiceRating::insert($data);
+                            $average = 5;
+                            ServiceReview::where('id',$plandevicerating->plan_id)->update(['average_review' => $average]);  
+                        }
+                    }
+                    DB::commit();
+                    print_r($value);
+                    echo "  Done <br>";
+                }catch (\Exception $e) {
+                    echo "  Not Done <br>";
+                    print_r($value);
+                    echo "Data Not Added";
+                    print_r($e);
+                    echo "<br>";
+                    DB::rollback();
+                    // something went wrong
                 }
-                DB::commit();
-                print_r($value);
-                echo "  Done <br>";
-              }catch (\Exception $e) {
-                echo "  Not Done <br>";
-                print_r($value);
-                echo "Data Not Added";
-                print_r($e);
-                echo "<br>";
-                DB::rollback();
-                  // something went wrong
-              }
-          }
-        }
+            }
+            }
         return $allData;
       }
     }

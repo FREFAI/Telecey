@@ -66,12 +66,7 @@ class DevicesController extends Controller
         $data = $request->all();
         if($data){
             if($data['brand_name'] == "" && $data['storage'] == "" && $data['device_color'] == ""){
-                $searchResultCount = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
-                    ->where('country_code',$current_country_code)
-                    ->with('brand','supplier','device_color_info')
-                    ->orderBy('distance','ASC')
-                    ->orderBy('price','ASC')
-                    ->count();
+            
                 $searchResult = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
                     ->where('country_code',$current_country_code)
                     ->with('brand','supplier','device_color_info')
@@ -82,6 +77,42 @@ class DevicesController extends Controller
                 // echo "<pre>";print_r($searchResult);exit;       
                 return view('FrontEnd.devices',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data' => $searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
             }else{
+                
+                $brand_name = "";
+                $storage = "";
+                $device_color = "";
+                $filter = 1;
+                if(array_key_exists("brand_name",$data)){
+                    $brand_name = $data['brand_name'];
+                }
+                if(array_key_exists("storage",$data)){
+                    $storage = $data['storage'];
+                }
+                if(array_key_exists("device_color",$data)){
+                    $device_color = $data['device_color'];
+                }
+                $searchResultCount = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                ->where('country_code',$current_country_code)->where(function ($query) use ($brand_name,$storage,$device_color) {
+                         $query->orWhere('brand_id',$brand_name)
+                               ->orWhere('device_color',$device_color)
+                               ->orWhere('storage',$storage);
+                                })->with('brand','supplier','device_color_info')
+                                ->orderBy('distance','ASC')
+                                ->orderBy('price','ASC')
+                                ->count();
+                $searchResult = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                        ->where('country_code',$current_country_code)->where(function ($query) use ($brand_name,$storage,$device_color) {
+                                 $query->orWhere('brand_id',$brand_name)
+                                       ->orWhere('device_color',$device_color)
+                                       ->orWhere('storage',$storage);
+                                        })->with('brand','supplier','device_color_info')
+                                        ->orderBy('distance','ASC')
+                                        ->orderBy('price','ASC')
+                                        ->get()->toArray();
+                foreach($searchResult as $key => $value){
+                    $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
+                    $searchResult[$key]['user_address'] = $user_address;
+                }
                 if($user_id){
                     $logData = [
                         'user_id'                       => $user->id,
@@ -107,32 +138,6 @@ class DevicesController extends Controller
                 }
                 
                 CreateLogs::createLog($logData);
-                $brand_name = "";
-                $storage = "";
-                $device_color = "";
-                $filter = 1;
-                if(array_key_exists("brand_name",$data)){
-                    $brand_name = $data['brand_name'];
-                }
-                if(array_key_exists("storage",$data)){
-                    $storage = $data['storage'];
-                }
-                if(array_key_exists("device_color",$data)){
-                    $device_color = $data['device_color'];
-                }
-                $searchResult = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
-                        ->where('country_code',$current_country_code)->where(function ($query) use ($brand_name,$storage,$device_color) {
-                                 $query->orWhere('brand_id',$brand_name)
-                                       ->orWhere('device_color',$device_color)
-                                       ->orWhere('storage',$storage);
-                                        })->with('brand','supplier','device_color_info')
-                                        ->orderBy('distance','ASC')
-                                        ->orderBy('price','ASC')
-                                        ->get()->toArray();
-                foreach($searchResult as $key => $value){
-                    $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
-                    $searchResult[$key]['user_address'] = $user_address;
-                }
                 // echo "<pre>";print_r($searchResult);exit;
                 return view('FrontEnd.devices',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
                 // return view('FrontEnd.devices-search-list',['brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'filterType' => $filter]);

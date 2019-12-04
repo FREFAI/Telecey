@@ -81,14 +81,14 @@
 		  			<div class="col-lg-12">
             @include('flash-message')
                <div class="table-responsive">
-                 <table class="table align-items-center text-center">
+                 <table class="table align-items-center text-center" id="userTable">
                    <thead class="thead-light">
                      <tr>
                        <th scope="col" style="width: 10px;">
-                        <div class="custom-control custom-checkbox">
-                              <input value="-1" class="custom-control-input" id="customCheck0" name="default" type="checkbox">
-                              <label class="custom-control-label" for="customCheck0"></label>
-                            </div>
+                          <div class="custom-control custom-checkbox">
+                            <input value="-1" class="custom-control-input" id="customCheck0" name="default" type="checkbox">
+                            <label class="custom-control-label" for="customCheck0"></label>
+                          </div>
                        </th>
                        <th scope="col" style="width: 10px;">Sr.No</th>
                        <th scope="col" style="width: 10px;">Name</th>
@@ -264,6 +264,15 @@
     pointer-events: none;
     opacity: 1;
     transition: opacity .3s;
+  }
+  .custom-control-label {
+    margin-bottom: 15px;
+  }
+  table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before {
+    top: 17px;
+  }
+  table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after{
+    top: 17px;
   }
 </style>
 @endsection

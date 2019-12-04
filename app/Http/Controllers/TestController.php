@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use DB, Mail;
 
 class TestController extends Controller
 {
@@ -12,4 +12,14 @@ class TestController extends Controller
     {
       echo "hello world this is only testing purpose.";
     }
+
+    public function testEmail(Request $request){
+      $email = $request->email;
+      Mail::raw('Hi Jatinder', function($m) use($email){
+        $m->from('support@telkoc.com', 'Laravel');
+        $m->to($email);
+        $m->subject('Testing Email');
+      });
+    }
+
 }

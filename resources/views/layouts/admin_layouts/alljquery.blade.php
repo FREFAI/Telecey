@@ -1,6 +1,8 @@
 <!-- Core -->
 <script src="{{URL::asset('admin/assets/vendor/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{URL::asset('admin/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 <!-- Toster JS -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <!-- Optional JS -->

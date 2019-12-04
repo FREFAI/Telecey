@@ -16,7 +16,7 @@
 // Start Independent Routes
 	Route::get('/addNikNameIfNotExist', 'IndependentController@addNikNameIfNotExist');
 // End Independent Routes
-
+	Route::get('/testEmail', 'TestController@testEmail');
 // End Testing Route 
 
 

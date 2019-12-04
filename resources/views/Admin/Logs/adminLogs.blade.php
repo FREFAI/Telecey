@@ -24,7 +24,7 @@
 		    	<div class="row align-items-center">
 
                     <div class="col-md-3">
-                    <h5 class="heading-small text-muted mb-4">Admin Log List</h5>
+                    <h5 class="heading-small text-muted mb-4">Admin translation</h5>
                     </div>
                     <div class="col-md-9 text-right">
                         <div class="user-search-form mb-4">

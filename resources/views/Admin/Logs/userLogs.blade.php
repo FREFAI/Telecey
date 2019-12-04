@@ -24,7 +24,7 @@
 		    	<div class="row align-items-center">
 
                     <div class="col-md-3">
-                    <h5 class="heading-small text-muted mb-4">User Log List</h5>
+                    <h5 class="heading-small text-muted mb-4">Website translation </h5>
                     </div>
                     <div class="col-md-9 text-right">
                         <div class="user-search-form mb-4">
@@ -59,39 +59,62 @@
                    <thead class="thead-light">
                      <tr>
                        <th scope="col" style="width: 10px;">Sr.No</th>
+                       <th scope="col" style="width: 10px;">Ip</th>
                        <th scope="col" style="width: 10px;">User name</th>
                        <th scope="col" class="text-center">User email</th>
                        <th scope="col" class="text-center">Status</th>
+                       <th scope="col" class="text-center">Filter Params.</th>
                        <th scope="col" class="text-center">Devices count</th>
                        <th scope="col" class="text-center">Plans count</th>
                        <th scope="col" class="text-center">Created at</th>
                      </tr>
                    </thead>
                    <tbody>
-                     @if(count($adminLogs) > 0)
+                     @if(count($userLogs) > 0)
                        @php
-                           $i = ($adminLogs->currentpage()-1)* $adminLogs->perpage() + 1;
+                           $i = ($userLogs->currentpage()-1)* $userLogs->perpage() + 1;
                        @endphp
-                       @foreach($adminLogs as $log)
+                       @foreach($userLogs as $log)
                        <tr>
                            <td class="text-center" style="max-width: 10px;">
                                {{$i++}}
                            </td>
                            <td class="text-center">
-                                {{$log->user_name}}
+                                {{$log->ip}}
                            </td>
                            <td class="text-center">
-                                {{$log->email}}
+                                {{$log->user_name ? $log->user_name : '-'}}
+                           </td>
+                           <td class="text-center">
+                                {{$log->email  ? $log->email : '-'}}
                            </td>
                            <td class="text-center">
                                 <span class="badge badge-dot mr-4">
+                                @if(is_numeric($log->user_status))
                                     @if($log->user_status == 1)
                                     <span class="approved_ms"><i class="bg-success"></i> Approved</span>
                                     @else
                                     <span class="not_ap_ms"><i class="bg-danger"></i> Not approved</span>
                                     @endif
+                                @else
+                                  -
+                                @endif
                                 </span>
                            </td>
+                           @if($log->filter_params != "")
+                            <td>
+                                @php
+                                  $params = json_decode($log->filter_params);
+                                @endphp
+                                @foreach($params as $key => $value)
+                                  <p class="m-0 h5 text-muted"><strong class="text-capitalize">{{$key}}</strong> : <em>{{$value}}</em></p>
+                                @endforeach
+                            </td>
+                            @else
+                              <td class="text-center">
+                              -
+                              </td>
+                            @endif
                            <td class="text-center">
                                 @if($log->filter_type == 2)
                                     {{$log->filter_search_result_count}}
@@ -125,7 +148,7 @@
                  </table>
                </div>
                <div class="ads_pagination mt-3 mb-0">
-                 {{$adminLogs->links()}}
+                 {{$userLogs->links()}}
                </div>
             </div>
 		    	</div>

@@ -1,6 +1,24 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+    	$('#userTable').DataTable({
+			searching: false,
+			paging: false,
+			info: false,
+			"columns": [
+				{ "orderable": false },
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				{ "orderable": false }
+			]
+		});
 		// sessionStorage.removeItem('ids');
 		var allEmailIds = sessionStorage.getItem('ids');
 		id = sessionStorage.getItem('ids');

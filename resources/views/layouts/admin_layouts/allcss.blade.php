@@ -3,6 +3,7 @@
 <!-- Icons -->
 <link href="{{URL::asset('admin/assets/vendor/nucleo/css/nucleo.css')}}" rel="stylesheet">
 <link href="{{URL::asset('admin/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 <!-- Toster CSS -->
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 <!-- Argon CSS -->

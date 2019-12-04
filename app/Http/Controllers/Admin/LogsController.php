@@ -53,12 +53,12 @@ class LogsController extends Controller
             if($params['type'] != ""){
                 $query->where('log_type',$params['type']);
             }
-            $adminLogs = $query->paginate(10);
+            $userLogs = $query->paginate(10);
 
         }else{
 
-            $adminLogs = Logs::where('type',2)->where('log_type',$log_type)->orderBy('id','DESC')->paginate(10);
+            $userLogs = Logs::where('type',2)->where('log_type',$log_type)->orderBy('id','DESC')->paginate(10);
         }
-        return view('Admin.Logs.userLogs',['adminLogs'=> $adminLogs,'params'=>$params]);
+        return view('Admin.Logs.userLogs',['userLogs'=> $userLogs,'params'=>$params]);
     }
 }

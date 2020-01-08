@@ -489,20 +489,26 @@
 						@endforeach
 					</tbody>
 				</table>
-				<div class="overlay_signup w-100 text-center text-white">
-					<i class="fa fa-lock" aria-hidden="true"></i>
-					<div> 
-					<a class="btn table-row-btn signup_btn" href="{{url('/signup')}}">Sign up to show more reviews</a>
+				@if(!Auth::guard('customer')->check())
+					@if($filtersetting->no_of_search_record > 0)
+					<div class="overlay_signup w-100 text-center text-white">
+						<i class="fa fa-lock" aria-hidden="true"></i>
+						<div> 
+						<a class="btn table-row-btn signup_btn" href="{{url('/signup')}}">Sign up to show more reviews</a>
+						</div>
 					</div>
-				</div>
+					@endif
+				@endif
 				@if(Auth::guard('customer')->check())
 				<div class="pagination">
 					{{$data->appends(request()->input())->links()}}
 				</div>
-				@elseif($filtersetting->no_of_search_record == 0)
-					<div class="pagination">
-						{{$data->appends(request()->input())->links()}}
-					</div>
+				@else
+					@if($filtersetting->no_of_search_record === 0)
+						<div class="pagination">
+							{{$data->appends(request()->input())->links()}}
+						</div>
+					@endif
 				@endif
 			</div>
 		</div>

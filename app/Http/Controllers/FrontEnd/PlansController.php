@@ -54,7 +54,7 @@ class PlansController extends Controller
         $current_country_code = $location->countryCode;
         $filtersetting = SettingsModel::first();
         if(!Auth::guard('customer')->check()){
-            $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 1;
+            $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 20;
         }else{
             $limit = 20;
         }

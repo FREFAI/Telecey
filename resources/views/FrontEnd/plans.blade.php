@@ -504,7 +504,7 @@
 					{{$data->appends(request()->input())->links()}}
 				</div>
 				@else
-					@if($filtersetting->no_of_search_record === 0)
+					@if($filtersetting->no_of_search_record == 0)
 						<div class="pagination">
 							{{$data->appends(request()->input())->links()}}
 						</div>

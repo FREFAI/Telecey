@@ -174,7 +174,67 @@
 				  			</div>
 				  			@endif
 			  			</div>
-		  			<!-- End MB Section -->
+					  <!-- End MB Section -->
+		  			<!-- Logged in user setting Section -->
+			  			<div class="col-lg-6 pl-lg-4">
+			  				<h6 class="heading-small text-muted mb-4">Disable Price for Logged Out Users</h6>
+			  			</div>
+			  			<div class="col-lg-6 text-right">
+			  				@if($settings)
+				  			<div class="pl-lg-4">
+				  				<label class="custom-toggle" >
+				  				  <input type="checkbox" data-setting_key="disable_price_for_logged_out_users" value="1" id="device_setting" class="filtersettings" 
+				  				  @if($settings->disable_price_for_logged_out_users == 0)checked="" @endif>
+				  				  <span class="custom-toggle-slider rounded-circle"></span>
+				  				</label>
+				  				<span class="clearfix"></span>
+				  			</div>
+				  			@else
+				  			<div class="pl-lg-4">
+				  				<label class="custom-toggle" >
+				  				  <input type="checkbox" data-setting_key="disable_price_for_logged_out_users" value="1" id="device_setting" class="filtersettings">
+				  				  <span class="custom-toggle-slider rounded-circle"></span>
+				  				</label>
+				  				<span class="clearfix"></span>
+				  			</div>
+				  			@endif
+			  			</div>
+			  			<div class="col-lg-6 pl-lg-4">
+			  				<h6 class="heading-small text-muted mb-4">Disable Details for Logged Out Users</h6>
+			  			</div>
+			  			<div class="col-lg-6 text-right">
+			  				@if($settings)
+				  			<div class="pl-lg-4">
+				  				<label class="custom-toggle" >
+				  				  <input type="checkbox" data-setting_key="disable_details_for_logged_out_users" value="1" id="device_setting" class="filtersettings" 
+				  				  @if($settings->disable_details_for_logged_out_users == 0)checked="" @endif>
+				  				  <span class="custom-toggle-slider rounded-circle"></span>
+				  				</label>
+				  				<span class="clearfix"></span>
+				  			</div>
+				  			@else
+				  			<div class="pl-lg-4">
+				  				<label class="custom-toggle" >
+				  				  <input type="checkbox" data-setting_key="disable_details_for_logged_out_users" value="1" id="device_setting" class="filtersettings">
+				  				  <span class="custom-toggle-slider rounded-circle"></span>
+				  				</label>
+				  				<span class="clearfix"></span>
+				  			</div>
+				  			@endif
+			  			</div>
+			  			<div class="col-lg-10 pl-lg-4">
+			  				<h6 class="heading-small text-muted mb-4">No. of search records for Logged Out Users</h6>
+			  			</div>
+			  			<div class="col-lg-2 text-right">
+				  			<div class="pl-lg-4">
+				  				<div class="form-group d-flex">
+									<input type="number" class="form-control search_number" value="{{$settings ? $settings->no_of_search_record : 0}}" id="no_of_search_record"/>
+									<button type="button" class="btn btn-sm btn-primary save_btn_record"><i class="ni ni-check-bold"></i></button>
+								</div>
+				  			</div>
+			  			</div>
+					  <!-- End Logged in user setting Section -->
+					  
 		    	</div>
 		    </div>
 		</div>
@@ -186,6 +246,9 @@
 <style type="text/css">
 	h6.heading-small{
 		text-transform: capitalize;
+	}
+	.search_number{
+		height: calc(1.75rem + 2px);
 	}
 </style>
 @endsection

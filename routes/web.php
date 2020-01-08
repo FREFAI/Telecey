@@ -22,6 +22,7 @@
 
 // FrontEnd Section 
 	Route::get('/', 'FrontEnd\HomeController@homepage');
+	Route::get('/home', 'FrontEnd\HomeController@homePageNew');
 	// Login and Sign Up section
 	
 		Route::get('/signin', 'FrontEnd\LoginSignup\LoginController@showLoginForm');
@@ -131,6 +132,7 @@
 			Route::get('/logout', 'Admin\LoginController@logout');
 			// Users Section 
 			Route::get('/users', 'Admin\UsersController@index');
+			Route::get('/userSorting', 'Admin\UsersController@userSorting');
 			Route::post('/getAllEmailsOfUsers','Admin\SendEmailsController@getAllEmailsOfUsers');
 			// Route::post('/users', 'Admin\UsersController@searchUser');
 			Route::get('/userDetail/{userId}', 'Admin\UsersController@getSingleUserDetail');
@@ -187,6 +189,7 @@
 				Route::post('/addNoSearchMessage', 'Admin\SettingsController@addNoSearchMessage');
 				Route::get('/settings', 'Admin\SettingsController@allSetting');
 				Route::post('/settings', 'Admin\SettingsController@changeSetting');
+				Route::post('/addSearchRecordLimit', 'Admin\SettingsController@addSearchRecordLimit');
 				Route::get('/filetrsettings', 'Admin\FilterSettingsController@allFilterSetting');
 				Route::post('/filetrsettings', 'Admin\FilterSettingsController@changeFilterSetting');
 			// End Settings Section

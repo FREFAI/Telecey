@@ -42,6 +42,18 @@ class HomeController extends Controller
         return view('FrontEnd.homepage',['settings'=> $settings,'blogs'=>$blogs]);
     }
 
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function homePageNew()
+    {
+        $settings = SettingsModel::first();
+        $blogs = BlogsModel::orderBy('created_at','DESC')->take(3)->get();
+        return view('FrontEnd.homepagenew',['settings'=> $settings,'blogs'=>$blogs]);
+    }
+
     public function profile(Request $request)
     {
         $perameters = $request->all();
@@ -84,6 +96,7 @@ class HomeController extends Controller
         $key = [];
         $blankArray = [];
         foreach ($serviceData  as $data) {
+            $data->brand;   // For brand name
             $data->provider;   // For provider name
             $data->typeOfService;    // Type name
             $data->currency;     // Currency name

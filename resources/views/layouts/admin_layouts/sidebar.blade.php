@@ -75,12 +75,12 @@
           </li>
           <li class="nav-item">
             <a class="nav-link {{ request()->is('admin/adminLogs') ? 'active' : '' }}" href="{{url('/admin/adminLogs')}}">
-              <i class="ni ni-collection text-pink"></i> Admin translation
+              <i class="ni ni-collection text-pink"></i> Admin Transaction
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link {{ request()->is('admin/userLogs') ? 'active' : '' }}" href="{{url('/admin/userLogs')}}">
-              <i class="ni ni-collection text-pink"></i> Website translation
+              <i class="ni ni-collection text-pink"></i> Website Transaction
             </a>
           </li>
           <li class="nav-item">

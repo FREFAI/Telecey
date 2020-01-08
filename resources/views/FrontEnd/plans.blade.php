@@ -33,6 +33,25 @@
 		padding: 5px 14px !important;
 		border-radius: 2px !important;
 	}
+	.overlay_signup.w-100.text-center {
+		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1a82f700), to(#141414));
+		height: 230px;    
+		margin-top: -40px;
+    	z-index: 0;
+		padding-top: 60px;
+	}
+	.overlay_signup i.fa.fa-lock {
+		border: 2px solid #96fdd4;
+		border-radius: 50px;
+		padding: 10px 14px;
+		color: #96fdd4;
+		margin-bottom: 10px;
+		margin-top: 40px;
+	}
+	.overlay_signup .signup_btn {
+		border-radius: 30px;
+		color: #333534;
+	}
 </style>
 	<!-- Content Start Here -->
 		<div class="page-header inner-page" style="background: url({{URL('frontend/assets/img/background-img.png')}});">
@@ -438,7 +457,17 @@
 										<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" style="width:100px;height:50px;"/>
 									@endif
 								</td>
-								<td>{{$value['price']}}</td>
+								<td>
+								@if(!Auth::guard('customer')->check())
+									@if($filtersetting->disable_price_for_logged_out_users == 1)
+										{{$value['price']}}
+									@else
+										<a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</a>
+									@endif
+								@else
+								{{$value['price']}}
+								@endif
+								</td>
 								<td>{{$value['local_min']}}</td>
 								<td>{{$value['datavolume']}}</td>
 								<td data-order="{{$value['average_review']}}"><div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div></td>
@@ -448,17 +477,33 @@
 									<td>N/A</td>
 								@endif
 								@if(Auth::guard('customer')->check())
-									<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</td>
+									<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</a></td>
 								@else
-									<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
+									@if($filtersetting->disable_details_for_logged_out_users == 1)
+										<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</a></td>
+									@else
+										<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</a></td>
+									@endif
 								@endif
 							</tr>
 						@endforeach
 					</tbody>
 				</table>
+				<div class="overlay_signup w-100 text-center text-white">
+					<i class="fa fa-lock" aria-hidden="true"></i>
+					<div> 
+					<a class="btn table-row-btn signup_btn" href="{{url('/signup')}}">Sign up to show more reviews</a>
+					</div>
+				</div>
+				@if(Auth::guard('customer')->check())
 				<div class="pagination">
 					{{$data->appends(request()->input())->links()}}
 				</div>
+				@elseif($filtersetting->no_of_search_record == 0)
+					<div class="pagination">
+						{{$data->appends(request()->input())->links()}}
+					</div>
+				@endif
 			</div>
 		</div>
 		@else

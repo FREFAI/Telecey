@@ -324,6 +324,33 @@
 													  						</li>
 													  					</ul>
 													  					</div>
+																	  </div>
+																	  <div class="col-lg-4 mt-2">
+													  					<div class="card_sm">
+													  					<ul class="first_row_service">
+													  						<li>
+													  							<div>Device : </div>
+													  							<div class="value_div">&nbsp;
+																				  	@if(!is_null($service->brand)) 
+																				  		{{$service->brand->brand_name}} {{$service->brand->model_name}}
+																					@else
+																					None
+																					@endif
+													  							</div>
+													  						</li>
+													  					</ul>
+													  					</div>
+																	  </div>
+																	  <div class="col-lg-4 mt-2">
+													  					<div class="card_sm">
+													  					<ul class="first_row_service">
+													  						<li>
+													  							<div>Upfront price : </div>
+													  							<div class="value_div">&nbsp;{{$service->upfront_price ?? 0}} 
+													  							</div>
+													  						</li>
+													  					</ul>
+													  					</div>
 													  				</div>
 													  			</div>
 													  			<div class="row">

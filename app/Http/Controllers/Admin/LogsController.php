@@ -11,10 +11,10 @@ class LogsController extends Controller
     public function adminLog(Request $request)
     {
         $params = $request->all();
-        $log_type = 1; 
         if(count($params)>1){
             $query = \DB::table('logs');
             $query->where('type',1);
+            $query->orderBy('id','DESC');
             if($params['email'] != ""){
                 $query->where('email','LIKE',"%{$params['email']}%");
             }
@@ -23,14 +23,14 @@ class LogsController extends Controller
                 $date['end_date'] = date('Y-m-d', strtotime($params['end_date']));
                 $query->whereBetween('created_at',[$date['start_date'],$date['end_date']]);
             }
-            if($params['type'] != ""){
+            if($params['type'] != "" && $params['type'] != -1){
                 $query->where('log_type',$params['type']);
             }
             $adminLogs = $query->paginate(10);
 
         }else{
 
-            $adminLogs = Logs::where('type',1)->where('log_type',$log_type)->orderBy('id','DESC')->paginate(10);
+            $adminLogs = Logs::where('type',1)->orderBy('id','DESC')->paginate(10);
         }
         return view('Admin.Logs.adminLogs',['adminLogs'=> $adminLogs,'params'=>$params]);
     }
@@ -38,10 +38,10 @@ class LogsController extends Controller
     public function userLog(Request $request)
     {
         $params = $request->all();
-        $log_type = 1; 
         if(count($params)>1){
             $query = \DB::table('logs');
             $query->where('type',2);
+            $query->orderBy('id','DESC');
             if($params['email'] != ""){
                 $query->where('email','LIKE',"%{$params['email']}%");
             }
@@ -50,14 +50,14 @@ class LogsController extends Controller
                 $date['end_date'] = date('Y-m-d', strtotime($params['end_date']));
                 $query->whereBetween('created_at',[$date['start_date'],$date['end_date']]);
             }
-            if($params['type'] != ""){
+            if($params['type'] != "" && $params['type'] != -1){
                 $query->where('log_type',$params['type']);
             }
             $userLogs = $query->paginate(10);
 
         }else{
 
-            $userLogs = Logs::where('type',2)->where('log_type',$log_type)->orderBy('id','DESC')->paginate(10);
+            $userLogs = Logs::where('type',2)->orderBy('id','DESC')->paginate(10);
         }
         return view('Admin.Logs.userLogs',['userLogs'=> $userLogs,'params'=>$params]);
     }

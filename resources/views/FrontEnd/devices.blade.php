@@ -229,17 +229,6 @@
 											</div>
 											<i class="lni-chevron-down"></i>
 										</div>
-										{{-- <div class="form-group inputwithicon">
-											<div class="select" ">
-												<select  name="model_name" id="model_name">
-													<option value="">Model</option>
-													@foreach($brands as $v)
-														<option value="{{$v->id}}">{{$v->model_name}}</option>
-													@endforeach
-												</select>
-											</div>
-											<i class="lni-chevron-down"></i>
-										</div> --}}
 										<div class="form-group inputwithicon">
 											<div class="select">
 												<select name="storage" id="storage">

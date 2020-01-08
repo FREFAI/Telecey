@@ -137,16 +137,74 @@
 				});
 			}
 		});
-		$('.filtersettings').on('change',function(e){
-			e.preventDefault();
-			var filterbutton = $(this);
-			if($(this).prop("checked") == true){
-				var type = $(this).attr("data-setting_key");
+		// Settings section
+			$('.filtersettings').on('change',function(e){
+				e.preventDefault();
+				var filterbutton = $(this);
+				if($(this).prop("checked") == true){
+					var type = $(this).attr("data-setting_key");
 
+					if(window.location.protocol == "http:"){
+						resuesturl = "{{url('/admin/filetrsettings')}}"
+					}else if(window.location.protocol == "https:"){
+						resuesturl = "{{secure_url('/admin/filetrsettings')}}"
+					}
+					$.ajax({
+						type: "post",
+						url: resuesturl,
+						headers: {
+							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						},
+						dataType:'json',
+						data: {
+							'type':type,
+							'status':0
+						},
+						success: function (data) {
+							if(data.success){
+								toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
+							}else{
+								toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+								filterbutton.prop("checked", false);
+							}
+						}         
+					});
+				}else{
+					var type = $(this).attr("data-setting_key");
+					if(window.location.protocol == "http:"){
+						resuesturl = "{{url('/admin/filetrsettings')}}"
+					}else if(window.location.protocol == "https:"){
+						resuesturl = "{{secure_url('/admin/filetrsettings')}}"
+					}
+					$.ajax({
+						type: "post",
+						url: resuesturl,
+						headers: {
+							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						},
+						dataType:'json',
+						data: {
+							'type':type,
+							'status':1
+						},
+						success: function (data) {
+							if(data.success){
+								toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
+							}else{
+								toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+								filterbutton.prop("checked", true);
+							}
+							
+						}         
+					});
+				}
+			});
+			$('.save_btn_record').on('click',function(){
+				var search_number = $('.search_number').val();
 				if(window.location.protocol == "http:"){
-				    resuesturl = "{{url('/admin/filetrsettings')}}"
+				    resuesturl = "{{url('/admin/addSearchRecordLimit')}}"
 				}else if(window.location.protocol == "https:"){
-				    resuesturl = "{{secure_url('/admin/filetrsettings')}}"
+				    resuesturl = "{{secure_url('/admin/addSearchRecordLimit')}}"
 				}
 				$.ajax({
 				    type: "post",
@@ -156,48 +214,20 @@
 				    },
 				    dataType:'json',
 				    data: {
-				        'type':type,
-				        'status':0
+				        'search_number':search_number
 				    },
 				    success: function (data) {
 				        if(data.success){
 				        	toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
 				        }else{
 				        	toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
-				        	filterbutton.prop("checked", false);
+				        	settingbutton.prop("checked", true);
 				        }
 				    }         
 				});
-			}else{
-				var type = $(this).attr("data-setting_key");
-				if(window.location.protocol == "http:"){
-				    resuesturl = "{{url('/admin/filetrsettings')}}"
-				}else if(window.location.protocol == "https:"){
-				    resuesturl = "{{secure_url('/admin/filetrsettings')}}"
-				}
-				$.ajax({
-				    type: "post",
-				    url: resuesturl,
-				    headers: {
-				        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				    },
-				    dataType:'json',
-				    data: {
-				        'type':type,
-				        'status':1
-				    },
-				    success: function (data) {
-				        if(data.success){
-				        	toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
-				        }else{
-				        	toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
-				        	filterbutton.prop("checked", true);
-				        }
-				        
-				    }         
-				});
-			}
-		});
+			});
+		// End Settings section
+
 		// Ads Section
 			// Ads Setting ajax
 				$('#add_setting').on('change',function(e){

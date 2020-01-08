@@ -102,7 +102,7 @@ span.logo-title {
   padding-left: 1rem;
   padding-top: 14px;
   position: absolute;
-  color: #333;
+  color: #fff;
   font-style: italic;
 }
 span.logo-tag-line {
@@ -110,7 +110,7 @@ span.logo-tag-line {
   font-size: 14px;
   padding-top: 10px;
   position: absolute;
-  color: #333;
+  color: #fff;
 }
 
 ul.navbar-nav.mr-auto.w-100.justify-content-left {
@@ -682,8 +682,17 @@ button.btn.btn-common.log-btn {
 /* new-design-css */
 
 nav.navbar.navbar-expand-lg.fixed-top.scrolling-navbar {
-  background-color: #96fdd4;
+  background-color: #2e76b5;
   box-shadow: 0 3px 6px 3px rgba(0, 0, 0, .06);
+}
+nav.navbar.navbar-expand-lg.fixed-top.scrolling-navbar.top-nav-collapse{
+  background-color: #2e76b5 !important;
+}
+ul.navbar-nav .nav-item a,li.dropdown .dropdown-toggle {
+  color: #fff !important;
+}
+.top-nav-collapse ul.navbar-nav .nav-item a,.top-nav-collapse li.dropdown .dropdown-toggle{
+  color: #fff !important;
 }
 a.link.facebook:hover {
   background: #355496;

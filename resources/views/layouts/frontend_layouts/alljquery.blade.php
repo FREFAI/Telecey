@@ -353,6 +353,8 @@
             var long_distance_min = $('.long_distance_min').val();
             var international_min = $('.international_min').val();
             var roaming_min = $('.roaming_min').val();
+            var device_id_plan = $('.device_select').val();
+            var upfront_price = $('.upfront_price').val();
             var sms = $('.sms').val();
             console.log(price);
             if(pay_as_usage != 1){
@@ -414,7 +416,9 @@
                         'data_usage_price':data_usage_age,
                         'pay_as_usage_type':pay_as_usage,
                         'latitude':latitude,
-                        'longitude':longitude
+                        'longitude':longitude,
+                        'brand_id': device_id_plan,
+                        'upfront_price': upfront_price
                       },
                       success: function (data) {
                         $('.ajaxloader').hide();

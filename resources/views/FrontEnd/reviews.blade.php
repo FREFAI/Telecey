@@ -21,6 +21,172 @@
         z-index: 999999;
         background: #00000040;
     }
+    select.brand_select_brand_device {
+		display: none !important;
+	}
+    .dropdown-select {
+		background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 100%);
+		background-repeat: repeat-x;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#40FFFFFF', endColorstr='#00FFFFFF', GradientType=0);
+		background-color: #fff;
+		border-radius: 6px;
+		/* border: solid 1px #eee; */
+		/* box-shadow: 0px 2px 5px 0px rgba(155, 155, 155, 0.5); */
+		box-sizing: border-box;
+		cursor: pointer;
+		display: block;
+		float: left;
+		font-size: 14px;
+		font-weight: normal;
+		height: 42px;
+		line-height: 50px;
+		outline: none;
+		padding-left: 18px;
+		padding-right: 30px;
+		position: relative;
+		text-align: left !important;
+		transition: all 0.2s ease-in-out;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		white-space: nowrap;
+		width: auto;
+
+	}
+
+	.dropdown-select:focus {
+		background-color: #fff;
+	}
+
+	.dropdown-select:hover {
+		background-color: #fff;
+	}
+
+	/* .dropdown-select:active,
+	.dropdown-select.open {
+		background-color: #fff !important;
+		border-color: #bbb;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) inset;
+	} */
+
+	.dropdown-select:after {
+		display:none;
+	}
+
+	.dropdown-select.open:after {
+		-webkit-transform: rotate(-180deg);
+		transform: rotate(-180deg);
+	}
+
+	.dropdown-select.open .list {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.dropdown-select.open .option {
+		cursor: pointer;
+	}
+
+	.selectreview .dropdown-select.wide {
+		width: 100%;
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+        font-weight: 400;
+	}
+
+	.dropdown-select.wide .list {
+		left: 0 !important;
+		right: 0 !important;
+	}
+
+	.dropdown-select .list {
+		box-sizing: border-box;
+		transition: all 0.15s cubic-bezier(0.25, 0, 0.25, 1.75), opacity 0.1s linear;
+		-webkit-transform: scale(0.75);
+		transform: scale(0.75);
+		-webkit-transform-origin: 50% 0;
+		transform-origin: 50% 0;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.09);
+		background-color: #fff;
+		border-radius: 6px;
+		margin-top: 4px;
+		padding: 3px 0;
+		opacity: 0;
+		overflow: hidden;
+		pointer-events: none;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 999;
+		max-height: 250px;
+		overflow: auto;
+		border: 1px solid #ddd;
+	}
+
+	.dropdown-select .list:hover .option:not(:hover) {
+		background-color: transparent !important;
+	}
+	.dropdown-select .dd-search{
+	overflow:hidden;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	margin:0.5rem;
+	}
+
+	.dropdown-select .dd-searchbox:focus{
+	border-color:#12CBC4;
+	}
+
+	.dropdown-select .list ul {
+		padding: 0;
+	}
+    span.current {
+		color: #000;
+		text-transform: capitalize;
+	}
+	input.txtSearchValue{
+		height:30px;
+        width: 100%;
+	}
+	.dropdown-select .option {
+		cursor: default;
+		font-weight: 400;
+		line-height: 40px;
+		outline: none;
+		padding-left: 18px;
+		padding-right: 29px;
+		text-align: left;
+		transition: all 0.2s;
+		list-style: none;
+	}
+
+	.dropdown-select .option:hover,
+	.dropdown-select .option:focus {
+		background-color: #f6f6f6 !important;
+	}
+
+	.dropdown-select .option.selected {
+		font-weight: 600;
+		color: #12cbc4;
+	}
+
+	.dropdown-select .option.selected:focus {
+		background: #f6f6f6;
+	}
+
+	.dropdown-select a {
+		color: #aaa;
+		text-decoration: none;
+		transition: all 0.2s ease-in-out;
+	}
+
+	.dropdown-select a:hover {
+		color: #666;
+	}
 </style>
 	<!-- Content Start Here -->
 		<div class="page-header inner-page start-page" style="background: url({{URL::asset('frontend/assets/img/bg-1.jpeg')}});">
@@ -169,7 +335,17 @@
                        </div>
                        <div class="col-lg-6 ">
                             <h5>Brand</h5>
-                            <div class="tg-select form-control brand_select">
+                            <div class="form-group inputwithicon">
+                                <div class="selectreview">
+                                    <select class="brand_name active brand_select_brand_device" required="required" name="brand_name" data-url="{{url('/searchBrand')}}">
+                                        <option value="">Brand</option>
+                                        @foreach($brands as $v)
+                                            <option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- <div class="tg-select form-control brand_select">
                                  <select class="brand_name active" required="required" name="brand_name" id="brand">
                                     @if(count($brands) > 0)
                                         <option value="">Choose brand</option>
@@ -180,7 +356,7 @@
                                         <option value="">No data found.</option>
                                     @endif
                                  </select>
-                             </div>
+                             </div> -->
                               <div class="form-group brand_text">
                                   <input type="text" class="form-control brand_name text_brand_name" name="brand_name" placeholder="Brand name" maxlength="30">  
                                   <br>    
@@ -500,9 +676,9 @@
                                             </div>
                                         </div>
                                     </div>
-	                                {{-- <div class="form-group">
+	                                <!-- {{-- <div class="form-group">
 	                                    <input type="text" class="form-control local_min mint_input" name="local_min" placeholder="Local Min" required="required"  maxlength="20" value="Unlimited">		
-	                                </div> --}}
+	                                </div> --}} -->
 	                            </div>
 	                            <div class="col-lg-6 pay_as_usage_class">
                                     <h5>DataVolume</h5>
@@ -559,6 +735,25 @@
                                     <input type="hidden" name="data_usage_age" id="data_usage_age">
                                     <input type="hidden" name="latitude" id="lat" value="{{$lat}}">
                                     <input type="hidden" name="longitude" id="long" value="{{$long}}">
+                                </div>
+                                <div class="col-lg-6">
+                                    <h5>Device</h5>
+                                    <div class="form-group inputwithicon">
+                                        <div class="selectreview">
+                                            <select class="brand_select_brand_device device_select" name="device"  data-url="{{url('/searchBrand')}}">
+                                                <option value="0">None</option>
+                                                @foreach($brands as $v)
+                                                    <option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h5>Upfront price</h5>
+                                    <div class="form-group">
+                                        <input type="number" class="form-control upfront_price" name="upfront_price" placeholder="Upfront price"  maxlength="20">	
+                                    </div>	
                                 </div>
                                 <!-- <div class="col-lg-6 mt-3">
                                     <div class="speedtestpopuplink">
@@ -1353,6 +1548,176 @@
         }
     });
     // End Device section
+
+
+    // Device search Section  
+	    // Select Box of model
+        $(document).on('click','.dropdown-select ul li',function(){
+                var brandId = $(this).attr('data-value');
+                if(window.location.protocol == "http:"){
+                    resuesturl = "{{url('/getBrandColor')}}"
+                }else if(window.location.protocol == "https:"){
+                    resuesturl = "{{secure_url('/getBrandColor')}}"
+                }
+                $.ajax({
+                    type: "post",
+                    url: resuesturl,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType:'json',
+                    data: {
+                    id:brandId
+                    },
+                    success: function (data) {
+                        $('#device_color').html('');
+                        if(data.success){
+                        var colors = data.data;
+                        
+                        if(colors != ''){
+                            for(var i=0; i <= colors.length;i++){
+                            $('#device_color').append('<option value="'+colors[i].id+'">'+colors[i].color_name+'</option>');
+                            }
+                        }else{
+                            $('#device_color').append('<option value="">Color</option>');
+                        }
+                        }else{
+
+                        }
+                    }         
+                });
+            });
+        function create_custom_dropdowns() {
+            $('.brand_select_brand_device').each(function (i, select) {
+                if (!$(this).next().hasClass('dropdown-select')) {
+                    $(this).after('<div class="dropdown-select wide ' + ($(this).attr('class') || '') + '" tabindex="0"><span class="current"></span><div class="list"><ul></ul></div></div>');
+                    var dropdown = $(this).next();
+                    var options = $(select).find('option');
+                    var selected = $(this).find('option:selected');
+                    dropdown.find('.current').html(selected.data('display-text') || selected.text());
+                    options.each(function (j, o) {
+                        var display = $(o).data('display-text') || '';
+                        dropdown.find('ul').append('<li class="option ' + ($(o).is(':selected') ? 'selected' : '') + '" data-value="' + $(o).val() + '" data-display-text="' + display + '">' + $(o).text() + '</li>');
+                    });
+                }
+            });
+
+            $('.dropdown-select ul').before('<div class="dd-search"><input autocomplete="off" onkeyup="filter(event)" class="dd-searchbox txtSearchValue" type="text"></div>');
+        }
+
+        // Event listeners
+
+        // Open/close
+        $(document).on('click', '.dropdown-select', function (event) {
+            if($(event.target).hasClass('dd-searchbox')){
+                return;
+            }
+            $('.dropdown-select').not($(this)).removeClass('open');
+            $(this).toggleClass('open');
+            if ($(this).hasClass('open')) {
+                $(this).find('.option').attr('tabindex', 0);
+                $(this).find('.selected').focus();
+            } else {
+                $(this).find('.option').removeAttr('tabindex');
+                $(this).focus();
+            }
+        });
+
+        // Close when clicking outside
+        $(document).on('click', function (event) {
+            if ($(event.target).closest('.dropdown-select').length === 0) {
+                $('.dropdown-select').removeClass('open');
+                $('.dropdown-select .option').removeAttr('tabindex');
+            }
+            event.stopPropagation();
+        });
+
+        function filter(event){
+            
+            var actionurl = $('.brand_select_brand_device').attr('data-url');
+            var valThis = event.target.value;
+            $.ajax({
+                url:actionurl,
+                type: "GET",
+                dataType: "json",
+                data: {
+                    search:valThis
+                },
+                success: function(response){
+                    var allData = response.data;
+                    $('.dropdown-select.wide .list').find('ul').html('');
+                    if(allData){
+                        for (let index = 0; index < allData.length; index++) {
+                            const text = allData[index];
+                            $('.dropdown-select.wide .list').find('ul').append('<li class="option" data-value="' + text.id + '" data-display-text="">' + text.brand_name+' '+text.model_name + '</li>');
+                        }
+                        
+                    }
+                    
+                }
+            });
+            $('.dropdown-select ul > li').each(function(){
+            var text = $(this).text();
+                (text.toLowerCase().indexOf(valThis.toLowerCase()) > -1) ? $(this).show() : $(this).hide();         
+            });
+            
+        };
+        // Search
+
+        // Option click
+        $(document).on('click', '.dropdown-select .option', function (event) {
+            $(this).closest('.list').find('.selected').removeClass('selected');
+            $(this).addClass('selected');
+            var text = $(this).data('display-text') || $(this).text();
+            $(this).closest('.dropdown-select').find('.current').text(text);
+            $(this).closest('.dropdown-select').prev('select').val($(this).data('value')).trigger('change');
+        });
+
+        // Keyboard events
+        $(document).on('keydown', '.dropdown-select', function (event) {
+            var focused_option = $($(this).find('.list .option:focus')[0] || $(this).find('.list .option.selected')[0]);
+            // Space or Enter
+            //if (event.keyCode == 32 || event.keyCode == 13) {
+            if (event.keyCode == 13) {
+                if ($(this).hasClass('open')) {
+                    focused_option.trigger('click');
+                } else {
+                    $(this).trigger('click');
+                }
+                return false;
+                // Down
+            } else if (event.keyCode == 40) {
+                if (!$(this).hasClass('open')) {
+                    $(this).trigger('click');
+                } else {
+                    focused_option.next().focus();
+                }
+                return false;
+                // Up
+            } else if (event.keyCode == 38) {
+                if (!$(this).hasClass('open')) {
+                    $(this).trigger('click');
+                } else {
+                    var focused_option = $($(this).find('.list .option:focus')[0] || $(this).find('.list .option.selected')[0]);
+                    focused_option.prev().focus();
+                }
+                return false;
+                // Esc
+            } else if (event.keyCode == 27) {
+                if ($(this).hasClass('open')) {
+                    $(this).trigger('click');
+                }
+                return false;
+            }
+        });
+
+        $(document).ready(function () {
+            create_custom_dropdowns();
+        });
+
+    // End Device search Section  
+
+
 </script>
 
 @endsection

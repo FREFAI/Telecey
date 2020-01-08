@@ -53,7 +53,11 @@ class PlansController extends Controller
         $current_long = $location->longitude;
         $current_country_code = $location->countryCode;
         $filtersetting = SettingsModel::first();
-        
+        if(!Auth::guard('customer')->check()){
+            $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 1;
+        }else{
+            $limit = 20;
+        }
         if($filtersetting->ads_setting == 0){
             $ads = AdsModel::where('type',0)->get();
         }else{
@@ -109,7 +113,7 @@ class PlansController extends Controller
                         ->orderBy('datavolume','DESC')
                         ->orderBy('price','ASC')
                         ->orderBy('average_review','DESC')
-                        ->paginate(20);
+                        ->paginate($limit);
                 foreach($searchResult as $key => $value){
                     $user_address = '';
                     $sum = 0;
@@ -153,7 +157,7 @@ class PlansController extends Controller
                     ->orderBy('datavolume','DESC')
                     ->orderBy('price','ASC')
                     ->orderBy('average_review','DESC')
-                    ->paginate(20);
+                    ->paginate($limit);
             return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$searchResult,'service_types' => $service_types,]);
         }               
         

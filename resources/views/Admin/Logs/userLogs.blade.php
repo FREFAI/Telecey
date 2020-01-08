@@ -24,7 +24,7 @@
 		    	<div class="row align-items-center">
 
                     <div class="col-md-3">
-                    <h5 class="heading-small text-muted mb-4">Website translation </h5>
+                    <h5 class="heading-small text-muted mb-4">Website Transaction </h5>
                     </div>
                     <div class="col-md-9 text-right">
                         <div class="user-search-form mb-4">
@@ -40,6 +40,7 @@
                                 </div>
                                 <div class="3 mr-1">
                                     <select class="form-control" name="type" id="log_type">
+                                        <option @if(isset($params['type']) && $params['type'] == -1) selected="" @endif value="-1">All</option>
                                         <option @if(isset($params['type']) && $params['type'] == 1) selected="" @endif value="1">Sign Up Logs</option>
                                         <option @if(isset($params['type']) && $params['type'] == 2) selected="" @endif value="2">Email verification</option>
                                         <option @if(isset($params['type']) && $params['type'] == 3) selected="" @endif value="3">Log in</option>

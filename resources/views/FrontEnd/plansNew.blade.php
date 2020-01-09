@@ -12,7 +12,7 @@
 				</div>
 			</div>
 			<div class="col-8 text-right">
-				<form action="{{url('/plans-new')}}" method="get" class="w-100">
+				<form action="{{url('/plans')}}" method="get" class="w-100">
 					<div class="row justify-content-end">
 						<div class="col-9">
 							<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
@@ -168,12 +168,12 @@
 							@endif
 						@endif
 							@if(Auth::guard('customer')->check())
-							<div class="pagination">
+							<div class="pagination mb-3">
 								{{$data->appends(request()->input())->links()}}
 							</div>
 							@else
 								@if($filtersetting->no_of_search_record == 0)
-									<div class="pagination">
+									<div class="pagination mb-3">
 										{{$data->appends(request()->input())->links()}}
 									</div>
 								@endif
@@ -191,10 +191,10 @@
 				@endif
 			</div>
 		</div>
-		<div class="row ">
+		<div class="row bg-blue">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="section-title">Subscribe Form</h1>
+					<h1 class="section-title text-white">Subscribe Form</h1>
 				</div>
 			</div>
 			<div class="col-md-8 offset-md-2">

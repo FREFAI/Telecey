@@ -21,12 +21,12 @@
 
 
 // FrontEnd Section 
-	Route::get('/', 'FrontEnd\HomeController@homepage');
+	Route::get('/home', 'FrontEnd\HomeController@homepage');
 	// New Design Route
-	Route::get('/home', 'FrontEnd\HomeController@homePageNew');
-	Route::get('/plans-new', 'FrontEnd\PlansController@plansNew');
-	Route::get('/devices-new', 'FrontEnd\DevicesController@devicesNew');
-	Route::get('/blogs-list-new', 'FrontEnd\BlogsController@blogsNew');
+	Route::get('/', 'FrontEnd\HomeController@homePageNew');
+	Route::get('/plans', 'FrontEnd\PlansController@plansNew');
+	Route::get('/devices', 'FrontEnd\DevicesController@devicesNew');
+	Route::get('/blogs-list', 'FrontEnd\BlogsController@blogsNew');
 	// End New Design Route
 
 	// Login and Sign Up section
@@ -59,9 +59,9 @@
 		
 	// End Login and Sign Up section
 
-	Route::get('/plans', 'FrontEnd\PlansController@plans');
-	Route::get('/devices', 'FrontEnd\DevicesController@devices');
-	Route::get('/blogs-list', 'FrontEnd\BlogsController@blogs');
+	Route::get('/plans-new', 'FrontEnd\PlansController@plans');
+	Route::get('/devices-new', 'FrontEnd\DevicesController@devices');
+	Route::get('/blogs-list-new', 'FrontEnd\BlogsController@blogs');
 	Route::get('/searchBrand', 'FrontEnd\DevicesController@searchBrand');
 
 	// Brand Section

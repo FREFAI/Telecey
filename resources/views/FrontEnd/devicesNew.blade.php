@@ -11,7 +11,7 @@
 				</div>
 			</div>
 			<div class="col-8 text-right">
-				<form action="{{url('/devices-new')}}" method="get" class="w-100">
+				<form action="{{url('/devices')}}" method="get" class="w-100">
 					<div class="row justify-content-end">
 						<div class="col-9">
 							<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
@@ -141,10 +141,10 @@
 				@endif 
 			</div>
 		</div>
-		<div class="row ">
+		<div class="row bg-blue">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="section-title">Subscribe Form</h1>
+					<h1 class="section-title text-white">Subscribe Form</h1>
 				</div>
 			</div>
 			<div class="col-md-8 offset-md-2">

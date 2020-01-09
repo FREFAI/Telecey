@@ -152,7 +152,7 @@
 				<div class="sign-up-email">
 					<div class="form-group fields">
 						<input type="text" class="form-control" placeholder="Your email">
-						<button class="btn btn-info">Register for free</button>
+						<button class="register-button">Register for free</button>
 					</div>
 				</div>
 			</div>
@@ -269,10 +269,10 @@
 				@endforeach
 			@endif
 		</div>
-		<div class="row bg-green">
+		<div class="row bg-blue">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="section-title">Subscribe Form</h1>
+					<h1 class="section-title text-white">Subscribe Form</h1>
 				</div>
 			</div>
 			<div class="col-md-8 offset-md-2">

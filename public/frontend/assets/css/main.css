@@ -275,8 +275,8 @@ a.back-to-top i {
     width: 40px;
     height: 40px;
     line-height: 40px;
-    color: #333;
-    background: #96fdd4;;
+    color: #fff;
+    background: #2e75b5;;
     border-radius: 30px;
     text-align: center;
     transition: all .2s ease-in-out;
@@ -344,7 +344,7 @@ a.back-to-top:focus {
     height: 100%;
     border-radius: 100%;
     border: 7px solid transparent;
-    border-top-color: #96fdd4;
+    border-top-color: #2e75b5;
 }
 
 #loader-1:before {
@@ -5117,12 +5117,9 @@ footer .menu li a:hover {
 }
 
 #copyright {
-    background-color: #96fdd4;;
+    background-color: #2e75b5;
     padding: 20px 0 10px;
-    color: #333;
-    /* bottom: 0;
-    position: fixed;
-    width: 100%; */
+    color: #fff;
 }
 
 #copyright p {

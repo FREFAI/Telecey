@@ -155,6 +155,128 @@ class DevicesController extends Controller
             return view('FrontEnd.devices',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data' => $searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
         }
     }
+    public function devicesNew(Request $request)
+    {
+        $filtersetting = SettingsModel::first();
+        if($filtersetting->device == 0){
+            return redirect('/');
+        }
+        $user = \Auth::guard('customer')->user();
+        $ip = env('ip_address','live');
+        if($ip == 'live'){
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }else{
+            $ip = '96.46.34.142';
+        }
+
+        $data = \Location::get($ip);
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
+        $response = json_decode($response->getBody());
+        $current_location = $response->results[0]->formatted_address;
+        $current_lat = $data->latitude;
+        $current_long = $data->longitude;
+        $current_country_code = $data->countryCode;
+
+        $user_id = \Auth::guard('customer')->id();
+        
+        $brands = Brands::all();
+        $colors = DeviceColor::all();
+        $suppliers = Supplier::where('status',1)->get();
+        // echo "<pre>";print_r($current_country_code);exit;
+        $data = array();
+        $data = $request->all();
+        if($data){
+            if($data['brand_name'] == "" && $data['storage'] == "" && $data['device_color'] == ""){
+            
+                $searchResult = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                    ->where('country_code',$current_country_code)
+                    ->with('brand','supplier','device_color_info')
+                    ->orderBy('distance','ASC')
+                    ->orderBy('price','ASC')
+                    ->get()
+                    ->toArray();
+                // echo "<pre>";print_r($searchResult);exit;       
+                return view('FrontEnd.devicesNew',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data' => $searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
+            }else{
+                
+                $brand_name = "";
+                $storage = "";
+                $device_color = "";
+                $filter = 1;
+                if(array_key_exists("brand_name",$data)){
+                    $brand_name = $data['brand_name'];
+                }
+                if(array_key_exists("storage",$data)){
+                    $storage = $data['storage'];
+                }
+                if(array_key_exists("device_color",$data)){
+                    $device_color = $data['device_color'];
+                }
+                $searchResultCount = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                ->where('country_code',$current_country_code)->where(function ($query) use ($brand_name,$storage,$device_color) {
+                         $query->orWhere('brand_id',$brand_name)
+                               ->orWhere('device_color',$device_color)
+                               ->orWhere('storage',$storage);
+                                })->with('brand','supplier','device_color_info')
+                                ->orderBy('distance','ASC')
+                                ->orderBy('price','ASC')
+                                ->count();
+                $searchResult = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                        ->where('country_code',$current_country_code)->where(function ($query) use ($brand_name,$storage,$device_color) {
+                                 $query->orWhere('brand_id',$brand_name)
+                                       ->orWhere('device_color',$device_color)
+                                       ->orWhere('storage',$storage);
+                                        })->with('brand','supplier','device_color_info')
+                                        ->orderBy('distance','ASC')
+                                        ->orderBy('price','ASC')
+                                        ->get()->toArray();
+                foreach($searchResult as $key => $value){
+                    $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
+                    $searchResult[$key]['user_address'] = $user_address;
+                }
+                if($user_id){
+                    $logData = [
+                        'user_id'                       => $user->id,
+                        'log_type'                      => 4,
+                        'type'                          => 2,
+                        'filter_type'                   => 2,
+                        'user_status'                   => $user->is_active,
+                        'user_name'                     => $user->firstname.' '.$user->lastname,
+                        'user_number'                   => $user->mobile_number,
+                        'email'                         => $user->email,
+                        'filter_params'                 => json_encode($data),
+                        'filter_search_result_count'    => $searchResultCount
+                    ];
+                }else{
+                    $logData = [
+                        'log_type'                      => 4,
+                        'type'                          => 2,
+                        'filter_type'                   => 2,
+                        'ip'                            => $ip,
+                        'filter_params'                 => json_encode($data),
+                        'filter_search_result_count'    => $searchResultCount
+                    ];
+                }
+                
+                CreateLogs::createLog($logData);
+                // echo "<pre>";print_r($searchResult);exit;
+                return view('FrontEnd.devicesNew',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
+                // return view('FrontEnd.devices-search-list',['brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'filterType' => $filter]);
+            }
+            
+        }else{
+            $searchResult = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                    ->where('country_code',$current_country_code)
+                    ->with('brand','supplier','device_color_info')
+                    ->orderBy('distance','ASC')
+                    ->orderBy('price','ASC')
+                    ->get()
+                    ->toArray();
+            // echo "<pre>";print_r($searchResult);exit;       
+            return view('FrontEnd.devicesNew',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data' => $searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
+        }
+    }
 
     public function deviceDetails($id){
         $planDetailData = DeviceReview::where('id',$id)->with('device','brand','supplier','currency','device_color_info')->first();

@@ -235,13 +235,13 @@
 	            </div>
 	            <div class="row">
 	                <div class="col text-center mt-4">
-	                        <a href="plan.html"class="btn btn-common btn-find black mt-5 mr-4">Plan</a>
+	                        <a href="{{url('/plans')}}"class="btn btn-common btn-find black mt-5 mr-4">Plan</a>
 	                        @if($settings)
 	                            @if($settings->device == 1)
-	                                <a href="device.html"class="btn btn-common btn-find bor-black mt-5">Device</a>
+	                                <a href="{{url('/devices')}}"class="btn btn-common btn-find bor-black mt-5">Device</a>
 	                            @endif
 	                        @else
-	                            <a href="device.html"class="btn btn-common btn-find bor-black mt-5">Device</a>
+	                            <a href="{{url('/devices')}}"class="btn btn-common btn-find bor-black mt-5">Device</a>
 	                        @endif
 	                        
 	                </div>

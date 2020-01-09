@@ -22,7 +22,13 @@
 
 // FrontEnd Section 
 	Route::get('/', 'FrontEnd\HomeController@homepage');
+	// New Design Route
 	Route::get('/home', 'FrontEnd\HomeController@homePageNew');
+	Route::get('/plans-new', 'FrontEnd\PlansController@plansNew');
+	Route::get('/devices-new', 'FrontEnd\DevicesController@devicesNew');
+	Route::get('/blogs-list-new', 'FrontEnd\BlogsController@blogsNew');
+	// End New Design Route
+
 	// Login and Sign Up section
 	
 		Route::get('/signin', 'FrontEnd\LoginSignup\LoginController@showLoginForm');

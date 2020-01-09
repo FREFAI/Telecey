@@ -32,4 +32,9 @@ class BlogsController extends Controller
         $blogs = BlogsModel::orderBy('created_at','DESC')->paginate(10);
         return view('FrontEnd.blogs',['blogs'=>$blogs]);
     }
+    public function blogsNew()
+    {
+        $blogs = BlogsModel::orderBy('created_at','DESC')->paginate(10);
+        return view('FrontEnd.blogsNew',['blogs'=>$blogs]);
+    }
 }

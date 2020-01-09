@@ -52,7 +52,13 @@
 			<div class="col-6">
 				<div class="service-inner text-right">
 					<a href="{{url('/plans')}}" class="service-section-plan">Plan</a>
-					<a href="{{url('/devices')}}" class="service-section-device">Device</a>
+					@if($settings)
+						@if($settings->device == 1)
+							<a href="{{url('/devices')}}" class="service-section-device">Device</a>
+						@endif
+					@else
+						<a href="{{url('/devices')}}" class="service-section-device">Device</a>
+					@endif
 				</div>
 			</div>
 			<div class="col-6">
@@ -201,7 +207,13 @@
 			<div class="col-12">
 				<div class="plan-device-button text-center">
 					<a href="{{url('/plans')}}" class="btn btn-blue">Plan</a>
+					@if($settings)
+						@if($settings->device == 1)
+							<a href="{{url('/devices')}}" class="btn btn-green">Device</a>
+						@endif
+					@else
 					<a href="{{url('/devices')}}" class="btn btn-green">Device</a>
+					@endif
 				</div>
 			</div>
 		</div>
@@ -223,87 +235,39 @@
 			</div>
 		</div>
 		<div class="row my-5">
-			<div class="col-4">
-				<div class="card-blog">
-					<a herf="#">
-						<div class="poster">
-							<div class="text-center image-blog">
-								<img src="{{URL::asset('frontend/assets/img/file.png')}}">
-							</div>
-							<div class="detail">
-								<div class="top-section px-2">
-									<small>Fares Al Refai</small><br>
-									<small>Oct 21, 2018 - 1 min</small>
+			@if(count($blogs) > 0)
+				@foreach($blogs as $blog)
+					<div class="col-4">
+						<div class="card-blog">
+							<a herf="#">
+								<div class="poster">
+									<div class="text-center image-blog">
+										@if($blog->blog_picture != "")
+											<img alt="{{$blog->blog_picture}}" src="{{URL::asset('blogs/resized')}}/{{$blog->blog_picture}}" class="img-fluid">
+										@else
+											<img alt="{{$blog->blog_picture}}" src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" class="img-fluid">
+										@endif
+									</div>
+									<div class="detail">
+										<div class="top-section px-2">
+											<small>{{date("M d, Y", strtotime($blog->created_at))}}</small>
+										</div>
+										<div class="title-blog  px-2">
+											<h2>
+												<a href="#">{{$blog->title}}</a>
+											</h2>
+											<hr/>
+										</div>
+										<div class="blog-footer  px-2">
+											<small>{{substr(html_entity_decode(strip_tags($blog->blog_content)),0,65)}}</small>
+										</div>
+									</div>
 								</div>
-								<div class="title-blog  px-2">
-									<h2>
-										<a href="#">Why You should take your time before getting a apln</a>
-									</h2>
-									<hr/>
-								</div>
-								<div class="blog-footer  px-2">
-									<small>2 views</small>&nbsp;
-									<small>Write a comment</small>
-								</div>
-							</div>
+							</a>
 						</div>
-					</a>
-				</div>
-			</div>
-			<div class="col-4">
-				<div class="card-blog">
-					<a herf="#">
-						<div class="poster">
-							<div class="text-center image-blog">
-								<img src="{{URL::asset('frontend/assets/img/file.png')}}">
-							</div>
-							<div class="detail">
-								<div class="top-section px-2">
-									<small>Fares Al Refai</small><br>
-									<small>Oct 21, 2018 - 1 min</small>
-								</div>
-								<div class="title-blog  px-2">
-									<h2>
-										<a href="#">Why You should take your time before getting a apln</a>
-									</h2>
-									<hr/>
-								</div>
-								<div class="blog-footer  px-2">
-									<small>2 views</small>&nbsp;
-									<small>Write a comment</small>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-			</div>
-			<div class="col-4">
-				<div class="card-blog">
-					<a herf="#">
-						<div class="poster">
-							<div class="text-center image-blog">
-								<img src="{{URL::asset('frontend/assets/img/file.png')}}">
-							</div>
-							<div class="detail">
-								<div class="top-section px-2">
-									<small>Fares Al Refai</small><br>
-									<small>Oct 21, 2018 - 1 min</small>
-								</div>
-								<div class="title-blog  px-2">
-									<h2>
-										<a href="#">Why You should take your time before getting a apln</a>
-									</h2>
-									<hr/>
-								</div>
-								<div class="blog-footer  px-2">
-									<small>2 views</small>&nbsp;
-									<small>Write a comment</small>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-			</div>
+					</div>
+				@endforeach
+			@endif
 		</div>
 		<div class="row bg-green">
 			<div class="col-12 text-center">
@@ -322,135 +286,5 @@
 		</div>
 	</div>
 </section>
-<style>	
-
-	/* Blog Grid section */
-	.subscrib .btn{
-		border-color: rgba(57,62,68,1) !important;
-		background-color: rgba(57,62,68,1) !important;
-		color:#fff !important; 
-	}
-	.text-center.image-blog {
-		position: relative;
-		height: 100%;
-	}
-	.blog-footer {
-		color: #fff;
-		position: absolute;
-		bottom: 12px;
-	}
-	.top-section{
-		color: #fff;
-	}
-	.title-blog h2 a {
-		color: #fff;
-		font-size: 23px !important;
-	}
-	.title-blog hr{
-		border-top : 1px solid #fff !important;
-	}
-	.title-blog {
-		position: absolute;
-		bottom: 40px;
-	}
-	.card-blog {
-		height:300px;
-		box-shadow:0 5px 10px rgba(0,0,0,0.5);
-	}	
-	.poster {
-		position: relative;
-		height: 300px;
-	}
-	.poster img{
-		height: 100%;
-		margin:0 auto;
-	}
-	.detail {
-		background: #0000007d;
-		position: absolute;
-		width: 100%;
-		height: 300px;
-		top: 0;
-	}
-	
-	/* End Blog Grid section */
-	.bg-image{
-		height: 300px;
-    	background-size: cover;
-	}
-	.btn-blue{
-		background-color: #2e75b5;
-		border-color: #2e75b5;
-		padding: 3px 30px;
-		border-radius:3px;
-		color: #fff !important;
-	}
-	.btn-green{
-		margin-left: 30px;
-		background-color: #58fca3;
-		padding: 3px 30px;
-		border-radius:3px;
-		color: #000 !important;
-	}
-	.sign-up-email .fields button{
-		color: #000;
-	}
-	.sign-up-email .fields {
-		display: flex;
-	}
-	.sign-up-email {
-		width: 50%;
-		margin: 0 auto;
-	}
-	section#main-top-section {
-		padding-top: 145px;
-	}
-	.first-section-image img{
-		border:8px solid rgba(27, 252, 163, 1);
-		border-radius: 5px; 
-	}
-	.first-section-text {
-		width: 400px;
-		margin: 0 auto;
-		color: #fff;
-		background-color: #2e76b5;
-		padding: 15px;
-		border-radius: 5px;
-		box-shadow: 0px 0px 4px 2px #000;
-	}
-	.find-service-section{
-		width: 65%;
-	}
-	a.service-section-plan ,a.service-section-device{
-		border: 2px solid #0077b5;
-		border-radius: 5px;
-		padding: 5px 20px;
-		margin-right: 20px;
-	}
-	.service-section-image img {
-		border: 8px solid #2e76b5;
-		border-radius:3px;
-	}
-	.bg-blue {
-    	background-color: #2e75b5;
-		padding: 25px;
-		color: #fff;
-	}
-	.bg-green {
-    	background-color: #58fca3;
-		padding: 25px;
-		color: #000;
-	}
-	.work-icon {
-		font-size: 60px;
-	}
-	.work-content {
-		min-height: 150px;
-	}
-	.work-title {
-		min-height: 50px;
-	}
-	
-</style>
 
 @endsection

@@ -20,9 +20,11 @@
 		<div class="row mt-5">
 			<div class="col-12 mb-4">
 				<div class="find-service-section mx-auto text-center">
-					<h3>Find the right telecom service that suits your needs Check and share your telco experience with every one</h3>
+					<h1>Find the right telecom service that suits your needs Check and share your telco experience with every one</h1>
 				</div>
 			</div>
+		</div>
+		<div class="row mt-5 col-8 offset-md-2">
 			<div class="col-2 text-center">
 				<img src="{{URL::asset('frontend/assets/img/2756310.webp')}}"/>
 				<div class="label-service font-weight-bold">Mobile Plans</div>
@@ -67,7 +69,7 @@
 				</div>
 			</div>
 			<div class="col-12 mt-5">
-				<div class="service-content-section w-50 mx-auto text-center">
+				<div class="service-content-section w-75 mx-auto text-center">
 				Everyone has subscribed to mobile phone plan or a home internet service and everyone has his own unique experience. Because of the telecom nature, the service defer from a location to another and from  specific service to another. A carrier may have a perfect coverage for the whole city except for one single neighborhood. While another one may provide an excellent 100 Mbps service but a horrible Gbps service. TelcoTales enables users to share their experience "Telco Tales" on our website so everyone benefits and easily pick the best service, while carriers can spot their weaknesses and improve them 
 				</div>
 			</div>
@@ -160,42 +162,42 @@
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 				<div class="row">
-					<div class="col-2 text-center">
+					<div class="col-2 text-center mb-3">
 						<div class="image-section">
 							<img src="{{URL::asset('frontend/assets/img/House%20Sketch.webp')}}"/>
 						</div>
 					</div>
-					<div class="col-10">
+					<div class="col-10 mb-3">
 						<div class="content-section">
 							Moving your home and don't know if your current service is still suitable?
 						</div>
 					</div>
-					<div class="col-2 text-center">
+					<div class="col-2 text-center mb-3">
 						<div class="image-section">
 							<img src="{{URL::asset('frontend/assets/img/Ringing%20Phone.webp')}}"/>
 						</div>
 					</div>
-					<div class="col-10">
+					<div class="col-10 mb-3">
 						<div class="content-section">
 							Looking for a new mobile device or a mobile plan?
 						</div>
 					</div>
-					<div class="col-2 text-center">
+					<div class="col-2 text-center mb-3">
 						<div class="image-section">
 							<img src="{{URL::asset('frontend/assets/img/Documents.webp')}}"/>
 						</div>
 					</div>
-					<div class="col-10">
+					<div class="col-10 mb-3">
 						<div class="content-section">
 							Changing your mobile carrier?
 						</div>
 					</div>
-					<div class="col-2 text-center">
+					<div class="col-2 text-center mb-3">
 						<div class="image-section">
 							<img src="{{URL::asset('frontend/assets/img/454550-PGQH10-539.webp')}}"/>
 						</div>
 					</div>
-					<div class="col-10">
+					<div class="col-10 mb-3">
 						<div class="content-section">
 							Search other users reviews and feed back for the best plan in the area Find out the best product that fits your need, budget and expectation with us
 						</div>
@@ -217,10 +219,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="row bg-green">
+		<div class="row bg-green col-8 offset-md-2">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="section-title">How do we get our information</h1>
+					<h1 class="h1">How do we get our information</h1>
 				</div>
 			</div>
 			<div class="col-12 text-center">
@@ -229,15 +231,15 @@
 				</div>
 			</div>
 			<div class="col-12 text-center mt-3">
-				<div class="content-info w-75 mx-auto">
+				<div class="content-info">
 				Telcotales is a fee telecommunication websites specialized in collecting, analyzing and evaluating telecom carriers and providers world wide. We Depend 100% on our users reviews to rates. With the huge demand on telecommunication and data these days, telecom is considered the most important and critical products and services offered worldwide. The market is offering thousands of telecom and mobile device and hundreds of thousands of telecom plans and telecom subscriptions. Internet Companies and mobile wireless companies’ network are covering millions of kilometers. All these mobile phones, smart devices, pans, subscription and telecom services varies from one company to another and from one brand to another, even within the same network the provided service may vary from city to another or even from a neighborhood to another. For that Telcotales share every one’s experience and reviews to help you pick
 				</div>
 			</div>
 		</div>
-		<div class="row my-5">
+		<div class="row my-5 col-8 offset-md-2">
 			@if(count($blogs) > 0)
 				@foreach($blogs as $blog)
-					<div class="col-4">
+					<div class="col-6 mb-4">
 						<div class="card-blog">
 							<a herf="#">
 								<div class="poster">

@@ -8,7 +8,7 @@
                 
 	            	@if(count($blogs) > 0)
                         @foreach($blogs as $blog)
-                            <div class="row mt-4">
+                            <div class="row mt-4 border">
                                 <div class="col-6">
                                     <div class="blog-banner">
                                         @if($blog->blog_picture != "")

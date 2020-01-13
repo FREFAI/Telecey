@@ -1503,24 +1503,27 @@ span.fa.fa-star.rate {
 		border-radius: 5px; 
 	}
 	.first-section-text {
-		width: 80%;
-		/* margin: 0 auto; */
+		width: 100%;
+		margin-left: -105px;
 		color: #fff;
 		background-color: #2e76b5;
-		padding: 35px 0px;
+		padding: 25px 0px;
 		border-radius: 5px;
 		box-shadow: 0px 0px 4px 2px #000;
   }
   .first-section-text h2 {
-    font-size: 50px;
+    font-size: 60px;
   }
 	.find-service-section{
-		width: 70%;
+		width: 100%;
   }
-  .label-service{
+  .label-service {
     color: #000;
     text-decoration: underline;
-  }
+    font-family: dinneuzeitgroteskltw01-_812426,sans-serif;
+    font-size: 24px;
+    padding-top: 10px;
+}
   .find-service-section h1 {
     color: #656E78;
     font-weight: bold;
@@ -1530,7 +1533,8 @@ span.fa.fa-star.rate {
     line-height: 30px;
   }
   .content-section {
-    font-size: 25px;
+    font-size: 30px;
+    text-align: left;
     color: #292929;
   }
   .image-section img {
@@ -1558,6 +1562,7 @@ span.fa.fa-star.rate {
   }
   .plan-device-button.text-center a {
     padding: 5px 46px;
+    border-radius: 10px;
   }
 	.bg-blue {
     	background-color: #2e75b5;
@@ -1567,7 +1572,9 @@ span.fa.fa-star.rate {
 	.bg-green {
     	background-color: #58fca3;
 		padding: 25px;
-		color: #000;
+    color: #000;
+    padding-bottom: 50px;
+
 	}
 	.work-icon {
 		font-size: 60px;
@@ -1579,7 +1586,8 @@ span.fa.fa-star.rate {
 		min-height: 50px;
   }
   input.location-input {
-    width: 70%;
+    width: 100%;
+    border: 1px solid #2e75b5;
     float: right;
     border-radius: 6px;
     text-align: center;
@@ -1589,13 +1597,17 @@ span.fa.fa-star.rate {
     background: transparent;
     border-radius: 6px;
     padding: 2px 5px;
+    border: 1px solid #2e75b5;
   }
   .right-banner img {
+    width: 440px;
+    height: 398px;
     border-radius: 50%;
     box-shadow: 0px 0px 20px 4px #2e75b5;
   }
   .text-blue{
-    color: #2e76b5;
+    color: #3f3f3f;
+    font-family: 'Baskerville BT Bold Italic';
   }
   .page-item .page-link {
     color: #2e75b5 !important;
@@ -1771,7 +1783,7 @@ span.fa.fa-star.rate {
       top: 100%;
       left: 0;
       z-index: 999;
-      max-height: 250px;
+      max-height: 250px;100%
       overflow: auto;
       border: 1px solid #ddd;
     }
@@ -1836,6 +1848,23 @@ span.fa.fa-star.rate {
     .dropdown-select a:hover {
       color: #666;
     }
+    h1.device-heading-title {
+      font-family: playfair display,serif;
+      color: #393E44;
+      font-size: 50px;
+      font-weight: 500;
+  }
+  .find-service-section.mx-auto.text-center h2 {
+    font-size: 45px;
+    font-weight: bold;
+    color: #646d77;
+    line-height: 46px;
+    font-family: playfair display,serif;
+}
+.content-info p {
+  font-size: 20px;
+  line-height: 33px;
+}
   /* End Device section Brand Dropdown css */
 	/* /09-01-2020 */
 @media(max-width:1440px){
@@ -1999,3 +2028,4 @@ a.btn.btn-common.btn-find {
   padding: 8px 2rem 8px 2rem;
 }
 }
+

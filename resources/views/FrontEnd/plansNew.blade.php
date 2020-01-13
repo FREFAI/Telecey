@@ -4,14 +4,14 @@
 
 <!-- Content Start Here -->
 <section id="main-top-section" >
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="section-title">Search for Plans</h1>
+					<h1 class="device-heading-title">Search for Plans</h1>
 				</div>
 			</div>
-			<div class="col-8 text-right">
+			<div class="col-7 text-right">
 				<form action="{{url('/plans')}}" method="get" class="w-100">
 					<div class="row justify-content-end">
 						<div class="col-9">
@@ -19,7 +19,7 @@
 						</div>
 						<div class="col-3">
 						@if($filtersetting->mobile_home_setting == 1)
-							<select class="service-type-select ml-3 service_type" name="service_type">
+							<select class="service-type-select service_type" name="service_type">
 								<option value="">Select service type</option>
 								@if(count($service_types) > 0)
 									@foreach($service_types as $type)
@@ -32,7 +32,7 @@
 						@endif
 						</div>
 						@if($filtersetting->personal_business_setting == 1)
-						<div class="col-3 mt-4">
+						<div class="col-4 pr-0 text-right mt-4">
 							<div class="form-group plan_page">
 								<span class="toggle_label active">Personal</span>
 								<label class="switch">
@@ -44,7 +44,7 @@
 						</div>
 						@endif
 						@if($filtersetting->postpaid_prepaid_setting == 1)
-						<div class="col-3 mt-4">
+						<div class="col-4 text-center pl-0 pr-0 mt-4">
 							<div class="form-group plan_page">
 								<span class="toggle_label active">Postpaid</span>
 								<label class="switch">
@@ -56,7 +56,7 @@
 						</div>
 						@endif
 
-						<div class="col-3 mt-4">
+						<div class="col-4 pl-0 text-left mt-4">
 							<div class="form-group plan_page">
 								<span class="toggle_label active">Pay as usage</span>
 								<label class="switch">
@@ -68,13 +68,13 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-6 offset-md-4 text-center">
+						<div class="col-md-12 text-center">
 							<button type="submit" class="searchnow-button">Search Now</button>
 						</div>
 					</div>
 				</form>
 			</div>
-			<div class="col-4 text-center">
+			<div class="col-5 text-center">
 				<div class="right-banner">
 					<img src="{{URL::asset('frontend/assets/img/153981-OUOERJ-745_edited_edited.webp')}}"/>
 				</div>
@@ -83,7 +83,7 @@
 		<div class="row">
 			<div class="col-12 text-center my-5">
 				<div class="heading detail-div">
-					<h1 class="section-title">Provider Near By</h1>
+					<h1 class="device-heading-title">Provider Near By</h1>
 				</div>
 			</div>
 
@@ -191,6 +191,8 @@
 				@endif
 			</div>
 		</div>
+	</div>
+	<div class="container-fluid">
 		<div class="row bg-blue">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
@@ -278,6 +280,9 @@
 	.slider{
 		background-color: #2e75b5;
     	border: 1px solid #2e75b5;
+	}
+	input:checked + .slider {
+		background-color: #2e75b5;
 	}
 	/* .searchnow-button:hover {
 		border: 2px solid #2e75b5;

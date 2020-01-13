@@ -4,7 +4,7 @@
 
 <!-- Content Start Here -->
 <section id="main-top-section" >
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-md-6 text-center pl-0 pr-0 video-height">
 				<div class="first-section-text">
@@ -20,32 +20,33 @@
 		<div class="row mt-5">
 			<div class="col-12 mb-4">
 				<div class="find-service-section mx-auto text-center">
-					<h1>Find the right telecom service that suits your needs Check and share your telco experience with every one</h1>
+					<h2>Find the right telecom service that suits your needs</h2>
+					<h2>Check and share your telco experience with every one</h2>
 				</div>
 			</div>
 		</div>
-		<div class="row mt-5 col-8 offset-md-2">
-			<div class="col-2 text-center">
+		<div class="row mt-5 py-5 col-10 offset-md-1">
+			<div class="col-2 p-0 text-center">
 				<img src="{{URL::asset('frontend/assets/img/2756310.webp')}}"/>
 				<div class="label-service font-weight-bold">Mobile Plans</div>
 			</div>
-			<div class="col-2 text-center">
+			<div class="col-2 p-0 text-center">
 				<img src="{{URL::asset('frontend/assets/img/4636.webp')}}"/>
 				<div class="label-service font-weight-bold">Internet</div>
 			</div>
-			<div class="col-2 text-center">
+			<div class="col-2 p-0 text-center">
 				<img src="{{URL::asset('frontend/assets/img/sharing.webp')}}"/>
 				<div class="label-service font-weight-bold">Share plans</div>
 			</div>
-			<div class="col-2 text-center">
+			<div class="col-2 p-0 text-center">
 				<img src="{{URL::asset('frontend/assets/img/2756310.webp')}}"/>
 				<div class="label-service font-weight-bold">Devices</div>
 			</div>
-			<div class="col-2 text-center">
+			<div class="col-2 p-0 text-center">
 				<img src="{{URL::asset('frontend/assets/img/150631-OUD927-864_edited.webp')}}"/>
 				<div class="label-service font-weight-bold">Personal</div>
 			</div>
-			<div class="col-2 text-center">
+			<div class="col-2 p-0 text-center">
 				<img src="{{URL::asset('frontend/assets/img/2317497_edited.webp')}}"/>
 				<div class="label-service font-weight-bold">Business</div>
 			</div>
@@ -76,11 +77,11 @@
 		</div>
 		<div class="row">
 			<div class="col-12 text-center">
-				<div class="heading detail-div">
-					<h1 class="section-title">How Does it Work</h1>
+				<div class="heading detail-div mb-5">
+					<h1 class="device-heading-title">How Does it Work</h1>
 				</div>
 			</div>
-			<div class="col-md-8 offset-md-2">
+			<div class="col-10 offset-md-1">
 				<div class="row">
 					<div class="col-3 bg-blue">
 						<div class="work-section text-center">
@@ -149,8 +150,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mt-5">
-			<div class="col-md-8 offset-md-2">
+		<div class="row mt-5 py-4">
+			<div class="col-10 offset-md-1">
 				<div class="sign-up-email">
 					<div class="form-group fields">
 						<input type="text" class="form-control" placeholder="Your email">
@@ -160,7 +161,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6 offset-md-3">
+			<div class="col-md-8 offset-md-2">
 				<div class="row">
 					<div class="col-2 text-center mb-3">
 						<div class="image-section">
@@ -219,7 +220,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row bg-green col-8 offset-md-2">
+		<div class="row bg-green col-10 offset-md-1">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
 					<h1 class="h1">How do we get our information</h1>
@@ -232,11 +233,13 @@
 			</div>
 			<div class="col-12 text-center mt-3">
 				<div class="content-info">
+				<p>
 				Telcotales is a fee telecommunication websites specialized in collecting, analyzing and evaluating telecom carriers and providers world wide. We Depend 100% on our users reviews to rates. With the huge demand on telecommunication and data these days, telecom is considered the most important and critical products and services offered worldwide. The market is offering thousands of telecom and mobile device and hundreds of thousands of telecom plans and telecom subscriptions. Internet Companies and mobile wireless companies’ network are covering millions of kilometers. All these mobile phones, smart devices, pans, subscription and telecom services varies from one company to another and from one brand to another, even within the same network the provided service may vary from city to another or even from a neighborhood to another. For that Telcotales share every one’s experience and reviews to help you pick
-				</div>
+				</p>
+			</div>
 			</div>
 		</div>
-		<div class="row my-5 col-8 offset-md-2">
+		<div class="row my-5 col-10 offset-md-1">
 			@if(count($blogs) > 0)
 				@foreach($blogs as $blog)
 					<div class="col-6 mb-4">
@@ -271,13 +274,16 @@
 				@endforeach
 			@endif
 		</div>
+		
+	</div>
+	<div class="container-fluid">
 		<div class="row bg-blue">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="section-title text-white">Subscribe Form</h1>
+					<h1 class="device-heading-title text-white">Subscribe Form</h1>
 				</div>
 			</div>
-			<div class="col-md-8 offset-md-2">
+			<div class="col-10 offset-md-1">
 				<div class="sign-up-email">
 					<div class="form-group fields subscrib">
 						<input type="text" class="form-control" placeholder="Email Address">

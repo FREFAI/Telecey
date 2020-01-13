@@ -3,21 +3,21 @@
 @section('content')
 	<!-- Content Start Here -->
 <section id="main-top-section" >
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="section-title">Search for Device</h1>
+					<h1 class="device-heading-title">Search for Device</h1>
 				</div>
 			</div>
-			<div class="col-8 text-right">
+			<div class="col-7 text-right">
 				<form action="{{url('/devices')}}" method="get" class="w-100">
 					<div class="row justify-content-end">
 						<div class="col-9">
 							<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
 						</div>
 						<div class="col-3 devicenew">
-							<select class="service-type-select ml-3 service_type" name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">
+							<select class="service-type-select service_type" name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">
 								<option value="">Brand</option>
 								@foreach($brands as $v)
 									<option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
@@ -27,7 +27,7 @@
 						<div class="col-3 mt-4">
 							<div class="form-group plan_page inputwithicon">
 								<div class="select">
-									<select name="storage" id="storage" class="service-type-select ml-3 service_type">
+									<select name="storage" id="storage" class="service-type-select  service_type">
 										<option value="">Capacity</option>
 										<option value="64" @if( request()->get('storage') ) @if( request()->get('storage') == '64') selected @endif @endif>64</option>
 										<option value="128" @if( request()->get('storage') ) @if( request()->get('storage') == '128') selected @endif @endif>128</option>
@@ -41,7 +41,7 @@
 						<div class="col-3 mt-4">
 							<div class="form-group plan_page inputwithicon">
 								<div class="select">
-									<select name="device_color" id="device_color" class="service-type-select ml-3 service_type">
+									<select name="device_color" id="device_color" class="service-type-select  service_type">
 										<option value="">Color</option>
 										
 									</select>
@@ -50,13 +50,13 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-6 offset-md-4 text-center">
+						<div class="col-md-12 text-right">
 							<button type="submit" class="searchnow-button">Search Now</button>
 						</div>
 					</div>
 				</form>
 			</div>
-			<div class="col-4 text-center">
+			<div class="col-5 text-center">
 				<div class="right-banner">
 					<img src="{{URL::asset('frontend/assets/img/2801276_edited.webp')}}"/>
 				</div>
@@ -65,7 +65,7 @@
 		<div class="row">
 			<div class="col-12 text-center my-5">
 				<div class="heading detail-div">
-					<h1 class="section-title">Devices Used Near By</h1>
+					<h1 class="device-heading-title">Devices Used Near By</h1>
 				</div>
 			</div>
 
@@ -141,10 +141,13 @@
 				@endif 
 			</div>
 		</div>
+		
+	</div>
+	<div class="container-fluid">
 		<div class="row bg-blue">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="section-title text-white">Subscribe Form</h1>
+					<h1 class="device-heading-title text-white">Subscribe Form</h1>
 				</div>
 			</div>
 			<div class="col-md-8 offset-md-2">
@@ -229,8 +232,8 @@
 		background-color: #2e75b5;
     	border: 1px solid #2e75b5;
 	}
-	.dropdown-select.wide.service-type-select.ml-3.service_type {
-		border: 1px solid;
+	.dropdown-select.wide.service-type-select.service_type {
+		border: 1px solid #2e75b5;
 		height: 29px;
 		line-height: 30px;
 	}

@@ -25,7 +25,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mt-5 py-5 m-auto col-8 offset-md-3">
+		<div class="row mt-5 py-5 col-10 offset-md-1">
 			<div class="col-2 p-0 text-center">
 				<img src="{{URL::asset('frontend/assets/img/2756310.webp')}}"/>
 				<div class="label-service font-weight-bold">Mobile Plans</div>
@@ -51,7 +51,7 @@
 				<div class="label-service font-weight-bold">Business</div>
 			</div>
 		</div>
-		<div class="row my-4 align-items-center">
+		<div class="row my-5 align-items-center">
 			<div class="col-6">
 				<div class="service-inner text-right">
 					<a href="{{url('/plans')}}" class="service-section-plan">Plan</a>
@@ -69,8 +69,6 @@
 					<img src="{{URL::asset('frontend/assets/img/filter.webp')}}">
 				</div>
 			</div>
-		</div>
-		<div class="row align-items-center">
 			<div class="col-12 mt-5">
 				<div class="service-content-section w-75 mx-auto text-center">
 				Everyone has subscribed to mobile phone plan or a home internet service and everyone has his own unique experience. Because of the telecom nature, the service defer from a location to another and from  specific service to another. A carrier may have a perfect coverage for the whole city except for one single neighborhood. While another one may provide an excellent 100 Mbps service but a horrible Gbps service. TelcoTales enables users to share their experience "Telco Tales" on our website so everyone benefits and easily pick the best service, while carriers can spot their weaknesses and improve them 
@@ -83,7 +81,7 @@
 					<h1 class="device-heading-title">How Does it Work</h1>
 				</div>
 			</div>
-			<div class="col-8 m-auto">
+			<div class="col-10 offset-md-1">
 				<div class="row">
 					<div class="col-3 bg-blue">
 						<div class="work-section text-center">
@@ -163,7 +161,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-7 m-auto">
+			<div class="col-md-8 offset-md-2">
 				<div class="row">
 					<div class="col-2 text-center mb-3">
 						<div class="image-section">
@@ -222,7 +220,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row bg-green col-9 m-auto">
+		<div class="row bg-green col-10 offset-md-1">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
 					<h1 class="h1">How do we get our information</h1>
@@ -241,7 +239,7 @@
 			</div>
 			</div>
 		</div>
-		<div class="row my-3 col-10 p-5 offset-md-1">
+		<div class="row my-5 col-10 offset-md-1">
 			@if(count($blogs) > 0)
 				@foreach($blogs as $blog)
 					<div class="col-6 mb-4">

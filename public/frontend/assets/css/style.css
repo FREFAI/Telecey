@@ -1492,31 +1492,28 @@ span.fa.fa-star.rate {
 		display: flex;
 	}
 	.sign-up-email {
-		width: 35%;
+		width: 50%;
 		margin: 0 auto;
 	}
 	section#main-top-section {
-    padding-top: 130px;
+		padding-top: 145px;
 	}
 	.first-section-image img{
 		border:8px solid rgba(27, 252, 163, 1);
 		border-radius: 5px; 
 	}
-  .first-section-text {
-    width: 80%;
-    margin-left: 27px;
-    color: #fff;
-    background-color: #2e76b5;
-    padding: 21px 0px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 4px 2px #000;
-}
-.first-section-text h2 {
-  font-size: 47px;
-}
-.first-section-image img {
-  width: 85%;
-}
+	.first-section-text {
+		width: 100%;
+		margin-left: -105px;
+		color: #fff;
+		background-color: #2e76b5;
+		padding: 25px 0px;
+		border-radius: 5px;
+		box-shadow: 0px 0px 4px 2px #000;
+  }
+  .first-section-text h2 {
+    font-size: 60px;
+  }
 	.find-service-section{
 		width: 100%;
   }
@@ -1524,7 +1521,7 @@ span.fa.fa-star.rate {
     color: #000;
     text-decoration: underline;
     font-family: dinneuzeitgroteskltw01-_812426,sans-serif;
-    font-size: 16px;
+    font-size: 24px;
     padding-top: 10px;
 }
   .find-service-section h1 {
@@ -1532,13 +1529,11 @@ span.fa.fa-star.rate {
     font-weight: bold;
   }
   .service-content-section {
-    font-size: 20px;
+    font-size: 25px;
     line-height: 30px;
-    font-family: montserrat, sans-serif;
-    color: #333;
-}
+  }
   .content-section {
-    font-size: 26px;
+    font-size: 30px;
     text-align: left;
     color: #292929;
   }
@@ -1568,8 +1563,7 @@ span.fa.fa-star.rate {
   .plan-device-button.text-center a {
     padding: 5px 46px;
     border-radius: 10px;
-    font-family: lulo-clean-w01-one-bold,sans-serif;
-}
+  }
 	.bg-blue {
     	background-color: #2e75b5;
 		padding: 25px;
@@ -1586,13 +1580,8 @@ span.fa.fa-star.rate {
 		font-size: 60px;
 	}
 	.work-content {
-    min-height: 150px;
-    font-size: 13px;
-    font-weight: 100;
-  }
-  .work-button {
-    font-size: 13px;
-}
+		min-height: 150px;
+	}
 	.work-title {
 		min-height: 50px;
   }
@@ -1861,24 +1850,20 @@ span.fa.fa-star.rate {
     }
     h1.device-heading-title {
       font-family: playfair display,serif;
-      color: #000000;
-      font-size: 40px;
+      color: #393E44;
+      font-size: 50px;
       font-weight: 500;
   }
   .find-service-section.mx-auto.text-center h2 {
-    font-size: 38px;
-    font-weight: 500;
+    font-size: 45px;
+    font-weight: bold;
     color: #646d77;
     line-height: 46px;
     font-family: playfair display,serif;
 }
 .content-info p {
-  font-size: 17px;
-  line-height: 29px;
-  font-family: montserrat, sans-serif;
-}
-.work-section.text-center {
-  font-family: lulo-clean-w01-one-bold,sans-serif;
+  font-size: 20px;
+  line-height: 33px;
 }
   /* End Device section Brand Dropdown css */
 	/* /09-01-2020 */

@@ -69,7 +69,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-11 m-auto">
+			<div class="col-md-10 m-auto">
 				<div class="row">
 					<div class="col-sm-4 col-md-4 mb-4">
 						<div class="post">

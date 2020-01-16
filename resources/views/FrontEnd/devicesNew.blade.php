@@ -69,79 +69,191 @@
 				</div>
 			</div>
 
-			<div class="col-md-10 offset-md-1">
-				@if(count($data)>0)
-					<div class="row">
-						@foreach($data as $value)
-							<div class="col-sm-4 col-md-4 mb-4">
-								<div class="post">
-									<div class="post-img-content">
-										<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" class="img-responsive"/>
-										<span class="post-title"><b>
-										@if(!Auth::guard('customer')->check())
-												<a class="text-white" href="{{url('/signup')}}"><i class="fa fa-lock"></i></a>
-										@else
-											{{$value['price']}}
-										@endif
-										</b></span>
+			<div class="col-md-11 m-auto">
+				<div class="row">
+					<div class="col-sm-4 col-md-4 mb-4">
+						<div class="post">
+							<div class="post-img-content">
+								<img src="{{URL::asset('frontend/assets/img/Iphone_new.webp')}}" class="img-responsive"/>
+							</div>
+							<div class="post-content">
+								<div class="row">
+									<div class="col-12">
+										<span class="date-post">January 14, 2017</span>
 									</div>
-									<div class="post-content">
-										<div class="row">
-											<div class="col-6">
-												<h4 class="text-blue">{{$value['brand']['brand_name']}}</h4>
-											</div>
-											<div class="col-6 author text-right">
-												<span>{{date("M d, Y", strtotime($value['created_at']))}}</span>
-											</div>
+								</div>
+								<div class="row my-3">
+									<div class="col-lg-6">
+										<h4 class="text-orange">i phone x</h4>
+									</div>
+									<div class="col-lg-6 rating provider">
+										<div class="rating_disable" data-rate-value="4"></div>
+									</div>
+								</div>
+								<div class="detail-section my-3 pb-4 border-bottom">
+									<div class="row">
+										<div class="col-lg-12">
+											<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>					
 										</div>
-										<!-- <div class="row">
-											<div class="col-6 rating">
-												<div class="rating_disable" data-rate-value=""></div>
-											</div>
-											<div class="col-6 author text-right">
-												<span>{{date("M d, Y", strtotime($value['created_at']))}}</span>
-											</div>
-										</div> -->
-										<div class="detail-section my-1">
-											<div class="row">
-												<div class="col-4">Supplier</div>
-												<div class="col-8 text-right">{{$value['supplier']['supplier_name']}}</div>
-												<div class="col-4">Capacity</div>
-												<div class="col-8 text-right">{{$value['storage']}}</div>
-												<div class="col-4">Distance</div>
-												<div class="col-8 text-right">
-													@if(isset($value['distance'])) 
-														{{round($value['distance'])}} KM
-													@else
-														N/A
-													@endif
-												</div>
-											</div>	
+									</div>	
+								</div>
+								<div class="post-button">
+									<div class="row align-items-center">
+										<div class="col-lg-3">
+											<img src="{{URL::asset('frontend/assets/img/727644b338ab465cad167dcaf9e69f84.webp')}}"/>					
 										</div>
-										<div class="post-button">
-										@if(Auth::guard('customer')->check())
-											<a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value['id'])}}">Details</a>
-										@else
-											<a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</a>
-										@endif
+										<div class="col-lg-9">
+											<p>SAM123</p>
 										</div>
 									</div>
 								</div>
 							</div>
-						@endforeach
+						</div>
 					</div>
-				@else
-					<div class="row pt-5 pb-5 mt-5 mb-5">
-						<div class="col text-center">
-							<div class="heading noSearchMessage">
-								<p>{!!$filtersetting->no_search_message!!}</p>
+					<div class="col-sm-4 col-md-4 mb-4">
+						<div class="post">
+							<div class="post-img-content">
+								<img src="{{URL::asset('frontend/assets/img/pixel_non.webp')}}" class="img-responsive"/>
+							</div>
+							<div class="post-content">
+								<div class="row">
+									<div class="col-12">
+										<span class="date-post">January 14, 2017</span>
+									</div>
+								</div>
+								<div class="row my-3">
+									<div class="col-lg-6">
+										<h4 class="text-orange">Pexil 5</h4>
+									</div>
+									<div class="col-lg-6 rating provider">
+										<div class="rating_disable" data-rate-value="4"></div>
+									</div>
+								</div>
+								<div class="detail-section my-3 pb-4 border-bottom">
+									<div class="row">
+										<div class="col-lg-12">
+											<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>					
+										</div>
+									</div>	
+								</div>
+								<div class="post-button">
+									<div class="row align-items-center">
+										<div class="col-lg-3">
+											<img src="{{URL::asset('frontend/assets/img/12c903750c8d46ccb81ce6562a1923d9.webp')}}"/>					
+										</div>
+										<div class="col-lg-9">
+											<p>Johnx234</p>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				@endif 
+					<div class="col-sm-4 col-md-4 mb-4">
+						<div class="post">
+							<div class="post-img-content">
+								<img src="{{URL::asset('frontend/assets/img/note_galaxy_edited.webp')}}" class="img-responsive"/>
+							</div>
+							<div class="post-content">
+								<div class="row">
+									<div class="col-12">
+										<span class="date-post">January 14, 2017</span>
+									</div>
+								</div>
+								<div class="row my-3">
+									<div class="col-lg-6">
+										<h4 class="text-orange">Galaxy Note</h4>
+									</div>
+									<div class="col-lg-6 rating provider">
+										<div class="rating_disable" data-rate-value="4"></div>
+									</div>
+								</div>
+								<div class="detail-section my-3 pb-4 border-bottom">
+									<div class="row">
+										<div class="col-lg-12">
+											<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>					
+										</div>
+									</div>	
+								</div>
+								<div class="post-button">
+									<div class="row align-items-center">
+										<div class="col-lg-3">
+											<img src="{{URL::asset('frontend/assets/img/8a49d97617ec470289d12539d3365e26.webp')}}"/>					
+										</div>
+										<div class="col-lg-9">
+											<p>Briannoz21</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		
+		@if(count($data)>0)
+		<div class="row">
+			<div class="col-lg-12">
+				<table id="example" class="table table-striped custom-table" style="width:100%">
+					<thead>
+						<tr>
+							<th>Brand</th>
+							<th>Model</th>
+							<th>Supplier</th>
+							<th>Price</th>
+							<th>Capacity</th>
+							<th>Distance</th>
+							<th>Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($data as $key => $value)
+						<tr class="custom-row-cl @if($key == 4 || $key == 8) adds @endif">
+							@if($key == 4)
+								<td colspan="7">
+									<div class="add text-center">
+										<img src="{{URL::asset('frontend/assets/img/Iphone_ads.webp')}}"/>
+									</div>
+								</td>
+							@elseif($key == 8)
+								<td colspan="7">
+									<div class="row align-items-center">
+										<div class="col-lg-6 text-center">
+											<img src="{{URL::asset('frontend/assets/img/case.webp')}}"/>
+										</div>
+										<div class="col-lg-6">
+											<h1 class="adds-text">The Ultimate cover</h1>
+										</div>
+									</div>
+								</td>
+							@else
+								<td>{{$value['brand']['brand_name']}}</td>
+								<td>{{$value['brand']['model_name']}}</td>
+								<td>{{$value['supplier']['supplier_name']}}</td>
+								<td>{{$value['price']}}</td>
+								<td>{{$value['storage']}}</td>
+								<td>{{round($value['distance'])}} KM</td>
+								@if(Auth::guard('customer')->check())
+									<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value['id'])}}">Details</td>
+								@else
+									<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
+								@endif
+							@endif
+						</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+		</div>
+		@else
+			<div class="row pt-5 pb-5 mt-5 mb-5">
+				<div class="col text-center">
+					<div class="heading noSearchMessage">
+						<p>{!!$filtersetting->no_search_message!!}</p>
+					</div>
+				</div>
+			</div>
+		@endif 
 	</div>
 	<div class="container-fluid">
 		<div class="row bg-blue">

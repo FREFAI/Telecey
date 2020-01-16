@@ -87,100 +87,222 @@
 				</div>
 			</div>
 
-			<div class="col-md-10 offset-md-1">
-				@if(count($data)>0)
-					<div class="row">
-						@foreach($data as $value)
-							<div class="col-sm-4 col-md-4 mb-4">
-								<div class="post">
-									<div class="post-img-content">
-										@if($value['provider']['provider_image_original'] != "")
-											<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" class="img-responsive" />
-										@else
-											<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" class="img-responsive"/>
-										@endif
-										<span class="post-title"><b>
-										@if(!Auth::guard('customer')->check())
-											@if($filtersetting->disable_price_for_logged_out_users == 1)
-												{{$value['price']}}
-											@else
-												<a class="text-white" href="{{url('/signup')}}"><i class="fa fa-lock"></i></a>
-											@endif
-										@else
-										{{$value['price']}}
-										@endif
-										</b></span>
+			<div class="col-md-11 m-auto">
+				<div class="row">
+					<div class="col-sm-4 col-md-4 mb-4">
+						<div class="post">
+							<div class="post-img-content">
+								<img src="{{URL::asset('frontend/assets/img/348487_3595d4c42533437ba5c542bb996b8f48_mv2.png')}}" class="img-responsive"/>
+							</div>
+							<div class="post-content">
+								<div class="row">
+									<div class="col-12">
+										<span class="date-post">January 14, 2017</span>
+										<!-- <h4 class="text-blue">Fido</h4> -->
 									</div>
-									<div class="post-content">
-										<div class="row">
-											<div class="col-12">
-												<h4 class="text-blue">{{$value['provider']['provider_name']}}</h4>
-											</div>
+								</div>
+								<div class="row my-3">
+									<div class="col-lg-12 rating provider">
+										<div class="rating_disable" data-rate-value="4"></div>
+									</div>
+								</div>
+								<div class="detail-section my-3 pb-4 border-bottom">
+									<div class="row">
+										<div class="col-lg-12">
+											<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>					
 										</div>
-										<div class="row">
-											<div class="col-6 rating">
-												<div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div>
-											</div>
-											<div class="col-6 author text-right">
-												<span>{{date("M d, Y", strtotime($value->created_at))}}</span>
-											</div>
+									</div>	
+								</div>
+								<div class="post-button">
+									<div class="row align-items-center">
+										<div class="col-lg-3">
+											<img src="{{URL::asset('frontend/assets/img/727644b338ab465cad167dcaf9e69f84.webp')}}"/>					
 										</div>
-										<div class="detail-section my-3">
-											<div class="row">
-												<div class="col-6">Local Min.</div>
-												<div class="col-6 text-right">{{$value['local_min']}}</div>
-												<div class="col-6">Volume GB</div>
-												<div class="col-6 text-right">{{$value['datavolume']}}</div>
-												<div class="col-6">Distance</div>
-												<div class="col-6 text-right">
-													@if(isset($value['distance'])) 
-														{{round($value['distance'])}} KM
-													@else
-														N/A
-													@endif
-												</div>
-											</div>	
-										</div>
-										<div class="post-button">
-										@if(Auth::guard('customer')->check())
-											<a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</a>
-										@else
-											@if($filtersetting->disable_details_for_logged_out_users == 1)
-												<a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</a>
-											@else
-												<a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</a>
-											@endif
-										@endif
+										<div class="col-lg-9">
+											<p>SAM123</p>
 										</div>
 									</div>
 								</div>
 							</div>
-						@endforeach
-						<div class="col-12">
-						@if(!Auth::guard('customer')->check())
-							@if($filtersetting->no_of_search_record > 0)
-							<div class="overlay_signup w-100 text-center text-white">
-								<div class="line-cl"></div>
-								<a href="{{url('/signup')}}"> 
-									<i class="fa fa-lock" aria-hidden="true"></i>
-								</a>
-							</div>
-							@endif
-						@endif
-							@if(Auth::guard('customer')->check())
-							<div class="pagination mb-3">
-								{{$data->appends(request()->input())->links()}}
-							</div>
-							@else
-								@if($filtersetting->no_of_search_record == 0)
-									<div class="pagination mb-3">
-										{{$data->appends(request()->input())->links()}}
-									</div>
-								@endif
-							@endif
 						</div>
 					</div>
-				@else
+					<div class="col-sm-4 col-md-4 mb-4">
+						<div class="post">
+							<div class="post-img-content">
+								<img src="{{URL::asset('frontend/assets/img/freedom.webp')}}" class="img-responsive"/>
+							</div>
+							<div class="post-content">
+								<div class="row">
+									<div class="col-12">
+										<span class="date-post">January 14, 2017</span>
+										<!-- <h4 class="text-blue">Fido</h4> -->
+									</div>
+								</div>
+								<div class="row my-3">
+									<div class="col-lg-12 rating provider">
+										<div class="rating_disable" data-rate-value="4"></div>
+									</div>
+								</div>
+								<div class="detail-section my-3 pb-4 border-bottom">
+									<div class="row">
+										<div class="col-lg-12">
+											<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>					
+										</div>
+									</div>	
+								</div>
+								<div class="post-button">
+									<div class="row align-items-center">
+										<div class="col-lg-3">
+											<img src="{{URL::asset('frontend/assets/img/12c903750c8d46ccb81ce6562a1923d9.webp')}}"/>					
+										</div>
+										<div class="col-lg-9">
+											<p>Johnx234</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 col-md-4 mb-4">
+						<div class="post">
+							<div class="post-img-content">
+								<img src="{{URL::asset('frontend/assets/img/Telus-Logo2.webp')}}" class="img-responsive"/>
+							</div>
+							<div class="post-content">
+								<div class="row">
+									<div class="col-12">
+										<span class="date-post">January 14, 2017</span>
+										<!-- <h4 class="text-blue">Fido</h4> -->
+									</div>
+								</div>
+								<div class="row my-3">
+									<div class="col-lg-12 rating provider">
+										<div class="rating_disable" data-rate-value="4"></div>
+									</div>
+								</div>
+								<div class="detail-section my-3 pb-4 border-bottom">
+									<div class="row">
+										<div class="col-lg-12">
+											<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>					
+										</div>
+									</div>	
+								</div>
+								<div class="post-button">
+									<div class="row align-items-center">
+										<div class="col-lg-3">
+											<img src="{{URL::asset('frontend/assets/img/8a49d97617ec470289d12539d3365e26.webp')}}"/>					
+										</div>
+										<div class="col-lg-9">
+											<p>Briannoz21</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			@if(count($data)>0)
+				<div class="col-lg-12">
+					<table id="example" class="table table-striped custom-table " style="width:100%">
+						<thead>
+							<tr>
+								<th>Provider</th>
+								<th>Price</th>
+								<th>Local Min</th>
+								<th>Volume GB</th>
+								<th>Review</th>
+								<th>Distance</th>
+								<th class="text-right">Details</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($data as $key => $value)
+								<tr class="custom-row-cl @if($key == 4 || $key == 8) adds @endif">
+									@if($key == 4)
+										<td colspan="7">
+											<div class="add text-center">
+												<img src="{{URL::asset('frontend/assets/img/Iphone_ads.webp')}}"/>
+											</div>
+										</td>
+									@elseif($key == 8)
+										<td colspan="7">
+											<div class="row align-items-center">
+												<div class="col-lg-6 text-center">
+													<img src="{{URL::asset('frontend/assets/img/case.webp')}}"/>
+												</div>
+												<div class="col-lg-6">
+													<h1 class="adds-text">The Ultimate cover</h1>
+												</div>
+											</div>
+										</td>
+									@else
+										<td>
+											@if($value['provider']['provider_image_original'] != "")
+												<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" style="width:100px;height:50px;" />
+											@else
+												<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" style="width:100px;height:50px;"/>
+											@endif
+										</td>
+										<td>
+										@if(!Auth::guard('customer')->check())
+											@if($filtersetting->disable_price_for_logged_out_users == 1)
+												{{$value['price']}}
+											@else
+												<a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</a>
+											@endif
+										@else
+										{{$value['price']}}
+										@endif
+										</td>
+										<td>{{$value['local_min']}}</td>
+										<td>{{$value['datavolume']}}</td>
+										<td data-order="{{$value['average_review']}}"><div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div></td>
+										@if(isset($value['distance']))
+											<td>{{round($value['distance'])}} KM</td>
+										@else
+											<td>N/A</td>
+										@endif
+										@if(Auth::guard('customer')->check())
+											<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</a></td>
+										@else
+											@if($filtersetting->disable_details_for_logged_out_users == 1)
+												<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</a></td>
+											@else
+												<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</a></td>
+											@endif
+										@endif
+									@endif
+								</tr>
+							@endforeach
+						</tbody>
+					</table>
+					@if(!Auth::guard('customer')->check())
+						@if($filtersetting->no_of_search_record > 0)
+						<div class="overlay_signup w-100 text-center text-white">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+							<div> 
+							<a class="btn table-row-btn signup_btn" href="{{url('/signup')}}">Sign up to show more reviews</a>
+							</div>
+						</div>
+						@endif
+					@endif
+					@if(Auth::guard('customer')->check())
+					<div class="pagination">
+						{{$data->appends(request()->input())->links()}}
+					</div>
+					@else
+						@if($filtersetting->no_of_search_record == 0)
+							<div class="pagination">
+								{{$data->appends(request()->input())->links()}}
+							</div>
+						@endif
+					@endif
+				</div>
+			@else
+				<div class="container">
 					<div class="row pt-5 pb-5 mt-5 mb-5">
 						<div class="col text-center">
 							<div class="heading noSearchMessage">
@@ -188,8 +310,8 @@
 							</div>
 						</div>
 					</div>
-				@endif
-			</div>
+				</div>
+			@endif
 		</div>
 	</div>
 	<div class="container-fluid">
@@ -221,27 +343,26 @@
 	.rating {
 		font-size: 25px;
 	}
-	/* .overlay_signup.w-100.text-center {
+	.overlay_signup.w-100.text-center {
 		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1a82f700), to(#141414));
 		height: 230px;    
-		margin-top: -40px;
+		margin: -40px auto 0;
+		width: 970px !important;
     	z-index: 0;
 		padding-top: 60px;
-	} */
-	.overlay_signup.w-100.text-center {
-		height: 50px;
-		z-index: 0;
 	}
+	/* a.btn.table-row-btn.signup_btn {
+		background: #2e75b5;
+		color: #fff;
+		border-color: #2e75b5;
+	} */
 	.overlay_signup i.fa.fa-lock {
-		border: 2px solid #2e76b5;
+		border: 2px solid #96fdd4;
 		border-radius: 50px;
 		padding: 10px 14px;
-		color: #2e76b5;
+		color: #96fdd4;
 		margin-bottom: 10px;
-		margin-top: -20px;
-		background-color: #fff;
-		position: absolute;
-		box-shadow: 1px 1px 9px 0px #2e76b5;
+		margin-top: 40px;
 	}
 	.overlay_signup .signup_btn {
 		border-radius: 30px;
@@ -283,6 +404,10 @@
 	}
 	input:checked + .slider {
 		background-color: #2e75b5;
+	}
+	.pagination{
+		width: 970px;
+		margin: 10px auto;
 	}
 	/* .searchnow-button:hover {
 		border: 2px solid #2e75b5;

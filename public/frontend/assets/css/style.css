@@ -254,11 +254,9 @@ div#typedtext {
 p.no-col {
   font-size: 17px;
   display: flex;
-  line-height
 }
 .no-font{
-  font-size: 18px;
-  line-height
+  font-size: 18px; 
 }
 section#blog {
   background-color: #f0f0f1;
@@ -1009,10 +1007,10 @@ font-size: 25px;
       border: none;
   }
   .login-btn {        
-      font-size: 16px;
-      font-weight: bold;
-  background: #96fdd4		
-  margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background: #96fdd4;
+    margin-bottom: 20px;
   }
 .login-btn:hover, .login-btn:active {
   background: #86ac2d !important;
@@ -1643,7 +1641,7 @@ span.fa.fa-star.rate {
     overflow: hidden;
     box-shadow: 0 0 2px #2e75b5;
     padding: 13px;   
-    box-shadow: 0px 0px 10px 0px #ccc;
+    box-shadow: 0px 0px 21px 0px #cccccc96;
   }
   .post .post-title
   {
@@ -1804,7 +1802,7 @@ span.fa.fa-star.rate {
       top: 100%;
       left: 0;
       z-index: 999;
-      max-height: 250px;100%
+      max-height: 250px;
       overflow: auto;
       border: 1px solid #ddd;
     }

@@ -116,7 +116,7 @@ class ReviewsController extends Controller
                 $usersDetail->country_code = $countrycode->code;
             }else{
                 $usersDetail->country = $usersAddress->country;
-                $usersDetail->country_code = 'CA';
+                $usersDetail->country_code = $usersDetailSession['country_code'];
             }
             $usersDetail->city = $usersAddress->city;
             $usersDetail->postal_code = $usersAddress->postal_code;

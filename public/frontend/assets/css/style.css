@@ -1959,6 +1959,12 @@ table.table.custom-table tbody tr:hover {
       text-align: left ;
       margin-top: 8px !important;
   }
+  div#country_div input.error + .label{
+    top: -25px;
+  }
+  div#city_div input#city + .label{
+    top: -25px;
+  }
   /* /17-01-2020 */
 @media(max-width:1440px){
   .get-in-touch {

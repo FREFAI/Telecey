@@ -291,14 +291,14 @@
             if(countrySelection === false){
               $('.country_list').css('display','none');
               $('#country').addClass('error');
-              $('#country').val('');
+              // $('#country').val('');
               $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
               return false;
             }
             if(citySelection === false){
               $('.city_list').css('display','none');
               $('#city').addClass('error');
-              $('#city').val('');
+              // $('#city').val('');
               $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select country from a list.</label>');
               return false;
             }

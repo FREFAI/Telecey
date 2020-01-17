@@ -41,8 +41,10 @@
         "info": false
       });
     });
-
+    var countrySelection = true;
+    var citySelection = true;
     $(document).on('click','.country-autocomplete li',function(){
+        countrySelection = true;
         $('#country').val($(this).find('a').attr('data-name'));
         $('#city').attr('data-country',$(this).find('a').attr('data-code'));
         $('.country_list').css('display','none');
@@ -51,12 +53,20 @@
         },500);
     });
     $(document).on('click','.country-autocomplete li',function(){
+        countrySelection = true;
         $('#user_country').val($(this).find('a').attr('data-name'));
         $('#user_city').attr('data-country',$(this).find('a').attr('data-code'));
         $('.country_list').css('display','none');
         setTimeout(function(){
             $('input.city_input').cityAutocomplete();
         },500);
+    });
+    $('input.city_input').on('keypress',function(){
+      citySelection = false;
+      
+    });
+    $(document).on('click','.city-autocomplete div',function(){
+      citySelection = true; 
     });
 
 
@@ -167,6 +177,7 @@
     readonly:true
   });
   $('.country_div input').keyup(function(){
+    countrySelection = false;
     var search = $(this).val();
     if(window.location.protocol == "http:"){
         resuesturl = "{{url('/getCountry')}}"
@@ -277,7 +288,20 @@
         // End Review page js
         // Review page ajax
           $('#firstform').on('submit',function(e){
-            $('.ajaxloader').show();
+            if(countrySelection === false){
+              $('.country_list').css('display','none');
+              $('#country').addClass('error');
+              $('#country').val('');
+              $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
+              return false;
+            }
+            if(citySelection === false){
+              $('.city_list').css('display','none');
+              $('#city').addClass('error');
+              $('#city').val('');
+              $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select country from a list.</label>');
+              return false;
+            }
             var thisform = $(this);
             e.preventDefault();
             var latitude = $('#lat').val();
@@ -296,6 +320,8 @@
             }else if(window.location.protocol == "https:"){
                 resuesturl = "{{secure_url('/reviewsDetail')}}"
             }
+
+            $('.ajaxloader').show();
             $.ajax({
                 type: "post",
                 url: resuesturl,

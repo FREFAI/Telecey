@@ -14,7 +14,6 @@
                 };
 
                 if (input.attr('data-country').length > 0) {
-                    console.log(input.attr('data-country'));
                     params.componentRestrictions = {country: input.attr('data-country')}
                 }
 

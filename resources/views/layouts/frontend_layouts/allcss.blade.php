@@ -26,6 +26,7 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="{{URL::asset('frontend/jsplugins/city-autocomplete.css')}}"/>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <link rel=”stylesheet” href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css'>
 <style>
     .tg-select.tg-select select::-ms-expand{

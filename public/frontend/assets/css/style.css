@@ -1946,7 +1946,20 @@ table.table.custom-table tbody tr:hover {
   background: rgba(124, 124, 124, 0.34);
 }
   /* End Device section Brand Dropdown css */
-	/* /09-01-2020 */
+  /* /09-01-2020 */
+  
+  /* 17-01-2020 */
+  .select2-container--default .select2-selection--single {
+      background-color: #fff;
+      border-top: none !important;
+      border-bottom: 1px solid #333 !important;
+      border-left: none !important;
+      border-right: none !important;
+      border-radius: 0px !important;
+      text-align: left ;
+      margin-top: 8px !important;
+  }
+  /* /17-01-2020 */
 @media(max-width:1440px){
   .get-in-touch {
     width: auto;

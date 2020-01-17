@@ -252,11 +252,11 @@
 	                                </div>
 	                                <div class="form-field col-lg-6 country_div" id="country_div">
 	                                    <input id="country" class="input-text js-input" type="text" required value="{{$usersDetail->country}}" name="country" autocomplete="off">
-	                                    <label class="label" for="name">Country</label>
+                                        <label class="label" for="country">Country</label>
 	                                </div>
 	                                <div class="form-field col-lg-6 city_div" id="city_div">
 	                                    <input id="city" class="input-text js-input city_input" type="text" required value="{{$usersDetail->city}}" name="city"  autocomplete="off" data-country="{{$usersDetail->country_code}}">
-	                                    <label class="label" for="name">City</label>
+	                                    <label class="label" for="city">City</label>
 	                                </div>
 	                                <div class="form-field col-lg-12 ">
 	                                    <input id="email" class="input-text js-input" type="email" value="{{$usersDetail->email}}" disabled="">

@@ -90,8 +90,10 @@ class DeviceReviewController extends Controller
             }else{
                 $ip = '96.46.34.142';
             }
-            $ip_details = \Location::get($ip);
-            $perameter['country_code'] = $ip_details->countryCode;
+            $client = new \GuzzleHttp\Client();
+            $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+            $newresponse = json_decode($newresponse->getBody());
+            $perameter['country_code'] = $newresponse->country_code2;
             
     		if($deviceReview = DeviceReview::create($perameter)){
     			$message = array('success'=>true,'message'=>'Device review add successfully.','device_id'=>$deviceReview->id);

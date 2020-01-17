@@ -46,16 +46,13 @@ class DevicesController extends Controller
         }else{
             $ip = '96.46.34.142';
         }
-
-        $data = \Location::get($ip);
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
-        $response = json_decode($response->getBody());
-        $current_location = $response->results[0]->formatted_address;
-        $current_lat = $data->latitude;
-        $current_long = $data->longitude;
-        $current_country_code = $data->countryCode;
-
+        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+        $newresponse = json_decode($newresponse->getBody());
+        $current_location = $newresponse->country_name.','.$newresponse->state_prov.','.$newresponse->city.','.$newresponse->zipcode;
+        $current_lat = $newresponse->latitude;
+        $current_long = $newresponse->longitude;
+        $current_country_code = $newresponse->country_code2;
         $user_id = \Auth::guard('customer')->id();
         
         $brands = Brands::all();
@@ -168,15 +165,13 @@ class DevicesController extends Controller
         }else{
             $ip = '96.46.34.142';
         }
-
-        $data = \Location::get($ip);
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
-        $response = json_decode($response->getBody());
-        $current_location = $response->results[0]->formatted_address;
-        $current_lat = $data->latitude;
-        $current_long = $data->longitude;
-        $current_country_code = $data->countryCode;
+        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+        $newresponse = json_decode($newresponse->getBody());
+        $current_location = $newresponse->country_name.','.$newresponse->state_prov.','.$newresponse->city.','.$newresponse->zipcode;
+        $current_lat = $newresponse->latitude;
+        $current_long = $newresponse->longitude;
+        $current_country_code = $newresponse->country_code2;
 
         $user_id = \Auth::guard('customer')->id();
         

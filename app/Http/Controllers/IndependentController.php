@@ -128,18 +128,18 @@ class IndependentController extends Controller
                     }else{
                     $countries_code = NULL;
                     }
-                    $ip = env('ip_address','live');
-                    if($ip == 'live'){
-                        $ip = $_SERVER['REMOTE_ADDR'];
-                    }else{
-                        // $ip = '2606:4580:2:0:a974:e358:829c:412e';
-                        $ip = '122.160.255.87';
-                    }
+                    // $ip = env('ip_address','live');
+                    // if($ip == 'live'){
+                    //     $ip = $_SERVER['REMOTE_ADDR'];
+                    // }else{
+                    //     $ip = '96.46.34.142';
+                    // }
+                    // $client = new \GuzzleHttp\Client();
+                    // $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+                    // $newresponse = json_decode($newresponse->getBody());
                     
-                    // $ip = '96.46.34.142';
-                    $data = \Location::get($ip);
-                    $current_lat = $data->latitude;
-                    $current_long = $data->longitude;
+                    // $current_lat = $newresponse->latitude;
+                    // $current_long = $newresponse->longitude;
 
                     $planReviewDataInsert = [
                     'user_id'             => $user_id,

@@ -60,39 +60,21 @@ class RegisterController extends Controller
                 $ip = '122.173.214.129';
             }
             // $ip = '96.46.34.142';
-            $data = \Location::get($ip);
-          
             $client = new \GuzzleHttp\Client();
-            $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
-            $response = json_decode($response->getBody());
-            $storableLocation = [];
-            $storableLocation['latitude'] = $data->latitude;
-            $storableLocation['longitude'] = $data->longitude;
-            $data = [];
-            $k = 0;
-            $localitydata = $response->results[0]->address_components;
-            foreach ($localitydata as $value) {
-                $types = $value->types;
-                if(in_array('locality', $types)) {
-                    $storableLocation['city'] = $value->long_name;
-                }
-                if (in_array('administrative_area_level_1', $types)) {
-                    $storableLocation['state']= $value->long_name;
-                }
-                if (in_array('country', $types)) {
-                    $storableLocation['country'] = $value->long_name;
-                    $storableLocation['country_code'] = $value->short_name;
-                }
-                if (in_array('postal_code', $types)) {
-                    $storableLocation['postal_code'] = $value->long_name;
-                }
-
-            }
-            
+            $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey","71c7f83feaa14c17bd964a3d904a1ccc").'&ip='.$ip);
+            $newresponse = json_decode($newresponse->getBody());
+           
+            $storableLocation['city'] = $newresponse->city;
+            $storableLocation['state'] = $newresponse->state_prov;
+            $storableLocation['country'] = $newresponse->country_name;
+            $storableLocation['country_code'] = $newresponse->country_code2;
+            $storableLocation['postal_code'] = $newresponse->zipcode;
+            $storableLocation['latitude'] = $newresponse->latitude;
+            $storableLocation['longitude'] = $newresponse->longitude;
             $request->session()->put('usersDetail', $storableLocation); 
         }
         $usersDetailSession = $request->session()->get('usersDetail');
-
+        
         $input = $request->all();
         
         $validation = Validator::make($input, [

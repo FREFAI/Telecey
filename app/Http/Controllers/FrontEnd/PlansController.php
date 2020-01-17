@@ -166,18 +166,18 @@ class PlansController extends Controller
     {
         // Current location section
         $ip = env('ip_address','live'); 
-        $ip = '96.46.34.142';
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
+        }else{
+            $ip = '96.46.34.142';
         }
-        $location = \Location::get($ip);
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$location->latitude.','.$location->longitude);
-        $response = json_decode($response->getBody());
-        $current_location = $response->results[0]->formatted_address;
-        $current_lat = $location->latitude;
-        $current_long = $location->longitude;
-        $current_country_code = $location->countryCode;
+        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+        $newresponse = json_decode($newresponse->getBody());
+        $current_location = $newresponse->country_name.','.$newresponse->state_prov.','.$newresponse->city.','.$newresponse->zipcode;
+        $current_lat = $newresponse->latitude;
+        $current_long = $newresponse->longitude;
+        $current_country_code = $newresponse->country_code2;
         $filtersetting = SettingsModel::first();
         if(!Auth::guard('customer')->check()){
             $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 20;
@@ -301,21 +301,14 @@ class PlansController extends Controller
             $ip = $_SERVER['REMOTE_ADDR'];
         }else{
             $ip = '96.46.34.142';
-            // $ip = '2606:4580:2:0:a974:e358:829c:412e';
-            // $ip = '122.173.84.243';
         }
-        // $ip = '96.46.34.142';
-        $data = \Location::get($ip);
-        // echo "latitude => ".$data->latitude.'<br>';
-        // echo "longitude => ".$data->longitude;
-        // exit;
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
-        $response = json_decode($response->getBody());
-        $current_location = $response->results[0]->formatted_address;
-        $current_lat = $data->latitude;
-        $current_long = $data->longitude;
-        $current_country_code = $data->countryCode;
+        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+        $newresponse = json_decode($newresponse->getBody());
+        $current_location = $newresponse->country_name.','.$newresponse->state_prov.','.$newresponse->city.','.$newresponse->zipcode;
+        $current_lat = $newresponse->latitude;
+        $current_long = $newresponse->longitude;
+        $current_country_code = $newresponse->country_code2;
         $filtersetting = SettingsModel::first();
         
         if($filtersetting->ads_setting == 0){
@@ -327,7 +320,6 @@ class PlansController extends Controller
         $service_types = ServiceType::get();
         $data=array();
         $data=$request->all();
-                // echo "<pre>";print_r($data);die;
         if($data){
             $contract_type="";
             $payment_type="";

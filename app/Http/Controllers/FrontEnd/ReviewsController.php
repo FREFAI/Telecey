@@ -46,45 +46,27 @@ class ReviewsController extends Controller
     public function reviews(Request $request)
     {
         $perameters = $request->all();
-        
-        
         $user_id = Auth::guard('customer')->user()['id']; 
+        $ip = env('ip_address','live');
+        if($ip == 'live'){
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }else{
+            // $ip = '2606:4580:2:0:a974:e358:829c:412e';
+            $ip = '122.173.214.129';
+        }
+        $client = new \GuzzleHttp\Client();
+        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+        $newresponse = json_decode($newresponse->getBody());
+        
         if (!$request->session()->has('usersDetail')) {
-            $ip = env('ip_address','live');
-            if($ip == 'live'){
-                $ip = $_SERVER['REMOTE_ADDR'];
-            }else{
-                // $ip = '2606:4580:2:0:a974:e358:829c:412e';
-                $ip = '122.173.214.129';
-            }
             // $ip = '96.46.34.142';
-            $data = \Location::get($ip);
-            $current_lat = $data->latitude;
-            $current_long = $data->longitude;
-            $client = new \GuzzleHttp\Client();
-            $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&latlng='.$data->latitude.','.$data->longitude);
-            $response = json_decode($response->getBody());
-            $storableLocation = [];
-            $data = [];
-            $k = 0;
-            $localitydata = $response->results[0]->address_components;
-            foreach ($localitydata as $value) {
-                $types = $value->types;
-                if(in_array('locality', $types)) {
-                    $storableLocation['city'] = $value->long_name;
-                }
-                if (in_array('administrative_area_level_1', $types)) {
-                    $storableLocation['state']= $value->long_name;
-                }
-                if (in_array('country', $types)) {
-                    $storableLocation['country'] = $value->long_name;
-                    $storableLocation['country_code'] = $value->short_name;
-                }
-                if (in_array('postal_code', $types)) {
-                    $storableLocation['postal_code'] = $value->long_name;
-                }
-
-            }
+            $current_lat = $newresponse->latitude;
+            $current_long = $newresponse->longitude;
+            $storableLocation['city'] = $newresponse->city;
+            $storableLocation['state'] = $newresponse->state_prov;
+            $storableLocation['country'] = $newresponse->country_name;
+            $storableLocation['country_code'] = $newresponse->country_code2;
+            $storableLocation['postal_code'] = $newresponse->zipcode;
             
             $request->session()->put('usersDetail', $storableLocation); 
         }
@@ -122,18 +104,8 @@ class ReviewsController extends Controller
             $usersDetail->postal_code = $usersAddress->postal_code;
 
         }
-        $ip = env('ip_address','live');
-        if($ip == 'live'){
-            $ip = $_SERVER['REMOTE_ADDR'];
-        }else{
-            // $ip = '2606:4580:2:0:a974:e358:829c:412e';
-            $ip = '122.173.214.129';
-        }
-        
-        // $ip = '96.46.34.142';
-        $data = \Location::get($ip);
-        $current_lat = $data->latitude;
-        $current_long = $data->longitude;
+        $current_lat = $newresponse->latitude;
+        $current_long = $newresponse->longitude;
         $settings = SettingsModel::first();
         $providers = Provider::where('country',$usersAddress->country)->get();
        
@@ -297,8 +269,10 @@ class ReviewsController extends Controller
             }else{
                 $ip = '96.46.34.142';
             }
-            $data = \Location::get($ip);
-            $input['country_code'] = $data->countryCode;
+            $client = new \GuzzleHttp\Client();
+            $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+            $newresponse = json_decode($newresponse->getBody());
+            $input['country_code'] = $newresponse->country_code2;
             $serviceReview = ServiceReview::create($input);
             if($serviceReview){
                 $message = array('success'=>true,'message'=>'Add successfully.','service_id'=>$serviceReview->id);

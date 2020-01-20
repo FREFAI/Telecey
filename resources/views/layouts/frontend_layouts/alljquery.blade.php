@@ -299,7 +299,7 @@
               $('.city_list').css('display','none');
               $('#city').addClass('error');
               // $('#city').val('');
-              $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select country from a list.</label>');
+              $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
               return false;
             }
             var thisform = $(this);

@@ -265,7 +265,7 @@ class DevicesController extends Controller
                     ->where('country_code',$current_country_code)
                     ->with('brand','supplier','device_color_info')
                     ->orderBy('distance','ASC')
-                    ->orderBy('price','ASC')
+                    // ->orderBy('price','ASC')
                     ->get()
                     ->toArray();
             // echo "<pre>";print_r($searchResult);exit;       

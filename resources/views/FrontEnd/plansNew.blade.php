@@ -76,7 +76,7 @@
 			</div>
 			<div class="col-5 text-center">
 				<div class="right-banner">
-					<img src="{{URL::asset('frontend/assets/img/153981-OUOERJ-745_edited_edited.webp')}}"/>
+					<img src="{{URL::asset('frontend/assets/img/153981-OUOERJ-745.jpg')}}"/>
 				</div>
 			</div>
 		</div>
@@ -318,7 +318,7 @@
 		<div class="row bg-blue">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="section-title text-white">Subscribe Form</h1>
+					<h1 class="device-heading-title section-title text-white">Subscribe Form</h1>
 				</div>
 			</div>
 			<div class="col-md-8 offset-md-2">

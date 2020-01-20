@@ -279,10 +279,10 @@ class PlansController extends Controller
             ->where('country_code',$current_country_code)
             ->with('provider','currency','typeOfService')
                     ->orderBy('distance','ASC')
-                    ->orderBy('local_min','DESC')
-                    ->orderBy('datavolume','DESC')
-                    ->orderBy('price','ASC')
-                    ->orderBy('average_review','DESC')
+                    // ->orderBy('local_min','DESC')
+                    // ->orderBy('datavolume','DESC')
+                    // ->orderBy('price','ASC')
+                    // ->orderBy('average_review','DESC')
                     ->paginate($limit);
             return view('FrontEnd.plansNew',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$searchResult,'service_types' => $service_types,]);
         }               

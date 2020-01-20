@@ -34,17 +34,8 @@
                                 <a class="nav-link" href="{{url('/devices')}}">Devices</a>
                             </li>
                         @endif
-                        <li class="dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More</a>
-                            <b class="caret"></b>
-                            <ul class="dropdown-menu top">
-                                <li>
-                                    <a class="nav-link mt-0 mb-0" href="{{url('/reviews')}}">Personal-information-and-reviews</a>
-                                    <a class="nav-link mt-0 mb-0" href="#">Contact Us</a>
-                                    <a class="nav-link mt-0 mb-0" href="{{url('/blogs-list')}}">Blog</a>
-                                    <a class="nav-link mt-0 mb-0" href="#">Memebers</a>
-                                </li>
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/blogs-list')}}">Blog</a>
                         </li>
                         <li class="nav-item">
                             <div class="social">
@@ -67,6 +58,7 @@
                                                 {{ Auth::guard('customer')->user()['nickname'] }}
                                             @endif
                                         </a>
+                                        <a class="nav-link mt-0 mb-0" href="{{url('/reviews')}}">Personal Information</a>
                                         <a class="nav-link mt-0 mb-0" href="{{url('/logout')}}">Logout</a>
                                         
                                     </div>

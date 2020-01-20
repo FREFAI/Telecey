@@ -13,7 +13,7 @@
 			</div>
 			<div class="col-md-6">
 				<div class="first-section-image">
-					<img src="{{URL::asset('frontend/assets/img/first-section.webp')}}">
+					<img src="{{URL::asset('frontend/assets/img/2427279.jpg')}}">
 				</div>
 			</div>
 		</div>
@@ -71,7 +71,7 @@
 			</div>
 			<div class="col-12 mt-5">
 				<div class="service-content-section w-75 mx-auto text-center">
-				Everyone has subscribed to mobile phone plan or a home internet service and everyone has his own unique experience. Because of the telecom nature, the service defer from a location to another and from  specific service to another. A carrier may have a perfect coverage for the whole city except for one single neighborhood. While another one may provide an excellent 100 Mbps service but a horrible Gbps service. TelcoTales enables users to share their experience "Telco Tales" on our website so everyone benefits and easily pick the best service, while carriers can spot their weaknesses and improve them 
+				Everyone has subscribed to mobile phone plan or a home internet service and everyone has his own unique experience. Because of the telecom nature, the service defer from a location to another and from  specific service to another. A carrier may have a perfect coverage for the whole city except for one single neighborhood. While another one may provide an excellent 100 Mbps <br/> service but a horrible Gbps service. <br/>TelcoTales enables users to share their experience "Telco Tales" on our website so everyone benefits and easily pick the best service, while carriers can spot their weaknesses and improve them 
 				</div>
 			</div>
 		</div>
@@ -195,7 +195,7 @@
 					</div>
 					<div class="col-2 text-center mb-3">
 						<div class="image-section">
-							<img src="{{URL::asset('frontend/assets/img/454550-PGQH10-539.webp')}}"/>
+							<img src="{{URL::asset('frontend/assets/img/454550-PGQH10-539.jpg')}}"/>
 						</div>
 					</div>
 					<div class="col-10 mb-3">
@@ -228,7 +228,7 @@
 			</div>
 			<div class="col-12 text-center">
 				<div class="image-info">
-					<img src="{{URL::asset('frontend/assets/img/28561.webp')}}"/>
+					<img src="{{URL::asset('frontend/assets/img/28561.jpg')}}"/>
 				</div>
 			</div>
 			<div class="col-12 text-center mt-3">

@@ -158,6 +158,42 @@ class DevicesController extends Controller
         if($filtersetting->device == 0){
             return redirect('/');
         }
+        $ip = env('ip_address','live');
+        if($ip == 'live'){
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }else{
+            $ip = '96.46.34.142';
+        }
+        $client = new \GuzzleHttp\Client();
+        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+        $newresponse = json_decode($newresponse->getBody());
+        $current_location = $newresponse->country_name.','.$newresponse->state_prov.','.$newresponse->city.','.$newresponse->zipcode;
+        $current_lat = $newresponse->latitude;
+        $current_long = $newresponse->longitude;
+        $current_country_code = $newresponse->country_code2;        
+        $brands = Brands::all();
+        $colors = DeviceColor::all();
+        $suppliers = Supplier::where('status',1)->get();
+        // echo "<pre>";print_r($current_country_code);exit;        
+        $searchResult = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                ->where('country_code',$current_country_code)
+                ->with('brand','supplier','device_color_info','user','device_rating')
+                ->orderBy('distance','ASC')
+                // ->orderBy('price','ASC')
+                ->offset(0)
+                ->limit(3)
+                ->get()
+                ->toArray();
+        // echo "<pre>";print_r($searchResult);exit;       
+        return view('FrontEnd.devicesNew',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data' => $searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
+        
+    }
+    public function devicesResult(Request $request)
+    {
+        $filtersetting = SettingsModel::first();
+        if($filtersetting->device == 0){
+            return redirect('/');
+        }
         $user = \Auth::guard('customer')->user();
         $ip = env('ip_address','live');
         if($ip == 'live'){
@@ -192,7 +228,7 @@ class DevicesController extends Controller
                     ->get()
                     ->toArray();
                 // echo "<pre>";print_r($searchResult);exit;       
-                return view('FrontEnd.devicesNew',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data' => $searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
+                return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data' => $searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
             }else{
                 
                 $brand_name = "";
@@ -256,23 +292,15 @@ class DevicesController extends Controller
                 
                 CreateLogs::createLog($logData);
                 // echo "<pre>";print_r($searchResult);exit;
-                return view('FrontEnd.devicesNew',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
+                return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
                 // return view('FrontEnd.devices-search-list',['brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'filterType' => $filter]);
             }
             
         }else{
-            $searchResult = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
-                    ->where('country_code',$current_country_code)
-                    ->with('brand','supplier','device_color_info')
-                    ->orderBy('distance','ASC')
-                    // ->orderBy('price','ASC')
-                    ->get()
-                    ->toArray();
-            // echo "<pre>";print_r($searchResult);exit;       
-            return view('FrontEnd.devicesNew',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data' => $searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
+            $searchResult = [];
+            return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
         }
     }
-
     public function deviceDetails($id){
         $planDetailData = DeviceReview::where('id',$id)->with('device','brand','supplier','currency','device_color_info')->first();
         $allratings = $planDetailData->get_ratings();

@@ -79,9 +79,14 @@
     <div id="copyright">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="site-info text-center">
+                <div class="col-md-6">
+                    <div class="site-info text-left">
                         <p>Telco Tales</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="site-info text-right">
+                        <p><a target="_blank" href="http://www.freepik.com">Images Designed by Freepik</a></p>
                     </div>
                 </div>
             </div>

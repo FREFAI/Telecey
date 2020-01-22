@@ -10,7 +10,7 @@ class DeviceReview extends Model
     protected $guard = 'customer';
 
     protected $fillable = [
-        'id', 'user_id', 'device_id', 'brand_id', 'supplier_id','device_color', 'price', 'currency_id', 'storage', 'latitude','longitude','country_code','created_at', 'updated_at'
+        'id', 'user_id', 'device_id', 'brand_id', 'supplier_id','device_color', 'price', 'currency_id', 'storage', 'latitude','longitude','country_code','average_review','created_at', 'updated_at'
     ];
 
  	public function device(){
@@ -38,6 +38,14 @@ class DeviceReview extends Model
   	}
   	public function plan_device_rating()
   	{
-  		return $this->hasMany('App\Models\FrontEnd\PlanDeviceRating','device_id','id');
-  	}
+        return $this->hasMany('App\Models\FrontEnd\PlanDeviceRating','device_id','id');
+    }
+    public function user()
+    {
+        return $this->hasOne('App\User','id','user_id');
+    }
+    public function device_rating()
+    {
+        return $this->hasOne('App\Models\FrontEnd\PlanDeviceRating','device_id','id');
+    }
 }

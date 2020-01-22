@@ -25,7 +25,9 @@
 	// New Design Route
 	Route::get('/', 'FrontEnd\HomeController@homePageNew');
 	Route::get('/plans', 'FrontEnd\PlansController@plansNew');
+	Route::get('/plans/result', 'FrontEnd\PlansController@plansResult');
 	Route::get('/devices', 'FrontEnd\DevicesController@devicesNew');
+	Route::get('/devices/result', 'FrontEnd\DevicesController@devicesResult');
 	Route::get('/blogs-list', 'FrontEnd\BlogsController@blogsNew');
 	// End New Design Route
 

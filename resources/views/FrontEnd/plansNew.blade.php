@@ -12,7 +12,7 @@
 				</div>
 			</div>
 			<div class="col-7 text-right">
-				<form action="{{url('/plans')}}" method="get" class="w-100">
+				<form action="{{url('/plans/result')}}" method="get" class="w-100">
 					<div class="row justify-content-end">
 						<div class="col-9">
 							<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
@@ -89,229 +89,66 @@
 
 			<div class="col-md-10 m-auto">
 				<div class="row">
-					<div class="col-sm-4 col-md-4 mb-4">
-						<div class="post">
-							<div class="post-img-content">
-								<img src="{{URL::asset('frontend/assets/img/348487_3595d4c42533437ba5c542bb996b8f48_mv2.png')}}" class="img-responsive"/>
-							</div>
-							<div class="post-content">
-								<div class="row">
-									<div class="col-12">
-										<span class="date-post">January 14, 2017</span>
-										<!-- <h4 class="text-blue">Fido</h4> -->
-									</div>
+				@if(count($data)>0)
+					@foreach($data as $key => $value)
+						<div class="col-sm-4 col-md-4 mb-4">
+							<div class="post">
+								<div class="post-img-content">
+									@if($value['provider']['provider_image_original'] != "")
+										<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" class="img-responsive"/>
+										@else
+										<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" class="img-responsive"/>
+									@endif
 								</div>
-								<div class="row my-3">
-									<div class="col-lg-12 rating provider">
-										<div class="rating_disable" data-rate-value="4"></div>
-									</div>
-								</div>
-								<div class="detail-section my-3 pb-4 border-bottom">
+								<div class="post-content">
 									<div class="row">
-										<div class="col-lg-12">
-											<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>					
+										<div class="col-12">
+											<span class="date-post">{{ date('M d, Y',strtotime($value['created_at'])) }}</span>
+											<!-- <h4 class="text-blue">Fido</h4> -->
 										</div>
-									</div>	
-								</div>
-								<div class="post-button">
-									<div class="row align-items-center">
-										<div class="col-lg-3">
-											<img src="{{URL::asset('frontend/assets/img/727644b338ab465cad167dcaf9e69f84.webp')}}"/>					
+									</div>
+									<div class="row my-3">
+										<div class="col-lg-12 provider">
+											<div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div>
 										</div>
-										<div class="col-lg-9">
-											<p>SAM123</p>
+									</div>
+									<div class="detail-section my-3 pb-4 border-bottom">
+										<div class="row">
+											<div class="col-lg-12">
+												@if($value['plan_rating'])
+													<p>
+													@if(strlen(strip_tags($value['plan_rating']['comment'])) > 80) 
+														{{substr(strip_tags($value['plan_rating']['comment']),0,80)}}...
+													@elseif(strlen(strip_tags($value['plan_rating']['comment'])) == 0) 
+													<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>
+													@else
+														{{substr(strip_tags($value['plan_rating']['comment']),0,80)}}
+													@endif
+													</p>
+												@else
+												<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>	
+												@endif
+																
+											</div>
+										</div>	
+									</div>
+									<div class="post-button">
+										<div class="row align-items-center">
+											<div class="col-lg-3">
+												<img src="{{URL::asset('frontend/assets/img/user_placeholder.png')}}"/>					
+											</div>
+											<div class="col-lg-9">
+												<p>{{$value['user']['firstname']}} {{$value['user']['lastname']}}</p>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-sm-4 col-md-4 mb-4">
-						<div class="post">
-							<div class="post-img-content">
-								<img src="{{URL::asset('frontend/assets/img/freedom.webp')}}" class="img-responsive"/>
-							</div>
-							<div class="post-content">
-								<div class="row">
-									<div class="col-12">
-										<span class="date-post">January 14, 2017</span>
-										<!-- <h4 class="text-blue">Fido</h4> -->
-									</div>
-								</div>
-								<div class="row my-3">
-									<div class="col-lg-12 rating provider">
-										<div class="rating_disable" data-rate-value="4"></div>
-									</div>
-								</div>
-								<div class="detail-section my-3 pb-4 border-bottom">
-									<div class="row">
-										<div class="col-lg-12">
-											<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>					
-										</div>
-									</div>	
-								</div>
-								<div class="post-button">
-									<div class="row align-items-center">
-										<div class="col-lg-3">
-											<img src="{{URL::asset('frontend/assets/img/12c903750c8d46ccb81ce6562a1923d9.webp')}}"/>					
-										</div>
-										<div class="col-lg-9">
-											<p>Johnx234</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4 col-md-4 mb-4">
-						<div class="post">
-							<div class="post-img-content">
-								<img src="{{URL::asset('frontend/assets/img/Telus-Logo2.webp')}}" class="img-responsive"/>
-							</div>
-							<div class="post-content">
-								<div class="row">
-									<div class="col-12">
-										<span class="date-post">January 14, 2017</span>
-										<!-- <h4 class="text-blue">Fido</h4> -->
-									</div>
-								</div>
-								<div class="row my-3">
-									<div class="col-lg-12 rating provider">
-										<div class="rating_disable" data-rate-value="4"></div>
-									</div>
-								</div>
-								<div class="detail-section my-3 pb-4 border-bottom">
-									<div class="row">
-										<div class="col-lg-12">
-											<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>					
-										</div>
-									</div>	
-								</div>
-								<div class="post-button">
-									<div class="row align-items-center">
-										<div class="col-lg-3">
-											<img src="{{URL::asset('frontend/assets/img/8a49d97617ec470289d12539d3365e26.webp')}}"/>					
-										</div>
-										<div class="col-lg-9">
-											<p>Briannoz21</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					@endforeach
+				@endif
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			@if(count($data)>0)
-				<div class="col-lg-12">
-					<table id="example" class="table table-striped custom-table " style="width:100%">
-						<thead>
-							<tr>
-								<th>Provider</th>
-								<th>Price</th>
-								<th>Local Min</th>
-								<th>Volume GB</th>
-								<th>Review</th>
-								<th>Distance</th>
-								<th class="text-right">Details</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach($data as $key => $value)
-								<tr class="custom-row-cl @if($key == 4 || $key == 8) adds @endif">
-									@if($key == 4)
-										<td colspan="7">
-											<div class="add text-center">
-												<img src="{{URL::asset('frontend/assets/img/Iphone_ads.webp')}}"/>
-											</div>
-										</td>
-									@elseif($key == 8)
-										<td colspan="7">
-											<div class="row align-items-center">
-												<div class="col-lg-6 text-center">
-													<img src="{{URL::asset('frontend/assets/img/case.webp')}}"/>
-												</div>
-												<div class="col-lg-6">
-													<h1 class="adds-text">The Ultimate cover</h1>
-												</div>
-											</div>
-										</td>
-									@else
-										<td>
-											@if($value['provider']['provider_image_original'] != "")
-												<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" style="width:100px;height:50px;" />
-											@else
-												<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" style="width:100px;height:50px;"/>
-											@endif
-										</td>
-										<td>
-										@if(!Auth::guard('customer')->check())
-											@if($filtersetting->disable_price_for_logged_out_users == 1)
-												{{$value['price']}}
-											@else
-												<a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</a>
-											@endif
-										@else
-										{{$value['price']}}
-										@endif
-										</td>
-										<td>{{$value['local_min']}}</td>
-										<td>{{$value['datavolume']}}</td>
-										<td data-order="{{$value['average_review']}}"><div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div></td>
-										@if(isset($value['distance']))
-											<td>{{round($value['distance'])}} KM</td>
-										@else
-											<td>N/A</td>
-										@endif
-										@if(Auth::guard('customer')->check())
-											<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</a></td>
-										@else
-											@if($filtersetting->disable_details_for_logged_out_users == 1)
-												<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</a></td>
-											@else
-												<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</a></td>
-											@endif
-										@endif
-									@endif
-								</tr>
-							@endforeach
-						</tbody>
-					</table>
-					@if(!Auth::guard('customer')->check())
-						@if($filtersetting->no_of_search_record > 0)
-						<div class="overlay_signup w-100 text-center text-white">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-							<div> 
-							<a class="btn table-row-btn signup_btn" href="{{url('/signup')}}">Sign up to show more reviews</a>
-							</div>
-						</div>
-						@endif
-					@endif
-					@if(Auth::guard('customer')->check())
-					<div class="pagination">
-						{{$data->appends(request()->input())->links()}}
-					</div>
-					@else
-						@if($filtersetting->no_of_search_record == 0)
-							<div class="pagination">
-								{{$data->appends(request()->input())->links()}}
-							</div>
-						@endif
-					@endif
-				</div>
-			@else
-				<div class="container">
-					<div class="row pt-5 pb-5 mt-5 mb-5">
-						<div class="col text-center">
-							<div class="heading noSearchMessage">
-								<p>{!!$filtersetting->no_search_message!!}</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			@endif
 		</div>
 	</div>
 	<div class="container-fluid">

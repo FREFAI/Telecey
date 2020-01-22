@@ -177,6 +177,19 @@ class DeviceReviewController extends Controller
                     array_push($data, $dataInsert);
                 }
                 $serviceRating = ServiceRating::insert($data);
+                $sum = 0;
+                $average = 0;
+                $plan_device_rating_count = PlanDeviceRating::where('device_id',$plandevicerating->device_id)->count();
+                $plan_device_rating = PlanDeviceRating::where('device_id',$plandevicerating->device_id)->pluck('average');
+                foreach($plan_device_rating as $key => $value){
+                    $sum = $sum + $value; 
+                }
+                if($plan_device_rating_count == 0){
+                    $average = $sum;
+                }else{
+                    $average = $sum/$plan_device_rating_count;
+                }
+                DeviceReview::where('id',$plandevicerating->device_id)->update(['average_review' => $average]);
                 if($serviceRating){
                     $message = array('success'=>true,'message'=>'Successfully submited.');
                     return json_encode($message);

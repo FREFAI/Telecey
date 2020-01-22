@@ -26,9 +26,9 @@
                                     <div class="blog-discription">
                                         <p>
                                             @if(strlen(html_entity_decode(strip_tags($blog->blog_content))) > 300) 
-                                            {{substr(html_entity_decode(strip_tags($blog->blog_content)),0,300)}}...
+                                                {{substr(html_entity_decode(strip_tags($blog->blog_content)),0,300)}}...
                                             @else
-                                            {{substr(html_entity_decode(strip_tags($blog->blog_content)),0,300)}}
+                                                {{substr(html_entity_decode(strip_tags($blog->blog_content)),0,300)}}
                                             @endif
                                         </p>
                                     </div>

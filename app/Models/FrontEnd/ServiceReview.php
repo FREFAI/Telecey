@@ -35,6 +35,15 @@ class ServiceReview extends Model
     }
   	public function plan_device_rating()
   	{
-  		return $this->hasMany('App\Models\FrontEnd\PlanDeviceRating','plan_id','id');
-  	}
+        return $this->hasMany('App\Models\FrontEnd\PlanDeviceRating','plan_id','id');
+    }
+    
+    public function user()
+    {
+        return $this->hasOne('App\User','id','user_id');
+    }
+    public function plan_rating()
+  	{
+        return $this->hasOne('App\Models\FrontEnd\PlanDeviceRating','plan_id','id');
+    }
 }

@@ -1,144 +1,141 @@
 @extends('layouts.frontend_layouts.frontend')
-@section('title', 'Devices')
+@section('title', 'Devices Result')
 @section('content')
 	<!-- Content Start Here -->
 <section id="main-top-section" >
 	<div class="container">
-		<div class="row align-items-center">
-			<div class="col-12 text-center">
+        <div class="row align-items-center mb-5 loading_section">
+			<!-- <div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="device-heading-title">Search for Device</h1>
+					<h1 class="device-heading-title">Search for Plans</h1>
 				</div>
-			</div>
-			<div class="col-7 text-right">
-				<form action="{{url('/devices/result')}}" method="get" class="w-100">
-					<div class="row">
-						<div class="col-12">
-							<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
-						</div>
-						<div class="col-4 mt-4 devicenew">
-							<select class="service-type-select service_type" name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">
-								<option value="">Brand</option>
-								@foreach($brands as $v)
-									<option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
-								@endforeach
-							</select>
-						</div>
-						<div class="col-4 mt-4">
-							<div class="form-group plan_page inputwithicon">
-								<div class="select">
-									<select name="storage" id="storage" class="service-type-select  service_type">
-										<option value="">Capacity</option>
-										<option value="64" @if( request()->get('storage') ) @if( request()->get('storage') == '64') selected @endif @endif>64</option>
-										<option value="128" @if( request()->get('storage') ) @if( request()->get('storage') == '128') selected @endif @endif>128</option>
-										<option value="256" @if( request()->get('storage') ) @if( request()->get('storage') == '256') selected @endif @endif>256</option>
-										<option value="512" @if( request()->get('storage') ) @if( request()->get('storage') == '512') selected @endif @endif>512</option>
-										<option value="1GB" @if( request()->get('storage') ) @if( request()->get('storage') == '1GB') selected @endif @endif>1GB</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="col-4 mt-4">
-							<div class="form-group plan_page inputwithicon">
-								<div class="select">
-									<select name="device_color" id="device_color" class="service-type-select  service_type">
-										<option value="">Color</option>
-										
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12 text-center">
-							<button type="submit" class="searchnow-button">Search Now</button>
-						</div>
-					</div>
-				</form>
+			</div> -->
+			<div class="col-7 text-center">
+                <div class="loading">
+                    <h1>Our searching DUDE is working on your request</h1><br>
+                    <h1>One moment and he will fetch the data for you </h1>
+                </div>
 			</div>
 			<div class="col-5 text-center">
-				<div class="right-banner">
-					<img src="{{URL::asset('frontend/assets/img/2801276.jpg')}}"/>
+				<div class="right-banner autorotate">
+					<img src="{{URL::asset('frontend/assets/img/9367.jpg')}}"/>
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-12 text-center my-5">
-				<div class="heading detail-div">
-					<h1 class="device-heading-title">Devices Used Near By</h1>
+		<form action="{{url('/devices/result')}}" method="get" class="w-100">
+			<div class="row custom_width align-items-center">
+				<div class="col-lg-7 record_section">
+					<div class="location">
+						<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
+					</div>
+				</div>
+				<div class="col-lg-3 record_section">
+					<select class="service-type-select service_type" name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">
+						<option value="">Brand</option>
+						@foreach($brands as $v)
+							<option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
+						@endforeach
+					</select>
+				</div>
+				<div class="col-lg-1 record_section">
+					<div class="text-center">
+						<a title="Expend Filter" href="javascript:void(0);" onClick="filterExpend()" class="expendFilterbtn"><i class="fa fa-filter"></i></a>
+					</div>
+				</div>
+				<div class="col-lg-1 text-right record_section">
+					<div class="filter_button">
+						<button type="submit"><img src="{{URL::asset('frontend/assets/img/filter.webp')}}"/></button>
+					</div>
+				</div>
+				<div class="col-lg-4 expendedFilter">
+					<div class="form-group plan_page inputwithicon">
+						<div class="select">
+							<select name="storage" id="storage" class="service-type-select  service_type">
+								<option value="">Capacity</option>
+								<option value="64" @if( request()->get('storage') ) @if( request()->get('storage') == '64') selected @endif @endif>64</option>
+								<option value="128" @if( request()->get('storage') ) @if( request()->get('storage') == '128') selected @endif @endif>128</option>
+								<option value="256" @if( request()->get('storage') ) @if( request()->get('storage') == '256') selected @endif @endif>256</option>
+								<option value="512" @if( request()->get('storage') ) @if( request()->get('storage') == '512') selected @endif @endif>512</option>
+								<option value="1GB" @if( request()->get('storage') ) @if( request()->get('storage') == '1GB') selected @endif @endif>1GB</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 expendedFilter">
+					<div class="form-group plan_page inputwithicon">
+						<div class="select">
+							<select name="device_color" id="device_color" class="service-type-select  service_type">
+								<option value="">Color</option>
+								
+							</select>
+						</div>
+					</div>
 				</div>
 			</div>
-
-			<div class="col-md-10 m-auto">
-			@if(count($data)>0)
-				<div class="row">
-					@foreach($data as $key => $value)
-					<div class="col-sm-4 col-md-4 mb-4">
-						<div class="post">
-							<div class="post-img-content">
-								<img src="{{URL::asset('frontend/assets/img/Iphone_new.webp')}}" class="img-responsive"/>
-							</div>
-							<div class="post-content">
-								<div class="row">
-									<div class="col-12">
-										<span class="date-post">{{ date('M d, Y',strtotime($value['created_at'])) }}</span>
+		</form>
+		@if(count($data)>0)
+		<div class="row record_section">
+			<div class="col-lg-12">
+				<table id="example" class="table table-striped custom-table" style="width:100%">
+					<thead>
+						<tr>
+							<th>Brand</th>
+							<th>Model</th>
+							<th>Supplier</th>
+							<th>Price</th>
+							<th>Capacity</th>
+							<th>Distance</th>
+							<th>Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($data as $key => $value)
+						<tr class="custom-row-cl @if($key == 4 || $key == 8) adds @endif">
+							@if($key == 4)
+								<td colspan="7">
+									<div class="add text-center">
+										<img src="{{URL::asset('frontend/assets/img/Iphone_ads.webp')}}"/>
 									</div>
-								</div>
-								<div class="row my-3">
-									<div class="col-lg-6">
-										<h4 class="text-orange">{{$value['brand']['brand_name']}}</h4>
-									</div>
-									<div class="col-lg-6 provider">
-										<div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div>
-									</div>
-								</div>
-								<div class="detail-section my-3 pb-4 border-bottom">
-									<div class="row">
-										<div class="col-lg-12 comment_section">
-										@if($value['device_rating'])
-											<p>
-											@if(strlen(strip_tags($value['device_rating']['comment'])) > 80) 
-												{{substr(strip_tags($value['device_rating']['comment']),0,80)}}...
-											@elseif(strlen(strip_tags($value['device_rating']['comment'])) == 0) 
-											<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>
-											@else
-												{{substr(strip_tags($value['device_rating']['comment']),0,80)}}
-											@endif
-											</p>
-										@else
-										<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>	
-										@endif
-															
-										</div>
-									</div>	
-								</div>
-								<div class="post-button">
+								</td>
+							@elseif($key == 8)
+								<td colspan="7">
 									<div class="row align-items-center">
-										<div class="col-lg-3">
-											<img src="{{URL::asset('frontend/assets/img/user_placeholder.png')}}"/>					
+										<div class="col-lg-6 text-center">
+											<img src="{{URL::asset('frontend/assets/img/case.webp')}}"/>
 										</div>
-										<div class="col-lg-9">
-											<p>{{$value['user']['firstname']}} {{$value['user']['lastname']}}</p>
+										<div class="col-lg-6">
+											<h1 class="adds-text">The Ultimate cover</h1>
 										</div>
 									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					@endforeach
-				</div>
-			@else
-				<div class="row pt-5 pb-5 mt-5 mb-5">
-					<div class="col text-center">
-						<div class="heading noSearchMessage">
-							<p>{!!$filtersetting->no_search_message!!}</p>
-						</div>
-					</div>
-				</div>
-			@endif 
+								</td>
+							@else
+								<td>{{$value['brand']['brand_name']}}</td>
+								<td>{{$value['brand']['model_name']}}</td>
+								<td>{{$value['supplier']['supplier_name']}}</td>
+								<td>{{$value['price']}}</td>
+								<td>{{$value['storage']}}</td>
+								<td>{{round($value['distance'])}} KM</td>
+								@if(Auth::guard('customer')->check())
+									<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value['id'])}}">Details</td>
+								@else
+									<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
+								@endif
+							@endif
+						</tr>
+						@endforeach
+					</tbody>
+				</table>
 			</div>
 		</div>
-		
+		@else
+			<div class="row pt-5 pb-5 mt-5 mb-5 record_section">
+				<div class="col text-center">
+					<div class="heading noSearchMessage">
+						<p>{!!$filtersetting->no_search_message!!}</p>
+					</div>
+				</div>
+			</div>
+		@endif 
 	</div>
 	<div class="container-fluid">
 		<div class="row bg-blue">
@@ -250,6 +247,10 @@
 <!-- Content End Here -->
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script>
+    setTimeout(() => {
+        $('.loading_section').hide();
+        $('.record_section').show();
+    }, 3000);
 	$(document).on('click','.dropdown-select ul li',function(){
 		var brandId = $(this).attr('data-value');
 		if(window.location.protocol == "http:"){
@@ -410,9 +411,6 @@
 
 	$(document).ready(function () {
 		create_custom_dropdowns();
-		$(".rating .rating_disable").rate({
-			readonly: true,
-		});
 	});
 	function initMap() {
 	    var input = document.getElementById('searchMapInput');
@@ -423,6 +421,8 @@
 	        var place = autocomplete.getPlace();
 	    });
 	}
-
+	function filterExpend(){
+		$('.expendedFilter').toggle();
+	}
 </script>
 @endsection

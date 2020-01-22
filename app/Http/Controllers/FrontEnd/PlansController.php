@@ -179,11 +179,7 @@ class PlansController extends Controller
         $current_long = $newresponse->longitude;
         $current_country_code = $newresponse->country_code2;
         $filtersetting = SettingsModel::first();
-        if(!Auth::guard('customer')->check()){
-            $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 20;
-        }else{
-            $limit = 20;
-        }
+        $limit = 3;
         if($filtersetting->ads_setting == 0){
             $ads = AdsModel::where('type',0)->get();
         }else{
@@ -194,6 +190,52 @@ class PlansController extends Controller
         $service_types = ServiceType::get();
         
         $data=$request->all();
+        $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+        ->where('country_code',$current_country_code)
+        ->with('provider','currency','typeOfService','user','ratings','plan_rating')
+        ->orderBy('distance','ASC')
+        // ->orderBy('local_min','DESC')
+        // ->orderBy('datavolume','DESC')
+        // ->orderBy('price','ASC')
+        // ->orderBy('average_review','DESC')
+        ->paginate($limit);
+        // echo "<pre>"; print_r($searchResult->toArray()); exit;
+        return view('FrontEnd.plansNew',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$searchResult,'service_types' => $service_types,]);               
+        
+    }
+
+    public function plansResult(Request $request)
+    {
+       // Current location section
+       $ip = env('ip_address','live'); 
+       if($ip == 'live'){
+           $ip = $_SERVER['REMOTE_ADDR'];
+       }else{
+           $ip = '96.46.34.142';
+       }
+       $client = new \GuzzleHttp\Client();
+       $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+       $newresponse = json_decode($newresponse->getBody());
+       $current_location = $newresponse->country_name.','.$newresponse->state_prov.','.$newresponse->city.','.$newresponse->zipcode;
+       $current_lat = $newresponse->latitude;
+       $current_long = $newresponse->longitude;
+       $current_country_code = $newresponse->country_code2;
+       $filtersetting = SettingsModel::first();
+       if(!Auth::guard('customer')->check()){
+           $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 20;
+       }else{
+           $limit = 20;
+       }
+       if($filtersetting->ads_setting == 0){
+           $ads = AdsModel::where('type',0)->get();
+       }else{
+           $ads = AdsModel::where('type',1)->first();
+       }
+       $user = Auth::guard('customer')->user();
+       $user_id = Auth::guard('customer')->id();
+       $service_types = ServiceType::get();
+       
+       $data=$request->all();
         if(count($data)>1){
             $contract_type="";
             $payment_type="";
@@ -272,21 +314,14 @@ class PlansController extends Controller
                 }
                 
                 CreateLogs::createLog($logData);
-            return view('FrontEnd.plansNew',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
+            return view('FrontEnd.plansResult',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
 
         }else{
-            $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
-            ->where('country_code',$current_country_code)
-            ->with('provider','currency','typeOfService')
-                    ->orderBy('distance','ASC')
-                    // ->orderBy('local_min','DESC')
-                    // ->orderBy('datavolume','DESC')
-                    // ->orderBy('price','ASC')
-                    // ->orderBy('average_review','DESC')
-                    ->paginate($limit);
-            return view('FrontEnd.plansNew',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$searchResult,'service_types' => $service_types,]);
-        }               
-        
+            $searchResult = [];
+            $filter = 1;
+            return view('FrontEnd.plansResult',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
+        }
+
     }
     /**
      * Show the application dashboard.

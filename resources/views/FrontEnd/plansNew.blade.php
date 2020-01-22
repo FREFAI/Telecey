@@ -114,7 +114,7 @@
 									</div>
 									<div class="detail-section my-3 pb-4 border-bottom">
 										<div class="row">
-											<div class="col-lg-12">
+											<div class="col-lg-12 comment_section">
 												@if($value['plan_rating'])
 													<p>
 													@if(strlen(strip_tags($value['plan_rating']['comment'])) > 80) 

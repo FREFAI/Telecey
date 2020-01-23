@@ -5,7 +5,7 @@
 <!-- Content Start Here -->
 <section id="main-top-section" >
 	<div class="container">
-		<div class="row align-items-center mb-5 ">
+		<div class="row align-items-center mb-5 loading_section">
 			<!-- <div class="col-12 text-center">
 				<div class="heading detail-div">
 					<h1 class="device-heading-title">Search for Plans</h1>

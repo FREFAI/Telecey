@@ -2001,12 +2001,12 @@ table.table.custom-table tbody tr:hover {
     display: none;
   }
   .autorotate img {
-    animation: mymove 10s 10;
+    animation: mymove 5s 2;
     animation-iteration-count: infinite;
     animation-duration: 5s;
   }
   @keyframes mymove {
-    0% {-webkit-transform: rotate(-45deg); }
+    0% {-webkit-transform: rotate(-45deg);}
     50%{ -webkit-transform: rotate(45deg);}
     100% {-webkit-transform: rotate(-45deg);}
 

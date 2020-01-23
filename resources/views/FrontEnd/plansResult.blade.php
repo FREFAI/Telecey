@@ -5,7 +5,7 @@
 <!-- Content Start Here -->
 <section id="main-top-section" >
 	<div class="container">
-		<div class="row align-items-center mb-5 loading_section">
+		<div class="row align-items-center mb-5 ">
 			<!-- <div class="col-12 text-center">
 				<div class="heading detail-div">
 					<h1 class="device-heading-title">Search for Plans</h1>
@@ -65,7 +65,7 @@
 				</div>
 				<div class="col-lg-4 expendedFilter">
 					@if($filtersetting->personal_business_setting == 1)
-					<div class="form-group plan_page">
+					<div class="form-group plan_page mb-0">
 						<span class="toggle_label active">Personal</span>
 						<label class="switch">
 							<input type="checkbox" id="personal" value="1" onClick="personalToggle()" name="contract_type" @if( request()->get('contract_type') ) @if( request()->get('contract_type') == 2) checked @endif @endif>
@@ -77,7 +77,7 @@
 				</div>
 				<div class="col-lg-4 expendedFilter">
 					@if($filtersetting->postpaid_prepaid_setting == 1)
-					<div class="form-group plan_page">
+					<div class="form-group plan_page mb-0">
 						<span class="toggle_label active">Postpaid</span>
 						<label class="switch">
 							<input type="checkbox" id="paymentTypeId" name="payment_type" value="postpaid" onClick=paymentType()  @if( request()->get('payment_type') ) @if( request()->get('payment_type') == 'prepaid') checked @endif @endif>
@@ -88,7 +88,7 @@
 					@endif
 				</div>
 				<div class="col-lg-4 expendedFilter">
-					<div class="form-group plan_page">
+					<div class="form-group plan_page mb-0">
 						<span class="toggle_label active">Pay as usage</span>
 						<label class="switch">
 							<input type="checkbox" onclick="payAsUsage()" value="0" id="pay_as_usage_id" name="pay_as_usage_type" @if( request()->get('pay_as_usage_type') ) @if( request()->get('pay_as_usage_type') == 1) checked @endif @endif>
@@ -97,6 +97,55 @@
 						<!-- <span class="toggle_label">On</span> -->
 					</div>
 				</div>
+				@if($filtersetting->unlimited_calls_setting == 1)
+				<div class="col-lg-4 pay_as_usage_type expendedFilter">
+					<div class="form-group plan_page">
+						<span class="toggle_label">Unlimited Calls</span>
+						<label class="switch">
+							<input type="checkbox" checked="" onclick="myFunction()" id="unlimited">
+							<span class="slider"></span>
+						</label>
+						<select id="unlimited_calls" class="mbps-select d-none w-40">
+							<option value="100" selected>100 mins</option>
+							<option value="200">200 mins</option>
+							<option value="300">300 mins</option>
+							<option value="500">500 mins</option>
+						</select>
+					</div>
+				</div>
+				@endif
+				@if($filtersetting->gb_setting == 1)
+				<div class="col-lg-3 text-center pay_as_usage_type expendedFilter">
+					<div class="form-group">
+						<select id="inputState" class="mbps-select">
+							<option value="0.5">0.5 GB</option>
+							<option value="1">1 GB</option>
+							<option value="2" selected>2 GB</option>
+							<option value="3">3 GB</option>
+							<option value="5">5 GB</option>
+							<option value="7">7 GB</option>
+							<option value="10">10 GB</option>
+							<option value="12">12 GB</option>
+							<option value="15">15 GB</option>
+							<option value="20">20 GB</option>
+						</select>
+					</div>
+				</div>
+				@endif
+				@if($filtersetting->mb_setting == 1)
+				<div class="col-lg-3 text-center pay_as_usage_type expendedFilter">
+					<div class="form-group">
+						<select id="inputState" class="mbps-select">
+							<option selected value="" disabled="">Mbps</option>
+							<option value="100">100 Mbps</option>
+							<option value="200">200 Mbps</option>
+							<option value="300">300 Mbps</option>
+							<option value="400">400 Mbps</option>
+							<option value="500">500 Mbps</option>
+						</select>
+					</div>
+				</div>
+				@endif
 			</div>
 		</form>
 		<div class="row record_section">
@@ -326,7 +375,15 @@
 	        var place = autocomplete.getPlace();
 	    });
 	}	
-
+	function myFunction() {
+	  var checkBox = document.getElementById("unlimited");
+	  var text = document.getElementById("unlimited_calls");
+	  if (checkBox.checked == true){
+	    $('#unlimited_calls').addClass('d-none');
+	  } else {
+	    $('#unlimited_calls').removeClass('d-none');
+	  }
+	}
     setTimeout(() => {
         $('.loading_section').hide();
         $('.record_section').show();

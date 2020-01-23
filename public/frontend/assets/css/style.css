@@ -1597,13 +1597,15 @@ span.fa.fa-star.rate {
     float: right;
     border-radius: 6px;
     text-align: center;
+    font-size: 15px;
   }
   select.service-type-select{
     width: 100%;
     background: transparent;
     border-radius: 6px;
-    padding: 2px 5px;
+    padding: 3px 5px;
     border: 1px solid #2e75b5;
+    font-size: 15px;
   }
   .right-banner img {
     width: 440px;
@@ -1999,22 +2001,17 @@ table.table.custom-table tbody tr:hover {
     display: none;
   }
   .autorotate img {
-    -webkit-animation: cog 10s infinite;			
-    -moz-animation: cog 10s infinite;
-    -ms-animation: cog 10s infinite; 			
-    animation: cog 10s infinite;
-    -webkit-animation-timing-function: linear;
-    -moz-animation-timing-function: linear;		
-    -ms-animation-timing-function: linear;
-    animation-timing-function: linear	
+    animation: mymove 10s 10;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
   }
-  @keyframes cog {
-  100%{ 
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    transform: rotate(360deg)
+  @keyframes mymove {
+    0% {-webkit-transform: rotate(-45deg); }
+    50%{ -webkit-transform: rotate(45deg);}
+    100% {-webkit-transform: rotate(-45deg);}
+
   }
-  }
+
   .custom_width {
     width: 970px;
     margin: auto;
@@ -2030,6 +2027,15 @@ table.table.custom-table tbody tr:hover {
     text-align: justify;
     min-height: 80px;
   }
+  .mbps-select{
+    width: 100%;
+    background: transparent;
+    border-radius: 6px;
+    padding: 3px 5px;
+    border: 1px solid #2e75b5;
+    font-size: 15px;
+  }  
+  
   /* /17-01-2020 */
 @media(max-width:1440px){
   .get-in-touch {

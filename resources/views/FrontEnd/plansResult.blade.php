@@ -68,7 +68,7 @@
 					<div class="form-group plan_page mb-0">
 						<span class="toggle_label active">Personal</span>
 						<label class="switch">
-							<input type="checkbox" id="personal" value="1" onClick="personalToggle()" name="contract_type" @if( request()->get('contract_type') ) @if( request()->get('contract_type') == 2) checked @endif @endif>
+							<input type="checkbox" id="personal" value="2" onClick="personalToggle()" name="contract_type" @if( request()->get('contract_type') ) @if( request()->get('contract_type') == 2) checked @endif @endif>
 							<span class="slider"></span>
 						</label>
 						<span class="toggle_label">Business</span>
@@ -80,7 +80,7 @@
 					<div class="form-group plan_page mb-0">
 						<span class="toggle_label active">Postpaid</span>
 						<label class="switch">
-							<input type="checkbox" id="paymentTypeId" name="payment_type" value="postpaid" onClick=paymentType()  @if( request()->get('payment_type') ) @if( request()->get('payment_type') == 'prepaid') checked @endif @endif>
+							<input type="checkbox" id="paymentTypeId" name="payment_type" value="prepaid" onClick=paymentType()  @if( request()->get('payment_type') ) @if( request()->get('payment_type') == 'prepaid') checked @endif @endif>
 							<span class="slider"></span>
 						</label>
 						<span class="toggle_label">Prepaid</span>
@@ -149,22 +149,34 @@
 			</div>
 		</form>
 		<div class="row record_section">
-			
 			@if(count($data)>0)
 				<div class="col-lg-12">
-					<table id="example" class="table table-striped custom-table " style="width:100%">
+					<table id="example" class="table table-striped custom-table plan_sorting" style="width:100%" data-url="{{url('/plans/resultSorting')}}">
 						<thead>
 							<tr>
 								<th>Provider</th>
-								<th>Price</th>
-								<th>Local Min</th>
-								<th>Volume GB</th>
-								<th>Review</th>
-								<th>Distance</th>
+								<th @if(!Auth::guard('customer')->check())
+											@if($filtersetting->disable_price_for_logged_out_users == 1)
+												class="custom_sorting"
+											@endif
+										@else
+										class="custom_sorting"
+										@endif data-name="price" data-sort="asc" >Price
+										@if(!Auth::guard('customer')->check())
+											@if($filtersetting->disable_price_for_logged_out_users == 1)
+												<i class="fas fa-arrow-down"></i>
+											@endif
+										@else
+										<i class="fas fa-arrow-down"></i>
+										@endif</th>
+								<th class="custom_sorting" data-name="local_min" data-sort="asc" >Local Min <i class="fas fa-arrow-down"></i></th>
+								<th class="custom_sorting" data-name="datavolume" data-sort="asc" >Volume GB <i class="fas fa-arrow-down"></i></th>
+								<th class="custom_sorting" data-name="average_review" data-sort="asc" >Review <i class="fas fa-arrow-down"></i></th>
+								<th class="custom_sorting" data-name="distance" data-sort="asc" >Distance <i class="fas fa-arrow-down"></i></th>
 								<th class="text-right">Details</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody class="table_body_sort">
 							@foreach($data as $key => $value)
 								<tr class="custom-row-cl @if($key == 4 || $key == 8) adds @endif">
 									@if($key == 4)
@@ -278,7 +290,17 @@
 		</div>
 	</div>
 </section>
+<script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script>
 <style>
+	.custom_sorting{
+		cursor: pointer;
+	}
+	.custom_sorting i {
+    	font-size: 13px;
+	}
+	th.custom_sorting {
+		font-size: 17px;
+	}
 	span.toggle_label{
 		color: #000;
 	}
@@ -363,34 +385,70 @@
 		color: #fff;
 	} */
 </style>
-	<!-- Content End Here -->
-	<script>
-
+<!-- Content End Here -->
+<script>
 	function initMap() {
-	    var input = document.getElementById('searchMapInput');
-	  
-	    var autocomplete = new google.maps.places.Autocomplete(input);
-	   
-	    autocomplete.addListener('place_changed', function() {
-	        var place = autocomplete.getPlace();
-	    });
+		var input = document.getElementById('searchMapInput');
+	
+		var autocomplete = new google.maps.places.Autocomplete(input);
+	
+		autocomplete.addListener('place_changed', function() {
+			var place = autocomplete.getPlace();
+		});
 	}	
 	function myFunction() {
-	  var checkBox = document.getElementById("unlimited");
-	  var text = document.getElementById("unlimited_calls");
-	  if (checkBox.checked == true){
-	    $('#unlimited_calls').addClass('d-none');
-	  } else {
-	    $('#unlimited_calls').removeClass('d-none');
-	  }
+		var checkBox = document.getElementById("unlimited");
+		var text = document.getElementById("unlimited_calls");
+		if (checkBox.checked == true){
+			$('#unlimited_calls').addClass('d-none');
+		} else {
+			$('#unlimited_calls').removeClass('d-none');
+		}
 	}
-    setTimeout(() => {
-        $('.loading_section').hide();
-        $('.record_section').show();
-    }, 3000);
+	setTimeout(() => {
+		$('.loading_section').hide();
+		$('.record_section').show();
+	}, 3000);
 	function filterExpend(){
 		$('.expendedFilter').toggle();
 	}
+	$(document).on('click','.custom_sorting',function(){
+		$('#loader').show();
+		var requestParams = location.search;
+		var name = $(this).attr('data-name');
+		var sort = $(this).attr('data-sort');
+		var resuesturl = $('.plan_sorting').attr('data-url');
+		if(sort == 'asc'){
+			$(this).attr('data-sort','desc');
+			$(this).find('i').attr('class','fas fa-arrow-down');
+		}else{
+			$(this).attr('data-sort','asc');
+			$(this).find('i').attr('class','fas fa-arrow-up');
+		}
+		$.ajax({
+			type: "post",
+			url: resuesturl,
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			dataType:'html',
+			data: {
+				'requestParams': requestParams,
+				'name':name,
+				'sort':sort
+			},
+			success: function (data) {
+				$('.table_body_sort').html(data);
+
+				$(".rating_disable").rate({
+					readonly:true
+				});
+				$('#loader').hide();
+			}         
+		});
+		
+	});
+
 </script>
 	
 

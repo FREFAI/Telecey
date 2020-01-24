@@ -217,90 +217,151 @@ class DevicesController extends Controller
         // echo "<pre>";print_r($current_country_code);exit;
         $data = array();
         $data = $request->all();
+        $mainQuery = DeviceReview::query();
         if($data){
-            if($data['brand_name'] == "" && $data['storage'] == "" && $data['device_color'] == ""){
+            $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+            ->where('country_code',$current_country_code)
+            ->with('brand','supplier','device_color_info')
+            ->orderBy('distance','ASC');
+            if($data['brand_name'] != ""){
+                $mainQuery->orWhere('brand_id',$data['brand_name']);
+            }
+            if($data['storage'] != ""){
+                $mainQuery->orWhere('storage',$data['storage']);
+            }
+            if($data['device_color'] != ""){
+                $mainQuery->orWhere('device_color',$data['device_color']);
+            }
             
-                $searchResult = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
-                    ->where('country_code',$current_country_code)
-                    ->with('brand','supplier','device_color_info')
-                    ->orderBy('distance','ASC')
-                    ->orderBy('price','ASC')
-                    ->get()
-                    ->toArray();
-                // echo "<pre>";print_r($searchResult);exit;       
-                return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data' => $searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
-            }else{
-                
-                $brand_name = "";
-                $storage = "";
-                $device_color = "";
-                $filter = 1;
-                if(array_key_exists("brand_name",$data)){
-                    $brand_name = $data['brand_name'];
-                }
-                if(array_key_exists("storage",$data)){
-                    $storage = $data['storage'];
-                }
-                if(array_key_exists("device_color",$data)){
-                    $device_color = $data['device_color'];
-                }
-                $searchResultCount = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
-                ->where('country_code',$current_country_code)->where(function ($query) use ($brand_name,$storage,$device_color) {
-                         $query->orWhere('brand_id',$brand_name)
-                               ->orWhere('device_color',$device_color)
-                               ->orWhere('storage',$storage);
-                                })->with('brand','supplier','device_color_info')
-                                ->orderBy('distance','ASC')
-                                ->orderBy('price','ASC')
-                                ->count();
-                $searchResult = DeviceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
-                        ->where('country_code',$current_country_code)->where(function ($query) use ($brand_name,$storage,$device_color) {
-                                 $query->orWhere('brand_id',$brand_name)
-                                       ->orWhere('device_color',$device_color)
-                                       ->orWhere('storage',$storage);
-                                        })->with('brand','supplier','device_color_info')
-                                        ->orderBy('distance','ASC')
-                                        ->orderBy('price','ASC')
-                                        ->get()->toArray();
+            $searchResultCount = $mainQuery->count();
+            $searchResult = $mainQuery->get()->toArray();
+            if($searchResult){
                 foreach($searchResult as $key => $value){
                     $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
                     $searchResult[$key]['user_address'] = $user_address;
                 }
-                if($user_id){
-                    $logData = [
-                        'user_id'                       => $user->id,
-                        'log_type'                      => 4,
-                        'type'                          => 2,
-                        'filter_type'                   => 2,
-                        'user_status'                   => $user->is_active,
-                        'user_name'                     => $user->firstname.' '.$user->lastname,
-                        'user_number'                   => $user->mobile_number,
-                        'email'                         => $user->email,
-                        'filter_params'                 => json_encode($data),
-                        'filter_search_result_count'    => $searchResultCount
-                    ];
-                }else{
-                    $logData = [
-                        'log_type'                      => 4,
-                        'type'                          => 2,
-                        'filter_type'                   => 2,
-                        'ip'                            => $ip,
-                        'filter_params'                 => json_encode($data),
-                        'filter_search_result_count'    => $searchResultCount
-                    ];
-                }
-                
-                CreateLogs::createLog($logData);
-                // echo "<pre>";print_r($searchResult);exit;
-                return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
-                // return view('FrontEnd.devices-search-list',['brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'filterType' => $filter]);
+            }
+            if($user_id){
+                $logData = [
+                    'user_id'                       => $user->id,
+                    'log_type'                      => 4,
+                    'type'                          => 2,
+                    'filter_type'                   => 2,
+                    'user_status'                   => $user->is_active,
+                    'user_name'                     => $user->firstname.' '.$user->lastname,
+                    'user_number'                   => $user->mobile_number,
+                    'email'                         => $user->email,
+                    'filter_params'                 => json_encode($data),
+                    'filter_search_result_count'    => $searchResultCount
+                ];
+            }else{
+                $logData = [
+                    'log_type'                      => 4,
+                    'type'                          => 2,
+                    'filter_type'                   => 2,
+                    'ip'                            => $ip,
+                    'filter_params'                 => json_encode($data),
+                    'filter_search_result_count'    => $searchResultCount
+                ];
             }
             
+            CreateLogs::createLog($logData);
+            return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
         }else{
             $searchResult = [];
             return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
         }
     }
+    public function devicesResultSorting(Request $request)
+    {
+        $params = $request->all();
+        $requestData = explode('&',$params['requestParams']);
+        $data = [];
+        foreach($requestData as $rd){
+           $param = explode('=',$rd);
+           $data[str_replace('?','',$param[0])] = $param[1];
+        }
+
+        $filtersetting = SettingsModel::first();
+        if($filtersetting->device == 0){
+            return redirect('/');
+        }
+        $user = \Auth::guard('customer')->user();
+        $ip = env('ip_address','live');
+        if($ip == 'live'){
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }else{
+            $ip = '96.46.34.142';
+        }
+        $client = new \GuzzleHttp\Client();
+        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+        $newresponse = json_decode($newresponse->getBody());
+        $current_location = $newresponse->country_name.','.$newresponse->state_prov.','.$newresponse->city.','.$newresponse->zipcode;
+        $current_lat = $newresponse->latitude;
+        $current_long = $newresponse->longitude;
+        $current_country_code = $newresponse->country_code2;
+
+        $user_id = \Auth::guard('customer')->id();
+        
+        $brands = Brands::all();
+        $colors = DeviceColor::all();
+        $suppliers = Supplier::where('status',1)->get();
+        $mainQuery = DeviceReview::query();
+        $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+            ->where('country_code',$current_country_code);
+            $mainQuery->with('brand','supplier','device_color_info');
+            
+            if($data['brand_name'] != ""){
+                $mainQuery->orWhere('brand_id',$data['brand_name']);
+            }
+            if($data['storage'] != ""){
+                $mainQuery->orWhere('storage',$data['storage']);
+            }
+            if($data['device_color'] != ""){
+                $mainQuery->orWhere('device_color',$data['device_color']);
+            }
+            
+            // $mainQuery->orderBy($params['name'],$params['sort']);
+            $searchResultCount = $mainQuery->count();
+            if($params['name'] == 'brand_name'){
+                $mainQuery->with('brand','supplier','device_color_info');
+                if($params['sort'] == "asc"){
+                    $searchResult = $mainQuery->get()->sortBy('brand.brand_name')->toArray();
+                }else{
+                    $searchResult = $mainQuery->get()->sortByDesc('brand.brand_name')->toArray();
+                } 
+            }
+            if($params['name'] == 'model_name'){
+                $mainQuery->with('brand','supplier','device_color_info');
+                if($params['sort'] == "asc"){
+                    $searchResult = $mainQuery->get()->sortBy('brand.model_name')->toArray();
+                }else{
+                    $searchResult = $mainQuery->get()->sortByDesc('brand.model_name')->toArray();
+                } 
+            }
+            if($params['name'] == 'supplier_name'){
+                $mainQuery->with('brand','supplier','device_color_info');
+                if($params['sort'] == "asc"){
+                    $searchResult = $mainQuery->get()->sortBy('supplier.supplier_name')->toArray();
+                }else{
+                    $searchResult = $mainQuery->get()->sortByDesc('supplier.supplier_name')->toArray();
+                } 
+            }
+            if($params['name'] == 'price' || $params['name'] == 'storage' || $params['name'] == 'distance'){
+                $mainQuery->orderBy($params['name'],$params['sort']);
+                $mainQuery->with('brand','supplier','device_color_info');
+                $searchResult = $mainQuery->get()->toArray();
+            }
+            
+            if($searchResult){
+                foreach($searchResult as $key => $value){
+                    $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
+                    $searchResult[$key]['user_address'] = $user_address;
+                }
+            }
+            return view('FrontEnd.devices.devicesSorting',['data'=>$searchResult,'filtersetting' => $filtersetting]);
+    }
+
     public function deviceDetails($id){
         $planDetailData = DeviceReview::where('id',$id)->with('device','brand','supplier','currency','device_color_info')->first();
         $allratings = $planDetailData->get_ratings();

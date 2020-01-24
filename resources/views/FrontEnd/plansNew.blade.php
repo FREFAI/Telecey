@@ -36,7 +36,7 @@
 							<div class="form-group plan_page mb-0">
 								<span class="toggle_label active">Personal</span>
 								<label class="switch">
-									<input type="checkbox" id="personal" value="1" onClick="personalToggle()" name="contract_type" @if( request()->get('contract_type') ) @if( request()->get('contract_type') == 2) checked @endif @endif>
+									<input type="checkbox" id="personal" value="2" onClick="personalToggle()" name="contract_type" @if( request()->get('contract_type') ) @if( request()->get('contract_type') == 2) checked @endif @endif>
 									<span class="slider"></span>
 								</label>
 								<span class="toggle_label">Business</span>
@@ -48,7 +48,7 @@
 							<div class="form-group plan_page mb-0">
 								<span class="toggle_label active">Postpaid</span>
 								<label class="switch">
-									<input type="checkbox" id="paymentTypeId" name="payment_type" value="postpaid" onClick=paymentType()  @if( request()->get('payment_type') ) @if( request()->get('payment_type') == 'prepaid') checked @endif @endif>
+									<input type="checkbox" id="paymentTypeId" name="payment_type" value="prepaid" onClick=paymentType()  @if( request()->get('payment_type') ) @if( request()->get('payment_type') == 'prepaid') checked @endif @endif>
 									<span class="slider"></span>
 								</label>
 								<span class="toggle_label">Prepaid</span>

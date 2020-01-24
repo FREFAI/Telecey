@@ -234,86 +234,68 @@ class PlansController extends Controller
        $user = Auth::guard('customer')->user();
        $user_id = Auth::guard('customer')->id();
        $service_types = ServiceType::get();
-       
+ 
        $data=$request->all();
         if(count($data)>1){
-            $contract_type="";
-            $payment_type="";
-            $pay_as_usage_type="";
-            $service_type= "";
             $filter = 1;
-            $user_id = Auth::guard('customer')->id();
-            if(array_key_exists("contract_type",$data)){
-                $contract_type = $data['contract_type'];
-            }elseif(array_key_exists("payment_type",$data)){
-                $payment_type = $data['payment_type'];
-            }elseif(array_key_exists("pay_as_usage_type",$data)){
-                $pay_as_usage_type = $data['pay_as_usage_type'];
-            }elseif(array_key_exists("service_type",$data)){
-                $service_type = $data['service_type'];
-            }elseif(array_key_exists("filter",$data)){
+            if(array_key_exists("filter",$data)){
                 $filter = $data['filter'];
             }
+            $mainQuery = ServiceReview::query();
+            $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+            ->where('country_code',$current_country_code)
+            ->with('provider','currency','typeOfService');
+            if(array_key_exists("service_type",$data) && $data['service_type'] != ""){
+                $mainQuery->orWhere('service_type',$data['service_type']);
+            }
+            if(array_key_exists("contract_type",$data) && $data['contract_type'] != ""){
+                $mainQuery->orWhere('contract_type',$data['contract_type']);
+            }else{
+                $mainQuery->orWhere('contract_type',1);
+            }
+            if(array_key_exists("payment_type",$data) && $data['payment_type'] != ""){
+                $mainQuery->orWhere('payment_type',$data['payment_type']);
+            }else{
+                $mainQuery->orWhere('payment_type','postpaid');
+            }
+            if(array_key_exists("pay_as_usage_type",$data) && $data['pay_as_usage_type'] != ""){
+                $mainQuery->orWhere('pay_as_usage_type',$data['pay_as_usage_type']);
+            }
+            $mainQuery->orderBy('distance','ASC');
+            $searchResultCount = $mainQuery->count();
+            $searchResult = $mainQuery->paginate($limit);
             
-            $searchResultCount = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
-            ->where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
-                $query->orWhere('contract_type',$contract_type)
-                ->orWhere('payment_type',$payment_type)
-                ->orWhere('pay_as_usage_type',$pay_as_usage_type)
-                ->orWhere('service_type',$service_type);
-                    })->with('provider','currency','typeOfService')
-                    ->orderBy('distance','ASC')
-                    ->orderBy('local_min','DESC')
-                    ->orderBy('datavolume','DESC')
-                    ->orderBy('price','ASC')
-                    ->orderBy('average_review','DESC')
-                    ->count();
-
-            $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
-                ->where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
-                    $query->orWhere('contract_type',$contract_type)
-                    ->orWhere('payment_type',$payment_type)
-                    ->orWhere('pay_as_usage_type',$pay_as_usage_type)
-                    ->orWhere('service_type',$service_type);
-                        })->with('provider','currency','typeOfService')
-                        ->orderBy('distance','ASC')
-                        ->orderBy('local_min','DESC')
-                        ->orderBy('datavolume','DESC')
-                        ->orderBy('price','ASC')
-                        ->orderBy('average_review','DESC')
-                        ->paginate($limit);
-                foreach($searchResult as $key => $value){
-                    $user_address = '';
-                    $sum = 0;
-                    $average = 0;
-                    $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
-                    $searchResult[$key]['user_address'] = $user_address;
-                }
-                if($user_id){
-                    $logData = [
-                        'user_id'                       => $user->id,
-                        'log_type'                      => 5,
-                        'type'                          => 2,
-                        'filter_type'                   => 1,
-                        'user_status'                   => $user->is_active,
-                        'user_name'                     => $user->firstname.' '.$user->lastname,
-                        'user_number'                   => $user->mobile_number,
-                        'email'                         => $user->email,
-                        'filter_params'                 => json_encode($data),
-                        'filter_search_result_count'    => $searchResultCount
-                    ];
-                }else{
-                    $logData = [
-                        'log_type'                      => 5,
-                        'type'                          => 2,
-                        'filter_type'                   => 1,
-                        'ip'                            => $ip,
-                        'filter_params'                 => json_encode($data),
-                        'filter_search_result_count'    => $searchResultCount
-                    ];
-                }
-                
-                CreateLogs::createLog($logData);
+            foreach($searchResult as $key => $value){
+                $user_address = '';
+                $sum = 0;
+                $average = 0;
+                $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
+                $searchResult[$key]['user_address'] = $user_address;
+            }
+            if($user_id){
+                $logData = [
+                    'user_id'                       => $user->id,
+                    'log_type'                      => 5,
+                    'type'                          => 2,
+                    'filter_type'                   => 1,
+                    'user_status'                   => $user->is_active,
+                    'user_name'                     => $user->firstname.' '.$user->lastname,
+                    'user_number'                   => $user->mobile_number,
+                    'email'                         => $user->email,
+                    'filter_params'                 => json_encode($data),
+                    'filter_search_result_count'    => $searchResultCount
+                ];
+            }else{
+                $logData = [
+                    'log_type'                      => 5,
+                    'type'                          => 2,
+                    'filter_type'                   => 1,
+                    'ip'                            => $ip,
+                    'filter_params'                 => json_encode($data),
+                    'filter_search_result_count'    => $searchResultCount
+                ];
+            }
+            CreateLogs::createLog($logData);
             return view('FrontEnd.plansResult',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
 
         }else{
@@ -322,6 +304,79 @@ class PlansController extends Controller
             return view('FrontEnd.plansResult',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
         }
 
+    }
+    public function plansResultSorting(Request $request)
+    {
+        $params = $request->all();
+        $requestData = explode('&',$params['requestParams']);
+        $data = [];
+        foreach($requestData as $rd){
+           $param = explode('=',$rd);
+           $data[str_replace('?','',$param[0])] = $param[1];
+        }
+        $ip = env('ip_address','live'); 
+        if($ip == 'live'){
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }else{
+            $ip = '96.46.34.142';
+        }
+        $client = new \GuzzleHttp\Client();
+        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+        $newresponse = json_decode($newresponse->getBody());
+        $current_location = $newresponse->country_name.','.$newresponse->state_prov.','.$newresponse->city.','.$newresponse->zipcode;
+        $current_lat = $newresponse->latitude;
+        $current_long = $newresponse->longitude;
+        $current_country_code = $newresponse->country_code2;
+        $filtersetting = SettingsModel::first();
+        if(!Auth::guard('customer')->check()){
+            $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 20;
+        }else{
+            $limit = 20;
+        }
+        if($filtersetting->ads_setting == 0){
+            $ads = AdsModel::where('type',0)->get();
+        }else{
+            $ads = AdsModel::where('type',1)->first();
+        }
+        $user = Auth::guard('customer')->user();
+        $user_id = Auth::guard('customer')->id();
+        $service_types = ServiceType::get();
+        $filter = 1;
+        if(array_key_exists("filter",$data)){
+            $filter = $data['filter'];
+        }
+        $mainQuery = ServiceReview::query();
+        $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+        ->where('country_code',$current_country_code)
+        ->with('provider','currency','typeOfService');
+        if(array_key_exists("service_type",$data) && $data['service_type'] != ""){
+            $mainQuery->orWhere('service_type',$data['service_type']);
+        }
+        if(array_key_exists("contract_type",$data) && $data['contract_type'] != ""){
+            $mainQuery->orWhere('contract_type',$data['contract_type']);
+        }else{
+            $mainQuery->orWhere('contract_type',1);
+        }
+        if(array_key_exists("payment_type",$data) && $data['payment_type'] != ""){
+            $mainQuery->orWhere('payment_type',$data['payment_type']);
+        }else{
+            $mainQuery->orWhere('payment_type','postpaid');
+        }
+        if(array_key_exists("pay_as_usage_type",$data) && $data['pay_as_usage_type'] != ""){
+            $mainQuery->orWhere('pay_as_usage_type',$data['pay_as_usage_type']);
+        }
+        $mainQuery->orderBy($params['name'],$params['sort']);
+        $searchResultCount = $mainQuery->count();
+        $searchResult = $mainQuery->paginate($limit);
+        
+        foreach($searchResult as $key => $value){
+            $user_address = '';
+            $sum = 0;
+            $average = 0;
+            $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
+            $searchResult[$key]['user_address'] = $user_address;
+        }
+        return view('FrontEnd.plans.planSorting',['data' => $searchResult,'filtersetting'=>$filtersetting]);
     }
     /**
      * Show the application dashboard.

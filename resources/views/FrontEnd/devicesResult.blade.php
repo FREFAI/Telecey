@@ -76,19 +76,19 @@
 		@if(count($data)>0)
 		<div class="row record_section">
 			<div class="col-lg-12">
-				<table id="example" class="table table-striped custom-table" style="width:100%">
+				<table id="example" class="table table-striped custom-table device_sorting" style="width:100%" data-url="{{url('/devices/resultSorting')}}">
 					<thead>
 						<tr>
-							<th>Brand</th>
-							<th>Model</th>
-							<th>Supplier</th>
-							<th>Price</th>
-							<th>Capacity</th>
-							<th>Distance</th>
-							<th>Details</th>
+							<th class="custom_sorting" data-name="brand_name" data-sort="asc">Brand <i class="fas fa-arrow-down"></i></th>
+							<th class="custom_sorting" data-name="model_name" data-sort="asc">Model <i class="fas fa-arrow-down"></i></th>
+							<th class="custom_sorting" data-name="supplier_name" data-sort="asc">Supplier <i class="fas fa-arrow-down"></i></th>
+							<th class="custom_sorting" data-name="price" data-sort="asc">Price <i class="fas fa-arrow-down"></i></th>
+							<th class="custom_sorting" data-name="storage" data-sort="asc">Capacity <i class="fas fa-arrow-down"></i></th>
+							<th class="custom_sorting" data-name="distance" data-sort="asc">Distance <i class="fas fa-arrow-down"></i></th>
+							<th class="text-center">Details</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="table_body_sort">
 						@foreach($data as $key => $value)
 						<tr class="custom-row-cl @if($key == 4 || $key == 8) adds @endif">
 							@if($key == 4)
@@ -156,6 +156,12 @@
 	</div>
 </section>
 <style>
+	.custom_sorting i {
+    	font-size: 13px;
+	}
+	.custom_sorting{
+		cursor: pointer;
+	}
 	span.toggle_label{
 		color: #000;
 	}
@@ -424,5 +430,42 @@
 	function filterExpend(){
 		$('.expendedFilter').toggle();
 	}
+	// Sorting 
+	$(document).on('click','.custom_sorting',function(){
+		$('#loader').show();
+		var requestParams = location.search;
+		var name = $(this).attr('data-name');
+		var sort = $(this).attr('data-sort');
+		var resuesturl = $('.device_sorting').attr('data-url');
+		if(sort == 'asc'){
+			$(this).attr('data-sort','desc');
+			$(this).find('i').attr('class','fas fa-arrow-down');
+		}else{
+			$(this).attr('data-sort','asc');
+			$(this).find('i').attr('class','fas fa-arrow-up');
+		}
+		$.ajax({
+			type: "post",
+			url: resuesturl,
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			dataType:'html',
+			data: {
+				'requestParams': requestParams,
+				'name':name,
+				'sort':sort
+			},
+			success: function (data) {
+				$('.table_body_sort').html(data);
+
+				// $(".rating_disable").rate({
+				// 	readonly:true
+				// });
+				$('#loader').hide();
+			}         
+		});
+		
+	});
 </script>
 @endsection

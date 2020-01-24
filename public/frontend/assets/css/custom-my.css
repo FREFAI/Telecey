@@ -56,27 +56,28 @@ input.form-control.price-box.device-price {
     margin-left: 9px;
 }
 a.btn.btn-info.pull-right.add_service:hover{
-  background-color: #96fdd4 !important;
-  color: #495057 !important;
-  border-color: #96fdd4 !important;
+  background-color: #ffffff !important;
+  color: #2e75b5 !important;
+  border: 2px solid #2e75b5 !important;
 }
 .contact-form .submit-btn:hover, button.btn.btn-primary.btn-lg.btn-block.product-submit-btn:hover{
-  background-color: #96fdd4 !important;
-  color: #495057 !important;
-  border-color: #96fdd4 !important;
+  background-color: #fff !important;
+  color: #2e75b5 !important;
+  border: 2px solid #2e75b5 !important;
 }
 .contact-form .submit-btn, button.btn.btn-primary.btn-lg.btn-block.product-submit-btn {
-    background-color: #96fdd4;
-    color: #495057;
-    width: 30%;
+  background-color: #ffffff !important;
+  color: #2e75b5 !important;
+  border: 2px solid #2e75b5 !important;
+  width: 30%;
 }
 .service-rating-submit-btn{
   color: #495057;
 }
 .btn-primary:hover,.btn-primary:focus,.btn-primary{
-  background: #96fdd4;
-  color: #495057;
-  border: #96fdd4;
+  background-color: #fff !important;
+  color: #2e75b5 !important;
+  border: 2px solid #2e75b5 !important;
 }
 .tg-select.tg-select select{
   line-height: 37px;

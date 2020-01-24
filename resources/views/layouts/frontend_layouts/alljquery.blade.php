@@ -452,6 +452,8 @@
                             speedTestFunction();
                             $('.service_id').val(data.service_id);
                             $('.plan_id').val(data.service_id);
+                            $('.second-step').hide();
+                            $('.get-in-touch.detail-section').hide();
                             reviewform.closest('.service_form_section').addClass('section-d-none');                   
                           }else{
                             // toastr.error('Add detail', data.message , {displayDuration:3000,position: 'top-right'});
@@ -715,6 +717,8 @@
                           if(data.success){
                             $('.device_id').val(data.device_id);  
                             reviewform.addClass('section-d-none');
+                            $('.second-step').hide();
+                            $('.get-in-touch.detail-section').hide();
                             reviewform.next('#device_rating_section').removeClass('section-d-none');         
                           }
                       }         

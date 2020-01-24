@@ -16,9 +16,16 @@
     }
 </style>
 	<!-- Content Start Here -->
-		<div class="page-header inner-page start-page" style="background: url({{URL::asset('frontend/assets/img/bg-1.jpeg')}});">
+		<div class="inner-page start-page">
 		    <div class="container-fluid">
-		        <div class="row">
+                <div class="row second-step">
+                    <div class="col-lg-12">
+                        <div class="step_two_img">
+                            <img src="{{URL::asset('frontend/assets/img/Tube_Lights_(1).png')}}"/>
+                        </div>
+                    </div>
+                </div>
+		        <!-- <div class="row">
 		            <div class="col-lg-4 text-center">
 		                <div class="step-section-one">
 		                    <img src="{{URL::asset('frontend/assets/img/intro.png')}}">
@@ -40,7 +47,7 @@
 		                    <h3 class="pt-3 custom-height-cl">ONE MORE THINGDO YOU RATE THIS SERVICE?</h3>
 		                </div>
 		            </div>
-		        </div>
+		        </div> -->
 		        <!-- <div class="row">
 		                <div class="col text-center">
 		                        <a href="javascript:void(0);" data-class="intro-section" class="start_btn">

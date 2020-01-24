@@ -189,9 +189,9 @@
 	}
 </style>
 	<!-- Content Start Here -->
-		<div class="page-header inner-page start-page" style="background: url({{URL::asset('frontend/assets/img/bg-1.jpeg')}});">
+		<div class="inner-page start-page" style="background: url({{URL::asset('frontend/assets/img/bg-1.jpeg')}});">
 		    <div class="container-fluid">
-		        <div class="row">
+		        <!-- <div class="row">
 		            <div class="col-lg-4 text-center">
 		                <div class="step-section-one">
 		                    <img src="{{URL::asset('frontend/assets/img/intro.png')}}">
@@ -213,7 +213,7 @@
 		                    <h3 class="pt-3 custom-height-cl">ONE MORE THINGDO YOU RATE THIS SERVICE?</h3>
 		                </div>
 		            </div>
-		        </div>
+		        </div> -->
 		        <!-- <div class="row">
 	                <div class="col text-center">
 	                        <a href="javascript:void(0);" data-class="intro-section" class="start_btn">
@@ -232,6 +232,19 @@
         @if(!Request::get('type'))
 		<section class="intro-section">
 	        <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="step_one_img">
+                            <img src="{{URL::asset('frontend/assets/img/374216-PBQ6QV-653.png')}}"/>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-12 text-center">
+                        <div class="title-step-1">
+                            <h1>STEP #1</h1>
+                            <h1>Please Introduce Yourself</h1>
+                        </div>
+                    </div> -->
+                </div>
 	            <div class="row step-row">
 	                <div class="col-lg-12 text-center wow animated fadeInRight" data-wow-delay="0.2s">
 	                    <div class="step-section-one mt-5 mb-5">
@@ -291,11 +304,27 @@
 		<!-- share-serv-detail -->
 		<section class="service-detail @if(!Request::get('type')) section-d-none @endif">
 		    <div class="container">
+                <div class="row second-step">
+                    <div class="col-lg-12">
+                        <div class="step_two_img">
+                            <img src="{{URL::asset('frontend/assets/img/Tube_Lights_(1).png')}}"/>
+                        </div>
+                    </div>
+                </div>
+                @if(Request::get('type'))
+                <div class="row my-4 second-step">
+                    <div class=" title-step-1">
+                        <!-- <h1 >STEP #2</h1> -->
+                        <h1>What About Sharing You Service with others?</h1>
+                    </div>
+                </div>
+                @endif
                 @if(!Request::get('type'))
 	           	<form class="get-in-touch detail-section pt-4 mt-5 mb-5">
 	                <div class="row">
-	                    <div class="heading detail-div">
-	                        <h1 class="section-title">What your are reveiewing today?</h1>
+	                    <div class=" title-step-1">
+	                        <!-- <h1 >STEP #2</h1> -->
+	                        <h1>What About Sharing You Service with others?</h1>
 	                    </div>
 	                </div>
 	                <div class="row">
@@ -444,6 +473,13 @@
                 </form>
                 <!-- Star rating section -->
                 <div class="services-rating-section section-d-none section-both" id="device_rating_section">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="step_three_img text-center">
+                                <img src="{{URL::asset('frontend/assets/img/Waves_iPhone_Case.png')}}"/>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="heading detail-div">
                             <h1 class="section-title">Rating</h1>
@@ -774,7 +810,14 @@
 
                     <!-- Star rating section -->
                     <div class="services-rating-section section-d-none section-both" id="rating_section">
-	               		<div class="row">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="step_three_img text-center">
+                                    <img src="{{URL::asset('frontend/assets/img/Waves_iPhone_Case.png')}}"/>
+                                </div>
+                            </div>
+                        </div>   
+                        <div class="row">
 	               		    <div class="heading detail-div">
 	               		        <h1 class="section-title">Rating</h1>
 	               		    </div>

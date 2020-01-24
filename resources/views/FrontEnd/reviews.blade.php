@@ -788,7 +788,7 @@
                                 <div class="col-lg-6">
                                     <h5>Upfront price</h5>
                                     <div class="form-group">
-                                        <input type="number" class="form-control upfront_price" name="upfront_price" placeholder="Upfront price"  maxlength="20">	
+                                        <input type="number" class="form-control upfront_price" name="upfront_price" placeholder="Upfront price"  maxlength="20" value="0">	
                                     </div>	
                                 </div>
                                 <!-- <div class="col-lg-6 mt-3">

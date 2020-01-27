@@ -2002,15 +2002,22 @@ table.table.custom-table tbody tr:hover {
   .record_section{
     display: none;
   }
+  /* .autorotate img {
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  .autorotate img:hover {
+    transform: rotateY(180deg);
+  } */
   .autorotate img {
     animation: mymove 5s 2;
     animation-iteration-count: infinite;
-    animation-duration: 5s;
+    animation-duration: 10s;
   }
   @keyframes mymove {
-    0% {-webkit-transform: rotate(-45deg);}
-    50%{ -webkit-transform: rotate(45deg);}
-    100% {-webkit-transform: rotate(-45deg);}
+    0% {transform: rotateY(-180deg);}
+    50%{ transform: rotateY(180deg);}
+    100% {transform: rotateY(-180deg);}
 
   }
 

@@ -108,13 +108,13 @@ class ReviewsController extends Controller
         $current_lat = $newresponse->latitude;
         $current_long = $newresponse->longitude;
         $settings = SettingsModel::first();
-        $providers = Provider::where('country',$usersAddress->country)->get();
+        $providers = Provider::where('country',$usersDetail->country)->get();
        
         $countries = Currency::get();
         $brandModels = BrandModels::get();
         $devices = Devices::get();
         $brands = Brands::get();
-        $suppliers = Supplier::where('country',$usersAddress->country)->get();
+        $suppliers = Supplier::where('country',$usersDetail->country)->get();
         $service_types = ServiceType::get();
         $questions = RatingQuestion::get();
         $colors = DeviceColor::get();

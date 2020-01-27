@@ -93,6 +93,11 @@
                        <th scope="col" style="width: 10px;">Sr.No</th>
                        <th scope="col" style="width: 10px;">Name</th>
                        <th scope="col" style="width: 10px;">Nick Name</th>
+                       <th scope="col" style="width: 10px;">Email</th>
+                       <th scope="col" style="width: 10px;">Phone Number</th>
+                       <th scope="col" style="width: 10px;">City</th>
+                       <th scope="col" style="width: 10px;">Country</th>
+                       <th scope="col" style="width: 10px;">Postal code</th>
                        <th scope="col" class="text-center">Account type</th>
                        <th scope="col" class="text-center">Status</th>
                        <th scope="col" class="text-center">No. of plans</th>
@@ -126,6 +131,31 @@
                           <td class="text-center">
                             <div class="media-body">
                                 <span class="mb-0 text-sm">{{$user->nickname}}</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div class="media-body">
+                                <span class="mb-0 text-sm">{{$user->email}}</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div class="media-body">
+                                <span class="mb-0 text-sm">{{$user->mobile_number}}</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div class="media-body">
+                                <span class="mb-0 text-sm">{{$user->userAdderss != "" ? $user->userAdderss->city : ""}}</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div class="media-body">
+                                <span class="mb-0 text-sm">{{$user->userAdderss != "" ? $user->userAdderss->country : ""}}</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div class="media-body">
+                                <span class="mb-0 text-sm">{{$user->userAdderss != "" ? $user->userAdderss->postal_code : ""}}</span>
                             </div>
                           </td>
                           <td>

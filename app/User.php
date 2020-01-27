@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function userAdderss()
     {
-        return $this->hasOne('App\UserAddress', 'id', 'user_address_id');
+        return $this->hasOne('App\UserAddress', 'user_id', 'id')->where('is_primary','=', 1);
     }
     public function plans() {
           return $this->hasMany('App\Models\FrontEnd\ServiceReview','user_id','id');

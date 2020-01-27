@@ -32,7 +32,7 @@ class UsersController extends Controller
         $email=$request->get('email');
         $parameter = $request->all();
       if( empty($name) && empty($email) ){
-            $users = User::orderBy('id','DESC')->paginate(10);
+            $users = User::with('userAdderss')->orderBy('id','DESC')->paginate(10);
             foreach ($users as $user) {
                 $plans = $user->plans;
                 foreach ($plans as $plan) {
@@ -51,9 +51,8 @@ class UsersController extends Controller
     public function searchUser(Request $request)
     {
         $parameter = $request->all();
-        // $page = $request->has('page') ? $request->get('page') : 1;
-        // $limit = $request->has('limit') ? $request->get('limit') : 10;
         $query = User::query();
+        $query->with('userAdderss');
         if(isset($parameter['name']) != ""){
             if(isset($parameter['status']) != 3){
                 $query->where(function ($query) use ($parameter){
@@ -92,21 +91,6 @@ class UsersController extends Controller
                 $query->where('users.updated_at','LIKE',"%{$parameter['updated_at']}%");
             }
         }
-        // if($parameter['plans'] != ""){
-        //     if($parameter['status'] != 3){
-        //         $qyery->has('')
-        //         $query->withCount('plans')->having('plans_count', '=', $parameter['plans']);
-        //     }else{
-        //         $query->withCount('plans')->having('plans_count', '=', $parameter['plans']);
-        //     }
-        // }
-        // if($parameter['devices'] != ""){
-        //     if($parameter['status'] != 3){
-        //         $query->withCount('devices')->having('devices_count', '=', $parameter['devices']);
-        //     }else{
-        //         $query->withCount('devices')->having('devices_count', '=', $parameter['devices']);
-        //     }
-        // }
         if(isset($parameter['search_by_properties']) != ""){
 
             $brands_IDs = Brands::where(function ($brandquery) use ($parameter){
@@ -132,8 +116,6 @@ class UsersController extends Controller
             $query->select('users.*')->join('providers','providers.user_id','=','users.id')
                     ->where('providers.status','=',0);
         }
-        // echo $users = $query->toSql();
-        // exit;
         $users = $query->orderBy('id','DESC')->paginate(10);
 
         foreach ($users as $user) {
@@ -147,12 +129,6 @@ class UsersController extends Controller
 
         }
         return $users;
-        // $userCount = 100;
-
-        // $total_pages = ceil($userCount / $limit);
-        // echo "<pre>";print_r($users);
-        // exit;
-        // return view('Admin.Users.users-list',['users'=>$users,'request'=>$parameter]);
     }
     public function getSingleUserDetail(Request $request,$userId)
     {

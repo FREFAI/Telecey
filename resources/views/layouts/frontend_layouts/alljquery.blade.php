@@ -405,7 +405,7 @@
                 title: currency_name+' '+price,
                 text: "Above price is including tax"
               })
-            .then(name => {
+            .then(function(name) {
                 if(name){
                   $('.ajaxloader').show();
                   if(window.location.protocol == "http:"){
@@ -683,7 +683,7 @@
                 title: currency_name+' '+price,
                 text: "Above price is including tax"
               })
-            .then(name => {
+            .then(function(name) {
                 if(name){
                   $('.ajaxloader').show();
                   if(window.location.protocol == "http:"){

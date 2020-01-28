@@ -363,7 +363,7 @@
             var pay_as_usage = $('.pay_as_usage:checked').val();
             var price = $('.price').val();
             var currency_id = $('.currency_id').val();
-            var currency_name = $('.currency_id option:checked').text();
+            var currency_name = $(this).find('.currency_id option:checked').text();
             var payment_type = $('.payment_type:checked').val();
             var overage_price = $('#overage_price:checked').val();
             var service_type = $('.service_type').val();
@@ -675,10 +675,12 @@
             var reviewform = $(this);
             var device = $('#device_id').val();
             var currency_id = $('.currency_id').val();
-            var currency_name = $('.currency_id option:checked').text();
+            var currency_name = $(this).find('.currency_id option:checked').text();
             var price = $('#price').val();
             var storage = $('#storage').val();
             var device_color = $('#device_color').val();
+            console.log(currency_name);
+            
             swal({
                 title: currency_name+' '+price,
                 text: "Above price is including tax"

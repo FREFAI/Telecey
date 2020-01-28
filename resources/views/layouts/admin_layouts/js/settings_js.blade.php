@@ -311,7 +311,7 @@
 					swal("Are you sure you want to delete this add?", {
 			          buttons: ["No", "Yes"],
 			        })
-			        .then(name => {
+			        .then(function(name) {
 			          	if(name){
 							$.ajax({
 							    type: "post",
@@ -350,7 +350,7 @@
 			swal("Are you sure you want to delete this service type?", {
 	          buttons: ["No", "Yes"],
 	        })
-	        .then(name => {
+	        .then(function(name) {
 	          if(name){
 	            $.ajax({
     			    type: "post",
@@ -388,7 +388,7 @@
 			swal("Are you sure you want to delete this provider?", {
 	          buttons: ["No", "Yes"],
 	        })
-	        .then(name => {
+	        .then(function(name) {
 	          	if(name){
 					$.ajax({
 					    type: "post",
@@ -433,7 +433,7 @@
 			swal(mesages, {
 	          buttons: ["No", "Yes"],
 	        })
-	        .then(name => {
+	        .then(function(name) {
 	          	if(name){
 					$.ajax({
 					    type: "post",
@@ -493,7 +493,7 @@
 			swal("Are you sure you want to delete this post?", {
 	          buttons: ["No", "Yes"],
 	        })
-	        .then(name => {
+	        .then(function(name) {
 	          	if(name){
 					$.ajax({
 					    type: "post",
@@ -531,7 +531,7 @@
 			swal("Are you sure you want to delete this class?", {
 	          buttons: ["No", "Yes"],
 	        })
-	        .then(name => {
+	        .then(function(name) {
 	          	if(name){
 					$.ajax({
 					    type: "post",
@@ -569,7 +569,7 @@
 			swal("Are you sure you want to delete this question?", {
 	          buttons: ["No", "Yes"],
 	        })
-	        .then(name => {
+	        .then(function(name) {
 	          	if(name){
 					$.ajax({
 					    type: "post",
@@ -607,7 +607,7 @@
 				swal("Are you sure you want to delete this device?", {
 		          buttons: ["No", "Yes"],
 		        })
-		        .then(name => {
+		        .then(function(name) {
 		          	if(name){
 						$.ajax({
 						    type: "post",
@@ -644,7 +644,7 @@
 				swal("Are you sure you want to delete this brand?", {
 		          buttons: ["No", "Yes"],
 		        })
-		        .then(name => {
+		        .then(function(name) {
 		          	if(name){
 						$.ajax({
 						    type: "post",
@@ -760,7 +760,7 @@
 				swal(mesages, {
 		          buttons: ["No", "Yes"],
 		        })
-		        .then(name => {
+		        .then(function(name) {
 		          	if(name){
 						$.ajax({
 						    type: "post",
@@ -817,7 +817,7 @@
 				swal("Are you sure you want to delete this model?", {
 		          buttons: ["No", "Yes"],
 		        })
-		        .then(name => {
+		        .then(function(name) {
 		          	if(name){
 						$.ajax({
 						    type: "post",
@@ -862,7 +862,7 @@
 				swal(mesages, {
 		          buttons: ["No", "Yes"],
 		        })
-		        .then(name => {
+		        .then(function(name) {
 		          	if(name){
 						$.ajax({
 						    type: "post",
@@ -922,7 +922,7 @@
 				swal("Are you sure you want to delete this admin?", {
 		          buttons: ["No", "Yes"],
 		        })
-		        .then(name => {
+		        .then(function(name) {
 		          	if(name){
 						$.ajax({
 						    type: "post",
@@ -955,7 +955,7 @@
 					swal('Are you sure you want to sent forgot password email?', {
 			          buttons: ["No", "Yes"],
 			        })
-			        .then(name => {
+			        .then(function(name) {
 			        	if(name){
 			        		window.location = url;
 			        	}
@@ -979,7 +979,7 @@
 					swal(mesages, {
 			          buttons: ["No", "Yes"],
 			        })
-			        .then(name => {
+			        .then(function(name) {
 			          	if(name){
 							$.ajax({
 							    type: "post",
@@ -1040,7 +1040,7 @@
 				swal('Are you sure you want to close this case?', {
 		          buttons: ["No", "Yes"],
 		        })
-		        .then(name => {
+		        .then(function(name) {
 		          	if(name){
 						$.ajax({
 						    type: "post",
@@ -1080,7 +1080,7 @@
 				swal('Are you sure you want to close this case?', {
 		          buttons: ["No", "Yes"],
 		        })
-		        .then(name => {
+		        .then(function(name) {
 		          	if(name){
 						$.ajax({
 						    type: "post",
@@ -1121,7 +1121,7 @@
 				swal("Are you sure you want to delete this Supplier?", {
 		          buttons: ["No", "Yes"],
 		        })
-		        .then(name => {
+		        .then(function(name) {
 		          	if(name){
 						$.ajax({
 						    type: "post",
@@ -1158,7 +1158,7 @@
 				swal("Are you sure you want to delete this color?", {
 		          buttons: ["No", "Yes"],
 		        })
-		        .then(name => {
+		        .then(function(name) {
 		          	if(name){
 						$.ajax({
 						    type: "post",
@@ -1203,7 +1203,7 @@
 				swal(mesages, {
 		          buttons: ["No", "Yes"],
 		        })
-		        .then(name => {
+		        .then(function(name) {
 		          	if(name){
 						$.ajax({
 						    type: "post",

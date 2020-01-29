@@ -50,6 +50,7 @@
 						</div>
 					</div>
 					<div class="row">
+						<input type="hidden" value="20" name="rows"/>
 						<div class="col-md-12 text-center">
 							<button type="submit" class="searchnow-button">Search Now</button>
 						</div>

@@ -55,7 +55,7 @@
 							</div>
 						</div>
 						@endif
-
+						<input type="hidden" name="rows" value="20">
 						<div class="col-4 pl-0 text-left mt-4">
 							<div class="form-group plan_page mb-0">
 								<span class="toggle_label active">Pay as usage</span>

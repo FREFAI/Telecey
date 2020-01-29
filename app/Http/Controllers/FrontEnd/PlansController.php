@@ -206,6 +206,7 @@ class PlansController extends Controller
 
     public function plansResult(Request $request)
     {
+        $data=$request->all();
        // Current location section
        $ip = env('ip_address','live'); 
        if($ip == 'live'){
@@ -222,9 +223,13 @@ class PlansController extends Controller
        $current_country_code = $newresponse->country_code2;
        $filtersetting = SettingsModel::first();
        if(!Auth::guard('customer')->check()){
-           $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 20;
+            $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 20;
        }else{
-           $limit = 20;
+            if(array_key_exists("rows",$data)){
+                $limit = $data['rows'];
+            }else{
+                $limit = 20;
+            } 
        }
        if($filtersetting->ads_setting == 0){
            $ads = AdsModel::where('type',0)->get();
@@ -235,7 +240,6 @@ class PlansController extends Controller
        $user_id = Auth::guard('customer')->id();
        $service_types = ServiceType::get();
  
-       $data=$request->all();
         if(count($data)>1){
             $filter = 1;
             if(array_key_exists("filter",$data)){

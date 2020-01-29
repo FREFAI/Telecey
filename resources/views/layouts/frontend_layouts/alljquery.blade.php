@@ -244,10 +244,13 @@
                 $('.'+class_hide_show).removeClass('section-d-none');
             });
             $('.select_one').on('change',function(){
-               var section_class = $(this).val();
-               $('.section-both').addClass('section-d-none');
+                $(this).closest('form.get-in-touch.detail-section').hide();
+                var section_class = $(this).val();
+                $('.section-both').addClass('section-d-none');
                 $('.'+section_class).removeClass('section-d-none');
                 $('.'+section_class+' .service_form_section').removeClass('section-d-none');
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
             });
             $(function(){
                 $('.btn-circle').on('click',function(){
@@ -344,6 +347,8 @@
                     if(data.success){
                       thisform.closest('.intro-section').addClass('section-d-none');
                       $('.service-detail').removeClass('section-d-none');
+                      document.body.scrollTop = 0;
+                      document.documentElement.scrollTop = 0;
                     }else{
                       // toastr.error('Add detail', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
                     }
@@ -382,7 +387,6 @@
             var device_id_plan = $('.device_select').val();
             var upfront_price = $('.upfront_price').val();
             var sms = $('.sms').val();
-            console.log(price);
             if(pay_as_usage != 1){
               if(local_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(local_min) != true){
               return;

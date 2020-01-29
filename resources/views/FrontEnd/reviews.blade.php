@@ -38,8 +38,8 @@
 		float: left;
 		font-size: 14px;
 		font-weight: normal;
-		height: 42px;
-		line-height: 50px;
+        height: 34px;
+        line-height: 34px;
 		outline: none;
 		padding-left: 18px;
 		padding-right: 30px;
@@ -63,13 +63,6 @@
 		background-color: #fff;
 	}
 
-	/* .dropdown-select:active,
-	.dropdown-select.open {
-		background-color: #fff !important;
-		border-color: #bbb;
-		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) inset;
-	} */
-
 	.dropdown-select:after {
 		display:none;
 	}
@@ -92,7 +85,7 @@
 
 	.selectreview .dropdown-select.wide {
 		width: 100%;
-        border: 1px solid #e5e5e5;
+        border: 1px solid #2e75b5;
         border-radius: 5px;
         font-weight: 400;
 	}
@@ -130,15 +123,15 @@
 		background-color: transparent !important;
 	}
 	.dropdown-select .dd-search{
-	overflow:hidden;
-	display:flex;
-	align-items:center;
-	justify-content:center;
-	margin:0.5rem;
+        overflow:hidden;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin:0.5rem;
 	}
 
 	.dropdown-select .dd-searchbox:focus{
-	border-color:#12CBC4;
+	    border-color:#12CBC4;
 	}
 
 	.dropdown-select .list ul {
@@ -171,7 +164,7 @@
 
 	.dropdown-select .option.selected {
 		font-weight: 600;
-		color: #12cbc4;
+		color: #2e75b5;
 	}
 
 	.dropdown-select .option.selected:focus {
@@ -186,7 +179,14 @@
 
 	.dropdown-select a:hover {
 		color: #666;
-	}
+    }
+    input.form-control{
+        min-height: 32px;
+        height: unset !important;
+    }
+    .form-control{
+        border: none;
+    }
 </style>
 	<!-- Content Start Here -->
 		<div class="inner-page start-page" style="background: url({{URL::asset('frontend/assets/img/bg-1.jpeg')}});">
@@ -304,29 +304,26 @@
 		<!-- share-serv-detail -->
 		<section class="service-detail @if(!Request::get('type')) section-d-none @endif">
 		    <div class="container">
-                <div class="row second-step">
-                    <div class="col-lg-12">
+                <div class="row second-step align-items-center">
+                    <div class="col-lg-4">
                         <div class="step_two_img">
                             <img src="{{URL::asset('frontend/assets/img/Tube_Lights_(1).png')}}"/>
                         </div>
                     </div>
-                </div>
-                @if(Request::get('type'))
-                <div class="row my-4 second-step">
-                    <div class=" title-step-1">
-                        <!-- <h1 >STEP #2</h1> -->
-                        <h1>What About Sharing You Service with others?</h1>
+                    <div class="col-lg-8">
+                        <div class=" title-step-1 w-75">
+                            @if(Request::get('type'))
+                                <h1>STEP #1</h1>
+                            @else
+                                <h1>STEP #2</h1>
+                            @endif
+                            <h1>What About Sharing You Service with others?</h1>
+                        </div>
                     </div>
                 </div>
-                @endif
+               
                 @if(!Request::get('type'))
-	           	<form class="get-in-touch detail-section pt-4 mt-5 mb-5">
-	                <div class="row">
-	                    <div class=" title-step-1">
-	                        <!-- <h1 >STEP #2</h1> -->
-	                        <h1>What About Sharing You Service with others?</h1>
-	                    </div>
-	                </div>
+	           	<form class="get-in-touch detail-section pt-4 mb-3">
 	                <div class="row">
                         @if($settings->device == 1)
 	                    <div class="col-lg-6 col text-center">
@@ -345,214 +342,211 @@
                 @endif
                 <!-- Device section  -->
                 <section class="product-section @if(Request::get('type') == 1) section-d-none @endif @if(!Request::get('type')) section-d-none @endif section-both">
-                <form id="device_rating_form" method="post" action="javascript:void(0);">
-                   <div class="row mt-3">
-                       <div class="col-lg-6 ">
-                           <h5>Device type</h5>
-                           <div class="tg-select form-control">
-                                <select required="required" name="device_name" id="device_id">
-                                    @if(count($devices) > 0)
-                                        <option value="">Choose device</option>
-                                    @foreach($devices as $device)
-                                        <option value="{{$device->id}}">{{$device->device_name}}</option>
-                                    @endforeach
-                                    @else
-                                        <option value="">No data found.</option>
-                                    @endif
-                                </select>
-                            </div>
-                       </div>
-                       <div class="col-lg-6 ">
-                            <h5>Brand</h5>
-                            <div class="form-group inputwithicon">
-                                <div class="selectreview">
-                                    <select class="brand_name active brand_select_brand_device" required="required" name="brand_name" data-url="{{url('/searchBrand')}}">
-                                        <option value="">Brand</option>
-                                        @foreach($brands as $v)
-                                            <option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
+                    <form id="device_rating_form" method="post" action="javascript:void(0);">
+                        <div class="row mt-1">
+                            <div class="col-lg-6">
+                                <h5>Device type</h5>
+                                <div class="tg-select form-control">
+                                    <select required="required" name="device_name" id="device_id">
+                                        @if(count($devices) > 0)
+                                            <option value="">Choose device</option>
+                                        @foreach($devices as $device)
+                                            <option value="{{$device->id}}">{{$device->device_name}}</option>
                                         @endforeach
+                                        @else
+                                            <option value="">No data found.</option>
+                                        @endif
                                     </select>
                                 </div>
                             </div>
-                            <!-- <div class="tg-select form-control brand_select">
-                                 <select class="brand_name active" required="required" name="brand_name" id="brand">
-                                    @if(count($brands) > 0)
-                                        <option value="">Choose brand</option>
-                                    @foreach($brands as $brand)
-                                        <option value="{{$brand->id}}">{{$brand->brand_name}} {{$brand->model_name}}</option>
-                                    @endforeach
-                                    @else
-                                        <option value="">No data found.</option>
-                                    @endif
-                                 </select>
-                             </div> -->
-                              <div class="form-group brand_text">
-                                  <input type="text" class="form-control brand_name text_brand_name" name="brand_name" placeholder="Brand name" maxlength="30">  
-                                  <br>    
-                                  <input type="text" class="form-control model_name text_model_name" name="model_name" placeholder="Model name" maxlength="30">      
-                                  <input type="hidden" class="form-control brand_status" name="brand_status" placeholder="Brand status" value="1">      
-                              </div>
-                             <small>
-                                <a href="javascript:void(0)" onclick="brand_text_show();" class="brand_text_show">Couldn't find your brand</a>
-                             </small>
-                        </div>
-                   </div>
-                   <div class="row mt-3">
-                        <div class="col-lg-6 ">
-                            <h5>Price</h5>
-                            <div class="form-group">
-                                <select class="form-control currency_id">
-                                    @foreach($countries as $curr)
-                                        @if($curr->currency_code != '' && $curr->currency_code != " ")
-                                            <option @if($curr->code == $usersDetail->country_code)
-                                            selected
-                                            @elseif($curr->country_code == 'US') selected @endif value="{{$curr->id}}">{{$curr->currency_code}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                                <input type="text" class="form-control price-box device-price" name="price" placeholder="Price" required id="price">  
-                                <small>Including Tax</small>    
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                             <h5>Supplier</h5>
-                             <div class="tg-select form-control supplier_select">
-                                <select name="supplier" id="supplier" class="supplier_name active">
-                                    @if(count($suppliers) > 0)
-                                        <option value="">Choose brand</option>
-                                    @foreach($suppliers as $supplier)
-                                        <option value="{{$supplier->id}}">{{$supplier->brand_name}} {{$supplier->supplier_name}}</option>
-                                    @endforeach
-                                    @else
-                                        <option value="">No data found.</option>
-                                    @endif
-                                </select>
-                              </div>
-                              <div class="form-group supplier_text">
-                                  <input type="text" class="form-control supplier_name text_supplier_name" name="supplier_name" placeholder="Supplier name" maxlength="30">      
-                                  <input type="hidden" class="form-control supplier_status" name="supplier_status" placeholder="Supplier status" value="1">      
-                              </div>
-                             <small>
-                                <a href="javascript:void(0)" class="supplier_text_show" onclick="supplier_text_show()">Couldn't find your supplier</a>
-                             </small>
-                         </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <div class="col-lg-3">
-                            <h5>Capacity</h5>
-                            <div class="tg-select form-control">
-                                <select required="required" name="storage" id="storage">
-                                    <option value="">Choose Capacity</option>
-                                    <option value="64">64</option>
-                                    <option value="128">128</option>
-                                    <option value="256">256</option>
-                                    <option value="512">512</option>
-                                    <option value="1GB">1GB</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <h5>Color</h5>
-                            <div class="tg-select form-control">
-                                <select required="required" name="device_color" id="device_color">
-                                    
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <a  href="{{url('/reviews?type=1')}}"><h5>Do you want to rate a plan instead?</h5></a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group w-50 ml-auto mr-auto text-center">
-                                <button type="submit" class="btn btn-primary btn-lg btn-block product-submit-btn">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <!-- Star rating section -->
-                <div class="services-rating-section section-d-none section-both" id="device_rating_section">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="step_three_img text-center">
-                                <img src="{{URL::asset('frontend/assets/img/Waves_iPhone_Case.png')}}"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="heading detail-div">
-                            <h1 class="section-title">Rating</h1>
-                        </div>
-                    </div>
-                    <div class="row device_starrating_error d-none">
-                        <div class="error">
-                            All rating rows are required.
-                        </div>
-                    </div>
-                    @if(count($questions)>0)
-                        @foreach($questions as $question)
-                            @if($question->type == 2)
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="">
-                                        <h5>{{$question->question}}</h5>
+                            <div class="col-lg-6">
+                                    <h5>Brand</h5>
+                                    <div class="form-group inputwithicon">
+                                        <div class="selectreview">
+                                            <select class="brand_name active brand_select_brand_device" required="required" name="brand_name" data-url="{{url('/searchBrand')}}">
+                                                <option value="">Brand</option>
+                                                @foreach($brands as $v)
+                                                    <option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
+                                    <div class="form-group brand_text ped-3 mb-0">
+                                        <input type="text" class="form-control brand_name text_brand_name mt-1" name="brand_name" placeholder="Brand name" maxlength="30">   
+                                        <input type="text" class="form-control model_name text_model_name mt-1" name="model_name" placeholder="Model name" maxlength="30">      
+                                        <input type="hidden" class="form-control brand_status" name="brand_status" placeholder="Brand status" value="1">      
+                                    </div>
+                                    <small>
+                                        <a href="javascript:void(0)" onclick="brand_text_show();" class="brand_text_show">Couldn't find your brand</a>
+                                    </small>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                        @if($question->text_field == 1)
-                                            <div class="form-group mb-2">
-                                                <input type="text" class="form-control" id="text_field_value{{$question->id}}">		
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-lg-6 ">
+                                <h5>Price</h5>
+                                <div class="form-group mb-0">
+                                    <select class="currency_id">
+                                        @foreach($countries as $curr)
+                                            @if($curr->currency_code != '' && $curr->currency_code != " ")
+                                                <option @if($curr->code == $usersDetail->country_code)
+                                                selected
+                                                @elseif($curr->country_code == 'US') selected @endif value="{{$curr->id}}">{{$curr->currency_code}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    <input type="text" class="form-control price-box device-price" name="price" placeholder="Price" required id="price">  
+                                    <small>Including Tax</small>    
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <h5>Supplier</h5>
+                                <div class="tg-select form-control supplier_select mb-0">
+                                    <select name="supplier" id="supplier" class="supplier_name active">
+                                        @if(count($suppliers) > 0)
+                                            <option value="">Choose brand</option>
+                                        @foreach($suppliers as $supplier)
+                                            <option value="{{$supplier->id}}">{{$supplier->brand_name}} {{$supplier->supplier_name}}</option>
+                                        @endforeach
+                                        @else
+                                            <option value="">No data found.</option>
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="form-group supplier_text mb-0">
+                                    <input type="text" class="form-control supplier_name text_supplier_name" name="supplier_name" placeholder="Supplier name" maxlength="30">      
+                                    <input type="hidden" class="form-control supplier_status" name="supplier_status" placeholder="Supplier status" value="1">      
+                                </div>
+                                <small>
+                                    <a href="javascript:void(0)" class="supplier_text_show" onclick="supplier_text_show()">Couldn't find your supplier</a>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-lg-3">
+                                <h5>Capacity</h5>
+                                <div class="tg-select form-control mb-0">
+                                    <select required="required" name="storage" id="storage">
+                                        <option value="">Choose Capacity</option>
+                                        <option value="64">64</option>
+                                        <option value="128">128</option>
+                                        <option value="256">256</option>
+                                        <option value="512">512</option>
+                                        <option value="1GB">1GB</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <h5>Color</h5>
+                                <div class="tg-select form-control mb-0">
+                                    <select required="required" name="device_color" id="device_color">
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <a  href="{{url('/reviews?type=1')}}"><h5>Do you want to rate a plan instead?</h5></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-primary btn-sm btn-block product-submit-btn">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Star rating section -->
+                    <div class="services-rating-section section-d-none section-both" id="device_rating_section">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="step_three_img text-center">
+                                    <img src="{{URL::asset('frontend/assets/img/Waves_iPhone_Case.png')}}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="title-step-1 w-75">
+                                    @if(Request::get('type'))
+                                        <h1>STEP #2</h1>
+                                    @else
+                                        <h1>STEP #3</h1>
+                                    @endif
+                                    <h1>What about Rating Your Service Today?</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="heading detail-div">
+                                <h1 class="section-title">Rating</h1>
+                            </div>
+                        </div>
+                        <div class="row device_starrating_error d-none">
+                            <div class="error">
+                                All rating rows are required.
+                            </div>
+                        </div>
+                        @if(count($questions)>0)
+                            @foreach($questions as $question)
+                                @if($question->type == 2)
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="">
+                                            <h5>{{$question->question}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                            @if($question->text_field == 1)
+                                                <div class="form-group mb-2">
+                                                    <input type="text" class="form-control" id="text_field_value{{$question->id}}">		
+                                                </div>
+                                            @endif
                                             </div>
-                                        @endif
+                                            <div class="col-lg-6">
+                                                <div class="rating float-right device-rating" data-question_id="{{$question->id}}"></div>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <div class="rating float-right device-rating" data-question_id="{{$question->id}}"></div>
-                                        </div>
+                                        
+                                        <!-- <div class="rating coverage" data-rate-value=6></div> -->
                                     </div>
-                                    
-                                    <!-- <div class="rating coverage" data-rate-value=6></div> -->
+                                </div>
+                                @endif
+                            @endforeach
+                        @endif
+                        <div class="row mt-3">
+                            <div class="col-lg-6">
+                                <div class="">
+                                    <h5>Comment</h5>
                                 </div>
                             </div>
-                            @endif
-                        @endforeach
-                    @endif
-                    <div class="row mt-3">
-                        <div class="col-lg-6">
-                            <div class="">
-                                <h5>Comment</h5>
+                            <div class="col-lg-6 text-right">
+                                <div class="form-group">
+                                    <textarea class="form-control" id="device_comment" placeholder="Write comment here...." rows="3"></textarea>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-right">
-                            <div class="form-group">
-                                <textarea class="form-control" id="device_comment" placeholder="Write comment here...." rows="3"></textarea>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="">
+                                    <h5 class="font-weight-bold">Average</h5>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 text-right">
+                                <input type="hidden" class="device_average_input" value="0">
+                                <div class="font-weight-bold device_average_div">0</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="">
-                                <h5 class="font-weight-bold">Average</h5>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 text-right">
-                            <input type="hidden" class="device_average_input" value="0">
-                            <div class="font-weight-bold device_average_div">0</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group w-50 ml-auto mr-auto text-center">
-                                <input type="hidden" name="type" class="device-type" value="2">
-                                <input type="hidden" name="device_id" class="device_id">
-                                <button type="submit" class="btn  btn-lg btn-primary device-rating-submit-btn-add">Submit</button>
-                                <button type="submit" class="btn  btn-lg btn-primary device-rating-submit-btn d-none">Submit</button>                                    
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group w-50 ml-auto mr-auto text-center">
+                                    <input type="hidden" name="type" class="device-type" value="2">
+                                    <input type="hidden" name="device_id" class="device_id">
+                                    <button type="submit" class="btn  btn-lg btn-primary device-rating-submit-btn-add">Submit</button>
+                                    <button type="submit" class="btn  btn-lg btn-primary device-rating-submit-btn d-none">Submit</button>                                    
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                	</section>
                 <!-- End product section  -->
                 <!-- Plan Section -->
@@ -561,10 +555,9 @@
                 	<div class="service_form_section">
 	                	<form class="reveiewing_form_service">
 	                    	<div class="row mt-3">
-	                     
 	                            <div class="col-lg-6 ">
 	                                <h5>Provider Name</h5>
-	                                <div class="tg-select form-control provider_select">
+	                                <div class="tg-select form-control provider_select mb-0">
 	                                     <select class="provider_name active" name="provider_name" required="required">
 	                                         <option value="">Please select provider</option>
                                              @if(count($providers) > 0)
@@ -576,13 +569,13 @@
                                              @endif
 	                                     </select>
 	                                 </div>
-                                    <div class="form-group provider_text">
+                                    <div class="form-group provider_text mb-2">
                                         <input type="text" class="form-control provider_name text_provider_name" name="provider_name" placeholder="Provider name" maxlength="30">      
                                         <input type="hidden" class="form-control provider_status" name="provider_status" placeholder="Provider status">      
                                     </div>
-	                                 <small>
-	                                 	<a href="javascript:void(0)" class="provider_text_show" onclick="provider_text_show()">Couldn't find your Service provider</a>
-	                                 </small>
+                                    <small>
+                                        <a href="javascript:void(0)" class="provider_text_show" onclick="provider_text_show()">Couldn't find your Service provider</a>
+                                    </small>
 	                            </div>
 	                            <div class="col-lg-6">
 	                                <div class="row align-items-center">
@@ -620,22 +613,20 @@
 	                                </div>
 	                             </div>
 	                        </div>
-	                        <div class="row mt-3">
-
-	                            <div class="col-lg-6">
-	                                <h5>How much are you paying monthly multi currencies should be supported </h5>
-	                                <div class="form-group">
-                                        <select class="form-control currency_id">
-                                            @foreach($countries as $curr)
-                                                @if($curr->currency_code != '' && $curr->currency_code != " ")
-                                                    <option @if($curr->code == $usersDetail->country_code)
-                                                    selected
-                                                    @elseif($curr->country_code == 'US') selected @endif value="{{$curr->id}}">{{$curr->currency_code}}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-	                                    <input type="text" class="form-control price-box price" name="price" placeholder="Price" required>	
-                                        <small>Including Tax</small>	
+	                        <div class="row mt-1">
+                                <div class="col-lg-6">
+	                                <h5>Service type</h5>
+	                                <div class="tg-select form-control">
+	                                    <select class="service_type" required>
+	                                    	<option value="">Select service type</option>
+                                            @if(count($service_types) > 0)
+                                                @foreach($service_types as $type)
+    	                                           <option class="@if($type->type == 1) personal @else buisness @endif" value="{{$type->id}}">{{$type->service_type_name}}</option>
+                                               @endforeach
+                                            @else
+                                            <option disabled="">Not found</option>
+                                            @endif
+	                                    </select>
 	                                </div>
 	                            </div>
                                 <div class="col-lg-6">
@@ -656,123 +647,10 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- <div class="col-lg-6">
-                                    <h5>Payment type</h5>
-                                    <div class="form-group review_page">
-                                        <span class="ext-default reviewpage_toggle active">Postpaid</span>
-                                        <label class="switch">
-                                          <input type="checkbox" id="payment_type" class="payment_type" name="payment_type">
-                                          <span class="slider"></span>
-                                        </label>
-                                        <span class="text-default reviewpage_toggle">Prepaid</span>
-                                    </div>
-                                </div> -->
-	                        </div>
-	                        <div class="row">
-	                            <div class="col-lg-6">
-	                                <h5>Service type</h5>
-	                                <div class="tg-select form-control">
-	                                    <select class="service_type" required>
-	                                    	<option value="">Select service type</option>
-                                            @if(count($service_types) > 0)
-                                                @foreach($service_types as $type)
-    	                                           <option class="@if($type->type == 1) personal @else buisness @endif" value="{{$type->id}}">{{$type->service_type_name}}</option>
-                                               @endforeach
-                                            @else
-                                            <option disabled="">Not found</option>
-                                            @endif
-	                                    </select>
-	                                </div>
-	                            </div>
-                                <div class="col-lg-6 d-none technology">
-                                    <h5>Technology</h5>
-                                    <div class="form-group">
-                                        <div class="tg-select form-control">
-                                            <select class="technology_type" >
-                                                <option value="">Select technology</option>
-                                                <option value="GPRS">GPRS</option>
-                                                <option value="LTE">LTE</option>
-                                                <option value="5G">5G</option>
-                                            </select>   
-                                        </div>     
-                                    </div>
-                                </div>
-	                            <div class="col-lg-6 pay_as_usage_class">
-                                    <h5>Local Minutes</h5>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control local_min mint_input" name="local_min" placeholder="Local Minutes" required="required"  maxlength="20" value="100">		
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">                                     
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" required="required"  maxlength="20" value="Minute" readonly>		
-                                            </div>
-                                        </div>
-                                    </div>
-	                                <!-- {{-- <div class="form-group">
-	                                    <input type="text" class="form-control local_min mint_input" name="local_min" placeholder="Local Min" required="required"  maxlength="20" value="Unlimited">		
-	                                </div> --}} -->
-	                            </div>
-	                            <div class="col-lg-6 pay_as_usage_class">
-                                    <h5>DataVolume</h5>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control datavolume " name="datavolume" placeholder="Data Volume" required="required" maxlength="20" value="2">		
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">                                     
-                                            <div class="form-group">
-                                                <input type="text" class="form-control datavolume" placeholder="DataVolume" required="required" maxlength="20" value="GB" readonly>		
-                                            </div>
-                                        </div>
-                                    </div>
-	                            </div>
-	                            <div class="col-lg-6 pay_as_usage_class">
-	                                <h5>Long distance  Minutes</h5>
-	                                <div class="form-group">
-	                                    <input type="text" class="form-control long_distance_min mint_input" name="long_distance_min" placeholder="Long distance  Min" required="required" value="Unlimited" maxlength="20">		
-	                                </div>
-	                            </div>
-	                            <div class="col-lg-6 pay_as_usage_class">
-	                                <h5>International Minutes</h5>
-	                                <div class="form-group">
-	                                    <input type="text" class="form-control international_min mint_input" name="international_min" placeholder="International Min" required="required" maxlength="20" value="0">		
-	                                </div>
-	                            </div>
-	                            <div class="col-lg-6 pay_as_usage_class">
-	                                <h5>Roaming Minutes</h5>
-	                                <div class="form-group">
-	                                    <input type="text" class="form-control roaming_min mint_input" name="roaming_min" placeholder="Roaming Min" required="required" maxlength="20" value="0">		
-	                                </div>
-	                            </div>
-	                            <div class="col-lg-6 pay_as_usage_class">
-	                                <h5>SMS</h5>
-	                                <div class="form-group">
-	                                    <input type="text" class="form-control sms mint_input" name="sms" placeholder="SMS" required="required" value="Unlimited" maxlength="20">		
-	                                </div>
-	                            </div>
-                                <div class="col-lg-6 pay_as_usage_class">
-                                    <h5>Would share the overage price?</h5>
-                                    <div class="form-group review_page">
-                                        <span class="ext-default reviewpage_toggle active">No</span>
-                                        <label class="switch">
-                                          <input onchange="overageFunction()" type="checkbox" id="overage_price" class="price_overage">
-                                          <span class="slider overage_price"></span>
-                                        </label>
-                                        <span class="text-default reviewpage_toggle">Yes</span>
-                                    </div>
-                                    <input type="hidden" name="voice_overage_price" id="voice_overage_price">
-                                    <input type="hidden" name="data_over_age" id="data_over_age">
-                                    <input type="hidden" name="voice_usage_price" id="voice_usage_price">
-                                    <input type="hidden" name="data_usage_age" id="data_usage_age">
-                                    <input type="hidden" name="latitude" id="lat" value="{{$lat}}">
-                                    <input type="hidden" name="longitude" id="long" value="{{$long}}">
-                                </div>
-                                <div class="col-lg-6">
+                            </div>
+                            <h6>Whats included in your plan?</h6>
+                            <div class="row mt-1">
+                                <div class="col-lg-3">
                                     <h5>Device</h5>
                                     <div class="form-group inputwithicon">
                                         <div class="selectreview">
@@ -785,22 +663,109 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-3 pay_as_usage_class">
+                                    <h5>Local Minutes</h5>
+                                    <div class="form-group d-flex">
+                                        <input type="text" class="form-control local_min mint_input" name="local_min" placeholder="Local Minutes" required="required"  maxlength="20" value="100">
+                                        <div class="lable_include">Minute</div>		
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 pay_as_usage_class">
+                                    <h5>DataVolume</h5>
+                                    <div class="form-group d-flex">
+                                        <input type="text" class="form-control datavolume " name="datavolume" placeholder="Data Volume" required="required" maxlength="20" value="2">
+                                        <div class="lable_include">DataVolume</div>		
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 pay_as_usage_class">
+	                                <h5>SMS</h5>
+	                                <div class="form-group">
+	                                    <input type="text" class="form-control sms mint_input" name="sms" placeholder="SMS" required="required" value="Unlimited" maxlength="20">		
+	                                </div>
+	                            </div>
+                            </div>
+                            <h6>How much are you paying</h6>
+                            <div class="row mt-1">
+                                <div class="col-lg-6">
+	                                <h5>How much are you paying monthly multi currencies should be supported </h5>
+	                                <div class="form-group mb-1">
+                                        <select class="currency_id">
+                                            @foreach($countries as $curr)
+                                                @if($curr->currency_code != '' && $curr->currency_code != " ")
+                                                    <option @if($curr->code == $usersDetail->country_code)
+                                                    selected
+                                                    @elseif($curr->country_code == 'US') selected @endif value="{{$curr->id}}">{{$curr->currency_code}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+	                                    <input type="text" class="form-control price-box price" name="price" placeholder="Price" required>	
+                                        <small>Including Tax</small>	
+	                                </div>
+	                            </div>
                                 <div class="col-lg-6">
                                     <h5>Upfront price</h5>
-                                    <div class="form-group">
+                                    <div class="form-group mb-1">
                                         <input type="number" class="form-control upfront_price" name="upfront_price" placeholder="Upfront price"  maxlength="20" value="0">	
                                     </div>	
                                 </div>
-                                <!-- <div class="col-lg-6 mt-3">
-                                    <div class="speedtestpopuplink">
-                                        <a href="javascript:void(0);" onclick="speedTestFunction()" data-toggle="modal" data-target="#speedTestModel">Do you want to perform speedtest ?</a>
+                            </div>
+                            <small>
+                                <a href="javascript:void(0);" class="pay_as_usage_class more_info_toggle">Would you like to share more optional  information ?</a>
+                            </small>
+	                        <div class="row mt-1 more_info_section" style="display:none;">
+                                <div class="col-lg-3 d-none technology">
+                                    <h5>Technology</h5>
+                                    <div class="form-group">
+                                        <div class="tg-select form-control">
+                                            <select class="technology_type" >
+                                                <option value="">Select technology</option>
+                                                <option value="GPRS">GPRS</option>
+                                                <option value="LTE">LTE</option>
+                                                <option value="5G">5G</option>
+                                            </select>   
+                                        </div>     
                                     </div>
-                                </div> -->
-	                        </div>
+                                </div>
+	                            <div class="col-lg-3 pay_as_usage_class">
+	                                <h5>Long distance  Minutes</h5>
+	                                <div class="form-group">
+	                                    <input type="text" class="form-control long_distance_min mint_input" name="long_distance_min" placeholder="Long distance  Min" required="required" value="Unlimited" maxlength="20">		
+	                                </div>
+	                            </div>
+	                            <div class="col-lg-3 pay_as_usage_class">
+	                                <h5>International Minutes</h5>
+	                                <div class="form-group">
+	                                    <input type="text" class="form-control international_min mint_input" name="international_min" placeholder="International Min" required="required" maxlength="20" value="0">		
+	                                </div>
+	                            </div>
+	                            <div class="col-lg-3 pay_as_usage_class">
+	                                <h5>Roaming Minutes</h5>
+	                                <div class="form-group">
+	                                    <input type="text" class="form-control roaming_min mint_input" name="roaming_min" placeholder="Roaming Min" required="required" maxlength="20" value="0">		
+	                                </div>
+	                            </div>
+                                <div class="col-lg-3 pay_as_usage_class">
+                                    <h5>Would share the overage price?</h5>
+                                    <div class="form-group review_page">
+                                        <span class="ext-default reviewpage_toggle active">No</span>
+                                        <label class="switch">
+                                          <input onchange="overageFunction()" type="checkbox" id="overage_price" class="price_overage">
+                                          <span class="slider overage_price"></span>
+                                        </label>
+                                        <span class="text-default reviewpage_toggle">Yes</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="voice_overage_price" id="voice_overage_price">
+                            <input type="hidden" name="data_over_age" id="data_over_age">
+                            <input type="hidden" name="voice_usage_price" id="voice_usage_price">
+                            <input type="hidden" name="data_usage_age" id="data_usage_age">
+                            <input type="hidden" name="latitude" id="lat" value="{{$lat}}">
+                            <input type="hidden" name="longitude" id="long" value="{{$long}}">
 	                        <div class="row">
 	                            <div class="col-lg-12">
-	                                <div class="form-group w-50 ml-auto mr-auto text-center">
-	                                    <button type="submit" class="btn btn-primary btn-lg btn-block product-submit-btn">Submit</button>
+	                                <div class="form-group text-center">
+	                                    <button type="submit" class="btn btn-primary btn-sm btn-block product-submit-btn">Submit</button>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -811,12 +776,22 @@
                     <!-- Star rating section -->
                     <div class="services-rating-section section-d-none section-both" id="rating_section">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-4">
                                 <div class="step_three_img text-center">
                                     <img src="{{URL::asset('frontend/assets/img/Waves_iPhone_Case.png')}}"/>
                                 </div>
                             </div>
-                        </div>   
+                            <div class="col-lg-8">
+                                <div class="title-step-1 w-75">
+                                    @if(Request::get('type'))
+                                        <h1>STEP #2</h1>
+                                    @else
+                                        <h1>STEP #3</h1>
+                                    @endif
+                                    <h1>What about Rating Your Service Today?</h1>
+                                </div>
+                            </div>
+                        </div>  
                         <div class="row">
 	               		    <div class="heading detail-div">
 	               		        <h1 class="section-title">Rating</h1>
@@ -916,7 +891,7 @@
 
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Would share the overage price?</h4>
+            <h5>Would share the overage price?</h5>
             <button type="button" class="close" data-dismiss="modal" onclick="resetButton()">&times;</button>
           </div>
 
@@ -953,7 +928,7 @@
 
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Pay as usage</h4>
+            <h5>Pay as usage</h5>
             <button type="button" class="close" data-dismiss="modal" onclick="resetUsageButton()">&times;</button>
           </div>
 
@@ -1136,24 +1111,14 @@
 <script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script>
 <script src="{{URL::asset('frontend/jsplugins/speedtest/speedtest.js')}}"></script>
 <script>
-    // function add(ths,sno){
-    //     for (var i=1;i<=5;i++){
-    //         var cur=document.getElementById("star"+i)
-    //         cur.className="fa fa-star"
-    //     }
-    
-    //     for (var i=1;i<=sno;i++){
-    //         var cur=document.getElementById("star"+i)
-    //         if(cur.className=="fa fa-star")
-    //         {
-    //             cur.className="fa fa-star checked"
-    //         }
-    //     }
-    // }
     if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) //IF IE > 10
     {
       $('select').css({padding:"10px 10px"}); 
     }
+    $('.more_info_toggle').on('click',function(){
+        $('.more_info_section').toggle();
+        $('.long_distance_min').focus();
+    });
     //   $("a.provider_text_show").on('click',function(){
         function provider_text_show(){
             if ($(".provider_select select").attr("disabled")) {
@@ -1182,26 +1147,24 @@
     // Brand Section
         // $(".brand_text_show").on('click',function(){
         function brand_text_show(){
+            $('.brand_text').toggle();
           if ($(".brand_select select").attr("disabled")) {
-            
               $('.brand_status').val(1);
               $('.brand_select select').attr('disabled',false);
               $('.brand_select select').attr('required',true);
               $('.brand_select select').addClass('active');
               $('.brand_text input').removeClass('active');
               $('.brand_text input').attr('required',false);
-              $('.brand_text').hide();
           } else {
 
               $('.brand_status').val(2);
-              $('.brand_select select option').prop('selected',false);
-              $('.brand_select select').attr('required',false);
-              $('.brand_select select option:nth-child(1)').prop('selected',true);
               $('.brand_select select').attr('disabled',true);
+              $('.brand_select select').attr('required',false);
+              $('.brand_select select option').prop('selected',false);
+              $('.brand_select select option:nth-child(1)').prop('selected',true);
               $('.brand_select select').removeClass('active');
               $('.brand_text input').addClass('active');
               $('.brand_text input').attr('required',true);
-              $('.brand_text').show();
           } 
         }
         // });

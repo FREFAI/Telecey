@@ -10,7 +10,7 @@ use App\Models\Admin\Brands;
 use App\Models\Admin\DeviceColor;
 use App\Models\FrontEnd\DeviceReview;
 use App\Helpers\CreateLogs;
-use DB;
+use DB,Auth;
 use App\UserAddress;
 
 class DevicesController extends Controller
@@ -190,7 +190,18 @@ class DevicesController extends Controller
     }
     public function devicesResult(Request $request)
     {
+        $data = array();
+        $data = $request->all();
         $filtersetting = SettingsModel::first();
+        if(!Auth::guard('customer')->check()){
+                $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 20;
+        }else{
+                if(array_key_exists("rows",$data)){
+                    $limit = $data['rows'];
+                }else{
+                    $limit = 20;
+                } 
+        }
         if($filtersetting->device == 0){
             return redirect('/');
         }
@@ -215,26 +226,25 @@ class DevicesController extends Controller
         $colors = DeviceColor::all();
         $suppliers = Supplier::where('status',1)->get();
         // echo "<pre>";print_r($current_country_code);exit;
-        $data = array();
-        $data = $request->all();
+        
         $mainQuery = DeviceReview::query();
         if($data){
             $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
             ->where('country_code',$current_country_code)
             ->with('brand','supplier','device_color_info')
             ->orderBy('distance','ASC');
-            if($data['brand_name'] != ""){
+            if(array_key_exists("brand_name",$data) && $data['brand_name'] != ""){
                 $mainQuery->orWhere('brand_id',$data['brand_name']);
             }
-            if($data['storage'] != ""){
+            if(array_key_exists("storage",$data) && $data['storage'] != ""){
                 $mainQuery->orWhere('storage',$data['storage']);
             }
-            if($data['device_color'] != ""){
+            if(array_key_exists("device_color",$data) && $data['device_color'] != ""){
                 $mainQuery->orWhere('device_color',$data['device_color']);
             }
             
             $searchResultCount = $mainQuery->count();
-            $searchResult = $mainQuery->get()->toArray();
+            $searchResult = $mainQuery->paginate($limit);
             if($searchResult){
                 foreach($searchResult as $key => $value){
                     $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
@@ -311,13 +321,13 @@ class DevicesController extends Controller
             ->where('country_code',$current_country_code);
             $mainQuery->with('brand','supplier','device_color_info');
             
-            if($data['brand_name'] != ""){
+            if(array_key_exists("brand_name",$data) && $data['brand_name'] != ""){
                 $mainQuery->orWhere('brand_id',$data['brand_name']);
             }
-            if($data['storage'] != ""){
+            if(array_key_exists("storage",$data) && $data['storage'] != ""){
                 $mainQuery->orWhere('storage',$data['storage']);
             }
-            if($data['device_color'] != ""){
+            if(array_key_exists("device_color",$data) && $data['device_color'] != ""){
                 $mainQuery->orWhere('device_color',$data['device_color']);
             }
             

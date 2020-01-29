@@ -38,6 +38,20 @@
 					</select>
 				</div>
 				<div class="col-lg-1 record_section">
+					<select class="service-type-select paginate_select_box" name="rows">
+						<option value"10" @if( request()->get('rows') == "10" ) selected @endif>5</option>
+						<option value"20" @if( request()->get('rows') == "20" ) selected @endif>20</option>
+						<option value"30" @if( request()->get('rows') == "30" ) selected @endif>30</option>
+						<option value"40" @if( request()->get('rows') == "40" ) selected @endif>40</option>
+						<option value"50" @if( request()->get('rows') == "50" ) selected @endif>50</option>
+						<option value"60" @if( request()->get('rows') == "60" ) selected @endif>60</option>
+						<option value"70" @if( request()->get('rows') == "70" ) selected @endif>70</option>
+						<option value"80" @if( request()->get('rows') == "80" ) selected @endif>80</option>
+						<option value"90" @if( request()->get('rows') == "90" ) selected @endif>90</option>
+						<option value"100" @if( request()->get('rows') == "100" ) selected @endif>100</option>
+					</select>
+				</div>
+				<div class="col-lg-1 record_section">
 					<div class="text-center">
 						<a title="Expend Filter" href="javascript:void(0);" onClick="filterExpend()" class="expendFilterbtn"><i class="fa fa-filter"></i></a>
 					</div>
@@ -90,41 +104,65 @@
 					</thead>
 					<tbody class="table_body_sort">
 						@foreach($data as $key => $value)
-						<tr class="custom-row-cl @if($key == 4 || $key == 8) adds @endif">
 							@if($key == 4)
-								<td colspan="7">
-									<div class="add text-center">
-										<img src="{{URL::asset('frontend/assets/img/Iphone_ads.webp')}}"/>
-									</div>
-								</td>
-							@elseif($key == 8)
-								<td colspan="7">
-									<div class="row align-items-center">
-										<div class="col-lg-6 text-center">
-											<img src="{{URL::asset('frontend/assets/img/case.webp')}}"/>
+								<tr class="custom-row-cl @if($key == 4 || $key == 8) adds @endif">
+									<td colspan="7">
+										<div class="add text-center">
+											<img src="{{URL::asset('frontend/assets/img/Iphone_ads.webp')}}"/>
 										</div>
-										<div class="col-lg-6">
-											<h1 class="adds-text">The Ultimate cover</h1>
+									</td>
+								</tr>
+								@elseif($key == 8)
+								<tr class="custom-row-cl @if($key == 4 || $key == 8) adds @endif">
+									<td colspan="7">
+										<div class="row align-items-center">
+											<div class="col-lg-6 text-center">
+												<img src="{{URL::asset('frontend/assets/img/case.webp')}}"/>
+											</div>
+											<div class="col-lg-6">
+												<h1 class="adds-text">The Ultimate cover</h1>
+											</div>
 										</div>
-									</div>
-								</td>
-							@else
-								<td>{{$value['brand']['brand_name']}}</td>
-								<td>{{$value['brand']['model_name']}}</td>
-								<td>{{$value['supplier']['supplier_name']}}</td>
-								<td>{{$value['price']}}</td>
-								<td>{{$value['storage']}}</td>
-								<td>{{round($value['distance'])}} KM</td>
-								@if(Auth::guard('customer')->check())
-									<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value['id'])}}">Details</td>
-								@else
-									<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
+									</td>
+								</tr>
 								@endif
+						<tr class="custom-row-cl">
+							<td>{{$value->brand ? $value->brand->brand_name : ""}}</td>
+							<td>{{$value->brand ? $value->brand->model_name : ""}}</td>
+							<td>{{$value->supplier ? $value->supplier->supplier_name : ""}}</td>
+							<td>{{$value->price}}</td>
+							<td>{{$value->storage}}</td>
+							<td>{{round($value->distance)}} KM</td>
+							@if(Auth::guard('customer')->check())
+								<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value->id)}}">Details</td>
+							@else
+								<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
 							@endif
 						</tr>
 						@endforeach
 					</tbody>
 				</table>
+				@if(!Auth::guard('customer')->check())
+					@if($filtersetting->no_of_search_record > 0)
+					<div class="overlay_signup w-100 text-center text-white">
+						<i class="fa fa-lock" aria-hidden="true"></i>
+						<div> 
+						<a class="btn table-row-btn signup_btn" href="{{url('/signup')}}">Sign up to show more reviews</a>
+						</div>
+					</div>
+					@endif
+				@endif
+				@if(Auth::guard('customer')->check())
+				<div class="pagination">
+					{{$data->appends(request()->input())->links()}}
+				</div>
+				@else
+					@if($filtersetting->no_of_search_record == 0)
+						<div class="pagination">
+							{{$data->appends(request()->input())->links()}}
+						</div>
+					@endif
+				@endif
 			</div>
 		</div>
 		@else
@@ -241,6 +279,10 @@
 		height: 30px;
 		width: 100%;
 		border-radius: 5px;
+	}
+	.pagination {
+		width: 970px;
+		margin: 10px auto;
 	}
 	/* .searchnow-button:hover {
 		border: 2px solid #2e75b5;

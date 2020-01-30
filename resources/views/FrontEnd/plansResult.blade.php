@@ -191,29 +191,12 @@
 							</tr>
 						</thead>
 						<tbody class="table_body_sort">
+							@php
+								$i = ($data->currentpage()-1)* $data->perpage() + 1;
+								$custom_ads = 0;
+								$j = 0; 
+							@endphp
 							@foreach($data as $key => $value)
-								@if($key == 4)
-								<tr class="custom-row-cl @if($key == 4 || $key == 8) adds @endif">
-									<td colspan="7">
-										<div class="add text-center">
-											<img src="{{URL::asset('frontend/assets/img/Iphone_ads.webp')}}"/>
-										</div>
-									</td>
-								</tr>
-								@elseif($key == 8)
-								<tr class="custom-row-cl @if($key == 4 || $key == 8) adds @endif">
-									<td colspan="7">
-										<div class="row align-items-center">
-											<div class="col-lg-6 text-center">
-												<img src="{{URL::asset('frontend/assets/img/case.webp')}}"/>
-											</div>
-											<div class="col-lg-6">
-												<h1 class="adds-text">The Ultimate cover</h1>
-											</div>
-										</div>
-									</td>
-								</tr>
-								@endif
 								<tr class="custom-row-cl">
 									<td>
 										@if($value['provider']['provider_image_original'] != "")
@@ -251,6 +234,48 @@
 										@endif
 									@endif
 								</tr>
+								@if($i%10 == 0)
+									@if($custom_ads === 0)
+										@if($j < count($ads))
+											@php $custom_ads = 1; @endphp
+											<tr class="custom-row-cl @if($i%10 == 0) adds @endif">
+												<td colspan="7">
+													<div class="add text-center">
+														
+														<img src="{{URL::asset('ads_banner/resized')}}/{{$ads[$j]['ads_file']}}"/>
+													</div>
+												</td>
+											</tr>
+											@php $j++; @endphp
+										@else
+											@php $custom_ads = 1; $j = 0;@endphp
+											<tr class="custom-row-cl @if($i%10 == 0) adds @endif">
+												<td colspan="7">
+													<div class="add text-center">
+														
+														<img src="{{URL::asset('ads_banner/resized')}}/{{$ads[$j]['ads_file']}}"/>
+													</div>
+												</td>
+											</tr>
+											@php $j++; @endphp
+										@endif
+									@else
+										@php $custom_ads = 0; @endphp
+										<tr class="custom-row-cl adds">
+											<td colspan="7">
+												<div class="row align-items-center">
+													<div class="col-lg-6 text-center">
+														<img src="{{URL::asset('frontend/assets/img/case.webp')}}"/>
+													</div>
+													<div class="col-lg-6">
+														<h1 class="adds-text">The Ultimate cover</h1>
+													</div>
+												</div>
+											</td>
+										</tr> 
+									@endif
+								@endif
+								@php $i++;@endphp
 							@endforeach
 						</tbody>
 					</table>

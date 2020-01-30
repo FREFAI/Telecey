@@ -208,6 +208,7 @@
 				Route::get('/ads', 'Admin\AdsController@addAdsForm');
 				Route::post('/ads', 'Admin\AdsController@addAds');
 				Route::post('/delete_ads', 'Admin\AdsController@deleteAds');
+				Route::post('/approveAds', 'Admin\AdsController@approveAds');
 			// End Ads Route Section 
 
 			// Providers Section

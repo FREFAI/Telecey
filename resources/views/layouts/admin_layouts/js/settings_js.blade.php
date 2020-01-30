@@ -1,6 +1,15 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		$('.is_global').on('change',function(){
+			if($(this).prop("checked") == true){
+				$(".country_select_section").hide();
+				$('.country_field').prop('required',false);
+			}else{
+				$(".country_select_section").show();
+				$('.country_field').prop('required',true);
+			}
+		});
     	$('#userTable').DataTable({
 			searching: false,
 			paging: false,
@@ -465,6 +474,70 @@
 					        		current_row.addClass('btn-success');
 					        		current_row.attr('data-original-title','Approve');
 					        		current_row.attr('data-status',1);
+					        		current_row.find('i').removeClass('ni ni-fat-remove');
+					        		current_row.find('i').addClass('ni ni-check-bold');
+					        		toastr.success('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+					        	}
+					        }else{
+					        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+					        }
+					    }         
+					});
+				}
+			});
+		});
+		// Active or In Active Ads
+
+		$(document).on('click','.active_btn_ads',function(){
+			var ads_id = $(this).attr('data-ads_id');
+			var is_active = $(this).attr('data-is_active');
+			is_active = $.trim(is_active);
+			var current_row = $(this);
+			if(window.location.protocol == "http:"){
+			    resuesturl = "{{url('/admin/approveAds')}}"
+			}else if(window.location.protocol == "https:"){
+			    resuesturl = "{{secure_url('/admin/approveAds')}}"
+			}
+			if(is_active == 1){
+				var mesages = 'Are you sure you want to active this ads?';
+			}else{
+				var mesages = 'Are you sure you want to in-active this ads?';
+			}
+			swal(mesages, {
+	          buttons: ["No", "Yes"],
+	        })
+	        .then(function(name) {
+	          	if(name){
+					$.ajax({
+					    type: "post",
+					    url: resuesturl,
+					    headers: {
+					        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					    },
+					    dataType:'json',
+					    data: {
+					        'id':ads_id,
+					        'is_active':is_active
+					    },
+					    success: function (data) {
+					        if(data.success){
+					        	if(is_active == 1){
+					        		current_row.closest('tr').find('.not_ap_ms').addClass('d-none');
+					        		current_row.closest('tr').find('.approved_ms').removeClass('d-none');
+					        		current_row.removeClass('btn-success');
+					        		current_row.attr('data-original-title','Not approve');
+					        		current_row.attr('data-is_active',0);
+					        		current_row.addClass('btn-danger');
+					        		current_row.find('i').removeClass('ni ni-check-bold');
+					        		current_row.find('i').addClass('ni ni-fat-remove');
+					        		toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+					        	}else{
+					        		current_row.closest('tr').find('.approved_ms').addClass('d-none');
+					        		current_row.closest('tr').find('.not_ap_ms').removeClass('d-none');
+					        		current_row.removeClass('btn-danger');
+					        		current_row.addClass('btn-success');
+					        		current_row.attr('data-original-title','Approve');
+					        		current_row.attr('data-is_active',1);
 					        		current_row.find('i').removeClass('ni ni-fat-remove');
 					        		current_row.find('i').addClass('ni ni-check-bold');
 					        		toastr.success('Not approved', data.message , {displayDuration:3000,position: 'top-right'});

@@ -1,34 +1,62 @@
+@php
+    $i = ($data->currentpage-1)* $data->perpage + 1;
+    $custom_ads = 0;
+    $j = 0; 
+@endphp
 @foreach($data as $key => $value)
-    <tr class="custom-row-cl @if($key == 4 || $key == 8) adds @endif">
-        @if($key == 4)
-            <td colspan="7">
-                <div class="add text-center">
-                    <img src="{{URL::asset('frontend/assets/img/Iphone_ads.webp')}}"/>
-                </div>
-            </td>
-        @elseif($key == 8)
-            <td colspan="7">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 text-center">
-                        <img src="{{URL::asset('frontend/assets/img/case.webp')}}"/>
-                    </div>
-                    <div class="col-lg-6">
-                        <h1 class="adds-text">The Ultimate cover</h1>
-                    </div>
-                </div>
-            </td>
+    <tr class="custom-row-cl">
+        <td>{{$value->brand ? $value->brand->brand_name : ""}}</td>
+        <td>{{$value->brand ? $value->brand->model_name : ""}}</td>
+        <td>{{$value->supplier ? $value->supplier->supplier_name : ""}}</td>
+        <td>{{$value->price}}</td>
+        <td>{{$value->storage}}</td>
+        <td>{{round($value->distance)}} KM</td>
+        @if(Auth::guard('customer')->check())
+            <td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value->id)}}">Details</td>
         @else
-            <td>{{$value['brand']['brand_name']}}</td>
-            <td>{{$value['brand']['model_name']}}</td>
-            <td>{{$value['supplier']['supplier_name']}}</td>
-            <td>{{$value['price']}}</td>
-            <td>{{$value['storage']}}</td>
-            <td>{{round($value['distance'])}} KM</td>
-            @if(Auth::guard('customer')->check())
-                <td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value['id'])}}">Details</td>
-            @else
-                <td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
-            @endif
+            <td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
         @endif
     </tr>
+    @if($i%10 == 0)
+        @if($custom_ads === 0)
+            @if($j < count($ads))
+                @php $custom_ads = 1; @endphp
+                <tr class="custom-row-cl @if($i%10 == 0) adds @endif">
+                    <td colspan="7">
+                        <div class="add text-center">
+                            
+                            <img src="{{URL::asset('ads_banner/resized')}}/{{$ads[$j]['ads_file']}}"/>
+                        </div>
+                    </td>
+                </tr>
+                @php $j++; @endphp
+            @else
+                @php $custom_ads = 1; $j = 0;@endphp
+                <tr class="custom-row-cl @if($i%10 == 0) adds @endif">
+                    <td colspan="7">
+                        <div class="add text-center">
+                            
+                            <img src="{{URL::asset('ads_banner/resized')}}/{{$ads[$j]['ads_file']}}"/>
+                        </div>
+                    </td>
+                </tr>
+                @php $j++; @endphp
+            @endif
+        @else
+            @php $custom_ads = 0; @endphp
+            <tr class="custom-row-cl adds">
+                <td colspan="7">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 text-center">
+                            <img src="{{URL::asset('frontend/assets/img/case.webp')}}"/>
+                        </div>
+                        <div class="col-lg-6">
+                            <h1 class="adds-text">The Ultimate cover</h1>
+                        </div>
+                    </div>
+                </td>
+            </tr> 
+        @endif
+    @endif
+    @php $i++;@endphp
 @endforeach

@@ -12,6 +12,9 @@ use App\Models\FrontEnd\DeviceReview;
 use App\Helpers\CreateLogs;
 use DB,Auth;
 use App\UserAddress;
+use App\Models\Admin\AdsModel;
+use App\CountriesModel;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class DevicesController extends Controller
 {
@@ -226,7 +229,13 @@ class DevicesController extends Controller
         $colors = DeviceColor::all();
         $suppliers = Supplier::where('status',1)->get();
         // echo "<pre>";print_r($current_country_code);exit;
-        
+        $country = CountriesModel::select('id')->where('name',$newresponse->country_name)->first();
+        $ads = AdsModel::with('countries')
+                            ->where('is_active',1)
+                            ->where(function ($query) use ($country) {
+                                $query->where('is_global',1)
+                                ->orWhere('country',$country->id);
+                            })->get()->toArray();
         $mainQuery = DeviceReview::query();
         if($data){
             $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
@@ -276,27 +285,42 @@ class DevicesController extends Controller
             }
             
             CreateLogs::createLog($logData);
-            return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
+            return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors,'ads'=>$ads]);
         }else{
             $searchResult = [];
-            return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
+            return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors,'ads'=>$ads]);
         }
     }
     public function devicesResultSorting(Request $request)
     {
         $params = $request->all();
+        
         $requestData = explode('&',$params['requestParams']);
         $data = [];
         foreach($requestData as $rd){
            $param = explode('=',$rd);
            $data[str_replace('?','',$param[0])] = $param[1];
         }
-
+        if(array_key_exists('page',$data)){
+            $page = $data['page'];
+        }else{
+            $page = 1;
+        }
         $filtersetting = SettingsModel::first();
         if($filtersetting->device == 0){
             return redirect('/');
         }
         $user = \Auth::guard('customer')->user();
+        if(!Auth::guard('customer')->check()){
+            $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 20;
+        }else{
+            if(array_key_exists("rows",$data)){
+                $limit = $data['rows'];
+            }else{
+                $limit = 20;
+            } 
+        }
+        
         $ip = env('ip_address','live');
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
@@ -311,11 +335,13 @@ class DevicesController extends Controller
         $current_long = $newresponse->longitude;
         $current_country_code = $newresponse->country_code2;
 
-        $user_id = \Auth::guard('customer')->id();
-        
-        $brands = Brands::all();
-        $colors = DeviceColor::all();
-        $suppliers = Supplier::where('status',1)->get();
+        $country = CountriesModel::select('id')->where('name',$newresponse->country_name)->first();
+        $ads = AdsModel::with('countries')
+                        ->where('is_active',1)
+                        ->where(function ($query) use ($country) {
+                            $query->where('is_global',1)
+                            ->orWhere('country',$country->id);
+                        })->get()->toArray();
         $mainQuery = DeviceReview::query();
         $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
             ->where('country_code',$current_country_code);
@@ -336,40 +362,49 @@ class DevicesController extends Controller
             if($params['name'] == 'brand_name'){
                 $mainQuery->with('brand','supplier','device_color_info');
                 if($params['sort'] == "asc"){
-                    $searchResult = $mainQuery->get()->sortBy('brand.brand_name')->toArray();
+                    $searchResult = $mainQuery->limit($limit)->offset(($page - 1) * $limit)->get()->sortBy('brand.brand_name');
                 }else{
-                    $searchResult = $mainQuery->get()->sortByDesc('brand.brand_name')->toArray();
+                    $searchResult = $mainQuery->limit($limit)->offset(($page - 1) * $limit)->get()->sortByDesc('brand.brand_name');
                 } 
+                
             }
             if($params['name'] == 'model_name'){
                 $mainQuery->with('brand','supplier','device_color_info');
                 if($params['sort'] == "asc"){
-                    $searchResult = $mainQuery->get()->sortBy('brand.model_name')->toArray();
+                    $searchResult = $mainQuery->limit($limit)->offset(($page - 1) * $limit)->get()->sortBy('brand.model_name');
                 }else{
-                    $searchResult = $mainQuery->get()->sortByDesc('brand.model_name')->toArray();
+                    $searchResult = $mainQuery->limit($limit)->offset(($page - 1) * $limit)->get()->sortByDesc('brand.model_name');
                 } 
+                
             }
             if($params['name'] == 'supplier_name'){
                 $mainQuery->with('brand','supplier','device_color_info');
                 if($params['sort'] == "asc"){
-                    $searchResult = $mainQuery->get()->sortBy('supplier.supplier_name')->toArray();
+                    $searchResult = $mainQuery->limit($limit)->offset(($page - 1) * $limit)->get()->sortBy('supplier.supplier_name');
                 }else{
-                    $searchResult = $mainQuery->get()->sortByDesc('supplier.supplier_name')->toArray();
+                    $searchResult = $mainQuery->limit($limit)->offset(($page - 1) * $limit)->get()->sortByDesc('supplier.supplier_name');
                 } 
+                
             }
             if($params['name'] == 'price' || $params['name'] == 'storage' || $params['name'] == 'distance'){
                 $mainQuery->orderBy($params['name'],$params['sort']);
                 $mainQuery->with('brand','supplier','device_color_info');
-                $searchResult = $mainQuery->get()->toArray();
+                $searchResult = $mainQuery->limit($limit)->offset(($page - 1) * $limit)->get();
             }
-            
             if($searchResult){
                 foreach($searchResult as $key => $value){
                     $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
                     $searchResult[$key]['user_address'] = $user_address;
                 }
             }
-            return view('FrontEnd.devices.devicesSorting',['data'=>$searchResult,'filtersetting' => $filtersetting]);
+            $searchResult->perpage = $limit;
+            if(array_key_exists('page',$data)){
+                $searchResult->currentpage = $data['page'];
+            }else{
+                $searchResult->currentpage = 1;
+            }
+            
+            return view('FrontEnd.devices.devicesSorting',['data'=>$searchResult,'filtersetting' => $filtersetting,'ads'=>$ads]);
     }
 
     public function deviceDetails($id){

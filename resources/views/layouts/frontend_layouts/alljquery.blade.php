@@ -38,7 +38,8 @@
         "searching": false,
         "lengthChange": false,
         "paging": false,
-        "info": false
+        "info": false,
+        "ordering": false
       });
     });
     var countrySelection = true;

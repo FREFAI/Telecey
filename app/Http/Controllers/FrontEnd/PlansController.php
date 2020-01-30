@@ -11,6 +11,7 @@ use App\Models\FrontEnd\ServiceReview;
 use App\Models\FrontEnd\PlanDeviceRating;
 use Illuminate\Support\Facades\Auth;
 use App\UserAddress;
+use App\CountriesModel;
 use App\Helpers\CreateLogs;
 use DB;
 
@@ -40,7 +41,7 @@ class PlansController extends Controller
     {
         // Current location section
         $ip = env('ip_address','live'); 
-        $ip = '96.46.34.142';
+        $ip = '103.212.235.89';
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
         }
@@ -169,7 +170,7 @@ class PlansController extends Controller
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
         }else{
-            $ip = '96.46.34.142';
+            $ip = '103.212.235.89';
         }
         $client = new \GuzzleHttp\Client();
         $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
@@ -180,27 +181,20 @@ class PlansController extends Controller
         $current_country_code = $newresponse->country_code2;
         $filtersetting = SettingsModel::first();
         $limit = 3;
-        if($filtersetting->ads_setting == 0){
-            $ads = AdsModel::where('type',0)->get();
-        }else{
-            $ads = AdsModel::where('type',1)->first();
-        }
+        
         $user = Auth::guard('customer')->user();
         $user_id = Auth::guard('customer')->id();
         $service_types = ServiceType::get();
-        
+        $country = CountriesModel::select('id')->where('name',$newresponse->country_name)->first();
+        // $ads = AdsModel::with('countries')->where('is_global',1)->orWhere('country',$country->id)->get();
         $data=$request->all();
         $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
         ->where('country_code',$current_country_code)
         ->with('provider','currency','typeOfService','user','ratings','plan_rating')
         ->orderBy('distance','ASC')
-        // ->orderBy('local_min','DESC')
-        // ->orderBy('datavolume','DESC')
-        // ->orderBy('price','ASC')
-        // ->orderBy('average_review','DESC')
         ->paginate($limit);
-        // echo "<pre>"; print_r($searchResult->toArray()); exit;
-        return view('FrontEnd.plansNew',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'data'=>$searchResult,'service_types' => $service_types,]);               
+        // echo "<pre>"; print_r($ads->toArray()); exit;
+        return view('FrontEnd.plansNew',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'data'=>$searchResult,'service_types' => $service_types,]);               
         
     }
 
@@ -212,7 +206,7 @@ class PlansController extends Controller
        if($ip == 'live'){
            $ip = $_SERVER['REMOTE_ADDR'];
        }else{
-           $ip = '96.46.34.142';
+           $ip = '103.212.235.89';
        }
        $client = new \GuzzleHttp\Client();
        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
@@ -231,11 +225,13 @@ class PlansController extends Controller
                 $limit = 20;
             } 
        }
-       if($filtersetting->ads_setting == 0){
-           $ads = AdsModel::where('type',0)->get();
-       }else{
-           $ads = AdsModel::where('type',1)->first();
-       }
+       $country = CountriesModel::select('id')->where('name',$newresponse->country_name)->first();
+       $ads = AdsModel::with('countries')
+                        ->where('is_active',1)
+                        ->where(function ($query) use ($country) {
+                            $query->where('is_global',1)
+                            ->orWhere('country',$country->id);
+                        })->get()->toArray();
        $user = Auth::guard('customer')->user();
        $user_id = Auth::guard('customer')->id();
        $service_types = ServiceType::get();
@@ -300,6 +296,7 @@ class PlansController extends Controller
                 ];
             }
             CreateLogs::createLog($logData);
+            // echo "<pre>";print_r($ads->toArray()); exit;
             return view('FrontEnd.plansResult',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
 
         }else{
@@ -322,7 +319,7 @@ class PlansController extends Controller
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
         }else{
-            $ip = '96.46.34.142';
+            $ip = '103.212.235.89';
         }
         $client = new \GuzzleHttp\Client();
         $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
@@ -337,11 +334,6 @@ class PlansController extends Controller
         }else{
             $limit = 20;
         }
-        if($filtersetting->ads_setting == 0){
-            $ads = AdsModel::where('type',0)->get();
-        }else{
-            $ads = AdsModel::where('type',1)->first();
-        }
         $user = Auth::guard('customer')->user();
         $user_id = Auth::guard('customer')->id();
         $service_types = ServiceType::get();
@@ -349,6 +341,13 @@ class PlansController extends Controller
         if(array_key_exists("filter",$data)){
             $filter = $data['filter'];
         }
+        $country = CountriesModel::select('id')->where('name',$newresponse->country_name)->first();
+        $ads = AdsModel::with('countries')
+                            ->where('is_active',1)
+                            ->where(function ($query) use ($country) {
+                                $query->where('is_global',1)
+                                ->orWhere('country',$country->id);
+                            })->get()->toArray();
         $mainQuery = ServiceReview::query();
         $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
         ->where('country_code',$current_country_code)
@@ -380,7 +379,7 @@ class PlansController extends Controller
             $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
             $searchResult[$key]['user_address'] = $user_address;
         }
-        return view('FrontEnd.plans.planSorting',['data' => $searchResult,'filtersetting'=>$filtersetting]);
+        return view('FrontEnd.plans.planSorting',['data' => $searchResult,'filtersetting'=>$filtersetting,'ads'=>$ads]);
     }
     /**
      * Show the application dashboard.
@@ -394,7 +393,7 @@ class PlansController extends Controller
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
         }else{
-            $ip = '96.46.34.142';
+            $ip = '103.212.235.89';
         }
         $client = new \GuzzleHttp\Client();
         $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);

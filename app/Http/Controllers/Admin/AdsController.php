@@ -7,23 +7,25 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\SettingsModel;
 use App\Models\Admin\AdsModel;
 use Illuminate\Support\Facades\Validator;
+use App\CountriesModel;
 use File,Image;
 
 class AdsController extends Controller
 {
     public function addAdsForm(Request $request)
-    {
+    {  
+		$countries = CountriesModel::get();
     	$settings = SettingsModel::first();
-    	$customads = AdsModel::where('type',0)->paginate(10);
-    	$googleads = AdsModel::where('type',1)->first();
-    	return view('Admin.Ads.add_ads',['settings'=>$settings,'customads'=>$customads,'googleads'=>$googleads]);
+    	$customads = AdsModel::with('countries')->where('type',0)->paginate(10);
+		$googleads = AdsModel::where('type',1)->first();
+    	return view('Admin.Ads.add_ads',['countries'=>$countries,'settings'=>$settings,'customads'=>$customads,'googleads'=>$googleads]);
     }
     public function addAds(Request $request)
     {
-    	$input = $request->all();
+		$input = $request->all();
     	if($input['type'] == 1){
     		$validation = Validator::make($input,[
-    			'script' => 'required'
+				'script' => 'required'
     		]);
     		if ($validation->fails()) {
     			return redirect()->back()->withInput()->with('error',$validation->messages()->first());
@@ -46,17 +48,26 @@ class AdsController extends Controller
     			}
     		}
     	}else{
+			if(array_key_exists('is_global',$input)){
+				$input['country'] = null;
+				$input['is_global'] = 1;
+				$validationCiuntry = "";
+			}else{
+				$input['is_global'] = 0;
+				$validationCiuntry = "required";
+			}
     		$validation = Validator::make($input, [
 	            'title' => 'required|unique:ads',
-	            'ads_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+	            'ads_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
+				'country' => $validationCiuntry
 	        ]);
 	        if ( $validation->fails() ) {
 	            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
 	        }else{
-	        	if (! File::exists(public_path()."/ads_banner/ads_banner_original")) {
+	        	if (!File::exists(public_path()."/ads_banner/ads_banner_original")) {
 	                File::makeDirectory(public_path()."/ads_banner/ads_banner_original", 0777, true);
 	            } 
-	            if (! File::exists(public_path()."/ads_banner/resized")) {
+	            if (!File::exists(public_path()."/ads_banner/resized")) {
 	                File::makeDirectory(public_path()."/ads_banner/resized", 0777, true);
 	            } 
 	            // Resized Image section 
@@ -107,5 +118,40 @@ class AdsController extends Controller
     			return json_encode($message);
     		}
     	}
-    }
+	}
+	public function approveAds(Request $request)
+	{
+		$perameter = $request->all();
+        $validation = Validator::make($perameter,[
+            'id' => 'required',
+            'is_active' => 'required'
+        ]);
+        // $user = \Auth::guard('admin')->user();
+        if ($validation->fails()) {
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+        }else{
+            $ads = AdsModel::find($perameter['id']);
+            if($ads){
+                if($perameter['is_active'] == 1){
+                    $ads->is_active = 1;
+                    if($ads->save()){
+                        $message = array('success'=>true,'message'=>'Approved successfully.');
+                        return json_encode($message);
+                    }else{
+                        $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                        return json_encode($message);
+                    }
+                }else{
+                    $ads->is_active = 0;
+                    if($ads->save()){
+                        $message = array('success'=>true,'message'=>'Not approved successfully.');
+                        return json_encode($message);
+                    }else{
+                        $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                        return json_encode($message);
+                    }
+                }
+            }
+        }
+	}
 }

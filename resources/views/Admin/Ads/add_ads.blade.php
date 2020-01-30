@@ -26,7 +26,7 @@
 		  			<div class="col-lg-12">
 		  				<h5 class="heading-small text-muted mb-4">ADS</h5>
 		  			</div>
-            <div class="col-lg-6">
+            <!-- <div class="col-lg-6">
               <h6 class="heading-small text-muted mb-4">Currently active</h6>
             </div>
             <div class="col-lg-6 text-right">
@@ -41,7 +41,7 @@
                 <span class="toggle_label">Google Ads</span>
 
               </div>
-            </div>
+            </div> -->
 		  			<div class="col-lg-12">
             @include('flash-message')
              <div class="nav-wrapper">
@@ -66,12 +66,34 @@
                                   <div class="row">
                                     <div class="col-md-12">
                                       <div class="form-group">
-                                        <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Ads Title" name="title">
+                                        <input type="text" value="{{old('title')}}" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Ads Title" name="title" required="">
                                       </div>
                                     </div>
                                     <div class="col-md-12">
                                       <div class="form-group">
-                                        <input type="file" class="form-control" id="exampleFormControlInput1" name="ads_file">
+                                        <input type="file" class="form-control" id="exampleFormControlInput1" name="ads_file" required="">
+                                      </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <div class="form-group">
+                                        <div class="custom-control custom-checkbox mb-3">
+                                          <input class="custom-control-input is_global" id="customCheck1" name="is_global" type="checkbox" checked="">
+                                          <label class="custom-control-label" for="customCheck1">Is Global</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <div class="form-group country_select_section" style="display:none;">
+                                          <select class="form-control select2 country_field" name="country">
+                                            @if($countries)
+                                              <option value="">Select Country</option>
+                                              @foreach($countries as $country)
+                                                <option value="{{$country->id}}">{{$country->name}}</option>
+                                              @endforeach
+                                            @else
+                                              <option value="">Countries not found</option>
+                                            @endif
+                                          </select>
                                       </div>
                                     </div>
                                     <div class="col-md-12">
@@ -94,6 +116,7 @@
                                         <th scope="col" style="width: 10px;">Sr.No</th>
                                         <th scope="col" style="width: 10px;">Image</th>
                                         <th scope="col" class="text-center">Title</th>
+                                        <th scope="col" class="text-center">Is Global</th>
                                         <th scope="col" class="text-center">Status</th>
                                         <th scope="col" class="text-right">Action</th>
                                       </tr>
@@ -121,16 +144,41 @@
                                               </div>
                                             </td>
                                             <td  class="text-center">
+                                              <div class="media-body">
+                                                  <span class="mb-0 text-sm">
+                                                       {{$ads->is_global == 0 ? $ads->countries->name : "Global"}}
+                                                  </span>
+                                              </div>
+                                            </td>
+                                            <td  class="text-center">
                                               <span class="badge badge-dot mr-4">
                                                 @if($ads->is_active == 1)
-                                                <i class="bg-success"></i> Active
+                                                  <span class="d-none not_ap_ms"><i class="bg-danger"></i> In active</span>
+                                                <span class="approved_ms"><i class="bg-success"></i> Active</span>
                                                 @else
-                                                <i class="bg-danger"></i> In active
-
+                                                <span class="not_ap_ms"><i class="bg-danger"></i> In active</span>
+                                                <span class="d-none approved_ms"><i class="bg-success"></i> Active</span>
                                                 @endif
                                               </span>
                                             </td>
                                             <td class="text-right">
+                                              <button class="btn btn-icon btn-2 
+                                                  @if($ads->is_active == 1) 
+                                                    btn-danger 
+                                                  @else 
+                                                    btn-success 
+                                                  @endif 
+                                                  btn-sm active_btn_ads" data-toggle="tooltip" data-placement="top" title="
+                                                  @if($ads->is_active == 1) 
+                                                    Not approve 
+                                                  @else 
+                                                    Approve 
+                                                  @endif" 
+                                                  data-is_active="@if($ads->is_active == 1) 0 @else 1 @endif"
+                                                  data-ads_id="{{$ads->id}}">
+                                                <span class="btn-inner--icon"><i class="@if($ads->is_active != 1) ni ni-check-bold @else ni ni-fat-remove @endif"></i></span>
+                                              </button>
+                                            
                                               <button class="btn btn-icon btn-2 btn-danger btn-sm delete_ad" type="button" data-ad_id="{{$ads->id}}" data-toggle="tooltip" data-placement="top" title="Delete">
                                                 <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
                                                 
@@ -194,6 +242,9 @@
   }
   .custom-toggle-slider, .custom-toggle-slider{
     border: 1px solid #5e72e4;
+  }
+  span.select2.select2-container.select2-container--default {
+    width: 100% !important;
   }
 </style>
 @endsection

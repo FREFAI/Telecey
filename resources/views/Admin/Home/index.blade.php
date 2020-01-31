@@ -49,10 +49,31 @@
                                     <div class="form-group">
                                       <input value="{{$homeContent ? $homeContent->section_one : ''}}" type="text" maxlength="100" class="form-control" placeholder="Section One" name="section_one" required="">
                                     </div>
-                                    <div class="form-group">
-                                      <input type="file" maxlength="100" class="form-control" name="section_one_image">
-                                      <input type="hidden" class="form-control" name="section_one_image_old" value="{{$homeContent ? $homeContent->section_one_image : ''}}">
+                                    <div class="col-lg-12 mb-4">
+                                      <div class="blog_image">
+                                        <div class="avatar-upload">
+                                                <div class="avatar-edit">
+                                                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="section_one_image" />
+                                                    <label for="imageUpload"><i class="fas fa-edit"></i></label>
+                                                </div>
+                                                <div class="avatar-preview">
+                                                @if($homeContent)
+                                                  @if($homeContent->section_one_image != '')
+                                                    <div id="imagePreview" style="background-image: url({{URL::asset('home/images')}}/{{$homeContent->section_one_image}});">
+                                                    </div>
+                                                  @else
+                                                    <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                    </div>
+                                                  @endif
+                                                @else
+                                                  <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                    </div>
+                                                @endif
+                                                </div>
+                                            </div>
+                                      </div>
                                     </div>
+                                    <input type="hidden" class="form-control" name="section_one_image_old" value="{{$homeContent ? $homeContent->section_one_image : ''}}">
                                     <div class="form-group">
                                       <button type="submit" class="btn btn-primary">Save</button>
                                     </div>
@@ -120,6 +141,9 @@
   }
   .custom-toggle-slider, .custom-toggle-slider{
     border: 1px solid #5e72e4;
+  }
+  input, textarea{
+    color: #000 !important;
   }
 </style>
 @endsection

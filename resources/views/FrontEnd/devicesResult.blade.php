@@ -320,7 +320,7 @@
 <!-- Content End Here -->
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script>
-    setTimeout(() => {
+    setTimeout(function(){
         $('.loading_section').hide();
         $('.record_section').show();
     }, 3000);

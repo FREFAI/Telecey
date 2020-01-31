@@ -447,7 +447,7 @@
 			$('#unlimited_calls').removeClass('d-none');
 		}
 	}
-	setTimeout(() => {
+	setTimeout(function(){
 		$('.loading_section').hide();
 		$('.record_section').show();
 	}, 3000);

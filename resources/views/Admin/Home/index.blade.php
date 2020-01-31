@@ -35,9 +35,6 @@
                          <li class="nav-item">
                              <a class="nav-link mb-sm-3 mb-md-0" id="section-3-tab" data-toggle="tab" href="#section-3" role="tab" aria-controls="section-3" aria-selected="false"><i class="fas fa-ad mr-2" style='font-size:18px'></i>Section 3</a>
                          </li>
-                         <li class="nav-item">
-                             <a class="nav-link mb-sm-3 mb-md-0" id="section-4-tab" data-toggle="tab" href="#section-4" role="tab" aria-controls="section-4" aria-selected="false"><i class="fas fa-ad mr-2" style='font-size:18px'></i>Section 4</a>
-                         </li>
                      </ul>
                  </div>
                  <div class="card shadow">
@@ -45,63 +42,61 @@
                          <div class="tab-content" id="myTabContent">
                             <!-- Section One Section -->
                              <div class="tab-pane fade show active" id="section-1" role="tabpanel" aria-labelledby="section-1-tab">
+                              <form method="post" action="{{url('/admin/section-one')}}" enctype="multipart/form-data">
+                              @csrf
                                 <div class="row">
                                   <div class="col-md-12">
                                     <div class="form-group">
-                                      <textarea class="from-control text_editor" id="first-test"></textarea>
+                                      <input value="{{$homeContent ? $homeContent->section_one : ''}}" type="text" maxlength="100" class="form-control" placeholder="Section One" name="section_one" required="">
                                     </div>
                                     <div class="form-group">
-                                      <button class="btn btn-primary">Submit</button>
+                                      <input type="file" maxlength="100" class="form-control" name="section_one_image">
+                                    </div>
+                                    <div class="form-group">
+                                      <button type="submit" class="btn btn-primary">Save</button>
                                     </div>
                                   </div>
                                 </div>
-                             </div>
+                              </form>  
+                             
+                              </div>
                             <!-- End Section One Section -->
 
                             <!-- Section Two Section  -->
                              <div class="tab-pane fade" id="section-2" role="tabpanel" aria-labelledby="section-2-tab">
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <div class="form-group">
-                                      <textarea class="from-control text_editor" id="first-test"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                      <button class="btn btn-primary">Submit</button>
+                                <form method="post" action="{{url('/admin/section-two')}}" enctype="multipart/form-data">
+                                  @csrf
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div class="form-group">
+                                        <textarea class="form-control" name="section_two" required="" placeholder="Second Section">{{$homeContent ? $homeContent->section_two : ''}}</textarea>
+                                      </div>
+                                      <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
+                                </form> 
                              </div>
                             <!-- End Section Two Section  -->
 
                             <!-- Section Three Section  -->
                              <div class="tab-pane fade" id="section-3" role="tabpanel" aria-labelledby="section-3-tab">
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <div class="form-group">
-                                      <textarea class="from-control text_editor" id="first-test"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                      <button class="btn btn-primary">Submit</button>
+                                <form method="post" action="{{url('/admin/section-three')}}" enctype="multipart/form-data">
+                                  @csrf
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div class="form-group">
+                                        <textarea rows="10"class="form-control" name="section_three" required=""  placeholder="Third Section">{{$homeContent ? $homeContent->section_three : ''}}</textarea>
+                                      </div>
+                                      <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
+                                </form> 
                              </div>
                             <!-- End Section Three Section  -->
-
-                            <!-- Section Four Section  -->
-                             <div class="tab-pane fade" id="section-4" role="tabpanel" aria-labelledby="section-4-tab">
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <div class="form-group">
-                                      <textarea class="from-control" id="first-test"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                      <button class="btn btn-primary">Submit</button>
-                                    </div>
-                                  </div>
-                                </div>
-                             </div>
-                            <!-- End Section Four Section  -->
                              
                          </div>
                      </div>

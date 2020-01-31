@@ -163,6 +163,9 @@
 			// Home content section
 
 				Route::get('/home-content', 'Admin\HomeController@index');
+				Route::post('/section-one', 'Admin\HomeController@sectionOne');
+				Route::post('/section-two', 'Admin\HomeController@sectionTwo');
+				Route::post('/section-three', 'Admin\HomeController@sectionThree');
 				
 			// End Home content section
 			// Terms Adn Conditions content section

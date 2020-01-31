@@ -8,7 +8,7 @@
 		<div class="row align-items-center">
 			<div class="col-md-6 text-center pl-0 pr-0 video-height">
 				<div class="first-section-text">
-					<h2>Welcome to the telco community</h2>
+					<h2>{{$homeContent ? $homeContent->section_one : 'Welcome to the telco community'}}</h2>
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -20,8 +20,9 @@
 		<div class="row mt-5">
 			<div class="col-12 mb-4">
 				<div class="find-service-section mx-auto text-center">
-					<h2>Find the right telecom service that suits your needs</h2>
-					<h2>Check and share your telco experience with every one</h2>
+					<h2>{{$homeContent ? $homeContent->section_two : 'Find the right telecom service that suits your needs
+Check and share your telco experience with every one'}}</h2>
+					<!-- <h2>Check and share your telco experience with every one</h2> -->
 				</div>
 			</div>
 		</div>
@@ -71,7 +72,8 @@
 			</div>
 			<div class="col-12 mt-5">
 				<div class="service-content-section w-75 mx-auto text-center">
-				Everyone has subscribed to mobile phone plan or a home internet service and everyone has his own unique experience. Because of the telecom nature, the service defer from a location to another and from  specific service to another. A carrier may have a perfect coverage for the whole city except for one single neighborhood. While another one may provide an excellent 100 Mbps <br/> service but a horrible Gbps service. <br/>TelcoTales enables users to share their experience "Telco Tales" on our website so everyone benefits and easily pick the best service, while carriers can spot their weaknesses and improve them 
+				{!!$homeContent ? $homeContent->section_three : 'Everyone has subscribed to mobile phone plan or a home internet service and everyone has his own unique experience. Because of the telecom nature, the service defer from a location to another and from  specific service to another. A carrier may have a perfect coverage for the whole city except for one single neighborhood. While another one may provide an excellent 100 Mbps <br> service but a horrible Gbps service. <br>TelcoTales enables users to share their experience "Telco Tales" on our website so everyone benefits and easily pick the best service, while carriers can spot their weaknesses and improve them 
+				'!!}
 				</div>
 			</div>
 		</div>

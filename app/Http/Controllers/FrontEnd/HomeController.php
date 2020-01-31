@@ -10,6 +10,7 @@ use App\Models\FrontEnd\DeviceReview;
 use App\Models\FrontEnd\ServiceRating;
 use App\Models\Admin\SettingsModel;
 use App\Models\Admin\BlogsModel;
+use App\Models\Admin\HomeContent;
 use App\Models\FrontEnd\PlanDeviceRating;
 use Auth;
 use App\UserAddress;
@@ -38,6 +39,7 @@ class HomeController extends Controller
     public function homepage()
     {
         $settings = SettingsModel::first();
+        
         $blogs = BlogsModel::orderBy('created_at','DESC')->take(3)->get();
         return view('FrontEnd.homepage',['settings'=> $settings,'blogs'=>$blogs]);
     }
@@ -50,8 +52,9 @@ class HomeController extends Controller
     public function homePageNew()
     {
         $settings = SettingsModel::first();
+        $homeContent = HomeContent::first();
         $blogs = BlogsModel::orderBy('created_at','DESC')->take(3)->get();
-        return view('FrontEnd.homepagenew',['settings'=> $settings,'blogs'=>$blogs]);
+        return view('FrontEnd.homepagenew',['settings'=> $settings,'blogs'=>$blogs,'homeContent'=>$homeContent]);
     }
 
     public function profile(Request $request)

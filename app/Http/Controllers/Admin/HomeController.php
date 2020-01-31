@@ -125,7 +125,60 @@ class HomeController extends Controller
             }
         }
     }
-    
+    public function sectionFour(Request $request)
+    {
+        $params = $request->all();
+        $validation = Validator::make($params,[
+            'section_four' => 'required',
+            'section_four_description' => 'required',
+        ]);
+        if ($validation->fails()) {
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+        }else{
+            if (!File::exists(public_path()."/home/images")) {
+                File::makeDirectory(public_path()."/home/images", 0777, true);
+            } 
+            // Resized Image section 
+            if($request->hasFile('section_four_image')){
+                $image       = $request->file('section_four_image');
+                $fileext    = $image->getClientOriginalExtension();
+                $destinationPath = public_path('/home/images');
+                $params['section_four_image'] = time().'_home_image_section_four.'.$fileext;                
+
+                $image_resize = Image::make($image->getRealPath())->resize(361, 231, function($constraint) {
+                    $constraint->aspectRatio();
+                });              
+                $image_resize->save(public_path('/home/images/' .$params['section_four_image']));
+                if($params['section_four_image_old'] != ""){
+                    $oldFile = public_path()."/home/images/".$params['section_four_image_old'];
+                    if (File::exists($oldFile)) {
+                        File::delete($oldFile);
+                    }
+                }
+                unset($params['section_four_image_old']);
+            }
+            $homeContentData = HomeContent::first();
+            if($homeContentData == null){
+                $saveContent = HomeContent::create($params);
+                if($saveContent){
+                    return redirect()->back()->withInput()->with('success','Content save successfully.');
+                }else{
+                    return redirect()->back()->withInput()->with('error','Somthing went wrong!');
+                }
+            }else{
+                $homeContentData->section_four = $params['section_four'];
+                $homeContentData->section_four_description = $params['section_four_description'];
+                if($request->hasFile('section_four_image')){
+                    $homeContentData->section_four_image = $params['section_four_image'];
+                }
+                if($homeContentData->save()){
+                    return redirect()->back()->withInput()->with('success','Content save successfully.');
+                }else{
+                    return redirect()->back()->withInput()->with('error','Somthing went wrong!');
+                }
+            }
+        }
+    }
     public function termsAndConditionsForm(Request $request)
     {
         $setting = SettingsModel::first();

@@ -90,6 +90,20 @@
 		$("#imageUpload").change(function() {
 		    readURL(this);
 		});
+		function readURLFour(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function(e) {
+		            $('#imagePreviewFour').css('background-image', 'url('+e.target.result +')');
+		            $('#imagePreviewFour').hide();
+		            $('#imagePreviewFour').fadeIn(650);
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+		$("#imageUploadFoursection").change(function() {
+		    readURLFour(this);
+		});
 
 		$('.settings').on('change',function(e){
 			var settingbutton = $(this);

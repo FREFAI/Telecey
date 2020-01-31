@@ -35,6 +35,9 @@
                          <li class="nav-item">
                              <a class="nav-link mb-sm-3 mb-md-0" id="section-3-tab" data-toggle="tab" href="#section-3" role="tab" aria-controls="section-3" aria-selected="false"><i class="fas fa-ad mr-2" style='font-size:18px'></i>Section 3</a>
                          </li>
+                         <li class="nav-item">
+                             <a class="nav-link mb-sm-3 mb-md-0" id="section-4-tab" data-toggle="tab" href="#section-4" role="tab" aria-controls="section-4" aria-selected="false"><i class="fas fa-ad mr-2" style='font-size:18px'></i>Section 4</a>
+                         </li>
                      </ul>
                  </div>
                  <div class="card shadow">
@@ -52,25 +55,25 @@
                                     <div class="col-lg-12 mb-4">
                                       <div class="blog_image">
                                         <div class="avatar-upload">
-                                                <div class="avatar-edit">
-                                                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="section_one_image" />
-                                                    <label for="imageUpload"><i class="fas fa-edit"></i></label>
-                                                </div>
-                                                <div class="avatar-preview">
-                                                @if($homeContent)
-                                                  @if($homeContent->section_one_image != '')
-                                                    <div id="imagePreview" style="background-image: url({{URL::asset('home/images')}}/{{$homeContent->section_one_image}});">
-                                                    </div>
-                                                  @else
-                                                    <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
-                                                    </div>
-                                                  @endif
-                                                @else
-                                                  <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
-                                                    </div>
-                                                @endif
-                                                </div>
+                                            <div class="avatar-edit">
+                                                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="section_one_image" />
+                                                <label for="imageUpload"><i class="fas fa-edit"></i></label>
                                             </div>
+                                            <div class="avatar-preview">
+                                            @if($homeContent)
+                                              @if($homeContent->section_one_image != '')
+                                                <div id="imagePreview" style="background-image: url({{URL::asset('home/images')}}/{{$homeContent->section_one_image}});">
+                                                </div>
+                                              @else
+                                                <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                </div>
+                                              @endif
+                                            @else
+                                              <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                </div>
+                                            @endif
+                                            </div>
+                                        </div>
                                       </div>
                                     </div>
                                     <input type="hidden" class="form-control" name="section_one_image_old" value="{{$homeContent ? $homeContent->section_one_image : ''}}">
@@ -119,7 +122,51 @@
                                 </form> 
                              </div>
                             <!-- End Section Three Section  -->
-                             
+                            <!-- Section Four Section  -->
+                            <div class="tab-pane fade" id="section-4" role="tabpanel" aria-labelledby="section-4-tab">
+                              <form method="post" action="{{url('/admin/section-four')}}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                      <input value="{{$homeContent ? $homeContent->section_four : ''}}" type="text" maxlength="100" class="form-control" placeholder="Section Four" name="section_four" required="">
+                                    </div>
+                                    <div class="form-group">
+                                      <textarea rows="10"class="form-control" name="section_four_description" required=""  placeholder="Four Section">{{$homeContent ? $homeContent->section_four_description : ''}}</textarea>
+                                    </div>
+                                    <input type="hidden" class="form-control" name="section_four_image_old" value="{{$homeContent ? $homeContent->section_four_image : ''}}">
+                                    <div class="col-lg-12 mb-4">
+                                      <div class="blog_image">
+                                        <div class="avatar-upload">
+                                            <div class="avatar-edit">
+                                                <input type='file' id="imageUploadFoursection" accept=".png, .jpg, .jpeg" name="section_four_image" />
+                                                <label for="imageUploadFoursection"><i class="fas fa-edit"></i></label>
+                                            </div>
+                                            <div class="avatar-preview">
+                                            @if($homeContent)
+                                              @if($homeContent->section_four_image != '')
+                                                <div id="imagePreviewFour" style="background-image: url({{URL::asset('home/images')}}/{{$homeContent->section_four_image}});">
+                                                </div>
+                                              @else
+                                                <div id="imagePreviewFour" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                </div>
+                                              @endif
+                                            @else
+                                              <div id="imagePreviewFour" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                </div>
+                                            @endif
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </form> 
+                            </div>
+                            <!-- Section Four Section End  -->
                          </div>
                      </div>
                  </div> 

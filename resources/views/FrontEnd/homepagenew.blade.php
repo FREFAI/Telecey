@@ -233,18 +233,26 @@ Check and share your telco experience with every one'}}</h2>
 		<div class="row bg-green col-10 offset-md-1">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="h1">How do we get our information</h1>
+					<h1 class="h1">{{$homeContent ? $homeContent->section_four : ''}}</h1>
 				</div>
 			</div>
 			<div class="col-12 text-center">
 				<div class="image-info">
-					<img src="{{URL::asset('frontend/assets/img/28561.jpg')}}"/>
+					@if($homeContent)
+						@if($homeContent->section_four_image != '')
+							<img src="{{URL::asset('home/images')}}/{{$homeContent->section_four_image}}">
+						@else
+							<img src="{{URL::asset('frontend/assets/img/28561.jpg')}}">
+						@endif
+					@else
+					<img src="{{URL::asset('frontend/assets/img/28561.jpg')}}">
+					@endif
 				</div>
 			</div>
 			<div class="col-12 text-center mt-3">
 				<div class="content-info">
 				<p>
-				Telcotales is a fee telecommunication websites specialized in collecting, analyzing and evaluating telecom carriers and providers world wide. We Depend 100% on our users reviews to rates. With the huge demand on telecommunication and data these days, telecom is considered the most important and critical products and services offered worldwide. The market is offering thousands of telecom and mobile device and hundreds of thousands of telecom plans and telecom subscriptions. Internet Companies and mobile wireless companies’ network are covering millions of kilometers. All these mobile phones, smart devices, pans, subscription and telecom services varies from one company to another and from one brand to another, even within the same network the provided service may vary from city to another or even from a neighborhood to another. For that Telcotales share every one’s experience and reviews to help you pick
+				{!!$homeContent ? $homeContent->section_four_description : ''!!}
 				</p>
 			</div>
 			</div>

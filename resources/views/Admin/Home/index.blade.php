@@ -51,6 +51,7 @@
                                     </div>
                                     <div class="form-group">
                                       <input type="file" maxlength="100" class="form-control" name="section_one_image">
+                                      <input type="hidden" class="form-control" name="section_one_image_old" value="{{$homeContent ? $homeContent->section_one_image : ''}}">
                                     </div>
                                     <div class="form-group">
                                       <button type="submit" class="btn btn-primary">Save</button>

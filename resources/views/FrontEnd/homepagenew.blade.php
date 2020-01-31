@@ -13,7 +13,15 @@
 			</div>
 			<div class="col-md-6">
 				<div class="first-section-image">
+					@if($homeContent)
+						@if($homeContent->section_one_image != '')
+							<img src="{{URL::asset('home/images')}}/{{$homeContent->section_one_image}}">
+						@else
+							<img src="{{URL::asset('frontend/assets/img/2427279.jpg')}}">
+						@endif
+					@else
 					<img src="{{URL::asset('frontend/assets/img/2427279.jpg')}}">
+					@endif
 				</div>
 			</div>
 		</div>

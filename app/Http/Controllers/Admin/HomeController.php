@@ -39,6 +39,13 @@ class HomeController extends Controller
                     $constraint->aspectRatio();
                 });              
                 $image_resize->save(public_path('/home/images/' .$params['section_one_image']));
+                if($params['section_one_image_old'] != ""){
+                    $oldFile = public_path()."/home/images/".$params['section_one_image_old'];
+                    if (File::exists($oldFile)) {
+                        File::delete($oldFile);
+                    }
+                }
+                unset($params['section_one_image_old']);
             }
             $homeContentData = HomeContent::first();
             if($homeContentData == null){

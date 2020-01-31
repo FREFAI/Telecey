@@ -74,7 +74,7 @@
 				</div>
 				<div class="col-lg-1 text-right record_section">
 					<div class="filter_button">
-						<button type="submit"><img src="{{URL::asset('frontend/assets/img/filter.webp')}}"/></button>
+						<button type="submit"><img src="{{URL::asset('frontend/assets/img/filter.jpg')}}"/></button>
 					</div>
 				</div>
 				<div class="col-lg-4 expendedFilter">
@@ -265,7 +265,7 @@
 											<td colspan="7">
 												<div class="row align-items-center">
 													<div class="col-lg-6 text-center">
-														<img src="{{URL::asset('frontend/assets/img/case.webp')}}"/>
+														<img src="{{URL::asset('frontend/assets/img/case.jpg')}}"/>
 													</div>
 													<div class="col-lg-6">
 														<h1 class="adds-text">The Ultimate cover</h1>

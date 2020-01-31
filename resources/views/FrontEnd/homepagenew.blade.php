@@ -36,27 +36,27 @@ Check and share your telco experience with every one'}}</h2>
 		</div>
 		<div class="row mt-5 py-5 col-10 offset-md-1">
 			<div class="col-2 p-0 text-center">
-				<img src="{{URL::asset('frontend/assets/img/2756310.webp')}}"/>
+				<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>
 				<div class="label-service font-weight-bold">Mobile Plans</div>
 			</div>
 			<div class="col-2 p-0 text-center">
-				<img src="{{URL::asset('frontend/assets/img/4636.webp')}}"/>
+				<img src="{{URL::asset('frontend/assets/img/4636.jpg')}}"/>
 				<div class="label-service font-weight-bold">Internet</div>
 			</div>
 			<div class="col-2 p-0 text-center">
-				<img src="{{URL::asset('frontend/assets/img/sharing.webp')}}"/>
+				<img src="{{URL::asset('frontend/assets/img/sharing.jpg')}}"/>
 				<div class="label-service font-weight-bold">Share plans</div>
 			</div>
 			<div class="col-2 p-0 text-center">
-				<img src="{{URL::asset('frontend/assets/img/2756310.webp')}}"/>
+				<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>
 				<div class="label-service font-weight-bold">Devices</div>
 			</div>
 			<div class="col-2 p-0 text-center">
-				<img src="{{URL::asset('frontend/assets/img/150631-OUD927-864_edited.webp')}}"/>
+				<img src="{{URL::asset('frontend/assets/img/150631-OUD927-864_edited.jpg')}}"/>
 				<div class="label-service font-weight-bold">Personal</div>
 			</div>
 			<div class="col-2 p-0 text-center">
-				<img src="{{URL::asset('frontend/assets/img/2317497_edited.webp')}}"/>
+				<img src="{{URL::asset('frontend/assets/img/2317497_edited.jpg')}}"/>
 				<div class="label-service font-weight-bold">Business</div>
 			</div>
 		</div>
@@ -75,7 +75,7 @@ Check and share your telco experience with every one'}}</h2>
 			</div>
 			<div class="col-6">
 				<div class="service-section-image">
-					<img src="{{URL::asset('frontend/assets/img/filter.webp')}}">
+					<img src="{{URL::asset('frontend/assets/img/filter.jpg')}}">
 				</div>
 			</div>
 			<div class="col-12 mt-5">
@@ -175,7 +175,7 @@ Check and share your telco experience with every one'}}</h2>
 				<div class="row">
 					<div class="col-2 text-center mb-3">
 						<div class="image-section">
-							<img src="{{URL::asset('frontend/assets/img/House%20Sketch.webp')}}"/>
+							<img src="{{URL::asset('frontend/assets/img/House%20Sketch.jpg')}}"/>
 						</div>
 					</div>
 					<div class="col-10 mb-3">
@@ -185,7 +185,7 @@ Check and share your telco experience with every one'}}</h2>
 					</div>
 					<div class="col-2 text-center mb-3">
 						<div class="image-section">
-							<img src="{{URL::asset('frontend/assets/img/Ringing%20Phone.webp')}}"/>
+							<img src="{{URL::asset('frontend/assets/img/Ringing%20Phone.jpg')}}"/>
 						</div>
 					</div>
 					<div class="col-10 mb-3">
@@ -195,7 +195,7 @@ Check and share your telco experience with every one'}}</h2>
 					</div>
 					<div class="col-2 text-center mb-3">
 						<div class="image-section">
-							<img src="{{URL::asset('frontend/assets/img/Documents.webp')}}"/>
+							<img src="{{URL::asset('frontend/assets/img/Documents.jpg')}}"/>
 						</div>
 					</div>
 					<div class="col-10 mb-3">

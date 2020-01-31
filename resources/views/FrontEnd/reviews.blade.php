@@ -438,7 +438,7 @@
                             <div class="col-lg-3">
                                 <h5>Color</h5>
                                 <div class="tg-select form-control mb-0">
-                                    <select required="required" name="device_color" id="device_color">
+                                    <select  name="device_color" id="device_color">
                                         
                                     </select>
                                 </div>

@@ -77,7 +77,7 @@
 					<div class="col-sm-4 col-md-4 mb-4">
 						<div class="post">
 							<div class="post-img-content">
-								<img src="{{URL::asset('frontend/assets/img/Iphone_new.webp')}}" class="img-responsive"/>
+								<img src="{{URL::asset('frontend/assets/img/Iphone_new.jpg')}}" class="img-responsive"/>
 							</div>
 							<div class="post-content">
 								<div class="row">

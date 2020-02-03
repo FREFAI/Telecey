@@ -125,11 +125,24 @@ class ReviewsController extends Controller
     {
         $user_id = Auth::guard('customer')->user()['id']; 
         $pageType = $plan_id;
+        $ip = env('ip_address','live');
+        if($ip == 'live'){
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }else{
+            // $ip = '2606:4580:2:0:a974:e358:829c:412e';
+            $ip = '122.173.214.129';
+        }
+        $client = new \GuzzleHttp\Client();
+        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+        $newresponse = json_decode($newresponse->getBody());
+        $current_lat = $newresponse->latitude;
+        $current_long = $newresponse->longitude;
+
         $plan_id = base64_decode($plan_id);
         $settings = SettingsModel::first();
         $questions = RatingQuestion::Where('type',1)->get();
         $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
-        return view('FrontEnd.reviews_rating',['settings'=> $settings,'plan_id'=>$plan_id,'questions'=>$questions,'userAddress'=>$userAddress,'type'=>1]);
+        return view('FrontEnd.reviews_rating',['settings'=> $settings,'plan_id'=>$plan_id,'questions'=>$questions,'userAddress'=>$userAddress,'type'=>1,'lat' =>  $current_lat,'long'=>$current_long]);
     }
     public function reviewsDetail(Request $request)
     {

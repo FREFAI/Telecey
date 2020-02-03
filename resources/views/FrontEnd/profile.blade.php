@@ -684,53 +684,53 @@
       </div>
     </div>
 <!-- Changes address Modal -->
-<div class="modal fade" id="change_address_model" >
-  <div class="modal-dialog">
-    <div class="modal-content">
+	<div class="modal fade" id="change_address_model" >
+		<div class="modal-dialog">
+			<div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Changes Address</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">Changes Address</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
 
-      <!-- Modal body -->
-      <div class="modal-body">
-        <form id="change_address_form" action="{{url('/changeAddress')}}" method="post">
-            <div class="row">
-            	@csrf
-            	<div class="col-lg-12">
-            	    <h5>Address</h5>
-            	    <div class="form-group">
-            	        <input type="text" maxlength="70" id="address" name="address" class="form-control" placeholder="Address" value="" autocomplete="off">
-            	    </div>
-            	</div>
-                <div class="col-lg-12">
-                    <h5>Country</h5>
-                    <div class="form-group" id="country_div">
-                        <input type="text" maxlength="50" id="country" name="country" class="form-control" placeholder="Country" required="" value="" autocomplete="off">
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <h5>City</h5>
-                    <div class="form-group city_div" id="city_div">
-                        <input type="text" maxlength="50" id="city" name="city" class="form-control" placeholder="City" autocomplete="off" required="" data-country="IN" value="">
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <h5>Postal code</h5>
-                    <div class="form-group">
-                        <input type="text" maxlength="20" id="postal_code" name="postal_code" class="form-control" placeholder="Postal code" required="" value="">
-                    </div>
-                </div>
-                <input type="hidden" name="id" value="" id="address_id">
-                <div class="col-lg-12 text-center">
-                    <button type="submit" class="btn btn-primary">Update</button>
-                </div>
-            </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+			<!-- Modal body -->
+			<div class="modal-body">
+				<form id="change_address_form" action="{{url('/changeAddress')}}" method="post">
+					<div class="row">
+						@csrf
+						<div class="col-lg-12">
+							<h5>Address</h5>
+							<div class="form-group">
+								<input type="text" maxlength="70" id="address" name="address" class="form-control" placeholder="Address" value="" autocomplete="off">
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<h5>Country</h5>
+							<div class="form-group country_div" id="country_div">
+								<input type="text" maxlength="50" id="country" name="country" class="form-control js-input" placeholder="Country" required=""  autocomplete="off">
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<h5>City</h5>
+							<div class="form-group city_div" id="city_div">
+								<input type="text" maxlength="50" id="city" name="city" class="form-control city_input" placeholder="City" autocomplete="off" required="" data-country="IN" value="">
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<h5>Postal code</h5>
+							<div class="form-group">
+								<input type="text" maxlength="20" id="postal_code" name="postal_code" class="form-control" placeholder="Postal code" required="" value="">
+							</div>
+						</div>
+						<input type="hidden" name="id" value="" id="address_id">
+						<div class="col-lg-12 text-center">
+							<button type="button" class="btn btn-primary address_update_btn">Update</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			</div>
+		</div>
+	</div>
 @endsection

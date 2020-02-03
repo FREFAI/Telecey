@@ -18,13 +18,26 @@
 	<!-- Content Start Here -->
 		<div class="inner-page start-page">
 		    <div class="container-fluid">
-                <div class="row second-step">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="step_three_img text-center">
+                            <img src="{{URL::asset('frontend/assets/img/Waves_iPhone_Case.png')}}"/>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="title-step-1 w-75">
+                            <h1>STEP #3</h1>
+                            <h1>What about Rating Your Service Today?</h1>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row second-step">
                     <div class="col-lg-12">
                         <div class="step_two_img">
                             <img src="{{URL::asset('frontend/assets/img/Tube_Lights_(1).png')}}"/>
                         </div>
                     </div>
-                </div>
+                </div> -->
 		        <!-- <div class="row">
 		            <div class="col-lg-4 text-center">
 		                <div class="step-section-one">
@@ -264,6 +277,8 @@
                                     <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="Postal code" required="">
                                 </div>
                             </div>
+                            <input type="hidden" name="latitude" id="lat" value="{{$lat}}">
+                            <input type="hidden" name="longitude" id="long" value="{{$long}}">
                             <div class="col-lg-12 text-center">
                                 <button type="submit" class="btn btn-primary save_address">Save</button>
                             </div>
@@ -321,6 +336,27 @@
 
     $('.save_address').on('click',function(e){
         e.preventDefault();
+        console.log(citySelection);
+        
+        if(countrySelection === false){
+            $('.country_list').css('display','none');
+            $('#country').addClass('error');
+            // $('#country').val('');
+            $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
+            return false;
+        }else{
+            $("#country_div #country-error").remove();
+        }
+        if(citySelection === false){
+            $('.city_list').css('display','none');
+            $('#city').addClass('error');
+            // $('#city').val('');
+            $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
+            return false;
+        }else{
+            $("#city_div #country-error").remove();
+        }
+        
         if(!$("#address_form").valid()){
             return false;
         }else{
@@ -341,7 +377,6 @@
 
     $(document).on('click','.make_primary_btn',function(){
         var address_id = $(this).attr('data-address_id');
-        console.log(address_id);
         if(address_id==0){
             $('.primary').hide();
             $('.make_primary_btn').removeClass('d-none');

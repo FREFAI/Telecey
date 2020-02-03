@@ -100,7 +100,6 @@
     rules: {
         postal_code: {
           required: true,
-          number: true
         }
       }
   });
@@ -879,4 +878,25 @@
             
           })
         // End Brand Section
+
+        // Profile Page 
+          $('.address_update_btn').on('click',function(e){
+            e.preventDefault();
+            if(countrySelection === false){
+              $('.country_list').css('display','none');
+              $('#country').addClass('error');
+              // $('#country').val('');
+              $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
+              return false;
+            }
+            if(citySelection === false){
+              $('.city_list').css('display','none');
+              $('#city').addClass('error');
+              // $('#city').val('');
+              $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
+              return false;
+            }
+            $('#change_address_form').submit();
+          });
+        // End Profile Page
 </script>

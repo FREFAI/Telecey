@@ -37,7 +37,8 @@
 						<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
 					</div>
 				</div>
-				<div class="col-lg-2 record_section">
+				<input type="hidden" name="rows" id="paginate_input" value="{{request()->get('rows')}}"/>
+				<div class="col-lg-3 record_section">
 					<div class="service_type">
 						@if($filtersetting->mobile_home_setting == 1)
 							<select class="service-type-select service_type" name="service_type">
@@ -53,20 +54,7 @@
 						@endif
 					</div>
 				</div>
-				<div class="col-lg-1 record_section">
-					<select class="service-type-select paginate_select_box" name="rows">
-						<option @if( request()->get('rows') == "10" ) selected @endif>10</option>
-						<option @if( request()->get('rows') == "20" ) selected @endif>20</option>
-						<option @if( request()->get('rows') == "30" ) selected @endif>30</option>
-						<option @if( request()->get('rows') == "40" ) selected @endif>40</option>
-						<option @if( request()->get('rows') == "50" ) selected @endif>50</option>
-						<option @if( request()->get('rows') == "60" ) selected @endif>60</option>
-						<option @if( request()->get('rows') == "70" ) selected @endif>70</option>
-						<option @if( request()->get('rows') == "80" ) selected @endif>80</option>
-						<option @if( request()->get('rows') == "90" ) selected @endif>90</option>
-						<option @if( request()->get('rows') == "100" ) selected @endif>100</option>
-					</select>
-				</div>
+				
 				<div class="col-lg-1 record_section">
 					<div class="text-center">
 						<a title="Expend Filter" href="javascript:void(0);" onClick="filterExpend()" class="expendFilterbtn"><i class="fa fa-filter"></i></a>
@@ -290,9 +278,26 @@
 						@endif
 					@endif
 					@if(Auth::guard('customer')->check())
-					<div class="pagination">
-						{{$data->appends(request()->input())->links()}}
+					<div class="row align-items-center" style="width: 970px !important; margin: 0 auto;">
+						<div class="col-lg-9">
+							<div class="pagination">
+								{{$data->appends(request()->input())->links()}}
+							</div>
+						</div>
+						<div class="col-lg-3 rows_per_page">
+							<div class="inner_rows">
+								<label>Items Per Page</label>
+								<select class="service-type-select paginate_select_box" name="rows">
+									<option @if( request()->get('rows') == "20" ) selected @endif>20</option>
+									<option @if( request()->get('rows') == "50" ) selected @endif>50</option>
+									<option @if( request()->get('rows') == "70" ) selected @endif>70</option>
+									<option @if( request()->get('rows') == "100" ) selected @endif>100</option>
+									<option @if( request()->get('rows') == "200" ) selected @endif>200</option>
+								</select>
+							</div>
+						</div>
 					</div>
+					
 					@else
 						@if($filtersetting->no_of_search_record == 0)
 							<div class="pagination">
@@ -490,9 +495,10 @@
 		});
 		
 	});
-	// $('.paginate_select_box').on('change',function(){
-	// 	$('#planSearch').submit();
-	// });
+	$('.paginate_select_box').on('change',function(){
+		$('#paginate_input').val($(this).val());
+		$('#planSearch').submit();
+	});
 </script>
 	
 

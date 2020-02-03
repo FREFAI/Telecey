@@ -22,9 +22,9 @@
 				</div>
 			</div>
 		</div>
-		<form action="{{url('/devices/result')}}" method="get" class="w-100">
+		<form action="{{url('/devices/result')}}" method="get" class="w-100" id="deviceForm">
 			<div class="row custom_width align-items-center">
-				<div class="col-lg-6 record_section">
+				<div class="col-lg-7 record_section">
 					<div class="location">
 						<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
 					</div>
@@ -37,20 +37,7 @@
 						@endforeach
 					</select>
 				</div>
-				<div class="col-lg-1 record_section">
-					<select class="service-type-select paginate_select_box" name="rows">
-						<option value"10" @if( request()->get('rows') == "10" ) selected @endif>10</option>
-						<option value"20" @if( request()->get('rows') == "20" ) selected @endif>20</option>
-						<option value"30" @if( request()->get('rows') == "30" ) selected @endif>30</option>
-						<option value"40" @if( request()->get('rows') == "40" ) selected @endif>40</option>
-						<option value"50" @if( request()->get('rows') == "50" ) selected @endif>50</option>
-						<option value"60" @if( request()->get('rows') == "60" ) selected @endif>60</option>
-						<option value"70" @if( request()->get('rows') == "70" ) selected @endif>70</option>
-						<option value"80" @if( request()->get('rows') == "80" ) selected @endif>80</option>
-						<option value"90" @if( request()->get('rows') == "90" ) selected @endif>90</option>
-						<option value"100" @if( request()->get('rows') == "100" ) selected @endif>100</option>
-					</select>
-				</div>
+				<input type="hidden" name="rows" id="paginate_input" value="{{request()->get('rows')}}"/>
 				<div class="col-lg-1 record_section">
 					<div class="text-center">
 						<a title="Expend Filter" href="javascript:void(0);" onClick="filterExpend()" class="expendFilterbtn"><i class="fa fa-filter"></i></a>
@@ -178,9 +165,25 @@
 					@endif
 				@endif
 				@if(Auth::guard('customer')->check())
-				<div class="pagination">
-					{{$data->appends(request()->input())->links()}}
-				</div>
+					<div class="row align-items-center" style="width: 970px !important; margin: 0 auto;">
+						<div class="col-lg-9">
+							<div class="pagination">
+								{{$data->appends(request()->input())->links()}}
+							</div>
+						</div>
+						<div class="col-lg-3 rows_per_page">
+							<div class="inner_rows mb-2">
+								<label>Items Per Page</label>
+								<select class="service-type-select paginate_select_box" name="rows">
+									<option @if( request()->get('rows') == "20" ) selected @endif>20</option>
+									<option @if( request()->get('rows') == "50" ) selected @endif>50</option>
+									<option @if( request()->get('rows') == "70" ) selected @endif>70</option>
+									<option @if( request()->get('rows') == "100" ) selected @endif>100</option>
+									<option @if( request()->get('rows') == "200" ) selected @endif>200</option>
+								</select>
+							</div>
+						</div>
+					</div>
 				@else
 					@if($filtersetting->no_of_search_record == 0)
 						<div class="pagination">
@@ -235,27 +238,26 @@
 	.rating {
 		font-size: 25px;
 	}
-	/* .overlay_signup.w-100.text-center {
+	.overlay_signup.w-100.text-center {
 		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1a82f700), to(#141414));
 		height: 230px;    
-		margin-top: -40px;
+		margin: -40px auto 0;
+		width: 970px !important;
     	z-index: 0;
 		padding-top: 60px;
-	} */
-	.overlay_signup.w-100.text-center {
-		height: 50px;
-		z-index: 0;
 	}
+	/* a.btn.table-row-btn.signup_btn {
+		background: #2e75b5;
+		color: #fff;
+		border-color: #2e75b5;
+	} */
 	.overlay_signup i.fa.fa-lock {
-		border: 2px solid #2e76b5;
+		border: 2px solid #96fdd4;
 		border-radius: 50px;
 		padding: 10px 14px;
-		color: #2e76b5;
+		color: #96fdd4;
 		margin-bottom: 10px;
-		margin-top: -20px;
-		background-color: #fff;
-		position: absolute;
-		box-shadow: 1px 1px 9px 0px #2e76b5;
+		margin-top: 40px;
 	}
 	.overlay_signup .signup_btn {
 		border-radius: 30px;
@@ -324,6 +326,10 @@
         $('.loading_section').hide();
         $('.record_section').show();
     }, 3000);
+	$('.paginate_select_box').on('change',function(){
+		$('#paginate_input').val($(this).val());
+		$('#deviceForm').submit();
+	});
 	$(document).on('click','.dropdown-select ul li',function(){
 		var brandId = $(this).attr('data-value');
 		if(window.location.protocol == "http:"){

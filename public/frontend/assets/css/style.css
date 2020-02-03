@@ -2131,6 +2131,18 @@ table.table.custom-table tbody tr:hover {
   .title-step-1 h1 {
     font-size: 35px;
   }
+  .inner_rows {
+    float: right;
+  }
+  .rows_per_page select {
+    width: 30%;
+  }
+  .rows_per_page label {
+    font-size: 16px;
+    margin-bottom: 0;
+    line-height: 30px;
+    margin-right: 10px;
+  }
   /* /17-01-2020 */
 @media(max-width:1440px){
   .get-in-touch {

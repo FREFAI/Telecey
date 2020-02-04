@@ -10,7 +10,7 @@ class HomeContent extends Model
     protected $guard = 'admin';
 
     protected $fillable = [
-        'id', 'section_one', 'section_one_image', 'section_two', 'section_three', 'created_at', 'updated_at'
+        'id', 'section_one', 'section_one_image', 'section_two', 'section_three', 'section_four', 'section_four_image', 'section_four_description', 'section_five', 'created_at', 'updated_at'
     ];
     
 }

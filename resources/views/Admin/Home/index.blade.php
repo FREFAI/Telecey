@@ -38,6 +38,9 @@
                          <li class="nav-item">
                              <a class="nav-link mb-sm-3 mb-md-0" id="section-4-tab" data-toggle="tab" href="#section-4" role="tab" aria-controls="section-4" aria-selected="false"><i class="fas fa-ad mr-2" style='font-size:18px'></i>Section 4</a>
                          </li>
+                         <li class="nav-item">
+                             <a class="nav-link mb-sm-3 mb-md-0" id="section-5-tab" data-toggle="tab" href="#section-5" role="tab" aria-controls="section-5" aria-selected="false"><i class="fas fa-ad mr-2" style='font-size:18px'></i>Section 5</a>
+                         </li>
                      </ul>
                  </div>
                  <div class="card shadow">
@@ -104,15 +107,14 @@
                                 </form> 
                              </div>
                             <!-- End Section Two Section  -->
-
                             <!-- Section Three Section  -->
                              <div class="tab-pane fade" id="section-3" role="tabpanel" aria-labelledby="section-3-tab">
-                                <form method="post" action="{{url('/admin/section-three')}}" enctype="multipart/form-data">
+                                <form method="post" action="{{url('/admin/section-five')}}" enctype="multipart/form-data">
                                   @csrf
                                   <div class="row">
                                     <div class="col-md-12">
                                       <div class="form-group">
-                                        <textarea rows="10"class="form-control" name="section_three" required=""  placeholder="Third Section">{{$homeContent ? $homeContent->section_three : ''}}</textarea>
+                                        <input type="url" class="form-control" name="section_five" required=""  placeholder="Video Url" value="{{$homeContent ? $homeContent->section_five : ''}}"/>
                                       </div>
                                       <div class="form-group">
                                         <button type="submit" class="btn btn-primary">Save</button>
@@ -123,16 +125,33 @@
                              </div>
                             <!-- End Section Three Section  -->
                             <!-- Section Four Section  -->
-                            <div class="tab-pane fade" id="section-4" role="tabpanel" aria-labelledby="section-4-tab">
+                             <div class="tab-pane fade" id="section-4" role="tabpanel" aria-labelledby="section-4-tab">
+                                <form method="post" action="{{url('/admin/section-three')}}" enctype="multipart/form-data">
+                                  @csrf
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div class="form-group">
+                                        <textarea rows="10"class="form-control" name="section_three" required=""  placeholder="Section Four">{{$homeContent ? $homeContent->section_three : ''}}</textarea>
+                                      </div>
+                                      <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form> 
+                             </div>
+                            <!-- End Section Four Section  -->
+                            <!-- Section Five Section  -->
+                            <div class="tab-pane fade" id="section-5" role="tabpanel" aria-labelledby="section-5-tab">
                               <form method="post" action="{{url('/admin/section-four')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                   <div class="col-md-12">
                                     <div class="form-group">
-                                      <input value="{{$homeContent ? $homeContent->section_four : ''}}" type="text" maxlength="100" class="form-control" placeholder="Section Four" name="section_four" required="">
+                                      <input value="{{$homeContent ? $homeContent->section_four : ''}}" type="text" maxlength="100" class="form-control" placeholder="Section Five" name="section_four" required="">
                                     </div>
                                     <div class="form-group">
-                                      <textarea rows="10"class="form-control" name="section_four_description" required=""  placeholder="Four Section">{{$homeContent ? $homeContent->section_four_description : ''}}</textarea>
+                                      <textarea rows="10"class="form-control" name="section_four_description" required=""  placeholder="Five Section">{{$homeContent ? $homeContent->section_four_description : ''}}</textarea>
                                     </div>
                                     <input type="hidden" class="form-control" name="section_four_image_old" value="{{$homeContent ? $homeContent->section_four_image : ''}}">
                                     <div class="col-lg-12 mb-4">
@@ -166,7 +185,7 @@
                                 </div>
                               </form> 
                             </div>
-                            <!-- Section Four Section End  -->
+                            <!-- Section Five Section End  -->
                          </div>
                      </div>
                  </div> 

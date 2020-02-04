@@ -336,13 +336,14 @@
 
     $('.save_address').on('click',function(e){
         e.preventDefault();
-        console.log(citySelection);
         
         if(countrySelection === false){
             $('.country_list').css('display','none');
             $('#country').addClass('error');
             // $('#country').val('');
-            $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
+            if($("#country_div #country-error").length == 0){
+                $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
+            }
             return false;
         }else{
             $("#country_div #country-error").remove();
@@ -351,7 +352,9 @@
             $('.city_list').css('display','none');
             $('#city').addClass('error');
             // $('#city').val('');
-            $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
+            if($("#city_div #city-error").length == 0){
+                $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
+            }
             return false;
         }else{
             $("#city_div #country-error").remove();

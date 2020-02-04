@@ -34,6 +34,17 @@ Check and share your telco experience with every one'}}</h2>
 				</div>
 			</div>
 		</div>
+		@if($homeContent && $homeContent->section_five != "")
+		<div class="row mt-5">
+			<div class="col-12 mb-4">
+				<div class="find-service-section mx-auto text-center">
+						<iframe width="560" height="315" src="{{$homeContent ? $homeContent->section_five : ''}}" frameborder="0" allow="accelerometer; autoplay;" allowfullscreen></iframe>
+						<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/9xwazD5SyVg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+					<!-- <h2>Check and share your telco experience with every one</h2> -->
+				</div>
+			</div>
+		</div>
+		@endif
 		<div class="row mt-5 py-5 col-10 offset-md-1">
 			<div class="col-2 p-0 text-center">
 				<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>

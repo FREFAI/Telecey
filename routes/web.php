@@ -15,6 +15,7 @@
 
 // Start Independent Routes
 	Route::get('/addNikNameIfNotExist', 'IndependentController@addNikNameIfNotExist');
+	Route::get('/addressMigration', 'IndependentController@addressMigration');
 // End Independent Routes
 	Route::get('/testEmail', 'TestController@testEmail');
 // End Testing Route 
@@ -167,6 +168,7 @@
 				Route::post('/section-two', 'Admin\HomeController@sectionTwo');
 				Route::post('/section-three', 'Admin\HomeController@sectionThree');
 				Route::post('/section-four', 'Admin\HomeController@sectionFour');
+				Route::post('/section-five', 'Admin\HomeController@sectionFive');
 				
 			// End Home content section
 			// Terms Adn Conditions content section

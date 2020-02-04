@@ -2080,7 +2080,7 @@ table.table.custom-table tbody tr:hover {
   .inner-page.start-page {
     margin-top: 120px;
   }
-  form.reveiewing_form_service h5 {
+  form.reveiewing_form_service h5,#address_form h5 {
     font-family: playfair display,serif;
     color: #000;
     font-size: 15px;
@@ -2114,6 +2114,15 @@ table.table.custom-table tbody tr:hover {
   .reveiewing_form_service input,#overage_price_form input,#usage_price_form input{
     padding: 0 14px !important;
     border: 1px solid #2e75b5 !important;
+  }
+  #address_form input{
+    padding: 0 14px !important;
+    border: 1px solid #2e75b5 !important;
+    min-height: 32px;
+    height: unset !important;
+  }
+  #address_form .form-group{
+    margin-bottom: 8px !important;
   }
   #rating_section input,#device_rating_form input,#device_rating_section input,#speedtestForm input{
     padding: 0 14px !important;

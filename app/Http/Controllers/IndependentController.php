@@ -230,7 +230,7 @@ class IndependentController extends Controller
         return $allData;
       }
     }
-    public function test(Type $var = null)
+    public function test()
     {
       
       $rating_id = PlanDeviceRating::where('user_id',$user_id)->where('plan_id',$input['service_id'])->max('rating_id');
@@ -483,5 +483,35 @@ class IndependentController extends Controller
             }
         }
         
+    }
+
+    public function addressMigration(Request $request)
+    {
+        $getPlanDeviceRating = PlanDeviceRating::get();
+        foreach($getPlanDeviceRating as $row){
+            DB::beginTransaction();
+			try {
+                $address = UserAddress::find($row->user_address_id);
+                $row->address = $address->address;
+                $row->country = $address->country;
+                $row->city = $address->city;
+                $row->longitude = $address->longitude;
+                $row->latitude = $address->latitude;
+                $row->postal_code = $address->postal_code;
+                $row->formatted_address = $address->formatted_address;
+                $row->save();
+                DB::commit();
+                echo json_encode(array('success'=>true,'message'=>'Migration complete successfully.','id'=>$row->id));
+			    // all good
+			} catch (\Exception $e) {
+				echo json_encode(array('success'=>false,'message'=>'Migration not complete successfully.','id'=>$row->id));
+			    DB::rollback();
+			    // something went wrong
+			}
+        }
+        
+        // echo "<pre>";
+        // print_r($getPlanDeviceRating->toArray());
+        exit;
     }
 }

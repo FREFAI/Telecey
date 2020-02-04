@@ -1300,6 +1300,25 @@
     });
     $('.save_address').on('click',function(e){
         e.preventDefault();
+        
+        if(countrySelection === false){
+            $('.country_list').css('display','none');
+            $('#country').addClass('error');
+            // $('#country').val('');
+            if($("#country_div #country-error").length == 0){
+                $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
+            }
+            return false;
+        }
+        if(citySelection === false){
+            $('.city_list').css('display','none');
+            $('#city').addClass('error');
+            // $('#city').val('');
+            if($("#city_div #city-error").length == 0){
+                $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
+            }
+            return false;
+        }
         if(!$("#address_form").valid()){
             return false;
         }else{

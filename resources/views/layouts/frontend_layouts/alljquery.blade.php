@@ -295,14 +295,18 @@
               $('.country_list').css('display','none');
               $('#country').addClass('error');
               // $('#country').val('');
-              $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
+              if($("#country_div #country-error").length == 0){
+                  $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
+              }
               return false;
             }
             if(citySelection === false){
               $('.city_list').css('display','none');
               $('#city').addClass('error');
               // $('#city').val('');
-              $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
+              if($("#city_div #city-error").length == 0){
+                $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
+              }
               return false;
             }
             var thisform = $(this);
@@ -764,6 +768,8 @@
             var user_country = $('#user_country').val();
             var user_postal_code = $('#user_postal_code').val();
             var is_primary = $('#is_primary').val();
+            var latitude = $('#lat').val();
+            var longitude = $('#long').val();
             var formatted_address = user_full_address+' '+user_city+' '+user_country+' '+user_postal_code;
             var perams = [];
             $('#device_rating_section .device-rating').each(function(index, item){
@@ -811,6 +817,8 @@
                     'perameters':perams,
                     'type':type,
                     'comment':comment,
+                    'latitude':latitude,
+                    'longitude':longitude,
                     'average_input':average_input,
                     'device_id':device_id,
                     'user_address_id':user_address_id,
@@ -886,14 +894,20 @@
               $('.country_list').css('display','none');
               $('#country').addClass('error');
               // $('#country').val('');
-              $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
+              
+              if($("#country_div #country-error").length == 0){
+                  $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
+              }
               return false;
             }
             if(citySelection === false){
               $('.city_list').css('display','none');
               $('#city').addClass('error');
               // $('#city').val('');
-              $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
+              if($("#city_div #city-error").length == 0){
+                $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
+              }
+              
               return false;
             }
             $('#change_address_form').submit();

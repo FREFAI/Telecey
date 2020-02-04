@@ -125,6 +125,35 @@ class HomeController extends Controller
             }
         }
     }
+    
+    public function sectionFive(Request $request)
+    {
+        $params = $request->all();
+        $validation = Validator::make($params,[
+            'section_five' => 'required',
+        ]);
+        if ($validation->fails()) {
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+        }else{
+            
+            $homeContentData = HomeContent::first();
+            if($homeContentData == null){
+                $saveContent = HomeContent::create($params);
+                if($saveContent){
+                    return redirect()->back()->withInput()->with('success','Content save successfully.');
+                }else{
+                    return redirect()->back()->withInput()->with('error','Somthing went wrong!');
+                }
+            }else{
+                $homeContentData->section_five = $params['section_five'];
+                if($homeContentData->save()){
+                    return redirect()->back()->withInput()->with('success','Content save successfully.');
+                }else{
+                    return redirect()->back()->withInput()->with('error','Somthing went wrong!');
+                }
+            }
+        }
+    }
     public function sectionFour(Request $request)
     {
         $params = $request->all();

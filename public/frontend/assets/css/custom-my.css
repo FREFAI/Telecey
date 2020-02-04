@@ -43,7 +43,8 @@ ul.inline_list {
     display: -webkit-inline-box;
 }
 ul.inline_list li {
-    margin-right: 5rem;
+  font-size: 13px;
+  width: 213px;
 }
 .w-40 {
     width: 40%;

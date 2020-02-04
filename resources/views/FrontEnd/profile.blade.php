@@ -147,22 +147,22 @@
 													  	                        	-
 												  	                        	@endif</li>
 							  	                        	<li><b>Price</b> : &nbsp;&nbsp;{{$service->c_code}}&nbsp;{{$service->price}}</li>
+							  	                        	<li>
+																<b>
+																	@if(!is_null($service->provider)) 
+																		@if($service->provider->status == 1)
+																			<span class="font-weight-bold">Approved</span>
+																		@else
+																			<span class="font-weight-bold text-danger">Not approved</span>
+																		@endif
+																	@else
+																	-
+																	@endif
+															  	</b>
+															</li>
 							  	                        </ul>
 							  	                        
-							  	                        
 							  	                    </a>
-							  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$service->id}}" aria-expanded="true" aria-controls="collapse{{$service->id}}" class="accordion_btn text-right">
-							  	                    	@if(!is_null($service->provider)) 
-								  	                    	@if($service->provider->status == 1)
-									  	                    	<span class="font-weight-bold">Approved</span>
-									  	                    @else
-									  	                    	<span class="font-weight-bold text-danger">Not approved</span>
-									  	                    @endif
-						  	                        	@else
-						  	                        	-
-						  	                        	@endif
-							  	                    	
-								  	                </a>
 							  	                </h4>
 							  	            </div>
 							  	            <div id="collapse{{$service->id}}" class="panel-collapse collapse @if($key == 0) show @endif" role="tabpanel" aria-labelledby="heading{{$service->id}}">

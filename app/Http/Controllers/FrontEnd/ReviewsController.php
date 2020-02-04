@@ -166,7 +166,7 @@ class ReviewsController extends Controller
             if($user){
                 $user_address = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
                 if($user_address){
-                    $formatted = $input['city'].' '.$input['country'].' '.$input['postal_code'];
+                    $formatted = $user_address->address.''.$input['city'].' '.$input['country'].' '.$input['postal_code'];
                     $user_address->city = $input['city'];
                     $user_address->country = $input['country'];
                     $user_address->postal_code = $input['postal_code'];
@@ -339,33 +339,69 @@ class ReviewsController extends Controller
             if(array_key_exists('user_country', $input)){
                 if($input['user_country'] != ""){
                     if($input['user_address_id'] == 0 && $input['is_primary'] == 1){
-                        UserAddress::where('user_id',$user_id)->update(['is_primary'=>0]);
-                        $is_primary = 1;
-                    }else{
-                        $is_primary = 0;
+                        $insertAddress = [
+                            'latitude' => $input['latitude'],
+                            'longitude' => $input['longitude'],
+                            'address' =>$input['user_full_address'],
+                            'country' =>$input['user_country'],
+                            'city' =>$input['user_city'],
+                            'postal_code' => $input['user_postal_code'],
+                            'formatted_address' => $input['formatted_address']
+                        ];
+                        UserAddress::where('user_id',$user_id)->where('is_primary',1)->update($insertAddress);
                     }
-                    $insertAddress = [
-                        'latitude' => $input['latitude'],
-                        'longitude' => $input['longitude'],
-                        'user_id' => $user_id,
-                        'address' =>$input['user_full_address'],
-                        'country' =>$input['user_country'],
-                        'city' =>$input['user_city'],
-                        'postal_code' => $input['user_postal_code'],
-                        'formatted_address' => $input['formatted_address'],
-                        'is_primary' => $is_primary
-                    ];
-                    $newAddress = UserAddress::create($insertAddress);
-                    if($newAddress){
-                        $input['user_address_id'] = $newAddress->id;
+                    // $insertAddress = [
+                    //     'latitude' => $input['latitude'],
+                    //     'longitude' => $input['longitude'],
+                    //     'user_id' => $user_id,
+                    //     'address' =>$input['user_full_address'],
+                    //     'country' =>$input['user_country'],
+                    //     'city' =>$input['user_city'],
+                    //     'postal_code' => $input['user_postal_code'],
+                    //     'formatted_address' => $input['formatted_address']
+                    // ];
+                    // $newAddress = UserAddress::create($insertAddress);
+                    // if($newAddress){
+                    //     $input['user_address_id'] = $newAddress->id;
+                    // }
+                }else{
+                    $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
+                    if($userAddress){
+                        $input['user_full_address'] = $userAddress->address;
+                        $input['user_country'] = $userAddress->country;
+                        $input['user_city'] = $userAddress->user_city;
+                        $input['longitude']= $userAddress->longitude;
+                        $input['latitude'] = $userAddress->latitude;
+                        $input['user_postal_code'] = $userAddress->postal_code;
+                        $input['formatted_address'] = $userAddress->formatted_address;
+                    }else{
+                        $input['user_full_address'] =NULL;
+                        $input['user_country']=NULL;
+                        $input['user_city'] =NULL;
+                        $input['longitude'] =NULL;
+                        $input['latitude'] =NULL;
+                        $input['user_postal_code'] =NULL;
+                        $input['formatted_address'] =NULL;
                     }
                 }
             }else{
               $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
               if($userAddress){
-                  $input['user_address_id'] = $userAddress->id;
+                $input['user_full_address'] = $userAddress->address;
+                $input['user_country'] = $userAddress->country;
+                $input['user_city'] = $userAddress->user_city;
+                $input['longitude']= $userAddress->longitude;
+                $input['latitude'] = $userAddress->latitude;
+                $input['user_postal_code'] = $userAddress->postal_code;
+                $input['formatted_address'] = $userAddress->formatted_address;
               }else{
-                $input['user_address_id']=NULL;
+                $input['user_full_address'] =NULL;
+                $input['user_country']=NULL;
+                $input['user_city'] =NULL;
+                $input['longitude'] =NULL;
+                $input['latitude'] =NULL;
+                $input['user_postal_code'] =NULL;
+                $input['formatted_address'] =NULL;
               }
             }
 
@@ -375,13 +411,18 @@ class ReviewsController extends Controller
                 'rating_id'=> $rating_id,
                 'comment'=> $input['comment'],
                 'average' => $input['average_input'],
-                'user_address_id' => $input['user_address_id']
+                'latitude' => $input['latitude'],
+                'longitude' => $input['longitude'],
+                'address' =>$input['user_full_address'],
+                'country' =>$input['user_country'],
+                'city' =>$input['user_city'],
+                'postal_code' => $input['user_postal_code'],
+                'formatted_address' => $input['formatted_address']
             ];
             $validation = Validator::make($perameters, [
                 'user_id' => 'required',
                 'plan_id' => 'required',
-                'average' => 'required',
-                'user_address_id' => 'required'
+                'average' => 'required'
             ]);
             if ( $validation->fails() ) {
                  $message = array('success'=>false,'message'=>$validation->messages()->first());
@@ -438,47 +479,89 @@ class ReviewsController extends Controller
             if(array_key_exists('user_country', $input)){
                 if($input['user_country'] != ""){
                     if($input['user_address_id'] == 0 && $input['is_primary'] == 1){
-                        UserAddress::where('user_id',$user_id)->update(['is_primary'=>0]);
-                        $is_primary = 1;
-                    }else{
-                        $is_primary = 0;
+                        $insertAddress = [
+                            'latitude' => $input['latitude'],
+                            'longitude' => $input['longitude'],
+                            'address' =>$input['user_full_address'],
+                            'country' =>$input['user_country'],
+                            'city' =>$input['user_city'],
+                            'postal_code' => $input['user_postal_code'],
+                            'formatted_address' => $input['formatted_address']
+                        ];
+                        UserAddress::where('user_id',$user_id)->where('is_primary',1)->update($insertAddress);
                     }
-                    $insertAddress = [
-                        'user_id' => $user_id,
-                        'address' =>$input['user_full_address'],
-                        'country' =>$input['user_country'],
-                        'city' =>$input['user_city'],
-                        'postal_code' => $input['user_postal_code'],
-                        'formatted_address' => $input['formatted_address'],
-                        'is_primary' => $is_primary
-                    ];
-                    $newAddress = UserAddress::create($insertAddress);
-                    if($newAddress){
-                        $input['user_address_id'] = $newAddress->id;
+                    // $insertAddress = [
+                    //     'user_id' => $user_id,
+                    //     'address' =>$input['user_full_address'],
+                    //     'country' =>$input['user_country'],
+                    //     'city' =>$input['user_city'],
+                    //     'postal_code' => $input['user_postal_code'],
+                    //     'formatted_address' => $input['formatted_address'],
+                    //     'is_primary' => $is_primary
+                    // ];
+                    // $newAddress = UserAddress::create($insertAddress);
+                    // if($newAddress){
+                    //     $input['user_address_id'] = $newAddress->id;
+                    // }
+                }else{
+                    $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
+                    if($userAddress){
+                        $input['user_full_address'] = $userAddress->address;
+                        $input['user_country'] = $userAddress->country;
+                        $input['user_city'] = $userAddress->city;
+                        $input['longitude']= $userAddress->longitude;
+                        $input['latitude'] = $userAddress->latitude;
+                        $input['user_postal_code'] = $userAddress->postal_code;
+                        $input['formatted_address'] = $userAddress->formatted_address;
+                    }else{
+                        $input['user_full_address'] =NULL;
+                        $input['user_country']=NULL;
+                        $input['user_city'] =NULL;
+                        $input['longitude'] =NULL;
+                        $input['latitude'] =NULL;
+                        $input['user_postal_code'] =NULL;
+                        $input['formatted_address'] =NULL;
                     }
                 }
             }else{
-              $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
-              if($userAddress){
-                  $input['user_address_id'] = $userAddress->id;
-              }else{
-                $input['user_address_id']=NULL;
-              }
+                $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
+                if($userAddress){
+                    $input['user_full_address'] = $userAddress->address;
+                    $input['user_country'] = $userAddress->country;
+                    $input['user_city'] = $userAddress->city;
+                    $input['longitude']= $userAddress->longitude;
+                    $input['latitude'] = $userAddress->latitude;
+                    $input['user_postal_code'] = $userAddress->postal_code;
+                    $input['formatted_address'] = $userAddress->formatted_address;
+                }else{
+                    $input['user_full_address'] =NULL;
+                    $input['user_country']=NULL;
+                    $input['user_city'] =NULL;
+                    $input['longitude'] =NULL;
+                    $input['latitude'] =NULL;
+                    $input['user_postal_code'] =NULL;
+                    $input['formatted_address'] =NULL;
+                }
+            
             }
-
             $perameters=[
                 'user_id' => $user_id,
                 'device_id' => $input['service_id'],
                 'rating_id'=> $rating_id,
                 'comment'=> $input['comment'],
                 'average' => $input['average_input'],
-                'user_address_id' => $input['user_address_id']
+                'latitude' => $input['latitude'],
+                'longitude' => $input['longitude'],
+                'address' =>$input['user_full_address'],
+                'country' =>$input['user_country'],
+                'city' =>$input['user_city'],
+                'postal_code' => $input['user_postal_code'],
+                'formatted_address' => $input['formatted_address']
             ];
             $validation = Validator::make($perameters, [
                 'user_id' => 'required',
                 'device_id' => 'required',
                 'average' => 'required',
-                'user_address_id' => 'required'
             ]);
             if ( $validation->fails() ) {
                  $message = array('success'=>false,'message'=>$validation->messages()->first());

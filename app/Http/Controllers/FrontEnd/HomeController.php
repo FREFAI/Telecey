@@ -123,13 +123,12 @@ class HomeController extends Controller
                     }
                 }
             }
-
+            
             // Set average, comment,created date,user_address_id adn formatted_address in plan array
             foreach ($plan_device_rating as $plan_device) {
                 if($plan_device['plan_id'] == $data->id){  //Check plan_id is equal to plan id
-                    $address = UserAddress::find($plan_device['user_address_id']);
-                    if($address['formatted_address'] != NULL && $address['formatted_address'] != ''){
-                        $blankArray[$plan_device['rating_id']]['formatted_address']=$address['formatted_address'];
+                    if($plan_device['formatted_address'] != NULL && $plan_device['formatted_address'] != ''){
+                        $blankArray[$plan_device['rating_id']]['formatted_address']=$plan_device['formatted_address'];
                     }else{
                         $blankArray[$plan_device['rating_id']]['formatted_address']='N/A';
                     }
@@ -197,13 +196,11 @@ class HomeController extends Controller
                     }
                 }
             }
-
             // Set average, comment,created date,user_address_id adn formatted_address in plan array
             foreach ($plan_device_rating as $plan_device) {
                 if($plan_device['device_id'] == $device->id){  //Check device_id is equal to plan id
-                    $address = UserAddress::find($plan_device['user_address_id']);
-                    if($address['formatted_address'] != NULL && $address['formatted_address'] != ''){
-                        $blankArray[$plan_device['rating_id']]['formatted_address']=$address['formatted_address'];
+                    if($plan_device['formatted_address'] != NULL && $plan_device['formatted_address'] != ''){
+                        $blankArray[$plan_device['rating_id']]['formatted_address']=$plan_device['formatted_address'];
                     }else{
                         $blankArray[$plan_device['rating_id']]['formatted_address']='N/A';
                     }

@@ -162,6 +162,7 @@
                                               </span>
                                             </td>
                                             <td class="text-right">
+                                              <a href="{{url('/admin/editAds')}}/{{base64_encode($ads->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                               <button class="btn btn-icon btn-2 
                                                   @if($ads->is_active == 1) 
                                                     btn-danger 

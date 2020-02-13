@@ -21,6 +21,7 @@ class HomeController extends Controller
         $params = $request->all();
         $validation = Validator::make($params,[
             'section_one' => 'required',
+            'section_one_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000'
         ]);
         if ($validation->fails()) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());
@@ -160,6 +161,7 @@ class HomeController extends Controller
         $validation = Validator::make($params,[
             'section_four' => 'required',
             'section_four_description' => 'required',
+            'section_four_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000'
         ]);
         if ($validation->fails()) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());

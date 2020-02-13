@@ -213,6 +213,8 @@
 			// Ads Route Section 
 				Route::get('/ads', 'Admin\AdsController@addAdsForm');
 				Route::post('/ads', 'Admin\AdsController@addAds');
+				Route::get('/editAds/{adsId}', 'Admin\AdsController@editAdsForm');
+				Route::post('/editAds', 'Admin\AdsController@editAds');
 				Route::post('/delete_ads', 'Admin\AdsController@deleteAds');
 				Route::post('/approveAds', 'Admin\AdsController@approveAds');
 			// End Ads Route Section 

@@ -236,6 +236,7 @@ class DevicesController extends Controller
                                 $query->where('is_global',1)
                                 ->orWhere('country',$country->id);
                             })->get()->toArray();
+        $googleads = AdsModel::where('type',1)->first();
         $mainQuery = DeviceReview::query();
         if($data){
             $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
@@ -285,10 +286,10 @@ class DevicesController extends Controller
             }
             
             CreateLogs::createLog($logData);
-            return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors,'ads'=>$ads]);
+            return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors,'ads'=>$ads,'googleads'=>$googleads]);
         }else{
             $searchResult = [];
-            return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors,'ads'=>$ads]);
+            return view('FrontEnd.devicesResult',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors,'ads'=>$ads,'googleads'=>$googleads]);
         }
     }
     public function devicesResultSorting(Request $request)
@@ -342,6 +343,7 @@ class DevicesController extends Controller
                             $query->where('is_global',1)
                             ->orWhere('country',$country->id);
                         })->get()->toArray();
+        $googleads = AdsModel::where('type',1)->first();
         $mainQuery = DeviceReview::query();
         $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
             ->where('country_code',$current_country_code);
@@ -404,7 +406,7 @@ class DevicesController extends Controller
                 $searchResult->currentpage = 1;
             }
             
-            return view('FrontEnd.devices.devicesSorting',['data'=>$searchResult,'filtersetting' => $filtersetting,'ads'=>$ads]);
+            return view('FrontEnd.devices.devicesSorting',['data'=>$searchResult,'filtersetting' => $filtersetting,'ads'=>$ads,'googleads'=>$googleads]);
     }
 
     public function deviceDetails($id){

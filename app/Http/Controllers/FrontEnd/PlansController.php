@@ -232,6 +232,7 @@ class PlansController extends Controller
                             $query->where('is_global',1)
                             ->orWhere('country',$country->id);
                         })->get()->toArray();
+       $googleads = AdsModel::where('type',1)->first();
        $user = Auth::guard('customer')->user();
        $user_id = Auth::guard('customer')->id();
        $service_types = ServiceType::get();
@@ -297,12 +298,12 @@ class PlansController extends Controller
             }
             CreateLogs::createLog($logData);
             // echo "<pre>";print_r($ads->toArray()); exit;
-            return view('FrontEnd.plansResult',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
+            return view('FrontEnd.plansResult',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'googleads'=>$googleads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
 
         }else{
             $searchResult = [];
             $filter = 1;
-            return view('FrontEnd.plansResult',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
+            return view('FrontEnd.plansResult',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'googleads'=>$googleads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
         }
 
     }
@@ -348,6 +349,7 @@ class PlansController extends Controller
                                 $query->where('is_global',1)
                                 ->orWhere('country',$country->id);
                             })->get()->toArray();
+        $googleads = AdsModel::where('type',1)->first();
         $mainQuery = ServiceReview::query();
         $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
         ->where('country_code',$current_country_code)
@@ -379,7 +381,7 @@ class PlansController extends Controller
             $user_address = UserAddress::where('user_id',$searchResult[$key]['user_id'])->where('is_primary',1)->value('formatted_address');
             $searchResult[$key]['user_address'] = $user_address;
         }
-        return view('FrontEnd.plans.planSorting',['data' => $searchResult,'filtersetting'=>$filtersetting,'ads'=>$ads]);
+        return view('FrontEnd.plans.planSorting',['data' => $searchResult,'filtersetting'=>$filtersetting,'ads'=>$ads,'googleads'=>$googleads]);
     }
     /**
      * Show the application dashboard.

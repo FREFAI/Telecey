@@ -8,7 +8,7 @@
 		<div class="row align-items-center">
 			<div class="col-md-6 text-center pl-0 pr-0 video-height">
 				<div class="first-section-text">
-					<h2>{{$homeContent ? $homeContent->section_one : 'Welcome to the telco community'}}</h2>
+					<h2>{!!$homeContent ? $homeContent->section_one : 'Welcome to the telco community'!!}</h2>
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -28,8 +28,8 @@
 		<div class="row mt-5">
 			<div class="col-12 mb-4">
 				<div class="find-service-section mx-auto text-center">
-					<h2>{{$homeContent ? $homeContent->section_two : 'Find the right telecom service that suits your needs
-Check and share your telco experience with every one'}}</h2>
+					<h2>{!!$homeContent ? $homeContent->section_two : 'Find the right telecom service that suits your needs
+Check and share your telco experience with every one'!!}</h2>
 					<!-- <h2>Check and share your telco experience with every one</h2> -->
 				</div>
 			</div>
@@ -38,7 +38,7 @@ Check and share your telco experience with every one'}}</h2>
 		<div class="row mt-5">
 			<div class="col-12 mb-4">
 				<div class="find-service-section mx-auto text-center">
-						<iframe width="560" height="315" src="{{$homeContent ? $homeContent->section_five : ''}}" frameborder="0" allow="accelerometer; autoplay;" allowfullscreen></iframe>
+						<iframe style="width: 85%" height="315" src="{{$homeContent ? $homeContent->section_five : ''}}" frameborder="0" allow="accelerometer; autoplay;" allowfullscreen></iframe>
 						<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/9xwazD5SyVg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 					<!-- <h2>Check and share your telco experience with every one</h2> -->
 				</div>
@@ -244,7 +244,7 @@ Check and share your telco experience with every one'}}</h2>
 		<div class="row bg-green col-10 offset-md-1">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="h1">{{$homeContent ? $homeContent->section_four : ''}}</h1>
+					<h1 class="h1">{!!$homeContent ? $homeContent->section_four : ''!!}</h1>
 				</div>
 			</div>
 			<div class="col-12 text-center">

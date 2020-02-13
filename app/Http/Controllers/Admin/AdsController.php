@@ -20,6 +20,7 @@ class AdsController extends Controller
 		$googleads = AdsModel::where('type',1)->first();
     	return view('Admin.Ads.add_ads',['countries'=>$countries,'settings'=>$settings,'customads'=>$customads,'googleads'=>$googleads]);
     }
+    
     public function addAds(Request $request)
     {
 		$input = $request->all();
@@ -99,7 +100,70 @@ class AdsController extends Controller
 	        }
     	}
     }
+	public function editAdsForm(Request $request,$id)
+    {  
+		$id = base64_decode($id);
+		$countries = CountriesModel::get();
+		$ads = AdsModel::find($id);
+    	return view('Admin.Ads.edit_ads',['countries'=>$countries,'ads'=>$ads]);
+	}
+	public function editAds(Request $request)
+    {
+		$input = $request->all();
+		$id = $input['adsId'];
+		unset($input['adsId']);
+		unset($input['_token']);
+		if(array_key_exists('is_global',$input)){
+			$input['country'] = null;
+			$input['is_global'] = 1;
+			$validationCiuntry = "";
+		}else{
+			$input['is_global'] = 0;
+			$validationCiuntry = "required";
+		}
+		$validation = Validator::make($input, [
+			'title' => 'required|unique:ads,title,'.$id,
+			'ads_file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
+			'country' => $validationCiuntry
+		]);
+		if ( $validation->fails() ) {
+			return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+		}else{
+			if (!File::exists(public_path()."/ads_banner/ads_banner_original")) {
+				File::makeDirectory(public_path()."/ads_banner/ads_banner_original", 0777, true);
+			} 
+			if (!File::exists(public_path()."/ads_banner/resized")) {
+				File::makeDirectory(public_path()."/ads_banner/resized", 0777, true);
+			} 
+			if($request->hasFile('ads_file')){
+				// Resized Image section 
+				$image       = $request->file('ads_file');
+				$fileext    = $image->getClientOriginalExtension();
+				$destinationPath = public_path('/ads_banner/resized');
+				$input['ads_file'] = time().'_custom_ads_resized.'.$fileext;                
 
+				$image_resize = Image::make($image->getRealPath())->resize(320, 240, function($constraint) {
+						$constraint->aspectRatio();
+						});              
+				$image_resize->save(public_path('/ads_banner/resized/' .$input['ads_file']));
+				// End Resized Image section 
+
+				// Original Image section 
+
+				$input['ads_file_original'] = time().'_custom_ads_original.'.$image->getClientOriginalExtension();
+				
+				$image->move(public_path()."/ads_banner/ads_banner_original", $input['ads_file_original']);
+
+				// End Original Image section 
+			}
+			$addAds = AdsModel::where('id',$id)->update($input);
+			if($addAds){
+				return redirect('admin/ads')->withInput()->with('success','Custom ads edited successfully.');
+			}else{
+				return redirect()->back()->withInput()->with('error','Somthing went wrong!');
+			}
+		}
+    }
     public function deleteAds(Request $request)
     {
     	$input = $request->all();

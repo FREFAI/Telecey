@@ -53,7 +53,7 @@
                                 <div class="row">
                                   <div class="col-md-12">
                                     <div class="form-group">
-                                      <input value="{{$homeContent ? $homeContent->section_one : ''}}" type="text" maxlength="100" class="form-control" placeholder="Section One" name="section_one" required="">
+                                      <textarea class="from-control text_editor" id="first-test" name="section_one" maxlength="100"  required="">{{$homeContent ? $homeContent->section_one : ''}}</textarea>
                                     </div>
                                     <div class="col-lg-12 mb-4">
                                       <div class="blog_image">
@@ -75,8 +75,13 @@
                                               <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
                                                 </div>
                                             @endif
+                                            
+                                            </div>
+                                            <div class="mt-3">
+                                              <small><strong>( Max. Size 10MB ) </strong></small>
                                             </div>
                                         </div>
+                                       
                                       </div>
                                     </div>
                                     <input type="hidden" class="form-control" name="section_one_image_old" value="{{$homeContent ? $homeContent->section_one_image : ''}}">
@@ -97,7 +102,7 @@
                                   <div class="row">
                                     <div class="col-md-12">
                                       <div class="form-group">
-                                        <textarea class="form-control" name="section_two" required="" placeholder="Second Section">{{$homeContent ? $homeContent->section_two : ''}}</textarea>
+                                        <textarea class="form-control text_editor" id="first-test" name="section_two" required="" placeholder="Second Section">{{$homeContent ? $homeContent->section_two : ''}}</textarea>
                                       </div>
                                       <div class="form-group">
                                         <button type="submit" class="btn btn-primary">Save</button>
@@ -131,7 +136,7 @@
                                   <div class="row">
                                     <div class="col-md-12">
                                       <div class="form-group">
-                                        <textarea rows="10"class="form-control" name="section_three" required=""  placeholder="Section Four">{{$homeContent ? $homeContent->section_three : ''}}</textarea>
+                                        <textarea rows="10"class="form-control text_editor" name="section_three" required=""  placeholder="Section Four">{{$homeContent ? $homeContent->section_three : ''}}</textarea>
                                       </div>
                                       <div class="form-group">
                                         <button type="submit" class="btn btn-primary">Save</button>
@@ -148,10 +153,10 @@
                                 <div class="row">
                                   <div class="col-md-12">
                                     <div class="form-group">
-                                      <input value="{{$homeContent ? $homeContent->section_four : ''}}" type="text" maxlength="100" class="form-control" placeholder="Section Five" name="section_four" required="">
+                                      <input value="{{$homeContent ? $homeContent->section_four : ''}}" type="text" maxlength="100" class="form-control text_editor" placeholder="Section Five" name="section_four" required="">
                                     </div>
                                     <div class="form-group">
-                                      <textarea rows="10"class="form-control" name="section_four_description" required=""  placeholder="Five Section">{{$homeContent ? $homeContent->section_four_description : ''}}</textarea>
+                                      <textarea rows="10"class="form-control text_editor" name="section_four_description" required=""  placeholder="Five Section">{{$homeContent ? $homeContent->section_four_description : ''}}</textarea>
                                     </div>
                                     <input type="hidden" class="form-control" name="section_four_image_old" value="{{$homeContent ? $homeContent->section_four_image : ''}}">
                                     <div class="col-lg-12 mb-4">
@@ -175,6 +180,9 @@
                                                 </div>
                                             @endif
                                             </div>
+                                        </div>
+                                        <div class="mt-3">
+                                          <small><strong>( Max. Size 10MB ) </strong></small>
                                         </div>
                                       </div>
                                     </div>

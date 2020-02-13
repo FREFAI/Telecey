@@ -98,6 +98,13 @@
 		    readURL(this);
 		});
 		function readURLFour(input) {
+			var file = input.files[0];//get file   
+			var img = new Image();
+			var sizeKB = file.size / 1024;
+			if(sizeKB > 10000){
+				toastr.error('Image size', 'Image size should be less then 10Mb.' , {displayDuration:100000,position: 'top-right'});
+				return false;
+			}
 		    if (input.files && input.files[0]) {
 		        var reader = new FileReader();
 		        reader.onload = function(e) {

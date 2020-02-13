@@ -71,11 +71,6 @@
                                     </div>
                                     <div class="col-md-12">
                                       <div class="form-group">
-                                        <input type="file" class="form-control" id="exampleFormControlInput1" name="ads_file" required="">
-                                      </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                      <div class="form-group">
                                         <div class="custom-control custom-checkbox mb-3">
                                           <input class="custom-control-input is_global" id="customCheck1" name="is_global" type="checkbox" checked="">
                                           <label class="custom-control-label" for="customCheck1">Is Global</label>
@@ -94,6 +89,25 @@
                                               <option value="">Countries not found</option>
                                             @endif
                                           </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <div class="form-group">
+                                          <div class="blog_image">
+                                              <div class="avatar-upload">
+                                                  <div class="avatar-edit">
+                                                      <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="ads_file" />
+                                                      <label for="imageUpload"><i class="fas fa-edit"></i></label>
+                                                  </div>
+                                                  <div class="avatar-preview">
+                                                    <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                    </div>
+                                                  </div>
+                                                  <div class="mt-3">
+                                                  <small><strong>( Max. Size 10MB ) </strong></small>
+                                                  </div>
+                                              </div>
+                                          </div>
                                       </div>
                                     </div>
                                     <div class="col-md-12">

@@ -41,7 +41,7 @@ class PlansController extends Controller
     {
         // Current location section
         $ip = env('ip_address','live'); 
-        $ip = '103.212.235.89';
+        $ip = '96.46.34.142';
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
         }
@@ -170,7 +170,7 @@ class PlansController extends Controller
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
         }else{
-            $ip = '103.212.235.89';
+            $ip = '96.46.34.142';
         }
         $client = new \GuzzleHttp\Client();
         $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
@@ -206,11 +206,12 @@ class PlansController extends Controller
        if($ip == 'live'){
            $ip = $_SERVER['REMOTE_ADDR'];
        }else{
-           $ip = '103.212.235.89';
+           $ip = '96.46.34.142';
        }
        $client = new \GuzzleHttp\Client();
        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
        $newresponse = json_decode($newresponse->getBody());
+       
        $current_location = $newresponse->country_name.','.$newresponse->state_prov.','.$newresponse->city.','.$newresponse->zipcode;
        $current_lat = $newresponse->latitude;
        $current_long = $newresponse->longitude;
@@ -236,7 +237,6 @@ class PlansController extends Controller
        $user = Auth::guard('customer')->user();
        $user_id = Auth::guard('customer')->id();
        $service_types = ServiceType::get();
- 
         if(count($data)>1){
             $filter = 1;
             if(array_key_exists("filter",$data)){
@@ -246,22 +246,25 @@ class PlansController extends Controller
             $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
             ->where('country_code',$current_country_code)
             ->with('provider','currency','typeOfService');
-            if(array_key_exists("service_type",$data) && $data['service_type'] != ""){
-                $mainQuery->orWhere('service_type',$data['service_type']);
-            }
-            if(array_key_exists("contract_type",$data) && $data['contract_type'] != ""){
-                $mainQuery->orWhere('contract_type',$data['contract_type']);
-            }else{
-                $mainQuery->orWhere('contract_type',1);
-            }
-            if(array_key_exists("payment_type",$data) && $data['payment_type'] != ""){
-                $mainQuery->orWhere('payment_type',$data['payment_type']);
-            }else{
-                $mainQuery->orWhere('payment_type','postpaid');
-            }
-            if(array_key_exists("pay_as_usage_type",$data) && $data['pay_as_usage_type'] != ""){
-                $mainQuery->orWhere('pay_as_usage_type',$data['pay_as_usage_type']);
-            }
+            $mainQuery->where(function ($query) use ($data) {
+                if(array_key_exists("service_type",$data) && $data['service_type'] != ""){
+                    $query->orWhere('service_type',$data['service_type']);
+                }
+                if(array_key_exists("contract_type",$data) && $data['contract_type'] != ""){
+                    $query->orWhere('contract_type',$data['contract_type']);
+                }else{
+                    $query->orWhere('contract_type',1);
+                }
+                if(array_key_exists("payment_type",$data) && $data['payment_type'] != ""){
+                    $query->orWhere('payment_type',$data['payment_type']);
+                }else{
+                    $query->orWhere('payment_type','postpaid');
+                }
+                if(array_key_exists("pay_as_usage_type",$data) && $data['pay_as_usage_type'] != ""){
+                    $query->orWhere('pay_as_usage_type',$data['pay_as_usage_type']);
+                }
+            });
+            
             $mainQuery->orderBy('distance','ASC');
             $searchResultCount = $mainQuery->count();
             $searchResult = $mainQuery->paginate($limit);
@@ -320,7 +323,7 @@ class PlansController extends Controller
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
         }else{
-            $ip = '103.212.235.89';
+            $ip = '96.46.34.142';
         }
         $client = new \GuzzleHttp\Client();
         $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
@@ -354,22 +357,24 @@ class PlansController extends Controller
         $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
         ->where('country_code',$current_country_code)
         ->with('provider','currency','typeOfService');
-        if(array_key_exists("service_type",$data) && $data['service_type'] != ""){
-            $mainQuery->orWhere('service_type',$data['service_type']);
-        }
-        if(array_key_exists("contract_type",$data) && $data['contract_type'] != ""){
-            $mainQuery->orWhere('contract_type',$data['contract_type']);
-        }else{
-            $mainQuery->orWhere('contract_type',1);
-        }
-        if(array_key_exists("payment_type",$data) && $data['payment_type'] != ""){
-            $mainQuery->orWhere('payment_type',$data['payment_type']);
-        }else{
-            $mainQuery->orWhere('payment_type','postpaid');
-        }
-        if(array_key_exists("pay_as_usage_type",$data) && $data['pay_as_usage_type'] != ""){
-            $mainQuery->orWhere('pay_as_usage_type',$data['pay_as_usage_type']);
-        }
+        $mainQuery->where(function ($query) use ($data) {
+            if(array_key_exists("service_type",$data) && $data['service_type'] != ""){
+                $query->orWhere('service_type',$data['service_type']);
+            }
+            if(array_key_exists("contract_type",$data) && $data['contract_type'] != ""){
+                $query->orWhere('contract_type',$data['contract_type']);
+            }else{
+                $query->orWhere('contract_type',1);
+            }
+            if(array_key_exists("payment_type",$data) && $data['payment_type'] != ""){
+                $query->orWhere('payment_type',$data['payment_type']);
+            }else{
+                $query->orWhere('payment_type','postpaid');
+            }
+            if(array_key_exists("pay_as_usage_type",$data) && $data['pay_as_usage_type'] != ""){
+                $query->orWhere('pay_as_usage_type',$data['pay_as_usage_type']);
+            }
+        });
         $mainQuery->orderBy($params['name'],$params['sort']);
         $searchResultCount = $mainQuery->count();
         $searchResult = $mainQuery->paginate($limit);
@@ -395,7 +400,7 @@ class PlansController extends Controller
         if($ip == 'live'){
             $ip = $_SERVER['REMOTE_ADDR'];
         }else{
-            $ip = '103.212.235.89';
+            $ip = '96.46.34.142';
         }
         $client = new \GuzzleHttp\Client();
         $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);

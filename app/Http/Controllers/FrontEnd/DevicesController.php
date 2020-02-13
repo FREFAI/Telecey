@@ -243,15 +243,18 @@ class DevicesController extends Controller
             ->where('country_code',$current_country_code)
             ->with('brand','supplier','device_color_info')
             ->orderBy('distance','ASC');
-            if(array_key_exists("brand_name",$data) && $data['brand_name'] != ""){
-                $mainQuery->orWhere('brand_id',$data['brand_name']);
-            }
-            if(array_key_exists("storage",$data) && $data['storage'] != ""){
-                $mainQuery->orWhere('storage',$data['storage']);
-            }
-            if(array_key_exists("device_color",$data) && $data['device_color'] != ""){
-                $mainQuery->orWhere('device_color',$data['device_color']);
-            }
+            $mainQuery->where(function ($query) use ($data) {
+                if(array_key_exists("brand_name",$data) && $data['brand_name'] != ""){
+                    $query->orWhere('brand_id',$data['brand_name']);
+                }
+                if(array_key_exists("storage",$data) && $data['storage'] != ""){
+                    $query->orWhere('storage',$data['storage']);
+                }
+                if(array_key_exists("device_color",$data) && $data['device_color'] != ""){
+                    $query->orWhere('device_color',$data['device_color']);
+                }
+                
+            });
             
             $searchResultCount = $mainQuery->count();
             $searchResult = $mainQuery->paginate($limit);
@@ -348,19 +351,22 @@ class DevicesController extends Controller
         $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
             ->where('country_code',$current_country_code);
             $mainQuery->with('brand','supplier','device_color_info');
-            
-            if(array_key_exists("brand_name",$data) && $data['brand_name'] != ""){
-                $mainQuery->orWhere('brand_id',$data['brand_name']);
-            }
-            if(array_key_exists("storage",$data) && $data['storage'] != ""){
-                $mainQuery->orWhere('storage',$data['storage']);
-            }
-            if(array_key_exists("device_color",$data) && $data['device_color'] != ""){
-                $mainQuery->orWhere('device_color',$data['device_color']);
-            }
+            $mainQuery->where(function ($query) use ($data) {
+                if(array_key_exists("brand_name",$data) && $data['brand_name'] != ""){
+                    $query->orWhere('brand_id',$data['brand_name']);
+                }
+                if(array_key_exists("storage",$data) && $data['storage'] != ""){
+                    $query->orWhere('storage',$data['storage']);
+                }
+                if(array_key_exists("device_color",$data) && $data['device_color'] != ""){
+                    $query->orWhere('device_color',$data['device_color']);
+                }
+                
+            });
             
             // $mainQuery->orderBy($params['name'],$params['sort']);
             $searchResultCount = $mainQuery->count();
+            
             if($params['name'] == 'brand_name'){
                 $mainQuery->with('brand','supplier','device_color_info');
                 if($params['sort'] == "asc"){

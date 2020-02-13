@@ -249,20 +249,22 @@
 										@endif
 									@else
 										@php $custom_ads = 0; @endphp
-										@if($googleads->script != "")
-										<tr class="custom-row-cl adds">
-											<td colspan="7">
-												<div class="row align-items-center">
-													{!!$googleads->script!!}
-													<!-- <div class="col-lg-6 text-center">
-														<img src="{{URL::asset('frontend/assets/img/case.jpg')}}"/>
+										@if($googleads)
+											@if($googleads->script != "")
+											<tr class="custom-row-cl adds">
+												<td colspan="7">
+													<div class="row align-items-center">
+														{!!$googleads->script!!}
+														<!-- <div class="col-lg-6 text-center">
+															<img src="{{URL::asset('frontend/assets/img/case.jpg')}}"/>
+														</div>
+														<div class="col-lg-6">
+															<h1 class="adds-text">The Ultimate cover</h1>
+														</div> -->
 													</div>
-													<div class="col-lg-6">
-														<h1 class="adds-text">The Ultimate cover</h1>
-													</div> -->
-												</div>
-											</td>
-										</tr> 
+												</td>
+											</tr> 
+											@endif
 										@endif
 									@endif
 								@endif

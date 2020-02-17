@@ -14,6 +14,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $homeContent = HomeContent::first();
+        $homeContent->section_six = json_decode($homeContent->section_six);
     	return view('Admin.Home.index',['homeContent'=>$homeContent]);
     }
     public function sectionOne(Request $request)
@@ -126,35 +127,6 @@ class HomeController extends Controller
             }
         }
     }
-    
-    public function sectionFive(Request $request)
-    {
-        $params = $request->all();
-        $validation = Validator::make($params,[
-            'section_five' => 'required',
-        ]);
-        if ($validation->fails()) {
-            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
-        }else{
-            
-            $homeContentData = HomeContent::first();
-            if($homeContentData == null){
-                $saveContent = HomeContent::create($params);
-                if($saveContent){
-                    return redirect()->back()->withInput()->with('success','Content save successfully.');
-                }else{
-                    return redirect()->back()->withInput()->with('error','Somthing went wrong!');
-                }
-            }else{
-                $homeContentData->section_five = $params['section_five'];
-                if($homeContentData->save()){
-                    return redirect()->back()->withInput()->with('success','Content save successfully.');
-                }else{
-                    return redirect()->back()->withInput()->with('error','Somthing went wrong!');
-                }
-            }
-        }
-    }
     public function sectionFour(Request $request)
     {
         $params = $request->all();
@@ -210,6 +182,112 @@ class HomeController extends Controller
             }
         }
     }
+    
+    public function sectionFive(Request $request)
+    {
+        $params = $request->all();
+        $validation = Validator::make($params,[
+            'section_five' => 'required',
+        ]);
+        if ($validation->fails()) {
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+        }else{
+            
+            $homeContentData = HomeContent::first();
+            if($homeContentData == null){
+                $saveContent = HomeContent::create($params);
+                if($saveContent){
+                    return redirect()->back()->withInput()->with('success','Content save successfully.');
+                }else{
+                    return redirect()->back()->withInput()->with('error','Somthing went wrong!');
+                }
+            }else{
+                $homeContentData->section_five = $params['section_five'];
+                if($homeContentData->save()){
+                    return redirect()->back()->withInput()->with('success','Content save successfully.');
+                }else{
+                    return redirect()->back()->withInput()->with('error','Somthing went wrong!');
+                }
+            }
+        }
+    }
+
+    public function sectionSix(Request $request)
+    {
+        $params = $request->all();
+        unset($params['_token']);
+        
+        $homeContentData = HomeContent::first();
+        if($homeContentData == null){
+            for ($i=1; $i <= 6; $i++) {
+                if(array_key_exists('icon_'.$i,$params)){
+                    if (!File::exists(public_path()."/home/images")) {
+                        File::makeDirectory(public_path()."/home/images", 0777, true);
+                    } 
+                    // Resized Image section 
+                    if($request->hasFile('icon_'.$i)){
+                        $image       = $request->file('icon_'.$i);
+                        $fileext    = $image->getClientOriginalExtension();
+                        $destinationPath = public_path('/home/images');
+                        $params['icon_'.$i] = uniqid().time().'_home_image_section_four.'.$fileext;                
+        
+                        $image_resize = Image::make($image->getRealPath())->resize(65, 65, function($constraint) {
+                            $constraint->aspectRatio();
+                        });              
+                        $image_resize->save(public_path('/home/images/' .$params['icon_'.$i]));
+                        
+                    }
+                }else{
+                        $params['icon_'.$i] = '';
+                }  
+            }
+            $data['section_six'] = json_encode($params);
+            $saveContent = HomeContent::create($data);
+            if($saveContent){
+                return redirect()->back()->withInput()->with('success','Content save successfully.');
+            }else{
+                return redirect()->back()->withInput()->with('error','Somthing went wrong!');
+            }
+        }else{
+            for ($i=1; $i <= 6; $i++) {
+                if(array_key_exists('icon_'.$i,$params)){
+                    if (!File::exists(public_path()."/home/images")) {
+                        File::makeDirectory(public_path()."/home/images", 0777, true);
+                    } 
+                    // Resized Image section 
+                    if($request->hasFile('icon_'.$i)){
+                        $image       = $request->file('icon_'.$i);
+                        $fileext    = $image->getClientOriginalExtension();
+                        $destinationPath = public_path('/home/images');
+                        $params['icon_'.$i] = uniqid().time().'_home_image_section_four.'.$fileext;                
+        
+                        $image_resize = Image::make($image->getRealPath())->resize(65, 65, function($constraint) {
+                            $constraint->aspectRatio();
+                        });              
+                        $image_resize->save(public_path('/home/images/' .$params['icon_'.$i]));
+                        
+                    }
+                }else{
+                    if($homeContentData->section_six != ""){
+                        $home_six = json_decode($homeContentData->section_six);
+                        $index = 'icon_'.$i;
+                        $params['icon_'.$i] = $home_six->$index;
+                    }else{
+                        $params['icon_'.$i] = '';
+                    }
+                   
+                } 
+            }
+            $params = json_encode($params);
+            $homeContentData->section_six =  $params;
+            if($homeContentData->save()){
+                return redirect()->back()->withInput()->with('success','Content save successfully.');
+            }else{
+                return redirect()->back()->withInput()->with('error','Somthing went wrong!');
+            }
+        }
+    }
+    
     public function termsAndConditionsForm(Request $request)
     {
         $setting = SettingsModel::first();

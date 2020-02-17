@@ -97,6 +97,28 @@
 		$("#imageUpload").change(function() {
 		    readURL(this);
 		});
+		function readURLinde(input) {
+			
+			var file = input.files[0];//get file   
+			var img = new Image();
+			var sizeKB = file.size / 1024;
+			if(sizeKB > 10000){
+				toastr.error('Image size', 'Image size should be less then 10Mb.' , {displayDuration:100000,position: 'top-right'});
+				return false;
+			}
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function(e) {
+		            $(input).closest('.avatar-upload').find('#imagePreview').css('background-image', 'url('+e.target.result +')');
+		            $(input).closest('.avatar-upload').find('#imagePreview').hide();
+		            $(input).closest('.avatar-upload').find('#imagePreview').fadeIn(650);
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+		$(".imageUpload").change(function() {
+		    readURLinde(this);
+		});
 		function readURLFour(input) {
 			var file = input.files[0];//get file   
 			var img = new Image();

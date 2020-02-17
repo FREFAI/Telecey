@@ -169,6 +169,7 @@
 				Route::post('/section-three', 'Admin\HomeController@sectionThree');
 				Route::post('/section-four', 'Admin\HomeController@sectionFour');
 				Route::post('/section-five', 'Admin\HomeController@sectionFive');
+				Route::post('/section-sixth', 'Admin\HomeController@sectionSix');
 				
 			// End Home content section
 			// Terms Adn Conditions content section

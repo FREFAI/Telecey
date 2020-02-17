@@ -47,28 +47,91 @@ Check and share your telco experience with every one'!!}</h2>
 		@endif
 		<div class="row mt-5 py-5 col-10 offset-md-1">
 			<div class="col-2 p-0 text-center">
-				<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>
-				<div class="label-service font-weight-bold">Mobile Plans</div>
+				@if($homeContent)
+					@if($homeContent->section_six != '' && $homeContent->section_six->icon_1 != '')
+						<img src="{{URL::asset('home/images')}}/{{$homeContent->section_six->icon_1}}"/>	
+					@else
+						<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>
+					@endif
+				@else
+					<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>
+				@endif
+				<div class="label-service font-weight-bold">
+				{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_1 != '') ? $homeContent->section_six->label_1 :'' }}
+				</div>
 			</div>
 			<div class="col-2 p-0 text-center">
-				<img src="{{URL::asset('frontend/assets/img/4636.jpg')}}"/>
-				<div class="label-service font-weight-bold">Internet</div>
+				@if($homeContent)
+					@if($homeContent->section_six != '' && $homeContent->section_six->icon_2 != '')
+						<img src="{{URL::asset('home/images')}}/{{$homeContent->section_six->icon_2}}"/>	
+					@else
+						<img src="{{URL::asset('frontend/assets/img/4636.jpg')}}"/>
+					@endif
+				@else
+					<img src="{{URL::asset('frontend/assets/img/4636.jpg')}}"/>
+				@endif
+				
+				<div class="label-service font-weight-bold">
+				{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_2 != '') ? $homeContent->section_six->label_2 :'' }}
+				</div>
 			</div>
 			<div class="col-2 p-0 text-center">
-				<img src="{{URL::asset('frontend/assets/img/sharing.jpg')}}"/>
-				<div class="label-service font-weight-bold">Share plans</div>
+				@if($homeContent)
+					@if($homeContent->section_six != '' && $homeContent->section_six->icon_3 != '')
+						<img src="{{URL::asset('home/images')}}/{{$homeContent->section_six->icon_3}}"/>	
+					@else
+						<img src="{{URL::asset('frontend/assets/img/sharing.jpg')}}"/>
+					@endif
+				@else
+					<img src="{{URL::asset('frontend/assets/img/sharing.jpg')}}"/>
+				@endif	
+			
+				<div class="label-service font-weight-bold">
+				{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_3 != '') ? $homeContent->section_six->label_3 :'' }}
+				</div>
 			</div>
 			<div class="col-2 p-0 text-center">
-				<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>
-				<div class="label-service font-weight-bold">Devices</div>
+				@if($homeContent)
+					@if($homeContent->section_six != '' && $homeContent->section_six->icon_4 != '')
+						<img src="{{URL::asset('home/images')}}/{{$homeContent->section_six->icon_4}}"/>	
+					@else
+						<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>
+					@endif
+				@else
+					<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>
+				@endif
+				
+				<div class="label-service font-weight-bold">
+				{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_4 != '') ? $homeContent->section_six->label_4 :'' }}
+				</div>
 			</div>
 			<div class="col-2 p-0 text-center">
-				<img src="{{URL::asset('frontend/assets/img/150631-OUD927-864_edited.jpg')}}"/>
-				<div class="label-service font-weight-bold">Personal</div>
+				@if($homeContent)
+					@if($homeContent->section_six != '' && $homeContent->section_six->icon_5 != '')
+						<img src="{{URL::asset('home/images')}}/{{$homeContent->section_six->icon_5}}"/>	
+					@else
+						<img src="{{URL::asset('frontend/assets/img/150631-OUD927-864_edited.jpg')}}"/>
+					@endif
+				@else
+					<img src="{{URL::asset('frontend/assets/img/150631-OUD927-864_edited.jpg')}}"/>
+				@endif
+				<div class="label-service font-weight-bold">
+				{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_5 != '') ? $homeContent->section_six->label_5 :'' }}
+				</div>
 			</div>
 			<div class="col-2 p-0 text-center">
-				<img src="{{URL::asset('frontend/assets/img/2317497_edited.jpg')}}"/>
-				<div class="label-service font-weight-bold">Business</div>
+				@if($homeContent)
+					@if($homeContent->section_six != '' && $homeContent->section_six->icon_6 != '')
+						<img src="{{URL::asset('home/images')}}/{{$homeContent->section_six->icon_6}}"/>	
+					@else
+						<img src="{{URL::asset('frontend/assets/img/2317497_edited.jpg')}}"/>
+					@endif
+				@else
+					<img src="{{URL::asset('frontend/assets/img/2317497_edited.jpg')}}"/>
+				@endif
+				<div class="label-service font-weight-bold">
+				{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_6 != '') ? $homeContent->section_six->label_6 :'' }}
+				</div>
 			</div>
 		</div>
 		<div class="row my-5 align-items-center">

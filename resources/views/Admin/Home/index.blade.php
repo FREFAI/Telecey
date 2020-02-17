@@ -41,6 +41,9 @@
                          <li class="nav-item">
                              <a class="nav-link mb-sm-3 mb-md-0" id="section-5-tab" data-toggle="tab" href="#section-5" role="tab" aria-controls="section-5" aria-selected="false"><i class="fas fa-ad mr-2" style='font-size:18px'></i>Section 5</a>
                          </li>
+                         <li class="nav-item">
+                             <a class="nav-link mb-sm-3 mb-md-0" id="section-6-tab" data-toggle="tab" href="#section-6" role="tab" aria-controls="section-6" aria-selected="false"><i class="fas fa-ad mr-2" style='font-size:18px'></i>Section 6</a>
+                         </li>
                      </ul>
                  </div>
                  <div class="card shadow">
@@ -130,7 +133,213 @@
                              </div>
                             <!-- End Section Three Section  -->
                             <!-- Section Four Section  -->
-                             <div class="tab-pane fade" id="section-4" role="tabpanel" aria-labelledby="section-4-tab">
+                            <div class="tab-pane fade" id="section-4" role="tabpanel" aria-labelledby="section-4-tab">
+                                <form method="post" action="{{url('/admin/section-sixth')}}" enctype="multipart/form-data">
+                                  @csrf
+                                  <div class="row">
+                                    <div class="col-lg-5">
+                                      <div class="mb-2">
+                                        <small><strong>Labels </strong></small>
+                                      </div>
+                                      <div class="form-group">
+                                        <input class="form-control" name="label_1" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_1 != '') ? $homeContent->section_six->label_1 :'' }}"/>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-7">
+                                      <div class="mb-2 text-right">
+                                        <small><strong>( Max. Size 10MB ) </strong></small>
+                                      </div>
+                                      <div class="section-4-image">
+                                        <div class="avatar-upload">
+                                            <div class="avatar-edit-1">
+                                                <input class="form-control imageUpload" type='file' accept=".png, .jpg, .jpeg" name="icon_1" />
+                                                <!-- <label for="imageUpload"><i class="fas fa-edit"></i></label> -->
+                                            </div>
+                                            <div class="avatar-preview">
+                                              @if($homeContent)
+                                                @if($homeContent->section_six != '' && $homeContent->section_six->icon_1 != '')
+                                                  <div id="imagePreview" style="background-image: url({{URL::asset('home/images')}}/{{$homeContent->section_six->icon_1}});">
+                                                  </div>
+                                                @else
+                                                  <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                  </div>
+                                                @endif
+                                              @else
+                                                <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                  </div>
+                                              @endif
+                                            </div>
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-5 mt-3">
+                                      <div class="form-group">
+                                        <input class="form-control"name="label_2" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_2 != '') ? $homeContent->section_six->label_2 :'' }}"/>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-7 mt-3">
+                                      <div class="section-4-image">
+                                        <div class="avatar-upload">
+                                            <div class="avatar-edit-1">
+                                                <input class="form-control imageUpload" type='file' accept=".png, .jpg, .jpeg" name="icon_2" />
+                                                <!-- <label for="imageUpload"><i class="fas fa-edit"></i></label> -->
+                                            </div>
+                                            <div class="avatar-preview">
+                                            @if($homeContent)
+                                              @if($homeContent->section_six != '' && $homeContent->section_six->icon_2 != '')
+                                                <div id="imagePreview" style="background-image: url({{URL::asset('home/images')}}/{{$homeContent->section_six->icon_2}});">
+                                                </div>
+                                              @else
+                                                <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                </div>
+                                              @endif
+                                            @else
+                                              <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                </div>
+                                            @endif
+                                            
+                                            </div>
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-5 mt-3">
+                                      <div class="form-group">
+                                        <input class="form-control" name="label_3" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_3 != '') ? $homeContent->section_six->label_3 :'' }}"/>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-7 mt-3">
+                                      <div class="section-4-image">
+                                        <div class="avatar-upload">
+                                            <div class="avatar-edit-1">
+                                                <input type='file' class="form-control  imageUpload" accept=".png, .jpg, .jpeg" name="icon_3" />
+                                                <!-- <label for="imageUpload"><i class="fas fa-edit"></i></label> -->
+                                            </div>
+                                            <div class="avatar-preview">
+                                            @if($homeContent)
+                                              @if($homeContent->section_six != '' && $homeContent->section_six->icon_3 != '')
+                                                <div id="imagePreview" style="background-image: url({{URL::asset('home/images')}}/{{$homeContent->section_six->icon_3}});">
+                                                </div>
+                                              @else
+                                                <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                </div>
+                                              @endif
+                                            @else
+                                              <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                </div>
+                                            @endif
+                                            
+                                            </div>
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-5 mt-3">
+                                      <div class="form-group">
+                                        <input class="form-control" name="label_4" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_4 != '') ? $homeContent->section_six->label_4 :'' }}"/>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-7 mt-3">
+                                      <div class="section-4-image">
+                                        <div class="avatar-upload">
+                                            <div class="avatar-edit-1">
+                                                <input type='file' class="form-control  imageUpload" accept=".png, .jpg, .jpeg" name="icon_4"/>
+                                                <!-- <label for="imageUpload"><i class="fas fa-edit"></i></label> -->
+                                            </div>
+                                            <div class="avatar-preview">
+                                            @if($homeContent)
+                                              @if($homeContent->section_six != '' && $homeContent->section_six->icon_4 != '')
+                                                <div id="imagePreview" style="background-image: url({{URL::asset('home/images')}}/{{$homeContent->section_six->icon_4}});">
+                                                </div>
+                                              @else
+                                                <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                </div>
+                                              @endif
+                                            @else
+                                              <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                </div>
+                                            @endif
+                                            
+                                            </div>
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-5 mt-3">
+                                      <div class="form-group">
+                                        <input class="form-control"name="label_5" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_5 != '') ? $homeContent->section_six->label_5 :'' }}"/>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-7 mt-3">
+                                      <div class="section-4-image">
+                                        <div class="avatar-upload">
+                                            <div class="avatar-edit-1">
+                                                <input type='file' class="form-control  imageUpload" accept=".png, .jpg, .jpeg" name="icon_5"/>
+                                                <!-- <label for="imageUpload"><i class="fas fa-edit"></i></label> -->
+                                            </div>
+                                            <div class="avatar-preview">
+                                            @if($homeContent)
+                                              @if($homeContent->section_six != '' && $homeContent->section_six->icon_5 != '')
+                                                <div id="imagePreview" style="background-image: url({{URL::asset('home/images')}}/{{$homeContent->section_six->icon_5}});">
+                                                </div>
+                                              @else
+                                                <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                </div>
+                                              @endif
+                                            @else
+                                              <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                </div>
+                                            @endif
+                                            
+                                            </div>
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-5 mt-3">
+                                      <div class="form-group">
+                                        <input class="form-control"name="label_6" 
+                                        value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_6 != '') ? $homeContent->section_six->label_6 :'' }}"/>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-7 mt-3">
+                                      <div class="section-4-image">
+                                        <div class="avatar-upload">
+                                            <div class="avatar-edit-1">
+                                                <input type='file' class="form-control  imageUpload" accept=".png, .jpg, .jpeg" name="icon_6" />
+                                                <!-- <label for="imageUpload"><i class="fas fa-edit"></i></label> -->
+                                            </div>
+                                            <div class="avatar-preview">
+                                            @if($homeContent)
+                                              @if($homeContent->section_six != '' && $homeContent->section_six->icon_6 != '')
+                                                <div id="imagePreview" style="background-image: url({{URL::asset('home/images')}}/{{$homeContent->section_six->icon_6}});">
+                                                </div>
+                                              @else
+                                                <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                </div>
+                                              @endif
+                                            @else
+                                              <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                                </div>
+                                            @endif
+                                            
+                                            </div>
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                      <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form> 
+                             </div>
+                            <!-- End Section Four Section  -->
+                            <!-- Section Fifth Section  -->
+                             <div class="tab-pane fade" id="section-5" role="tabpanel" aria-labelledby="section-5-tab">
                                 <form method="post" action="{{url('/admin/section-three')}}" enctype="multipart/form-data">
                                   @csrf
                                   <div class="row">
@@ -145,9 +354,9 @@
                                   </div>
                                 </form> 
                              </div>
-                            <!-- End Section Four Section  -->
-                            <!-- Section Five Section  -->
-                            <div class="tab-pane fade" id="section-5" role="tabpanel" aria-labelledby="section-5-tab">
+                            <!-- End Section Fifth Section  -->
+                            <!-- Section Sixth Section  -->
+                            <div class="tab-pane fade" id="section-6" role="tabpanel" aria-labelledby="section-6-tab">
                               <form method="post" action="{{url('/admin/section-four')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
@@ -193,7 +402,7 @@
                                 </div>
                               </form> 
                             </div>
-                            <!-- Section Five Section End  -->
+                            <!-- Section Sixth Section End  -->
                          </div>
                      </div>
                  </div> 

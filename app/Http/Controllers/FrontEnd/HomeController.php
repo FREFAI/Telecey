@@ -53,6 +53,7 @@ class HomeController extends Controller
     {
         $settings = SettingsModel::first();
         $homeContent = HomeContent::first();
+        $homeContent->section_six = json_decode($homeContent->section_six);
         $blogs = BlogsModel::orderBy('created_at','DESC')->take(3)->get();
         return view('FrontEnd.homepagenew',['settings'=> $settings,'blogs'=>$blogs,'homeContent'=>$homeContent]);
     }

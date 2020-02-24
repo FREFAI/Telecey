@@ -48,6 +48,14 @@
 	    background-color: #96fdd4;
 	    border-color: #96fdd4;
 	}
+	.inner-accordian{
+		background-color: #2e75b5 !important;
+	}
+	.inner-accordian a{
+		color: #fff !important;
+		padding-top:8px !important; 
+		padding-bottom:8px !important; 
+	}
 </style>
 <div class="profile inner-page">
 	<div class="container">
@@ -133,7 +141,7 @@
 								  		<div class="panel panel-default">
 							  	            <div class="panel-heading" role="tab" id="heading{{$service->id}}">
 							  	                <h4 class="panel-title display-inline">
-							  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$service->id}}" aria-expanded="true" aria-controls="collapse{{$service->id}}" class="accordion_btn">
+							  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$service->id}}" aria-expanded="false" aria-controls="collapse{{$service->id}}" class="accordion_btn collapsed">
 							  	                        <i class="more-less glyphicon glyphicon-plus"></i>
 							  	                        <ul class="inline_list">
 							  	                        	<li><b>Provider Name</b> : &nbsp;@if(!is_null($service->provider)) {{$service->provider->provider_name}}
@@ -165,7 +173,7 @@
 							  	                    </a>
 							  	                </h4>
 							  	            </div>
-							  	            <div id="collapse{{$service->id}}" class="panel-collapse collapse @if($key == 0) show @endif" role="tabpanel" aria-labelledby="heading{{$service->id}}">
+							  	            <div id="collapse{{$service->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$service->id}}">
 							  	                <div class="panel-body">
 						  	                      	<div class="row">
 												  		<div class="col-lg-12">
@@ -366,7 +374,7 @@
 													  				@if(!is_null($service->ratings)) 
 						  					  	                		@foreach($service->ratings as $key => $rating)
 								  					  	                		@if($rating['plan_id']==$service->id)
-												  					  	            <div class="panel-heading mt-2" role="tab" id="rating{{$service->id}}{{$key}}">
+												  					  	            <div class="panel-heading mt-2 inner-accordian" role="tab" id="rating{{$service->id}}{{$key}}">
 												  					  	                <h4 class="panel-title display-inline">
 												  					  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#ratingcollapse{{$service->id}}{{$key}}" aria-expanded="true" aria-controls="ratingcollapse{{$service->id}}{{$key}}" class="accordion_btn rating_btn">
 												  					  	                        <i class="more-less glyphicon glyphicon-plus"></i>
@@ -378,7 +386,7 @@
 												  					  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#ratingcollapse{{$service->id}}{{$key}}" aria-expanded="true" aria-controls="ratingcollapse{{$service->id}}{{$key}}" class="accordion_btn text-right">{{ date("d/m/Y", strtotime($rating['date'])) }}</a>
 												  					  	                </h4>
 												  					  	            </div>
-												  					  	            <div id="ratingcollapse{{$service->id}}{{$key}}" class="panel-collapse collapse @if($key == count($service->ratings)) show @endif rating_content" role="tabpanel" aria-labelledby="rating{{$service->id}}{{$key}}">
+												  					  	            <div id="ratingcollapse{{$service->id}}{{$key}}" class="panel-collapse collapse rating_content" role="tabpanel" aria-labelledby="rating{{$service->id}}{{$key}}">
 												  					  	                <div class="panel-body w-100">
 												  					  	                	<div class="row">
 								  					  	                		  				<div class="col-lg-12 mb-3 border-bottom">
@@ -483,7 +491,7 @@
 	  						  	                    </a>
 	  						  	                </h4>
 	  						  	            </div>
-	  						  	            <div id="collapse{{$device->id}}" class="panel-collapse collapse @if($key == 0) show @endif" role="tabpanel" aria-labelledby="heading{{$device->id}}">
+	  						  	            <div id="collapse{{$device->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$device->id}}">
 	  						  	                <div class="panel-body">
 	  					  	                      	<div class="row">
 	  											  		<div class="col-lg-12">
@@ -546,7 +554,7 @@
 	  												  				@if(!is_null($device->ratings)) 
 	  					  					  	                		@foreach($device->ratings as $key => $rating)
   							  					  	                		@if($rating['device_id']==$device->id)
-  											  					  	            <div class="panel-heading mt-2" role="tab" id="rating{{$device->id}}{{$key}}">
+  											  					  	            <div class="panel-heading mt-2 inner-accordian" role="tab" id="rating{{$device->id}}{{$key}}">
   											  					  	                <h4 class="panel-title display-inline">
   											  					  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#ratingcollapse{{$device->id}}{{$key}}" aria-expanded="true" aria-controls="ratingcollapse{{$device->id}}{{$key}}" class="accordion_btn rating_btn">
   											  					  	                        <i class="more-less glyphicon glyphicon-plus"></i>
@@ -558,7 +566,7 @@
   											  					  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#ratingcollapse{{$device->id}}{{$key}}" aria-expanded="true" aria-controls="ratingcollapse{{$device->id}}{{$key}}" class="accordion_btn text-right">{{ date("d/m/Y", strtotime($rating['date'])) }}</a>
   											  					  	                </h4>
   											  					  	            </div>
-  											  					  	            <div id="ratingcollapse{{$device->id}}{{$key}}" class="panel-collapse collapse @if($key == count($device->ratings)) show @endif rating_content" role="tabpanel" aria-labelledby="rating{{$device->id}}{{$key}}">
+  											  					  	            <div id="ratingcollapse{{$device->id}}{{$key}}" class="panel-collapse collapse rating_content" role="tabpanel" aria-labelledby="rating{{$device->id}}{{$key}}">
   											  					  	                <div class="panel-body w-100">
   											  					  	                	<div class="row">
   							  					  	                		  				<div class="col-lg-12 mb-3 border-bottom">

@@ -168,9 +168,9 @@
                                 <div class="heading detail-div">
                                     <h1 class="section-title">Ratings</h1>
                                 </div>
-                                <div class="add_new_rating_btn">
+                                <!-- <div class="add_new_rating_btn">
                                     <a href="{{url('/reviews')}}/{{base64_encode($service->id)}}" class="btn btn-info pull-right add_service">Add rating</a>
-                                </div>
+                                </div> -->
                             </div>
                             <!-- Rating -->
                             @if(!is_null($service->ratings)) 

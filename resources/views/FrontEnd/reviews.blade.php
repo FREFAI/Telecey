@@ -303,7 +303,7 @@
 		<!-- end-intro-section -->
 		<!-- share-serv-detail -->
 		<section class="service-detail @if(!Request::get('type')) section-d-none @endif">
-		    <div class="container">
+		    <div class="container review-container">
                 <div class="row second-step align-items-center">
                     <div class="col-lg-4">
                         <div class="step_two_img">
@@ -395,7 +395,7 @@
                                         @endforeach
                                     </select>
                                     <input type="text" class="form-control price-box device-price" name="price" placeholder="Price" required id="price">  
-                                    <small>Including Tax</small>    
+                                    <small><input type="checkbox" checked> Including Tax</small>    
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -687,7 +687,7 @@
                             <h6>How much are you paying</h6>
                             <div class="row mt-1">
                                 <div class="col-lg-6">
-	                                <h5>How much are you paying monthly multi currencies should be supported </h5>
+	                                <h5>How much are you paying monthly  </h5>
 	                                <div class="form-group mb-1">
                                         <select class="currency_id">
                                             @foreach($countries as $curr)
@@ -699,7 +699,7 @@
                                             @endforeach
                                         </select>
 	                                    <input type="text" class="form-control price-box price" name="price" placeholder="Price" required>	
-                                        <small>Including Tax</small>	
+                                        <small><input type="checkbox" checked> Including Tax</small>	
 	                                </div>
 	                            </div>
                                 <div class="col-lg-6">
@@ -710,7 +710,7 @@
                                 </div>
                             </div>
                             <small>
-                                <a href="javascript:void(0);" class="pay_as_usage_class more_info_toggle">Would you like to share more optional  information ?</a>
+                                <a href="javascript:void(0);" class="pay_as_usage_class more_info_toggle"><i class="fa fa-angle-down" style="font-size:24px"></i> Would you like to share more optional  information ?</a>
                             </small>
 	                        <div class="row mt-1 more_info_section" style="display:none;">
                                 <div class="col-lg-3 d-none technology">

@@ -50,7 +50,7 @@ ul.inline_list li {
     width: 40%;
 }
 input.form-control.price-box.device-price {
-    width: 80%;
+    width: 77%;
     float: left;
     margin-top: 0;
     padding: 0 14px;
@@ -112,17 +112,17 @@ a.btn.btn-info.pull-right.add_service:hover{
     left: 0;
     right: 0;
     bottom: -2px;
-    background-color: #2e75b5;
-    border: 1px solid #2e75b5;
+    background-color: #96fdd4;
+    border: 1px solid #96fdd4;
     transition: .4s;
     border-radius: 30px;
 }
 span.toggle_label.active {
-    color: #2e75b5;
+    color: #96fdd4;
     font-weight: 600;
 }
 span.reviewpage_toggle.active{
-    color: #2e75b5 !important;
+    color: #96fdd4 !important;
     font-weight: 600;
 }
 .slider:before {
@@ -140,7 +140,7 @@ span.reviewpage_toggle.active{
 }
 
 input:checked + .slider {
-    background-color: #2e75b5;
+    background-color: #96fdd4;
 }
 
 input:focus + .slider {
@@ -271,7 +271,7 @@ a.accordion_btn:after{
 }
 
 input.form-control.price-box.price {
-    width: 80%;
+    width: 77%;
     float: left;
     margin-top: 0;
     padding: 0 14px;

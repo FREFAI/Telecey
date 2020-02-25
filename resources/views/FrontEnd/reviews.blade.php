@@ -323,25 +323,26 @@
                 </div>
                
                 @if(!Request::get('type'))
-	           	<form class="get-in-touch detail-section pt-4 mb-3">
+	           	<form class="detail-section pt-4 mb-3">
 	                <div class="row">
-                        @if($settings->device == 1)
-	                    <div class="col-lg-6 col text-center">
-	                        <div class="button-product">
-	                            <label class="text-product"><input @if(Request::get('type') == 2) checked="checked" @endif type="radio" class="radio-inline select_one" name="radios" value="product-section"><span class="outside"><span class="inside"></span></span>Devices</label>
-	                        </div>
-	                    </div>
-                        @endif
-	                    <div class="@if($settings->device == 1) col-lg-6  @else  col-lg-12 @endif col text-center">
-	                        <div class="button-service">
-	                            <label class="text-product"><input type="radio" class="radio-inline select_one" name="radios" value="services-section" @if(Request::get('type') == 1) checked="checked" @endif @if($settings->device == 0) checked="" @endif><span class="outside"><span class="inside"></span></span>Plans</label>
-	                        </div>
-	                    </div>
+                        <div class="col-lg-12">
+                            <ul class="nav nav-tabs tab-selection">
+                                <li class="nav-item">
+                                    <a class="nav-link active select_one" data-value="services-section" data-toggle="tab" href="#menu1">Plans</a>
+                                </li>
+                                @if($settings->device == 1)
+                                <li class="nav-item">
+                                    <a class="nav-link @if(Request::get('type') == 2) active @endif  select_one" data-value="product-section" data-toggle="tab" href="#home">Devices</a>
+                                </li>
+                                @endif
+                                
+                            </ul>
+                        </div>
 	                </div>
 	            </form> 
                 @endif
                 <!-- Device section  -->
-                <section class="product-section @if(Request::get('type') == 1) section-d-none @endif @if(!Request::get('type')) section-d-none @endif section-both">
+                <section class="product-section @if(Request::get('type') == 1) section-d-none @endif  @if(!Request::get('type')) section-d-none @endif section-both">
                     <form id="device_rating_form" method="post" action="javascript:void(0);">
                         <div class="row mt-1">
                             <div class="col-lg-6">
@@ -444,7 +445,9 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <a  href="{{url('/reviews?type=1')}}"><h5>Do you want to rate a plan instead?</h5></a>
+                                @if(Request::get('type'))                 
+                                    <a class="link" href="{{url('/reviews?type=1')}}"><h5>Do you want to rate a plan instead?</h5></a>
+                                @endif
                             </div>
                         </div>
                         <div class="row">
@@ -550,7 +553,7 @@
                	</section>
                 <!-- End product section  -->
                 <!-- Plan Section -->
-                <section class="services-section  @if(Request::get('type') == 2) section-d-none @endif @if(!Request::get('type'))  @if($settings->device == 1) section-d-none @endif @endif  section-both">
+                <section class="services-section  @if(Request::get('type') == 2) section-d-none @endif   section-both">
                     <!-- Form Section  -->
                 	<div class="service_form_section">
 	                	<form class="reveiewing_form_service">
@@ -631,7 +634,7 @@
 	                            </div>
                                 <div class="col-lg-6">
                                     <div class="row align-items-center">
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-4 d-none">
                                             <h5>Pay as usage</h5>
                                             <div class="form-group review_page">
                                                 <span class="ext-default reviewpage_toggle active">OFF</span>
@@ -643,7 +646,9 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <a  href="{{url('/reviews?type=2')}}"><h5>Do you want to rate a device instead?</h5></a>
+                                            @if(Request::get('type')) 
+                                                <a class="link" href="{{url('/reviews?type=2')}}"><h5>Do you want to rate a device instead?</h5></a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -665,16 +670,21 @@
                                 </div>
                                 <div class="col-lg-3 pay_as_usage_class">
                                     <h5>Local Minutes</h5>
-                                    <div class="form-group d-flex">
-                                        <input type="text" class="form-control local_min mint_input" name="local_min" placeholder="Local Minutes" required="required"  maxlength="20" value="100">
-                                        <div class="lable_include">Minute</div>		
+
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control local_min mint_input"  name="local_min" placeholder="Local Minutes" required="required"  maxlength="20" value="100">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">Minute</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 pay_as_usage_class">
                                     <h5>DataVolume</h5>
-                                    <div class="form-group d-flex">
-                                        <input type="text" class="form-control datavolume " name="datavolume" placeholder="Data Volume" required="required" maxlength="20" value="2">
-                                        <div class="lable_include">DataVolume</div>		
+                                    <div class="input-group mb-3">
+                                    <input type="text" class="form-control datavolume " name="datavolume" placeholder="Data Volume" required="required" maxlength="20" value="2">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">DataVolume</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 pay_as_usage_class">
@@ -684,7 +694,17 @@
 	                                </div>
 	                            </div>
                             </div>
-                            <h6>How much are you paying</h6>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6>How much are you paying</h6>
+                                </div>
+                                <div class="col-lg-6 text-right">
+                                    <a href="javascript:void(0)" class="pay_as_model link" onclick="resetUsageButton()">
+                                        <h5><u>Is it Pay as you go?</u></h5>
+                                    </a>
+                                </div>
+                            </div>
+                            
                             <div class="row mt-1">
                                 <div class="col-lg-6">
 	                                <h5>How much are you paying monthly  </h5>
@@ -699,13 +719,14 @@
                                             @endforeach
                                         </select>
 	                                    <input type="text" class="form-control price-box price" name="price" placeholder="Price" required>	
-                                        <small><input type="checkbox" checked> Including Tax</small>	
+                                        <div class="text-right text-10"><small>Including Tax</small></div>
 	                                </div>
 	                            </div>
                                 <div class="col-lg-6">
                                     <h5>Upfront price</h5>
                                     <div class="form-group mb-1">
                                         <input type="number" class="form-control upfront_price" name="upfront_price" placeholder="Upfront price"  maxlength="20" value="0">	
+                                        <div class="text-right text-10"><small>Including Tax</small></div>
                                     </div>	
                                 </div>
                             </div>
@@ -763,8 +784,15 @@
                             <input type="hidden" name="latitude" id="lat" value="{{$lat}}">
                             <input type="hidden" name="longitude" id="long" value="{{$long}}">
 	                        <div class="row">
-	                            <div class="col-lg-12">
-	                                <div class="form-group text-center">
+                                <div class="col-lg-6">
+                                @if(!Request::get('type'))
+                                    <!-- <div class="back-button">
+                                        <button type="button" class="btn btn-sm btn-default back-btn mt-3"><i class="fas fa-angle-left"></i> Back</button>
+                                    </div> -->
+                                @endif
+                                </div>
+	                            <div class="col-lg-6">
+	                                <div class="form-group text-right">
 	                                    <button type="submit" class="btn btn-primary btn-sm btn-block product-submit-btn">Submit</button>
 	                                </div>
 	                            </div>
@@ -853,16 +881,20 @@
                                 <div class="font-weight-bold average_div">0</div>
                             </div>
                         </div>
-	               		<div class="row">
-	               		    <div class="col-lg-12">
-	               		        <div class="form-group w-50 ml-auto mr-auto text-center">
-                                    
+	               		<div class="row mb-3">
+                           <div class="col-lg-6">
+                                <!-- <div class="back-button">
+                                    <button type="button" class="btn btn-sm btn-default back-btn-2 mt-2"><i class="fas fa-angle-left"></i> Back</button>
+                                </div> -->
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="text-right">
                                     <input type="hidden" name="type" class="plan-type" value="1">
 	               		        	<input type="hidden" name="service_id" class="service_id">
-                                    <button type="submit" class="btn  btn-lg btn-primary service-rating-submit-btn-add">Submit</button>
-                                    <button type="submit" class="btn  btn-lg btn-primary service-rating-submit-btn d-none">Submit</button>                                    
+                                    <button type="submit" class="btn  btn-sm btn-primary service-rating-submit-btn-add mt-2">Submit</button>
+                                    <button type="submit" class="btn  btn-sm btn-primary service-rating-submit-btn d-none">Submit</button>
                                 </div>
-	               		    </div>
+                            </div>
 	               		</div>
 	               	</div>
                     <!-- End Star rating section -->

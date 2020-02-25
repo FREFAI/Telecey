@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\FrontEnd\ServiceReview;
 use App\Models\FrontEnd\DeviceReview;
+use App\Models\Admin\Brands;
 use App\Models\FrontEnd\ServiceRating;
 use App\Models\Admin\SettingsModel;
 use App\Models\Admin\BlogsModel;
@@ -14,6 +15,7 @@ use App\Models\Admin\HomeContent;
 use App\Models\FrontEnd\PlanDeviceRating;
 use Auth;
 use App\UserAddress;
+use App\Models\Admin\ServiceType;
 use App\User;
 
 class HomeController extends Controller
@@ -39,7 +41,6 @@ class HomeController extends Controller
     public function homepage()
     {
         $settings = SettingsModel::first();
-        
         $blogs = BlogsModel::orderBy('created_at','DESC')->take(3)->get();
         return view('FrontEnd.homepage',['settings'=> $settings,'blogs'=>$blogs]);
     }
@@ -51,11 +52,24 @@ class HomeController extends Controller
      */
     public function homePageNew()
     {
+        $ip = env('ip_address','live'); 
+        if($ip == 'live'){
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }else{
+            $ip = '96.46.34.142';
+        }
+        $client = new \GuzzleHttp\Client();
+        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+        $newresponse = json_decode($newresponse->getBody());
+        $current_location = $newresponse->country_name.','.$newresponse->state_prov.','.$newresponse->city.','.$newresponse->zipcode;
         $settings = SettingsModel::first();
         $homeContent = HomeContent::first();
+        $filtersetting = SettingsModel::first();
+        $service_types = ServiceType::get();
+        $brands = Brands::all();
         $homeContent->section_six = json_decode($homeContent->section_six);
         $blogs = BlogsModel::orderBy('created_at','DESC')->take(3)->get();
-        return view('FrontEnd.homepagenew',['settings'=> $settings,'blogs'=>$blogs,'homeContent'=>$homeContent]);
+        return view('FrontEnd.homepagenew',['ip_location'=>$current_location,'brands' => $brands,'settings'=> $settings,'blogs'=>$blogs,'homeContent'=>$homeContent,'filtersetting'=>$filtersetting,'service_types' => $service_types]);
     }
 
     public function profile(Request $request)
@@ -73,6 +87,9 @@ class HomeController extends Controller
         }
         $serviceData = $data['serviceData'];
         $customer = $data['customer'];
+        // echo "<pre>";
+        // print_r($customer);
+        // exit;
         return view('FrontEnd.profile',['serviceData'=>$serviceData,'customer'=>$customer]);
     }
 
@@ -124,12 +141,12 @@ class HomeController extends Controller
                     }
                 }
             }
-            
             // Set average, comment,created date,user_address_id adn formatted_address in plan array
             foreach ($plan_device_rating as $plan_device) {
                 if($plan_device['plan_id'] == $data->id){  //Check plan_id is equal to plan id
                     if($plan_device['formatted_address'] != NULL && $plan_device['formatted_address'] != ''){
-                        $blankArray[$plan_device['rating_id']]['formatted_address']=$plan_device['formatted_address'];
+                        $blankArray[$plan_device['rating_id']]['formatted_address']=$plan_device['city'].' '.$plan_device['country'].' '.$plan_device['postal_code'];
+                        // $blankArray[$plan_device['rating_id']]['formatted_address']=$plan_device['formatted_address'];
                     }else{
                         $blankArray[$plan_device['rating_id']]['formatted_address']='N/A';
                     }
@@ -201,7 +218,8 @@ class HomeController extends Controller
             foreach ($plan_device_rating as $plan_device) {
                 if($plan_device['device_id'] == $device->id){  //Check device_id is equal to plan id
                     if($plan_device['formatted_address'] != NULL && $plan_device['formatted_address'] != ''){
-                        $blankArray[$plan_device['rating_id']]['formatted_address']=$plan_device['formatted_address'];
+                        // $blankArray[$plan_device['rating_id']]['formatted_address']=$plan_device['formatted_address'];
+                        $blankArray[$plan_device['rating_id']]['formatted_address']=$plan_device['city'].' '.$plan_device['country'].' '.$plan_device['postal_code'];
                     }else{
                         $blankArray[$plan_device['rating_id']]['formatted_address']='N/A';
                     }

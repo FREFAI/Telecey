@@ -351,13 +351,24 @@
 																	  </div>
 																	  <div class="col-lg-4 mt-2">
 													  					<div class="card_sm">
-													  					<ul class="first_row_service">
-													  						<li>
-													  							<div>Upfront price : </div>
-													  							<div class="value_div">&nbsp;{{$service->upfront_price ?? 0}} 
-													  							</div>
-													  						</li>
-													  					</ul>
+																			<ul class="first_row_service">
+																				<li>
+																					<div>Upfront price : </div>
+																					<div class="value_div">&nbsp;{{$service->upfront_price ?? 0}} 
+																					</div>
+																				</li>
+																			</ul>
+													  					</div>
+													  				</div>
+																	  <div class="col-lg-4 mt-2">
+													  					<div class="card_sm">
+																			<ul class="first_row_service">
+																				<li>
+																					<div>Address : </div>
+																					<div class="value_div">&nbsp;{{$customer->userAdderss['city'] ?? ''}} {{$customer->userAdderss['country'] ?? ''}} {{$customer->userAdderss['postal_code'] ?? ''}} 
+																					</div>
+																				</li>
+																			</ul>
 													  					</div>
 													  				</div>
 													  			</div>
@@ -498,7 +509,7 @@
 	  											  			<div class="service_list_design">
 								  				  				<div class="row">
 								  					  				
-								  					  				<div class="col-lg-4 text-center">
+								  					  				<div class="col-lg-4 text-left">
 								  					  					<div class="card_sm">
 								  						  					<ul class="first_row_service">
 								  						  						<li>
@@ -524,7 +535,7 @@
 								  						  					</ul>
 								  					  					</div>
 								  					  				</div>
-								  					  				<div class="col-lg-4 text-center">
+								  					  				<div class="col-lg-4 text-right">
 								  					  					<div class="card_sm">
 								  						  					<ul class="first_row_service">
 								  						  						<li>
@@ -539,7 +550,18 @@
 								  						  						</li>
 								  						  					</ul>
 								  					  					</div>
-								  					  				</div>
+																		</div>
+																		<div class="col-lg-4 mt-2 text-left">
+													  					<div class="card_sm">
+																			<ul class="first_row_service">
+																				<li>
+																					<div>Address : </div>
+																					<div class="value_div">&nbsp;{{$customer->userAdderss['city'] ?? ''}} {{$customer->userAdderss['country'] ?? ''}} {{$customer->userAdderss['postal_code'] ?? ''}} 
+																					</div>
+																				</li>
+																			</ul>
+													  					</div>
+													  				</div>
 								  					  			</div>
 	  												  			<div class="row">
 	  												  				<div class="col-lg-12">

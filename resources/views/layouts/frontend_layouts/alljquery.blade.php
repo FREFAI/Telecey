@@ -243,9 +243,9 @@
                 var class_hide_show = $(this).attr('data-class');
                 $('.'+class_hide_show).removeClass('section-d-none');
             });
-            $('.select_one').on('change',function(){
-                $(this).closest('form.get-in-touch.detail-section').hide();
-                var section_class = $(this).val();
+            $('.select_one').on('click',function(){
+                // $(this).closest('form.get-in-touch.detail-section').hide();
+                var section_class = $(this).attr('data-value');
                 $('.section-both').addClass('section-d-none');
                 $('.'+section_class).removeClass('section-d-none');
                 $('.'+section_class+' .service_form_section').removeClass('section-d-none');
@@ -290,6 +290,19 @@
             
         // End Review page js
         // Review page ajax
+          // $(document).find('.back-btn').on('click',function(){
+          //   $('#firstform').closest('.intro-section').removeClass('section-d-none');
+          //   $('.service-detail').addClass('section-d-none');
+          //   document.body.scrollTop = 0;
+          //   document.documentElement.scrollTop = 0;
+          // });
+          // $(document).find('.back-btn-2').on('click',function(){
+          //   $('.services-rating-section').addClass('section-d-none');
+          //   $('.second-step').show();
+          //   $('.reveiewing_form_service').closest('.service_form_section').removeClass('section-d-none');
+          //   document.body.scrollTop = 0;
+          //   document.documentElement.scrollTop = 0;
+          // });
           $('#firstform').on('submit',function(e){
             if(countrySelection === false){
               $('.country_list').css('display','none');
@@ -411,7 +424,8 @@
 
             swal({
                 title: currency_name+' '+price,
-                text: "Above price is including tax"
+                text: "Above price is including tax",
+                buttons: ["No", "Yes"],
               })
             .then(function(name) {
                 if(name){
@@ -691,7 +705,8 @@
             
             swal({
                 title: currency_name+' '+price,
-                text: "Above price is including tax"
+                text: "Above price is including tax",
+                buttons: ["No", "Yes"],
               })
             .then(function(name) {
                 if(name){

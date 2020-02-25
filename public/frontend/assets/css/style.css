@@ -1387,8 +1387,11 @@ form.get-in-touch.detail-section{
   margin: 1rem auto;
 }
 input.form-control.price-box {
-  margin: 10px auto;
+  margin: 0px auto;
   padding: 14px;
+}
+.text-10 small {
+  font-size: 13px;
 }
 button.product-submit-btn {
   margin-top: 1rem;
@@ -2075,6 +2078,14 @@ table.table.custom-table tbody tr:hover {
   }
   .review-container{
     max-width: 873px;
+  }
+  #basic-addon2 {
+    background: #2e76b5;
+    color:#fff;
+    border-color: #2e76b5;
+  }
+  a.link h5 {
+    color: #4289ff !important;
   }
   .title-step-1 {
     color: #000;

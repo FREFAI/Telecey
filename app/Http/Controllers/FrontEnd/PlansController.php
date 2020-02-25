@@ -88,7 +88,7 @@ class PlansController extends Controller
                 $filter = $data['filter'];
             }
             
-            $searchResultCount = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+            $searchResultCount = ServiceReview::select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
             ->where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
                 $query->orWhere('contract_type',$contract_type)
                 ->orWhere('payment_type',$payment_type)
@@ -102,7 +102,7 @@ class PlansController extends Controller
                     ->orderBy('average_review','DESC')
                     ->count();
 
-            $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+            $searchResult = ServiceReview::select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
                 ->where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
                     $query->orWhere('contract_type',$contract_type)
                     ->orWhere('payment_type',$payment_type)
@@ -150,7 +150,7 @@ class PlansController extends Controller
             return view('FrontEnd.plans',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
 
         }else{
-            $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+            $searchResult = ServiceReview::select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
             ->where('country_code',$current_country_code)
             ->with('provider','currency','typeOfService')
                     ->orderBy('distance','ASC')
@@ -188,7 +188,7 @@ class PlansController extends Controller
         $country = CountriesModel::select('id')->where('name',$newresponse->country_name)->first();
         // $ads = AdsModel::with('countries')->where('is_global',1)->orWhere('country',$country->id)->get();
         $data=$request->all();
-        $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+        $searchResult = ServiceReview::select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
         ->where('country_code',$current_country_code)
         ->with('provider','currency','typeOfService','user','ratings','plan_rating')
         ->orderBy('distance','ASC')
@@ -243,7 +243,7 @@ class PlansController extends Controller
                 $filter = $data['filter'];
             }
             $mainQuery = ServiceReview::query();
-            $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+            $mainQuery->select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
             ->where('country_code',$current_country_code)
             ->with('provider','currency','typeOfService');
             $mainQuery->where(function ($query) use ($data) {
@@ -354,7 +354,7 @@ class PlansController extends Controller
                             })->get()->toArray();
         $googleads = AdsModel::where('type',1)->first();
         $mainQuery = ServiceReview::query();
-        $mainQuery->select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+        $mainQuery->select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
         ->where('country_code',$current_country_code)
         ->with('provider','currency','typeOfService');
         $mainQuery->where(function ($query) use ($data) {
@@ -438,7 +438,7 @@ class PlansController extends Controller
             }elseif(array_key_exists("filter",$data)){
                 $filter = $data['filter'];
             }
-            $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+            $searchResult = ServiceReview::select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
                 ->where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
                     $query->orWhere('contract_type',$contract_type)
                     ->orWhere('payment_type',$payment_type)
@@ -452,7 +452,7 @@ class PlansController extends Controller
                         ->orderBy('average_review','DESC')
                         ->get()->toArray();
                 // if($filter == 1){
-                //     $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                //     $searchResult = ServiceReview::select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
                 //     ->where('country_code',$current_country_code)->where(function ($query) use ($contract_type,$payment_type,$pay_as_usage_type,$service_type) {
                 //                         $query->orWhere('contract_type',$contract_type)
                 //                         ->orWhere('payment_type',$payment_type)
@@ -526,7 +526,7 @@ class PlansController extends Controller
 
         }else{
 
-            $searchResult = ServiceReview::select(DB::raw('*, ( 6367 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+            $searchResult = ServiceReview::select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
             ->where('country_code',$current_country_code)
             ->with('provider','currency','typeOfService')
                     ->orderBy('distance','ASC')
@@ -574,7 +574,8 @@ class PlansController extends Controller
             if($plan_device['plan_id'] == $planDetailData->id){  //Check plan_id is equal to plan id
                 $address = UserAddress::find($plan_device['user_address_id']);
                 if($address['formatted_address'] != NULL && $address['formatted_address'] != ''){
-                    $blankArray[$plan_device['rating_id']]['formatted_address']=$address['formatted_address'];
+                    $blankArray[$plan_device['rating_id']]['formatted_address']=$address['city'].' '.$address['country'].' '.$address['postal_code'];
+                    // $blankArray[$plan_device['rating_id']]['formatted_address']=$address['formatted_address'];
                 }else{
                     $blankArray[$plan_device['rating_id']]['formatted_address']='N/A';
                 }

@@ -66,11 +66,17 @@ a.btn.btn-info.pull-right.add_service:hover{
   color: #2e75b5 !important;
   border: 2px solid #2e75b5 !important;
 }
-.contact-form .submit-btn, button.product-submit-btn {
+.contact-form .submit-btn, button.product-submit-btn,button.back-btn,button.back-btn-2 {
   background-color: #ffffff !important;
   color: #2e75b5 !important;
   border: 2px solid #2e75b5 !important;
-  width: 15%;
+  width: 25%;
+  height: 2rem;
+  padding: 0px;
+}
+
+.service-rating-submit-btn-add{
+  padding: 4px 20px !important;
 }
 .service-rating-submit-btn{
   color: #495057;
@@ -271,7 +277,7 @@ a.accordion_btn:after{
 }
 
 input.form-control.price-box.price {
-    width: 77%;
+    width: 79%;
     float: left;
     margin-top: 0;
     padding: 0 14px;
@@ -672,3 +678,29 @@ div.testGroup{
       padding: 0 10px;
   }
 /*End Chat css */
+
+
+/* 25-02-2020 */
+.tab-selection{
+  border-bottom: none !important;
+}
+.tab-selection .nav-item{
+  margin-right: 20px !important;
+}
+.tab-selection.nav-tabs .nav-link{
+  border: none !important;
+  padding: 10px 0;
+  padding-bottom:1px ;
+  border-bottom: 1px solid #495057 !important;
+}
+.tab-selection.nav-tabs .nav-link.active {
+  font-weight: 500;
+  background: #fff !important;
+  border: none !important;
+  border-bottom: 2px solid #495057 !important;
+}
+.tab-selection.nav-tabs .nav-link:hover {
+  border: none !important;
+  border-bottom: 2px solid #495057 !important;
+}
+/* /25-02-2020 */

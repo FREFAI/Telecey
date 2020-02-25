@@ -78,6 +78,14 @@
     .rating-sec{
         padding-top: 15px;
     }
+    .inner-accordian {
+        background-color: #2e75b5 !important;
+    }
+    .inner-accordian a {
+        color: #fff !important;
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+    }
 </style>
 <div class="profile inner-page">
 	<div class="container">
@@ -293,8 +301,8 @@
                             @if(!is_null($service->ratings)) 
                                     @foreach($service->ratings as $key => $rating)
                                             @if($rating['plan_id']==$service->id)
-                                                <div class="panel-heading mt-2 w-100 innerHeading" role="tab" id="rating{{$service->id}}{{$key}}">
-                                                    <h4 class="panel-title display-inline">
+                                                <div class="panel-heading mt-2 w-100 innerHeading inner-accordian" role="tab" id="rating{{$service->id}}{{$key}}">
+                                                    <h4 class="panel-title display-inline mb-0">
                                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#ratingcollapse{{$service->id}}{{$key}}" aria-expanded="true" aria-controls="ratingcollapse{{$service->id}}{{$key}}" class="accordion_btn rating_btn">
                                                             <i class="more-less glyphicon glyphicon-plus"></i>
                                                             <ul class="inline_list">

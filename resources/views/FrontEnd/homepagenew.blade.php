@@ -5,10 +5,106 @@
 <!-- Content Start Here -->
 <section id="main-top-section" >
 	<div class="container">
-		<div class="row align-items-center">
+		<div class="row">
 			<div class="col-md-6 text-center pl-0 pr-0 video-height">
-				<div class="first-section-text">
+				<div class="first-section-text mt-5">
 					<h2>{!!$homeContent ? $homeContent->section_one : 'Welcome to the telco community'!!}</h2>
+				</div>
+				<ul class="nav nav-tabs tab-selection  mt-5">
+					<li class="nav-item">
+						<a class="nav-link active" data-toggle="tab" href="#plan">Plans</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="tab" href="#device">Devices</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="plan">
+						<form action="{{url('/plans/result')}}" method="get" class="w-75 mt-4">
+							<div class="row">
+								<div class="col-md-12 ml-md-auto">
+									<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
+								</div>
+								
+								<input type="hidden" name="rows" value="20">
+								
+								@if($filtersetting->gb_setting == 1)
+								<div class="col-6 text-center mt-4 pay_as_usage_type">
+									<div class="form-group">
+										<select id="inputState" class="mbps-select">
+											<option value="0.5">0.5 GB</option>
+											<option value="1">1 GB</option>
+											<option value="2" selected>2 GB</option>
+											<option value="3">3 GB</option>
+											<option value="5">5 GB</option>
+											<option value="7">7 GB</option>
+											<option value="10">10 GB</option>
+											<option value="12">12 GB</option>
+											<option value="15">15 GB</option>
+											<option value="20">20 GB</option>
+										</select>
+									</div>
+								</div>
+								@endif
+								@if($filtersetting->mb_setting == 1)
+								<div class="col-6 text-center mt-4 pay_as_usage_type">
+									<div class="form-group">
+										<select id="inputState" class="mbps-select">
+											<option selected value="" disabled="">Mbps</option>
+											<option value="100">100 Mbps</option>
+											<option value="200">200 Mbps</option>
+											<option value="300">300 Mbps</option>
+											<option value="400">400 Mbps</option>
+											<option value="500">500 Mbps</option>
+										</select>
+									</div>
+								</div>
+								@endif
+							</div>
+							<div class="row">
+								<div class="col-md-12 text-center">
+									<button type="submit" class="searchnow-button">Search Now</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="tab-pane" id="device">
+						<form action="{{url('/devices/result')}}" method="get" class="w-75 mt-4">
+							<div class="row">
+								<div class="col-12">
+									<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
+								</div>
+								<div class="col-6 mt-4 devicenew">
+									<select class="service-type-select service_type" name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">
+										<option value="">Brand</option>
+										@foreach($brands as $v)
+											<option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
+										@endforeach
+									</select>
+								</div>
+								<div class="col-6 mt-4">
+									<div class="form-group plan_page inputwithicon">
+										<div class="select">
+											<select name="storage" id="storage" class="service-type-select  service_type">
+												<option value="">Capacity</option>
+												<option value="64" @if( request()->get('storage') ) @if( request()->get('storage') == '64') selected @endif @endif>64</option>
+												<option value="128" @if( request()->get('storage') ) @if( request()->get('storage') == '128') selected @endif @endif>128</option>
+												<option value="256" @if( request()->get('storage') ) @if( request()->get('storage') == '256') selected @endif @endif>256</option>
+												<option value="512" @if( request()->get('storage') ) @if( request()->get('storage') == '512') selected @endif @endif>512</option>
+												<option value="1GB" @if( request()->get('storage') ) @if( request()->get('storage') == '1GB') selected @endif @endif>1GB</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<input type="hidden" value="20" name="rows"/>
+								<div class="col-md-12 text-center">
+									<button type="submit" class="searchnow-button">Search Now</button>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -38,7 +134,7 @@ Check and share your telco experience with every one'!!}</h2>
 		<div class="row mt-5">
 			<div class="col-12 mb-4">
 				<div class="find-service-section mx-auto text-center">
-						<iframe style="width: 85%" height="315" src="{{$homeContent ? $homeContent->section_five : ''}}" frameborder="0" allow="accelerometer; autoplay;" allowfullscreen></iframe>
+						<iframe style="width: 85%" height="500" src="{{$homeContent ? $homeContent->section_five : ''}}" frameborder="0" allow="accelerometer; autoplay;" allowfullscreen></iframe>
 						<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/9xwazD5SyVg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 					<!-- <h2>Check and share your telco experience with every one</h2> -->
 				</div>
@@ -386,5 +482,193 @@ Check and share your telco experience with every one'!!}</h2>
 		</div>
 	</div>
 </section>
+<style>
+	.dropdown-select.wide.service-type-select.service_type {
+		border: 1px solid #2e75b5;
+		height: 29px;
+		line-height: 30px;
+	}
+	input#txtSearchValue {
+		height: 30px;
+		width: 100%;
+		border-radius: 5px;
+	}
+</style>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script>
+	$(document).on('click','.dropdown-select ul li',function(){
+		var brandId = $(this).attr('data-value');
+		if(window.location.protocol == "http:"){
+			resuesturl = "{{url('/getBrandColor')}}"
+		}else if(window.location.protocol == "https:"){
+			resuesturl = "{{secure_url('/getBrandColor')}}"
+		}
+		$.ajax({
+			type: "post",
+			url: resuesturl,
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			dataType:'json',
+			data: {
+				id:brandId
+			},
+			success: function (data) {
+				$('#device_color').html('');
+				if(data.success){
+					var colors = data.data;
+					
+					if(colors != ''){
+					for(var i=0; i <= colors.length;i++){
+						$('#device_color').append('<option value="'+colors[i].id+'">'+colors[i].color_name+'</option>');
+					}
+					}else{
+					$('#device_color').append('<option value="">Color</option>');
+					}
+				}else{
 
+				}
+			}         
+		});
+	});
+	function create_custom_dropdowns() {
+		$('#brand_select').each(function (i, select) {
+			if (!$(this).next().hasClass('dropdown-select')) {
+				$(this).after('<div class="dropdown-select wide ' + ($(this).attr('class') || '') + '" tabindex="0"><span class="current"></span><div class="list"><ul></ul></div></div>');
+				var dropdown = $(this).next();
+				var options = $(select).find('option');
+				var selected = $(this).find('option:selected');
+				dropdown.find('.current').html(selected.data('display-text') || selected.text());
+				options.each(function (j, o) {
+					var display = $(o).data('display-text') || '';
+					dropdown.find('ul').append('<li class="option ' + ($(o).is(':selected') ? 'selected' : '') + '" data-value="' + $(o).val() + '" data-display-text="' + display + '">' + $(o).text() + '</li>');
+				});
+			}
+		});
+
+		$('.dropdown-select ul').before('<div class="dd-search"><input id="txtSearchValue" autocomplete="off" onkeyup="filter()" class="dd-searchbox" type="text"></div>');
+	}
+
+	// Event listeners
+
+	// Open/close
+	$(document).on('click', '.dropdown-select', function (event) {
+		if($(event.target).hasClass('dd-searchbox')){
+			return;
+		}
+		$('.dropdown-select').not($(this)).removeClass('open');
+		$(this).toggleClass('open');
+		if ($(this).hasClass('open')) {
+			$(this).find('.option').attr('tabindex', 0);
+			$(this).find('.selected').focus();
+		} else {
+			$(this).find('.option').removeAttr('tabindex');
+			$(this).focus();
+		}
+	});
+
+	// Close when clicking outside
+	$(document).on('click', function (event) {
+		if ($(event.target).closest('.dropdown-select').length === 0) {
+			$('.dropdown-select').removeClass('open');
+			$('.dropdown-select .option').removeAttr('tabindex');
+		}
+		event.stopPropagation();
+	});
+
+	function filter(){
+		var actionurl = $('#brand_select').attr('data-url');
+		var valThis = $('#txtSearchValue').val();
+		$.ajax({
+			url:actionurl,
+			type: "GET",
+			dataType: "json",
+			data: {
+				search:valThis
+			},
+			success: function(response){
+				var allData = response.data;
+				$('.dropdown-select.wide .list').find('ul').html('');
+				if(allData){
+					for (let index = 0; index < allData.length; index++) {
+						const text = allData[index];
+						$('.dropdown-select.wide .list').find('ul').append('<li class="option" data-value="' + text.id + '" data-display-text="">' + text.brand_name+' '+text.model_name + '</li>');
+					}
+					
+				}
+				
+			}
+		});
+		$('.dropdown-select ul > li').each(function(){
+		var text = $(this).text();
+			(text.toLowerCase().indexOf(valThis.toLowerCase()) > -1) ? $(this).show() : $(this).hide();         
+		});
+		
+	};
+	// Search
+
+	// Option click
+	$(document).on('click', '.dropdown-select .option', function (event) {
+		$(this).closest('.list').find('.selected').removeClass('selected');
+		$(this).addClass('selected');
+		var text = $(this).data('display-text') || $(this).text();
+		$(this).closest('.dropdown-select').find('.current').text(text);
+		$(this).closest('.dropdown-select').prev('select').val($(this).data('value')).trigger('change');
+	});
+
+	// Keyboard events
+	$(document).on('keydown', '.dropdown-select', function (event) {
+		var focused_option = $($(this).find('.list .option:focus')[0] || $(this).find('.list .option.selected')[0]);
+		// Space or Enter
+		//if (event.keyCode == 32 || event.keyCode == 13) {
+		if (event.keyCode == 13) {
+			if ($(this).hasClass('open')) {
+				focused_option.trigger('click');
+			} else {
+				$(this).trigger('click');
+			}
+			return false;
+			// Down
+		} else if (event.keyCode == 40) {
+			if (!$(this).hasClass('open')) {
+				$(this).trigger('click');
+			} else {
+				focused_option.next().focus();
+			}
+			return false;
+			// Up
+		} else if (event.keyCode == 38) {
+			if (!$(this).hasClass('open')) {
+				$(this).trigger('click');
+			} else {
+				var focused_option = $($(this).find('.list .option:focus')[0] || $(this).find('.list .option.selected')[0]);
+				focused_option.prev().focus();
+			}
+			return false;
+			// Esc
+		} else if (event.keyCode == 27) {
+			if ($(this).hasClass('open')) {
+				$(this).trigger('click');
+			}
+			return false;
+		}
+	});
+
+	$(document).ready(function () {
+		create_custom_dropdowns();
+		$(".rating .rating_disable").rate({
+			readonly: true,
+		});
+	});
+	function initMap() {
+	    var input = document.getElementById('searchMapInput');
+	  
+	    var autocomplete = new google.maps.places.Autocomplete(input);
+	   
+	    autocomplete.addListener('place_changed', function() {
+	        var place = autocomplete.getPlace();
+	    });
+	}
+
+</script>
 @endsection

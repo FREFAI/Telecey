@@ -46,20 +46,20 @@
 									</div>
 								</div>
 								@endif
-								@if($filtersetting->mb_setting == 1)
 								<div class="col-6 text-center mt-4 pay_as_usage_type">
 									<div class="form-group">
-										<select id="inputState" class="mbps-select">
-											<option selected value="" disabled="">Mbps</option>
-											<option value="100">100 Mbps</option>
-											<option value="200">200 Mbps</option>
-											<option value="300">300 Mbps</option>
-											<option value="400">400 Mbps</option>
-											<option value="500">500 Mbps</option>
+										<select class="service-type-select service_type" name="service_type">
+											<option value="">Service type</option>
+											@if(count($service_types) > 0)
+												@foreach($service_types as $type)
+													<option value="{{$type->id}}" @if( request()->get('service_type') ) @if( request()->get('service_type') == $type->id) selected @endif @endif>{{$type->service_type_name}}</option>
+												@endforeach
+											@else
+												<option disabled="">Not found</option>
+											@endif
 										</select>
 									</div>
 								</div>
-								@endif
 							</div>
 							<div class="row">
 								<div class="col-md-12 text-center">

@@ -363,6 +363,14 @@
         if(!$("#address_form").valid()){
             return false;
         }else{
+            let postal = valid_postal_code($('#address_form #user_postal_code').val(),$('#address_form .city_input').attr('data-country'));
+            if(postal != ""){
+                if($("#address_form #postal_code-error.errorcustom").length == 0){
+                    $('#address_form #user_postal_code').addClass('error');
+                    $('#address_form #user_postal_code').after(postal);
+                }
+                return false;
+            }
             var user_full_address = $('#user_full_address').val();
             var user_city = $('#user_city').val();
             var user_country = $('#user_country').val();

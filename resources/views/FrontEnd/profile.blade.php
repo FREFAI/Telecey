@@ -360,6 +360,7 @@
 																			</ul>
 													  					</div>
 													  				</div>
+																	  @if(count($service->ratings) === 0 ) 
 																	  <div class="col-lg-4 mt-2">
 													  					<div class="card_sm">
 																			<ul class="first_row_service">
@@ -370,7 +371,8 @@
 																				</li>
 																			</ul>
 													  					</div>
-													  				</div>
+																	  </div>
+																	  @endif
 													  			</div>
 													  			<div class="row">
 													  				<div class="col-lg-12">
@@ -551,17 +553,19 @@
 								  						  					</ul>
 								  					  					</div>
 																		</div>
+																		@if(count($device->ratings) === 0 ) 
 																		<div class="col-lg-4 mt-2 text-left">
-													  					<div class="card_sm">
-																			<ul class="first_row_service">
-																				<li>
-																					<div>Address : </div>
-																					<div class="value_div">&nbsp;{{$customer->userAdderss['city'] ?? ''}} {{$customer->userAdderss['country'] ?? ''}} {{$customer->userAdderss['postal_code'] ?? ''}} 
-																					</div>
-																				</li>
-																			</ul>
-													  					</div>
-													  				</div>
+																			<div class="card_sm">
+																				<ul class="first_row_service">
+																					<li>
+																						<div>Address : </div>
+																						<div class="value_div">&nbsp;{{$customer->userAdderss['city'] ?? ''}} {{$customer->userAdderss['country'] ?? ''}} {{$customer->userAdderss['postal_code'] ?? ''}} 
+																						</div>
+																					</li>
+																				</ul>
+																			</div>
+																		</div>
+																		@endif
 								  					  			</div>
 	  												  			<div class="row">
 	  												  				<div class="col-lg-12">
@@ -732,19 +736,19 @@
 						<div class="col-lg-12">
 							<h5>Address</h5>
 							<div class="form-group">
-								<input type="text" maxlength="70" id="address" name="address" class="form-control" placeholder="Address" value="" autocomplete="off">
+								<input type="text" maxlength="70" id="address" name="address" class="form-control" placeholder="Address" value="" autocomplete="no">
 							</div>
 						</div>
 						<div class="col-lg-12">
 							<h5>Country</h5>
 							<div class="form-group country_div" id="country_div">
-								<input type="text" maxlength="50" id="country" name="country" class="form-control js-input" placeholder="Country" required=""  autocomplete="off">
+								<input type="text" maxlength="50" id="country" name="country" class="form-control js-input" placeholder="Country" required=""  autocomplete="no">
 							</div>
 						</div>
 						<div class="col-lg-12">
 							<h5>City</h5>
 							<div class="form-group city_div" id="city_div">
-								<input type="text" maxlength="50" id="city" name="city" class="form-control city_input" placeholder="City" autocomplete="off" required="" data-country="IN" value="">
+								<input type="text" maxlength="50" id="city" name="city" class="form-control city_input" placeholder="City" autocomplete="no" required="" data-country="IN" value="">
 							</div>
 						</div>
 						<div class="col-lg-12">

@@ -35,4 +35,13 @@
     .tg-select.tg-select select::-ms-expand{
         display:none !important;
     }
+    input.error + label.label {
+        bottom: 60px;
+    }
+    .errorcustom{
+        color: red;
+        float: left;
+        text-transform: capitalize;
+        font-size: 15px;
+    }
 </style>

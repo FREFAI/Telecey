@@ -29,7 +29,25 @@
 
 
   <script>
-   
+    function valid_postal_code(value, country = 'default') {
+      let country_regex = {
+        "uk" : /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i,
+        "ca" : /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/,
+        "it" : /^[0-9]{5}$/i,
+        "de" : /^[0-9]{5}$/i,
+        "us" : /(^\d{5}$)|(^\d{5}-\d{4}$)/,
+        "default" : /(^\d{5}$)|(^\d{5}-\d{4}$)/ // Same as US.
+      };
+      country = country.toLowerCase()
+      if(!country_regex[country]){
+        country = "default";
+      }
+      if(country_regex[country].test(value)){
+        return "";
+      }else{
+        return '<label id="postal_code-error" class="errorcustom" for="postal_code">Postal code is invalid!.</label>';
+      }
+    }
     $('input.city_input').cityAutocomplete();
     // $('.user_city_add input#user_city').cityAutocomplete();
     $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo('.country_div');
@@ -321,6 +339,14 @@
                 $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
               }
               return false;
+            }
+            let postal = valid_postal_code($('#firstform #postal_code').val(),$('#firstform .city_input').attr('data-country'));
+            if(postal != ""){
+                if(!$("#firstform #postal_code").hasClass('error')){
+                  $('#firstform #postal_code').addClass('error');
+                  $('#firstform #postal_code').after(postal);
+                }
+                return false;
             }
             var thisform = $(this);
             e.preventDefault();
@@ -905,6 +931,7 @@
         // Profile Page 
           $('.address_update_btn').on('click',function(e){
             e.preventDefault();
+
             if(countrySelection === false){
               $('.country_list').css('display','none');
               $('#country').addClass('error');
@@ -923,6 +950,15 @@
                 $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
               }
               
+              return false;
+            }
+
+            let postal = valid_postal_code($('#postal_code').val(),$('.city_input').attr('data-country'));
+            if(postal != ""){
+              if(!$("#postal_code").hasClass('error')){
+                $('#postal_code').addClass('error');
+                $('#postal_code').after(postal);
+              }
               return false;
             }
             $('#change_address_form').submit();

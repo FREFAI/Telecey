@@ -43,7 +43,7 @@ class BlogsController extends Controller
         $query->orderBy('created_at','DESC')->where('status',1);
         if(array_key_exists('search',$params)){
             if($params['search'] != ""){
-                $query->where('title','LIKE',"%{$params['search']}%");
+                $query->where('title','LIKE',"%{$params['search']}%")->orwhere('blog_content','LIKE',"%{$params['search']}%");
             }
         }
         $blogs = $query->paginate(10);

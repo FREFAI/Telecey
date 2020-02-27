@@ -24,6 +24,7 @@
 <script src="{{URL::asset('frontend/jsplugins/jsvalidation/jquery.validate.js')}}"></script>
 <script src="{{URL::asset('frontend/jsplugins/jquery.city-autocomplete.js')}}"></script>
 
+<script src="https://cdn.tiny.cloud/1/r33fht357sb48uzaif4s424d91smk1zo3s41jfq0gkx580ee/tinymce/5/tinymce.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&language=en&callback=initMap"></script>
 
@@ -48,6 +49,27 @@
         return '<label id="postal_code-error" class="errorcustom" for="postal_code">Postal code is invalid!.</label>';
       }
     }
+    function readURL(input) {
+			var file = input.files[0];//get file   
+			var img = new Image();
+			var sizeKB = file.size / 1024;
+			if(sizeKB > 10000){
+				toastr.error('Image size', 'Image size should be less then 10Mb.' , {displayDuration:100000,position: 'top-right'});
+				return false;
+			}
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function(e) {
+		            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+		            $('#imagePreview').hide();
+		            $('#imagePreview').fadeIn(650);
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+		$("#imageUpload").change(function() {
+		    readURL(this);
+		});
     $('input.city_input').cityAutocomplete();
     // $('.user_city_add input#user_city').cityAutocomplete();
     $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo('.country_div');
@@ -58,6 +80,17 @@
         "paging": false,
         "info": false,
         "ordering": false
+      });
+      tinymce.init({ 
+        selector:'.text_editor' ,
+        height: 300,
+        plugins: [
+              'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+              'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+              'save table contextmenu directionality emoticons template paste textcolor'
+            ],
+        content_css: 'css/content.css',
+        toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | preview fullpage | forecolor backcolor emoticons | image'
       });
     });
     var countrySelection = true;
@@ -964,4 +997,39 @@
             $('#change_address_form').submit();
           });
         // End Profile Page
+        $('.delete_blog').on('click',function(){
+          var blog_id = $(this).attr('data-blog_id');
+          var delete_row = $(this);
+          if(window.location.protocol == "http:"){
+              resuesturl = "{{url('/deleteBlog')}}"
+          }else if(window.location.protocol == "https:"){
+              resuesturl = "{{secure_url('/deleteBlog')}}"
+          }
+          swal("Are you sure you want to delete this post?", {
+                buttons: ["No", "Yes"],
+              })
+              .then(function(name) {
+                  if(name){
+              $.ajax({
+                  type: "post",
+                  url: resuesturl,
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                  dataType:'json',
+                  data: {
+                      'id':blog_id
+                  },
+                  success: function (data) {
+                      if(data.success){
+                        delete_row.closest('tr').remove();
+                        toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+                      }else{
+                        toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+                      }
+                  }         
+              });
+            }
+          });
+        });
 </script>

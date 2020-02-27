@@ -39,6 +39,7 @@
                        <th scope="col" class="text-center" style="width: 30px;"><i class="ni ni-image"></i></th>
                        <th scope="col" class="text-center">Title</th>
                        <th scope="col" class="text-center">Date</th>
+                       <th scope="col" class="text-center">Status</th>
                        <th scope="col" class="text-right">Action</th>
                      </tr>
                    </thead>
@@ -73,7 +74,34 @@
                                       <span class="mb-0 text-sm">{{date("M d, Y", strtotime($blog->created_at))}}</span>
                                   </div>
                                 </td>
+                                <td  class="text-center">
+                                  <span class="badge badge-dot mr-4">
+                                    @if($blog->status == 1)
+                                      <span class="d-none not_ap_ms"><i class="bg-danger"></i> Not approved</span>
+                                    <span class="approved_ms"><i class="bg-success"></i> Approved</span>
+                                    @else
+                                    <span class="not_ap_ms"><i class="bg-danger"></i> Not approved</span>
+                                    <span class="d-none approved_ms"><i class="bg-success"></i> Approved</span>
+                                    @endif
+                                  </span>
+                                </td>
                                <td class="text-right">
+                                  <button class="btn btn-icon btn-2 
+                                      @if($blog->status == 1) 
+                                        btn-danger 
+                                      @else 
+                                        btn-success 
+                                      @endif 
+                                      btn-sm approved_btn_blog" data-toggle="tooltip" data-placement="top" title="
+                                      @if($blog->status == 1) 
+                                        Not approve 
+                                      @else 
+                                        Approve 
+                                      @endif" 
+                                      data-status="@if($blog->status == 1) 0 @else 1 @endif"
+                                      data-blog_id="{{$blog->id}}">
+                                      <span class="btn-inner--icon"><i class="@if($blog->status != 1) ni ni-check-bold @else ni ni-fat-remove @endif"></i></span>
+                                  </button>
                                  <a class="btn btn-icon btn-2 btn-primary btn-sm" href="{{url('/admin/single-blog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="View">
                                    <span class="btn-inner--icon"><i class="fas fa-eye"></i></span>
                                  </a>

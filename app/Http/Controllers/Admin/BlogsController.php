@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Models\Admin\Category;
 use App\Models\Admin\BlogsModel;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use File,Image;
+use File,Image,Mail;
 
 class BlogsController extends Controller
 {
@@ -18,13 +19,15 @@ class BlogsController extends Controller
 
     public function addBlogForm(Request $request)
     {
-    	return view('Admin.Blogs.add-blog');
+		$categories = Category::get();
+    	return view('Admin.Blogs.add-blog',['categories'=>$categories]);
     }
     public function addBlog(Request $request)
     {
     	$perameters = $request->all();
     	$validation = Validator::make($perameters,[
 			'title' => 'required',
+			'category_id' => 'required',
 			'blog_content' => 'required',
 			'blog_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
 		]);
@@ -72,8 +75,9 @@ class BlogsController extends Controller
     public function editBlogForm(Request $request,$id)
     {
     	$id = base64_decode($id);
-    	$blog = BlogsModel::find($id);
-    	return view('Admin.Blogs.edit-blog',['blog'=>$blog]);
+		$blog = BlogsModel::find($id);
+		$categories = Category::get();
+    	return view('Admin.Blogs.edit-blog',['blog'=>$blog,'categories'=>$categories]);
     }
     public function editBlog(Request $request)
     {
@@ -82,6 +86,7 @@ class BlogsController extends Controller
     	$validation = Validator::make($perameters,[
     		'id'=> 'required',
 			'title' => 'required',
+			'category_id' => 'required',
 			'blog_content' => 'required',
 			'blog_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
 		]);
@@ -157,6 +162,58 @@ class BlogsController extends Controller
             }else{
                 $message = array('success'=>false,'message'=>'Somthing went wrong!');
                 return json_encode($message);
+            }
+        }
+	}
+	
+
+    public function approveBlog(Request $request)
+    {
+        $perameter = $request->all();
+        $validation = Validator::make($perameter,[
+            'id' => 'required',
+            'status' => 'required'
+        ]);
+        $user = \Auth::guard('admin')->user();
+        if ($validation->fails()) {
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+        }else{
+           
+            $blog = BlogsModel::with('user')->find($perameter['id']);
+            if($blog){
+                $emaildata = [
+                    "is_exist" => $blog->user ? 1 : 0,
+                    "email" => $blog->user ? $blog->user->email : "",
+                    "name" =>  $blog->user ? $blog->user->firstname : "",
+                    "blog_id" =>  $blog->id,
+                    "blog_title" =>  $blog->title,
+                ];
+                if($perameter['status'] == 1){
+                    $blog->status = 1;
+
+                    if($blog->save()){
+                        if($emaildata['is_exist']){
+                            Mail::send('emailtemplates.admin.blog_approved', ['emaildata' => $emaildata] , function ($m) use ($emaildata)      {
+                                $m->from('admin@telco.com', 'Telco Tales');
+                                $m->to($emaildata['email'], $emaildata['name'])->subject("Artical published");
+                            });
+                        }
+                        $message = array('success'=>true,'message'=>'Approved successfully.');
+                        return json_encode($message);
+                    }else{
+                        $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                        return json_encode($message);
+                    }
+                }else{
+                    $blog->status = 0;
+                    if($blog->save()){
+                        $message = array('success'=>true,'message'=>'Not approved successfully.');
+                        return json_encode($message);
+                    }else{
+                        $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                        return json_encode($message);
+                    }
+                }
             }
         }
     }

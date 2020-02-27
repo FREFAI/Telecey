@@ -40,6 +40,18 @@
                            <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Enter title here..." name="title" value="{{$blog->title}}">
                          </div>
                          <div class="form-group">
+                            <select class="form-control" required="" name="category_id">
+                              <option value="" disabled selected >Select category</option>
+                                @if($categories)
+                                  @foreach($categories as $category)
+                                    <option value="{{$category->id}}" @if($category->id == $blog->category_id) selected @endif>{{$category->category_name}}</option>
+                                  @endforeach
+                                @else
+                                <option value="" disabled>Not found</option>
+                                @endif
+                            </select>
+                          </div>
+                         <div class="form-group">
                             <textarea class="from-control text_editor" id="first-test" name="blog_content">{{$blog->blog_content}}</textarea>
                           </div>
                        </div>

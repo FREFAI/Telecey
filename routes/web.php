@@ -73,6 +73,7 @@
 	Route::post('/getBrandColor', 'FrontEnd\BrandsController@getBrandColor');
 	// End Brand Section
 	
+	Route::get('/single-blog/{id}', 'FrontEnd\BlogsController@blogDetail');
 	Route::group(['middleware' => ['CustomerAuth','PreventBackHistory']], function(){
 		Route::group(['middleware' => 'IpLocation'], function(){
 			// Change password
@@ -91,6 +92,12 @@
 			Route::post('/saveSpeedTest', 'FrontEnd\ReviewsController@saveSpeedTest');
 			Route::post('/ratingService', 'FrontEnd\ReviewsController@ratingService');
 			Route::get('/profile', 'FrontEnd\HomeController@profile');
+			Route::get('/add-blog', 'FrontEnd\BlogsController@addBlogForm');
+			Route::post('/add-blog', 'FrontEnd\BlogsController@addBlog');
+			Route::get('/edit-blog/{id}', 'FrontEnd\BlogsController@editBlogForm');
+			Route::post('/edit-blog', 'FrontEnd\BlogsController@editBlog');
+			Route::post('/deleteBlog', 'FrontEnd\BlogsController@deleteBlog');
+			Route::get('/blog-list', 'FrontEnd\BlogsController@blogList');
 			Route::get('/logout', 'FrontEnd\LoginSignup\LoginController@logout');
 			Route::get('/planDetails/{id}', 'FrontEnd\PlansController@planDetails');
 			Route::get('/deviceDetails/{id}', 'FrontEnd\DevicesController@deviceDetails');
@@ -188,8 +195,19 @@
 				Route::get('/single-blog/{blogID}', 'Admin\BlogsController@viewBlog');
 				Route::post('/editblog', 'Admin\BlogsController@editBlog');
 				Route::post('/deleteBlog', 'Admin\BlogsController@deleteBlog');
-
+				Route::post('/approveBlog', 'Admin\BlogsController@approveBlog');
 			// End Blog Section
+			// Categories Section 
+
+				Route::get('/categories', 'Admin\CategoriesController@index');
+				Route::get('/addcategories', 'Admin\CategoriesController@addCategoryForm');
+				Route::post('/addcategories', 'Admin\CategoriesController@addCategory');
+				Route::get('/editcategories/{categoriesID}', 'Admin\CategoriesController@editCategoryForm');
+				Route::post('/editcategories', 'Admin\CategoriesController@editCategory');
+				Route::post('/deleteCategories', 'Admin\CategoriesController@deleteCategory');
+				
+
+			// End Categories Section
 
 			// Classes Section
 

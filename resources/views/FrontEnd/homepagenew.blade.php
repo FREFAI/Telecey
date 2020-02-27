@@ -432,7 +432,7 @@ Check and share your telco experience with every one'!!}</h2>
 				@foreach($blogs as $blog)
 					<div class="col-6 mb-4">
 						<div class="card-blog">
-							<a herf="#">
+							<a herf="{{url('/single-blog')}}/{{base64_encode($blog->id)}}">
 								<div class="poster">
 									<div class="text-center image-blog">
 										@if($blog->blog_picture != "")
@@ -447,7 +447,7 @@ Check and share your telco experience with every one'!!}</h2>
 										</div>
 										<div class="title-blog  px-2">
 											<h2>
-												<a href="#">{{$blog->title}}</a>
+												<a href="{{url('/single-blog')}}/{{base64_encode($blog->id)}}">{{$blog->title}}</a>
 											</h2>
 											<hr/>
 										</div>
@@ -461,6 +461,11 @@ Check and share your telco experience with every one'!!}</h2>
 					</div>
 				@endforeach
 			@endif
+		</div>
+		<div class="row mb-3">
+			<div class="col-lg-12 text-center">
+					<a class="common-btn" href="{{url('blogs-list')}}">See all</a>
+			</div>
 		</div>
 		
 	</div>

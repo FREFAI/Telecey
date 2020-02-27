@@ -68,7 +68,7 @@ class HomeController extends Controller
         $service_types = ServiceType::get();
         $brands = Brands::all();
         $homeContent->section_six = json_decode($homeContent->section_six);
-        $blogs = BlogsModel::orderBy('created_at','DESC')->take(3)->get();
+        $blogs = BlogsModel::orderBy('created_at','DESC')->where('status',1)->take(4)->get();
         return view('FrontEnd.homepagenew',['ip_location'=>$current_location,'brands' => $brands,'settings'=> $settings,'blogs'=>$blogs,'homeContent'=>$homeContent,'filtersetting'=>$filtersetting,'service_types' => $service_types]);
     }
 

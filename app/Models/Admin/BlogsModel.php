@@ -10,6 +10,13 @@ class BlogsModel extends Model
     protected $guard = 'admin';
 
     protected $fillable = [
-        'id', 'category_id', 'title', 'blog_content', 'blog_picture','blog_picture_original', 'status', 'created_at', 'updated_at' 
+        'id','user_id', 'category_id', 'title', 'blog_content', 'blog_picture','blog_picture_original', 'status', 'created_at', 'updated_at' 
     ];
+
+    public function category(){
+        return $this->hasOne('App\Models\Admin\Category','id', 'category_id');
+    }
+    public function user(){
+        return $this->hasOne('App\User','id', 'user_id');
+    }
 }

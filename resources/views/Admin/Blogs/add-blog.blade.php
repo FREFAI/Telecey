@@ -36,7 +36,19 @@
                  <div class="row">
                    <div class="col-md-12">
                      <div class="form-group">
-                       <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Enter title here..." name="title">
+                       <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Enter title here..." name="title" required="">
+                     </div>
+                     <div class="form-group">
+                       <select class="form-control" required="" name="category_id">
+                         <option value="" disabled selected >Select category</option>
+                          @if($categories)
+                            @foreach($categories as $category)
+                              <option value="{{$category->id}}">{{$category->category_name}}</option>
+                            @endforeach
+                          @else
+                           <option value="" disabled>Not found</option>
+                          @endif
+                       </select>
                      </div>
                      <div class="form-group">
                         <textarea class="from-control text_editor" id="first-test" name="blog_content"></textarea>
@@ -45,15 +57,15 @@
                    <div class="col-lg-12 mb-4">
                     <div class="blog_image">
                       <div class="avatar-upload">
-                              <div class="avatar-edit">
-                                  <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="blog_picture" />
-                                  <label for="imageUpload"><i class="fas fa-edit"></i></label>
-                              </div>
-                              <div class="avatar-preview">
-                                  <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
-                                  </div>
+                          <div class="avatar-edit">
+                              <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="blog_picture" />
+                              <label for="imageUpload"><i class="fas fa-edit"></i></label>
+                          </div>
+                          <div class="avatar-preview">
+                              <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
                               </div>
                           </div>
+                      </div>
                     </div>
                    </div>
                    <div class="col-md-12">

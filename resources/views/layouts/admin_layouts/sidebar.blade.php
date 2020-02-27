@@ -88,11 +88,18 @@
               <i class="ni ni-support-16 text-pink"></i> Terms and Conditions
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link {{ request()->is('admin/blogs') ? 'active' : '' }}" href="{{url('/admin/blogs')}}">
-              <i class="fa fa-newspaper text-pink" aria-hidden="true"></i> Blogs
+          <li class="nav-item dropdown  {{ request()->is('admin/blogs') ? 'show' : '' }} {{ request()->is('admin/addblog') ? 'show' : '' }} {{ request()->is('admin/blogs') ? 'show' : '' }}">
+            <a class="nav-link dropdown-toggle text-nowrap" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-newspaper text-pink"></i>
+              <span class="d-md-inline-block">Blogs</span>
             </a>
-          </li> 
+            <div class="dropdown-menu dropdown-menu-small {{ request()->is('admin/addblog') ? 'show' : '' }} {{ request()->is('admin/blogs') ? 'show' : '' }} {{ request()->is('admin/categories') ? 'show' : '' }}">
+              <a class="dropdown-item {{ request()->is('admin/blogs') ? 'active' : '' }}" href="{{url('admin/blogs')}}">
+                <i class="ni ni-settings text-info"></i> Blogs
+              <a class="dropdown-item {{ request()->is('admin/categories') ? 'active' : '' }}" href="{{url('/admin/categories')}}">
+                <i class="fa fa-filter text-orange"></i> Categories </a>
+            </div>
+          </li>
           <li class="nav-item">
             <a class="nav-link {{ request()->is('admin/classes') ? 'active' : '' }}" href="{{url('/admin/classes')}}">
               <i class="fa fa-newspaper text-pink" aria-hidden="true"></i> Classes

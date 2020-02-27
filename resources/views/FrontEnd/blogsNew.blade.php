@@ -1,11 +1,25 @@
 @extends('layouts.frontend_layouts.frontend')
 @section('title', 'Blogs')
 @section('content')
-
+@php
+    if(!array_key_exists('search',$params)){
+        $params['search'] = "";
+    }
+@endphp
 	<!-- Content Start Here -->
 		<div id="content" class="section-padding blog">
 	        <div class="container mt-5">
-                
+                        <div class="row mt-4">
+                            <div class="col-lg-6">
+                                <h5>All Blogs</h5>
+                            </div>
+                            <div class="col-lg-6">
+                                <form class="form-inline float-right">
+                                        <input value="{{$params['search']}}" name="search" type="text" placeholder="Search Here..." class="form-control input-css">
+                                        <button type="submit" class="common-btn"> Search</button>
+                                </form>
+                            </div>
+                        </div>
 	            	@if(count($blogs) > 0)
                         @foreach($blogs as $blog)
                             <div class="row mt-4 border">
@@ -20,7 +34,7 @@
                                 </div>
                                 <div class="col-6 p-4">
                                     <div class="blog-title">
-                                        <h5 class="post-title"><a href="javascript:void(0);" class="text-blue">{{$blog->title}}</a></h5>
+                                        <h5 class="post-title"><a href="{{url('/single-blog')}}/{{base64_encode($blog->id)}}" class="text-blue">{{$blog->title}}</a></h5>
                                         <small class="meta-part"><i class="lni-alarm-clock text-blue"></i> <u>{{date("M d, Y", strtotime($blog->created_at))}}</u></small>
                                     </div>
                                     <div class="blog-discription">
@@ -34,7 +48,7 @@
                                     </div>
                                     <div class="blog-button mt-3">
                                         <p>
-                                            <a href="javascript:void(0)" class="searchnow-button">Read More</a>
+                                            <a href="{{url('/single-blog')}}/{{base64_encode($blog->id)}}" class="searchnow-button">Read More</a>
                                         </p>
                                     </div>
                                 </div>
@@ -55,13 +69,7 @@
 	            <div class="row">
 	                <div class="pagination-bar">
 	                    <nav>
-	                    	{{$blogs->links()}}
-	                        <!-- <ul class="pagination">
-	                            <li class="page-item"><a class="page-link active" href="#">1</a></li>
-	                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-	                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-	                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-	                        </ul> -->
+                        {{$blogs->appends(request()->except('page'))->links()}}
 	                    </nav>
 	                </div>
 	            </div>

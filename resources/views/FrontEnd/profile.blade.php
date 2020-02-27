@@ -110,6 +110,12 @@
 							<li>
 								<a href="{{url('/contact-us')}}" class="font-weight-bold">Contact us</a>
 							</li>
+							<li>
+								<a href="{{url('/blog-list')}}" class="font-weight-bold">Blogs</a>
+							</li>
+							<!-- <li>
+								<a href="{{url('/add-blog')}}" class="font-weight-bold">Blogs</a>
+							</li> -->
 						</ul>
 					</div>
 				</div>

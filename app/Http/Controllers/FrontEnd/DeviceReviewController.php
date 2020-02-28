@@ -53,12 +53,18 @@ class DeviceReviewController extends Controller
                      $message = array('success'=>false,'message'=>$brandvalidation->messages()->first());
                      return json_encode($message);
                 }else{
-                    if($brands = Brands::create($brandData)){
+                    $brands = Brands::where('brand_name',$brandData['brand_name'])->where('model_name',$brandData['model_name'])->first();
+                    if($brands){
                         $perameter['brand_id'] = $brands->id;
                     }else{
-                        $message = array('success'=>false,'message'=>'Add new brands error!');
-                        return json_encode($message);
+                        if($brands = Brands::create($brandData)){
+                            $perameter['brand_id'] = $brands->id;
+                        }else{
+                            $message = array('success'=>false,'message'=>'Add new brands error!');
+                            return json_encode($message);
+                        }
                     }
+                    
                 }
             }
             if($perameter['supplier_status'] == 2){
@@ -94,11 +100,23 @@ class DeviceReviewController extends Controller
             $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
             $newresponse = json_decode($newresponse->getBody());
             $perameter['country_code'] = $newresponse->country_code2;
-            
-    		if($deviceReview = DeviceReview::create($perameter)){
-    			$message = array('success'=>true,'message'=>'Device review add successfully.','device_id'=>$deviceReview->id);
-    			return json_encode($message);
-    		}
+            if($perameter['device_review_id'] == ""){
+                if($deviceReview = DeviceReview::create($perameter)){
+                    $message = array('success'=>true,'message'=>'Device review add successfully.','device_id'=>$deviceReview->id);
+                    return json_encode($message);
+                }
+            }else{
+                $id_device = $perameter['device_review_id'];
+                unset($perameter['supplier_status']);
+                unset($perameter['model_name']);
+                unset($perameter['brand_status']);
+                unset($perameter['device_review_id']);
+                if($deviceReview = DeviceReview::where('id',$id_device)->update($perameter)){
+                    $message = array('success'=>true,'message'=>'Device review add successfully.','device_id'=>$id_device);
+                    return json_encode($message);
+                }
+            }
+    		
     	}
     }
 

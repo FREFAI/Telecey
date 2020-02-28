@@ -187,6 +187,9 @@
     .form-control{
         border: none;
     }
+    .heading.detail-div {
+        margin: -2rem auto 1rem;
+    }
 </style>
 	<!-- Content Start Here -->
 		<div class="inner-page start-page" style="background: url({{URL::asset('frontend/assets/img/bg-1.jpeg')}});">
@@ -451,8 +454,16 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-12">
-                                <div class="form-group text-center">
+                            <input type="hidden" id="device_review_id" name="device_review_id">
+                            <div class="col-lg-6">
+                                @if(!Request::get('type'))
+                                    <div class="back-button">
+                                        <button type="button" class="back-btn-device mt-3 common-btn"><i class="fas fa-angle-left"></i> Back</button>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group text-right">
                                     <button type="submit" class="btn btn-primary btn-sm btn-block product-submit-btn">Submit</button>
                                 </div>
                             </div>
@@ -540,11 +551,16 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-12">
-                                <div class="form-group w-50 ml-auto mr-auto text-center">
+                            <div class="col-lg-6">
+                                <div class="back-button">
+                                    <button type="button" class="common-btn back-btn-3 mt-2"><i class="fas fa-angle-left"></i> Back</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group ml-auto mr-auto text-right">
                                     <input type="hidden" name="type" class="device-type" value="2">
                                     <input type="hidden" name="device_id" class="device_id">
-                                    <button type="submit" class="btn  btn-lg btn-primary device-rating-submit-btn-add">Submit</button>
+                                    <button type="submit" class="common-btn device-rating-submit-btn-add">Submit</button>
                                     <button type="submit" class="btn  btn-lg btn-primary device-rating-submit-btn d-none">Submit</button>                                    
                                 </div>
                             </div>
@@ -783,12 +799,13 @@
                             <input type="hidden" name="data_usage_age" id="data_usage_age">
                             <input type="hidden" name="latitude" id="lat" value="{{$lat}}">
                             <input type="hidden" name="longitude" id="long" value="{{$long}}">
+                            <input type="hidden" name="plan_id" id="plan_id" value="">
 	                        <div class="row">
                                 <div class="col-lg-6">
                                 @if(!Request::get('type'))
-                                    <!-- <div class="back-button">
+                                    <div class="back-button">
                                         <button type="button" class="btn btn-sm btn-default back-btn mt-3"><i class="fas fa-angle-left"></i> Back</button>
-                                    </div> -->
+                                    </div>
                                 @endif
                                 </div>
 	                            <div class="col-lg-6">
@@ -883,9 +900,9 @@
                         </div>
 	               		<div class="row mb-3">
                            <div class="col-lg-6">
-                                <!-- <div class="back-button">
+                                <div class="back-button">
                                     <button type="button" class="btn btn-sm btn-default back-btn-2 mt-2"><i class="fas fa-angle-left"></i> Back</button>
-                                </div> -->
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="text-right">
@@ -1180,21 +1197,21 @@
         // $(".brand_text_show").on('click',function(){
         function brand_text_show(){
             $('.brand_text').toggle();
-          if ($(".brand_select select").attr("disabled")) {
+          if ($("select.brand_select_brand_device").attr("disabled")) {
               $('.brand_status').val(1);
-              $('.brand_select select').attr('disabled',false);
-              $('.brand_select select').attr('required',true);
-              $('.brand_select select').addClass('active');
+              $('select.brand_select_brand_device').attr('disabled',false);
+              $('select.brand_select_brand_device').attr('required',true);
+              $('.brand_select_brand_device').addClass('active');
               $('.brand_text input').removeClass('active');
               $('.brand_text input').attr('required',false);
           } else {
 
               $('.brand_status').val(2);
-              $('.brand_select select').attr('disabled',true);
-              $('.brand_select select').attr('required',false);
-              $('.brand_select select option').prop('selected',false);
-              $('.brand_select select option:nth-child(1)').prop('selected',true);
-              $('.brand_select select').removeClass('active');
+              $('select.brand_select_brand_device').attr('disabled',true);
+              $('select.brand_select_brand_device').attr('required',false);
+              $('select.brand_select_brand_device option').prop('selected',false);
+              $('select.brand_select_brand_device option:nth-child(1)').prop('selected',true);
+              $('.brand_select_brand_device').removeClass('active');
               $('.brand_text input').addClass('active');
               $('.brand_text input').attr('required',true);
           } 

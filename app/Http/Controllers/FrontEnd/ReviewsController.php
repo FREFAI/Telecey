@@ -247,12 +247,9 @@ class ReviewsController extends Controller
                     'status' => 0,
                     'user_id' => $user_id
                 ];
-                $providervalidation = Validator::make($providerData, [
-                    'provider_name' => 'required|unique:providers',
-                ]);
-                if ( $providervalidation->fails() ) {
-                     $message = array('success'=>false,'message'=>$providervalidation->messages()->first());
-                     return json_encode($message);
+                $provider = Provider::where('provider_name',$input['provider_id'])->first();
+                if($provider){
+                    $input['provider_id'] = $provider->id;
                 }else{
                     if($provider = Provider::create($providerData)){
                         $input['provider_id'] = $provider->id;
@@ -261,6 +258,8 @@ class ReviewsController extends Controller
                         return json_encode($message);
                     }
                 }
+                
+                
             }
             $input['user_id'] = $user_id;
             if(!array_key_exists('pay_as_usage_type', $input)){
@@ -287,9 +286,18 @@ class ReviewsController extends Controller
             $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
             $newresponse = json_decode($newresponse->getBody());
             $input['country_code'] = $newresponse->country_code2;
-            $serviceReview = ServiceReview::create($input);
+            if($input['plan_id'] == ""){
+                $serviceReview = ServiceReview::create($input);
+                $plan_id = $serviceReview->id;
+            }else{
+                unset($input['provider_status']);
+                $plan_id = $input['plan_id'];
+                unset($input['plan_id']);
+                unset($input['overage_price']);
+                $serviceReview = ServiceReview::where('id',$plan_id)->update($input);
+            }
             if($serviceReview){
-                $message = array('success'=>true,'message'=>'Add successfully.','service_id'=>$serviceReview->id);
+                $message = array('success'=>true,'message'=>'Add successfully.','service_id'=>$plan_id);
                 return json_encode($message);
             }else{
                 $message = array('success'=>false,'message'=>"Somthing went wrong!");

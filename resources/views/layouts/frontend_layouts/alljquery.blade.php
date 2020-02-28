@@ -341,19 +341,35 @@
             
         // End Review page js
         // Review page ajax
-          // $(document).find('.back-btn').on('click',function(){
-          //   $('#firstform').closest('.intro-section').removeClass('section-d-none');
-          //   $('.service-detail').addClass('section-d-none');
-          //   document.body.scrollTop = 0;
-          //   document.documentElement.scrollTop = 0;
-          // });
-          // $(document).find('.back-btn-2').on('click',function(){
-          //   $('.services-rating-section').addClass('section-d-none');
-          //   $('.second-step').show();
-          //   $('.reveiewing_form_service').closest('.service_form_section').removeClass('section-d-none');
-          //   document.body.scrollTop = 0;
-          //   document.documentElement.scrollTop = 0;
-          // });
+          $(document).find('.back-btn').on('click',function(){
+            $('#firstform').closest('.intro-section').removeClass('section-d-none');
+            $('.service-detail').addClass('section-d-none');
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+          });
+          $(document).find('.back-btn-2').on('click',function(){
+            $('.services-rating-section').addClass('section-d-none');
+            $('.second-step').show();
+            $('.detail-section').removeClass('section-d-none');
+            $('.reveiewing_form_service').closest('.service_form_section').removeClass('section-d-none');
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+          });
+          $(document).find('.back-btn-3').on('click',function(){ 
+            
+            $('#device_rating_form').removeClass('section-d-none');
+            $('.second-step').show();
+            $('.detail-section').removeClass('section-d-none');
+            $('#device_rating_form').next('#device_rating_section').addClass('section-d-none');
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+          });
+          $(document).find('.back-btn-device').on('click',function(){
+            $('#firstform').closest('.intro-section').removeClass('section-d-none');
+            $('.service-detail').addClass('section-d-none');
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+          });
           $('#firstform').on('submit',function(e){
             if(countrySelection === false){
               $('.country_list').css('display','none');
@@ -463,6 +479,7 @@
             var device_id_plan = $('.device_select').val();
             var upfront_price = $('.upfront_price').val();
             var sms = $('.sms').val();
+            var plan_id = $('#plan_id').val();
             if(pay_as_usage != 1){
               if(local_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(local_min) != true){
               return;
@@ -525,7 +542,8 @@
                         'latitude':latitude,
                         'longitude':longitude,
                         'brand_id': device_id_plan,
-                        'upfront_price': upfront_price
+                        'upfront_price': upfront_price,
+                        'plan_id':plan_id
                       },
                       success: function (data) {
                         $('.ajaxloader').hide();
@@ -533,6 +551,7 @@
                             speedTestFunction();
                             $('.service_id').val(data.service_id);
                             $('.plan_id').val(data.service_id);
+                            $('#plan_id').val(data.service_id);
                             $('.second-step').hide();
                             $('.get-in-touch.detail-section').hide();
                             reviewform.closest('.service_form_section').addClass('section-d-none');                   
@@ -577,6 +596,7 @@
                   $('.ajaxloader').hide();
                     if(data.success){
                       $('.services-rating-section').removeClass('section-d-none');
+                      $('.detail-section').addClass('section-d-none');
                       $('#speedTestModel').modal('hide');
                     }
                 }         
@@ -760,7 +780,7 @@
             var price = $('#price').val();
             var storage = $('#storage').val();
             var device_color = $('#device_color').val();
-            console.log(currency_name);
+            var device_review_id = $('#device_review_id').val();
             
             swal({
                 title: currency_name+' '+price,
@@ -794,12 +814,14 @@
                         'device_id':device,
                         'price':price,
                         'storage':storage,
-                        'device_color':device_color
+                        'device_color':device_color,
+                        'device_review_id':device_review_id
                       },
                       success: function (data) {
                         $('.ajaxloader').hide();
                           if(data.success){
                             $('.device_id').val(data.device_id);  
+                            $('#device_review_id').val(data.device_id);  
                             reviewform.addClass('section-d-none');
                             $('.second-step').hide();
                             $('.get-in-touch.detail-section').hide();

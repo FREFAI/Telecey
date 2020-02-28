@@ -14,6 +14,9 @@
         z-index: 999999999;
         background: #0000002e;
     }
+    .heading.detail-div {
+        margin: -2rem auto 1rem;
+    }
 </style>
 	<!-- Content Start Here -->
 		<div class="inner-page start-page">

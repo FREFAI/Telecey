@@ -137,10 +137,10 @@
                                             </span>
                                             </td>
                                         <td class="text-right">
-                                            <a class="common-btn text-center" href="{{url('/single-blog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="View">
+                                            <a class="common-btn text-center mr-2" href="{{url('/single-blog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="View">
                                             <i class="fas fa-eye"></i>
                                             </a>
-                                            <a class="common-btn text-center" href="{{url('/edit-blog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <a class="common-btn text-center mr-2" href="{{url('/edit-blog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="Edit">
                                             <i class="fas fa-edit"></i>
                                             </a>
                                             <a href="javascript:void(0)" class="common-btn text-center delete_blog" type="button" data-blog_id="{{$blog->id}}" data-toggle="tooltip" data-placement="top" title="Delete">

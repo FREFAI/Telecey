@@ -112,8 +112,9 @@
                                             <label for="imageUpload"><i class="fas fa-edit"></i></label>
                                         </div>
                                         <div class="avatar-preview">
-                                            <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                            <div class="mb-2" id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
                                             </div>
+                                            <small><strong>Max. size 10MB</strong></small>
                                         </div>
                                     </div>
                                 </div>

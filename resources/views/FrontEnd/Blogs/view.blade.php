@@ -79,8 +79,8 @@
                                 </div>
                                 <div class="col-lg-12 mt-2">
                                 <div class="post_image_single text-center">
-                                    @if($blog->blog_picture != "")
-                                    <img src="{{URL::asset('blogs/resized')}}/{{$blog->blog_picture}}">
+                                    @if($blog->blog_picture_original != "")
+                                    <img src="{{URL::asset('blogs/blog_original')}}/{{$blog->blog_picture_original}}">
                                     @else
                                     <img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}">
                                     @endif

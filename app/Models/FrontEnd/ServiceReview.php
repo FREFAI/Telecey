@@ -26,8 +26,9 @@ class ServiceReview extends Model
  	 	  return $this->hasMany('App\Models\FrontEnd\ServiceRating','entity_id','id');
   	}
 	  
-  	public function get_ratings() {
-  		return $this->ratings()->where('entity_type', 1)->orderBy('created_at','DESC')->get();
+  	public function get_ratings($id) {
+          $ratings = $this->ratings()->where('entity_id', $id)->where('entity_type', 1)->orderBy('created_at','DESC')->get();
+          return $ratings;
   		// return $this->ratings()->where('entity_type', 1)->groupBy('rating_id')->get();
   	}
     public function brand() {

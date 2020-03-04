@@ -366,7 +366,7 @@
 																			</ul>
 													  					</div>
 													  				</div>
-																	  @if(count($service->ratings) === 0 ) 
+																	  @if(count($service->ratings) == 0 ) 
 																	  <div class="col-lg-4 mt-2">
 													  					<div class="card_sm">
 																			<ul class="first_row_service">

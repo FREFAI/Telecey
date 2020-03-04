@@ -115,13 +115,14 @@ class HomeController extends Controller
                         ->orderBy('created_at','DESC')
                         ->paginate(10);
         $key = [];
-        $blankArray = [];
         foreach ($serviceData  as $data) {
+            $blankArray = [];
+            $id = $data->id;
             $data->brand;   // For brand name
             $data->provider;   // For provider name
             $data->typeOfService;    // Type name
             $data->currency;     // Currency name
-            $allratings = $data->get_ratings();  // Get all ratings of this plan questions
+            $allratings = $data->get_ratings($id);  // Get all ratings of this plan questions
             $plan_device_rating = $data->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
             unset($data->plan_device_rating);
             foreach ($allratings as $ratings) {
@@ -134,10 +135,10 @@ class HomeController extends Controller
                         $blankArray[$ratings->rating_id]['plan_id'] = $ratings->entity_id;
                         $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
                     }else{
-
+                        
                         $blankArray[$ratings->rating_id]['plan_id'] = $ratings->entity_id;
                         $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
-
+                        
                     }
                 }
             }
@@ -186,8 +187,8 @@ class HomeController extends Controller
                         ->orderBy('created_at','DESC')
                         ->paginate(10);
         $key = [];
-        $blankArray = [];
         foreach ($deviceData as $device) {
+            $blankArray = [];
             $device->device_name = $device->device->device_name;
             $device->device_status = $device->device->status;
             $device->brand_name = $device->brand->brand_name;
@@ -195,7 +196,7 @@ class HomeController extends Controller
             $device->model_name = $device->brand->model_name;
             $device->model_status = $device->brand->status;
             $device->supplier_name = $device->supplier['supplier_name'];
-            $allratings = $device->get_ratings();  // Get all ratings of this plan questions
+            $allratings = $device->get_ratings($device->id);  // Get all ratings of this plan questions
             $plan_device_rating = $device->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
             foreach ($allratings as $ratings) {
                 if($ratings->entity_id == $device->id && $ratings->entity_type==2){    //Check entity id is equal to plan id

@@ -57,7 +57,8 @@
 			      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
 			      'save table contextmenu directionality emoticons template paste textcolor'
 			    ],
-			content_css: 'css/content.css',
+			content_css: ['css/content.css','https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i&display=swap','https://fonts.googleapis.com/css?family=Montserrat&display=swap'],
+			font_formats: "Arial Black=arial black,avant garde;Indie Flower=indie flower, cursive;Times New Roman=times new roman,times;Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n;Playfair Display=Playfair Display;Montserrat=Montserrat",
 			toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | preview fullpage | forecolor backcolor emoticons | image'
 		});
 		$('.select2').select2();

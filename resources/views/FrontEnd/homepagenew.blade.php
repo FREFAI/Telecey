@@ -8,7 +8,7 @@
 		<div class="row">
 			<div class="col-md-6 text-center pl-0 pr-0 video-height">
 				<div class="first-section-text mt-5">
-					<h2>{!!$homeContent ? $homeContent->section_one : 'Welcome to the telco community'!!}</h2>
+					{!!$homeContent ? $homeContent->section_one : 'Welcome to the telco community'!!}
 				</div>
 				<ul class="nav nav-tabs tab-selection  mt-5">
 					<li class="nav-item">

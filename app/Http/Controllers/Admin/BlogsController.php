@@ -29,7 +29,7 @@ class BlogsController extends Controller
 			'title' => 'required',
 			'category_id' => 'required',
 			'blog_content' => 'required',
-			'blog_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+			'blog_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000'
 		]);
 		if ($validation->fails()) {
 			return redirect()->back()->withInput()->with('error',$validation->messages()->first());
@@ -88,7 +88,7 @@ class BlogsController extends Controller
 			'title' => 'required',
 			'category_id' => 'required',
 			'blog_content' => 'required',
-			'blog_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+			'blog_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000'
 		]);
 		if ($validation->fails()) {
 			return redirect()->back()->withInput()->with('error',$validation->messages()->first());

@@ -49,26 +49,34 @@
         return '<label id="postal_code-error" class="errorcustom" for="postal_code">Postal code is invalid!.</label>';
       }
     }
-    function readURL(input) {
+    function readURL(input,size) {
+      if(size){
+				size = size;
+				var maxSize = size*1024;
+			}else{
+				size = 10;
+				var maxSize = 10000;
+			}
+			
 			var file = input.files[0];//get file   
 			var img = new Image();
 			var sizeKB = file.size / 1024;
-			if(sizeKB > 10000){
-				toastr.error('Image size', 'Image size should be less then 10Mb.' , {displayDuration:100000,position: 'top-right'});
+			if(sizeKB > maxSize){
+				toastr.error('Image size', 'Image size should be less then '+size+'Mb.' , {displayDuration:100000,position: 'top-right'});
 				return false;
 			}
-		    if (input.files && input.files[0]) {
-		        var reader = new FileReader();
-		        reader.onload = function(e) {
-		            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
-		            $('#imagePreview').hide();
-		            $('#imagePreview').fadeIn(650);
-		        }
-		        reader.readAsDataURL(input.files[0]);
-		    }
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+              $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+              $('#imagePreview').hide();
+              $('#imagePreview').fadeIn(650);
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
 		}
 		$("#imageUpload").change(function() {
-		    readURL(this);
+		    readURL(this,$(this).attr('data-size'));
 		});
     $('input.city_input').cityAutocomplete();
     // $('.user_city_add input#user_city').cityAutocomplete();

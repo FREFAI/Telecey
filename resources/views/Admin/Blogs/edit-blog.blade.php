@@ -59,22 +59,23 @@
                         <div class="blog_image">
                           <div class="avatar-upload">
                                   <div class="avatar-edit">
-                                      <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="blog_picture" />
+                                      <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="blog_picture" data-size="{{$setting ? number_format($setting->blog_image_limit) : 10}}"/>
                                       <label for="imageUpload"><i class="fas fa-edit"></i></label>
                                   </div>
                                   <div class="avatar-preview">
                                     @if($blog->blog_picture_original != "")
-                                      <div id="imagePreview" style="background-image: url({{URL::asset('blogs/blog_original')}}/{{$blog->blog_picture_original}});">
+                                      <div class="mb-2" id="imagePreview" style="background-image: url({{URL::asset('blogs/blog_original')}}/{{$blog->blog_picture_original}});">
                                       </div>
                                     @else
-                                      <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                      <div class="mb-2" id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
                                       </div>
                                     @endif
+                                    <small><strong>Max. size {{$setting ? number_format($setting->blog_image_limit) : 10}}MB</strong></small>
                                   </div>
                               </div>
                         </div>
                        </div>
-                       <div class="col-md-12">
+                       <div class="col-md-12 mt-3">
                          <div class="form-group">
                           <input type="hidden" name="id" value="{{base64_encode($blog->id)}}">
                            <button class="btn btn-primary" type="submit">Save</button>

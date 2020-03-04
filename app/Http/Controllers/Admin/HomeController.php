@@ -14,15 +14,22 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $homeContent = HomeContent::first();
+        $setting  = SettingsModel::first();
         $homeContent->section_six = json_decode($homeContent->section_six);
-    	return view('Admin.Home.index',['homeContent'=>$homeContent]);
+    	return view('Admin.Home.index',['homeContent'=>$homeContent,'setting'=>$setting]);
     }
     public function sectionOne(Request $request)
     {
         $params = $request->all();
+        $setting  = SettingsModel::first();
+        if($setting){
+            $size = $setting->homepage_images_limit * 1024;
+        }else{
+            $size = 10000;
+        }
         $validation = Validator::make($params,[
             'section_one' => 'required',
-            'section_one_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10240'
+            'section_one_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:'.$size
         ]);
         if ($validation->fails()) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());
@@ -130,10 +137,16 @@ class HomeController extends Controller
     public function sectionFour(Request $request)
     {
         $params = $request->all();
+        $setting  = SettingsModel::first();
+        if($setting){
+            $size = $setting->homepage_images_limit * 1024;
+        }else{
+            $size = 10000;
+        }
         $validation = Validator::make($params,[
             'section_four' => 'required',
             'section_four_description' => 'required',
-            'section_four_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10240'
+            'section_four_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:'.$size
         ]);
         if ($validation->fails()) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());

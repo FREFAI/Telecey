@@ -52,17 +52,24 @@ class BlogsController extends Controller
     public function addBlogForm()
     {
 		$categories = Category::get();
-        return view('FrontEnd.Blogs.addBlog',['categories'=>$categories]);
+        $setting  = SettingsModel::first();
+        return view('FrontEnd.Blogs.addBlog',['categories'=>$categories,'setting'=>$setting]);
     }
     public function addBlog(Request $request)
     {
         $user_id = Auth::guard('customer')->user()['id']; 
         $perameters = $request->all();
+        $setting  = SettingsModel::first();
+        if($setting){
+            $size = $setting->blog_image_limit * 1024;
+        }else{
+            $size = 10000;
+        }
     	$validation = Validator::make($perameters,[
 			'title' => 'required',
 			'category_id' => 'required',
 			'blog_content' => 'required',
-			'blog_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000'
+			'blog_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:'.$size 
         ]);
         
 		if ($validation->fails()) {
@@ -115,19 +122,25 @@ class BlogsController extends Controller
         $id = base64_decode($id);
         $categories = Category::get();
         $blog = BlogsModel::find($id);
-        return view('FrontEnd.Blogs.editBlog',['categories'=>$categories,'blog'=>$blog]);
+        $setting  = SettingsModel::first();
+        return view('FrontEnd.Blogs.editBlog',['categories'=>$categories,'blog'=>$blog,'setting'=>$setting]);
     }
     public function editBlog(Request $request)
     {
         $user_id = Auth::guard('customer')->user()['id']; 
         $perameters = $request->all();
-
+        $setting  = SettingsModel::first();
+        if($setting){
+            $size = $setting->blog_image_limit * 1024;
+        }else{
+            $size = 10000;
+        }
     	$validation = Validator::make($perameters,[
     		'id'=> 'required',
 			'title' => 'required',
 			'category_id' => 'required',
 			'blog_content' => 'required',
-			'blog_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+			'blog_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:'.$size
 		]);
 		if ($validation->fails()) {
 			return redirect()->back()->withInput()->with('error',$validation->messages()->first());

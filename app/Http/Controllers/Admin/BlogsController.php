@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Admin\Category;
+use App\Models\Admin\SettingsModel;
 use App\Models\Admin\BlogsModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -19,17 +20,24 @@ class BlogsController extends Controller
 
     public function addBlogForm(Request $request)
     {
-		$categories = Category::get();
-    	return view('Admin.Blogs.add-blog',['categories'=>$categories]);
+        $categories = Category::get();
+        $setting  = SettingsModel::first();
+    	return view('Admin.Blogs.add-blog',['categories'=>$categories,'setting'=>$setting]);
     }
     public function addBlog(Request $request)
     {
-    	$perameters = $request->all();
+        $perameters = $request->all();
+        $setting  = SettingsModel::first();
+        if($setting){
+            $size = $setting->blog_image_limit * 1024;
+        }else{
+            $size = 10000;
+        }
     	$validation = Validator::make($perameters,[
 			'title' => 'required',
 			'category_id' => 'required',
 			'blog_content' => 'required',
-			'blog_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000'
+			'blog_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:'.$size
 		]);
 		if ($validation->fails()) {
 			return redirect()->back()->withInput()->with('error',$validation->messages()->first());
@@ -76,19 +84,25 @@ class BlogsController extends Controller
     {
     	$id = base64_decode($id);
 		$blog = BlogsModel::find($id);
-		$categories = Category::get();
-    	return view('Admin.Blogs.edit-blog',['blog'=>$blog,'categories'=>$categories]);
+        $categories = Category::get();
+        $setting  = SettingsModel::first();
+    	return view('Admin.Blogs.edit-blog',['blog'=>$blog,'categories'=>$categories,'setting'=>$setting]);
     }
     public function editBlog(Request $request)
     {
     	$perameters = $request->all();
-
+        $setting  = SettingsModel::first();
+        if($setting){
+            $size = $setting->blog_image_limit * 1024;
+        }else{
+            $size = 10000;
+        }
     	$validation = Validator::make($perameters,[
     		'id'=> 'required',
 			'title' => 'required',
 			'category_id' => 'required',
 			'blog_content' => 'required',
-			'blog_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000'
+			'blog_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:'.$size
 		]);
 		if ($validation->fails()) {
 			return redirect()->back()->withInput()->with('error',$validation->messages()->first());

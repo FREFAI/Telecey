@@ -76,12 +76,20 @@
 		});
 		// CKEDITOR.replace( 'text_editor' );
 		
-		function readURL(input) {
+		function readURL(input,size) {
+			if(size){
+				size = size;
+				var maxSize = size*1024;
+			}else{
+				size = 10;
+				var maxSize = 10000;
+			}
+			
 			var file = input.files[0];//get file   
 			var img = new Image();
 			var sizeKB = file.size / 1024;
-			if(sizeKB > 10000){
-				toastr.error('Image size', 'Image size should be less then 10Mb.' , {displayDuration:100000,position: 'top-right'});
+			if(sizeKB > maxSize){
+				toastr.error('Image size', 'Image size should be less then '+size+'Mb.' , {displayDuration:100000,position: 'top-right'});
 				return false;
 			}
 		    if (input.files && input.files[0]) {
@@ -95,17 +103,26 @@
 		    }
 		}
 		$("#imageUpload").change(function() {
-		    readURL(this);
+		    readURL(this,$(this).attr('data-size'));
 		});
-		function readURLinde(input) {
+		function readURLinde(input,size) {
+			
+			if(size){
+				size = size;
+				var maxSize = size*1024;
+			}else{
+				size = 10;
+				var maxSize = 10000;
+			}
 			
 			var file = input.files[0];//get file   
 			var img = new Image();
 			var sizeKB = file.size / 1024;
-			if(sizeKB > 10000){
-				toastr.error('Image size', 'Image size should be less then 10Mb.' , {displayDuration:100000,position: 'top-right'});
+			if(sizeKB > maxSize){
+				toastr.error('Image size', 'Image size should be less then '+size+'Mb.' , {displayDuration:100000,position: 'top-right'});
 				return false;
 			}
+			
 		    if (input.files && input.files[0]) {
 		        var reader = new FileReader();
 		        reader.onload = function(e) {
@@ -117,14 +134,23 @@
 		    }
 		}
 		$(".imageUpload").change(function() {
-		    readURLinde(this);
+		    readURLinde(this,$(this).attr('data-size'));
 		});
-		function readURLFour(input) {
+		function readURLFour(input,size) {
+			
+			if(size){
+				size = size;
+				var maxSize = size*1024;
+			}else{
+				size = 10;
+				var maxSize = 10000;
+			}
+			
 			var file = input.files[0];//get file   
 			var img = new Image();
 			var sizeKB = file.size / 1024;
-			if(sizeKB > 10000){
-				toastr.error('Image size', 'Image size should be less then 10Mb.' , {displayDuration:100000,position: 'top-right'});
+			if(sizeKB > maxSize){
+				toastr.error('Image size', 'Image size should be less then '+size+'Mb.' , {displayDuration:100000,position: 'top-right'});
 				return false;
 			}
 		    if (input.files && input.files[0]) {
@@ -138,7 +164,7 @@
 		    }
 		}
 		$("#imageUploadFoursection").change(function() {
-		    readURLFour(this);
+		    readURLFour(this,$(this).attr('data-size'));
 		});
 
 		$('.settings').on('change',function(e){
@@ -286,6 +312,58 @@
 				        }else{
 				        	toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
 				        	settingbutton.prop("checked", true);
+				        }
+				    }         
+				});
+			});
+			$('.blog_image_limit_btn_record').on('click',function(){
+				var blog_image_limit = $('#blog_image_limit').val();
+				if(window.location.protocol == "http:"){
+				    resuesturl = "{{url('/admin/addBlogImageLimit')}}"
+				}else if(window.location.protocol == "https:"){
+				    resuesturl = "{{secure_url('/admin/addBlogImageLimit')}}"
+				}
+				$.ajax({
+				    type: "post",
+				    url: resuesturl,
+				    headers: {
+				        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				    },
+				    dataType:'json',
+				    data: {
+				        'blog_image_limit':blog_image_limit
+				    },
+				    success: function (data) {
+				        if(data.success){
+				        	toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
+				        }else{
+				        	toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+				        }
+				    }         
+				});
+			});
+			$('.homepage_images_limit_btn_record').on('click',function(){
+				var homepage_images_limit = $('#homepage_images_limit').val();
+				if(window.location.protocol == "http:"){
+				    resuesturl = "{{url('/admin/addHomeImageLimit')}}"
+				}else if(window.location.protocol == "https:"){
+				    resuesturl = "{{secure_url('/admin/addHomeImageLimit')}}"
+				}
+				$.ajax({
+				    type: "post",
+				    url: resuesturl,
+				    headers: {
+				        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				    },
+				    dataType:'json',
+				    data: {
+				        'homepage_images_limit':homepage_images_limit
+				    },
+				    success: function (data) {
+				        if(data.success){
+				        	toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
+				        }else{
+				        	toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
 				        }
 				    }         
 				});

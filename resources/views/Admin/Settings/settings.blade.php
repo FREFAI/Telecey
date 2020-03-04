@@ -48,8 +48,38 @@
 							<span class="clearfix"></span>
 						</div>
 						@endif
+					</div>
+					<div class="col-lg-9 pl-lg-4">
+						<h6 class="heading-small text-muted mb-4">Blog image upload limit</h6>
+					</div>
+					<div class="col-lg-3 text-right">
+						<div class="pl-lg-4">
+							<div class="input-group mb-3 d-flex">
+							<input min="0" type="number" class="form-control search_number" value="{{$settings ? $settings->blog_image_limit : 0}}" id="blog_image_limit"/>
+								<div class="input-group-append search_number mr-1">
+									<span class="input-group-text" id="basic-addon2">MB</span>
+								</div>
+								<button type="button" class="btn btn-sm btn-primary blog_image_limit_btn_record"><i class="ni ni-check-bold"></i></button>
+							</div>
 						</div>
 					</div>
+					<div class="col-lg-9 pl-lg-4">
+						<h6 class="heading-small text-muted mb-4">Homepage image upload limit</h6>
+					</div>
+					<div class="col-lg-3 text-right">
+						<div class="pl-lg-4">
+							<div class="input-group mb-3 d-flex">
+								<input  min="0" type="number" class="form-control search_number" value="{{$settings ? $settings->homepage_images_limit : 0}}" id="homepage_images_limit"/>
+								<div class="input-group-append search_number mr-1">
+									<span class="input-group-text" id="basic-addon2">MB</span>
+								</div>
+								<button type="button" class="btn btn-sm btn-primary homepage_images_limit_btn_record"><i class="ni ni-check-bold"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+					
+					
 					  <!-- End Device filter section -->
 					<div class="row">
 		  			 <div class="col-lg-12">
@@ -77,6 +107,16 @@
 <style type="text/css">
 	h6.heading-small{
 		text-transform: capitalize;
+	}
+	.search_number{
+		height: calc(1.75rem + 2px);
+		color: #000;
+	}
+	span#basic-addon2 {
+		background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
+		color: #fff;
+		border-radius: 0px 5px 5px 0px;
+		border-color: #825ee4;
 	}
 </style>
 @endsection

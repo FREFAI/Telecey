@@ -229,6 +229,8 @@ ini_set('max_input_time', '900');
 				Route::get('/settings', 'Admin\SettingsController@allSetting');
 				Route::post('/settings', 'Admin\SettingsController@changeSetting');
 				Route::post('/addSearchRecordLimit', 'Admin\SettingsController@addSearchRecordLimit');
+				Route::post('/addBlogImageLimit', 'Admin\SettingsController@addBlogImageLimit');
+				Route::post('/addHomeImageLimit', 'Admin\SettingsController@addHomeImageLimit');
 				Route::get('/filetrsettings', 'Admin\FilterSettingsController@allFilterSetting');
 				Route::post('/filetrsettings', 'Admin\FilterSettingsController@changeFilterSetting');
 			// End Settings Section

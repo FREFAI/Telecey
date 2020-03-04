@@ -62,7 +62,7 @@
                                       <div class="blog_image">
                                         <div class="avatar-upload">
                                             <div class="avatar-edit">
-                                                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="section_one_image" />
+                                                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="section_one_image" data-size="{{$setting ? number_format($setting->homepage_images_limit) : 10}}"/>
                                                 <label for="imageUpload"><i class="fas fa-edit"></i></label>
                                             </div>
                                             <div class="avatar-preview">
@@ -81,7 +81,7 @@
                                             
                                             </div>
                                             <div class="mt-3">
-                                              <small><strong>( Max. Size 10MB ) </strong></small>
+                                              <small><strong>( Max. Size {{$setting ? number_format($setting->homepage_images_limit) : 10}}MB ) </strong></small>
                                             </div>
                                         </div>
                                        
@@ -147,12 +147,12 @@
                                     </div>
                                     <div class="col-lg-7">
                                       <div class="mb-2 text-right">
-                                        <small><strong>( Max. Size 10MB ) </strong></small>
+                                        <small><strong>( Max. Size {{$setting ? number_format($setting->homepage_images_limit) : 10}}MB ) </strong></small>
                                       </div>
                                       <div class="section-4-image">
                                         <div class="avatar-upload">
                                             <div class="avatar-edit-1">
-                                                <input class="form-control imageUpload" type='file' accept=".png, .jpg, .jpeg" name="icon_1" />
+                                                <input class="form-control imageUpload" type='file' accept=".png, .jpg, .jpeg" name="icon_1"  data-size="{{$setting ? number_format($setting->homepage_images_limit) : 10}}"/>
                                                 <!-- <label for="imageUpload"><i class="fas fa-edit"></i></label> -->
                                             </div>
                                             <div class="avatar-preview">
@@ -182,7 +182,7 @@
                                       <div class="section-4-image">
                                         <div class="avatar-upload">
                                             <div class="avatar-edit-1">
-                                                <input class="form-control imageUpload" type='file' accept=".png, .jpg, .jpeg" name="icon_2" />
+                                                <input class="form-control imageUpload" type='file' accept=".png, .jpg, .jpeg" name="icon_2"  data-size="{{$setting ? number_format($setting->homepage_images_limit) : 10}}"/>
                                                 <!-- <label for="imageUpload"><i class="fas fa-edit"></i></label> -->
                                             </div>
                                             <div class="avatar-preview">
@@ -213,7 +213,7 @@
                                       <div class="section-4-image">
                                         <div class="avatar-upload">
                                             <div class="avatar-edit-1">
-                                                <input type='file' class="form-control  imageUpload" accept=".png, .jpg, .jpeg" name="icon_3" />
+                                                <input type='file' class="form-control  imageUpload" accept=".png, .jpg, .jpeg" name="icon_3"  data-size="{{$setting ? number_format($setting->homepage_images_limit) : 10}}"/>
                                                 <!-- <label for="imageUpload"><i class="fas fa-edit"></i></label> -->
                                             </div>
                                             <div class="avatar-preview">
@@ -244,7 +244,7 @@
                                       <div class="section-4-image">
                                         <div class="avatar-upload">
                                             <div class="avatar-edit-1">
-                                                <input type='file' class="form-control  imageUpload" accept=".png, .jpg, .jpeg" name="icon_4"/>
+                                                <input type='file' class="form-control  imageUpload" accept=".png, .jpg, .jpeg" name="icon_4"  data-size="{{$setting ? number_format($setting->homepage_images_limit) : 10}}"/>
                                                 <!-- <label for="imageUpload"><i class="fas fa-edit"></i></label> -->
                                             </div>
                                             <div class="avatar-preview">
@@ -275,7 +275,7 @@
                                       <div class="section-4-image">
                                         <div class="avatar-upload">
                                             <div class="avatar-edit-1">
-                                                <input type='file' class="form-control  imageUpload" accept=".png, .jpg, .jpeg" name="icon_5"/>
+                                                <input type='file' class="form-control  imageUpload" accept=".png, .jpg, .jpeg" name="icon_5"  data-size="{{$setting ? number_format($setting->homepage_images_limit) : 10}}"/>
                                                 <!-- <label for="imageUpload"><i class="fas fa-edit"></i></label> -->
                                             </div>
                                             <div class="avatar-preview">
@@ -307,7 +307,7 @@
                                       <div class="section-4-image">
                                         <div class="avatar-upload">
                                             <div class="avatar-edit-1">
-                                                <input type='file' class="form-control  imageUpload" accept=".png, .jpg, .jpeg" name="icon_6" />
+                                                <input type='file' class="form-control  imageUpload" accept=".png, .jpg, .jpeg" name="icon_6"  data-size="{{$setting ? number_format($setting->homepage_images_limit) : 10}}"/>
                                                 <!-- <label for="imageUpload"><i class="fas fa-edit"></i></label> -->
                                             </div>
                                             <div class="avatar-preview">
@@ -391,7 +391,7 @@
                                             </div>
                                         </div>
                                         <div class="mt-3">
-                                          <small><strong>( Max. Size 10MB ) </strong></small>
+                                          <small><strong>( Max. Size {{$setting ? number_format($setting->homepage_images_limit) : 10}}MB ) </strong></small>
                                         </div>
                                       </div>
                                     </div>

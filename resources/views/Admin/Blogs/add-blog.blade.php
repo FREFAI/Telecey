@@ -69,6 +69,11 @@
                       </div>
                     </div>
                    </div>
+                   <div class="col-lg-12 mt-4">
+                      <div class="form-group">
+                        <input type="url" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Image Link" name="image_link">
+                      </div>
+                    </div>
                    <div class="col-md-12 mt-3">
                      <div class="form-group">
                        <button class="btn btn-primary" type="submit">Save</button>

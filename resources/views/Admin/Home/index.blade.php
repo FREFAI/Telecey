@@ -87,6 +87,11 @@
                                        
                                       </div>
                                     </div>
+                                    <div class="col-lg-12 mt-4">
+                                      <div class="form-group">
+                                        <input type="url" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Image Link" name="section_one_image_link"  value="{{$homeContent ? $homeContent->section_one_image_link : ''}}">
+                                      </div>
+                                    </div>
                                     <input type="hidden" class="form-control" name="section_one_image_old" value="{{$homeContent ? $homeContent->section_one_image : ''}}">
                                     <div class="form-group">
                                       <button type="submit" class="btn btn-primary">Save</button>
@@ -137,7 +142,7 @@
                                 <form method="post" action="{{url('/admin/section-sixth')}}" enctype="multipart/form-data">
                                   @csrf
                                   <div class="row">
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-4">
                                       <div class="mb-2">
                                         <small><strong>Labels </strong></small>
                                       </div>
@@ -145,8 +150,8 @@
                                         <input class="form-control" name="label_1" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_1 != '') ? $homeContent->section_six->label_1 :'' }}"/>
                                       </div>
                                     </div>
-                                    <div class="col-lg-7">
-                                      <div class="mb-2 text-right">
+                                    <div class="col-lg-4">
+                                      <div class="mb-2 text-left">
                                         <small><strong>( Max. Size {{$setting ? number_format($setting->homepage_images_limit) : 10}}MB ) </strong></small>
                                       </div>
                                       <div class="section-4-image">
@@ -173,12 +178,20 @@
                                         
                                       </div>
                                     </div>
-                                    <div class="col-lg-5 mt-3">
+                                    <div class="col-lg-4">
+                                      <div class="mb-2 text-left">
+                                        <small><strong>Images Link</strong></small>
+                                      </div>
+                                      <div class="form-group">
+                                        <input type="url" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Image Link"  name="label_1_image_link"  value="{{ $homeContent && ($homeContent->section_six != '' && isset($homeContent->section_six->label_1_image_link) && $homeContent->section_six->label_1_image_link != '') ? $homeContent->section_six->label_1_image_link :'' }}">
+                                      </div>   
+                                    </div>
+                                    <div class="col-lg-4 mt-3">
                                       <div class="form-group">
                                         <input class="form-control"name="label_2" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_2 != '') ? $homeContent->section_six->label_2 :'' }}"/>
                                       </div>
                                     </div>
-                                    <div class="col-lg-7 mt-3">
+                                    <div class="col-lg-4 mt-3">
                                       <div class="section-4-image">
                                         <div class="avatar-upload">
                                             <div class="avatar-edit-1">
@@ -204,12 +217,17 @@
                                         
                                       </div>
                                     </div>
-                                    <div class="col-lg-5 mt-3">
+                                    <div class="col-lg-4 mt-3">
+                                      <div class="form-group">
+                                        <input type="url" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Image Link"  name="label_2_image_link"  value="{{ $homeContent && ($homeContent->section_six != '' && isset($homeContent->section_six->label_2_image_link) && $homeContent->section_six->label_2_image_link != '') ? $homeContent->section_six->label_2_image_link :'' }}">
+                                      </div>   
+                                    </div>
+                                    <div class="col-lg-4 mt-3">
                                       <div class="form-group">
                                         <input class="form-control" name="label_3" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_3 != '') ? $homeContent->section_six->label_3 :'' }}"/>
                                       </div>
                                     </div>
-                                    <div class="col-lg-7 mt-3">
+                                    <div class="col-lg-4 mt-3">
                                       <div class="section-4-image">
                                         <div class="avatar-upload">
                                             <div class="avatar-edit-1">
@@ -235,12 +253,17 @@
                                         
                                       </div>
                                     </div>
-                                    <div class="col-lg-5 mt-3">
+                                    <div class="col-lg-4 mt-3">
+                                      <div class="form-group">
+                                        <input type="url" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Image Link"  name="label_3_image_link"  value="{{ $homeContent && ($homeContent->section_six != '' && isset($homeContent->section_six->label_3_image_link) && $homeContent->section_six->label_3_image_link != '') ? $homeContent->section_six->label_3_image_link :'' }}">
+                                      </div>   
+                                    </div>
+                                    <div class="col-lg-4 mt-3">
                                       <div class="form-group">
                                         <input class="form-control" name="label_4" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_4 != '') ? $homeContent->section_six->label_4 :'' }}"/>
                                       </div>
                                     </div>
-                                    <div class="col-lg-7 mt-3">
+                                    <div class="col-lg-4 mt-3">
                                       <div class="section-4-image">
                                         <div class="avatar-upload">
                                             <div class="avatar-edit-1">
@@ -266,12 +289,17 @@
                                         
                                       </div>
                                     </div>
-                                    <div class="col-lg-5 mt-3">
+                                    <div class="col-lg-4 mt-3">
+                                      <div class="form-group">
+                                        <input type="url" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Image Link"  name="label_4_image_link"  value="{{ $homeContent && ($homeContent->section_six != '' && isset($homeContent->section_six->label_4_image_link) && $homeContent->section_six->label_4_image_link != '') ? $homeContent->section_six->label_4_image_link :'' }}">
+                                      </div>   
+                                    </div>
+                                    <div class="col-lg-4 mt-3">
                                       <div class="form-group">
                                         <input class="form-control"name="label_5" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_5 != '') ? $homeContent->section_six->label_5 :'' }}"/>
                                       </div>
                                     </div>
-                                    <div class="col-lg-7 mt-3">
+                                    <div class="col-lg-4 mt-3">
                                       <div class="section-4-image">
                                         <div class="avatar-upload">
                                             <div class="avatar-edit-1">
@@ -297,13 +325,18 @@
                                         
                                       </div>
                                     </div>
-                                    <div class="col-lg-5 mt-3">
+                                    <div class="col-lg-4 mt-3">
+                                      <div class="form-group">
+                                        <input type="url" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Image Link"  name="label_5_image_link"  value="{{ $homeContent && ($homeContent->section_six != '' && isset($homeContent->section_six->label_5_image_link) && $homeContent->section_six->label_5_image_link != '') ? $homeContent->section_six->label_5_image_link :'' }}">
+                                      </div>   
+                                    </div>
+                                    <div class="col-lg-4 mt-3">
                                       <div class="form-group">
                                         <input class="form-control"name="label_6" 
                                         value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_6 != '') ? $homeContent->section_six->label_6 :'' }}"/>
                                       </div>
                                     </div>
-                                    <div class="col-lg-7 mt-3">
+                                    <div class="col-lg-4 mt-3">
                                       <div class="section-4-image">
                                         <div class="avatar-upload">
                                             <div class="avatar-edit-1">
@@ -328,6 +361,11 @@
                                         </div>
                                         
                                       </div>
+                                    </div>
+                                    <div class="col-lg-4 mt-3">
+                                      <div class="form-group">
+                                        <input type="url" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Image Link"  name="label_6_image_link"  value="{{ $homeContent && ($homeContent->section_six != '' && isset($homeContent->section_six->label_6_image_link) && $homeContent->section_six->label_6_image_link != '') ? $homeContent->section_six->label_6_image_link :'' }}">
+                                      </div>   
                                     </div>
                                     <div class="col-lg-12">
                                       <div class="form-group">
@@ -393,6 +431,11 @@
                                         <div class="mt-3">
                                           <small><strong>( Max. Size {{$setting ? number_format($setting->homepage_images_limit) : 10}}MB ) </strong></small>
                                         </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-12 mt-4">
+                                      <div class="form-group">
+                                        <input type="url" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Image Link" name="section_four_image_link" value="{{$homeContent ? $homeContent->section_four_image_link : ''}}">
                                       </div>
                                     </div>
                                     <div class="form-group">

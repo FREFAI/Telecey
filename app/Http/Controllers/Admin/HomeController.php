@@ -16,6 +16,9 @@ class HomeController extends Controller
         $homeContent = HomeContent::first();
         $setting  = SettingsModel::first();
         $homeContent->section_six = json_decode($homeContent->section_six);
+        // echo "<pre>";
+        // print_r($homeContent);
+        // exit;
     	return view('Admin.Home.index',['homeContent'=>$homeContent,'setting'=>$setting]);
     }
     public function sectionOne(Request $request)
@@ -66,6 +69,7 @@ class HomeController extends Controller
                 }
             }else{
                 $homeContentData->section_one = $params['section_one'];
+                $homeContentData->section_one_image_link = $params['section_one_image_link'];
                 if($request->hasFile('section_one_image')){
                     $homeContentData->section_one_image = $params['section_one_image'];
                 }
@@ -183,6 +187,7 @@ class HomeController extends Controller
                 }
             }else{
                 $homeContentData->section_four = $params['section_four'];
+                $homeContentData->section_four_image_link = $params['section_four_image_link'];
                 $homeContentData->section_four_description = $params['section_four_description'];
                 if($request->hasFile('section_four_image')){
                     $homeContentData->section_four_image = $params['section_four_image'];
@@ -229,7 +234,9 @@ class HomeController extends Controller
     {
         $params = $request->all();
         unset($params['_token']);
-        
+        // echo "<pre>";
+        // print_r($params);
+        // exit;
         $homeContentData = HomeContent::first();
         if($homeContentData == null){
             for ($i=1; $i <= 6; $i++) {

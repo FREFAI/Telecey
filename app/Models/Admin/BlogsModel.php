@@ -10,7 +10,7 @@ class BlogsModel extends Model
     protected $guard = 'admin';
 
     protected $fillable = [
-        'id','user_id', 'category_id', 'title', 'blog_content', 'blog_picture','blog_picture_original', 'status', 'created_at', 'updated_at' 
+        'id','user_id', 'category_id', 'title', 'blog_content', 'blog_picture','blog_picture_original','image_link', 'status', 'created_at', 'updated_at' 
     ];
 
     public function category(){

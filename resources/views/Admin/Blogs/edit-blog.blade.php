@@ -75,6 +75,11 @@
                               </div>
                         </div>
                        </div>
+                      <div class="col-lg-12 mt-4">
+                        <div class="form-group">
+                          <input type="url" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Image Link" name="image_link"  value="{{$blog->image_link}}">
+                        </div>
+                      </div>
                        <div class="col-md-12 mt-3">
                          <div class="form-group">
                           <input type="hidden" name="id" value="{{base64_encode($blog->id)}}">

@@ -24,13 +24,15 @@
                         @foreach($blogs as $blog)
                             <div class="row mt-4 border">
                                 <div class="col-6">
-                                    <div class="blog-banner">
-                                        @if($blog->blog_picture != "")
-                                        <img alt="{{$blog->blog_picture}}" src="{{URL::asset('blogs/resized')}}/{{$blog->blog_picture}}" class="img-fluid">
-                                        @else
-                                        <img alt="{{$blog->blog_picture}}" src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" class="img-fluid">
-                                        @endif
-                                    </div>
+                                    <a @if($blog->image_link != '') target="_blank" href="{{$blog->image_link}}" @endif>
+                                        <div class="blog-banner">
+                                            @if($blog->blog_picture != "")
+                                            <img alt="{{$blog->blog_picture}}" src="{{URL::asset('blogs/resized')}}/{{$blog->blog_picture}}" class="img-fluid">
+                                            @else
+                                            <img alt="{{$blog->blog_picture}}" src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" class="img-fluid">
+                                            @endif
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="col-6 p-4">
                                     <div class="blog-title">

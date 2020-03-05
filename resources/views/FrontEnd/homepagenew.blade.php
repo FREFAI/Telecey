@@ -110,13 +110,15 @@
 			<div class="col-md-6">
 				<div class="first-section-image">
 					@if($homeContent)
-						@if($homeContent->section_one_image != '')
-							<img src="{{URL::asset('home/images')}}/{{$homeContent->section_one_image}}">
-						@else
-							<img src="{{URL::asset('frontend/assets/img/2427279.jpg')}}">
-						@endif
+						<a @if($homeContent->section_one_image_link != '') target="_blank" href="{{$homeContent->section_one_image_link}}" @endif>
+							@if($homeContent->section_one_image != '')
+								<img src="{{URL::asset('home/images')}}/{{$homeContent->section_one_image}}">
+							@else
+								<img src="{{URL::asset('frontend/assets/img/2427279.jpg')}}">
+							@endif
+						</a>
 					@else
-					<img src="{{URL::asset('frontend/assets/img/2427279.jpg')}}">
+						<img src="{{URL::asset('frontend/assets/img/2427279.jpg')}}">
 					@endif
 				</div>
 			</div>
@@ -144,11 +146,13 @@ Check and share your telco experience with every one'!!}</h2>
 		<div class="row mt-5 py-5 col-10 offset-md-1">
 			<div class="col-2 p-0 text-center">
 				@if($homeContent)
-					@if($homeContent->section_six != '' && $homeContent->section_six->icon_1 != '')
-						<img src="{{URL::asset('home/images')}}/{{$homeContent->section_six->icon_1}}"/>	
-					@else
-						<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>
-					@endif
+					<a @if($homeContent->section_six != '' && isset($homeContent->section_six->label_1_image_link) && $homeContent->section_six->label_1_image_link != '') target="_blank" href="{{$homeContent->section_six->label_1_image_link}}" @endif>
+						@if($homeContent->section_six != '' && $homeContent->section_six->icon_1 != '')
+							<img src="{{URL::asset('home/images')}}/{{$homeContent->section_six->icon_1}}"/>	
+						@else
+							<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>
+						@endif
+					</a>
 				@else
 					<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>
 				@endif
@@ -158,11 +162,13 @@ Check and share your telco experience with every one'!!}</h2>
 			</div>
 			<div class="col-2 p-0 text-center">
 				@if($homeContent)
+				<a @if($homeContent->section_six != '' && isset($homeContent->section_six->label_2_image_link) && $homeContent->section_six->label_2_image_link != '') target="_blank" href="{{$homeContent->section_six->label_2_image_link}}" @endif>
 					@if($homeContent->section_six != '' && $homeContent->section_six->icon_2 != '')
 						<img src="{{URL::asset('home/images')}}/{{$homeContent->section_six->icon_2}}"/>	
 					@else
 						<img src="{{URL::asset('frontend/assets/img/4636.jpg')}}"/>
 					@endif
+				</a>
 				@else
 					<img src="{{URL::asset('frontend/assets/img/4636.jpg')}}"/>
 				@endif
@@ -173,11 +179,13 @@ Check and share your telco experience with every one'!!}</h2>
 			</div>
 			<div class="col-2 p-0 text-center">
 				@if($homeContent)
+				<a @if($homeContent->section_six != '' && isset($homeContent->section_six->label_3_image_link) && $homeContent->section_six->label_3_image_link != '') target="_blank" href="{{$homeContent->section_six->label_3_image_link}}" @endif>
 					@if($homeContent->section_six != '' && $homeContent->section_six->icon_3 != '')
 						<img src="{{URL::asset('home/images')}}/{{$homeContent->section_six->icon_3}}"/>	
 					@else
 						<img src="{{URL::asset('frontend/assets/img/sharing.jpg')}}"/>
 					@endif
+				</a>
 				@else
 					<img src="{{URL::asset('frontend/assets/img/sharing.jpg')}}"/>
 				@endif	
@@ -188,11 +196,13 @@ Check and share your telco experience with every one'!!}</h2>
 			</div>
 			<div class="col-2 p-0 text-center">
 				@if($homeContent)
+				<a @if($homeContent->section_six != '' && isset($homeContent->section_six->label_4_image_link) && $homeContent->section_six->label_4_image_link != '') target="_blank" href="{{$homeContent->section_six->label_4_image_link}}" @endif>
 					@if($homeContent->section_six != '' && $homeContent->section_six->icon_4 != '')
 						<img src="{{URL::asset('home/images')}}/{{$homeContent->section_six->icon_4}}"/>	
 					@else
 						<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>
 					@endif
+				</a>
 				@else
 					<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>
 				@endif
@@ -203,11 +213,13 @@ Check and share your telco experience with every one'!!}</h2>
 			</div>
 			<div class="col-2 p-0 text-center">
 				@if($homeContent)
+				<a @if($homeContent->section_six != '' && isset($homeContent->section_six->label_5_image_link) && $homeContent->section_six->label_5_image_link != '') target="_blank" href="{{$homeContent->section_six->label_5_image_link}}" @endif>
 					@if($homeContent->section_six != '' && $homeContent->section_six->icon_5 != '')
 						<img src="{{URL::asset('home/images')}}/{{$homeContent->section_six->icon_5}}"/>	
 					@else
 						<img src="{{URL::asset('frontend/assets/img/150631-OUD927-864_edited.jpg')}}"/>
 					@endif
+				</a>
 				@else
 					<img src="{{URL::asset('frontend/assets/img/150631-OUD927-864_edited.jpg')}}"/>
 				@endif
@@ -217,11 +229,13 @@ Check and share your telco experience with every one'!!}</h2>
 			</div>
 			<div class="col-2 p-0 text-center">
 				@if($homeContent)
+				<a @if($homeContent->section_six != '' && isset($homeContent->section_six->label_6_image_link) && $homeContent->section_six->label_6_image_link != '') target="_blank" href="{{$homeContent->section_six->label_6_image_link}}" @endif>
 					@if($homeContent->section_six != '' && $homeContent->section_six->icon_6 != '')
 						<img src="{{URL::asset('home/images')}}/{{$homeContent->section_six->icon_6}}"/>	
 					@else
 						<img src="{{URL::asset('frontend/assets/img/2317497_edited.jpg')}}"/>
 					@endif
+				</a>
 				@else
 					<img src="{{URL::asset('frontend/assets/img/2317497_edited.jpg')}}"/>
 				@endif
@@ -409,11 +423,13 @@ Check and share your telco experience with every one'!!}</h2>
 			<div class="col-12 text-center">
 				<div class="image-info">
 					@if($homeContent)
+					<a @if($homeContent->section_four_image_link != '') target="_blank" href="{{$homeContent->section_four_image_link}}" @endif>
 						@if($homeContent->section_four_image != '')
 							<img src="{{URL::asset('home/images')}}/{{$homeContent->section_four_image}}">
 						@else
 							<img src="{{URL::asset('frontend/assets/img/28561.jpg')}}">
 						@endif
+					</a>
 					@else
 					<img src="{{URL::asset('frontend/assets/img/28561.jpg')}}">
 					@endif

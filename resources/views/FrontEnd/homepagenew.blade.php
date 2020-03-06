@@ -112,7 +112,7 @@
 					@if($homeContent)
 						<a @if($homeContent->section_one_image_link != '') target="_blank" href="{{$homeContent->section_one_image_link}}" @endif>
 							@if($homeContent->section_one_image != '')
-								<img src="{{URL::asset('home/images')}}/{{$homeContent->section_one_image}}">
+								<img style="border:8px solid {{$homeContent->section_one_image_border_color != '' ? $homeContent->section_one_image_border_color : '#1bfca3'}};" src="{{URL::asset('home/images')}}/{{$homeContent->section_one_image}}">
 							@else
 								<img src="{{URL::asset('frontend/assets/img/2427279.jpg')}}">
 							@endif

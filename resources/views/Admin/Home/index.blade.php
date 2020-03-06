@@ -92,6 +92,11 @@
                                         <input type="url" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Image Link" name="section_one_image_link"  value="{{$homeContent ? $homeContent->section_one_image_link : ''}}">
                                       </div>
                                     </div>
+                                    <div class="col-lg-12 mt-4">
+                                      <div class="form-group">
+                                        <input type="text" id="color" maxlength="50" class="colorpicker form-control" placeholder="Image Border Color" name="section_one_image_border_color" value="{{$homeContent ? $homeContent->section_one_image_border_color : '#1bfca3'}}">
+                                      </div>
+                                    </div>
                                     <input type="hidden" class="form-control" name="section_one_image_old" value="{{$homeContent ? $homeContent->section_one_image : ''}}">
                                     <div class="form-group">
                                       <button type="submit" class="btn btn-primary">Save</button>
@@ -470,6 +475,17 @@
   }
   input, textarea{
     color: #000 !important;
+  }
+  .asColorPicker-wrap {
+    width: 100%;
+    display: flex;
+  }
+  .asColorPicker-dropdown {
+      max-width: 260px !important;
+  }
+  .asColorPicker-trigger {
+    height: 45px;
+    width: 45px;
   }
 </style>
 @endsection

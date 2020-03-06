@@ -188,11 +188,9 @@
   $("#speedtestForm").validate({
     rules: {
         data_speed: {
-          required: true,
           number: true
         },
         uploading_speed: {
-          required: true,
           number: true
         }
       }
@@ -577,38 +575,45 @@
             if(!$('#speedtestForm').valid()){
               return;
             }
-            $('.ajaxloader').show();
-            var downloading_speed = $('#downloading_speed').val();
-            var uploading_speed = $('#uploading_speed').val();
-            var plan_id = $('#plan_id').val();
-            var speedtest_type = $('#speedtest_type').val();
-            if(window.location.protocol == "http:"){
-                resuesturl = "{{url('/saveSpeedTest')}}"
-            }else if(window.location.protocol == "https:"){
-                resuesturl = "{{secure_url('/saveSpeedTest')}}"
+            if($('#downloading_speed').val() != "" || $('#uploading_speed').val() != ''){
+              $('.ajaxloader').show();
+              var downloading_speed = $('#downloading_speed').val();
+              var uploading_speed = $('#uploading_speed').val();
+              var plan_id = $('#plan_id').val();
+              var speedtest_type = $('#speedtest_type').val();
+              if(window.location.protocol == "http:"){
+                  resuesturl = "{{url('/saveSpeedTest')}}"
+              }else if(window.location.protocol == "https:"){
+                  resuesturl = "{{secure_url('/saveSpeedTest')}}"
+              }
+              $.ajax({
+                  type: "post",
+                  url: resuesturl,
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                  dataType:'json',
+                  data: {
+                    'downloading_speed': downloading_speed,
+                    'uploading_speed':uploading_speed,
+                    'plan_id': plan_id,
+                    'speedtest_type':speedtest_type
+                  },
+                  success: function (data) {
+                    $('.ajaxloader').hide();
+                      if(data.success){
+                        $('.services-rating-section').removeClass('section-d-none');
+                        $('.detail-section').addClass('section-d-none');
+                        $('#speedTestModel').modal('hide');
+                      }
+                  }         
+              });
+            }else{
+              $('.services-rating-section').removeClass('section-d-none');
+              $('.detail-section').addClass('section-d-none');
+              $('#speedTestModel').modal('hide');
             }
-            $.ajax({
-                type: "post",
-                url: resuesturl,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                dataType:'json',
-                data: {
-                  'downloading_speed': downloading_speed,
-                  'uploading_speed':uploading_speed,
-                  'plan_id': plan_id,
-                  'speedtest_type':speedtest_type
-                },
-                success: function (data) {
-                  $('.ajaxloader').hide();
-                    if(data.success){
-                      $('.services-rating-section').removeClass('section-d-none');
-                      $('.detail-section').addClass('section-d-none');
-                      $('#speedTestModel').modal('hide');
-                    }
-                }         
-            });
+            
           });
           $('.service-rating-submit-btn').on('click',function(e){
             e.preventDefault();

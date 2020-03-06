@@ -18,3 +18,7 @@
 <script src="{{URL::asset('frontend/jsplugins/statr_rating/jquery.rateit.js')}}"></script>
 <script src="{{URL::asset('frontend/jsplugins/statr_rating/rater.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<!-- Color Picker Plugin JavaScript -->
+<script src="{{URL::asset('frontend/jsplugins/jquery-asColorPicker-master/libs/jquery-asColor.js')}}"></script>
+<script src="{{URL::asset('frontend/jsplugins/jquery-asColorPicker-master/libs/jquery-asGradient.js')}}"></script>
+<script src="{{URL::asset('frontend/jsplugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js')}}"></script>

@@ -1129,13 +1129,13 @@
                         <div class="col-lg-6 speedtestDiv">
                             <h5>Downloading speed</h5>
                             <div class="form-group">
-                                <input type="text" class="form-control downloading_speed" name="data_speed" id="downloading_speed" placeholder="Downloading speed" required="required" maxlength="20">      
+                                <input type="text" class="form-control downloading_speed" name="data_speed" id="downloading_speed" placeholder="Downloading speed" maxlength="20">      
                             </div>
                         </div>
                         <div class="col-lg-6 speedtestDiv">
                             <h5>Uploading speed</h5>
                             <div class="form-group">
-                                <input type="text" class="form-control uploading_speed" name="uploading_speed" id="uploading_speed" placeholder="Uploading speed" required="required" maxlength="20">
+                                <input type="text" class="form-control uploading_speed" name="uploading_speed" id="uploading_speed" placeholder="Uploading speed" maxlength="20">
                             </div>
                         </div>
                         <input type="hidden" name="plan_id" id="plan_id" class="plan_id">

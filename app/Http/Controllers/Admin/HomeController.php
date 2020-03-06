@@ -70,6 +70,7 @@ class HomeController extends Controller
             }else{
                 $homeContentData->section_one = $params['section_one'];
                 $homeContentData->section_one_image_link = $params['section_one_image_link'];
+                $homeContentData->section_one_image_border_color = $params['section_one_image_border_color'];
                 if($request->hasFile('section_one_image')){
                     $homeContentData->section_one_image = $params['section_one_image'];
                 }

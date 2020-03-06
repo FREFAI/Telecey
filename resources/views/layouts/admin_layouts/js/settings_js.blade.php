@@ -1,6 +1,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		$(".colorpicker").asColorPicker();
 		$('.is_global').on('change',function(){
 			if($(this).prop("checked") == true){
 				$(".country_select_section").hide();

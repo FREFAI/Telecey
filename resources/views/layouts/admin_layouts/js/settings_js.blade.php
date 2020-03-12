@@ -83,7 +83,7 @@
 				var maxSize = size*1024;
 			}else{
 				size = 10;
-				var maxSize = 10000;
+				var maxSize = 10240;
 			}
 			
 			var file = input.files[0];//get file   
@@ -113,7 +113,7 @@
 				var maxSize = size*1024;
 			}else{
 				size = 10;
-				var maxSize = 10000;
+				var maxSize = 10240;
 			}
 			
 			var file = input.files[0];//get file   
@@ -144,12 +144,14 @@
 				var maxSize = size*1024;
 			}else{
 				size = 10;
-				var maxSize = 10000;
+				var maxSize = 10240;
 			}
 			
 			var file = input.files[0];//get file   
 			var img = new Image();
 			var sizeKB = file.size / 1024;
+
+			console.log(sizeKB);
 			if(sizeKB > maxSize){
 				toastr.error('Image size', 'Image size should be less then '+size+'Mb.' , {displayDuration:100000,position: 'top-right'});
 				return false;

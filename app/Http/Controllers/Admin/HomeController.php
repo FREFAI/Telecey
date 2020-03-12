@@ -28,7 +28,7 @@ class HomeController extends Controller
         if($setting){
             $size = $setting->homepage_images_limit * 1024;
         }else{
-            $size = 10000;
+            $size = 10240;
         }
         $validation = Validator::make($params,[
             'section_one' => 'required',
@@ -146,7 +146,7 @@ class HomeController extends Controller
         if($setting){
             $size = $setting->homepage_images_limit * 1024;
         }else{
-            $size = 10000;
+            $size = 10240;
         }
         $validation = Validator::make($params,[
             'section_four' => 'required',
@@ -156,6 +156,8 @@ class HomeController extends Controller
         if ($validation->fails()) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());
         }else{
+            echo $size;
+            exit;
             if (!File::exists(public_path()."/home/images")) {
                 File::makeDirectory(public_path()."/home/images", 0777, true);
             } 

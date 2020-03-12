@@ -2059,12 +2059,15 @@ table.table.custom-table tbody tr:hover {
   }
   .step_two_img {
     width: 200px;
+    position: relative;
     /* width: 500px;
     height: 320px; */
     margin: 0 auto;
   }
   .step_two_img img {
     width: 100%;
+    top: -50px;
+    position: absolute;
   }
   .step_three_img {
     width: 200px;

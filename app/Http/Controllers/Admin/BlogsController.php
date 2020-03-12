@@ -31,7 +31,7 @@ class BlogsController extends Controller
         if($setting){
             $size = $setting->blog_image_limit * 1024;
         }else{
-            $size = 10000;
+            $size = 10240;
         }
     	$validation = Validator::make($perameters,[
 			'title' => 'required',
@@ -95,7 +95,7 @@ class BlogsController extends Controller
         if($setting){
             $size = $setting->blog_image_limit * 1024;
         }else{
-            $size = 10000;
+            $size = 10240;
         }
     	$validation = Validator::make($perameters,[
     		'id'=> 'required',

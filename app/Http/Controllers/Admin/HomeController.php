@@ -44,7 +44,7 @@ class HomeController extends Controller
                 File::makeDirectory(public_path()."/home/images", 0777, true);
             } 
             // Resized Image section 
-            // if($request->hasFile('section_one_image')){
+            if($request->hasFile('section_one_image')){
                 $image_file = $request->section_one_image_croped;
                 list($type, $image_file) = explode(';', $image_file);
                 list(, $image_file)      = explode(',', $image_file);
@@ -71,7 +71,7 @@ class HomeController extends Controller
                     }
                 }
                 unset($params['section_one_image_old']);
-            // }
+            }
             unset($params['section_one_image_croped']);
             // echo "<pre>";
             // print_r($params);

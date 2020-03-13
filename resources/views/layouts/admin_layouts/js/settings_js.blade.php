@@ -1,6 +1,76 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		// Home section one Image resizer script
+		var image = $('#image_show').val();
+		var reader = new FileReader();
+		var resize = $('#upload-demo').croppie({
+			url:image,
+			enableExif: true,
+			enableOrientation: true,    
+			viewport: { // Default { width: 100, height: 100, type: 'square' } 
+				width: 524,
+				height: 524,
+				type: 'square' //square
+			},
+			boundary: {
+				width: 524,
+				height: 300
+			}
+		});
+		function readURLHome(input,size) {
+			if(size){
+				size = size;
+				var maxSize = size*1024;
+			}else{
+				size = 10;
+				var maxSize = 10240;
+			}
+			var file = input.files[0];//get file 
+			var img = new Image();
+			var sizeKB = file.size / 1024;
+			if(sizeKB > maxSize){
+				toastr.error('Image size', 'Image size should be less then '+size+'Mb.' , {displayDuration:100000,position: 'top-right'});
+				return false;
+			}
+			reader.onload = function (e) {
+				resize.croppie('bind',{
+					url: e.target.result,
+				}).then(function(){
+					console.log('jQuery bind complete');
+				});
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+		$('#useimg').on('click', function () {
+            // console.log(resize.result('base64'));
+			resize.croppie('result', {
+				type: 'canvas',
+				size: 'viewport'
+			}).then(function (img) {
+				$('#sectiononeImage').val(img);
+				$('.profile-img').attr('src', img);
+				$('.profile-img').show();
+				$('#sectiononeImage').val(img);
+				$('.modal-close').click();
+			});
+        });
+		$('#imageUploadSectionOne').on('change', function () {
+			readURLHome(this,$(this).attr('data-size'));
+			$('.addHomeImageModal').click();
+		});
+		// $('.sectionOnebtn').on('click',function(event){
+		// 	event.preventDefault();
+		// 	resize.croppie('result', {
+		// 		type: 'canvas',
+		// 		size: 'viewport'
+		// 	}).then(function (img) {
+		// 		$('#sectiononeImage').val(img);
+		// 		$('#sectionformOne').submit();
+		// 	});
+		// });
+		
+		// Home section one Image resizer script
 		$(".colorpicker").asColorPicker();
 		$('.is_global').on('change',function(){
 			if($(this).prop("checked") == true){

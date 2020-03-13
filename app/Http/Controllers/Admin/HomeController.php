@@ -24,6 +24,9 @@ class HomeController extends Controller
     public function sectionOne(Request $request)
     {
         $params = $request->all();
+        // echo "<pre>";
+        // print_r($params);
+        // exit;
         $setting  = SettingsModel::first();
         if($setting){
             $size = $setting->homepage_images_limit * 1024;
@@ -41,16 +44,26 @@ class HomeController extends Controller
                 File::makeDirectory(public_path()."/home/images", 0777, true);
             } 
             // Resized Image section 
-            if($request->hasFile('section_one_image')){
-                $image       = $request->file('section_one_image');
-                $fileext    = $image->getClientOriginalExtension();
-                $destinationPath = public_path('/home/images');
-                $params['section_one_image'] = time().'_home_image.'.$fileext;                
+            // if($request->hasFile('section_one_image')){
+                $image_file = $request->section_one_image_croped;
+                list($type, $image_file) = explode(';', $image_file);
+                list(, $image_file)      = explode(',', $image_file);
+                $image_file = base64_decode($image_file);
+                $params['section_one_image'] = time().'_home_image.png';
+                $path = public_path('/home/images/'.$params['section_one_image']);
+                file_put_contents($path, $image_file);
 
-                $image_resize = Image::make($image->getRealPath())->resize(524, 524, function($constraint) {
-                    $constraint->aspectRatio();
-                });              
-                $image_resize->save(public_path('/home/images/' .$params['section_one_image']));
+                // $image       = $request->file('section_one_image');
+                // $fileext    = $image->getClientOriginalExtension();
+                // $destinationPath = public_path('/home/images');
+                // $params['section_one_image'] = time().'_home_image.'.$fileext;    
+                // $destinationPath = public_path('/home/images');
+                // $image->move($destinationPath, $params['section_one_image']);
+                
+                // $image_resize = Image::make($image->getRealPath())->resize(524, 524, function($constraint) {
+                //     $constraint->aspectRatio();
+                // });              
+                // $image_resize->save(public_path('/home/images/' .$params['section_one_image']));
                 if($params['section_one_image_old'] != ""){
                     $oldFile = public_path()."/home/images/".$params['section_one_image_old'];
                     if (File::exists($oldFile)) {
@@ -58,7 +71,11 @@ class HomeController extends Controller
                     }
                 }
                 unset($params['section_one_image_old']);
-            }
+            // }
+            unset($params['section_one_image_croped']);
+            // echo "<pre>";
+            // print_r($params);
+            // exit;
             $homeContentData = HomeContent::first();
             if($homeContentData == null){
                 $saveContent = HomeContent::create($params);

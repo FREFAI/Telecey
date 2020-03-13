@@ -1504,7 +1504,9 @@ span.fa.fa-star.rate {
 	}
 	.first-section-image img{
 		border:8px solid rgba(27, 252, 163, 1);
-		border-radius: 5px; 
+    border-radius: 5px; 
+    min-width: 524px;
+    min-height: 524px;
 	}
 	.first-section-text {
 		width: 100%;

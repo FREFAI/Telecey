@@ -51,14 +51,37 @@
                          <div class="tab-content" id="myTabContent">
                             <!-- Section One Section -->
                              <div class="tab-pane fade show active" id="section-1" role="tabpanel" aria-labelledby="section-1-tab">
-                              <form method="post" action="{{url('/admin/section-one')}}" enctype="multipart/form-data">
+                              <form id="sectionformOne" method="post" action="{{url('/admin/section-one')}}" enctype="multipart/form-data">
                               @csrf
                                 <div class="row">
                                   <div class="col-md-12">
                                     <div class="form-group">
                                       <textarea class="from-control text_editor" id="first-test" name="section_one" maxlength="100"  required="">{{$homeContent ? $homeContent->section_one : ''}}</textarea>
                                     </div>
-                                    <div class="col-lg-12 mb-4">
+                                    <div class="col-lg-12">
+                                      <div class="image_upload_div">
+                                          @if($homeContent)
+                                            @if($homeContent->section_one_image != '')
+                                              <img class="profile-img mb-3" src="{{URL::asset('home/images')}}/{{$homeContent->section_one_image}}"/>
+                                            @else
+                                              <img class="profile-img mb-3" src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}"/>
+                                              
+                                            @endif
+                                          @else
+                                            <img class="profile-img mb-3" src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}"/>
+                                            
+                                          @endif
+                                        <br>
+                                        <label class="btn btn-info" for="imageUploadSectionOne">Select Image</label>
+                                        <input class="d-none" type='file' id="imageUploadSectionOne" accept=".png, .jpg, .jpeg" name="section_one_image" data-size="{{$setting ? number_format($setting->homepage_images_limit) : 10}}"/>
+                                        <input type='hidden' id="sectiononeImage" accept=".png, .jpg, .jpeg" name="section_one_image_croped"/>
+                                        <input type="hidden" id="image_show" value="{{URL::asset('home/images')}}/{{$homeContent->section_one_image}}">
+                                      </div>
+                                      <div class="mt-3">
+                                        <small><strong>( Max. Size {{$setting ? number_format($setting->homepage_images_limit) : 10}}MB ) </strong></small>
+                                      </div>
+                                    </div>
+                                    <!-- <div class="col-lg-12 mb-4">
                                       <div class="blog_image">
                                         <div class="avatar-upload">
                                             <div class="avatar-edit">
@@ -86,7 +109,7 @@
                                         </div>
                                        
                                       </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-lg-12 mt-4">
                                       <div class="form-group">
                                         <input type="url" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Image Link" name="section_one_image_link"  value="{{$homeContent ? $homeContent->section_one_image_link : ''}}">
@@ -99,7 +122,7 @@
                                     </div>
                                     <input type="hidden" class="form-control" name="section_one_image_old" value="{{$homeContent ? $homeContent->section_one_image : ''}}">
                                     <div class="form-group">
-                                      <button type="submit" class="btn btn-primary">Save</button>
+                                      <button type="submit" class="btn btn-primary sectionOnebtn">Save</button>
                                     </div>
                                   </div>
                                 </div>
@@ -463,6 +486,28 @@
     <!-- End Footer Section Include -->
   </div>
 </div>
+
+<button style="display:none;" type="button" class="btn btn-info btn-lg addHomeImageModal" data-toggle="modal" data-target="#addHomeImage">Open Modal</button>
+<div id="addHomeImage" class="modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-center w-100">Crop Image</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row text-center">
+                <div id="upload-demo"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
+                <button id="useimg" type="button" class="btn btn-primary">Use Image</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 <style type="text/css">
 	h6.heading-small{
 		text-transform: capitalize;
@@ -487,5 +532,25 @@
     height: 45px;
     width: 45px;
   }
+  .image_upload_div .edit_icon {
+    position: absolute;
+    z-index: 9;
+    background: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+    padding: 5px 10px;
+    right: 15px;
+    top: 0;
+    cursor: pointer;
+  }
+  div#upload-demo {
+    border: 1px solid #ccc;
+    width: 70%;
+    margin: 0 auto;
+  }
+  .image_upload_div img {
+    height: 100%;
+    max-height: 180px;
+  }
 </style>
+
 @endsection

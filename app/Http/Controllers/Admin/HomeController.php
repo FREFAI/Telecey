@@ -156,8 +156,6 @@ class HomeController extends Controller
         if ($validation->fails()) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());
         }else{
-            echo $size;
-            exit;
             if (!File::exists(public_path()."/home/images")) {
                 File::makeDirectory(public_path()."/home/images", 0777, true);
             } 

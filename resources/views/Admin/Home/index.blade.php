@@ -489,18 +489,18 @@
 
 <button style="display:none;" type="button" class="btn btn-info btn-lg addHomeImageModal" data-toggle="modal" data-target="#addHomeImage">Open Modal</button>
 <div id="addHomeImage" class="modal" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header pb-0">
                 <h2 class="text-center w-100">Crop Image</h2>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-2">
                 <div class="row text-center">
                 <div id="upload-demo"></div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer pt-0">
                 <button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
                 <button id="useimg" type="button" class="btn btn-primary">Use Image</button>
             </div>
@@ -542,11 +542,11 @@
     top: 0;
     cursor: pointer;
   }
-  div#upload-demo {
+  /* div#upload-demo {
     border: 1px solid #ccc;
     width: 70%;
     margin: 0 auto;
-  }
+  } */
   .image_upload_div img {
     height: 100%;
     max-height: 180px;

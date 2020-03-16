@@ -9,12 +9,12 @@
 			enableExif: true,
 			enableOrientation: true,    
 			viewport: { // Default { width: 100, height: 100, type: 'square' } 
-				width: 524,
-				height: 524,
+				width: 280,
+				height: 280,
 				type: 'square' //square
 			},
 			boundary: {
-				width: 524,
+				width: 300,
 				height: 300
 			}
 		});
@@ -43,10 +43,16 @@
 			reader.readAsDataURL(input.files[0]);
 		}
 		$('#useimg').on('click', function () {
-            // console.log(resize.result('base64'));
+			var imageSize = {
+					width: 524,
+					height: 524,
+					type: 'square'
+			};
 			resize.croppie('result', {
 				type: 'canvas',
-				size: 'viewport'
+				size: imageSize,
+				format: "png", 
+  				quality: 1
 			}).then(function (img) {
 				$('#sectiononeImage').val(img);
 				$('.profile-img').attr('src', img);

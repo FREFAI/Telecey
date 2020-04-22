@@ -14,9 +14,9 @@ class TestController extends Controller
     }
 
     public function testEmail(Request $request){
-      $email = $request->email;
+      $email = "jatinder.kumar@softradix.com";
       Mail::raw('Hi Jatinder', function($m) use($email){
-        $m->from('support@telkoc.com', 'Laravel');
+        $m->from(env('MAIL_FROM_ADDRESS'), 'Laravel');
         $m->to($email);
         $m->subject('Testing Email');
       });

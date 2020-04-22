@@ -30,6 +30,20 @@
 
 
   <script>
+    $(document).on('click', '#cookie_dismiss', function() {
+        if(window.location.protocol == "http:"){
+            resuesturl = "{{url('/cookieSet')}}"
+        }else if(window.location.protocol == "https:"){
+            resuesturl = "{{secure_url('/cookieSet')}}"
+        }
+        $.ajax({
+            url: resuesturl,
+            type: "GET",
+            success: function(res) {
+                $('.cookies_popup').fadeOut();
+            }
+        });
+    });
     function valid_postal_code(value, country = 'default') {
       let country_regex = {
         "uk" : /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i,

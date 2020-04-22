@@ -514,4 +514,10 @@ class IndependentController extends Controller
         // print_r($getPlanDeviceRating->toArray());
         exit;
     }
+
+    public function cookieSet(Request $request)
+    {
+        setcookie('popup', 'agree', time() + (10 * 365 * 24 * 60 * 60), '/');
+        return json_encode(array('success'=> true));
+    }
 }

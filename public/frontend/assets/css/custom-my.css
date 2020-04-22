@@ -726,4 +726,82 @@ div.testGroup{
   border: none !important;
   border-bottom: 2px solid #495057 !important;
 }
+footer .menu li {
+  width: 100%;
+}
+.footer-logo img {
+  width: 15%;
+}
+footer .footer-Content {
+  background-color: #2877b5;
+}
+
+.bg-blue {
+  background-color: #133c61;
+}
+footer .menu li a {
+  color: #ffffff;
+  font-family: 'Playfair Display';
+}
+#copyright {
+  background-color: #656e77;
+  padding: 35px 0 35px;
+  color: #fff;
+}
+ul.footer-menu {
+  display: flex;
+}
+ul.footer-menu li {
+  margin-right: 15px;
+}
+ul.footer-menu li a{
+  color: #58fca3;
+  font-family: 'Playfair Display';
+  font-size: 15px;
+}
+.footer-res p {
+  color: #58fca3;
+  font-family: 'Playfair Display';
+  font-size: 15px;
+}
+.footer-res {
+  display: flex;
+  float: right;
+}
+.footer-res .footer-social{
+  margin-left:10px;
+}
+footer .footer-Content {
+  padding: 15px 0;
+}
+.cookies_popup {
+  max-width: 960px;
+  width: 100%;
+  background: #2877b5;
+  color:#fff;
+  box-shadow: 9px 10px 14px rgba(0,0,0,.2);
+  border-radius: 6px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 15px;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 10px;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  left: 50%;
+}
+#cookie_dismiss {
+  background: #489fe4;
+  box-shadow: 0 5px 0 #195a8e;
+  border-radius: 4px;
+  font-size: 14px;
+  border-color: #489fe4;
+}
+a#signup-btn {
+  background: #fff !important;
+  color: #000 !important;
+}
 /* /25-02-2020 */

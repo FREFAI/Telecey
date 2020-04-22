@@ -70,7 +70,7 @@
                             <a class="nav-link" href="{{url('/signin')}}">Log In</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-signup" href="{{url('/signup')}}">Sign In/Up</a>
+                            <a id="signup-btn" class="nav-link btn-signup" href="{{url('/signup')}}">Sign Up</a>
                         </li>
                         @endif
                     </ul>

@@ -1547,7 +1547,10 @@ span.fa.fa-star.rate {
     font-family:palatino linotype,serif;
   }
   .image-section img {
-    width: 100%;
+    object-position: 50% 50%;
+    width: 93px;
+    height: 98px;
+    object-fit: cover;
   }
 	a.service-section-plan ,a.service-section-device{
 		border: 2px solid #0077b5;
@@ -1590,10 +1593,12 @@ span.fa.fa-star.rate {
 
 	}
 	.work-icon {
-		font-size: 60px;
+    font-size: 92px;
+    padding: 20px 0px;
 	}
 	.work-content {
-		min-height: 150px;
+    min-height: 200px;
+    line-height: 34px;
 	}
 	.work-title {
 		min-height: 50px;

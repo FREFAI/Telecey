@@ -804,4 +804,7 @@ a#signup-btn {
   background: #fff !important;
   color: #000 !important;
 }
+.work-section {
+  min-height: 560px;
+}
 /* /25-02-2020 */

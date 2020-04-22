@@ -275,14 +275,14 @@ Check and share your telco experience with every one'!!}</h2>
 					<h1 class="device-heading-title">How Does it Work</h1>
 				</div>
 			</div>
-			<div class="col-10 offset-md-1">
+			<div class="col-12">
 				<div class="row">
 					<div class="col-3 bg-blue">
 						<div class="work-section text-center">
 							<div class="work-icon">
 								<i class="fa fa-search"></i>
 							</div>
-							<div class="work-title font-weight-bold my-4 text-uppercase">
+							<div class="work-title font-weight-bold my-5 text-uppercase">
 								Search
 							</div>
 							<div class="work-content text-center mb-4">
@@ -298,7 +298,7 @@ Check and share your telco experience with every one'!!}</h2>
 							<div class="work-icon">
 								<i class="fa fa-bullhorn"></i>
 							</div>
-							<div class="work-title font-weight-bold my-4 text-uppercase">
+							<div class="work-title font-weight-bold my-5 text-uppercase">
 								Research Companies
 							</div>
 							<div class="work-content text-center mb-4">
@@ -314,7 +314,7 @@ Check and share your telco experience with every one'!!}</h2>
 							<div class="work-icon">
 								<i class="fa fa-usd"></i>
 							</div>
-							<div class="work-title font-weight-bold my-4 text-uppercase">
+							<div class="work-title font-weight-bold my-5 text-uppercase">
 								Get The best deal 
 							</div>
 							<div class="work-content text-center mb-4">
@@ -330,7 +330,7 @@ Check and share your telco experience with every one'!!}</h2>
 							<div class="work-icon">
 								<i class="fa fa-share-alt"></i>
 							</div>
-							<div class="work-title font-weight-bold my-4 text-uppercase">
+							<div class="work-title font-weight-bold my-5 text-uppercase">
 								Share
 							</div>
 							<div class="work-content text-center mb-4">

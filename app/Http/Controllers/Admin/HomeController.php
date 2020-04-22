@@ -269,7 +269,7 @@ class HomeController extends Controller
                         $destinationPath = public_path('/home/images');
                         $params['icon_'.$i] = uniqid().time().'_home_image_section_four.'.$fileext;                
         
-                        $image_resize = Image::make($image->getRealPath())->resize(65, 65, function($constraint) {
+                        $image_resize = Image::make($image->getRealPath())->resize(90, 90, function($constraint) {
                             $constraint->aspectRatio();
                         });              
                         $image_resize->save(public_path('/home/images/' .$params['icon_'.$i]));
@@ -299,7 +299,7 @@ class HomeController extends Controller
                         $destinationPath = public_path('/home/images');
                         $params['icon_'.$i] = uniqid().time().'_home_image_section_four.'.$fileext;                
         
-                        $image_resize = Image::make($image->getRealPath())->resize(65, 65, function($constraint) {
+                        $image_resize = Image::make($image->getRealPath())->resize(90, 90, function($constraint) {
                             $constraint->aspectRatio();
                         });              
                         $image_resize->save(public_path('/home/images/' .$params['icon_'.$i]));

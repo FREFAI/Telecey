@@ -730,7 +730,7 @@ footer .menu li {
   width: 100%;
 }
 .footer-logo img {
-  width: 15%;
+  width: 25%;
 }
 footer .footer-Content {
   background-color: #2877b5;
@@ -775,34 +775,37 @@ footer .footer-Content {
   padding: 15px 0;
 }
 .cookies_popup {
-  max-width: 960px;
   width: 100%;
-  background: #2877b5;
-  color:#fff;
+  background: #1bfca3de;
+  color:#5c92e0;
   box-shadow: 9px 10px 14px rgba(0,0,0,.2);
   border-radius: 6px;
   display: -webkit-box;
   display: flex;
   -webkit-box-align: center;
   align-items: center;
-  padding: 15px;
+  padding: 30px;
   justify-content: space-around;
   position: fixed;
-  bottom: 10px;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-  left: 50%;
+  bottom: 0px;
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+  right:0px;
 }
 #cookie_dismiss {
-  background: #489fe4;
-  box-shadow: 0 5px 0 #195a8e;
+  background: #969ea7;
+  box-shadow: 0 0px 0 #969ea7;
   border-radius: 4px;
   font-size: 14px;
-  border-color: #489fe4;
+  padding: 8px 50px;
+  border-color: #fff;
 }
 a#signup-btn {
   background: #fff !important;
   color: #000 !important;
+}
+.learn-more{
+  color:#68717B;
 }
 .work-section {
   min-height: 560px;

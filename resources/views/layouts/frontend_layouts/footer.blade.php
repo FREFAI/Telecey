@@ -5,7 +5,7 @@
                 <div class="col-lg-8 col-md-8 col-xs-6 col-mb-12">
                     <div class="widget">
                         <div class="footer-logo mb-0">
-                            <img src="{{URL::asset('frontend/assets/img/logo-telco-tales.png')}}" alt="" width="200">
+                            <img src="{{URL::asset('frontend/assets/img/logo-telco-tales-2.png')}}" alt="" width="200">
                         </div>
                     </div>
                 </div>
@@ -72,9 +72,9 @@
 @if(!array_key_exists('popup',$_COOKIE)) 
 <div class="cookies_popup">
     <p class="cookie_text">
-    This website uses cookies to ensure you get the best experience on our website. <!--<a href="https://getvideo.io/terms">Learn more</a>-->
+    We use cookies to provide the services and features offered on our website, and to improve our user experience. <br><a class="learn-more" href="javascript:void(0)">Learn more</a>
     </p>
-    <button class="btn btn-info" id="cookie_dismiss">Dismiss</button>
+    <button class="btn btn-info" id="cookie_dismiss">Got it</button>
 </div>
 @endif
 

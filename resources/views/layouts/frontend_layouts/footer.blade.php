@@ -72,7 +72,7 @@
 @if(!array_key_exists('popup',$_COOKIE)) 
 <div class="cookies_popup">
     <p class="cookie_text">
-    We use cookies to provide the services and features offered on our website, and to improve our user experience. <br><a class="learn-more" href="javascript:void(0)">Learn more</a>
+    We use cookies to provide the services and features offered on our website, and to improve our user experience. <br><a class="learn-more" href="https://www.learn-about-cookies.com/">Learn more</a>
     </p>
     <button class="btn btn-info" id="cookie_dismiss">Got it</button>
 </div>

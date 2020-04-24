@@ -22,6 +22,7 @@ ini_set('max_input_time', '900');
 	Route::get('/addressMigration', 'IndependentController@addressMigration');
 // End Independent Routes
 	Route::get('/testEmail', 'TestController@testEmail');
+	Route::get('/fixedOldPlanDataIssue', 'IndependentController@fixedOldPlanDataIssue');
 	// End Testing Route 
 	Route::get('/cookieSet', 'IndependentController@cookieSet');
 

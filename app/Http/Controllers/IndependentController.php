@@ -520,4 +520,40 @@ class IndependentController extends Controller
         setcookie('popup', 'agree', time() + (10 * 365 * 24 * 60 * 60), '/');
         return json_encode(array('success'=> true));
     }
+
+    public function fixedOldPlanDataIssue(Request $request)
+    {
+        $plans = ServiceReview::select('id','country_code','created_at','latitude','longitude')->whereYear('created_at','=','2019')->paginate(50);
+        
+        foreach($plans as $plan){
+            DB::beginTransaction();
+			try {
+                $country_code = $plan->country_code;
+                $new_code = '';
+                $lat = $plan->latitude;
+                $long = $plan->longitude;
+                $client = new \GuzzleHttp\Client();
+                $newresponse = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.$lat.','.$long.'&&key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s');
+                $newresponse = json_decode($newresponse->getBody());
+                $newresponse  = $newresponse->results;
+                $newresponse = $newresponse[0];
+                $newresponse = $newresponse->address_components;
+                foreach ($newresponse as $key) {
+                    if($key->types[0] == 'country')
+                    {
+                        $new_code = $key->short_name;
+                        ServiceReview::where('id',$plan->id)->update(['country_code'=> $new_code]);
+                    }
+                }
+                DB::commit();
+                echo 'PlanId => '.$plan->id.' OldCode => '.$country_code.' New Code => '.$new_code.'<br>' ;
+			    // all good
+			} catch (\Exception $e) {
+                echo 'planId => '.$plan->id ;
+				
+			    DB::rollback();
+			    // something went wrong
+			}
+        }
+    }
 }

@@ -53,7 +53,7 @@ class ReviewsController extends Controller
             $ip = $_SERVER['REMOTE_ADDR'];
         }else{
             // $ip = '2606:4580:2:0:a974:e358:829c:412e';
-            $ip = '122.173.214.129';
+            $ip = '96.46.34.142';
         }
         $client = new \GuzzleHttp\Client();
         $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
@@ -130,7 +130,7 @@ class ReviewsController extends Controller
             $ip = $_SERVER['REMOTE_ADDR'];
         }else{
             // $ip = '2606:4580:2:0:a974:e358:829c:412e';
-            $ip = '122.173.214.129';
+            $ip = '96.46.34.142';
         }
         $client = new \GuzzleHttp\Client();
         $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);

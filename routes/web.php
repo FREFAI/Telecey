@@ -23,6 +23,7 @@ ini_set('max_input_time', '900');
 // End Independent Routes
 	Route::get('/testEmail', 'TestController@testEmail');
 	Route::get('/fixedOldPlanDataIssue', 'IndependentController@fixedOldPlanDataIssue');
+	Route::get('/fixedOldDeviceDataIssue', 'IndependentController@fixedOldDeviceDataIssue');
 	// End Testing Route 
 	Route::get('/cookieSet', 'IndependentController@cookieSet');
 

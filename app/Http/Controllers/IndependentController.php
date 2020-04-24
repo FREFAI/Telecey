@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use App\Models\FrontEnd\PlanDeviceRating;
 use App\Models\FrontEnd\ServiceReview;
+use App\Models\FrontEnd\DeviceReview;
 use App\Models\FrontEnd\ServiceRating;
 use App\Models\Admin\RatingQuestion;
 use App\Helpers\GenerateNickName;
@@ -523,7 +524,7 @@ class IndependentController extends Controller
 
     public function fixedOldPlanDataIssue(Request $request)
     {
-        $plans = ServiceReview::select('id','country_code','created_at','latitude','longitude')->whereYear('created_at','=','2019')->paginate(50);
+        $plans = DeviceReview::select('id','country_code','created_at','latitude','longitude')->whereYear('created_at','=','2019')->paginate(50);
         
         foreach($plans as $plan){
             DB::beginTransaction();
@@ -550,6 +551,41 @@ class IndependentController extends Controller
 			    // all good
 			} catch (\Exception $e) {
                 echo 'planId => '.$plan->id ;
+				
+			    DB::rollback();
+			    // something went wrong
+			}
+        }
+    }
+    public function fixedOldDeviceDataIssue(Request $request)
+    {
+        $device = ServiceReview::select('id','country_code','created_at','latitude','longitude')->whereYear('created_at','=','2019')->paginate(50);
+        
+        foreach($device as $device){
+            DB::beginTransaction();
+			try {
+                $country_code = $device->country_code;
+                $new_code = '';
+                $lat = $device->latitude;
+                $long = $device->longitude;
+                $client = new \GuzzleHttp\Client();
+                $newresponse = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.$lat.','.$long.'&&key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s');
+                $newresponse = json_decode($newresponse->getBody());
+                $newresponse  = $newresponse->results;
+                $newresponse = $newresponse[0];
+                $newresponse = $newresponse->address_components;
+                foreach ($newresponse as $key) {
+                    if($key->types[0] == 'country')
+                    {
+                        $new_code = $key->short_name;
+                        ServiceReview::where('id',$device->id)->update(['country_code'=> $new_code]);
+                    }
+                }
+                DB::commit();
+                echo 'deviceId => '.$device->id.' OldCode => '.$country_code.' New Code => '.$new_code.'<br>' ;
+			    // all good
+			} catch (\Exception $e) {
+                echo 'deviceId => '.$device->id ;
 				
 			    DB::rollback();
 			    // something went wrong

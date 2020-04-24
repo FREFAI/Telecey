@@ -94,9 +94,9 @@ font-weight: normal;
 src: local('Baskerville BT Bold Italic'), url('../fonts/BaskervilleBoldItalicBT.woff') format('woff');
 }
 a.navbar-brand img {
-  width: 35%;
+  width: 40%;
   float: left;
-
+  margin-left: -105px;
 }
 span.logo-title {
   padding-left: 1rem;

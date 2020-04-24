@@ -524,7 +524,7 @@ class IndependentController extends Controller
 
     public function fixedOldPlanDataIssue(Request $request)
     {
-        $plans = DeviceReview::select('id','country_code','created_at','latitude','longitude')->whereYear('created_at','=','2019')->paginate(50);
+        $plans = ServiceReview::select('id','country_code','created_at','latitude','longitude')->whereYear('created_at','=','2019')->paginate(50);
         
         foreach($plans as $plan){
             DB::beginTransaction();
@@ -559,7 +559,7 @@ class IndependentController extends Controller
     }
     public function fixedOldDeviceDataIssue(Request $request)
     {
-        $device = ServiceReview::select('id','country_code','created_at','latitude','longitude')->whereYear('created_at','=','2019')->paginate(50);
+        $device = DeviceReview::select('id','country_code','created_at','latitude','longitude')->whereYear('created_at','=','2019')->paginate(50);
         
         foreach($device as $device){
             DB::beginTransaction();
@@ -578,7 +578,7 @@ class IndependentController extends Controller
                     if($key->types[0] == 'country')
                     {
                         $new_code = $key->short_name;
-                        ServiceReview::where('id',$device->id)->update(['country_code'=> $new_code]);
+                        DeviceReview::where('id',$device->id)->update(['country_code'=> $new_code]);
                     }
                 }
                 DB::commit();

@@ -1,6 +1,6 @@
 <header id="header-wrap">
     <nav class="navbar navbar-expand-lg fixed-top scrolling-navbar">
-        <div class="container-fluid">
+        <div class="container">
             <div class="theme-header clearfix">
                 <div class="navbar-header">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">

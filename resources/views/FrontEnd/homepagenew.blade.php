@@ -485,7 +485,7 @@ Check and share your telco experience with every one'!!}</h2>
 		</div>
 		
 	</div>
-	<div class="container-fluid">
+	<!-- <div class="container-fluid">
 		<div class="row bg-blue">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
@@ -501,7 +501,7 @@ Check and share your telco experience with every one'!!}</h2>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </section>
 <style>
 	.dropdown-select.wide.service-type-select.service_type {

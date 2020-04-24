@@ -324,7 +324,7 @@
 			@endif
 		</div>
 	</div>
-	<div class="container-fluid">
+	<!-- <div class="container-fluid">
 		<div class="row bg-blue">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
@@ -340,7 +340,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </section>
 <script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script>
 <style>

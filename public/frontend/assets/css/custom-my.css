@@ -781,7 +781,7 @@ footer .footer-Content {
   box-shadow: 9px 10px 14px rgba(0,0,0,.2);
   border-radius: 6px;
   display: -webkit-box;
-  display: flex;
+  
   -webkit-box-align: center;
   align-items: center;
   padding: 30px;
@@ -792,6 +792,9 @@ footer .footer-Content {
   transform: translateX(0%);
   right:0px;
 }
+.cookies_popup .container{
+  display: flex;
+}
 #cookie_dismiss {
   background: #969ea7;
   box-shadow: 0 0px 0 #969ea7;
@@ -799,6 +802,7 @@ footer .footer-Content {
   font-size: 14px;
   padding: 8px 50px;
   border-color: #fff;
+  margin-left: 10rem;
 }
 a#signup-btn {
   background: #fff !important;

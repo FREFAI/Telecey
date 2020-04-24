@@ -680,18 +680,17 @@ button.btn.btn-common.log-btn {
 /* new-design-css */
 
 nav.navbar.navbar-expand-lg.fixed-top.scrolling-navbar {
-  background-color: #2e76b5;
-  box-shadow: 0 3px 6px 3px rgba(0, 0, 0, .06);
+  background-color: #fff;
 }
 nav.navbar.navbar-expand-lg.fixed-top.scrolling-navbar.top-nav-collapse{
-  background-color: #2e76b5 !important;
+  background-color: #fff !important;
 }
-ul.navbar-nav .nav-item a,li.dropdown .dropdown-toggle {
+/* ul.navbar-nav .nav-item a,li.dropdown .dropdown-toggle {
   color: #fff !important;
-}
-.top-nav-collapse ul.navbar-nav .nav-item a,.top-nav-collapse li.dropdown .dropdown-toggle{
+} */
+/* .top-nav-collapse ul.navbar-nav .nav-item a,.top-nav-collapse li.dropdown .dropdown-toggle{
   color: #fff !important;
-}
+} */
 a.link.facebook:hover {
   background: #355496;
   display: inline-block;

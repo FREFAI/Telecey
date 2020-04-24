@@ -208,7 +208,7 @@
 			</div>
 		@endif 
 	</div>
-	<div class="container-fluid">
+	<!-- <div class="container-fluid">
 		<div class="row bg-blue">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
@@ -224,7 +224,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </section>
 <style>
 	.custom_sorting i {

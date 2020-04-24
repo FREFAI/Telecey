@@ -102,7 +102,7 @@ span.logo-title {
   padding-left: 1rem;
   padding-top: 14px;
   position: absolute;
-  color: #fff;
+  color: #333;
   font-style: italic;
 }
 span.logo-tag-line {
@@ -110,7 +110,7 @@ span.logo-tag-line {
   font-size: 14px;
   padding-top: 10px;
   position: absolute;
-  color: #fff;
+  color: #333;
 }
 
 ul.navbar-nav.mr-auto.w-100.justify-content-left {

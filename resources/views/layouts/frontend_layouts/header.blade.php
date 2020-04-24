@@ -9,10 +9,10 @@
                         <span class="lni-menu"></span>
                         <span class="lni-menu"></span>
                     </button>
-                    <a href="{{url('/')}}" class="navbar-brand"><img src="{{URL::asset('frontend/assets/img/logo-telco-tales.png')}}" alt="">
-                       <span class="logo-title">Telco -Tales </span>
+                    <a href="{{url('/')}}" class="navbar-brand"><img src="{{URL::asset('frontend/assets/img/logo-new.png')}}" alt="">
+                       <!-- <span class="logo-title">Telco -Tales </span>
                        <br>
-                       <span class="logo-tag-line">Rate Your Telecom Carrier</span>
+                       <span class="logo-tag-line">Rate Your Telecom Carrier</span> -->
                     </a>
                 </div>
                 <div class="collapse navbar-collapse float-right" id="main-navbar">

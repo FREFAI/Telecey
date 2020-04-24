@@ -5,7 +5,7 @@
                 <div class="col-lg-8 col-md-8 col-xs-6 col-mb-12">
                     <div class="widget">
                         <div class="footer-logo mb-0">
-                            <img src="{{URL::asset('frontend/assets/img/logo-telco-tales.png')}}" alt="" width="200">
+                            <img src="{{URL::asset('frontend/assets/img/telco-logo-new.png')}}" alt="" width="200">
                         </div>
                     </div>
                 </div>

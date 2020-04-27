@@ -18,7 +18,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-2 col-xs-6 col-mb-12">
+                <div class="col-lg-2 col-md-2 col-xs-6 col-mb-12 last-widget">
                     <div class="widget">
                         <ul class="menu">
                             <li><a href="{{url('/signup')}}">Sign Up</a></li>

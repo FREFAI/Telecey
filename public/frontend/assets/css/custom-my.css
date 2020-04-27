@@ -730,14 +730,14 @@ footer .menu li {
   width: 100%;
 }
 .footer-logo img {
-  width: 20%;
+  width: 30%;
 }
 footer .footer-Content {
   background-color: #2877b5;
 }
 
 .bg-blue {
-  background-color: #133c61;
+  background-color: #2a79b2;
 }
 footer .menu li a {
   color: #ffffff;
@@ -813,5 +813,8 @@ a#signup-btn {
 }
 .work-section {
   min-height: 560px;
+}
+.last-widget .widget {
+  margin-top: 13px;
 }
 /* /25-02-2020 */

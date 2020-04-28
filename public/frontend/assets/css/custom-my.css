@@ -529,7 +529,11 @@ div.testArea canvas{
 div.testGroup{
   display:flex;
 }
-
+@media(min-width:1200px) {
+  header .container{
+      max-width: 1280px;
+  }
+}
 @media all and (max-width:65em){
   body{
     font-size:1.5vw;
@@ -728,9 +732,10 @@ div.testGroup{
 }
 footer .menu li {
   width: 100%;
+  padding-bottom: 0px;
 }
 .footer-logo img {
-  width: 30%;
+  width: 18%;
 }
 footer .footer-Content {
   background-color: #2877b5;
@@ -759,13 +764,13 @@ ul.footer-menu li a{
   font-family: 'Playfair Display';
   font-size: 15px;
 }
-.footer-res p {
+.footer-lef p {
   color: #58fca3;
   font-family: 'Playfair Display';
   font-size: 15px;
 }
 .footer-res {
-  display: flex;
+  /* display: flex; */
   float: right;
 }
 .footer-res .footer-social{
@@ -814,7 +819,7 @@ a#signup-btn {
 .work-section {
   min-height: 560px;
 }
-.last-widget .widget {
+/* .last-widget .widget {
   margin-top: 13px;
-}
+} */
 /* /25-02-2020 */

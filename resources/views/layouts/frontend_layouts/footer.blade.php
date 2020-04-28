@@ -5,7 +5,7 @@
                 <div class="col-lg-8 col-md-8 col-xs-6 col-mb-12">
                     <div class="widget">
                         <div class="footer-logo mb-0">
-                            <img src="{{URL::asset('frontend/assets/img/logo-new.png')}}" alt="" width="200">
+                            <img src="{{URL::asset('frontend/assets/img/footer-logo.png')}}" alt="" width="200">
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="site-info text-left">
+                    <div class="site-info text-left footer-lef">
                         <ul class="footer-menu">
                             <li><a href="{{url('/')}}">About</a></li>
                             <li><a href="#">Terms of Service </a></li>
@@ -44,11 +44,11 @@
                             <li><a href="#">Cookie Policy</a></li>
                             <li><a href="#">Contact US</a></li>
                         </ul>
+                        <p>Telecey © {{date('Y')}}. All rights Reserved </p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="site-info text-right footer-res">
-                        <p>Telecey © {{date('Y')}}. All rights Reserved </p>
                         <div class="footer-social mt-2">
                             <a href="" class="link facebook"><span class="fa fa-facebook-square"></span></a>
                             <a href="" class="link twitter"><span class="fa fa-twitter"></span></a>

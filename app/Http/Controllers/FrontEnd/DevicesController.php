@@ -417,7 +417,7 @@ class DevicesController extends Controller
 
     public function deviceDetails($id){
         $planDetailData = DeviceReview::where('id',$id)->with('device','brand','supplier','currency','device_color_info')->first();
-        $allratings = $planDetailData->get_ratings();
+        $allratings = $planDetailData->get_ratings($id);
         $plan_device_rating = $planDetailData->plan_device_rating->toArray();
         $user_address = UserAddress::where('user_id',$planDetailData->user_id)->where('is_primary',1)->value('formatted_address');
         $planDetailData->user_address = $user_address;

@@ -2165,7 +2165,7 @@ table.table.custom-table tbody tr:hover {
     font-size: 35px;
   }
   .inner_rows {
-    float: right;
+    float: unset;
   }
   .rows_per_page select {
     width: 30%;

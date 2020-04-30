@@ -267,11 +267,11 @@
 	                                    <label class="label" for="name">Last Name</label>
 	                                </div>
 	                                <div class="form-field col-lg-6 country_div" id="country_div">
-	                                    <input id="country" class="input-text js-input" type="text" required value="{{$usersDetail->country}}" name="country" autocomplete="off">
+	                                    <input id="country" class="input-text js-input" type="text" required value="{{$usersDetail->country}}" name="country" autocomplete="no">
                                         <label class="label" for="country">Country</label>
 	                                </div>
 	                                <div class="form-field col-lg-6 city_div" id="city_div">
-	                                    <input id="city" class="input-text js-input city_input" type="text" required value="{{$usersDetail->city}}" name="city"  autocomplete="off" data-country="{{$usersDetail->country_code}}">
+	                                    <input id="city" class="input-text js-input city_input" type="text" required value="{{$usersDetail->city}}" name="city"  autocomplete="no" data-country="{{$usersDetail->country_code}}">
 	                                    <label class="label" for="city">City</label>
 	                                </div>
 	                                <div class="form-field col-lg-12 ">
@@ -279,11 +279,11 @@
 	                                    <label class="label" for="email">E-mail</label>
 	                                </div>
 	                                <div class="form-field col-lg-12 ">
-	                                        <input id="postal_code" class="input-text js-input" type="text" value="{{$usersDetail->postal_code}}" name="postal_code">
+	                                        <input id="postal_code" class="input-text js-input" type="text" value="{{$usersDetail->postal_code}}" name="postal_code" autocomplete="no">
 	                                        <label class="label" for="number">Postal Code</label>
 	                                    </div>
 	                                <div class="form-field col-lg-12 ">
-	                                    <input id="mobile_number" class="input-text js-input" type="text" value="{{$usersDetail->mobile_number}}" name="mobile_number">
+	                                    <input id="mobile_number" class="input-text js-input" type="text" value="{{$usersDetail->mobile_number}}" name="mobile_number"autocomplete="no">
 	                                    <label class="label" for="phone">Contact Number</label>
                                     </div>
                                     <input type="hidden" name="latitude" id="lat" value="{{$lat}}">
@@ -1347,7 +1347,7 @@
         $('#user_address_id').val(0);
         $('#is_primary').val(0);
     });
-    $('.save_address').on('click',function(e){
+    $('.save_address').on('click', async function(e){
         e.preventDefault();
         
         if(countrySelection === false){
@@ -1372,14 +1372,16 @@
         if(!$("#address_form").valid()){
             return false;
         }else{
-            let postal = valid_postal_code($('#address_form #user_postal_code').val(),$('#address_form .city_input').attr('data-country'));
-            if(postal != ""){
-                if($("#address_form #postal_code-error.errorcustom").length == 0){
+            let postal = await valid_postal_code_with_google_api($('#address_form #user_postal_code').val(),$('#address_form #user_country').val(),$('#address_form .city_input').val());
+            if(!postal['status']){
+                if(!$('#address_form #user_postal_code').hasClass('error')){
                     $('#address_form #user_postal_code').addClass('error');
-                    $('#address_form #user_postal_code').after(postal);
+                    $('#address_form #user_postal_code').after('<label id="postal_code-error" class="error" for="postal_code">Postal code is invalid, Please select valid postal code</label>');
                 }
                 return false;
             }
+            // let postal = valid_postal_code($('#address_form #user_postal_code').val(),$('#address_form .city_input').attr('data-country'));
+           
             var user_full_address = $('#user_full_address').val();
             var user_city = $('#user_city').val();
             var user_country = $('#user_country').val();

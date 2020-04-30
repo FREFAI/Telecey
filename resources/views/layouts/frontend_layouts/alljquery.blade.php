@@ -30,6 +30,31 @@
 
 
   <script>
+  var geocoder = new google.maps.Geocoder;
+  var infowindow = new google.maps.InfoWindow;
+  geocodePlaceId(geocoder, infowindow);
+  function geocodePlaceId(geocoder, infowindow) {
+        geocoder.geocode({'address': '160055'}, function(results, status) {
+          if (status === 'OK') {
+            if (results[0]) {
+              console.log('Hello',results);
+              
+              // map.setZoom(11);
+              // map.setCenter(results[0].geometry.location);
+              // var marker = new google.maps.Marker({
+              //   map: map,
+              //   position: results[0].geometry.location
+              // });
+              // infowindow.setContent(results[0].formatted_address);
+              // infowindow.open(map, marker);
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+            window.alert('Geocoder failed due to: ' + status);
+          }
+        });
+      }
     $(document).on('click', '#cookie_dismiss', function() {
         if(window.location.protocol == "http:"){
             resuesturl = "{{url('/cookieSet')}}"
@@ -60,9 +85,10 @@
       if(country_regex[country].test(value)){
         return "";
       }else{
-        return '<label id="postal_code-error" class="errorcustom" for="postal_code">Postal code is invalid!.</label>';
+        return '<label id="postal_code-error" class="errorcustom" for="postal_code">Postal code is invalid, Please select valid postal code</label>';
       }
     }
+   
     function readURL(input,size) {
       if(size){
 				size = size;
@@ -391,7 +417,52 @@
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
           });
-          $('#firstform').on('submit',function(e){
+
+          function valid_postal_code_with_google_api(value, country,city) {
+            return new Promise(resolve => {
+              $.ajax({
+                  url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+value+'&key=AIzaSyBA8bx4gjNJX_EBkoqNDvaGN7QduUn6W68',
+                  type: "GET",
+                  dataType:'json',
+                  success: function(res) {
+                    if(res.status=='OK'){
+                      var data = [];
+                      var results = res.results;
+                      for (var ac = 0; ac < results[0].address_components.length; ac++) {
+                          var component = results[0].address_components[ac];
+                          switch(component.types[0]) {
+                            case 'locality':
+                              data['city'] = component.long_name;
+                              break;
+                            case 'administrative_area_level_1':
+                              data['state'] = component.long_name;
+                              data['state_code'] = component.short_name;
+                              break;
+                            case 'country':
+                              data['country'] = component.long_name;
+                              data['country_code'] = component.short_name;
+                              break;
+                          }
+                      };
+                      data['formatted_address'] = results[0].formatted_address;
+                      
+                      if(data['country'] == country && data['city'] == city){
+                        data['status'] = true;
+                      }else{
+                        data['status'] = false;
+                      }
+                      resolve(data);
+                    }else{
+                      var data = [];
+                      data['status'] = false;
+                      resolve(data);
+                    }
+                  }
+              });
+            });
+          }
+          $('#firstform').on('submit', async function(e){
+            e.preventDefault();
             if(countrySelection === false){
               $('.country_list').css('display','none');
               $('#country').addClass('error');
@@ -410,16 +481,18 @@
               }
               return false;
             }
-            let postal = valid_postal_code($('#firstform #postal_code').val(),$('#firstform .city_input').attr('data-country'));
-            if(postal != ""){
-                if(!$("#firstform #postal_code").hasClass('error')){
-                  $('#firstform #postal_code').addClass('error');
-                  $('#firstform #postal_code').after(postal);
-                }
+            let postal = await valid_postal_code_with_google_api($('#firstform #postal_code').val(),$('#firstform #country').val(),$('#firstform .city_input').val());
+            
+            // let postal = valid_postal_code($('#firstform #postal_code').val(),$('#firstform .city_input').attr('data-country'));
+            if(!postal['status']){
+              if(!$('#firstform #postal_code').hasClass('error')){
+                $('#firstform #postal_code').addClass('error');
+                $('#firstform #postal_code').after('<label id="postal_code-error" class="error" for="postal_code">Postal code is invalid, Please select valid postal code</label>');
+              }
                 return false;
             }
             var thisform = $(this);
-            e.preventDefault();
+            
             var latitude = $('#lat').val();
             var longitude = $('#long').val();
             var firstname = $('#firstname').val();
@@ -1012,7 +1085,7 @@
         // End Brand Section
 
         // Profile Page 
-          $('.address_update_btn').on('click',function(e){
+          $('.address_update_btn').on('click',async function(e){
             e.preventDefault();
 
             if(countrySelection === false){
@@ -1035,13 +1108,13 @@
               
               return false;
             }
-
-            let postal = valid_postal_code($('#postal_code').val(),$('.city_input').attr('data-country'));
-            if(postal != ""){
-              if(!$("#postal_code").hasClass('error')){
+            let postal = await valid_postal_code_with_google_api($('#postal_code').val(),$('#country').val(),$('.city_input').val());
+            if(!postal['status']){
+              if(!$('#change_address_form #postal_code').hasClass('error')){
                 $('#postal_code').addClass('error');
-                $('#postal_code').after(postal);
+                $('#postal_code').after('<label id="postal_code-error" class="error" for="postal_code">Postal code is invalid, Please select valid postal code</label>');
               }
+                
               return false;
             }
             $('#change_address_form').submit();

@@ -592,4 +592,20 @@ class IndependentController extends Controller
 			}
         }
     }
+
+    public function updateUserAddressTable(Request $request)
+    {
+        $userAddress = UserAddress::get();
+        foreach($userAddress as $user){
+            $code = CountriesModel::where('name',$user->country)->select('code')->first();
+            if($code){
+                $user->country_code = $code->code;
+                $user->save();
+            }else{
+                $user->country_code = 'CA';
+                $user->save();
+            }
+            
+        }
+    }
 }

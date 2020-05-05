@@ -569,8 +569,8 @@ div.testGroup{
   .srch_bar {
     display: inline-block;
     text-align: right;
-    width: 60%; padding:
-  }
+    width: 60%; 
+    }
   .headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
 
   .recent_heading h4 {
@@ -822,4 +822,5 @@ a#signup-btn {
 /* .last-widget .widget {
   margin-top: 13px;
 } */
+
 /* /25-02-2020 */

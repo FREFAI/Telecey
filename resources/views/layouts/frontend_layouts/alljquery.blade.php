@@ -851,6 +851,7 @@
                     $('#address').val(data.data.address);
                     $('#country').val(data.data.country);
                     $('#city').val(data.data.city);
+                    $('#city').attr('data-country',data.data.country_code);
                     $('#postal_code').val(data.data.postal_code);
                     $('#address_id').val(data.data.id);
                     $('#change_address_model').modal({

@@ -740,7 +740,7 @@
 					<div class="row">
 						@csrf
 						<div class="col-lg-12">
-							<h5>Address</h5>
+							<h5>Address <span class="text-mute">Optional</span></h5>
 							<div class="form-group">
 								<input type="text" maxlength="70" id="address" name="address" class="form-control" placeholder="Address" value="" autocomplete="no">
 							</div>

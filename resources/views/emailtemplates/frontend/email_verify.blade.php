@@ -212,13 +212,6 @@
             }
         }
     </style>
-    <!--[if gte mso 9]>
-    <style type="text/css">
-      #contentTable {
-        width: 600px;
-      }
-    </style>
-  <![endif]-->
 </head>
 
 <body style="width:100% !important;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;">
@@ -227,11 +220,6 @@
             <tr>
                 <td width="10" valign="top">&nbsp;</td>
                 <td valign="top" align="center">
-                    <!--[if (gte mso 9)|(IE)]>
-      <table width="600" align="center" cellpadding="0" cellspacing="0" border="0" style="background-color: #FFF; border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
-        <tr>
-          <td>
-      <![endif]-->
                     <table cellpadding="0" cellspacing="0" border="0" align="center" style="width: 100%; max-width: 600px; background-color: #FFF; border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;" id="contentTable">
                         <tbody>
                             <tr>
@@ -248,8 +236,8 @@
                                     <table align="center" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #E0E4E8;" width="100%">
                                         <tbody>
                                             <tr>
-                                                <td align="center" style="padding: 56px 56px 28px 56px;" valign="top">
-                                                    <a style="color: #3498DB; text-decoration: none;"><img style="width: 56px; height: 56px; border: 0;" alt="Weekly newsletter of CyanVariable360 Studios" src="{{URL::asset('frontend/assets/img/logo-telco-tales.png')}}">
+                                                <td align="center" style="padding: 30px 56px 28px 56px;" valign="top">
+                                                    <a style="color: #3498DB; text-decoration: none;"><img style="width: 30%; border: 0;" alt="Weekly newsletter of CyanVariable360 Studios" src="{{URL::asset('frontend/assets/img/logo-new.png')}}">
                                                     </a>
                                                 </td>
                                             </tr>
@@ -264,34 +252,19 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td align="center" style="padding: 0 56px; padding-bottom: 56px;" valign="top">
+                                                <td align="center" style="padding: 0 56px; padding-bottom: 30px;" valign="top">
                                                     <div>
-                                                        <!--[if mso]>
-  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="#" style="height:40px;v-text-anchor:middle;width:270px;" arcsize="125%" stroke="f" fillcolor="#E15718">
-    <w:anchorlock/>
-    <center>
-  <![endif]-->
-                                                        <a href="{{url('/confirmEmail')}}/{{$emaildata['id']}}" style="background-color:#E15718;border-radius:50px;color:#ffffff;display:inline-block;font-family: 'lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:18px;font-weight: bold;line-height:40px;text-align:center;text-decoration:none;width:270px;-webkit-text-size-adjust:none;" target="_blank">Confirm your email</a>
-                                                        <!--[if mso]>
-    </center>
-  </v:roundrect>
-<![endif]-->
+                                                        <a href="{{url('/confirmEmail')}}/{{$emaildata['id']}}" style="background-color:#58fca3;border-radius:50px;color:#ffffff;display:inline-block;font-family: 'lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:15px;font-weight: bold;line-height:45px;text-align:center;text-decoration:none;width:270px;-webkit-text-size-adjust:none;" target="_blank">CONFIRM YOUR EMAIL</a>
                                                     </div>
 
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                  
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <!--[if (gte mso 9)|(IE)]>
-          </td>
-        </tr>
-      </table>
-      <![endif]-->
                 </td>
                 <td width="10" valign="top">&nbsp;</td>
             </tr>

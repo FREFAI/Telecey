@@ -99,7 +99,7 @@ class ReviewsController extends Controller
                 $usersDetail->country_code = $countrycode->code;
             }else{
                 $usersDetail->country = $usersAddress->country;
-                $usersDetail->country_code = $usersDetailSession['country_code'];
+                $usersDetail->country_code = $usersAddress->country_code;
             }
             $usersDetail->city = $usersAddress->city;
             $usersDetail->postal_code = $usersAddress->postal_code;
@@ -174,7 +174,7 @@ class ReviewsController extends Controller
                     $user_address->latitude = $input['latitude'];
                     $user_address->longitude = $input['longitude'];
                     if($user_address->save()){
-                        $message = array('success'=>true,'message'=>'Updated successfully.');
+                        $message = array('success'=>true,'message'=>'Updated successfully.','address' => $formatted);
                         return json_encode($message);
                     }else{
                         $message = array('success'=>false,'message'=>"Somthing went wrong in user address!");
@@ -194,7 +194,7 @@ class ReviewsController extends Controller
                         'is_primary'=>1
                     ];
                     UserAddress::create($address);
-                    $message = array('success'=>true,'message'=>'Add new address successfully.');
+                    $message = array('success'=>true,'message'=>'Add new address successfully.','address' => $formatted);
                     return json_encode($message);
                 }
             }else{
@@ -352,6 +352,7 @@ class ReviewsController extends Controller
                             'longitude' => $input['longitude'],
                             'address' =>$input['user_full_address'],
                             'country' =>$input['user_country'],
+                            'country_code' =>$input['user_country_code'],
                             'city' =>$input['user_city'],
                             'postal_code' => $input['user_postal_code'],
                             'formatted_address' => $input['formatted_address']
@@ -492,6 +493,7 @@ class ReviewsController extends Controller
                             'longitude' => $input['longitude'],
                             'address' =>$input['user_full_address'],
                             'country' =>$input['user_country'],
+                            'country_code' =>$input['user_country_code'],
                             'city' =>$input['user_city'],
                             'postal_code' => $input['user_postal_code'],
                             'formatted_address' => $input['formatted_address']

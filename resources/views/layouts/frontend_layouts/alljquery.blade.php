@@ -30,6 +30,15 @@
 
 
   <script>
+    function initMap() {
+	    var input = document.getElementById('searchMapInput');
+	  
+	    var autocomplete = new google.maps.places.Autocomplete(input);
+	   
+	    autocomplete.addListener('place_changed', function() {
+	        var place = autocomplete.getPlace();
+	    });
+	}
   var geocoder = new google.maps.Geocoder;
   var infowindow = new google.maps.InfoWindow;
   geocodePlaceId(geocoder, infowindow);
@@ -37,8 +46,6 @@
         geocoder.geocode({'address': '160055'}, function(results, status) {
           if (status === 'OK') {
             if (results[0]) {
-              console.log('Hello',results);
-              
               // map.setZoom(11);
               // map.setCenter(results[0].geometry.location);
               // var marker = new google.maps.Marker({
@@ -534,6 +541,7 @@
                     if(data.success){
                       thisform.closest('.intro-section').addClass('section-d-none');
                       $('.service-detail').removeClass('section-d-none');
+                      $('.ratingAddressLable').text(data.address);
                       document.body.scrollTop = 0;
                       document.documentElement.scrollTop = 0;
                     }else{
@@ -716,6 +724,7 @@
             var user_address_id = $('#user_address_id').val();
             var user_full_address = $('#user_full_address').val();
             var user_city = $('#user_city').val();
+            var user_country_code = $('#user_city').attr('data-country');
             var user_country = $('#user_country').val();
             var user_postal_code = $('#user_postal_code').val();
             var is_primary = $('#is_primary').val();
@@ -774,6 +783,7 @@
                     'user_address_id':user_address_id,
                     'user_full_address':user_full_address,
                     'user_city':user_city,
+                    'user_country_code':user_country_code,
                     'user_country':user_country,
                     'user_postal_code':user_postal_code,
                     'is_primary':is_primary,
@@ -965,6 +975,7 @@
             var user_address_id = $('#user_address_id').val();
             var user_full_address = $('#user_full_address').val();
             var user_city = $('#user_city').val();
+            var user_country_code = $('#user_city').attr('data-country');
             var user_country = $('#user_country').val();
             var user_postal_code = $('#user_postal_code').val();
             var is_primary = $('#is_primary').val();
@@ -1024,6 +1035,7 @@
                     'user_address_id':user_address_id,
                     'user_full_address':user_full_address,
                     'user_city':user_city,
+                    'user_country_code':user_country_code,
                     'user_country':user_country,
                     'user_postal_code':user_postal_code,
                     'is_primary':is_primary,

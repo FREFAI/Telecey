@@ -136,6 +136,7 @@ class DeviceReviewController extends Controller
                         'longitude' => $input['longitude'],
                         'address' =>$input['user_full_address'],
                         'country' =>$input['user_country'],
+                        'country_code' =>$input['user_country_code'],
                         'city' =>$input['user_city'],
                         'postal_code' => $input['user_postal_code'],
                         'formatted_address' => $input['formatted_address']

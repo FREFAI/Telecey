@@ -1019,7 +1019,7 @@
                             <div class="row">
                                 @if($userAddress)
                                 <div class="col-lg-8">
-                                    <div class="address">{{$userAddress->formatted_address}}</div>
+                                    <div class="address ratingAddressLable">{{$userAddress->formatted_address}}</div>
                                 </div>
                                 <div class="col-lg-4 text-right">
                                     <div class="text-green primary">Primary</div>

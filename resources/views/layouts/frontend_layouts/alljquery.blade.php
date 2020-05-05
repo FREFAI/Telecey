@@ -148,6 +148,7 @@
         countrySelection = true;
         $('#country').val($(this).find('a').attr('data-name'));
         $('#city').attr('data-country',$(this).find('a').attr('data-code'));
+        $('#country_code').val($(this).find('a').attr('data-code'));
         $('.country_list').css('display','none');
         setTimeout(function(){
             $('input.city_input').cityAutocomplete();
@@ -852,6 +853,7 @@
                     $('#country').val(data.data.country);
                     $('#city').val(data.data.city);
                     $('#city').attr('data-country',data.data.country_code);
+                    $('#country_code').val(data.data.country_code);
                     $('#postal_code').val(data.data.postal_code);
                     $('#address_id').val(data.data.id);
                     $('#change_address_model').modal({

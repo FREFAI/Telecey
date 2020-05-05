@@ -286,6 +286,7 @@ class HomeController extends Controller
             }
             $addressUpdate->address = $input['address'];
             $addressUpdate->country = $input['country'];
+            $addressUpdate->country_code = $input['country_code'];
             $addressUpdate->city = $input['city'];
             $addressUpdate->postal_code = $input['postal_code'];
             $addressUpdate->formatted_address = $formatted;

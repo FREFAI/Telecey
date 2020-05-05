@@ -755,6 +755,7 @@
 							<h5>City</h5>
 							<div class="form-group city_div" id="city_div">
 								<input type="text" maxlength="50" id="city" name="city" class="form-control city_input" placeholder="City" autocomplete="no" required="" data-country="IN" value="">
+								<input type="hidden" maxlength="50" id="country_code" name="country_code" class="form-control" value="">
 							</div>
 						</div>
 						<div class="col-lg-12">

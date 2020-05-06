@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\SupportCase;
 use App\Helpers\CreateLogs;
 use App\SupportCaseMessage;
-use Auth;
+use Auth,Mail;
 class SupportCaseController extends Controller
 {
     public function index(Request $request)
@@ -39,6 +39,12 @@ class SupportCaseController extends Controller
         	];
         	$caseGenerate = SupportCase::create($case);
         	if($caseGenerate){
+				$case['name'] = $user->firstname; 
+				$case['id'] = $caseGenerate->id; 
+				Mail::send('emailtemplates.frontend.supportNewCase', ['caseData' => $case] , function ($m) use ($user)      {
+                    $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+                    $m->to($user->email, $user->firstname)->subject("New Ticket");
+                });
         		$message = [
         			'sender_id'   => $user_id,
         			'receiver_id' => 0,
@@ -73,18 +79,19 @@ class SupportCaseController extends Controller
     	$settings = SettingsModel::first();
     	$user_id = Auth::guard('customer')->user()['id'];
     	$caseID = base64_decode($caseID);
-    	$case = SupportCase::find($caseID);
+    	$case = SupportCase::where('id',$caseID)->where('user_id',$user_id)->first();
     	$caseMessages = SupportCaseMessage::where(function ($query) use ($caseID,$user_id) {
 								                $query->where('sender_id',$user_id )
 								                      ->orWhere('receiver_id', $user_id);
 								            })->where('case_id',$caseID)->get();
-    	// echo "<pre>";print_r($caseMessages);exit;
+    	if(!$case){
+			abort(404);
+		}
 		return view('FrontEnd.SupportCase.case-inbox',['settings' => $settings,'case' => $case,'caseMessages' => $caseMessages]);
-    	# code...
     }
     public function sendMessage(Request $request)
     {
-    	$perameters = $request->all();
+		$perameters = $request->all();
     	$user_id = Auth::guard('customer')->user()['id'];
     	$user = Auth::guard('customer')->user();
 		$perameters['case_id'] = base64_decode($perameters['case_id']);

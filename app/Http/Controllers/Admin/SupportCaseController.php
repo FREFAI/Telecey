@@ -9,7 +9,7 @@ use App\SupportCaseMessage;
 use App\SupportCase;
 use App\Helpers\CreateLogs;
 use App\User;
-use Auth;
+use Auth,Mail;
 class SupportCaseController extends Controller
 {
     public function index(Request $request)
@@ -99,8 +99,20 @@ class SupportCaseController extends Controller
 			'is_read'     => 0
         ];
         $user = Auth::guard('admin')->user();
+        $user = User::find($perameters['user_id']);
 		$message = SupportCaseMessage::create($message);
 		if($message){
+            if($user){
+                $case = [
+                    'name' => $user->firstname,
+                    'message' => $perameters['message'],
+                    'case_id' => $perameters['case_id']
+                ];
+                Mail::send('emailtemplates.admin.supportMessage', ['caseData' => $case] , function ($m) use ($user)      {
+                    $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+                    $m->to($user->email, $user->firstname)->subject("Received new message from telecey.");
+                });
+            }
 			$caseStatus = SupportCase::find($perameters['case_id']);
 			$caseStatus->status = 1;
 			if($caseStatus->save()){

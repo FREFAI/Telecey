@@ -148,7 +148,7 @@ class RegisterController extends Controller
             'email' => $user->email
         ];
         Mail::send('emailtemplates.frontend.email_verify', ['emaildata' => $emaildata] , function ($m) use ($emaildata)      {
-            $m->from('admin@telco.com', 'Telco Tales');
+            $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
             $m->to($emaildata['email'], $emaildata['name'])->subject("Email verification.");
         });
         return redirect()->back();

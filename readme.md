@@ -1,3 +1,16 @@
+
+
+Run these commands When all process is complete
+
+```
+php artisan db:seed --class=SettingsTableSeeder
+
+php artisan db:seed --class=CountriesTableSeeder
+
+mysql -u softradi_dev -p softradi_telco < public/sql/cities.sql
+
+```
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">

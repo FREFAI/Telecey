@@ -16,6 +16,7 @@ ini_set('max_input_time', '900');
 */
 // Testing Route 
 	Route::get('/country', 'TestController@index');
+	Route::get('/test', 'TestController@test');
 
 // Start Independent Routes
 	Route::get('/addNikNameIfNotExist', 'IndependentController@addNikNameIfNotExist');
@@ -92,6 +93,7 @@ ini_set('max_input_time', '900');
 			Route::post('/changeAddress', 'FrontEnd\HomeController@changeAddress');
 			// Change address
 			Route::post('/getCountry', 'FrontEnd\ReviewsController@getCountry');
+			Route::post('/getCityByCountry', 'HomeController@getCityByCountry');
 			Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
 			Route::get('/reviews/{planId}', 'FrontEnd\ReviewsController@reviewsRating');
 			Route::post('/getModels', 'FrontEnd\BrandsController@getModels');

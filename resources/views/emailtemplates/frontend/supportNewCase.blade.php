@@ -248,9 +248,20 @@
                                             </tr>
                                             <tr>
                                                 <td style="padding: 0 56px 15px 56px;" valign="top">
-                                                    <div style="font-family: &quot;lato&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 28px;font-size: 17px; color: #333; font-weight:500;">Your ticket has been generated successfully.</div>
+                                                    <div style="font-family: &quot;lato&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 28px;font-size: 17px; color: #333; font-weight:500;">Thank you for your below inquiry. We will come back to you soon.</div>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td style="padding: 0 56px 15px 56px;" valign="top">
+                                                    <div style="font-family: &quot;lato&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 28px;font-size: 17px; color: #333; font-weight:500;">Thank you</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 0 56px 15px 56px;" valign="top">
+                                                    <div style="font-family: &quot;lato&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 28px;font-size: 17px; color: #333; font-weight:500;"><strong>Telecey Team</strong></div>
+                                                </td>
+                                            </tr>
+
                                             <tr>
                                                 <td style="padding: 0 56px 28px 56px;" valign="top">
                                                     <div style="width:100%;font-family: &quot;lato&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 28px;font-size: 15px; color: #333;"><strong>Subject : </strong></div>
@@ -263,14 +274,14 @@
                                                   <div style="width:100%;font-family: &quot;lato&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 28px;font-size: 15px; color: #333;">{{$caseData['message']}}</div>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td align="center" style="padding: 0 56px; padding-bottom: 30px;" valign="top">
                                                     <div>
                                                         <a href="{{url('/inbox')}}/{{base64_encode($caseData['id'])}}" style="background-color:#58fca3;border-radius:50px;color:#ffffff;display:inline-block;font-family: 'lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:15px;font-weight: bold;line-height:45px;text-align:center;text-decoration:none;width:270px;-webkit-text-size-adjust:none;" target="_blank">GO TO CHAT</a>
                                                     </div>
 
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </td>

@@ -22,14 +22,28 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="{{URL::asset('frontend/jsplugins/jsvalidation/jquery.form.js')}}"></script>
 <script src="{{URL::asset('frontend/jsplugins/jsvalidation/jquery.validate.js')}}"></script>
-<script src="{{URL::asset('frontend/jsplugins/jquery.city-autocomplete.js')}}"></script>
-
+<!-- <script src="{{URL::asset('frontend/jsplugins/jquery.city-autocomplete.js')}}"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script src="https://cdn.tiny.cloud/1/r33fht357sb48uzaif4s424d91smk1zo3s41jfq0gkx580ee/tinymce/5/tinymce.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&language=en&callback=initMap"></script>
 
 
   <script>
+    $('#mySelect2').select2({
+      ajax: {
+        url: 'https://api.github.com/orgs/select2/repos',
+        data: function (params) {
+          var query = {
+            search: params.term,
+            type: 'public'
+          }
+
+          // Query parameters will be ?search=[term]&type=public
+          return query;
+        }
+      }
+    });
     function initMap() {
 	    var input = document.getElementById('searchMapInput');
 	  
@@ -38,7 +52,8 @@
 	    autocomplete.addListener('place_changed', function() {
 	        var place = autocomplete.getPlace();
 	    });
-	}
+  }
+  
   var geocoder = new google.maps.Geocoder;
   var infowindow = new google.maps.InfoWindow;
   geocodePlaceId(geocoder, infowindow);
@@ -126,9 +141,10 @@
 		$("#imageUpload").change(function() {
 		    readURL(this,$(this).attr('data-size'));
 		});
-    $('input.city_input').cityAutocomplete();
+    // $('input.city_input').cityAutocomplete();
     // $('.user_city_add input#user_city').cityAutocomplete();
     $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo('.country_div');
+    $('<div class="city_list"><ul class="city-autocomplete"></ul></div>').appendTo('.city_div');
     $(document).ready(function() {
       $('#example').DataTable({
         "searching": false,
@@ -157,18 +173,29 @@
         $('#city').attr('data-country',$(this).find('a').attr('data-code'));
         $('#country_code').val($(this).find('a').attr('data-code'));
         $('.country_list').css('display','none');
-        setTimeout(function(){
-            $('input.city_input').cityAutocomplete();
-        },500);
+        
     });
     $(document).on('click','.country-autocomplete li',function(){
         countrySelection = true;
         $('#user_country').val($(this).find('a').attr('data-name'));
         $('#user_city').attr('data-country',$(this).find('a').attr('data-code'));
         $('.country_list').css('display','none');
-        setTimeout(function(){
-            $('input.city_input').cityAutocomplete();
-        },500);
+        
+    });
+    $(document).on('click','.city-autocomplete li',function(){
+        citySelection = true;
+        $('#city').val($(this).find('a').attr('data-name'));
+        $('#city').attr('data-city',$(this).find('a').attr('data-code'));
+        $('#city_code').val($(this).find('a').attr('data-code'));
+        $('.city_list').css('display','none');
+        
+    });
+    $(document).on('click','.city-autocomplete li',function(){
+        citySelection = true;
+        $('#user_city').val($(this).find('a').attr('data-name'));
+        $('#user_city').attr('data-city',$(this).find('a').attr('data-code'));
+        $('.city_list').css('display','none');
+        
     });
     $('input.city_input').on('keypress',function(){
       citySelection = false;
@@ -312,7 +339,39 @@
       }         
     });
 });
+$('.city_div input').keyup(function(){
+  citySelection = false;
+    var country_code = $(this).attr('data-country');
+    var search = $(this).val();
+    if(window.location.protocol == "http:"){
+        resuesturl = "{{url('/getCityByCountry')}}"
+    }else if(window.location.protocol == "https:"){
+        resuesturl = "{{secure_url('/getCityByCountry')}}"
+    }
+    $.ajax({
+      type: "post",
+      url: resuesturl,
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      dataType:'json',
+      data: {
+          'search':search,
+          'country_code':country_code
+      },
+      success: function (data) {
+          if(data.success){
+            $('.city_list').css('display','block');
+            $('.city-autocomplete').html('');
+            $('.city-autocomplete').css('display','block');
+            var resp = $.map(data.data,function(obj){
+                $('.city-autocomplete').append('<li><a href="javascript:void(0);" data-name="'+obj.name+'">'+obj.name+'</a></li>');
+            }); 
 
+          }
+      }         
+    });
+});
 
     var sections = $('section');
     var nav = $('nav');

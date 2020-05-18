@@ -58,9 +58,7 @@ class ReviewsController extends Controller
         $client = new \GuzzleHttp\Client();
         $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
         $newresponse = json_decode($newresponse->getBody());
-        echo "<pre>";
-        print_r($newresponse);
-        exit;
+        
         if (!$request->session()->has('usersDetail')) {
             // $ip = '96.46.34.142';
             $current_lat = $newresponse->latitude;

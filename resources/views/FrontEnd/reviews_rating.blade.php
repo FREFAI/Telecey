@@ -237,7 +237,7 @@
                                     <div class="text-green primary">Primary</div>
                                     <button class="btn btn-primary d-none make_primary_btn" data-address_id="{{$userAddress->id}}">Make primary</button>
                                 </div>
-                                <input type="hidden" value="{{$userAddress->id}}" id="user_address_id">
+                                <input type="hidden" data-id="{{$userAddress->id}}" value="{{$userAddress->id}}" id="user_address_id">
                                 <input type="hidden" value="1" id="is_primary">
                                 @else
                                     <div class="address">No address found.</div>
@@ -257,7 +257,7 @@
                     <form id="address_form">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h5>Address</h5>
+                                <h5>Address <span class="text-mute">Optional</span></h5>
                                 <div class="form-group">
                                     <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="Address" >
                                 </div>
@@ -284,6 +284,7 @@
                             <input type="hidden" name="longitude" id="long" value="{{$long}}">
                             <div class="col-lg-12 text-center">
                                 <button type="submit" class="btn btn-primary save_address">Save</button>
+                                <button type="button" class="btn btn-primary cancel">Cancel</button>
                             </div>
                                 
                         </div>
@@ -335,6 +336,12 @@
         $('.make_new_address').removeClass('d-none');
         $('#user_address_id').val(0);
         $('#is_primary').val(0);
+    });
+    $('#address_form .cancel').on('click',function(e){
+        $('.confirm_message_section').removeClass('d-none');
+        $('.make_new_address').addClass('d-none');
+        $('#user_address_id').val($('#user_address_id').attr('data-id'));
+        $('#is_primary').val(1);
     });
 
     $('.save_address').on('click',async function(e){

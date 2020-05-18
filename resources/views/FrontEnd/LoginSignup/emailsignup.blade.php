@@ -7,7 +7,7 @@
 	        <form action="{{url('/emailsignup')}}" method="post">
 	        	@csrf
 	            <div class="avatar text-center">
-	                <img src="{{URL::asset('frontend/assets/img/logo-telco-tales.png')}}" alt="">
+	                <img src="{{URL::asset('frontend/assets/img/logo-new.png')}}" alt="">
 	            </div>
 	            <h2 class="text-center mt-5">Sign up with email</h2>
 	            <h5 class="text-center mt-1 mb-4">Already a member? <a href="{{url('/signin')}}" class="text-primary"> Log In</a></h5>

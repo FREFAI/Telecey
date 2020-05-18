@@ -360,9 +360,10 @@ $('.city_div input').keyup(function(){
           'country_code':country_code
       },
       success: function (data) {
+        $('.city-autocomplete').html('');
+        $('.city_list').css('display','none');
           if(data.success){
             $('.city_list').css('display','block');
-            $('.city-autocomplete').html('');
             $('.city-autocomplete').css('display','block');
             var resp = $.map(data.data,function(obj){
                 $('.city-autocomplete').append('<li><a href="javascript:void(0);" data-name="'+obj.name+'">'+obj.name+'</a></li>');

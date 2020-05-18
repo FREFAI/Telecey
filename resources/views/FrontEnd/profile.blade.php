@@ -767,6 +767,7 @@
 						<input type="hidden" name="id" value="" id="address_id">
 						<div class="col-lg-12 text-center">
 							<button type="button" class="btn btn-primary address_update_btn">Update</button>
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
 						</div>
 					</div>
 				</form>

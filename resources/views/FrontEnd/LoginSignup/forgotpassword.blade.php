@@ -14,7 +14,7 @@
 	        <form action="{{url('/forgot-password')}}" method="post">
         		@csrf
 	            <div class="avatar text-center">
-	                <img src="{{URL::asset('frontend/assets/img/logo-telco-tales.png')}}" alt="">
+	                <img src="{{URL::asset('frontend/assets/img/logo-new.png')}}" alt="">
 	            </div>
 	            <h2 class="text-center forgot-password mt-5">Forgot password</h2>
 	            

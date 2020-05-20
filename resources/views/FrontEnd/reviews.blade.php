@@ -1089,6 +1089,7 @@
         <div class="modal-content">
           <!-- Modal body -->
             <div class="modal-body">
+            <h4 class="speedTestTitle">We preform a speed test as part of the service review process for more reliable data- you can abort the speed test and continue your review if you want</h4>
                 <div id="testWrapper" class="text-center">
                     <div id="startStopBtn" onclick="startStop()"></div>
                     <div id="test" class="row">

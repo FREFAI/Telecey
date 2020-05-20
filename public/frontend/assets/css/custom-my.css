@@ -475,7 +475,11 @@ a.edit_address {
 }
 
 /*Speed test Section */
-
+h4.speedTestTitle {
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 15px;
+}
 #startStopBtn{
   display:inline-block;
   margin:0 auto;
@@ -488,6 +492,7 @@ a.edit_address {
   width:8em; height:3em;
   line-height:2.7em;
   cursor:pointer;
+  font-size: 23px;
   box-shadow: 0 0 0 rgba(0,0,0,0.1), inset 0 0 0 rgba(0,0,0,0.1);
 }
 #startStopBtn:hover{

@@ -27,9 +27,37 @@
 <script src="https://cdn.tiny.cloud/1/r33fht357sb48uzaif4s424d91smk1zo3s41jfq0gkx580ee/tinymce/5/tinymce.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&language=en&callback=initMap"></script>
-
-
-  <script>
+<script>
+$('.register-btn').on('click',function(e){
+  e.preventDefault();
+  var valid = passwordValidate();
+  if(valid){
+    $('#registerForm').submit();
+  }
+});
+function passwordValidate(e){
+		var email = $("#user_email").val();
+		var pwd = $(".password_user").val();
+		$('#password_error').text("");
+		$('#password_error').css("color","red");
+		var res = email.toString().split("@");
+		// var pwd = e.target.value;
+		var regularExpression = /^(?=.*\d)(?=.*[a-z])[a-z\d]{2,}$/i;
+        var valid = regularExpression.test(pwd);
+		if(valid){
+			if(pwd == res[0]){
+				valid = false;
+        $('#password_error').text("Your password and email are same.");
+			}else{
+				valid = true;
+			}
+		}else{
+			valid = false;
+      $('#password_error').text("Password must be alphanumeric.");
+		}
+		return valid;
+		
+	}
     $('#mySelect2').select2({
       ajax: {
         url: 'https://api.github.com/orgs/select2/repos',

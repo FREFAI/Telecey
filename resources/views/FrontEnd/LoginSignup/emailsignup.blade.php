@@ -4,7 +4,7 @@
 
 	<!-- Content Start Here -->
 		<div class="login-form">
-	        <form action="{{url('/emailsignup')}}" method="post">
+	        <form action="{{url('/emailsignup')}}" method="post" id="registerForm">
 	        	@csrf
 	            <div class="avatar text-center">
 	                <img src="{{URL::asset('frontend/assets/img/logo-new.png')}}" alt="">
@@ -19,10 +19,11 @@
 	                <input type="text" class="form-control" name="lastname" placeholder="Last name" required="required" autocomplete="off" maxlength="50">		
 	            </div>
 	            <div class="form-group">
-	                <input type="email" class="form-control" name="email" placeholder="Email" required="required" autocomplete="off" maxlength="50">		
+	                <input type="email" class="form-control" name="email" placeholder="Email" required="required" autocomplete="off" maxlength="50" id="user_email">		
 	            </div>
 	            <div class="form-group">
-	                <input type="password" class="form-control" name="password" placeholder="Password" required="required" maxlength="50">	
+	                <input type="password" class="form-control password_user" name="password" placeholder="Password" required="required" maxlength="50" onkeyup="passwordValidate(event)">	
+					<small id="password_error"></small>
 	            </div>   
 
 
@@ -36,7 +37,7 @@
  
 
 	            <div class="form-group">
-	                <button type="submit" class="btn btn-primary btn-lg btn-block login-btn">Sign Up</button>
+	                <button type="submit" class="btn btn-primary btn-lg btn-block login-btn register-btn">Sign Up</button>
 	            </div>
 	            <div class="or-seperator"><i>or sign up with</i></div>
 	            <div class="text-center mt-5">
@@ -68,4 +69,28 @@
     </div>
   </div>
 </div>
+<script>
+	function passwordValidate(e){
+		var email = document.getElementById("user_email").value;
+		document.getElementById("password_error").innerHTML = "";
+		document.getElementById("password_error").style.color = "red";
+		var res = email.toString().split("@");
+		var pwd = e.target.value;
+		var regularExpression = /^(?=.*\d)(?=.*[a-z])[a-z\d]{2,}$/i;
+        var valid = regularExpression.test(pwd);
+		if(valid){
+			if(pwd == res[0]){
+				valid = false;
+				document.getElementById("password_error").innerHTML = "Your password and email are same.";
+			}else{
+				valid = true;
+			}
+		}else{
+			valid = false;
+			document.getElementById("password_error").innerHTML = "Password must be alphanumeric";
+		}
+		return valid;
+		
+	}
+</script>
 @endsection

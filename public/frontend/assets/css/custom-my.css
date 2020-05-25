@@ -476,9 +476,12 @@ a.edit_address {
 
 /*Speed test Section */
 h4.speedTestTitle {
-  font-size: 20px;
+  font-size: 12px;
   text-align: center;
   padding-bottom: 15px;
+}
+div#ipArea {
+  font-size: 12px;
 }
 #startStopBtn{
   display:inline-block;

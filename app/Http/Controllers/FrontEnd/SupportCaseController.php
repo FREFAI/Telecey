@@ -10,6 +10,8 @@ use App\SupportCase;
 use App\Helpers\CreateLogs;
 use App\SupportCaseMessage;
 use Auth,Mail;
+use App\Models\Admin\AdminModel;
+
 class SupportCaseController extends Controller
 {
     public function index(Request $request)
@@ -44,7 +46,16 @@ class SupportCaseController extends Controller
 				Mail::send('emailtemplates.frontend.supportNewCase', ['caseData' => $case] , function ($m) use ($user)      {
                     $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
                     $m->to($user->email, $user->firstname)->subject("New Ticket");
-                });
+				});
+				$subAdminEmail = AdminModel::where('type',2)->pluck('email');
+				if($subAdminEmail){
+					foreach($subAdminEmail as $email){
+						Mail::send('emailtemplates.frontend.supportNewCaseForSubAdmin', ['caseData' => $case] , function ($m) use ($user,$email)      {
+							$m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+							$m->to($email)->subject("You’ve been received a new inquiry request");
+						});
+					}
+				}
         		$message = [
         			'sender_id'   => $user_id,
         			'receiver_id' => 0,

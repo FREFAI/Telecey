@@ -1344,6 +1344,8 @@
         $('#user_address').modal('toggle');
     });
     $('.confirmation_button .no').on('click',function(e){
+        $('#user_country').val('');
+        $('#user_city').val('');
         $('.confirm_message_section').addClass('d-none');
         $('.make_new_address').removeClass('d-none');
         $('#user_address_id').val(0);

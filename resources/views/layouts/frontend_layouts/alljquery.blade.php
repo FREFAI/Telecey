@@ -515,6 +515,9 @@ $('.city_div input').keyup(function(){
           });
 
           function valid_postal_code_with_google_api(value, country,city) {
+            let cities = [];
+            let countryExist = '';
+            let postalCode = '';
             return new Promise(resolve => {
               $.ajax({
                   url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+value+'&key=AIzaSyBA8bx4gjNJX_EBkoqNDvaGN7QduUn6W68',
@@ -526,23 +529,20 @@ $('.city_div input').keyup(function(){
                       var results = res.results;
                       for (var ac = 0; ac < results[0].address_components.length; ac++) {
                           var component = results[0].address_components[ac];
-                          switch(component.types[0]) {
-                            case 'locality':
-                              data['city'] = component.long_name;
-                              break;
-                            case 'administrative_area_level_1':
-                              data['state'] = component.long_name;
-                              data['state_code'] = component.short_name;
-                              break;
-                            case 'country':
-                              data['country'] = component.long_name;
-                              data['country_code'] = component.short_name;
-                              break;
+                          if(component.types.indexOf('country') != -1){
+                              if(country == component.long_name){
+                                countryExist=component.long_name;
+                              }
+                          }else if(component.types.indexOf('postal_code') != -1){
+                            postalCode = component.long_name;
+                          }else{
+                            cities.push(component.long_name);
                           }
+                          
                       };
                       data['formatted_address'] = results[0].formatted_address;
                       
-                      if(data['country'] == country && data['city'] == city){
+                      if(countryExist == country && cities.indexOf(city) != -1){
                         data['status'] = true;
                       }else{
                         data['status'] = false;

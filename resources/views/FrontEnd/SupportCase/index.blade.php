@@ -19,6 +19,7 @@
 	                	    <!-- <img src="assets/img/step-1.png">
 	                	    <h2 class="pt-3 text-white">1</h2>
 	                	    <h3 class="pt-3 custom-height-cl">PLEASE INTRODUCE YOUR SELF</h3> -->
+							@include('flash-message')
 	                	    <section class="get-in-touch">
 	                	        <p class="title pt-3">Support case</p>
 	                	        <form id="caseGenerateForm" class="contact-form row" action="{{url('/generateCase')}}" method="post">

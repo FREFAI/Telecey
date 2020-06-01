@@ -480,6 +480,10 @@ h4.speedTestTitle {
   text-align: center;
   padding-bottom: 15px;
 }
+.step-section-one .alert {
+  max-width: 800px;
+  margin: 0px auto 20px;
+}
 div#ipArea {
   font-size: 12px;
 }

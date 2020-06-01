@@ -259,25 +259,25 @@
                             <div class="col-lg-12">
                                 <h5>Address <span class="text-mute">Optional</span></h5>
                                 <div class="form-group">
-                                    <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="Address" >
+                                    <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="Address" autocomplete="no">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h5>Country</h5>
                                 <div class="form-group country_div" id="country_div">
-                                    <input type="text" id="user_country" name="user_country" class="form-control" placeholder="Country" required="">
+                                    <input type="text" id="user_country" name="user_country" class="form-control" placeholder="Country" required=""autocomplete="no">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h5>City</h5>
                                 <div class="form-group city_div" id="city_div">
-                                    <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="City" autocomplete="off" required="" data-country="IN">
+                                    <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="City" autocomplete="no" required="" data-country="IN">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h5>Postal code</h5>
                                 <div class="form-group">
-                                    <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="Postal code" required="">
+                                    <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="Postal code" required="" autocomplete="no">
                                 </div>
                             </div>
                             <input type="hidden" name="latitude" id="lat" value="{{$lat}}">

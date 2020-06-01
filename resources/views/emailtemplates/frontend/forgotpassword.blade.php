@@ -237,7 +237,7 @@
                                         <tbody>
                                             <tr>
                                                 <td align="center" style="padding: 30px 56px 28px 56px;" valign="top">
-                                                    <a style="color: #3498DB; text-decoration: none;"><img style="width: 30%; border: 0;" alt="Weekly newsletter of CyanVariable360 Studios" src="{{URL::asset('frontend/assets/img/logo-new.png')}}">
+                                                    <a style="color: #3498DB; text-decoration: none;"><img style="width: 30%; border: 0;" alt="" src="{{URL::asset('frontend/assets/img/logo-new.png')}}">
                                                     </a>
                                                 </td>
                                             </tr>

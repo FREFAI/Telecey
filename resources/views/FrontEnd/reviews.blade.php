@@ -1047,25 +1047,25 @@
                             <div class="col-lg-12">
                                 <h5>Address <span class="text-mute">Optional</span></h5>
                                 <div class="form-group">
-                                    <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="Address" >
+                                    <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="Address" autocomplete="no">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h5>Country</h5>
                                 <div class="form-group country_div" id="country_div">
-                                    <input type="text" id="user_country" name="user_country" class="form-control" placeholder="Country" required="">
+                                    <input type="text" id="user_country" name="user_country" class="form-control" placeholder="Country" required="" autocomplete="no">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h5>City</h5>
                                 <div class="form-group user_city_add city_div" id="city_div">
-                                    <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="City" autocomplete="off" required="" data-country="IN">
+                                    <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="City" autocomplete="no" required="" data-country="IN">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h5>Postal code</h5>
                                 <div class="form-group">
-                                    <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="Postal code" required="">
+                                    <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="Postal code" required="" autocomplete="no">
                                 </div>
                             </div>
                             <div class="col-lg-12 text-center">
@@ -1089,7 +1089,7 @@
         <div class="modal-content">
           <!-- Modal body -->
             <div class="modal-body">
-            <h4 class="speedTestTitle">We preform a speed test as part of the service review process for more reliable data- you can abort the speed test and continue your review if you want</h4>
+                <h4 class="speedTestTitle">We preform live speed test as part of the service review process to obtain more reliable data <br>You can abort this speed test and continue your review if you want</h4>
                 <div id="testWrapper" class="text-center">
                     <div id="startStopBtn" onclick="startStop()"></div>
                     <div id="test" class="row">
@@ -1697,7 +1697,7 @@
                 }
             });
 
-            $('.dropdown-select ul').before('<div class="dd-search"><input autocomplete="off" onkeyup="filter(event)" class="dd-searchbox txtSearchValue" type="text"></div>');
+            $('.dropdown-select ul').before('<div class="dd-search"><input autocomplete="no" onkeyup="filter(event)" class="dd-searchbox txtSearchValue" type="text"></div>');
         }
 
         // Event listeners

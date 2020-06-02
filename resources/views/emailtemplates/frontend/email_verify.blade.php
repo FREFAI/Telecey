@@ -229,7 +229,7 @@
                                             <tr>
                                                 <td align="center" valign="top">
                                                     <div style="font-family: &quot;lato&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 28px;">&nbsp;</div>
-                                                    <div style="display:none;"> Hi {{$emaildata['name']}}</div>
+                                                    <div style="display:none;"> Hi {{$emaildata['name']}} Thank you so much for joining us you just need to confirm that we got your email right. </div>
                                                 </td>
                                             </tr>
                                         </tbody>

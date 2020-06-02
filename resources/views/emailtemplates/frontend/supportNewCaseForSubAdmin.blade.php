@@ -229,7 +229,7 @@
                                             <tr>
                                                 <td align="center" valign="top">
                                                     <div style="font-family: &quot;lato&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 28px;">&nbsp;</div>
-                                                    <div style="display:none;"> You have recived a new inquery request</div>
+                                                    <div style="display:none;"> You have recived a new inquery request User name : {{$caseData['name']}}</div>
                                                 </td>
                                             </tr>
                                         </tbody>

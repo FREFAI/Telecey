@@ -229,7 +229,7 @@
                                             <tr>
                                                 <td align="center" valign="top">
                                                     <div style="font-family: &quot;lato&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 28px;">&nbsp;</div>
-                                                    <div style="display:none;"> Hi {{$caseData['name']}},</div>
+                                                    <div style="display:none;"> Hi {{$caseData['name']}}, Thank you for your below inquiry. We will come back to you soon.</div>
                                                 </td>
                                             </tr>
                                         </tbody>

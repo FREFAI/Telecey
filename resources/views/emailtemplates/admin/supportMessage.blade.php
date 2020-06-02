@@ -228,7 +228,8 @@
                                         <tbody>
                                             <tr>
                                                 <td align="center" valign="top">
-                                                    <div style="font-family: &quot;lato&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 28px;">&nbsp;</div>
+                                                    <div style="font-family: &quot;lato&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 28px;"></div>
+                                                    <div style="display:none;">Hi {{$caseData['name']}},You have received a new message from telecey.</div>
                                                 </td>
                                             </tr>
                                         </tbody>

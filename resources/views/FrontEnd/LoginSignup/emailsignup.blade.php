@@ -9,37 +9,27 @@
 	            <div class="avatar text-center">
 	                <img src="{{URL::asset('frontend/assets/img/logo-new.png')}}" alt="">
 	            </div>
-	            <h2 class="text-center mt-5">Sign up with email</h2>
-	            <h5 class="text-center mt-1 mb-4">Already a member? <a href="{{url('/signin')}}" class="text-primary"> Log In</a></h5>
+	            <h2 class="text-center mt-5">{{__('emailsignup.title')}}</h2>
+	            <h5 class="text-center mt-1 mb-4">{{__('emailsignup.title_one')}} <a href="{{url('/signin')}}" class="text-primary"> {{__('emailsignup.signup_label_link')}}</a></h5>
 				@include('flash-message')
 	            <div class="form-group">
-	                <input type="text" class="form-control" name="firstname" placeholder="First name" required="required" autocomplete="off" maxlength="50">		
+	                <input type="text" class="form-control" name="firstname" placeholder="{{__('emailsignup.first_name')}}" required="required" autocomplete="off" maxlength="50">		
 	            </div>
 	            <div class="form-group">
-	                <input type="text" class="form-control" name="lastname" placeholder="Last name" required="required" autocomplete="off" maxlength="50">		
+	                <input type="text" class="form-control" name="lastname" placeholder="{{__('emailsignup.last_name')}}" required="required" autocomplete="off" maxlength="50">		
 	            </div>
 	            <div class="form-group">
-	                <input type="email" class="form-control" name="email" placeholder="Email" required="required" autocomplete="off" maxlength="50" id="user_email">		
+	                <input type="email" class="form-control" name="email" placeholder="{{__('emailsignup.email')}}" required="required" autocomplete="off" maxlength="50" id="user_email">		
 	            </div>
 	            <div class="form-group">
-	                <input type="password" class="form-control password_user" name="password" placeholder="Password" required="required" maxlength="50" onkeyup="passwordValidate(event)">	
+	                <input type="password" class="form-control password_user" name="password" placeholder="{{__('emailsignup.password')}}" required="required" maxlength="50" onkeyup="passwordValidate(event)">	
 					<small id="password_error"></small>
 	            </div>   
-
-
-
-
-
-	            	<input type="checkbox" name="checkboxTerms" value="check" id="agree" required="required"/> <font size="4px">I agree to the <a style="color:blue;" href="javascript:void(0)" data-toggle="modal" data-target="#termAndCondition">terms and conditions</a> </font>
-
-
-
- 
-
+	            	<input type="checkbox" name="checkboxTerms" value="check" id="agree" required="required"/> <font size="4px">{{__('emailsignup.agree_text')}}<a style="color:blue;" href="javascript:void(0)" data-toggle="modal" data-target="#termAndCondition"> {{__('emailsignup.agree_text_link')}}</a> </font>
 	            <div class="form-group">
-	                <button type="submit" class="btn btn-primary btn-lg btn-block login-btn register-btn">Sign Up</button>
+	                <button type="submit" class="btn btn-primary btn-lg btn-block login-btn register-btn">{{__('emailsignup.signup_button')}}</button>
 	            </div>
-	            <div class="or-seperator"><i>or sign up with</i></div>
+	            <div class="or-seperator"><i>{{__('emailsignup.title_two')}}</i></div>
 	            <div class="text-center mt-5">
 	                    <a class="btn btn-primary social-login-btn social-facebook" href="{{url('/facebooklogin')}}"><i class="fa fa-facebook"></i></a>
 	                    <a class="btn btn-primary social-login-btn social-google" href="{{url('/googlelogin')}}"><i class="fa fa-google"></i></a>

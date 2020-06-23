@@ -12,7 +12,7 @@
                 <div class="col-lg-2 col-md-2 col-xs-6 col-mb-12">
                     <div class="widget">
                         <ul class="menu">
-                            <li><a href="#">Home</a></li>
+                            <li><a href="{{url('/')}}">Home</a></li>
                             <li><a href="#">How Does it Work</a></li>
                             <li><a href="#">How do we get our Information</a></li>
                         </ul>

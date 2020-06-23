@@ -63,11 +63,16 @@ class ReviewsController extends Controller
             // $ip = '96.46.34.142';
             $current_lat = $newresponse->latitude;
             $current_long = $newresponse->longitude;
-            $storableLocation['city'] = $newresponse->city;
-            $storableLocation['state'] = $newresponse->state_prov;
+            // $storableLocation['city'] = $newresponse->city;
+            // $storableLocation['state'] = $newresponse->state_prov;
+            // $storableLocation['country'] = $newresponse->country_name;
+            // $storableLocation['country_code'] = $newresponse->country_code2;
+            // $storableLocation['postal_code'] = $newresponse->zipcode;
+            $storableLocation['city'] = "";
+            $storableLocation['state'] = "";
             $storableLocation['country'] = $newresponse->country_name;
             $storableLocation['country_code'] = $newresponse->country_code2;
-            $storableLocation['postal_code'] = $newresponse->zipcode;
+            $storableLocation['postal_code'] = "";
             
             $request->session()->put('usersDetail', $storableLocation); 
         }

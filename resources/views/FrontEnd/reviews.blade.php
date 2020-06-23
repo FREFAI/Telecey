@@ -296,6 +296,7 @@
 	                                    <input class="submit-btn" type="submit" value="Submit">
 	                                </div>
 	                            </form>
+                                
 	                        </section>
 	                    </div>
 	                </div>
@@ -1161,7 +1162,9 @@
     </div>
 <script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script>
 <script src="{{URL::asset('frontend/jsplugins/speedtest/speedtest.js')}}"></script>
+<!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
 <script>
+
     if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) //IF IE > 10
     {
       $('select').css({padding:"10px 10px"}); 

@@ -27,7 +27,68 @@
 <script src="https://cdn.tiny.cloud/1/r33fht357sb48uzaif4s424d91smk1zo3s41jfq0gkx580ee/tinymce/5/tinymce.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&language=en&callback=initMap"></script>
+
 <script>
+if($('#firstform #city').val() == ""){
+   getLocation();
+}
+ function getLocation() {
+     if(navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+     } else {
+       console.log("Geolocation is not supported by this browser.");
+     }
+ }
+ function geoSuccess(position) {
+     var lat = position.coords.latitude;
+     var lng = position.coords.longitude;
+
+     codeLatLng(lat, lng);
+ }
+ function geoError() {
+     console.log('Geocoder failed');
+ }
+ var geocoder;
+ function initialize() {
+     geocoder = new google.maps.Geocoder();
+ }
+ function codeLatLng(lat, lng) {
+   var addr = {};
+     var latlng = new google.maps.LatLng(lat, lng);
+     geocoder.geocode({'latLng': latlng}, function(results, status) {
+     if(status == google.maps.GeocoderStatus.OK) {
+         if(results[1]) {
+           for (var ii = 0; ii < results[0].address_components.length; ii++) {
+               var street_number = route = street = city = state = zipcode = country = formatted_address = '';
+               var types = results[0].address_components[ii].types.join(",");
+               if (types == "street_number") {
+                   addr.street_number = results[0].address_components[ii].long_name;
+               }
+               if (types == "route" || types == "point_of_interest,establishment") {
+                   addr.route = results[0].address_components[ii].long_name;
+               }
+               if (types == "sublocality,political" || types == "locality,political" || types == "neighborhood,political" || types == "administrative_area_level_3,political") {
+                   addr.city = (city == '' || types == "locality,political") ? results[0].address_components[ii].long_name : city;
+               }
+               if (types == "administrative_area_level_1,political") {
+                   addr.state = results[0].address_components[ii].short_name;
+               }
+               if (types == "postal_code" || types == "postal_code_prefix,postal_code") {
+                   addr.zipcode = results[0].address_components[ii].long_name;
+               }
+               if (types == "country,political") {
+                   addr.country = results[0].address_components[ii].long_name;
+                   addr.countryCode = results[0].address_components[ii].short_name;
+               }
+           }
+           $('#firstform #country').val(addr.country);
+           $('#firstform #city').val(addr.city);
+           $('#firstform #city').attr("data-country",addr.countryCode);
+           $('#firstform #postal_code').val(addr.zipcode);
+         }
+     }
+     });
+ }
 $('.register-btn').on('click',function(e){
   e.preventDefault();
   var valid = passwordValidate();

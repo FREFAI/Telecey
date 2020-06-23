@@ -115,6 +115,7 @@ class RegisterController extends Controller
                     'latitude' => $usersDetailSession['latitude'],
                     'longitude' => $usersDetailSession['longitude'],
                     'country' => $usersDetailSession['country'],
+                    'country_code' => $usersDetailSession['country_code'],
                     'postal_code' => '',
                     'formatted_address' => $formatted,
                     'is_primary' => 1

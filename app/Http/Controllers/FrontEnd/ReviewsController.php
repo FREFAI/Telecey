@@ -175,6 +175,7 @@ class ReviewsController extends Controller
                     $user_address->city = $input['city'];
                     $user_address->country = $input['country'];
                     $user_address->postal_code = $input['postal_code'];
+                    $user_address->country_code = $input['country_code'];
                     $user_address->formatted_address = $formatted;
                     $user_address->latitude = $input['latitude'];
                     $user_address->longitude = $input['longitude'];
@@ -194,6 +195,7 @@ class ReviewsController extends Controller
                         'city'=> $input['city'],
                         'country'=> $input['country'],
                         'postal_code'=> $input['postal_code'],
+                        'country_code'=> $input['country_code'],
                         'latitude'=> $input['latitude'],
                         'longitude'=> $input['longitude'],
                         'is_primary'=>1

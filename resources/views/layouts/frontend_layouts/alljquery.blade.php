@@ -29,6 +29,15 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&language=en&callback=initMap"></script>
 
 <script>
+function initMap() {
+    var input = document.getElementById('searchMapInput');
+  
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    
+    autocomplete.addListener('place_changed', function() {
+        var place = autocomplete.getPlace();
+    });
+}
 if($('#firstform #city').val() == ""){
    getLocation();
 }
@@ -133,15 +142,7 @@ function passwordValidate(e){
         }
       }
     });
-    function initMap() {
-	    var input = document.getElementById('searchMapInput');
-	  
-	    var autocomplete = new google.maps.places.Autocomplete(input);
-	   
-	    autocomplete.addListener('place_changed', function() {
-	        var place = autocomplete.getPlace();
-	    });
-  }
+    
   
   var geocoder = new google.maps.Geocoder;
   var infowindow = new google.maps.InfoWindow;
@@ -656,6 +657,7 @@ $('.city_div input').keyup(function(){
             var lastname = $('#lastname').val();
             var country = $('#country').val();
             var city = $('#city').val();
+            var country_code = $('#city').attr('data-country');
             var postal_code = $('#postal_code').val();
             var mobile_number = $('#mobile_number').val();
             if(firstname == "" || lastname == "" || country == "" || city == ""){
@@ -682,6 +684,7 @@ $('.city_div input').keyup(function(){
                     'lastname':lastname,
                     'country':country,
                     'city':city,
+                    'country_code':country_code,
                     'postal_code':postal_code,
                     'mobile_number':mobile_number
                 },

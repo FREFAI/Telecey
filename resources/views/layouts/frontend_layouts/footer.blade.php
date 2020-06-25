@@ -12,19 +12,19 @@
                 <div class="col-lg-2 col-md-2 col-xs-6 col-mb-12">
                     <div class="widget">
                         <ul class="menu">
-                            <li><a href="{{url('/')}}">Home</a></li>
-                            <li><a href="#">How Does it Work</a></li>
-                            <li><a href="#">How do we get our Information</a></li>
+                            <li><a href="{{url('/')}}">{{__('footer.home')}}</a></li>
+                            <li><a href="#">{{__('footer.how_dose')}}</a></li>
+                            <li><a href="#">{{__('footer.how_do')}}</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-2 col-xs-6 col-mb-12 last-widget">
                     <div class="widget">
                         <ul class="menu">
-                            <li><a href="{{url('/signup')}}">Sign Up</a></li>
-                            <li><a href="{{url('/signin')}}">Sign In</a></li>
-                            <li><a href="{{url('/plans')}}">Plans</a></li>
-                            <li><a href="{{url('/devices')}}">Devices</a></li>
+                            <li><a href="{{url('/signup')}}">{{__('footer.signup')}}</a></li>
+                            <li><a href="{{url('/signin')}}">{{__('footer.login')}}</a></li>
+                            <li><a href="{{url('/plans')}}">{{__('footer.plan')}}</a></li>
+                            <li><a href="{{url('/devices')}}">{{__('footer.device')}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -38,13 +38,13 @@
                 <div class="col-md-6">
                     <div class="site-info text-left footer-lef">
                         <ul class="footer-menu">
-                            <li><a href="{{url('/')}}">About</a></li>
-                            <li><a href="#">Terms of Service </a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Cookie Policy</a></li>
-                            <li><a href="#">Contact US</a></li>
+                            <li><a href="{{url('/')}}">{{__('footer.about')}}</a></li>
+                            <li><a href="#">{{__('footer.term')}} </a></li>
+                            <li><a href="#">{{__('footer.privacy')}}</a></li>
+                            <li><a href="#">{{__('footer.cookie')}}</a></li>
+                            <li><a href="#">{{__('footer.contact')}}</a></li>
                         </ul>
-                        <p>Telecey © {{date('Y')}}. All rights Reserved </p>
+                        <p>Telecey © {{date('Y')}}. {{__('footer.copyright')}} </p>
                     </div>
                 </div>
                 <div class="col-md-6">

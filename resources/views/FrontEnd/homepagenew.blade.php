@@ -12,10 +12,10 @@
 				</div>
 				<ul class="nav nav-tabs tab-selection  mt-5">
 					<li class="nav-item">
-						<a class="nav-link active" data-toggle="tab" href="#plan">Plans</a>
+						<a class="nav-link active" data-toggle="tab" href="#plan">{{__('home.plan')}}</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#device">Devices</a>
+						<a class="nav-link" data-toggle="tab" href="#device">{{__('home.device')}}</a>
 					</li>
 				</ul>
 				<div class="tab-content">
@@ -63,7 +63,7 @@
 							</div>
 							<div class="row">
 								<div class="col-md-12 text-center">
-									<button type="submit" class="searchnow-button">Search Now</button>
+									<button type="submit" class="searchnow-button">{{__('home.search_now_btn')}}</button>
 								</div>
 							</div>
 						</form>
@@ -100,7 +100,7 @@
 							<div class="row">
 								<input type="hidden" value="20" name="rows"/>
 								<div class="col-md-12 text-center">
-									<button type="submit" class="searchnow-button">Search Now</button>
+									<button type="submit" class="searchnow-button">{{__('home.desearch_now_btn')}}</button>
 								</div>
 							</div>
 						</form>
@@ -236,13 +236,13 @@ Check and share your telco experience with every one'!!}</h2>
 		<div class="row my-5 align-items-center">
 			<div class="col-6">
 				<div class="service-inner text-right">
-					<a href="{{url('/plans')}}" class="service-section-plan">Plan</a>
+					<a href="{{url('/plans')}}" class="service-section-plan">{{__('home.plan')}}</a>
 					@if($settings)
 						@if($settings->device == 1)
-							<a href="{{url('/devices')}}" class="service-section-device">Device</a>
+							<a href="{{url('/devices')}}" class="service-section-device">{{__('home.device')}}</a>
 						@endif
 					@else
-						<a href="{{url('/devices')}}" class="service-section-device">Device</a>
+						<a href="{{url('/devices')}}" class="service-section-device">{{__('home.device')}}</a>
 					@endif
 				</div>
 			</div>
@@ -272,7 +272,7 @@ Check and share your telco experience with every one'!!}</h2>
 		<div class="row">
 			<div class="col-12 text-center">
 				<div class="heading detail-div mb-5">
-					<h1 class="device-heading-title">How Does it Work</h1>
+					<h1 class="device-heading-title">{{__('home.how_it_work')}}</h1>
 				</div>
 			</div>
 			<div class="col-12">
@@ -283,13 +283,13 @@ Check and share your telco experience with every one'!!}</h2>
 								<i class="fa fa-search"></i>
 							</div>
 							<div class="work-title font-weight-bold my-5 text-uppercase">
-								Search
+							{{__('home.title_one')}}
 							</div>
 							<div class="work-content text-center mb-4">
-								Search for the service you are looking for Personal/Business, Mobile/Fixed internet ? 
+							{{__('home.description_one')}}
 							</div>
 							<div class="work-button">
-								<a>Start now <i class="fa fa-angle-right"></i></a>
+								<a>{{__('home.btn_one')}} <i class="fa fa-angle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -299,13 +299,13 @@ Check and share your telco experience with every one'!!}</h2>
 								<i class="fa fa-bullhorn"></i>
 							</div>
 							<div class="work-title font-weight-bold my-5 text-uppercase">
-								Research Companies
+								{{__('home.title_two')}}
 							</div>
 							<div class="work-content text-center mb-4">
-								Look at other users reviews and feedback, Start with your neighbors whose using the service and see how its working for them  
+								{{__('home.description_two')}}  
 							</div>
 							<div class="work-button">
-								<a>Start now <i class="fa fa-angle-right"></i></a>
+								<a>{{__('home.btn_two')}} <i class="fa fa-angle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -315,13 +315,13 @@ Check and share your telco experience with every one'!!}</h2>
 								<i class="fa fa-usd"></i>
 							</div>
 							<div class="work-title font-weight-bold my-5 text-uppercase">
-								Get The best deal 
+								{{__('home.title_three')}}
 							</div>
 							<div class="work-content text-center mb-4">
-								Compare prices and see how much others are paying for the service 
+								{{__('home.description_three')}}
 							</div>
 							<div class="work-button">
-								<a>Start now <i class="fa fa-angle-right"></i></a>
+								<a>{{__('home.btn_three')}} <i class="fa fa-angle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -331,13 +331,13 @@ Check and share your telco experience with every one'!!}</h2>
 								<i class="fa fa-share-alt"></i>
 							</div>
 							<div class="work-title font-weight-bold my-5 text-uppercase">
-								Share
+								{{__('home.title_four')}}
 							</div>
 							<div class="work-content text-center mb-4">
-								Share your own experience with your current provider and let everyone benefit  
+								{{__('home.description_four')}}  
 							</div>
 							<div class="work-button">
-								<a>Start now <i class="fa fa-angle-right"></i></a>
+								<a>{{__('home.btn_four')}} <i class="fa fa-angle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -348,8 +348,8 @@ Check and share your telco experience with every one'!!}</h2>
 			<div class="col-10 offset-md-1">
 				<div class="sign-up-email">
 					<div class="form-group fields">
-						<input type="text" class="form-control" placeholder="Your email">
-						<button class="register-button">Register for free</button>
+						<input type="text" class="form-control" placeholder="{{__('home.your_email')}}">
+						<button class="register-button">{{__('home.email_btn')}}</button>
 					</div>
 				</div>
 			</div>
@@ -364,7 +364,7 @@ Check and share your telco experience with every one'!!}</h2>
 					</div>
 					<div class="col-10 mb-3">
 						<div class="content-section">
-							Moving your home and don't know if your current service is still suitable?
+							{{__('home.list_one')}}
 						</div>
 					</div>
 					<div class="col-2 text-center mb-3">
@@ -374,7 +374,7 @@ Check and share your telco experience with every one'!!}</h2>
 					</div>
 					<div class="col-10 mb-3">
 						<div class="content-section">
-							Looking for a new mobile device or a mobile plan?
+						{{__('home.list_two')}}
 						</div>
 					</div>
 					<div class="col-2 text-center mb-3">
@@ -384,7 +384,7 @@ Check and share your telco experience with every one'!!}</h2>
 					</div>
 					<div class="col-10 mb-3">
 						<div class="content-section">
-							Changing your mobile carrier?
+						{{__('home.list_three')}}
 						</div>
 					</div>
 					<div class="col-2 text-center mb-3">
@@ -394,7 +394,7 @@ Check and share your telco experience with every one'!!}</h2>
 					</div>
 					<div class="col-10 mb-3">
 						<div class="content-section">
-							Search other users reviews and feed back for the best plan in the area Find out the best product that fits your need, budget and expectation with us
+						{{__('home.list_four')}}
 						</div>
 					</div>
 				</div>
@@ -403,13 +403,13 @@ Check and share your telco experience with every one'!!}</h2>
 		<div class="row my-5">
 			<div class="col-12">
 				<div class="plan-device-button text-center">
-					<a href="{{url('/plans')}}" class="btn btn-blue">Plan</a>
+					<a href="{{url('/plans')}}" class="btn btn-blue">{{__('home.plan')}}</a>
 					@if($settings)
 						@if($settings->device == 1)
-							<a href="{{url('/devices')}}" class="btn btn-green">Device</a>
+							<a href="{{url('/devices')}}" class="btn btn-green">{{__('home.device')}}</a>
 						@endif
 					@else
-					<a href="{{url('/devices')}}" class="btn btn-green">Device</a>
+					<a href="{{url('/devices')}}" class="btn btn-green">{{__('home.device')}}</a>
 					@endif
 				</div>
 			</div>
@@ -480,7 +480,7 @@ Check and share your telco experience with every one'!!}</h2>
 		</div>
 		<div class="row mb-3">
 			<div class="col-lg-12 text-center">
-					<a class="common-btn" href="{{url('blogs-list')}}">See all</a>
+					<a class="common-btn" href="{{url('blogs-list')}}">{{__('home.see_all')}}</a>
 			</div>
 		</div>
 		

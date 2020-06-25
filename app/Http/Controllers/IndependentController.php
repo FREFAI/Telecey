@@ -20,7 +20,16 @@ use DB, Excel, Auth;
 
 class IndependentController extends Controller
 {
-   
+   public function localSet(Request $request)
+   {
+       if($request->lang == 'en'){
+        $url = str_replace("/fr","/en",$request->current_url);
+       }else{
+        $url = str_replace("/en","/fr",$request->current_url);
+       }
+        \Session::put('locale',$request->lang);
+        return redirect($url);
+   }
     public function addNikNameIfNotExist()
     {
       $users = User::get();

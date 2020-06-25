@@ -56,7 +56,12 @@
                                 <div class="row">
                                   <div class="col-md-12">
                                     <div class="form-group">
+                                      <label>English</label>
                                       <textarea class="from-control text_editor" id="first-test" name="section_one" maxlength="100"  required="">{{$homeContent ? $homeContent->section_one : ''}}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                      <label>French</label>
+                                      <textarea class="from-control text_editor" name="section_one_fr" maxlength="100">{{$homeContent ? $homeContent->section_one_fr : ''}}</textarea>
                                     </div>
                                     <div class="col-lg-12">
                                       <div class="image_upload_div">
@@ -138,7 +143,12 @@
                                   <div class="row">
                                     <div class="col-md-12">
                                       <div class="form-group">
-                                        <textarea class="form-control text_editor" id="first-test" name="section_two" required="" placeholder="Second Section">{{$homeContent ? $homeContent->section_two : ''}}</textarea>
+                                        <label for="">English</label>
+                                        <textarea class="form-control text_editor" id="first-test" name="section_two" required="" placeholder="For english language">{{$homeContent ? $homeContent->section_two : ''}}</textarea>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="">French</label>
+                                        <textarea class="form-control text_editor" name="section_two_fr" placeholder="For french language">{{$homeContent ? $homeContent->section_two_fr : ''}}</textarea>
                                       </div>
                                       <div class="form-group">
                                         <button type="submit" class="btn btn-primary">Save</button>
@@ -172,10 +182,14 @@
                                   <div class="row">
                                     <div class="col-lg-4">
                                       <div class="mb-2">
-                                        <small><strong>Labels </strong></small>
+                                        <small><strong>Labels in English</strong></small>
                                       </div>
                                       <div class="form-group">
                                         <input class="form-control" name="label_1" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_1 != '') ? $homeContent->section_six->label_1 :'' }}"/>
+                                        <div>
+                                          <small><strong>Labels in French</strong></small>
+                                        </div>
+                                        <input class="form-control mt-1" name="label_fr_1" value="{{ $homeContent && ($homeContent->section_six != '' && (isset($homeContent->section_six->label_fr_1) && $homeContent->section_six->label_fr_1 != '')) ? $homeContent->section_six->label_fr_1 :'' }}"/>
                                       </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -215,8 +229,15 @@
                                       </div>   
                                     </div>
                                     <div class="col-lg-4 mt-3">
+                                    <div class="mb-2">
+                                        <small><strong>Labels in English</strong></small>
+                                      </div>
                                       <div class="form-group">
                                         <input class="form-control"name="label_2" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_2 != '') ? $homeContent->section_six->label_2 :'' }}"/>
+                                        <div>
+                                          <small><strong>Labels in French</strong></small>
+                                        </div>
+                                        <input class="form-control mt-1" name="label_fr_2" value="{{ $homeContent && ($homeContent->section_six != '' && (isset($homeContent->section_six->label_fr_2) && $homeContent->section_six->label_fr_2 != '')) ? $homeContent->section_six->label_fr_2 :'' }}"/>
                                       </div>
                                     </div>
                                     <div class="col-lg-4 mt-3">
@@ -251,8 +272,15 @@
                                       </div>   
                                     </div>
                                     <div class="col-lg-4 mt-3">
+                                      <div class="mb-2">
+                                        <small><strong>Labels in English</strong></small>
+                                      </div>
                                       <div class="form-group">
                                         <input class="form-control" name="label_3" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_3 != '') ? $homeContent->section_six->label_3 :'' }}"/>
+                                        <div>
+                                          <small><strong>Labels in French</strong></small>
+                                        </div>
+                                        <input class="form-control mt-1" name="label_fr_3" value="{{ $homeContent && ($homeContent->section_six != '' && (isset($homeContent->section_six->label_fr_3) && $homeContent->section_six->label_fr_3 != '')) ? $homeContent->section_six->label_fr_3 :'' }}"/>
                                       </div>
                                     </div>
                                     <div class="col-lg-4 mt-3">
@@ -287,8 +315,15 @@
                                       </div>   
                                     </div>
                                     <div class="col-lg-4 mt-3">
+                                      <div class="mb-2">
+                                        <small><strong>Labels in English</strong></small>
+                                      </div>
                                       <div class="form-group">
                                         <input class="form-control" name="label_4" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_4 != '') ? $homeContent->section_six->label_4 :'' }}"/>
+                                        <div>
+                                          <small><strong>Labels in French</strong></small>
+                                        </div>
+                                        <input class="form-control mt-1" name="label_fr_4" value="{{ $homeContent && ($homeContent->section_six != '' && (isset($homeContent->section_six->label_fr_4) && $homeContent->section_six->label_fr_4 != '')) ? $homeContent->section_six->label_fr_4 :'' }}"/>
                                       </div>
                                     </div>
                                     <div class="col-lg-4 mt-3">
@@ -323,8 +358,15 @@
                                       </div>   
                                     </div>
                                     <div class="col-lg-4 mt-3">
+                                      <div class="mb-2">
+                                        <small><strong>Labels in English</strong></small>
+                                      </div>
                                       <div class="form-group">
                                         <input class="form-control"name="label_5" value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_5 != '') ? $homeContent->section_six->label_5 :'' }}"/>
+                                        <div>
+                                          <small><strong>Labels in French</strong></small>
+                                        </div>
+                                        <input class="form-control mt-1" name="label_fr_5" value="{{ $homeContent && ($homeContent->section_six != '' && (isset($homeContent->section_six->label_fr_5) && $homeContent->section_six->label_fr_5 != '')) ? $homeContent->section_six->label_fr_5 :'' }}"/>
                                       </div>
                                     </div>
                                     <div class="col-lg-4 mt-3">
@@ -359,9 +401,16 @@
                                       </div>   
                                     </div>
                                     <div class="col-lg-4 mt-3">
+                                      <div class="mb-2">
+                                        <small><strong>Labels in English</strong></small>
+                                      </div>
                                       <div class="form-group">
                                         <input class="form-control"name="label_6" 
                                         value="{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_6 != '') ? $homeContent->section_six->label_6 :'' }}"/>
+                                        <div>
+                                          <small><strong>Labels in French</strong></small>
+                                        </div>
+                                        <input class="form-control mt-1" name="label_fr_6" value="{{ $homeContent && ($homeContent->section_six != '' && (isset($homeContent->section_six->label_fr_6) && $homeContent->section_six->label_fr_6 != '')) ? $homeContent->section_six->label_fr_6 :'' }}"/>
                                       </div>
                                     </div>
                                     <div class="col-lg-4 mt-3">
@@ -411,7 +460,12 @@
                                   <div class="row">
                                     <div class="col-md-12">
                                       <div class="form-group">
+                                        <label for="">English</label>
                                         <textarea rows="10"class="form-control text_editor" name="section_three" required=""  placeholder="Section Four">{{$homeContent ? $homeContent->section_three : ''}}</textarea>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="">French</label>
+                                        <textarea rows="10"class="form-control text_editor" name="section_three_fr"  placeholder="Section Four">{{$homeContent ? $homeContent->section_three_fr : ''}}</textarea>
                                       </div>
                                       <div class="form-group">
                                         <button type="submit" class="btn btn-primary">Save</button>
@@ -428,10 +482,20 @@
                                 <div class="row">
                                   <div class="col-md-12">
                                     <div class="form-group">
-                                      <input value="{{$homeContent ? $homeContent->section_four : ''}}" type="text" maxlength="100" class="form-control text_editor" placeholder="Section Five" name="section_four" required="">
+                                    <label for="">Title in English</label>
+                                      <input value="{{$homeContent ? $homeContent->section_four : ''}}" type="text" maxlength="100" class="form-control text_editor" placeholder="Section Five" name="section_four">
                                     </div>
                                     <div class="form-group">
-                                      <textarea rows="10"class="form-control text_editor" name="section_four_description" required=""  placeholder="Five Section">{{$homeContent ? $homeContent->section_four_description : ''}}</textarea>
+                                    <label for="">Title in French</label>
+                                      <input value="{{$homeContent ? $homeContent->section_four_fr : ''}}" type="text" maxlength="100" class="form-control text_editor" placeholder="Section Five" name="section_four_fr" >
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="">Description in English</label>
+                                      <textarea rows="10"class="form-control text_editor" name="section_four_description"  placeholder="Five Section">{{$homeContent ? $homeContent->section_four_description : ''}}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="">Description in French</label>
+                                      <textarea rows="10"class="form-control text_editor" name="section_four_description_fr"  placeholder="Five Section">{{$homeContent ? $homeContent->section_four_description_fr : ''}}</textarea>
                                     </div>
                                     <input type="hidden" class="form-control" name="section_four_image_old" value="{{$homeContent ? $homeContent->section_four_image : ''}}">
                                     <div class="col-lg-12 mb-4">

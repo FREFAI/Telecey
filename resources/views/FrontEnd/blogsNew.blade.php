@@ -11,12 +11,12 @@
 	        <div class="container mt-5">
                         <div class="row mt-4">
                             <div class="col-lg-6">
-                                <h5>All Blogs</h5>
+                                <h5>{{ __('blog.list_title') }}</h5>
                             </div>
                             <div class="col-lg-6">
                                 <form class="form-inline float-right">
-                                        <input value="{{$params['search']}}" name="search" type="text" placeholder="Search Here..." class="form-control input-css">
-                                        <button type="submit" class="common-btn"> Search</button>
+                                        <input value="{{$params['search']}}" name="search" type="text" placeholder="{{ __('blog.search_input') }}" class="form-control input-css">
+                                        <button type="submit" class="common-btn"> {{ __('blog.search_btn') }}</button>
                                 </form>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="blog-button mt-3">
                                         <p>
-                                            <a href="{{url('/single-blog')}}/{{base64_encode($blog->id)}}" class="searchnow-button">Read More</a>
+                                            <a href="{{url('/single-blog')}}/{{base64_encode($blog->id)}}" class="searchnow-button">{{ __('blog.read_more') }}</a>
                                         </p>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
 	                	<div class="col-12">
 	                		<div class="blog-post py-3">
 		                		<div class="not_found">
-		                			<h2 class="text-center">There are no posts.</h2>
+		                			<h2 class="text-center">{{ __('blog.not_found') }}</h2>
 		                		</div>
 		                	</div>
 	                	</div>

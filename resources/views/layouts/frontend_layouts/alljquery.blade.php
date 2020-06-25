@@ -29,6 +29,9 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&language=en&callback=initMap"></script>
 
 <script>
+$('.language').on('change',function(){
+  $(this).closest('form').submit();
+});
 function initMap() {
     var input = document.getElementById('searchMapInput');
   

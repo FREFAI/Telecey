@@ -35,6 +35,7 @@ class HomeController extends Controller
         }
         $validation = Validator::make($params,[
             'section_one' => 'required',
+            'section_one_fr' => 'required',
             'section_one_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:'.$size
         ]);
         if ($validation->fails()) {
@@ -86,6 +87,7 @@ class HomeController extends Controller
                 }
             }else{
                 $homeContentData->section_one = $params['section_one'];
+                $homeContentData->section_one_fr = $params['section_one_fr'];
                 $homeContentData->section_one_image_link = $params['section_one_image_link'];
                 $homeContentData->section_one_image_border_color = $params['section_one_image_border_color'];
                 if($request->hasFile('section_one_image')){
@@ -104,6 +106,7 @@ class HomeController extends Controller
         $params = $request->all();
         $validation = Validator::make($params,[
             'section_two' => 'required',
+            'section_two_fr' => 'required',
         ]);
         if ($validation->fails()) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());
@@ -119,6 +122,7 @@ class HomeController extends Controller
                 }
             }else{
                 $homeContentData->section_two = $params['section_two'];
+                $homeContentData->section_two_fr = $params['section_two_fr'];
                 if($homeContentData->save()){
                     return redirect()->back()->withInput()->with('success','Content save successfully.');
                 }else{
@@ -133,6 +137,7 @@ class HomeController extends Controller
         $params = $request->all();
         $validation = Validator::make($params,[
             'section_three' => 'required',
+            'section_three_fr' => 'required',
         ]);
         if ($validation->fails()) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());
@@ -148,6 +153,7 @@ class HomeController extends Controller
                 }
             }else{
                 $homeContentData->section_three = $params['section_three'];
+                $homeContentData->section_three_fr = $params['section_three_fr'];
                 if($homeContentData->save()){
                     return redirect()->back()->withInput()->with('success','Content save successfully.');
                 }else{
@@ -167,7 +173,9 @@ class HomeController extends Controller
         }
         $validation = Validator::make($params,[
             'section_four' => 'required',
+            'section_four_fr' => 'required',
             'section_four_description' => 'required',
+            'section_four_description_fr' => 'required',
             'section_four_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:'.$size
         ]);
         if ($validation->fails()) {
@@ -205,8 +213,10 @@ class HomeController extends Controller
                 }
             }else{
                 $homeContentData->section_four = $params['section_four'];
+                $homeContentData->section_four_fr = $params['section_four_fr'];
                 $homeContentData->section_four_image_link = $params['section_four_image_link'];
                 $homeContentData->section_four_description = $params['section_four_description'];
+                $homeContentData->section_four_description_fr = $params['section_four_description_fr'];
                 if($request->hasFile('section_four_image')){
                     $homeContentData->section_four_image = $params['section_four_image'];
                 }

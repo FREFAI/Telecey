@@ -8,7 +8,7 @@
 		<div class="row align-items-center">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="device-heading-title">Search for Plans</h1>
+					<h1 class="device-heading-title">{{__('plan.title')}}</h1>
 				</div>
 			</div>
 			<div class="col-7 text-right">
@@ -26,7 +26,7 @@
 										<option value="{{$type->id}}" @if( request()->get('service_type') ) @if( request()->get('service_type') == $type->id) selected @endif @endif>{{$type->service_type_name}}</option>
 									@endforeach
 								@else
-									<option disabled="">Not found</option>
+									<option disabled="">{{__('plan.not_found')}}</option>
 								@endif
 							</select>
 						@endif
@@ -118,7 +118,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12 text-center">
-							<button type="submit" class="searchnow-button">Search Now</button>
+							<button type="submit" class="searchnow-button">{{__('plan.search_now_btn')}}</button>
 						</div>
 					</div>
 				</form>
@@ -132,7 +132,7 @@
 		<div class="row">
 			<div class="col-12 text-center my-5">
 				<div class="heading detail-div">
-					<h1 class="device-heading-title">Provider Near By</h1>
+					<h1 class="device-heading-title">{{__('plan.provider_title')}}</h1>
 				</div>
 			</div>
 

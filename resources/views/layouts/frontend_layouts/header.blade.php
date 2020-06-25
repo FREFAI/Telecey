@@ -18,24 +18,34 @@
                 <div class="collapse navbar-collapse float-right" id="main-navbar">
                     <ul class="navbar-nav mr-auto w-100 mt-4">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('/')}}">Home</a>
+                            <a class="nav-link" href="{{url('/')}}">{{__('header.home')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('/plans')}}">Plan</a>
+                            <a class="nav-link" href="{{url('/plans')}}">{{__('header.plan')}}</a>
                         </li>
                         @if($settings)
                             @if($settings->device == 1)
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('/devices')}}">Devices</a>
+                                    <a class="nav-link" href="{{url('/devices')}}">{{__('header.device')}}</a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/devices')}}">Devices</a>
+                                <a class="nav-link" href="{{url('/devices')}}">{{__('header.device')}}</a>
                             </li>
                         @endif
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('/blogs-list')}}">Blog</a>
+                            <a class="nav-link" href="{{url('/blogs-list')}}">{{__('header.blog')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <form action="{{url('/setLocal')}}" method="post" class="mt-4">
+                            @csrf
+                            <input type="hidden" name="current_url" value="{{Request::url()}}">
+                                <select name="lang" class="language">
+                                    <option @if(!\Session::get('locale') || (\Session::get('locale') && \Session::get('locale') == "en")) selected="" @endif value="en">English</option>
+                                    <option @if(\Session::get('locale') && \Session::get('locale') == "fr") selected="" @endif value="fr">French</option>
+                                </select>
+                            </form>
                         </li>
                         <li class="nav-item">
                             <div class="social">
@@ -58,8 +68,8 @@
                                                 {{ Auth::guard('customer')->user()['nickname'] }}
                                             @endif
                                         </a>
-                                        <a class="nav-link mt-0 mb-0" href="{{url('/reviews')}}">Personal Information</a>
-                                        <a class="nav-link mt-0 mb-0" href="{{url('/logout')}}">Logout</a>
+                                        <a class="nav-link mt-0 mb-0" href="{{url('/reviews')}}">{{__('header.personal_menu')}}</a>
+                                        <a class="nav-link mt-0 mb-0" href="{{url('/logout')}}">{{__('header.logout')}}</a>
                                         
                                     </div>
                                 </li>
@@ -67,10 +77,10 @@
                         </li>
                         @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('/signin')}}">Log In</a>
+                            <a class="nav-link" href="{{url('/signin')}}">{{__('header.login_button')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a id="signup-btn" class="nav-link btn-signup" href="{{url('/signup')}}">Sign Up</a>
+                            <a id="signup-btn" class="nav-link btn-signup" href="{{url('/signup')}}">{{__('header.signup_button')}}</a>
                         </li>
                         @endif
                     </ul>

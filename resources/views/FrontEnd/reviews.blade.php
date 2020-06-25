@@ -255,36 +255,36 @@
 	                        <h2 class="pt-3 text-white">1</h2>
 	                        <h3 class="pt-3 custom-height-cl">PLEASE INTRODUCE YOUR SELF</h3> -->
 	                        <section class="get-in-touch">
-	                            <p class="title pt-3">Join our mailing list</p>
-	                            <p class="pt-2 pb-3 text-black text-left">Never miss an update</p>
+	                            <p class="title pt-3">{{ __('review.form_title') }}</p>
+	                            <p class="pt-2 pb-3 text-black text-left">{{ __('review.form_sub_title') }}</p>
 	                            <form class="contact-form row" id="firstform">
 	                                <div class="form-field col-lg-6">
 	                                    <input id="firstname" class="input-text js-input" type="text" required value="{{$usersDetail->firstname}}" name="firstname">
-	                                    <label class="label" for="name">First Name</label>
+	                                    <label class="label" for="name">{{ __('review.first_name') }}</label>
 	                                </div>
 	                                <div class="form-field col-lg-6">
 	                                    <input id="lastname" class="input-text js-input" type="text" required value="{{$usersDetail->lastname}}" name="lastname">
-	                                    <label class="label" for="name">Last Name</label>
+	                                    <label class="label" for="name">{{ __('review.last_name') }}</label>
 	                                </div>
 	                                <div class="form-field col-lg-6 country_div" id="country_div">
 	                                    <input id="country" class="input-text js-input" type="text" required value="{{$usersDetail->country}}" name="country" autocomplete="no">
-                                        <label class="label" for="country">Country</label>
+                                        <label class="label" for="country">{{ __('review.country') }}</label>
 	                                </div>
 	                                <div class="form-field col-lg-6 city_div" id="city_div">
 	                                    <input id="city" class="input-text js-input city_input" type="text" required value="{{$usersDetail->city}}" name="city"  autocomplete="no" data-country="{{$usersDetail->country_code}}">
-	                                    <label class="label" for="city">City</label>
+	                                    <label class="label" for="city">{{ __('review.city') }}</label>
 	                                </div>
 	                                <div class="form-field col-lg-12 ">
 	                                    <input id="email" class="input-text js-input" type="email" value="{{$usersDetail->email}}" disabled="">
-	                                    <label class="label" for="email">E-mail</label>
+	                                    <label class="label" for="email">{{ __('review.email') }}</label>
 	                                </div>
 	                                <div class="form-field col-lg-12 ">
 	                                        <input id="postal_code" class="input-text js-input" type="text" value="{{$usersDetail->postal_code}}" name="postal_code" autocomplete="no">
-	                                        <label class="label" for="number">Postal Code</label>
+	                                        <label class="label" for="number">{{ __('review.postal_code') }}</label>
 	                                    </div>
 	                                <div class="form-field col-lg-12 ">
 	                                    <input id="mobile_number" class="input-text js-input" type="text" value="{{$usersDetail->mobile_number}}" name="mobile_number"autocomplete="no">
-	                                    <label class="label" for="phone">Contact Number</label>
+	                                    <label class="label" for="phone">{{ __('review.phone') }}</label>
                                     </div>
                                     <input type="hidden" name="latitude" id="lat" value="{{$lat}}">
                                     <input type="hidden" name="longitude" id="long" value="{{$long}}">
@@ -293,7 +293,7 @@
 	                                    <label class="custom-control-label" for="Check33">Agree to terms and conditions</label>
 	                                    </div> -->
 	                                <div class="form-field col-lg-12">
-	                                    <input class="submit-btn" type="submit" value="Submit">
+	                                    <input class="submit-btn" type="submit" value="{{ __('review.submit_btn') }}">
 	                                </div>
 	                            </form>
                                 
@@ -321,7 +321,7 @@
                             @else
                                 <h1>STEP #2</h1>
                             @endif
-                            <h1>What About Sharing You Service with others?</h1>
+                            <h1>{{ __('review.step_2_title') }}</h1>
                         </div>
                     </div>
                 </div>
@@ -332,11 +332,11 @@
                         <div class="col-lg-12">
                             <ul class="nav nav-tabs tab-selection">
                                 <li class="nav-item">
-                                    <a class="nav-link active select_one" data-value="services-section" data-toggle="tab" href="#menu1">Plans</a>
+                                    <a class="nav-link active select_one" data-value="services-section" data-toggle="tab" href="#menu1">{{ __('review.plan') }}</a>
                                 </li>
                                 @if($settings->device == 1)
                                 <li class="nav-item">
-                                    <a class="nav-link @if(Request::get('type') == 2) active @endif  select_one" data-value="product-section" data-toggle="tab" href="#home">Devices</a>
+                                    <a class="nav-link @if(Request::get('type') == 2) active @endif  select_one" data-value="product-section" data-toggle="tab" href="#home">{{ __('review.device') }}</a>
                                 </li>
                                 @endif
                                 
@@ -350,7 +350,7 @@
                     <form id="device_rating_form" method="post" action="javascript:void(0);">
                         <div class="row mt-1">
                             <div class="col-lg-6">
-                                <h5>Device type</h5>
+                                <h5>{{ __('review.device_type') }}</h5>
                                 <div class="tg-select form-control">
                                     <select required="required" name="device_name" id="device_id">
                                         @if(count($devices) > 0)
@@ -365,7 +365,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                    <h5>Brand</h5>
+                                    <h5>{{ __('review.brand') }}</h5>
                                     <div class="form-group inputwithicon">
                                         <div class="selectreview">
                                             <select class="brand_name active brand_select_brand_device" required="required" name="brand_name" data-url="{{url('/searchBrand')}}">
@@ -388,7 +388,7 @@
                         </div>
                         <div class="row mt-1">
                             <div class="col-lg-6 ">
-                                <h5>Price</h5>
+                                <h5>{{ __('review.price') }}</h5>
                                 <div class="form-group mb-0">
                                     <select class="currency_id">
                                         @foreach($countries as $curr)
@@ -400,11 +400,11 @@
                                         @endforeach
                                     </select>
                                     <input type="text" class="form-control price-box device-price" name="price" placeholder="Price" required id="price">  
-                                    <small><input type="checkbox" checked> Including Tax</small>    
+                                    <small><input type="checkbox" checked> {{ __('review.include') }}</small>    
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <h5>Supplier</h5>
+                                <h5>{{ __('review.supplier') }}</h5>
                                 <div class="tg-select form-control supplier_select mb-0">
                                     <select name="supplier" id="supplier" class="supplier_name active">
                                         @if(count($suppliers) > 0)
@@ -428,7 +428,7 @@
                         </div>
                         <div class="row align-items-center">
                             <div class="col-lg-3">
-                                <h5>Capacity</h5>
+                                <h5>{{ __('review.capacity') }}</h5>
                                 <div class="tg-select form-control mb-0">
                                     <select required="required" name="storage" id="storage">
                                         <option value="">Choose Capacity</option>
@@ -441,7 +441,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-3">
-                                <h5>Color</h5>
+                                <h5>{{ __('review.color') }}</h5>
                                 <div class="tg-select form-control mb-0">
                                     <select  name="device_color" id="device_color">
                                         
@@ -465,7 +465,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group text-right">
-                                    <button type="submit" class="btn btn-primary btn-sm btn-block product-submit-btn">Submit</button>
+                                    <button type="submit" class="btn btn-primary btn-sm btn-block product-submit-btn">{{ __('review.submit_btn') }}</button>
                                 </div>
                             </div>
                         </div>
@@ -485,13 +485,13 @@
                                     @else
                                         <h1>STEP #3</h1>
                                     @endif
-                                    <h1>What about Rating Your Service Today?</h1>
+                                    <h1>{{ __('review.step_3_title') }}</h1>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="heading detail-div">
-                                <h1 class="section-title">Rating</h1>
+                                <h1 class="section-title">{{ __('review.rating') }}</h1>
                             </div>
                         </div>
                         <div class="row device_starrating_error d-none">
@@ -561,8 +561,8 @@
                                 <div class="form-group ml-auto mr-auto text-right">
                                     <input type="hidden" name="type" class="device-type" value="2">
                                     <input type="hidden" name="device_id" class="device_id">
-                                    <button type="submit" class="common-btn device-rating-submit-btn-add">Submit</button>
-                                    <button type="submit" class="btn  btn-lg btn-primary device-rating-submit-btn d-none">Submit</button>                                    
+                                    <button type="submit" class="common-btn device-rating-submit-btn-add">{{ __('review.submit_btn') }}</button>
+                                    <button type="submit" class="btn  btn-lg btn-primary device-rating-submit-btn d-none">{{ __('review.submit_btn') }}</button>                                    
                                 </div>
                             </div>
                         </div>
@@ -576,7 +576,7 @@
 	                	<form class="reveiewing_form_service">
 	                    	<div class="row mt-3">
 	                            <div class="col-lg-6 ">
-	                                <h5>Provider Name</h5>
+	                                <h5>{{ __('review.provider_name') }}</h5>
 	                                <div class="tg-select form-control provider_select mb-0">
 	                                     <select class="provider_name active" name="provider_name" required="required">
 	                                         <option value="">Please select provider</option>
@@ -590,7 +590,7 @@
 	                                     </select>
 	                                 </div>
                                     <div class="form-group provider_text mb-2">
-                                        <input type="text" class="form-control provider_name text_provider_name" name="provider_name" placeholder="Provider name" maxlength="30">      
+                                        <input type="text" class="form-control provider_name text_provider_name" name="provider_name" placeholder="{{ __('review.provider_name') }}" maxlength="30">      
                                         <input type="hidden" class="form-control provider_status" name="provider_status" placeholder="Provider status">      
                                     </div>
                                     <small>
@@ -600,7 +600,7 @@
 	                            <div class="col-lg-6">
 	                                <div class="row align-items-center">
 	                                    <div class="col-lg-6">
-                             	            <h5 class="pt-3">Contract type</h5>
+                             	            <h5 class="pt-3">{{ __('review.contract') }}</h5>
                                             <div class="form-group review_page">
                                                 <span class="ext-default reviewpage_toggle active">Personal</span>
                                                 <label class="switch">
@@ -615,7 +615,7 @@
 	                                        </div> -->
 	                                    </div>
                                         <div class="col-lg-6 pt-3">
-                                            <h5>Payment type</h5>
+                                            <h5>{{ __('review.payment') }}</h5>
                                             <div class="form-group review_page">
                                                 <span class="ext-default reviewpage_toggle active">Postpaid</span>
                                                 <label class="switch">
@@ -635,7 +635,7 @@
 	                        </div>
 	                        <div class="row mt-1">
                                 <div class="col-lg-6">
-	                                <h5>Service type</h5>
+	                                <h5>{{ __('review.service') }}</h5>
 	                                <div class="tg-select form-control">
 	                                    <select class="service_type" required>
 	                                    	<option value="">Select service type</option>
@@ -652,7 +652,7 @@
                                 <div class="col-lg-6">
                                     <div class="row align-items-center">
                                         <div class="col-lg-4 d-none">
-                                            <h5>Pay as usage</h5>
+                                            <h5>{{ __('review.pay_as') }}</h5>
                                             <div class="form-group review_page">
                                                 <span class="ext-default reviewpage_toggle active">OFF</span>
                                                 <label class="switch">
@@ -670,10 +670,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <h6>Whats included in your plan?</h6>
+                            <h6>{{ __('review.plan_title') }}</h6>
                             <div class="row mt-1">
                                 <div class="col-lg-3">
-                                    <h5>Device</h5>
+                                    <h5>{{ __('review.device') }}</h5>
                                     <div class="form-group inputwithicon">
                                         <div class="selectreview">
                                             <select class="brand_select_brand_device device_select" name="device"  data-url="{{url('/searchBrand')}}">
@@ -686,7 +686,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 pay_as_usage_class">
-                                    <h5>Local Minutes</h5>
+                                    <h5>{{ __('review.loc_min') }}</h5>
 
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control local_min mint_input"  name="local_min" placeholder="Local Minutes" required="required"  maxlength="20" value="100">
@@ -696,7 +696,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 pay_as_usage_class">
-                                    <h5>DataVolume</h5>
+                                    <h5>{{ __('review.datavolume') }}</h5>
                                     <div class="input-group mb-3">
                                     <input type="text" class="form-control datavolume " name="datavolume" placeholder="Data Volume" required="required" maxlength="20" value="2">
                                         <div class="input-group-append">
@@ -713,18 +713,18 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <h6>How much are you paying</h6>
+                                    <h6>{{ __('review.paying_title') }}</h6>
                                 </div>
                                 <div class="col-lg-6 text-right">
                                     <a href="javascript:void(0)" class="pay_as_model link" onclick="resetUsageButton()">
-                                        <h5><u>Is it Pay as you go?</u></h5>
+                                        <h5><u>{{ __('review.pay_us') }}</u></h5>
                                     </a>
                                 </div>
                             </div>
                             
                             <div class="row mt-1">
                                 <div class="col-lg-6">
-	                                <h5>How much are you paying monthly  </h5>
+	                                <h5>{{ __('review.paying') }}  </h5>
 	                                <div class="form-group mb-1">
                                         <select class="currency_id">
                                             @foreach($countries as $curr)
@@ -736,23 +736,23 @@
                                             @endforeach
                                         </select>
 	                                    <input type="text" class="form-control price-box price" name="price" placeholder="Price" required>	
-                                        <div class="text-right text-10"><small>Including Tax</small></div>
+                                        <div class="text-right text-10"><small>{{ __('review.include') }}</small></div>
 	                                </div>
 	                            </div>
                                 <div class="col-lg-6">
-                                    <h5>Upfront price</h5>
+                                    <h5>{{ __('review.upfront') }}</h5>
                                     <div class="form-group mb-1">
                                         <input type="number" class="form-control upfront_price" name="upfront_price" placeholder="Upfront price"  maxlength="20" value="0">	
-                                        <div class="text-right text-10"><small>Including Tax</small></div>
+                                        <div class="text-right text-10"><small>{{ __('review.include') }}</small></div>
                                     </div>	
                                 </div>
                             </div>
                             <small>
-                                <a href="javascript:void(0);" class="pay_as_usage_class more_info_toggle"><i class="fa fa-angle-down" style="font-size:24px"></i> Would you like to share more optional  information ?</a>
+                                <a href="javascript:void(0);" class="pay_as_usage_class more_info_toggle"><i class="fa fa-angle-down" style="font-size:24px"></i> {{ __('review.info_title') }}</a>
                             </small>
 	                        <div class="row mt-1 more_info_section" style="display:none;">
                                 <div class="col-lg-3 d-none technology">
-                                    <h5>Technology</h5>
+                                    <h5>{{ __('review.technology') }}</h5>
                                     <div class="form-group">
                                         <div class="tg-select form-control">
                                             <select class="technology_type" >
@@ -765,32 +765,32 @@
                                     </div>
                                 </div>
 	                            <div class="col-lg-3 pay_as_usage_class">
-	                                <h5>Long distance  Minutes</h5>
+	                                <h5>{{ __('review.long_minute') }}</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control long_distance_min mint_input" name="long_distance_min" placeholder="Long distance  Min" required="required" value="Unlimited" maxlength="20">		
+	                                    <input type="text" class="form-control long_distance_min mint_input" name="long_distance_min" placeholder="{{ __('review.long_minute') }}" required="required" value="Unlimited" maxlength="20">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-3 pay_as_usage_class">
-	                                <h5>International Minutes</h5>
+	                                <h5>{{ __('review.international') }}</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control international_min mint_input" name="international_min" placeholder="International Min" required="required" maxlength="20" value="0">		
+	                                    <input type="text" class="form-control international_min mint_input" name="international_min" placeholder="{{ __('review.international') }}" required="required" maxlength="20" value="0">		
 	                                </div>
 	                            </div>
 	                            <div class="col-lg-3 pay_as_usage_class">
-	                                <h5>Roaming Minutes</h5>
+	                                <h5>{{ __('review.roaming') }}</h5>
 	                                <div class="form-group">
-	                                    <input type="text" class="form-control roaming_min mint_input" name="roaming_min" placeholder="Roaming Min" required="required" maxlength="20" value="0">		
+	                                    <input type="text" class="form-control roaming_min mint_input" name="roaming_min" placeholder="{{ __('review.roaming') }}" required="required" maxlength="20" value="0">		
 	                                </div>
 	                            </div>
                                 <div class="col-lg-3 pay_as_usage_class">
-                                    <h5>Would share the overage price?</h5>
+                                    <h5>{{ __('review.overage_price') }}</h5>
                                     <div class="form-group review_page">
-                                        <span class="ext-default reviewpage_toggle active">No</span>
+                                        <span class="ext-default reviewpage_toggle active">{{ __('review.no') }}</span>
                                         <label class="switch">
                                           <input onchange="overageFunction()" type="checkbox" id="overage_price" class="price_overage">
                                           <span class="slider overage_price"></span>
                                         </label>
-                                        <span class="text-default reviewpage_toggle">Yes</span>
+                                        <span class="text-default reviewpage_toggle">{{ __('review.yes') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -811,7 +811,7 @@
                                 </div>
 	                            <div class="col-lg-6">
 	                                <div class="form-group text-right">
-	                                    <button type="submit" class="btn btn-primary btn-sm btn-block product-submit-btn">Submit</button>
+	                                    <button type="submit" class="btn btn-primary btn-sm btn-block product-submit-btn">{{ __('review.submit_btn') }}</button>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -834,13 +834,13 @@
                                     @else
                                         <h1>STEP #3</h1>
                                     @endif
-                                    <h1>What about Rating Your Service Today?</h1>
+                                    <h1>{{ __('review.step_3_title') }}</h1>
                                 </div>
                             </div>
                         </div>  
                         <div class="row">
 	               		    <div class="heading detail-div">
-	               		        <h1 class="section-title">Rating</h1>
+	               		        <h1 class="section-title">{{ __('review.rating') }}</h1>
 	               		    </div>
 	               		</div>
                         <div class="row starrating_error d-none">
@@ -884,7 +884,7 @@
                             </div>
                             <div class="col-lg-6 text-right">
                                 <div class="form-group">
-                                    <textarea class="form-control" id="comment" placeholder="Write comment here...." rows="3"></textarea>
+                                    <textarea class="form-control" id="comment" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -909,8 +909,8 @@
                                 <div class="text-right">
                                     <input type="hidden" name="type" class="plan-type" value="1">
 	               		        	<input type="hidden" name="service_id" class="service_id">
-                                    <button type="submit" class="btn  btn-sm btn-primary service-rating-submit-btn-add mt-2">Submit</button>
-                                    <button type="submit" class="btn  btn-sm btn-primary service-rating-submit-btn d-none">Submit</button>
+                                    <button type="submit" class="btn  btn-sm btn-primary service-rating-submit-btn-add mt-2">{{ __('review.submit_btn') }}</button>
+                                    <button type="submit" class="btn  btn-sm btn-primary service-rating-submit-btn d-none">{{ __('review.submit_btn') }}</button>
                                 </div>
                             </div>
 	               		</div>
@@ -927,7 +927,7 @@
 		        <div class="row pt-5 pb-5">
 		            <div class="col text-center">
 		                <div class="heading">
-		                    <h1>Top Rated Carriers in your Area</h1>
+		                    <h1>{{ __('review.footer_text') }}</h1>
 		                </div>
 		            </div>
 		        </div>
@@ -941,7 +941,7 @@
 
           <!-- Modal Header -->
           <div class="modal-header">
-            <h5>Would share the overage price?</h5>
+            <h5>{{ __('review.overage_price') }}</h5>
             <button type="button" class="close" data-dismiss="modal" onclick="resetButton()">&times;</button>
           </div>
 
@@ -950,19 +950,19 @@
             <form id="overage_price_form">
                 <div class="row">
                         <div class="col-lg-12">
-                            <h5>Voice Overage usage price (<b>Per Min</b>)</h5>
+                            <h5>{{ __('review.overage_voice_price') }}</h5>
                             <div class="form-group">
-                                <input type="text" maxlength="20" id="model_over_price" name="overage_price" class="form-control" placeholder="Voice price" required="">
+                                <input type="text" maxlength="20" id="model_over_price" name="overage_price" class="form-control" required="">
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <h5>Data Overage usage price (<b>Per MB</b>)</h5>
+                            <h5>{{ __('review.overage_data_price') }}</h5>
                             <div class="form-group">
-                                <input type="text" maxlength="20" id="model_data_price" name="data_over_age" class="form-control" placeholder="Data price" required="">
+                                <input type="text" maxlength="20" id="model_data_price" name="data_over_age" class="form-control"  required="">
                             </div>
                         </div>
                         <div class="col-lg-12 text-center">
-                            <button type="submit" class="btn btn-primary">Ok</button>
+                            <button type="submit" class="btn btn-primary">{{ __('review.ok_btn') }}</button>
                         </div>
                 </div>
             </form>
@@ -978,7 +978,7 @@
 
           <!-- Modal Header -->
           <div class="modal-header">
-            <h5>Pay as usage</h5>
+            <h5>{{ __('review.pay_as_modal_title') }}</h5>
             <button type="button" class="close" data-dismiss="modal" onclick="resetUsageButton()">&times;</button>
           </div>
 
@@ -987,19 +987,19 @@
             <form id="usage_price_form">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h5>Voice usage price (<b>Per Min</b>)</h5>
+                        <h5>{{ __('review.voice_price') }}</h5>
                         <div class="form-group">
-                            <input type="text" maxlength="20" id="model_usage_price" name="voice_usage_price" class="form-control" placeholder="Voice usage price" required="">
+                            <input type="text" maxlength="20" id="model_usage_price" name="voice_usage_price" class="form-control" placeholder="{{ __('review.voice_price') }}" required="">
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <h5>Data usage price (<b>Per MB</b>)</h5>
+                        <h5>{{ __('review.data_price') }}</h5>
                         <div class="form-group">
-                            <input type="text" maxlength="20" id="model_usage_data_price" name="data_usage_age" class="form-control" placeholder="Data usage price" required="">
+                            <input type="text" maxlength="20" id="model_usage_data_price" name="data_usage_age" class="form-control" placeholder="{{ __('review.data_price') }}" required="">
                         </div>
                     </div>
                     <div class="col-lg-12 text-center">
-                        <button type="submit" class="btn btn-primary">Ok</button>
+                        <button type="submit" class="btn btn-primary">{{ __('review.ok_btn') }}</button>
                     </div>
                 </div>
             </form>
@@ -1023,8 +1023,8 @@
                                     <div class="address ratingAddressLable">{{$userAddress->formatted_address}}</div>
                                 </div>
                                 <div class="col-lg-4 text-right">
-                                    <div class="text-green primary">Primary</div>
-                                    <button class="btn btn-primary d-none make_primary_btn" data-address_id="{{$userAddress->id}}">Make primary</button>
+                                    <div class="text-green primary">{{__('review.primary')}}</div>
+                                    <button class="btn btn-primary d-none make_primary_btn" data-address_id="{{$userAddress->id}}">{{__('review.make_primary')}}</button>
                                 </div>
                                 <input type="hidden" data-id="{{$userAddress->id}}" value="{{$userAddress->id}}" id="user_address_id">
                                 <input type="hidden" value="1" id="is_primary">
@@ -1034,10 +1034,10 @@
                             </div>
                         </div>
                         <div class="col-lg-12 mt-3 confirm_message_section">
-                            Do you want to associate this rating with above address ?
+                            {{__('review.address_msg')}}
                             <div class="confirmation_button text-center mt-3">
-                                <button class="btn btn-primary yes">Yes</button>
-                                <button class="btn btn-primary no">No</button>    
+                                <button class="btn btn-primary yes">{{ __('review.yes') }}</button>
+                                <button class="btn btn-primary no">{{ __('review.no') }}</button>    
                             </div>
                         </div>
                     </div>
@@ -1046,39 +1046,39 @@
                     <form id="address_form">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h5>Address <span class="text-mute">Optional</span></h5>
+                                <h5>{{ __('review.') }} <span class="text-mute">{{ __('review.') }}</span></h5>
                                 <div class="form-group">
                                     <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="Address" autocomplete="no">
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <h5>Country</h5>
+                                <h5>{{ __('review.country') }}</h5>
                                 <div class="form-group country_div" id="country_div">
                                     <input type="text" id="user_country" name="user_country" class="form-control" placeholder="Country" required="" autocomplete="no">
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <h5>City</h5>
+                                <h5>{{ __('review.city') }}</h5>
                                 <div class="form-group user_city_add city_div" id="city_div">
                                     <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="City" autocomplete="no" required="" data-country="IN">
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <h5>Postal code</h5>
+                                <h5>{{ __('review.postal_code') }}</h5>
                                 <div class="form-group">
                                     <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="Postal code" required="" autocomplete="no">
                                 </div>
                             </div>
                             <div class="col-lg-12 text-center">
-                                <button type="submit" class="btn btn-primary save_address">Save</button>
-                                <button type="button" class="btn btn-primary cancel">Cancel</button>
+                                <button type="submit" class="btn btn-primary save_address">{{ __('review.save') }}</button>
+                                <button type="button" class="btn btn-primary cancel">{{ __('review.cancel') }}</button>
                             </div>
                                 
                         </div>
                     </form>
                 </div>
                 <div class="d-none continue-btn-section text-center mt-3">
-                    <button class="btn btn-primary">Continue</button>
+                    <button class="btn btn-primary">{{__('review.continue')}}</button>
                 </div>
           </div>
         </div>
@@ -1090,19 +1090,19 @@
         <div class="modal-content">
           <!-- Modal body -->
             <div class="modal-body">
-                <h4 class="speedTestTitle">We preform live speed test as part of the service review process to obtain more reliable data <br>You can abort this speed test and continue your review if you want</h4>
+                <h4 class="speedTestTitle">{{__('review.internet_speed_title')}}</h4>
                 <div id="testWrapper" class="text-center">
                     <div id="startStopBtn" onclick="startStop()"></div>
                     <div id="test" class="row">
                         <div class="testGroup col-lg-6">
                             <div class="testArea col-lg-6">
-                                <div class="testName">Download</div>
+                                <div class="testName">{{__('review.download')}}</div>
                                 <canvas id="dlMeter" class="meter"></canvas>
                                 <div id="dlText" class="meterText"></div>
                                 <div class="unit">Mbps</div>
                             </div>
                             <div class="testArea col-lg-6">
-                                <div class="testName">Upload</div>
+                                <div class="testName">{{__('review.upload')}}</div>
                                 <canvas id="ulMeter" class="meter"></canvas>
                                 <div id="ulText" class="meterText"></div>
                                 <div class="unit">Mbps</div>
@@ -1110,41 +1110,41 @@
                         </div>
                         <div class="testGroup col-lg-6">
                             <div class="testArea col-lg-6">
-                                <div class="testName">Ping</div>
+                                <div class="testName">{{__('review.ping')}}</div>
                                 <canvas id="pingMeter" class="meter"></canvas>
                                 <div id="pingText" class="meterText"></div>
                                 <div class="unit">ms</div>
                             </div>
                             <div class="testArea col-lg-6">
-                                <div class="testName">Jitter</div>
+                                <div class="testName">{{__('review.jitter')}}</div>
                                 <canvas id="jitMeter" class="meter"></canvas>
                                 <div id="jitText" class="meterText"></div>
                                 <div class="unit">ms</div>
                             </div>
                         </div>
                         <div id="ipArea" class="col-lg-12">
-                            IP Address: <span id="ip"></span>
+                            {{__('review.ip_address')}}: <span id="ip"></span>
                         </div>
                   </div>
                 </div>  
                 <form id="speedtestForm">
                     <div class="row">
                         <div class="col-lg-6 speedtestDiv">
-                            <h5>Downloading speed</h5>
+                            <h5>{{__('review.downloading_speed')}}</h5>
                             <div class="form-group">
-                                <input type="text" class="form-control downloading_speed" name="data_speed" id="downloading_speed" placeholder="Downloading speed" maxlength="20">      
+                                <input type="text" class="form-control downloading_speed" name="data_speed" id="downloading_speed" placeholder="{{__('review.downloading_speed')}}" maxlength="20">      
                             </div>
                         </div>
                         <div class="col-lg-6 speedtestDiv">
-                            <h5>Uploading speed</h5>
+                            <h5>{{__('uploading_speed')}}</h5>
                             <div class="form-group">
-                                <input type="text" class="form-control uploading_speed" name="uploading_speed" id="uploading_speed" placeholder="Uploading speed" maxlength="20">
+                                <input type="text" class="form-control uploading_speed" name="uploading_speed" id="uploading_speed" placeholder="{{__('uploading_speed')}}" maxlength="20">
                             </div>
                         </div>
                         <input type="hidden" name="plan_id" id="plan_id" class="plan_id">
                         <input type="hidden" name="speedtest_type" id="speedtest_type" value="1">
                             <div id="resultDiv" class="col-lg-12 pt-2 text-center">
-                                <button type="submit" class="btn btn-primary rounted continueBtn" >Continue</button>
+                                <button type="submit" class="btn btn-primary rounted continueBtn" >{{__('review.continue')}}</button>
                                 <input type="hidden" id="dspeedhidden"/>
                                 <input type="hidden" id="uspeedhidden"/>
                                 <input type="hidden" id="pingtimehidden"/>

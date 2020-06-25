@@ -7,7 +7,7 @@
 		<div class="row align-items-center">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="device-heading-title">Search for Device</h1>
+					<h1 class="device-heading-title">{{__('device.title')}}</h1>
 				</div>
 			</div>
 			<div class="col-7 text-right">
@@ -52,7 +52,7 @@
 					<div class="row">
 						<input type="hidden" value="20" name="rows"/>
 						<div class="col-md-12 text-center">
-							<button type="submit" class="searchnow-button">Search Now</button>
+							<button type="submit" class="searchnow-button">{{__('device.search_now_btn')}}</button>
 						</div>
 					</div>
 				</form>
@@ -66,7 +66,7 @@
 		<div class="row">
 			<div class="col-12 text-center my-5">
 				<div class="heading detail-div">
-					<h1 class="device-heading-title">Devices Used Near By</h1>
+					<h1 class="device-heading-title">{{__('device.title_one')}}</h1>
 				</div>
 			</div>
 

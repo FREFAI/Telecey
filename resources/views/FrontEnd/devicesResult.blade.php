@@ -12,8 +12,8 @@
 			</div> -->
 			<div class="col-7 text-center">
                 <div class="loading">
-                    <h1>Our searching DUDE is working on your request</h1><br>
-                    <h1>One moment and he will fetch the data for you </h1>
+					<h1>{{__('planresult.title')}}</h1><br>
+                    <h1>{{__('planresult.title2')}} </h1>
                 </div>
 			</div>
 			<div class="col-5 text-center">
@@ -86,7 +86,7 @@
 							<th class="custom_sorting" data-name="price" data-sort="asc">Price <i class="fas fa-arrow-down"></i></th>
 							<th class="custom_sorting" data-name="storage" data-sort="asc">Capacity <i class="fas fa-arrow-down"></i></th>
 							<th class="custom_sorting" data-name="distance" data-sort="asc">Distance <i class="fas fa-arrow-down"></i></th>
-							<th class="text-center">Details</th>
+							<th class="text-center">{{ __('deviceresult.detail_btn') }}</th>
 						</tr>
 					</thead>
 					<tbody class="table_body_sort">
@@ -104,7 +104,7 @@
 								<td>{{$value->storage}}</td>
 								<td>{{round($value->distance)}} KM</td>
 								@if(Auth::guard('customer')->check())
-									<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value->id)}}">Details</td>
+									<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value->id)}}">{{__('deviceresult.detail_btn')}}</td>
 								@else
 									<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
 								@endif

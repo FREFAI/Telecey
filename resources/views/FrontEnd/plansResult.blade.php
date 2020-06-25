@@ -13,8 +13,8 @@
 			</div> -->
 			<div class="col-7 text-center">
                 <div class="loading">
-                    <h1>Our searching DUDE is working on your request</h1><br>
-                    <h1>One moment and he will fetch the data for you </h1>
+                    <h1>{{__('planresult.title')}}</h1><br>
+                    <h1>{{__('planresult.title2')}} </h1>
                 </div>
 			</div>
 			<div class="col-5 text-center">
@@ -48,7 +48,7 @@
 										<option value="{{$type->id}}" @if( request()->get('service_type') ) @if( request()->get('service_type') == $type->id) selected @endif @endif>{{$type->service_type_name}}</option>
 									@endforeach
 								@else
-									<option disabled="">Not found</option>
+									<option disabled="">{{__('planresult.not_found')}}</option>
 								@endif
 							</select>
 						@endif
@@ -175,7 +175,7 @@
 								<th class="custom_sorting" data-name="datavolume" data-sort="asc" >Volume GB <i class="fas fa-arrow-down"></i></th>
 								<th class="custom_sorting" data-name="average_review" data-sort="asc" >Review <i class="fas fa-arrow-down"></i></th>
 								<th class="custom_sorting" data-name="distance" data-sort="asc" >Distance <i class="fas fa-arrow-down"></i></th>
-								<th class="text-right">Details</th>
+								<th class="text-right">{{__('planresult.detail_btn')}}</th>
 							</tr>
 						</thead>
 						<tbody class="table_body_sort">
@@ -213,10 +213,10 @@
 										<td>N/A</td>
 									@endif
 									@if(Auth::guard('customer')->check())
-										<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</a></td>
+										<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">{{__('planresult.detail_btn')}}</a></td>
 									@else
 										@if($filtersetting->disable_details_for_logged_out_users == 1)
-											<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</a></td>
+											<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">{{__('planresult.detail_btn')}}</a></td>
 										@else
 											<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</a></td>
 										@endif

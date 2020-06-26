@@ -8,7 +8,11 @@
 		<div class="row">
 			<div class="col-md-6 text-center pl-0 pr-0 video-height">
 				<div class="first-section-text mt-5">
+				@if(\Session::get('locale') == "en")
 					{!!$homeContent ? $homeContent->section_one : 'Welcome to the telco community'!!}
+				@else
+					{!!$homeContent ? $homeContent->section_one_fr : 'Welcome to the telco community'!!}
+				@endif
 				</div>
 				<ul class="nav nav-tabs tab-selection  mt-5">
 					<li class="nav-item">
@@ -126,8 +130,14 @@
 		<div class="row mt-5">
 			<div class="col-12 mb-4">
 				<div class="find-service-section mx-auto text-center">
+				@if(\Session::get('locale') == "en")
 					<h2>{!!$homeContent ? $homeContent->section_two : 'Find the right telecom service that suits your needs
-Check and share your telco experience with every one'!!}</h2>
+	Check and share your telco experience with every one'!!}</h2>	
+				@else
+					<h2>{!!$homeContent ? $homeContent->section_two_fr : 'Find the right telecom service that suits your needs
+	Check and share your telco experience with every one'!!}</h2>
+				@endif	
+					
 					<!-- <h2>Check and share your telco experience with every one</h2> -->
 				</div>
 			</div>
@@ -146,7 +156,12 @@ Check and share your telco experience with every one'!!}</h2>
 					<img src="{{URL::asset('frontend/assets/img/2756310.jpg')}}"/>
 				@endif
 				<div class="label-service font-weight-bold">
+				@if(\Session::get('locale') == "en")
 				{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_1 != '') ? $homeContent->section_six->label_1 :'' }}
+				@else
+				{{ $homeContent && ($homeContent->section_six != '' &&  (isset($homeContent->section_six->label_fr_1) && $homeContent->section_six->label_fr_1 != '')) ? $homeContent->section_six->label_fr_1 :'' }}
+				@endif
+				
 				</div>
 			</div>
 			<div class="col-2 p-0 text-center">
@@ -163,7 +178,11 @@ Check and share your telco experience with every one'!!}</h2>
 				@endif
 				
 				<div class="label-service font-weight-bold">
-				{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_2 != '') ? $homeContent->section_six->label_2 :'' }}
+				@if(\Session::get('locale') == "en")
+					{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_2 != '') ? $homeContent->section_six->label_2 :'' }}
+				@else
+					{{ $homeContent && ($homeContent->section_six != '' &&  (isset($homeContent->section_six->label_fr_2) && $homeContent->section_six->label_fr_1 != '')) ? $homeContent->section_six->label_fr_2 :'' }}
+				@endif
 				</div>
 			</div>
 			<div class="col-2 p-0 text-center">
@@ -180,7 +199,12 @@ Check and share your telco experience with every one'!!}</h2>
 				@endif	
 			
 				<div class="label-service font-weight-bold">
-				{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_3 != '') ? $homeContent->section_six->label_3 :'' }}
+					@if(\Session::get('locale') == "en")
+						{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_3 != '') ? $homeContent->section_six->label_3 :'' }}
+					@else
+						{{ $homeContent && ($homeContent->section_six != '' &&  (isset($homeContent->section_six->label_fr_3) && $homeContent->section_six->label_fr_1 != '')) ? $homeContent->section_six->label_fr_3 :'' }}
+					@endif
+				
 				</div>
 			</div>
 			<div class="col-2 p-0 text-center">
@@ -197,7 +221,12 @@ Check and share your telco experience with every one'!!}</h2>
 				@endif
 				
 				<div class="label-service font-weight-bold">
-				{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_4 != '') ? $homeContent->section_six->label_4 :'' }}
+				@if(\Session::get('locale') == "en")
+					{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_4 != '') ? $homeContent->section_six->label_4 :'' }}
+				@else
+					{{ $homeContent && ($homeContent->section_six != '' &&  (isset($homeContent->section_six->label_fr_4) && $homeContent->section_six->label_fr_1 != '')) ? $homeContent->section_six->label_fr_4 :'' }}
+				@endif
+				
 				</div>
 			</div>
 			<div class="col-2 p-0 text-center">
@@ -213,7 +242,11 @@ Check and share your telco experience with every one'!!}</h2>
 					<img src="{{URL::asset('frontend/assets/img/150631-OUD927-864_edited.jpg')}}"/>
 				@endif
 				<div class="label-service font-weight-bold">
-				{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_5 != '') ? $homeContent->section_six->label_5 :'' }}
+					@if(\Session::get('locale') == "en")
+						{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_5 != '') ? $homeContent->section_six->label_5 :'' }}
+					@else
+						{{ $homeContent && ($homeContent->section_six != '' &&  (isset($homeContent->section_six->label_fr_5) && $homeContent->section_six->label_fr_5 != '')) ? $homeContent->section_six->label_fr_5 :'' }}
+					@endif
 				</div>
 			</div>
 			<div class="col-2 p-0 text-center">
@@ -229,7 +262,11 @@ Check and share your telco experience with every one'!!}</h2>
 					<img src="{{URL::asset('frontend/assets/img/2317497_edited.jpg')}}"/>
 				@endif
 				<div class="label-service font-weight-bold">
-				{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_6 != '') ? $homeContent->section_six->label_6 :'' }}
+					@if(\Session::get('locale') == "en")
+						{{ $homeContent && ($homeContent->section_six != '' && $homeContent->section_six->label_6 != '') ? $homeContent->section_six->label_6 :'' }}
+					@else
+						{{ $homeContent && ($homeContent->section_six != '' &&  (isset($homeContent->section_six->label_fr_6) && $homeContent->section_six->label_fr_6 != '')) ? $homeContent->section_six->label_fr_6 :'' }}
+					@endif
 				</div>
 			</div>
 		</div>
@@ -253,8 +290,14 @@ Check and share your telco experience with every one'!!}</h2>
 			</div>
 			<div class="col-12 mt-5">
 				<div class="service-content-section w-75 mx-auto text-center">
-				{!!$homeContent ? $homeContent->section_three : 'Everyone has subscribed to mobile phone plan or a home internet service and everyone has his own unique experience. Because of the telecom nature, the service defer from a location to another and from  specific service to another. A carrier may have a perfect coverage for the whole city except for one single neighborhood. While another one may provide an excellent 100 Mbps <br> service but a horrible Gbps service. <br>TelcoTales enables users to share their experience "Telco Tales" on our website so everyone benefits and easily pick the best service, while carriers can spot their weaknesses and improve them 
-				'!!}
+				@if(\Session::get('locale') == "en")
+					{!!$homeContent ? $homeContent->section_three : 'Everyone has subscribed to mobile phone plan or a home internet service and everyone has his own unique experience. Because of the telecom nature, the service defer from a location to another and from  specific service to another. A carrier may have a perfect coverage for the whole city except for one single neighborhood. While another one may provide an excellent 100 Mbps <br> service but a horrible Gbps service. <br>TelcoTales enables users to share their experience "Telco Tales" on our website so everyone benefits and easily pick the best service, while carriers can spot their weaknesses and improve them 
+					'!!}
+				@else
+					{!!$homeContent ? $homeContent->section_three_fr : 'Everyone has subscribed to mobile phone plan or a home internet service and everyone has his own unique experience. Because of the telecom nature, the service defer from a location to another and from  specific service to another. A carrier may have a perfect coverage for the whole city except for one single neighborhood. While another one may provide an excellent 100 Mbps <br> service but a horrible Gbps service. <br>TelcoTales enables users to share their experience "Telco Tales" on our website so everyone benefits and easily pick the best service, while carriers can spot their weaknesses and improve them 
+					'!!}
+				@endif
+				
 				</div>
 			</div>
 		</div>
@@ -417,7 +460,11 @@ Check and share your telco experience with every one'!!}</h2>
 		<div class="row bg-green col-10 offset-md-1">
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
-					<h1 class="h1">{!!$homeContent ? $homeContent->section_four : ''!!}</h1>
+					@if(\Session::get('locale') == "en")
+						<h1 class="h1">{!!$homeContent ? $homeContent->section_four : ''!!}</h1>
+					@else
+						<h1 class="h1">{!!$homeContent ? $homeContent->section_four_fr : ''!!}</h1>
+					@endif
 				</div>
 			</div>
 			<div class="col-12 text-center">
@@ -438,7 +485,11 @@ Check and share your telco experience with every one'!!}</h2>
 			<div class="col-12 text-center mt-3">
 				<div class="content-info">
 				<p>
-				{!!$homeContent ? $homeContent->section_four_description : ''!!}
+					@if(\Session::get('locale') == "en")
+						{!!$homeContent ? $homeContent->section_four_description : ''!!}
+					@else
+						{!!$homeContent ? $homeContent->section_four_description_fr : ''!!}
+					@endif
 				</p>
 			</div>
 			</div>

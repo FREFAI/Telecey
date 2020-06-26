@@ -14,7 +14,9 @@ ini_set('max_input_time', '900');
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', function(){ 
+    return redirect('/en', 301); 
+});
 Route::group(['prefix' =>'{locale}'], function(){
 	// Testing Route 
 		Route::get('/country', 'TestController@index');

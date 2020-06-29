@@ -236,7 +236,7 @@
                                     <div class="address">{{$userAddress->formatted_address}}</div>
                                 </div>
                                 <div class="col-lg-4 text-right">
-                                    <div class="text-green primary">Primary</div>
+                                    <div class="text-green primary">{{__('review.primary')}}</div>
                                     <button class="btn btn-primary d-none make_primary_btn" data-address_id="{{$userAddress->id}}">Make primary</button>
                                 </div>
                                 <input type="hidden" data-id="{{$userAddress->id}}" value="{{$userAddress->id}}" id="user_address_id">
@@ -247,10 +247,10 @@
                             </div>
                         </div>
                         <div class="col-lg-12 mt-3 confirm_message_section">
-                            Do you want to associate this rating with above address ?
+                        {{__('review.address_msg')}}
                             <div class="confirmation_button text-center mt-3">
-                                <button class="btn btn-primary yes">Yes</button>
-                                <button class="btn btn-primary no">No</button>    
+                                <button class="btn btn-primary yes">{{ __('review.yes') }}</button>
+                                <button class="btn btn-primary no">{{ __('review.no') }}</button>    
                             </div>
                         </div>
                     </div>
@@ -259,27 +259,27 @@
                     <form id="address_form">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h5>Address <span class="text-mute">Optional</span></h5>
+                                <h5>{{ __('review.address') }} <span class="text-mute">{{ __('review.optional') }}</span></h5>
                                 <div class="form-group">
                                     <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="Address" autocomplete="no">
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <h5>Country</h5>
+                                <h5>{{ __('review.country') }}</h5>
                                 <div class="form-group country_div" id="country_div">
-                                    <input type="text" id="user_country" name="user_country" class="form-control" placeholder="Country" required=""autocomplete="no">
+                                    <input type="text" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required=""autocomplete="no">
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <h5>City</h5>
+                                <h5>{{ __('review.city') }}</h5>
                                 <div class="form-group city_div" id="city_div">
-                                    <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="City" autocomplete="no" required="" data-country="IN">
+                                    <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="{{ __('review.city') }}" autocomplete="no" required="" data-country="IN">
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <h5>Postal code</h5>
+                                <h5>{{ __('review.postal_code') }}</h5>
                                 <div class="form-group">
-                                    <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="Postal code" required="" autocomplete="no">
+                                    <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="{{ __('review.postal_code') }}" required="" autocomplete="no">
                                 </div>
                             </div>
                             <input type="hidden" name="latitude" id="lat" value="{{$lat}}">

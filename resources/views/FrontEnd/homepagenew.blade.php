@@ -531,7 +531,7 @@
 		</div>
 		<div class="row mb-3">
 			<div class="col-lg-12 text-center">
-					<a class="common-btn" href="{{url('blogs-list')}}">{{__('home.see_all')}}</a>
+					<a class="common-btn" href="{{url('/blogs-list')}}">{{__('home.see_all')}}</a>
 			</div>
 		</div>
 		

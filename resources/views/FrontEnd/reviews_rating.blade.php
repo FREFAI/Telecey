@@ -21,16 +21,18 @@
 	<!-- Content Start Here -->
 		<div class="inner-page start-page">
 		    <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="step_three_img text-center">
-                            <img src="{{URL::asset('frontend/assets/img/Waves_iPhone_Case.png')}}"/>
+                <div class="custom">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="step_three_img text-center">
+                                <img src="{{URL::asset('frontend/assets/img/Waves_iPhone_Case.png')}}"/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="title-step-1 w-75">
-                            <h1>STEP #3</h1>
-                            <h1>What about Rating Your Service Today?</h1>
+                        <div class="col-lg-8">
+                            <div class="title-step-1 w-100">
+                                <h1>STEP #3</h1>
+                                <h1>{{__('review.step_3_title')}}</h1>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,7 +88,7 @@
                     <div class="services-rating-section section-both" id="rating_section">
 	               		<div class="row">
 	               		    <div class="heading detail-div">
-	               		        <h1 class="section-title">Rating</h1>
+	               		        <h1 class="section-title">{{__('review.rating')}}</h1>
 	               		    </div>
 	               		</div>
                         <div class="row starrating_error d-none">
@@ -124,7 +126,7 @@
                         <div class="row mt-3">
                             <div class="col-lg-6">
                                 <div class="">
-                                    <h5>Comment</h5>
+                                    <h5>{{__('review.comment')}}</h5>
                                 </div>
                             </div>
                             <div class="col-lg-6 text-right">
@@ -136,7 +138,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="">
-                                    <h5 class="font-weight-bold">Average</h5>
+                                    <h5 class="font-weight-bold">{{__('review.average')}}</h5>
                                 </div>
                             </div>
                             <div class="col-lg-6 text-right">
@@ -174,7 +176,7 @@
                             </div>
                             <div class="col-lg-12 mt-3">
                                 <div class="button_section">
-                                    <a class="btn learn-more speedtest continue-btn">Continue</a>
+                                    <a class="btn learn-more speedtest continue-btn">{{__('review.continue')}}</a>
                                     <a href="{{url('/profile')}}"  class="btn learn-more speedtest">Skip</a>
                                 </div>
                             </div>
@@ -189,7 +191,7 @@
                                     <iframe id="iFrameID" width="100%" height="650px" frameborder="0" src="https://softradix.speedtestcustom.com"></iframe> 
                                 </div>
                                 <div class="action-section text-center mt-3">
-                                    <a href="{{url('/profile')}}" class="btn learn-more speedtest">Continue</a>
+                                    <a href="{{url('/profile')}}" class="btn learn-more speedtest">{{__('review.continue')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -205,7 +207,7 @@
 		        <div class="row pt-5 pb-5">
 		            <div class="col text-center">
 		                <div class="heading">
-		                    <h1>Top Rated Carriers in your Area</h1>
+		                    <h1>{{__('review.footer_text')}}</h1>
 		                </div>
 		            </div>
 		        </div>

@@ -125,17 +125,17 @@
 				<div class="profile_section">
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
 					  <li class="nav-item">
-					    <a class="nav-link @if(!Request::get('type') || Request::get('type') == 1) active @endif" id="home-tab" href="{{url('profile')}}" role="tab">Plans</a>
+					    <a class="nav-link @if(!Request::get('type') || Request::get('type') == 1) active @endif" id="home-tab" href="{{url('/profile')}}" role="tab">Plans</a>
 					  </li>
 					  <li class="nav-item">
-					    <a class="nav-link @if(Request::get('type') == 2) active @endif" id="profile-tab"  href="{{url('profile')}}?type=2" role="tab" >Devices</a>
+					    <a class="nav-link @if(Request::get('type') == 2) active @endif" id="profile-tab"  href="{{url('/profile')}}?type=2" role="tab" >Devices</a>
 					  </li>
 					</ul>
 					<div class="tab-content mt-2" id="myTabContent">
 					  <div class="tab-pane fade @if(!Request::get('type') || Request::get('type') == 1) show active @endif" id="home" role="tabpanel" aria-labelledby="home-tab">
 						  	<div class="row mb-2">
 						  		<div class="col-lg-12">
-						  			<a class="btn btn-info pull-right add_service" href="{{url('reviews?type=1')}}">Add new plan</a>
+						  			<a class="btn btn-info pull-right add_service" href="{{url('/reviews?type=1')}}">Add new plan</a>
 						  		</div>
 						  	</div>
 
@@ -484,7 +484,7 @@
 					  <div class="tab-pane fade @if(Request::get('type') == 2) show active @endif" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 							<div class="row mb-2">
 						  		<div class="col-lg-12">
-						  			<a class="btn btn-info pull-right add_service" href="{{url('reviews?type=2')}}">Add new device</a>
+						  			<a class="btn btn-info pull-right add_service" href="{{url('/reviews?type=2')}}">Add new device</a>
 						  		</div>
 						  	</div>
 						  	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">  

@@ -117,7 +117,7 @@ class BlogsController extends Controller
         	}
 		}
     }
-    public function editBlogForm($id)
+    public function editBlogForm($lang,$id)
     {
         $id = base64_decode($id);
         $categories = Category::get();
@@ -216,7 +216,7 @@ class BlogsController extends Controller
             }
         }
     }
-    public function blogDetail($id)
+    public function blogDetail($lang,$id)
     {
         $id = base64_decode($id);
         $blog = BlogsModel::with('category')->find($id);

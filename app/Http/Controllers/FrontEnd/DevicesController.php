@@ -415,7 +415,7 @@ class DevicesController extends Controller
             return view('FrontEnd.devices.devicesSorting',['data'=>$searchResult,'filtersetting' => $filtersetting,'ads'=>$ads,'googleads'=>$googleads]);
     }
 
-    public function deviceDetails($id){
+    public function deviceDetails($lang,$id){
         $planDetailData = DeviceReview::where('id',$id)->with('device','brand','supplier','currency','device_color_info')->first();
         $allratings = $planDetailData->get_ratings($id);
         $plan_device_rating = $planDetailData->plan_device_rating->toArray();

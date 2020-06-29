@@ -96,7 +96,10 @@ src: local('Baskerville BT Bold Italic'), url('../fonts/BaskervilleBoldItalicBT.
 a.navbar-brand img {
   width: 50%;
   float: left;
-  margin-left: -105px;
+  margin-left: -90px;
+}
+div#main-navbar{
+  margin-right: -30px;
 }
 span.logo-title {
   padding-left: 1rem;
@@ -2176,6 +2179,10 @@ table.table.custom-table tbody tr:hover {
     margin-bottom: 0;
     line-height: 30px;
     margin-right: 10px;
+  }
+  .custom {
+     width: 1200px;
+      margin: 0 auto;
   }
   /* /17-01-2020 */
 @media(max-width:1440px){

@@ -543,7 +543,7 @@ class PlansController extends Controller
         
     }
 
-    public function planDetails($id){
+    public function planDetails($lang,$id){
         $planDetailData = ServiceReview::where('id',$id)->with('provider','currency','typeOfService')->first();
        
         $user_address = UserAddress::where('user_id',$planDetailData->user_id)->where('is_primary',1)->value('formatted_address');

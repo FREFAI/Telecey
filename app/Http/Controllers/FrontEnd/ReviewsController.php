@@ -126,7 +126,7 @@ class ReviewsController extends Controller
 
         return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions,'userAddress'=>$usersAddress,'brandModels'=>$brandModels,'brands'=>$brands,'devices'=>$devices,'suppliers'=>$suppliers,'lat' =>  $current_lat,'long'=>$current_long,'colors'=>$colors]);
     }
-    public function reviewsRating(Request $request, $plan_id)
+    public function reviewsRating(Request $request, $lang,$plan_id)
     {
         $user_id = Auth::guard('customer')->user()['id']; 
         $pageType = $plan_id;

@@ -71,7 +71,7 @@
 	                	    		@foreach($allCases as $case)
 	                	      	<tr>
 	                	      		<td>{{$i++}}</td>
-	                	        	<td class="text-left"><a href="{{url('inbox')}}/{{base64_encode($case->id)}}">{{$case->subject}}</a></td>
+	                	        	<td class="text-left"><a href="{{url('/inbox')}}/{{base64_encode($case->id)}}">{{$case->subject}}</a></td>
 		                	        <td>
 		                	        	@if($case->status == 0)
 		                	        		Open

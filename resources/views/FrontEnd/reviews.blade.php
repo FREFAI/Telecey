@@ -950,13 +950,13 @@
             <form id="overage_price_form">
                 <div class="row">
                         <div class="col-lg-12">
-                            <h5>{{ __('review.overage_voice_price') }}</h5>
+                            <h5>{!! __('review.overage_voice_price') !!}</h5>
                             <div class="form-group">
                                 <input type="text" maxlength="20" id="model_over_price" name="overage_price" class="form-control" required="">
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <h5>{{ __('review.overage_data_price') }}</h5>
+                            <h5>{!! __('review.overage_data_price') !!}</h5>
                             <div class="form-group">
                                 <input type="text" maxlength="20" id="model_data_price" name="data_over_age" class="form-control"  required="">
                             </div>
@@ -1046,7 +1046,7 @@
                     <form id="address_form">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h5>{{ __('review.') }} <span class="text-mute">{{ __('review.') }}</span></h5>
+                                <h5>{{ __('review.address') }} <span class="text-mute">{{ __('review.optional') }}</span></h5>
                                 <div class="form-group">
                                     <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="Address" autocomplete="no">
                                 </div>
@@ -1090,7 +1090,7 @@
         <div class="modal-content">
           <!-- Modal body -->
             <div class="modal-body">
-                <h4 class="speedTestTitle">{{__('review.internet_speed_title')}}</h4>
+                <h4 class="speedTestTitle">{!!__('review.internet_speed_title')!!}</h4>
                 <div id="testWrapper" class="text-center">
                     <div id="startStopBtn" onclick="startStop()"></div>
                     <div id="test" class="row">
@@ -1136,9 +1136,9 @@
                             </div>
                         </div>
                         <div class="col-lg-6 speedtestDiv">
-                            <h5>{{__('uploading_speed')}}</h5>
+                            <h5>{{__('review.uploading_speed')}}</h5>
                             <div class="form-group">
-                                <input type="text" class="form-control uploading_speed" name="uploading_speed" id="uploading_speed" placeholder="{{__('uploading_speed')}}" maxlength="20">
+                                <input type="text" class="form-control uploading_speed" name="uploading_speed" id="uploading_speed" placeholder="{{__('review.uploading_speed')}}" maxlength="20">
                             </div>
                         </div>
                         <input type="hidden" name="plan_id" id="plan_id" class="plan_id">
@@ -1160,9 +1160,8 @@
         </div>
       </div>
     </div>
-<script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script>
-<script src="{{URL::asset('frontend/jsplugins/speedtest/speedtest.js')}}"></script>
 <!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
+@section('script')
 <script>
 
     if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) //IF IE > 10
@@ -1410,7 +1409,6 @@
     });
     $(document).on('click','.make_primary_btn',function(){
         var address_id = $(this).attr('data-address_id');
-        console.log(address_id);
         if(address_id==0){
             $('.primary').hide();
             $('.make_primary_btn').removeClass('d-none');
@@ -1818,4 +1816,5 @@
 
 </script>
 
+    @endsection
 @endsection

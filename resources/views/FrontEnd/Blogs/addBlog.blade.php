@@ -76,7 +76,7 @@
             <div class="row">
                 <div class="col-lg-12">
                 @include('flash-message')
-                    <form class="" action="{{url('add-blog')}}" method="post" enctype="multipart/form-data">
+                    <form class="" action="{{url('/add-blog')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row mt-1">
                             <div class="col-lg-6 ">

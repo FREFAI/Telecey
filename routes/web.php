@@ -17,7 +17,7 @@ ini_set('max_input_time', '900');
 Route::get('/', function(){ 
     return redirect('/en', 301); 
 });
-Route::group(['prefix' =>'{locale}'], function(){
+Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], function(){
 	// Testing Route 
 		Route::get('/country', 'TestController@index');
 		Route::get('/test', 'TestController@test');

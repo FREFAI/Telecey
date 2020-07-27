@@ -16,17 +16,11 @@ class HomeController extends Controller
         $homeContent = HomeContent::first();
         $setting  = SettingsModel::first();
         $homeContent->section_six = json_decode($homeContent->section_six);
-        // echo "<pre>";
-        // print_r($homeContent);
-        // exit;
     	return view('Admin.Home.index',['homeContent'=>$homeContent,'setting'=>$setting]);
     }
     public function sectionOne(Request $request)
     {
         $params = $request->all();
-        // echo "<pre>";
-        // print_r($params);
-        // exit;
         $setting  = SettingsModel::first();
         if($setting){
             $size = $setting->homepage_images_limit * 1024;
@@ -53,18 +47,6 @@ class HomeController extends Controller
                 $params['section_one_image'] = time().'_home_image.png';
                 $path = public_path('/home/images/'.$params['section_one_image']);
                 file_put_contents($path, $image_file);
-
-                // $image       = $request->file('section_one_image');
-                // $fileext    = $image->getClientOriginalExtension();
-                // $destinationPath = public_path('/home/images');
-                // $params['section_one_image'] = time().'_home_image.'.$fileext;    
-                // $destinationPath = public_path('/home/images');
-                // $image->move($destinationPath, $params['section_one_image']);
-                
-                // $image_resize = Image::make($image->getRealPath())->resize(524, 524, function($constraint) {
-                //     $constraint->aspectRatio();
-                // });              
-                // $image_resize->save(public_path('/home/images/' .$params['section_one_image']));
                 if($params['section_one_image_old'] != ""){
                     $oldFile = public_path()."/home/images/".$params['section_one_image_old'];
                     if (File::exists($oldFile)) {
@@ -74,9 +56,6 @@ class HomeController extends Controller
                 unset($params['section_one_image_old']);
             }
             unset($params['section_one_image_croped']);
-            // echo "<pre>";
-            // print_r($params);
-            // exit;
             $homeContentData = HomeContent::first();
             if($homeContentData == null){
                 $saveContent = HomeContent::create($params);

@@ -614,26 +614,26 @@
   							  					  	                				  			</div>
   							  					  	                				  		</div>
   										  					  	                		@foreach($rating['ratingList'] as $rate)
-  										  					  	                		@if($rate['entity_id'] == $device->id)
-  							  					  	                	  				<div class="col-lg-12 mb-3">
-  							  					  	                		  				<div class="card_sm">
-  							  					  	                		  					<div class="row">
-																									<div class="col-lg-6">
-																										<div class="question">
-																											{{$rate['question_name']}}
+  										  					  	                		@if($rate['entity_id'] == $device->id && $rate['question_name'] != "")
+																							<div class="col-lg-12 mb-3">
+																								<div class="card_sm">
+																									<div class="row">
+																										<div class="col-lg-6">
+																											<div class="question">
+																												{{$rate['question_name']}}
+																											</div>
+																										</div>
+																										<div class="col-lg-4">
+																											<div class="question">
+																												{{$rate['text_field_value']}}
+																											</div>
+																										</div>
+																										<div class="col-lg-2">
+																											<div class="rating_disable pull-right" data-rate-value="{{$rate['rating']}}"></div>
 																										</div>
 																									</div>
-																									<div class="col-lg-4">
-																										<div class="question">
-																											{{$rate['text_field_value']}}
-																										</div>
-																									</div>
-  							  					  	                				  				<div class="col-lg-2">
-  							  					  	                				  					<div class="rating_disable pull-right" data-rate-value="{{$rate['rating']}}"></div>
-  							  					  	                				  				</div>
-  							  					  	                				  			</div>
-  							  					  	                			  			</div>
-  							  					  	                			  		</div>
+																								</div>
+																							</div>
   							  					  	                			  		@endif
   							  					  	                			  		@endforeach
   								  					  	                			  	</div>

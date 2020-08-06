@@ -6,11 +6,6 @@
 <section id="main-top-section" >
 	<div class="container">
 		<div class="row align-items-center mb-5 loading_section">
-			<!-- <div class="col-12 text-center">
-				<div class="heading detail-div">
-					<h1 class="device-heading-title">Search for Plans</h1>
-				</div>
-			</div> -->
 			<div class="col-7 text-center">
                 <div class="loading">
                     <h1>{{__('planresult.title')}}</h1><br>
@@ -23,13 +18,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="row">
-			<div class="col-12 text-center my-5">
-				<div class="heading detail-div">
-					<h1 class="device-heading-title">Provider Near By</h1>
-				</div>
-			</div>
-		</div> -->
 		<form action="{{url('/plans/result')}}" method="get" class="w-100" id="planSearch">
 			<div class="row custom_width align-items-center">
 				<div class="col-lg-7 record_section">
@@ -188,9 +176,9 @@
 								<tr class="custom-row-cl">
 									<td>
 										@if($value['provider']['provider_image_original'] != "")
-											<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" style="width:100px;height:50px;" />
+											<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" style="width:100px;height:50px; object-fit: contain;" />
 										@else
-											<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" style="width:100px;height:50px;"/>
+											<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" style="width:100px;height:50px; object-fit: contain;"/>
 										@endif
 									</td>
 									<td>

@@ -30,7 +30,8 @@ class LoginController extends Controller
         if(!Auth::guard('customer')->check()){
             return view('FrontEnd.LoginSignup.login');
         }else{
-            return redirect('profile');
+            $url = \Session::get('locale').'/profile';
+            return redirect($url);
         }
     }
 
@@ -59,7 +60,8 @@ class LoginController extends Controller
                         'email'             => $user->email,
                     ];
                     CreateLogs::createLog($logData);
-                    return redirect('/profile')->with('success','Logged in successfully!');
+                    $url = \Session::get('locale').'/profile';
+                    return redirect($url)->with('success','Logged in successfully!');
                 }else{
                     return redirect()->back()->with('error','Please enter valid credentials!');
                 }

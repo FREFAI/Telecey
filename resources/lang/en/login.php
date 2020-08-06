@@ -19,4 +19,6 @@ return [
     'signup_label2' => 'or sign up with',
     'forgot_button' => "Forgotten password?",
     'login_button' => "Log In",
+    'email' =>'Email',
+    'password'=>'Password'
 ];

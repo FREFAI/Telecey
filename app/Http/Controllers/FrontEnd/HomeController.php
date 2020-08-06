@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Admin\RatingQuestion;
 use App\Models\FrontEnd\ServiceReview;
 use App\Models\FrontEnd\DeviceReview;
 use App\Models\Admin\Brands;
@@ -79,7 +80,6 @@ class HomeController extends Controller
             if($perameters['type'] == 1){
                 $data = $this->getAllPlans();
             }else{
-                // $data = $this->getAllPlans();
                 $data = $this->getAllDevice();
             }
         }else{
@@ -87,9 +87,6 @@ class HomeController extends Controller
         }
         $serviceData = $data['serviceData'];
         $customer = $data['customer'];
-        // echo "<pre>";
-        // print_r($serviceData);
-        // exit;
         return view('FrontEnd.profile',['serviceData'=>$serviceData,'customer'=>$customer]);
     }
 
@@ -126,19 +123,21 @@ class HomeController extends Controller
             $plan_device_rating = $data->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
             unset($data->plan_device_rating);
             foreach ($allratings as $ratings) {
-                if($ratings->entity_id == $data->id && $ratings->entity_type==1){    //Check entity id is equal to plan id
-                    $ratings->question_name = $ratings->question['question'];
-                    $ratings->question_type = $ratings->question['type'];
-                    unset( $ratings->question);
-                    if(!in_array($ratings->rating_id, $key)){
-                        $key[]=$ratings->rating_id;
-                        $blankArray[$ratings->rating_id]['plan_id'] = $ratings->entity_id;
-                        $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
-                    }else{
-                        
-                        $blankArray[$ratings->rating_id]['plan_id'] = $ratings->entity_id;
-                        $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
-                        
+                if(RatingQuestion::find($ratings->question_id)){
+                    if($ratings->entity_id == $data->id && $ratings->entity_type==1){    //Check entity id is equal to plan id
+                        $ratings->question_name = $ratings->question['question'];
+                        $ratings->question_type = $ratings->question['type'];
+                        unset( $ratings->question);
+                        if(!in_array($ratings->rating_id, $key)){
+                            $key[]=$ratings->rating_id;
+                            $blankArray[$ratings->rating_id]['plan_id'] = $ratings->entity_id;
+                            $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
+                        }else{
+                            
+                            $blankArray[$ratings->rating_id]['plan_id'] = $ratings->entity_id;
+                            $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
+                            
+                        }
                     }
                 }
             }
@@ -199,19 +198,21 @@ class HomeController extends Controller
             $allratings = $device->get_ratings($device->id);  // Get all ratings of this plan questions
             $plan_device_rating = $device->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
             foreach ($allratings as $ratings) {
-                if($ratings->entity_id == $device->id && $ratings->entity_type==2){    //Check entity id is equal to plan id
-                    $ratings->question_name = $ratings->question['question'];
-                    $ratings->question_type = $ratings->question['type'];
-                    unset( $ratings->question);
-                    if(!in_array($ratings->rating_id, $key)){
-                        $key[]=$ratings->rating_id;
-                        $blankArray[$ratings->rating_id]['device_id'] = $ratings->entity_id;
-                        $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
-                    }else{
+                if(RatingQuestion::find($ratings->question_id)){
+                    if($ratings->entity_id == $device->id && $ratings->entity_type==2){    //Check entity id is equal to plan id
+                        $ratings->question_name = $ratings->question['question'];
+                        $ratings->question_type = $ratings->question['type'];
+                        unset( $ratings->question);
+                        if(!in_array($ratings->rating_id, $key)){
+                            $key[]=$ratings->rating_id;
+                            $blankArray[$ratings->rating_id]['device_id'] = $ratings->entity_id;
+                            $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
+                        }else{
 
-                        $blankArray[$ratings->rating_id]['device_id'] = $ratings->entity_id;
-                        $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
+                            $blankArray[$ratings->rating_id]['device_id'] = $ratings->entity_id;
+                            $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
 
+                        }
                     }
                 }
             }

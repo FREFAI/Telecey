@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\RatingQuestion;
+use App\Models\FrontEnd\ServiceRating;
 use Illuminate\Support\Facades\Validator;
 
 class RatingQuestionController extends Controller
@@ -82,6 +83,7 @@ class RatingQuestionController extends Controller
         }else{
             $perameter['id'] = base64_decode($perameter['id']);
             $deleteQuestion = RatingQuestion::where('id',$perameter['id'])->delete();
+            ServiceRating::where('question_id',$perameter['id'])->delete();
             if($deleteQuestion){
                 $message = array('success'=>true,'message'=>'Delete successfully.');
                 return json_encode($message);

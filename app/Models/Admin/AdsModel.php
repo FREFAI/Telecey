@@ -10,7 +10,7 @@ class AdsModel extends Model
     protected $guard = 'admin';
 
     protected $fillable = [
-        'id', 'title', 'ads_file', 'script', 'type','is_global','country', 'is_active', 'created_at', 'updated_at'
+        'id', 'title', 'ads_file','ads_file_original', 'script', 'type','is_global','country', 'is_active', 'created_at', 'updated_at'
     ];
 
 

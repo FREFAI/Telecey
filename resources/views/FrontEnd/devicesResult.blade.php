@@ -76,7 +76,7 @@
 		</form>
 		@if(count($data)>0)
 		<div class="row record_section">
-			<div class="col-lg-12">
+			<div class="col-lg-12 table-responsive">
 				<table id="example" class="table table-striped custom-table device_sorting" style="width:100%" data-url="{{url('/devices/resultSorting')}}">
 					<thead>
 						<tr>
@@ -117,7 +117,7 @@
 											<td colspan="7">
 												<div class="add text-center">
 													
-													<img src="{{URL::asset('ads_banner/resized')}}/{{$ads[$j]['ads_file']}}"/>
+													<img src="{{URL::asset('ads_banner/ads_banner_original')}}/{{$ads[$j]['ads_file_original']}}"/>
 												</div>
 											</td>
 										</tr>
@@ -128,7 +128,7 @@
 											<td colspan="7">
 												<div class="add text-center">
 													
-													<img src="{{URL::asset('ads_banner/resized')}}/{{$ads[$j]['ads_file']}}"/>
+													<img src="{{URL::asset('ads_banner/ads_banner_original')}}/{{$ads[$j]['ads_file_original']}}"/>
 												</div>
 											</td>
 										</tr>

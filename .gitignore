@@ -2,6 +2,8 @@
 /public/hot
 /public/storage
 /public/providers
+/public/ads_banner
+/public/home
 /storage/*.key
 /vendor
 .env

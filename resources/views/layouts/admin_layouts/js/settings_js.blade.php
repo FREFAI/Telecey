@@ -152,7 +152,7 @@
 		  readonly:true
 		});
 		// CKEDITOR.replace( 'text_editor' );
-		
+		var _URL = window.URL;
 		function readURL(input,size) {
 			if(size){
 				size = size;
@@ -160,24 +160,32 @@
 			}else{
 				size = 10;
 				var maxSize = 10240;
+			} 
+			if ((file = input.files[0])) {
+				var img = new Image();
+				var sizeKB = file.size / 1024;
+				if(sizeKB > maxSize){
+					toastr.error('Image size', 'Image size should be less then '+size+'Mb.' , {displayDuration:100000,position: 'top-right'});
+					return false;
+				}
+				img.onload = function () {
+					if(this.width >= 1000 && this.height < 550 ){
+						var reader = new FileReader();
+						reader.onload = function(e) {
+							$('#imagePreview').css('background-image', 'url('+e.target.result +')');
+							$('#imagePreview').hide();
+							$('#imagePreview').fadeIn(650);
+						}
+						reader.readAsDataURL(input.files[0]);
+						return true;
+					}else{
+						$("#imageUpload").val('');
+						swal("Image size is not valid, please try to upload the image of size (min. width : 1000) X (max. height : 550)");
+						return false;
+					}
+				};
+				img.src = _URL.createObjectURL(file);
 			}
-			
-			var file = input.files[0];//get file   
-			var img = new Image();
-			var sizeKB = file.size / 1024;
-			if(sizeKB > maxSize){
-				toastr.error('Image size', 'Image size should be less then '+size+'Mb.' , {displayDuration:100000,position: 'top-right'});
-				return false;
-			}
-		    if (input.files && input.files[0]) {
-		        var reader = new FileReader();
-		        reader.onload = function(e) {
-		            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
-		            $('#imagePreview').hide();
-		            $('#imagePreview').fadeIn(650);
-		        }
-		        reader.readAsDataURL(input.files[0]);
-		    }
 		}
 		$("#imageUpload").change(function() {
 		    readURL(this,$(this).attr('data-size'));

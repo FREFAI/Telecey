@@ -59,7 +59,7 @@ class AdsController extends Controller
 			}
     		$validation = Validator::make($input, [
 	            'title' => 'required|unique:ads',
-	            'ads_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
+	            'ads_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000|dimensions:min_width=1000,max_height=550',
 				'country' => $validationCiuntry
 	        ]);
 	        if ( $validation->fails() ) {
@@ -76,7 +76,8 @@ class AdsController extends Controller
                 $fileext    = $image->getClientOriginalExtension();
                 $destinationPath = public_path('/ads_banner/resized');
                 $input['ads_file'] = time().'_custom_ads_resized.'.$fileext;                
-
+				$input['ads_file_original'] = time().'_custom_ads_original.'.$fileext;
+				
                 $image_resize = Image::make($image->getRealPath())->resize(320, 240, function($constraint) {
                         $constraint->aspectRatio();
                         });              
@@ -85,12 +86,10 @@ class AdsController extends Controller
 
 	            // Original Image section 
 
-                $input['ads_file_original'] = time().'_custom_ads_original.'.$image->getClientOriginalExtension();
 	        	
 	        	$image->move(public_path()."/ads_banner/ads_banner_original", $input['ads_file_original']);
 
         	 	// End Original Image section 
-
 	        	$addAds = AdsModel::create($input);
 	        	if($addAds){
 	        		return redirect()->back()->withInput()->with('success','Custom ad added successfully.');
@@ -123,7 +122,7 @@ class AdsController extends Controller
 		}
 		$validation = Validator::make($input, [
 			'title' => 'required|unique:ads,title,'.$id,
-			'ads_file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
+			'ads_file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000|dimensions:min_width=1000,max_height=550',
 			'country' => $validationCiuntry
 		]);
 		if ( $validation->fails() ) {

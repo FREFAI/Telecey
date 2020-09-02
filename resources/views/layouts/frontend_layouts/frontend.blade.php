@@ -17,9 +17,6 @@
         <div id="loader" class="ajaxloader">
             <div class="loader" id="loader-1"></div>
         </div>
-        {{-- <div id="loader" class="ajaxloader">
-            <div class="loader" id="loader-1"></div>
-        </div> --}}
         <!-- Header Section Include -->
             @include('layouts.frontend_layouts.header')
         <!-- End Header Section Include -->

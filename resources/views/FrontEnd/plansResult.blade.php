@@ -144,14 +144,14 @@
 					<table id="example" class="table table-striped custom-table plan_sorting" style="width:100%" data-url="{{url('/plans/resultSorting')}}">
 						<thead>
 							<tr>
-								<th>Provider</th>
+								<th>{{__('planresult.provider')}}</th>
 								<th @if(!Auth::guard('customer')->check())
 											@if($filtersetting->disable_price_for_logged_out_users == 1)
 												class="custom_sorting"
 											@endif
 										@else
 										class="custom_sorting"
-										@endif data-name="price" data-sort="asc" >Price
+										@endif data-name="price" data-sort="asc" >{{__('planresult.price')}}
 										@if(!Auth::guard('customer')->check())
 											@if($filtersetting->disable_price_for_logged_out_users == 1)
 												<i class="fas fa-arrow-down"></i>
@@ -159,10 +159,10 @@
 										@else
 										<i class="fas fa-arrow-down"></i>
 										@endif</th>
-								<th class="custom_sorting" data-name="local_min" data-sort="asc" >Local Min <i class="fas fa-arrow-down"></i></th>
-								<th class="custom_sorting" data-name="datavolume" data-sort="asc" >Volume GB <i class="fas fa-arrow-down"></i></th>
-								<th class="custom_sorting" data-name="average_review" data-sort="asc" >Review <i class="fas fa-arrow-down"></i></th>
-								<th class="custom_sorting" data-name="distance" data-sort="asc" >Distance <i class="fas fa-arrow-down"></i></th>
+								<th class="custom_sorting" data-name="local_min" data-sort="asc" >{{__('planresult.localmin')}} <i class="fas fa-arrow-down"></i></th>
+								<th class="custom_sorting" data-name="datavolume" data-sort="asc" >{{__('planresult.volumegb')}} <i class="fas fa-arrow-down"></i></th>
+								<th class="custom_sorting" data-name="average_review" data-sort="asc" >{{__('planresult.review')}} <i class="fas fa-arrow-down"></i></th>
+								<th class="custom_sorting" data-name="distance" data-sort="asc" >{{__('planresult.distance')}} <i class="fas fa-arrow-down"></i></th>
 								<th class="text-right">{{__('planresult.detail_btn')}}</th>
 							</tr>
 						</thead>
@@ -177,8 +177,6 @@
 									<td>
 										@if($value['provider']['provider_image_original'] != "")
 											<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" style="width:100px;height:50px; object-fit: contain;" />
-										@else
-											<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" style="width:100px;height:50px; object-fit: contain;"/>
 										@endif
 									</td>
 									<td>
@@ -186,7 +184,7 @@
 										@if($filtersetting->disable_price_for_logged_out_users == 1)
 											{{$value['price']}}
 										@else
-											<a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</a>
+											<a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('planresult.signup_unlock')}}</a>
 										@endif
 									@else
 									{{$value['price']}}
@@ -206,7 +204,7 @@
 										@if($filtersetting->disable_details_for_logged_out_users == 1)
 											<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">{{__('planresult.detail_btn')}}</a></td>
 										@else
-											<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</a></td>
+											<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('planresult.signup_unlock')}}</a></td>
 										@endif
 									@endif
 								</tr>
@@ -265,7 +263,7 @@
 						<div class="overlay_signup w-100 text-center text-white">
 							<i class="fa fa-lock" aria-hidden="true"></i>
 							<div> 
-							<a class="btn table-row-btn signup_btn" href="{{url('/signup')}}">Sign up to show more reviews</a>
+							<a class="btn table-row-btn signup_btn" href="{{url('/signup')}}">{{__('planresult.signup_more')}}</a>
 							</div>
 						</div>
 						@endif
@@ -279,7 +277,7 @@
 						</div>
 						<div class="col-lg-3 rows_per_page">
 							<div class="inner_rows">
-								<label>Items Per Page</label>
+								<label>{{__('planresult.item_per_page')}}</label>
 								<select class="service-type-select paginate_select_box" name="rows">
 									<option @if( request()->get('rows') == "20" ) selected @endif>20</option>
 									<option @if( request()->get('rows') == "50" ) selected @endif>50</option>

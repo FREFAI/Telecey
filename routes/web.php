@@ -17,6 +17,9 @@ ini_set('max_input_time', '900');
 Route::get('/', function(){ 
     return redirect('/en', 301); 
 });
+Route::get('/googlecallback', 'FrontEnd\LoginSignup\SocialAuthGoogleController@callback');
+Route::get('/facebookcallback', 'FrontEnd\LoginSignup\SocialAuthFacebookController@callback');
+
 Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], function(){
 	// Testing Route 
 		Route::get('/country', 'TestController@index');
@@ -68,11 +71,9 @@ Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], fun
 			Route::post('/emailsignup', 'FrontEnd\LoginSignup\RegisterController@registerUser');
 			// Google login
 			Route::get('/googlelogin', 'FrontEnd\LoginSignup\SocialAuthGoogleController@redirect');
-			Route::get('/googlecallback', 'FrontEnd\LoginSignup\SocialAuthGoogleController@callback');
 
 			// Facebook Login
 			Route::get('/facebooklogin', 'FrontEnd\LoginSignup\SocialAuthFacebookController@redirect');
-			Route::get('/facebookcallback', 'FrontEnd\LoginSignup\SocialAuthFacebookController@callback');
 			// Confirm email
 			Route::get('/confirmEmail/{token}', 'FrontEnd\LoginSignup\RegisterController@confirmEmail');
 			

@@ -54,35 +54,42 @@ class SocialAuthGoogleController extends Controller
         	if($validation->messages()->first('google_id')){
         	    $user = User::Where('google_id',$input['google_id'])->first();
         	    if(Auth::guard('customer')->loginUsingId($user->id)){
-	        		return redirect()->to('/profile');
+                    $url = \Session::get('locale').'/profile';
+	        		return redirect()->to($url);
 	        	}else{
-	        		return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
+                    $url = \Session::get('locale').'/signup';
+	        		return redirect($url)->withInput()->with('error','Somthing went wrong!');
 	        	}
         	}
             if($validation->messages()->first('email')){
                 $user = User::Where('email',$input['email'])->first();
                 if($user->social_login_type == 1){
                 	if(Auth::guard('customer')->loginUsingId($user->id)){
-		        		return redirect()->to('/profile');
+                        $url = \Session::get('locale').'/profile';
+		        		return redirect()->to($url);
 		        	}else{
-		        		return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
+                        $url = \Session::get('locale').'/signup';
+		        		return redirect($url)->withInput()->with('error','Somthing went wrong!');
 		        	}	
                 }else{
                 	$user->social_login_type = 1;
                 	$user->google_id = $input['google_id'];
                 	if($user->save()){
 	                	if(Auth::guard('customer')->loginUsingId($user->id)){
-			        		return redirect()->to('/profile');
+                            $url = \Session::get('locale').'/profile';
+			        		return redirect()->to($url);
 			        	}else{
-			        		return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
+                            $url = \Session::get('locale').'/signup';
+			        		return redirect($url)->withInput()->with('error','Somthing went wrong!');
 			        	}
 			        }else{
-			        	return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
+                        $url = \Session::get('locale').'/signup';
+			        	return redirect($url)->withInput()->with('error','Somthing went wrong!');
 			        }
                 }
             }
-            
-            return redirect('/signup')->withInput()->with('error',$validation->messages()->first());
+            $url = \Session::get('locale').'/signup';
+            return redirect($url)->withInput()->with('error',$validation->messages()->first());
             
         }else{
 	        $add = User::create($input);
@@ -99,12 +106,15 @@ class SocialAuthGoogleController extends Controller
                 ];
                 CreateLogs::createLog($logData);
 	        	if(Auth::guard('customer')->loginUsingId($add->id)){
-	        		return redirect()->to('/reviews');
+                    $url = \Session::get('locale').'/reviews';
+	        		return redirect()->to($url);
 	        	}else{
-	        		return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
+                    $url = \Session::get('locale').'/signup';
+	        		return redirect($url)->withInput()->with('error','Somthing went wrong!');
 	        	}	
 	        }else{
-	        	return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
+                $url = \Session::get('locale').'/signup';
+	        	return redirect($url)->withInput()->with('error','Somthing went wrong!');
 	        }
 	    }
     }

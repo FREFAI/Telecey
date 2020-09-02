@@ -922,17 +922,6 @@
 		    </div>
 		</section> 
 
-		<section class="plan-device-sec">
-		    <div class="container">
-		        <div class="row pt-5 pb-5">
-		            <div class="col text-center">
-		                <div class="heading">
-		                    <h1>{{ __('review.footer_text') }}</h1>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		</section>
 	<!-- Content End Here -->
     <!-- Overage price Modal -->
     <div class="modal fade" id="overage_price_model" data-backdrop="static" data-keyboard="false">
@@ -1160,6 +1149,20 @@
         </div>
       </div>
     </div>
+    @section('footer')
+	    <section class="plan-device-sec">
+		    <div class="container">
+		        <div class="row pt-5 pb-5">
+		            <div class="col text-center">
+		                <div class="heading">
+		                    <h1>{{ __('review.footer_text') }}</h1>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</section>
+	@endsection
+	@section('script')
 <!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
 @section('script')
 <script>

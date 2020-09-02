@@ -42,7 +42,8 @@ class ForgotPasswordController extends Controller
                         'user_name' => $user->firstname
                     ];
                     Mail::to($input['email'])->send(new ResetPassword($emaildata));
-                    return redirect('/signin')->with('success','Check your email to reset your password!');
+                    $url = \Session::get('locale').'/signin';
+                    return redirect($url)->with('success','Check your email to reset your password!');
                 }
             }else{
                 return redirect()->back()->withInput()->with('error', "This email account is not registered.");
@@ -57,10 +58,12 @@ class ForgotPasswordController extends Controller
             if($ifexist){
                 return view('FrontEnd.LoginSignup.resetpassword_form',['token'=>$token]);
             }else{
-                return redirect('/signin');
+                $url = \Session::get('locale').'/signin';
+                return redirect($url);
             }
         }else{
-            return redirect('profile');
+            $url = \Session::get('locale').'/profile';
+            return redirect($url);
         }
     }
     public function setPassword(Request $request)
@@ -77,7 +80,8 @@ class ForgotPasswordController extends Controller
             $user->password = bcrypt($input['password']);
             $user->password_reset = NULL;
             if($user->save()){
-                return redirect('/signin')->with('success','Password reset successfully.');
+                $url = \Session::get('locale').'/signin';
+                return redirect($url)->with('success','Password reset successfully.');
             }else{
                 return redirect()->back()->withInput()->with('error', "Somthing went wrong!");
             }
@@ -100,7 +104,8 @@ class ForgotPasswordController extends Controller
                 $user = User::find($user_id);
                 $user->password = bcrypt($input['new_password']);
                 if($user->save()){
-                    return redirect('/profile')->with('success','Password changed successfully.');
+                    $url = \Session::get('locale').'/profile';
+                    return redirect($url)->with('success','Password changed successfully.');
                 }else{
                     return redirect()->back()->withInput()->with('error', "Somthing went wrong!");
                 }

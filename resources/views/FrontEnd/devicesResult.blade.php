@@ -80,12 +80,12 @@
 				<table id="example" class="table table-striped custom-table device_sorting" style="width:100%" data-url="{{url('/devices/resultSorting')}}">
 					<thead>
 						<tr>
-							<th class="custom_sorting" data-name="brand_name" data-sort="asc">Brand <i class="fas fa-arrow-down"></i></th>
-							<th class="custom_sorting" data-name="model_name" data-sort="asc">Model <i class="fas fa-arrow-down"></i></th>
-							<th class="custom_sorting" data-name="supplier_name" data-sort="asc">Supplier <i class="fas fa-arrow-down"></i></th>
-							<th class="custom_sorting" data-name="price" data-sort="asc">Price <i class="fas fa-arrow-down"></i></th>
-							<th class="custom_sorting" data-name="storage" data-sort="asc">Capacity <i class="fas fa-arrow-down"></i></th>
-							<th class="custom_sorting" data-name="distance" data-sort="asc">Distance <i class="fas fa-arrow-down"></i></th>
+							<th class="custom_sorting" data-name="brand_name" data-sort="asc">{{__('deviceresult.brand')}} <i class="fas fa-arrow-down"></i></th>
+							<th class="custom_sorting" data-name="model_name" data-sort="asc">{{__('deviceresult.model')}} <i class="fas fa-arrow-down"></i></th>
+							<th class="custom_sorting" data-name="supplier_name" data-sort="asc">{{__('deviceresult.supplier')}} <i class="fas fa-arrow-down"></i></th>
+							<th class="custom_sorting" data-name="price" data-sort="asc">{{__('deviceresult.price')}} <i class="fas fa-arrow-down"></i></th>
+							<th class="custom_sorting" data-name="storage" data-sort="asc">{{__('deviceresult.capacity')}} <i class="fas fa-arrow-down"></i></th>
+							<th class="custom_sorting" data-name="distance" data-sort="asc">{{__('deviceresult.distance')}} <i class="fas fa-arrow-down"></i></th>
 							<th class="text-center">{{ __('deviceresult.detail_btn') }}</th>
 						</tr>
 					</thead>
@@ -106,7 +106,7 @@
 								@if(Auth::guard('customer')->check())
 									<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value->id)}}">{{__('deviceresult.detail_btn')}}</td>
 								@else
-									<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
+									<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('deviceresult.signup_unlock')}}</td>
 								@endif
 							</tr>
 							@if($i%10 == 0)
@@ -164,7 +164,7 @@
 					<div class="overlay_signup w-100 text-center text-white">
 						<i class="fa fa-lock" aria-hidden="true"></i>
 						<div> 
-						<a class="btn table-row-btn signup_btn" href="{{url('/signup')}}">Sign up to show more reviews</a>
+						<a class="btn table-row-btn signup_btn" href="{{url('/signup')}}">{{__('deviceresult.signup_more')}}</a>
 						</div>
 					</div>
 					@endif
@@ -178,7 +178,7 @@
 						</div>
 						<div class="col-lg-3 rows_per_page">
 							<div class="inner_rows mb-2">
-								<label>Items Per Page</label>
+								<label>{{__('deviceresult.item_per_page')}}</label>
 								<select class="service-type-select paginate_select_box" name="rows">
 									<option @if( request()->get('rows') == "20" ) selected @endif>20</option>
 									<option @if( request()->get('rows') == "50" ) selected @endif>50</option>

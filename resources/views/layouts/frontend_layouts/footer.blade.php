@@ -1,4 +1,5 @@
 <footer>
+    @yield('footer')
     <section class="footer-Content">
         <div class="container">
             <div class="row align-items-center">

@@ -111,7 +111,8 @@ class BlogsController extends Controller
             $blogs = BlogsModel::create($perameters);
             
         	if($blogs){
-        		return redirect('/blog-list')->withInput()->with('success','Blog added successfully.');
+                $url = \Session::get('locale').'/blog-list';
+        		return redirect($url)->withInput()->with('success','Blog added successfully.');
         	}else{
         		return redirect()->back()->withInput()->with('error','Somthing went wrong!');
         	}
@@ -181,7 +182,8 @@ class BlogsController extends Controller
 	            unset($perameters['_token']);
 	        	$blogs = BlogsModel::where('id',$id)->update($perameters);
 	        	if($blogs){
-	        		return redirect('/blog-list')->withInput()->with('success','Blog updated successfully.');
+                    $url = \Session::get('locale').'/blog-list';
+	        		return redirect($url)->withInput()->with('success','Blog updated successfully.');
 	        	}else{
 	        		return redirect()->back()->withInput()->with('error','Somthing went wrong!');
 	        	}

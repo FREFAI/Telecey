@@ -59,35 +59,42 @@ class SocialAuthFacebookController extends Controller
               if($validation->messages()->first('facebook_id')){
                   $user = User::Where('facebook_id',$input['facebook_id'])->first();
                   if(Auth::guard('customer')->loginUsingId($user->id)){
-                  return redirect()->to('/profile');
-                }else{
-                  return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
-                }
+                    $url = \Session::get('locale').'/profile';  
+                    return redirect()->to($url);
+                  }else{
+                    $url = \Session::get('locale').'/signup';
+                    return redirect($url)->withInput()->with('error','Somthing went wrong!');
+                  }
               }
               if($validation->messages()->first('email')){
                   $user = User::Where('email',$input['email'])->first();
                   if($user->social_login_type == 2){
                     if(Auth::guard('customer')->loginUsingId($user->id)){
-                  return redirect()->to('/profile');
-                }else{
-                  return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
-                } 
+                      $url = \Session::get('locale').'/profile';
+                      return redirect()->to($url);
+                    }else{
+                      $url = \Session::get('locale').'/signup';
+                      return redirect($url)->withInput()->with('error','Somthing went wrong!');
+                    } 
                   }else{
                     $user->social_login_type = 2;
                     $user->facebook_id = $input['facebook_id'];
                     if($user->save()){
                       if(Auth::guard('customer')->loginUsingId($user->id)){
-                    return redirect()->to('/profile');
-                  }else{
-                    return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
-                  }
-                }else{
-                  return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
-                }
+                        $url = \Session::get('locale').'/profile';
+                        return redirect()->to($url);
+                      }else{
+                        $url = \Session::get('locale').'/signup';
+                        return redirect($url)->withInput()->with('error','Somthing went wrong!');
+                      }
+                    }else{
+                      $url = \Session::get('locale').'/signup';
+                      return redirect($url)->withInput()->with('error','Somthing went wrong!');
+                    }
                   }
               }
-                
-                return redirect('/signup')->withInput()->with('error',$validation->messages()->first());
+              $url = \Session::get('locale').'/signup';
+              return redirect($url)->withInput()->with('error',$validation->messages()->first());
                 
             }else{
               $add = User::create($input);
@@ -104,12 +111,15 @@ class SocialAuthFacebookController extends Controller
                 ];
                 CreateLogs::createLog($logData);
                 if(Auth::guard('customer')->loginUsingId($add->id)){
-                  return redirect()->to('/reviews');
+                  $url = \Session::get('locale').'/reviews';
+                  return redirect()->to($url);
                 }else{
-                  return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
+                  $url = \Session::get('locale').'/signup';
+                  return redirect($url)->withInput()->with('error','Somthing went wrong!');
                 } 
               }else{
-                return redirect('/signup')->withInput()->with('error','Somthing went wrong!');
+                $url = \Session::get('locale').'/signup';
+                return redirect($url)->withInput()->with('error','Somthing went wrong!');
               }
           }
         }

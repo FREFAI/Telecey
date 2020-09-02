@@ -201,18 +201,19 @@
                	
 		    </div>
 		</section> 
-
-		<section class="plan-device-sec">
-		    <div class="container">
-		        <div class="row pt-5 pb-5">
-		            <div class="col text-center">
-		                <div class="heading">
-		                    <h1>{{__('review.footer_text')}}</h1>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		</section>
+        @section('footer')
+            <section class="plan-device-sec">
+                <div class="container">
+                    <div class="row pt-5 pb-5">
+                        <div class="col text-center">
+                            <div class="heading">
+                                <h1>{{ __('review.footer_text') }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endsection
 	<!-- Content End Here -->
     <!-- The Modal -->
     <div class="modal fade" id="user_address" data-backdrop="static" data-keyboard="false">

@@ -63,11 +63,6 @@ class ReviewsController extends Controller
             // $ip = '96.46.34.142';
             $current_lat = $newresponse->latitude;
             $current_long = $newresponse->longitude;
-            // $storableLocation['city'] = $newresponse->city;
-            // $storableLocation['state'] = $newresponse->state_prov;
-            // $storableLocation['country'] = $newresponse->country_name;
-            // $storableLocation['country_code'] = $newresponse->country_code2;
-            // $storableLocation['postal_code'] = $newresponse->zipcode;
             $storableLocation['city'] = "";
             $storableLocation['state'] = "";
             $storableLocation['country'] = $newresponse->country_name;
@@ -366,20 +361,6 @@ class ReviewsController extends Controller
                         ];
                         UserAddress::where('user_id',$user_id)->where('is_primary',1)->update($insertAddress);
                     }
-                    // $insertAddress = [
-                    //     'latitude' => $input['latitude'],
-                    //     'longitude' => $input['longitude'],
-                    //     'user_id' => $user_id,
-                    //     'address' =>$input['user_full_address'],
-                    //     'country' =>$input['user_country'],
-                    //     'city' =>$input['user_city'],
-                    //     'postal_code' => $input['user_postal_code'],
-                    //     'formatted_address' => $input['formatted_address']
-                    // ];
-                    // $newAddress = UserAddress::create($insertAddress);
-                    // if($newAddress){
-                    //     $input['user_address_id'] = $newAddress->id;
-                    // }
                 }else{
                     $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
                     if($userAddress){
@@ -507,19 +488,6 @@ class ReviewsController extends Controller
                         ];
                         UserAddress::where('user_id',$user_id)->where('is_primary',1)->update($insertAddress);
                     }
-                    // $insertAddress = [
-                    //     'user_id' => $user_id,
-                    //     'address' =>$input['user_full_address'],
-                    //     'country' =>$input['user_country'],
-                    //     'city' =>$input['user_city'],
-                    //     'postal_code' => $input['user_postal_code'],
-                    //     'formatted_address' => $input['formatted_address'],
-                    //     'is_primary' => $is_primary
-                    // ];
-                    // $newAddress = UserAddress::create($insertAddress);
-                    // if($newAddress){
-                    //     $input['user_address_id'] = $newAddress->id;
-                    // }
                 }else{
                     $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
                     if($userAddress){

@@ -36,7 +36,8 @@ class RegisterController extends Controller
         if(!Auth::guard('customer')->check()){
             return view('FrontEnd.LoginSignup.emailsignup',['setting'=>$setting]);
         }else{
-            return redirect('profile');
+            $url = \Session::get('locale').'/profile';
+            return redirect($url);
         }
         
     }
@@ -45,7 +46,8 @@ class RegisterController extends Controller
         if(!Auth::guard('customer')->check()){
             return view('FrontEnd.LoginSignup.signup');
         }else{
-            return redirect('profile');
+            $url = \Session::get('locale').'/profile';
+            return redirect($url);
         }
         
     }
@@ -132,7 +134,8 @@ class RegisterController extends Controller
                     $m->to($emaildata['email'], $emaildata['name'])->subject("Email verification.");
                 });
                 if (Auth::guard('customer')->attempt($request->only('email', 'password'))) {
-                   return redirect('/reviews')->with('success','Account registered successfully!');
+                    $url = \Session::get('locale').'/reviews';
+                   return redirect($url)->with('success','Account registered successfully!');
                 }
             }else{
                 return redirect()->back()->withInput()->with('error',"Somthing went wrong!");
@@ -172,7 +175,8 @@ class RegisterController extends Controller
         CreateLogs::createLog($logData);
         if($user->save()){
             if (Auth::guard('customer')->loginUsingId($user->id)) {
-               return redirect('/profile')->with('success','Thank you for confirming your email address');
+                $url = \Session::get('locale').'/profile';
+                return redirect($url)->with('success','Thank you for confirming your email address');
             }
         }else{
             return redirect()->back()->withInput()->with('error',"Somthing went wrong!");

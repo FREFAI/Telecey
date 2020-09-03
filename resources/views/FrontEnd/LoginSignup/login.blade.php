@@ -1,7 +1,23 @@
 @extends('layouts.frontend_layouts.loginsignup_layout')
 @section('title', 'Login')
 @section('content')
-
+	@section('pageStyle')
+		<style>
+			label.form-check-label {
+				font-size: 15px;
+			}
+			.input-group-addon {
+				padding: 7px;
+				border-right: 1px solid #e5e5e5;
+				border-radius: 3px;
+				border-top: 1px solid #e5e5e5;
+				border-bottom: 1px solid #e5e5e5;
+			}
+			input.password-field {
+				border-right: none;
+			}
+		</style>
+	@endsection 
 	<!-- Content Start Here -->
 		<div class="login-form">
 	        <form action="{{url('/signin')}}" method="post">
@@ -15,9 +31,15 @@
 	            <div class="form-group">
 	                <input type="email" class="form-control" name="email" placeholder="{{__('login.email')}}" required="required" maxlength="50">		
 	            </div>
-	            <div class="form-group">
-	                <input type="password" class="form-control" name="password" placeholder="{{__('login.password')}}" required="required" maxlength="50">	
-	            </div>        
+				<div class="form-group">
+					<label>Password</label>
+					<div class="input-group" id="show_hide_password">
+						<input class="form-control password-field" type="password" name="password" placeholder="{{__('login.password')}}" required="required" maxlength="50">
+						<div class="input-group-addon">
+							<a href="javascript:void(0)"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+						</div>
+					</div>
+				</div>       
 	            <div class="form-group">
 	                <button type="submit" class="btn btn-primary btn-lg btn-block login-btn">{{__('login.login_button')}}</button>
 	            </div>
@@ -33,5 +55,20 @@
 	        </form>
 		</div>
 	<!-- Content End Here -->
-
+	@section('pageScript')
+	<script>
+		$("#show_hide_password a").on('click', function(event) {
+			event.preventDefault();
+			if($('#show_hide_password input').attr("type") == "text"){
+				$('#show_hide_password input').attr('type', 'password');
+				$('#show_hide_password i').addClass( "fa-eye-slash" );
+				$('#show_hide_password i').removeClass( "fa-eye" );
+			}else if($('#show_hide_password input').attr("type") == "password"){
+				$('#show_hide_password input').attr('type', 'text');
+				$('#show_hide_password i').removeClass( "fa-eye-slash" );
+				$('#show_hide_password i').addClass( "fa-eye" );
+			}
+		});
+	</script>
+	@endsection 
 @endsection

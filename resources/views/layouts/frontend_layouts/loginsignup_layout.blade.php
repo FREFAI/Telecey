@@ -17,7 +17,7 @@
             @yield('content')
         <!-- End Content Section Include -->
         <!-- Script Section  -->
-            @include('layouts.frontend_layouts.alljquery')
+            @include('layouts.frontend_layouts.alljqueryLogin')
         <!-- End Script Section  -->
     </body>
 

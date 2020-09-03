@@ -1,7 +1,6 @@
 @extends('layouts.frontend_layouts.frontend')
 @section('title', 'Home')
 @section('content')
-
 <!-- Content Start Here -->
 <section id="main-top-section" >
 	<div class="container">
@@ -554,6 +553,7 @@
 		</div>
 	</div> -->
 </section>
+@section('pageStyle')
 <style>
 	.dropdown-select.wide.service-type-select.service_type {
 		border: 1px solid #2e75b5;
@@ -565,7 +565,15 @@
 		width: 100%;
 		border-radius: 5px;
 	}
+	.find-service-section {
+		word-break: break-all;
+	}
+	.label-service {
+		word-break: break-all;
+	}
 </style>
+@endsection()
+
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script>
 	$(document).on('click','.dropdown-select ul li',function(){

@@ -56,3 +56,4 @@
         font-size: 15px;
     }
 </style>
+@yield('pageStyle')

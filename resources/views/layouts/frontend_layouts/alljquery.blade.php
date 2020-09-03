@@ -72,6 +72,8 @@ if($('#firstform #city').val() == ""){
      geocoder.geocode({'latLng': latlng}, function(results, status) {
      if(status == google.maps.GeocoderStatus.OK) {
          if(results[1]) {
+           console.log('results',results);
+           
            for (var ii = 0; ii < results[0].address_components.length; ii++) {
                var street_number = route = street = city = state = zipcode = country = formatted_address = '';
                var types = results[0].address_components[ii].types.join(",");

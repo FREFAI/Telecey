@@ -157,7 +157,7 @@ class RegisterController extends Controller
         });
         return redirect()->back();
     }
-    public function confirmEmail($id)
+    public function confirmEmail($lan,$id)
     {
         $id = decrypt($id);
         $user = User::find($id);

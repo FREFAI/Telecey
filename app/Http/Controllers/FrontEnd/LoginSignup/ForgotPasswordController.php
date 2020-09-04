@@ -51,7 +51,7 @@ class ForgotPasswordController extends Controller
         }
     }
 
-    public function setPasswordForm($token)
+    public function setPasswordForm($leng,$token)
     {
         $ifexist = User::where('password_reset',$token)->first();
         if(!Auth::guard('customer')->check()){

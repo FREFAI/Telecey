@@ -17,9 +17,11 @@
 					<li class="nav-item">
 						<a class="nav-link active" data-toggle="tab" href="#plan">{{__('home.plan')}}</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#device">{{__('home.device')}}</a>
-					</li>
+					@if($settings->device == 1)
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#device">{{__('home.device')}}</a>
+						</li>
+					@endif
 				</ul>
 				<div class="tab-content">
 					<div class="tab-pane active" id="plan">

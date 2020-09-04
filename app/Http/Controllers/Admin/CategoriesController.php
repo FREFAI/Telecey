@@ -11,7 +11,7 @@ class CategoriesController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = Category::paginate(10);
+        $categories = Category::orderBy('id','DESC')->paginate(10);
         return view('Admin.Category.index',['categories'=>$categories]);
     }
     public function addCategoryForm(Request $request)

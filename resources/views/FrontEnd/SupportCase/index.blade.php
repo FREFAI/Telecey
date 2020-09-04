@@ -21,18 +21,18 @@
 	                	    <h3 class="pt-3 custom-height-cl">PLEASE INTRODUCE YOUR SELF</h3> -->
 							@include('flash-message')
 	                	    <section class="get-in-touch">
-	                	        <p class="title pt-3">Support case</p>
+	                	        <p class="title pt-3">{{__('contactus.title')}}</p>
 	                	        <form id="caseGenerateForm" class="contact-form row" action="{{url('/generateCase')}}" method="post">
 	                	        	@csrf
 	                	            <div class="form-field col-lg-12">
-	                	                <input id="subject" class="input-text js-input" type="text" required name="subject" placeholder="Subject">
+	                	                <input id="subject" class="input-text js-input" type="text" required name="subject" placeholder="{{__('contactus.subject')}}">
 	                	            </div>
 	                	            <div class="form-field col-lg-12">
-	                	                <textarea rows="4" id="message" class="input-text js-input" type="text" required name="message" placeholder="Message"></textarea>
+	                	                <textarea rows="4" id="message" class="input-text js-input" type="text" required name="message" placeholder="{{__('contactus.message')}}"></textarea>
 	                	            </div>
 	                	            
 	                	            <div class="form-field col-lg-12">
-	                	                <input class="submit-btn" type="submit" value="Submit">
+	                	                <input class="submit-btn" type="submit" value="{{__('contactus.button')}}">
 	                	            </div>
 	                	        </form>
 	                	    </section>
@@ -47,7 +47,7 @@
 	        <div class="row mb-5 mt-5">
 	            <div class="col-md-12 text-center">
 	                <div class="heading mb-0">
-	                    <h1 class="">Cases list</h1>
+	                    <h1 class="">{{__('contactus.case_heading')}}</h1>
 	                </div>
 	            </div>
 	        </div>
@@ -57,10 +57,10 @@
 	                	<table class="table table-hover">
 	                	    <thead>
 	                	      <tr>
-	                	      	<th>Sr. No.</th>
-	                	        <th class="text-left">Subject</th>
-	                	        <th>Status</th>
-	                	        <th>Date</th>
+	                	      	<th>{{__('contactus.srno')}}</th>
+	                	        <th class="text-left">{{__('contactus.subject')}}</th>
+	                	        <th>{{__('contactus.status')}}</th>
+	                	        <th>{{__('contactus.date')}}</th>
 	                	      </tr>
 	                	    </thead>
 	                	    <tbody>
@@ -88,7 +88,7 @@
 	                	      	<tr>
 		                         	<th colspan="4">
 			                           	<div class="media-body text-center">
-			                               	<span class="mb-0 text-sm">No data found.</span>
+			                               	<span class="mb-0 text-sm">{{__('common.notfound')}}.</span>
 			                           	</div>
 		                         	</th>
 		                       	</tr>

@@ -42,5 +42,6 @@ return [
     'supplier_name' => 'Nom du fournisseur',
     'storage' => 'Espace de rangement',
     'color' => 'Couleur',
-    
+    'member_since'=>"Membre depuis",
+    'change_address'=>"Changement d'adresse",
 ];

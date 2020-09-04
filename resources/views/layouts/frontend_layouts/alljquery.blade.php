@@ -131,20 +131,6 @@
         }
         return valid;
     }
-    $("#mySelect2").select2({
-        ajax: {
-            url: "https://api.github.com/orgs/select2/repos",
-            data: function (params) {
-                var query = {
-                    search: params.term,
-                    type: "public",
-                };
-
-                // Query parameters will be ?search=[term]&type=public
-                return query;
-            },
-        },
-    });
 
     var geocoder = new google.maps.Geocoder();
     var infowindow = new google.maps.InfoWindow();

@@ -42,4 +42,7 @@ return [
     'supplier_name' => 'Supplier Name',
     'storage' => 'Storage',
     'color' => 'Color',
+    'member_since'=>"Member since",
+    'change_address'=>"Change Address",
+    
 ];

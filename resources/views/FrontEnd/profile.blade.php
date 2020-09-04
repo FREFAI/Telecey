@@ -77,7 +77,7 @@
 						<div class="user_name text-center mt-3">
 							<h4 class="mb-0">{{ Auth::guard('customer')->user()['firstname'] }} {{Auth::guard('customer')->user()['lastname'] }}</h4>
 							<p>({{Auth::guard('customer')->user()['nickname'] }})</p>
-							<small>Member since: {{date('d, F Y', strtotime(Auth::guard('customer')->user()['created_at'])) }}</small>
+							<small>{{__('profile.member_since')}}: {{date('d, F Y', strtotime(Auth::guard('customer')->user()['created_at'])) }}</small>
 							@if(isset($customer->userAdderss))
 								<div class="profile_address mt-2">
 									<p>{{$customer->userAdderss['formatted_address']}}</p>
@@ -473,7 +473,7 @@
 								  		<div class="row">
 								  			<div class="col-lg-12">
 								  				<h3 class="text-center pt-3">
-								  					No data found
+								  					{{__('common.notfound')}}
 								  				</h3>
 								  			</div>
 								  		</div>
@@ -666,7 +666,7 @@
   							  		<div class="row">
   							  			<div class="col-lg-12">
   							  				<h3 class="text-center pt-3">
-  							  					No data found
+  							  					{{__('common.notfound')}}
   							  				</h3>
   							  			</div>
   							  		</div>
@@ -730,7 +730,7 @@
 
 			<!-- Modal Header -->
 			<div class="modal-header">
-				<h4 class="modal-title">Changes Address</h4>
+				<h4 class="modal-title">{{__('profile.change_address')}}</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 

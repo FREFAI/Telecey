@@ -26,7 +26,7 @@ class ProviderController extends Controller
 			'provider_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'            
 		]);
 		if($validation->fails()){
-			return redirect()->back()->with('error',$validation->messages()->first());
+			return redirect()->back()->withInput()->with('error',$validation->messages()->first());
 		}else{
             if (! File::exists(public_path()."/providers/provider_original")) {
                 File::makeDirectory(public_path()."/providers/provider_original", 0777, true);
@@ -57,7 +57,7 @@ class ProviderController extends Controller
     		if($provider){
     			return redirect('/admin/provider-list')->with('success','Provider added successfully.');
     		}else{
-    			return redirect()->back()->with('error','Somthing went wrong!');
+    			return redirect()->back()->withInput()->with('error','Somthing went wrong!');
     		}
 		}
     }

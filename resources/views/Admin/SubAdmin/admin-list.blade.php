@@ -121,7 +121,7 @@
                  </table>
                </div>
                <div class="ads_pagination mt-3 mb-0">
-                 {{$admins->links()}}
+                  {{$admins->appends(request()->except('page'))->links()}}
                </div>
             </div>
 		    	</div>

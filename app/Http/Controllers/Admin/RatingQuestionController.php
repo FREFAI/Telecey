@@ -29,7 +29,7 @@ class RatingQuestionController extends Controller
             'type' => 'required'
         ]);
         if($validation->fails()){
-            return redirect()->back()->with('error',$validation->messages()->first());
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
         }else{
             $perameters['text_field'] = isset($perameters['text_field']) ? 1 : 0;
             
@@ -37,7 +37,7 @@ class RatingQuestionController extends Controller
             if($ratingQuestion){
                 return redirect('/admin/rating-question')->with('success','Question added successfully.');
             }else{
-                return redirect()->back()->with('error','Somthing went wrong!');
+                return redirect()->back()->withInput()->with('error','Somthing went wrong!');
             }
         }
     }

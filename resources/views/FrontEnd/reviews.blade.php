@@ -306,11 +306,11 @@
                             <div class="tg-select form-control">
                                 <select required="required" name="device_name" id="device_id">
                                     @if(count($devices) > 0)
-                                    <option value="">Choose device</option>
+                                    <option value="">{{ __('review.choos_device') }}</option>
                                     @foreach($devices as $device)
                                     <option value="{{$device->id}}">{{$device->device_name}}</option>
                                     @endforeach @else
-                                    <option value="">No data found.</option>
+                                    <option value="">{{__('common.notfound')}}</option>
                                     @endif
                                 </select>
                             </div>
@@ -320,7 +320,6 @@
                             <div class="form-group inputwithicon">
                                 <div class="selectreview">
                                     <select class="brand_name active brand_select_brand_device" required="required" name="brand_name" data-url="{{url('/searchBrand')}}">
-                                        <option value="">Brand</option>
                                         @foreach($brands as $v)
                                         <option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
                                         @endforeach
@@ -328,12 +327,12 @@
                                 </div>
                             </div>
                             <div class="form-group brand_text ped-3 mb-0">
-                                <input type="text" class="form-control brand_name text_brand_name mt-1" name="brand_name" placeholder="Brand name" maxlength="30" />
-                                <input type="text" class="form-control model_name text_model_name mt-1" name="model_name" placeholder="Model name" maxlength="30" />
+                                <input type="text" class="form-control brand_name text_brand_name mt-1" name="brand_name" placeholder="{{ __('review.brand_name') }}" maxlength="30" />
+                                <input type="text" class="form-control model_name text_model_name mt-1" name="model_name" placeholder="{{ __('review.model_name') }}" maxlength="30" />
                                 <input type="hidden" class="form-control brand_status" name="brand_status" placeholder="Brand status" value="1" />
                             </div>
                             <small>
-                                <a href="javascript:void(0)" onclick="brand_text_show();" class="brand_text_show">Couldn't find your brand</a>
+                                <a href="javascript:void(0)" onclick="brand_text_show();" class="brand_text_show">{{ __('review.couldnot_find_brand') }}</a>
                             </small>
                         </div>
                     </div>
@@ -346,7 +345,7 @@
                                     <option @if($curr->code == $usersDetail->country_code) selected @elseif($curr->country_code == 'US') selected @endif value="{{$curr->id}}">{{$curr->currency_code}}</option>
                                     @endif @endforeach
                                 </select>
-                                <input type="text" class="form-control price-box device-price" name="price" placeholder="Price" required id="price" />
+                                <input type="text" class="form-control price-box device-price" name="price" placeholder="{{ __('review.price') }}" required id="price" />
                                 <small><input type="checkbox" checked /> {{ __('review.include') }}</small>
                             </div>
                         </div>
@@ -355,20 +354,20 @@
                             <div class="tg-select form-control supplier_select mb-0">
                                 <select name="supplier" id="supplier" class="supplier_name active">
                                     @if(count($suppliers) > 0)
-                                    <option value="">Choose brand</option>
+                                    <option value="">{{ __('review.choos_brand') }}</option>
                                     @foreach($suppliers as $supplier)
                                     <option value="{{$supplier->id}}">{{$supplier->brand_name}} {{$supplier->supplier_name}}</option>
                                     @endforeach @else
-                                    <option value="">No data found.</option>
+                                    <option value="">{{ __('common.notfound') }}</option>
                                     @endif
                                 </select>
                             </div>
                             <div class="form-group supplier_text mb-0">
-                                <input type="text" class="form-control supplier_name text_supplier_name" name="supplier_name" placeholder="Supplier name" maxlength="30" />
+                                <input type="text" class="form-control supplier_name text_supplier_name" name="supplier_name" placeholder="{{__('review.supplier_name')}}" maxlength="30" />
                                 <input type="hidden" class="form-control supplier_status" name="supplier_status" placeholder="Supplier status" value="1" />
                             </div>
                             <small>
-                                <a href="javascript:void(0)" class="supplier_text_show" onclick="supplier_text_show()">Couldn't find your supplier</a>
+                                <a href="javascript:void(0)" class="supplier_text_show" onclick="supplier_text_show()">{{ __('review.couldnot_find_supplier') }}</a>
                             </small>
                         </div>
                     </div>
@@ -394,7 +393,7 @@
                         </div>
                         <div class="col-lg-6">
                             @if(Request::get('type'))
-                            <a class="link" href="{{url('/reviews?type=1')}}"><h5>Do you want to rate a plan instead?</h5></a>
+                            <a class="link" href="{{url('/reviews?type=1')}}"><h5>{{ __('review.plan_insted') }}</h5></a>
                             @endif
                         </div>
                     </div>
@@ -517,11 +516,11 @@
                                 <h5>{{ __('review.provider_name') }}</h5>
                                 <div class="tg-select form-control provider_select mb-0">
                                     <select class="provider_name active" name="provider_name" required="required">
-                                        <option value="">Please select provider</option>
+                                        <option value="">{{__('review.select_provider')}}</option>
                                         @if(count($providers) > 0) @foreach($providers as $provider)
                                         <option value="{{$provider->id}}">{{$provider->provider_name}}</option>
                                         @endforeach @else
-                                        <option value="" disabled="">Not found</option>
+                                        <option value="" disabled="">{{__('common.notfound')}}</option>
                                         @endif
                                     </select>
                                 </div>
@@ -530,7 +529,7 @@
                                     <input type="hidden" class="form-control provider_status" name="provider_status" placeholder="Provider status" />
                                 </div>
                                 <small>
-                                    <a href="javascript:void(0)" class="provider_text_show" onclick="provider_text_show()">Couldn't find your Service provider</a>
+                                    <a href="javascript:void(0)" class="provider_text_show" onclick="provider_text_show()">{{__('review.couldnot_find_provider')}}</a>
                                 </small>
                             </div>
                             <div class="col-lg-6">
@@ -538,23 +537,23 @@
                                     <div class="col-lg-6">
                                         <h5 class="pt-3">{{ __('review.contract') }}</h5>
                                         <div class="form-group review_page">
-                                            <span class="ext-default reviewpage_toggle active">Personal</span>
+                                            <span class="ext-default reviewpage_toggle active">{{__('review.personal')}}</span>
                                             <label class="switch">
                                                 <input type="checkbox" id="personal" class="contract_type" name="contract_type" value="2" />
                                                 <span class="slider"></span>
                                             </label>
-                                            <span class="text-default reviewpage_toggle">Business</span>
+                                            <span class="text-default reviewpage_toggle">{{__('review.business')}}</span>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 pt-3">
                                         <h5>{{ __('review.payment') }}</h5>
                                         <div class="form-group review_page">
-                                            <span class="ext-default reviewpage_toggle active">Postpaid</span>
+                                            <span class="ext-default reviewpage_toggle active">{{__('review.postpaid')}}</span>
                                             <label class="switch">
                                                 <input type="checkbox" id="payment_type" class="payment_type" name="payment_type" />
                                                 <span class="slider"></span>
                                             </label>
-                                            <span class="text-default reviewpage_toggle">Prepaid</span>
+                                            <span class="text-default reviewpage_toggle">{{__('review.prepaid')}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -565,11 +564,11 @@
                                 <h5>{{ __('review.service') }}</h5>
                                 <div class="tg-select form-control">
                                     <select class="service_type" required>
-                                        <option value="">Select service type</option>
+                                        <option value="">{{__('review.select_service')}}</option>
                                         @if(count($service_types) > 0) @foreach($service_types as $type)
                                         <option class="@if($type->type == 1) personal @else buisness @endif" value="{{$type->id}}">{{$type->service_type_name}}</option>
                                         @endforeach @else
-                                        <option disabled="">Not found</option>
+                                        <option disabled="">{{__('common.notfound')}}</option>
                                         @endif
                                     </select>
                                 </div>
@@ -589,7 +588,7 @@
                                     </div>
                                     <div class="col-lg-8">
                                         @if(Request::get('type'))
-                                        <a class="link" href="{{url('/reviews?type=2')}}"><h5>Do you want to rate a device instead?</h5></a>
+                                        <a class="link" href="{{url('/reviews?type=2')}}"><h5>{{__('review.device_rate')}}</h5></a>
                                         @endif
                                     </div>
                                 </div>
@@ -625,7 +624,7 @@
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control datavolume" name="datavolume" placeholder="Data Volume" required="required" maxlength="20" value="2" />
                                     <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">DataVolume</span>
+                                        <span class="input-group-text" id="basic-addon2">{{ __('review.datavolume') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -1598,18 +1597,23 @@
 
             // Open/close
             $(document).on("click", ".dropdown-select", function (event) {
-                if ($(event.target).hasClass("dd-searchbox")) {
-                    return;
+                if($("select.brand_select_brand_device").attr("disabled") == undefined){
+                    if ($(event.target).hasClass("dd-searchbox")) {
+                        return;
+                    }
+                    $(".dropdown-select").not($(this)).removeClass("open");
+                    $(this).toggleClass("open");
+                    if ($(this).hasClass("open")) {
+                        $(this).find(".option").attr("tabindex", 0);
+                        $(this).find(".selected").focus();
+                    } else {
+                        $(this).find(".option").removeAttr("tabindex");
+                        $(this).focus();
+                    }
+                }else{
+                    return false;
                 }
-                $(".dropdown-select").not($(this)).removeClass("open");
-                $(this).toggleClass("open");
-                if ($(this).hasClass("open")) {
-                    $(this).find(".option").attr("tabindex", 0);
-                    $(this).find(".selected").focus();
-                } else {
-                    $(this).find(".option").removeAttr("tabindex");
-                    $(this).focus();
-                }
+                
             });
 
             // Close when clicking outside

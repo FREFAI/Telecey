@@ -34,36 +34,35 @@ class SupportCaseController extends Controller
         $caseQuery = SupportCase::query();
     	$parameters = $request->all();
         // echo "<pre>";print_r($parameters);exit;
-        if($parameters['search_by_subject'] != ''){
+        if(isset($parameters['search_by_subject']) != ''){
             $caseQuery->where('subject','LIKE',"%{$parameters['search_by_subject']}%");
         }
-        if($parameters['search_by_name'] != ''){
+        if(isset($parameters['search_by_name']) != ''){
             $user_ids_by_name = User::where(function ($query) use ($parameters){
                 $query->where('firstname','LIKE',"%{$parameters['search_by_name']}%")
                       ->orwhere('lastname','LIKE',"%{$parameters['search_by_name']}%");
             })->pluck('id')->toArray();
             $caseQuery->whereIn('user_id',$user_ids_by_name);
         }
-        if($parameters['search_by_email'] != ''){
+        if(isset($parameters['search_by_email']) != ''){
             $user_ids_by_email = User::where('email','LIKE',"%{$parameters['search_by_email']}%")->pluck('id')->toArray();
             $caseQuery->whereIn('user_id',$user_ids_by_email);
         }
-        if($parameters['start_date'] != '' && $parameters['end_date'] != ''){
+        if(isset($parameters['start_date']) != '' && isset($parameters['end_date']) != ''){
             $parameters['start_date'] = date('Y-m-d', strtotime($parameters['start_date']));
             $parameters['end_date'] = date('Y-m-d', strtotime($parameters['end_date']));
-            $caseQuery->whereDate('created_at',$parameters['start_date']);
-            $caseQuery->whereDate('created_at',$parameters['end_date']);
-            // $caseQuery->whereBetween('created_at',[$parameters['start_date'],$parameters['end_date']]);
+            $caseQuery->whereDate('created_at','>=',$parameters['start_date']);
+            $caseQuery->whereDate('created_at','<=',$parameters['end_date']);
         }
-        if($parameters['start_date'] != '' && $parameters['end_date'] == ''){
+        if(isset($parameters['start_date']) != '' && isset($parameters['end_date']) == ''){
             $parameters['start_date'] = date('Y-m-d', strtotime($parameters['start_date']));
             $caseQuery->whereDate('created_at',$parameters['start_date']);
         }
-        if($parameters['start_date'] == '' && $parameters['end_date'] != ''){
+        if(isset($parameters['start_date']) == '' && isset($parameters['end_date']) != ''){
             $parameters['end_date'] = date('Y-m-d', strtotime($parameters['end_date']));
             $caseQuery->whereDate('created_at',$parameters['end_date']);
         }
-        if($parameters['search_status'] != ""){
+        if(isset($parameters['search_status']) != ""){
             $caseQuery->where('status',$parameters['search_status']);
         }
         $casesList = $caseQuery->paginate(10);

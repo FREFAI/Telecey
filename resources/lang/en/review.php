@@ -69,4 +69,23 @@ return [
     'back_btn' => "Back",
     'average' => "Average",
     'comment' => "Comment",
+    'minute' => 'Minute',
+    'datavolume' => "DataVolum",
+    'device_rate' => "Do you want to rate a device instead?",
+    'select_service' => "Select Service Type",
+    'select_provider' => "Please select provider",
+    'couldnot_find_provider' => "Couldn't find your Service provider",
+    'personal' => 'Personal',
+    'business' => 'Business',
+    'postpaid' => "Postpaid",
+    'prepaid' => "Prepaid",
+    'choos_device'=>"Choose device",
+    'choos_brand' => "Choose brand",
+    'couldnot_find_brand' => "Couldn't find your brand",
+    'couldnot_find_supplier' => "Couldn't find your supplier",
+    'plan_insted' => "Do you want to rate a plan instead?",
+    'supplier_name' => "Supplier name",
+    'brand_name'=> "Brand name",
+    'model_name' => "Model name"
+
 ];

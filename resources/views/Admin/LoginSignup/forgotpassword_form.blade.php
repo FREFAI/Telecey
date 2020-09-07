@@ -42,7 +42,7 @@
                 </div>
               </div>
               <div class="text-center">
-                <button type="submit" class="btn btn-primary mt-4">Create account</button>
+                <button type="submit" class="btn btn-primary mt-4">Send Email</button>
               </div>
             </form>
           </div>

@@ -31,21 +31,21 @@
             
             <div class="col-lg-12">
             @include('flash-message')
-              <form action="{{ url('/admin/addsupplier') }}" method="post" enctype="multipart/form-data">
+              <form action="{{ url('/admin/addsupplier') }}" method="post" enctype="multipart/form-data" id="supplierForm">
                 @csrf
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Supplier name" name="supplier_name">
+                      <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Supplier name" name="supplier_name" value="{{old('supplier_name')}}" required="">
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
-                        <select class="form-control select2" name="country">
+                        <select class="form-control select2" name="country" required="">
                           @if($countries)
                             <option value="">Select Country</option>
                             @foreach($countries as $country)
-                              <option value="{{$country->name}}">{{$country->name}}</option>
+                              <option @if(old('country') == $country->name) selected="" @endif value="{{$country->name}}">{{$country->name}}</option>
                             @endforeach
                           @else
                             <option value="">Countries not found</option>

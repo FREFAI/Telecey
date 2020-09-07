@@ -301,13 +301,7 @@
             },
         },
     });
-    $("#change_address_form").validate({
-        rules: {
-            postal_code: {
-                required: true,
-            },
-        },
-    });
+    $("#change_address_form").validate();
     $("#change_password_form").validate({
         rules: {
             new_password: "required",
@@ -1229,7 +1223,9 @@
     // Profile Page
     $(".address_update_btn").on("click", async function (e) {
         e.preventDefault();
-
+        if(!$("#change_address_form").valid()){
+            return false;
+        }
         if (countrySelection === false) {
             $(".country_list").css("display", "none");
             $("#country").addClass("error");

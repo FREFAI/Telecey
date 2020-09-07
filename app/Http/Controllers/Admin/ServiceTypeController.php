@@ -21,13 +21,13 @@ class ServiceTypeController extends Controller
                 'type'=>'required'
     		]);
     		if($validation->fails()){
-    			return redirect()->back()->with('error',$validation->messages()->first());
+    			return redirect()->back()->withInput()->with('error',$validation->messages()->first());
     		}else{
         		$serviceTypes = ServiceType::create($perameter);
         		if($serviceTypes){
         			return redirect('/admin/servicetype-list')->with('success','Service Type added successfully.');
         		}else{
-        			return redirect()->back()->with('error','Somthing went wrong!');
+        			return redirect()->back()->withInput()->with('error','Somthing went wrong!');
         		}
     		}
         }

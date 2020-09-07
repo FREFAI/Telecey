@@ -23,3 +23,5 @@
 <script src="{{URL::asset('frontend/jsplugins/jquery-asColorPicker-master/libs/jquery-asGradient.js')}}"></script>
 <script src="{{URL::asset('frontend/jsplugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.min.js" integrity="sha256-bQTfUf1lSu0N421HV2ITHiSjpZ6/5aS6mUNlojIGGWg=" crossorigin="anonymous"></script>
+<script src="{{URL::asset('frontend/jsplugins/jsvalidation/jquery.validate.js')}}"></script>
+@yield('pageScript')

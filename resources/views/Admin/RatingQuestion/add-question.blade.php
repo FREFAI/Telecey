@@ -36,7 +36,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <input type="text" maxlength="100" class="form-control" id="exampleFormControlInput1" placeholder="Question" name="question">
+                      <input type="text" maxlength="100" class="form-control" id="exampleFormControlInput1" placeholder="Question" name="question" value="{{old('question')}}">
                     </div>
                   </div>
 

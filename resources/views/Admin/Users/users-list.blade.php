@@ -199,7 +199,7 @@
                        @endforeach
                      @else
                        <tr>
-                         <th colspan="8">
+                         <th colspan="16">
                            <div class="media-body text-center">
                                <span class="mb-0 text-sm">No data found.</span>
                            </div>

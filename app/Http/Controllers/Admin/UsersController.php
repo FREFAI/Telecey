@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\UserAddress;
 use App\Models\FrontEnd\ServiceReview;
+use App\Models\Admin\RatingQuestion;
 use App\Models\FrontEnd\PlanDeviceRating;
 use App\Models\FrontEnd\DeviceReview;
 use App\Models\Admin\Brands;
@@ -16,22 +17,14 @@ use Excel;
 
 class UsersController extends Controller
 {
-
-
-
-
-
-
     public function index(Request $request)
     {
-    
         $current_url = \Request::getRequestUri();
         $request->session()->put('backUrlUser', $current_url);
-
-        $name=$request->get('name');
-        $email=$request->get('email');
         $parameter = $request->all();
-      if( empty($name) && empty($email) ){
+        if(isset($parameter['name']) || isset($parameter['email']) || isset($parameter['search_by_properties']) || isset($parameter['created_at']) || isset($parameter['updated_at']) || isset($parameter['status'])){
+            $users = $this->searchUser($request);
+        }else{
             $users = User::with('userAdderss')->orderBy('id','DESC')->paginate(10);
             foreach ($users as $user) {
                 $plans = $user->plans;
@@ -42,9 +35,6 @@ class UsersController extends Controller
                 $user->plansCount = $user->plans->count();
                 $user->devicesCount = $user->devices->count();
             }
-        } 
-        else{
-                $users = $this->searchUser($request);
         }
     	return view('Admin.Users.users-list',['users'=>$users,'request'=>$parameter]);
     }
@@ -132,7 +122,6 @@ class UsersController extends Controller
     }
     public function getSingleUserDetail(Request $request,$userId)
     {
-
         $parameter = $request->all();
         $userId = base64_decode($userId);
         $user = User::find($userId);
@@ -145,63 +134,62 @@ class UsersController extends Controller
             if($parameter['type'] == 1){
                 $data = $this->getAllPlans($userId);
             }else{
-                // $data = $this->getAllPlans();
                 $data = $this->getAllDevice($userId);
             }
         }else{
             $data = $this->getAllPlans($userId);
         }
         $serviceData = $data;
-        // echo "<pre>";
-        // print_r($serviceData->toArray());
-        // exit;
         return view('Admin.Users.users-detail',['serviceData'=>$serviceData,'user'=>$user]);
     }
-
     public function getAllPlans($userId)
     {
         $user_id = $userId;
         $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
-        $customer = User::find($user_id);
-        if($userAddress){
-            $customer->userAdderss= $userAddress->toArray();
-        }
+        $serviceDatacount = ServiceReview::where('user_id',$user_id)->count();
+        $planReviewCount = PlanDeviceRating::where('user_id',$user_id)->where('plan_id','!=','0')->count();
+        $deviceDatacount = DeviceReview::where('user_id',$user_id)->count();
+        $deviceReviewCount = PlanDeviceRating::where('user_id',$user_id)->where('device_id','!=','0')->count();
+
         $serviceData = ServiceReview::where('user_id',$user_id)
                         ->orderBy('created_at','DESC')
                         ->paginate(10);
         $key = [];
-        $blankArray = [];
         foreach ($serviceData  as $data) {
+            $blankArray = [];
+            $id = $data->id;
+            $data->brand;   // For brand name
             $data->provider;   // For provider name
             $data->typeOfService;    // Type name
             $data->currency;     // Currency name
-            $allratings = $data->get_ratings();  // Get all ratings of this plan questions
+            $allratings = $data->get_ratings($id);  // Get all ratings of this plan questions
             $plan_device_rating = $data->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
             unset($data->plan_device_rating);
             foreach ($allratings as $ratings) {
-                if($ratings->entity_id == $data->id && $ratings->entity_type==1){    //Check entity id is equal to plan id
-                    $ratings->question_name = $ratings->question['question'];
-                    $ratings->question_type = $ratings->question['type'];
-                    unset( $ratings->question);
-                    if(!in_array($ratings->rating_id, $key)){
-                        $key[]=$ratings->rating_id;
-                        $blankArray[$ratings->rating_id]['plan_id'] = $ratings->entity_id;
-                        $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
-                    }else{
-
-                        $blankArray[$ratings->rating_id]['plan_id'] = $ratings->entity_id;
-                        $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
-
+                if(RatingQuestion::find($ratings->question_id)){
+                    if($ratings->entity_id == $data->id && $ratings->entity_type==1){    //Check entity id is equal to plan id
+                        $ratings->question_name = $ratings->question['question'];
+                        $ratings->question_type = $ratings->question['type'];
+                        unset( $ratings->question);
+                        if(!in_array($ratings->rating_id, $key)){
+                            $key[]=$ratings->rating_id;
+                            $blankArray[$ratings->rating_id]['plan_id'] = $ratings->entity_id;
+                            $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
+                        }else{
+                            
+                            $blankArray[$ratings->rating_id]['plan_id'] = $ratings->entity_id;
+                            $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
+                            
+                        }
                     }
                 }
             }
-
             // Set average, comment,created date,user_address_id adn formatted_address in plan array
             foreach ($plan_device_rating as $plan_device) {
                 if($plan_device['plan_id'] == $data->id){  //Check plan_id is equal to plan id
-                    $address = UserAddress::find($plan_device['user_address_id']);
-                    if($address['formatted_address'] != NULL && $address['formatted_address'] != ''){
-                        $blankArray[$plan_device['rating_id']]['formatted_address']=$address['formatted_address'];
+                    if($plan_device['formatted_address'] != NULL && $plan_device['formatted_address'] != ''){
+                        $blankArray[$plan_device['rating_id']]['formatted_address']=$plan_device['city'].' '.$plan_device['country'].' '.$plan_device['postal_code'];
+                        // $blankArray[$plan_device['rating_id']]['formatted_address']=$plan_device['formatted_address'];
                     }else{
                         $blankArray[$plan_device['rating_id']]['formatted_address']='N/A';
                     }
@@ -214,24 +202,34 @@ class UsersController extends Controller
             }
             $data->ratings = $blankArray;
         }
-        return  $serviceData;
+        return $serviceData;
+        return $data = [
+            'customer'    => $customer,
+            'serviceData' => $serviceData
+        ];
     }
-
-    public function getAllDevice($userId)
+    public function getAllDevice($user_id)
     {
-        $user_id = $userId;
         $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
         $customer = User::find($user_id);
         if($userAddress){
             $customer->userAdderss= $userAddress->toArray();
         }
- 
+        $serviceDatacount = ServiceReview::where('user_id',$user_id)->count();
+        $planReviewCount = PlanDeviceRating::where('user_id',$user_id)->where('plan_id','!=','0')->count();
+        $deviceDatacount = DeviceReview::where('user_id',$user_id)->count();
+        $deviceReviewCount = PlanDeviceRating::where('user_id',$user_id)->where('device_id','!=','0')->count();
+        $customer->planCount = $serviceDatacount;
+        $customer->planReviewCount = $planReviewCount;
+        $customer->deviceDatacount = $deviceDatacount;
+        $customer->deviceReviewCount = $deviceReviewCount;
+
         $deviceData = DeviceReview::where('user_id',$user_id)
                         ->orderBy('created_at','DESC')
                         ->paginate(10);
         $key = [];
-        $blankArray = [];
         foreach ($deviceData as $device) {
+            $blankArray = [];
             $device->device_name = $device->device->device_name;
             $device->device_status = $device->device->status;
             $device->brand_name = $device->brand->brand_name;
@@ -239,32 +237,33 @@ class UsersController extends Controller
             $device->model_name = $device->brand->model_name;
             $device->model_status = $device->brand->status;
             $device->supplier_name = $device->supplier['supplier_name'];
-            $allratings = $device->get_ratings();  // Get all ratings of this plan questions
+            $allratings = $device->get_ratings($device->id);  // Get all ratings of this plan questions
             $plan_device_rating = $device->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
             foreach ($allratings as $ratings) {
-                if($ratings->entity_id == $device->id && $ratings->entity_type==2){    //Check entity id is equal to plan id
-                    $ratings->question_name = $ratings->question['question'];
-                    $ratings->question_type = $ratings->question['type'];
-                    unset( $ratings->question);
-                    if(!in_array($ratings->rating_id, $key)){
-                        $key[]=$ratings->rating_id;
-                        $blankArray[$ratings->rating_id]['device_id'] = $ratings->entity_id;
-                        $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
-                    }else{
+                if(RatingQuestion::find($ratings->question_id)){
+                    if($ratings->entity_id == $device->id && $ratings->entity_type==2){    //Check entity id is equal to plan id
+                        $ratings->question_name = $ratings->question['question'];
+                        $ratings->question_type = $ratings->question['type'];
+                        unset( $ratings->question);
+                        if(!in_array($ratings->rating_id, $key)){
+                            $key[]=$ratings->rating_id;
+                            $blankArray[$ratings->rating_id]['device_id'] = $ratings->entity_id;
+                            $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
+                        }else{
 
-                        $blankArray[$ratings->rating_id]['device_id'] = $ratings->entity_id;
-                        $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
+                            $blankArray[$ratings->rating_id]['device_id'] = $ratings->entity_id;
+                            $blankArray[$ratings->rating_id]['ratingList'][]=$ratings->toArray();
 
+                        }
                     }
                 }
             }
-
             // Set average, comment,created date,user_address_id adn formatted_address in plan array
             foreach ($plan_device_rating as $plan_device) {
                 if($plan_device['device_id'] == $device->id){  //Check device_id is equal to plan id
-                    $address = UserAddress::find($plan_device['user_address_id']);
-                    if($address['formatted_address'] != NULL && $address['formatted_address'] != ''){
-                        $blankArray[$plan_device['rating_id']]['formatted_address']=$address['formatted_address'];
+                    if($plan_device['formatted_address'] != NULL && $plan_device['formatted_address'] != ''){
+                        // $blankArray[$plan_device['rating_id']]['formatted_address']=$plan_device['formatted_address'];
+                        $blankArray[$plan_device['rating_id']]['formatted_address']=$plan_device['city'].' '.$plan_device['country'].' '.$plan_device['postal_code'];
                     }else{
                         $blankArray[$plan_device['rating_id']]['formatted_address']='N/A';
                     }
@@ -278,16 +277,12 @@ class UsersController extends Controller
             $device->ratings = $blankArray;
             unset($device->device);
             unset($device->brand);
-            unset($device->model);
+            unset($device->supplier);
             unset($device->plan_device_rating);
         }              
-        
-        // echo "<pre>";
-        // print_r($deviceData->toArray());
-        // exit;
-        return  $deviceData;
+        return $deviceData;
     }
-
+    
     public function exportUsers(){
         
         $users = User::orderBy('id','DESC')->get();

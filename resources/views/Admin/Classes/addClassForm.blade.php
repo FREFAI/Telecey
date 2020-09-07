@@ -41,10 +41,10 @@
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
-                      <select class="form-control" name="type" value="{{old('type')}}">
+                      <select class="form-control" name="type">
                         <option value="">Select type</option>
-                        <option value="1">Voice</option>
-                        <option value="2">Data</option>
+                        <option @if(old('type') == 1 ) selected="" @endif value="1">Voice</option>
+                        <option @if(old('type') == 2 ) selected="" @endif value="2">Data</option>
                       </select>
                     </div>
                   </div>

@@ -278,9 +278,9 @@
 				    },
 				    success: function (data) {
 				        if(data.success){
-				        	toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
+				        	toastr.success('Success', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
 				        }else{
-				        	toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+				        	toastr.error('Error', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
 				        	settingbutton.prop("checked", false);
 				        }
 				    }         
@@ -305,9 +305,9 @@
 				    },
 				    success: function (data) {
 				        if(data.success){
-				        	toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
+				        	toastr.success('Success', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
 				        }else{
-				        	toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+				        	toastr.error('Error', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
 				        	settingbutton.prop("checked", true);
 				        }
 				    }         
@@ -339,9 +339,9 @@
 						},
 						success: function (data) {
 							if(data.success){
-								toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
+								toastr.success('Success', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
 							}else{
-								toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+								toastr.error('Error', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
 								filterbutton.prop("checked", false);
 							}
 						}         
@@ -366,9 +366,9 @@
 						},
 						success: function (data) {
 							if(data.success){
-								toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
+								toastr.success('Success', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
 							}else{
-								toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+								toastr.error('Error', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
 								filterbutton.prop("checked", true);
 							}
 							
@@ -395,9 +395,9 @@
 				    },
 				    success: function (data) {
 				        if(data.success){
-				        	toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
+				        	toastr.success('Success', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
 				        }else{
-				        	toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+				        	toastr.error('Error', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
 				        	settingbutton.prop("checked", true);
 				        }
 				    }         
@@ -422,9 +422,9 @@
 				    },
 				    success: function (data) {
 				        if(data.success){
-				        	toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
+				        	toastr.success('Success', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
 				        }else{
-				        	toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+				        	toastr.error('Error', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
 				        }
 				    }         
 				});
@@ -448,9 +448,9 @@
 				    },
 				    success: function (data) {
 				        if(data.success){
-				        	toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
+				        	toastr.success('Success', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
 				        }else{
-				        	toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+				        	toastr.error('Error', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
 				        }
 				    }         
 				});
@@ -483,9 +483,9 @@
 						    },
 						    success: function (data) {
 						        if(data.success){
-						        	toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
+						        	toastr.success('Success', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
 						        }else{
-						        	toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+						        	toastr.error('Error', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
 						        	settingbutton.prop("checked", false);
 						        }
 						    }         
@@ -510,9 +510,9 @@
 						    },
 						    success: function (data) {
 						        if(data.success){
-						        	toastr.success('Settings', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
+						        	toastr.success('Success', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
 						        }else{
-						        	toastr.error('Settings', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+						        	toastr.error('Error', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
 						        	settingbutton.prop("checked", true);
 						        }
 						    }         
@@ -589,9 +589,9 @@
     			    success: function (data) {
     			        if(data.success){
     			        	delete_row.closest('tr').remove();
-    			        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+    			        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
     			        }else{
-    			        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+    			        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
     			        }
     			    }         
     			});
@@ -627,9 +627,9 @@
 					    success: function (data) {
 					        if(data.success){
 					        	delete_row.closest('tr').remove();
-					        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+					        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 					        }else{
-					        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+					        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 					        }
 					    }         
 					});
@@ -681,7 +681,7 @@
 					        		current_row.addClass('btn-danger');
 					        		current_row.find('i').removeClass('ni ni-check-bold');
 					        		current_row.find('i').addClass('ni ni-fat-remove');
-					        		toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+					        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 					        	}else{
 					        		current_row.closest('tr').find('.approved_ms').addClass('d-none');
 					        		current_row.closest('tr').find('.not_ap_ms').removeClass('d-none');
@@ -691,10 +691,10 @@
 					        		current_row.attr('data-status',1);
 					        		current_row.find('i').removeClass('ni ni-fat-remove');
 					        		current_row.find('i').addClass('ni ni-check-bold');
-					        		toastr.success('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+					        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 					        	}
 					        }else{
-					        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+					        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 					        }
 					    }         
 					});
@@ -746,7 +746,7 @@
 					        		current_row.addClass('btn-danger');
 					        		current_row.find('i').removeClass('ni ni-check-bold');
 					        		current_row.find('i').addClass('ni ni-fat-remove');
-					        		toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+					        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 					        	}else{
 					        		current_row.closest('tr').find('.approved_ms').addClass('d-none');
 					        		current_row.closest('tr').find('.not_ap_ms').removeClass('d-none');
@@ -756,10 +756,10 @@
 					        		current_row.attr('data-status',1);
 					        		current_row.find('i').removeClass('ni ni-fat-remove');
 					        		current_row.find('i').addClass('ni ni-check-bold');
-					        		toastr.success('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+					        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 					        	}
 					        }else{
-					        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+					        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 					        }
 					    }         
 					});
@@ -810,7 +810,7 @@
 					        		current_row.addClass('btn-danger');
 					        		current_row.find('i').removeClass('ni ni-check-bold');
 					        		current_row.find('i').addClass('ni ni-fat-remove');
-					        		toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+					        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 					        	}else{
 					        		current_row.closest('tr').find('.approved_ms').addClass('d-none');
 					        		current_row.closest('tr').find('.not_ap_ms').removeClass('d-none');
@@ -820,10 +820,10 @@
 					        		current_row.attr('data-is_active',1);
 					        		current_row.find('i').removeClass('ni ni-fat-remove');
 					        		current_row.find('i').addClass('ni ni-check-bold');
-					        		toastr.success('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+					        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 					        	}
 					        }else{
-					        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+					        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 					        }
 					    }         
 					});
@@ -861,9 +861,9 @@
 					    success: function (data) {
 					        if(data.success){
 					        	delete_row.closest('tr').remove();
-					        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+					        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 					        }else{
-					        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+					        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 					        }
 					    }         
 					});
@@ -898,9 +898,9 @@
 						success: function (data) {
 							if(data.success){
 								delete_row.closest('tr').remove();
-								toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+								toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 							}else{
-								toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+								toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 							}
 						}         
 					});
@@ -936,9 +936,9 @@
 					    success: function (data) {
 					        if(data.success){
 					        	delete_row.closest('tr').remove();
-					        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+					        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 					        }else{
-					        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+					        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 					        }
 					    }         
 					});
@@ -974,9 +974,9 @@
 					    success: function (data) {
 					        if(data.success){
 					        	delete_row.closest('tr').remove();
-					        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+					        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 					        }else{
-					        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+					        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 					        }
 					    }         
 					});
@@ -1012,9 +1012,9 @@
 						    success: function (data) {
 						        if(data.success){
 						        	delete_row.closest('tr').remove();
-						        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 						        }else{
-						        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 						        }
 						    }         
 						});
@@ -1049,9 +1049,9 @@
 						    success: function (data) {
 						        if(data.success){
 						        	delete_row.closest('tr').remove();
-						        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 						        }else{
-						        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 						        }
 						    }         
 						});
@@ -1087,9 +1087,9 @@
 			          		        if(data.success){
 			          		        	$('.default_check_brand').prop("checked", false); 
 			          		        	$('#customCheck'+brand_id).prop("checked", true); 
-			          		        	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+			          		        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 			          		        }else{
-			          		        	toastr.error('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+			          		        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 			          		        }
 			          		    }         
 			          		});
@@ -1120,9 +1120,9 @@
     		          		        		$('.default_check_brand').prop("checked", false); 
     		          		        		$('#customCheck'+brand_id).prop("checked", true);
     		          		        	}
-    		          		        	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+    		          		        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
     		          		        }else{
-    		          		        	toastr.error('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+    		          		        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
     		          		        }
     		          		    }         
     		          		});
@@ -1174,7 +1174,7 @@
 						        		current_row.addClass('btn-danger');
 						        		current_row.find('i').removeClass('ni ni-check-bold');
 						        		current_row.find('i').addClass('ni ni-fat-remove');
-						        		toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 						        	}else{
 						        		current_row.closest('tr').find('.approved_ms').addClass('d-none');
 						        		current_row.closest('tr').find('.not_ap_ms').removeClass('d-none');
@@ -1184,10 +1184,10 @@
 						        		current_row.attr('data-status',1);
 						        		current_row.find('i').removeClass('ni ni-fat-remove');
 						        		current_row.find('i').addClass('ni ni-check-bold');
-						        		toastr.success('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 						        	}
 						        }else{
-						        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 						        }
 						    }         
 						});
@@ -1222,9 +1222,9 @@
 						    success: function (data) {
 						        if(data.success){
 						        	delete_row.closest('tr').remove();
-						        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 						        }else{
-						        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 						        }
 						    }         
 						});
@@ -1276,7 +1276,7 @@
 						        		current_row.addClass('btn-danger');
 						        		current_row.find('i').removeClass('ni ni-check-bold');
 						        		current_row.find('i').addClass('ni ni-fat-remove');
-						        		toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 						        	}else{
 						        		current_row.closest('tr').find('.approved_ms').addClass('d-none');
 						        		current_row.closest('tr').find('.not_ap_ms').removeClass('d-none');
@@ -1286,10 +1286,10 @@
 						        		current_row.attr('data-status',1);
 						        		current_row.find('i').removeClass('ni ni-fat-remove');
 						        		current_row.find('i').addClass('ni ni-check-bold');
-						        		toastr.success('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 						        	}
 						        }else{
-						        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 						        }
 						    }         
 						});
@@ -1327,9 +1327,9 @@
 						    success: function (data) {
 						        if(data.success){
 						        	delete_row.closest('tr').remove();
-						        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 						        }else{
-						        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 						        }
 						    }         
 						});
@@ -1393,7 +1393,7 @@
 							        		current_row.addClass('btn-danger');
 							        		current_row.find('i').removeClass('ni ni-check-bold');
 							        		current_row.find('i').addClass('ni ni-fat-remove');
-							        		toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+							        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 							        	}else{
 							        		current_row.closest('tr').find('.approved_ms').addClass('d-none');
 							        		current_row.closest('tr').find('.not_ap_ms').removeClass('d-none');
@@ -1403,10 +1403,10 @@
 							        		current_row.attr('data-status',1);
 							        		current_row.find('i').removeClass('ni ni-fat-remove');
 							        		current_row.find('i').addClass('ni ni-check-bold');
-							        		toastr.success('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+							        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 							        	}
 							        }else{
-							        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+							        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 							        }
 							    }         
 							});
@@ -1447,9 +1447,9 @@
 						        if(data.success){
 						        		current_row.closest('tr').find('.status-td').text('Closed');
 						        		current_row.removeClass('close_case_btn');
-						        		toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 						        }else{
-						        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 						        }
 						    }         
 						});
@@ -1487,10 +1487,10 @@
 						        if(data.success){
 						        		current_row.closest('tr').find('.status-td').text('Closed');
 						        		current_row.removeClass('close_case_btn');
-						        		toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 										window.location.href = backurl;
 						        }else{
-						        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 						        }
 						    }         
 						});
@@ -1526,9 +1526,9 @@
 						    success: function (data) {
 						        if(data.success){
 						        	delete_row.closest('tr').remove();
-						        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 						        }else{
-						        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 						        }
 						    }         
 						});
@@ -1563,9 +1563,9 @@
 						    success: function (data) {
 						        if(data.success){
 						        	delete_row.closest('tr').remove();
-						        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 						        }else{
-						        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 						        }
 						    }         
 						});
@@ -1617,7 +1617,7 @@
 						        		current_row.addClass('btn-danger');
 						        		current_row.find('i').removeClass('ni ni-check-bold');
 						        		current_row.find('i').addClass('ni ni-fat-remove');
-						        		toastr.success('Approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 						        	}else{
 						        		current_row.closest('tr').find('.approved_ms').addClass('d-none');
 						        		current_row.closest('tr').find('.not_ap_ms').removeClass('d-none');
@@ -1627,10 +1627,10 @@
 						        		current_row.attr('data-status',1);
 						        		current_row.find('i').removeClass('ni ni-fat-remove');
 						        		current_row.find('i').addClass('ni ni-check-bold');
-						        		toastr.success('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        		toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 						        	}
 						        }else{
-						        	toastr.error('Not approved', data.message , {displayDuration:3000,position: 'top-right'});
+						        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 						        }
 						    }         
 						});
@@ -1671,9 +1671,9 @@
 		          		        		$('.default_check_brand').prop("checked", false); 
 		          		        		$('#customCheck'+supplier_id).prop("checked", true);
 		          		        	} 
-		          		        	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 		          		        }else{
-		          		        	toastr.error('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 		          		        }
 		          		    }         
 		          		});
@@ -1704,9 +1704,9 @@
 		          		        		$('.default_check_brand').prop("checked", false); 
 		          		        		$('#customCheck'+supplier_id).prop("checked", true);
 		          		        	}
-		          		        	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 		          		        }else{
-		          		        	toastr.error('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 		          		        }
 		          		    }         
 		          		});
@@ -1747,9 +1747,9 @@
 		          		        		$('.default_check_brand').prop("checked", false); 
 		          		        		$('#customCheck'+device_id).prop("checked", true);
 		          		        	}
-		          		        	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 		          		        }else{
-		          		        	toastr.error('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 		          		        }
 		          		    }         
 		          		});
@@ -1780,9 +1780,9 @@
 		          		        		$('.default_check_brand').prop("checked", false); 
 		          		        		$('#customCheck'+device_id).prop("checked", true);
 		          		        	}
-		          		        	toastr.success('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 		          		        }else{
-		          		        	toastr.error('Default Status', data.message , {displayDuration:3000,position: 'top-right'});
+		          		        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 		          		        }
 		          		    }         
 		          		});

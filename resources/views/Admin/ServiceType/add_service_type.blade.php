@@ -36,15 +36,15 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Type name" name="service_type_name">
+                      <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Type name" name="service_type_name" value="{{old('service_type_name')}}">
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
                       <select class="form-control" name="type">
                         <option value="">Select type</option>
-                        <option value="1">Personal</option>
-                        <option value="2">Business</option>
+                        <option @if(old('type') == 1) selected="" @endif value="1">Personal</option>
+                        <option @if(old('type') == 2) selected="" @endif value="2">Business</option>
                       </select>
                     </div>
                   </div>

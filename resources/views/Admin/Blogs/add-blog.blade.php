@@ -36,10 +36,10 @@
                  <div class="row">
                    <div class="col-md-12">
                      <div class="form-group">
-                       <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Enter title here..." name="title" required="">
+                       <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Enter title here..." name="title" required="" value="{{old('title')}}">
                      </div>
                      <div class="form-group">
-                       <select class="form-control" required="" name="category_id">
+                       <select class="form-control" required="" name="category_id" >
                          <option value="" disabled selected >Select category</option>
                           @if($categories)
                             @foreach($categories as $category)
@@ -51,7 +51,7 @@
                        </select>
                      </div>
                      <div class="form-group">
-                        <textarea class="from-control text_editor" id="first-test" name="blog_content"></textarea>
+                        <textarea class="from-control text_editor" id="first-test" name="blog_content"> {{old('blog_content')}}</textarea>
                       </div>
                    </div>
                    <div class="col-lg-12 mb-4">
@@ -71,7 +71,7 @@
                    </div>
                    <div class="col-lg-12 mt-4">
                       <div class="form-group">
-                        <input type="url" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Image Link" name="image_link">
+                        <input type="url" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Image Link" name="image_link" value="{{old('image_link')}}">
                       </div>
                     </div>
                    <div class="col-md-12 mt-3">

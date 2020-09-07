@@ -1,7 +1,16 @@
 @extends('layouts.admin_layouts.admin_dashboard')
 @section('title', 'Admin | Add admin')
 @section('content')
-
+@section('pageStyle')
+  <style>
+    .error{
+      color:#f00;
+    }
+    input.error{
+      border-color: #f00;
+    }
+  </style>
+@endsection
 <!-- Main content -->
 <div class="main-content">
   @include('layouts.admin_layouts.top_navbar')
@@ -31,37 +40,37 @@
             
 		  			<div class="col-lg-12">
             @include('flash-message')
-              <form action="{{ url('/admin/add-admin') }}" method="post" enctype="multipart/form-data">
+              <form id="addAdmin" action="{{ url('/admin/add-admin') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="First Name" name="firstname"value="{{ old('firstname') }}">
+                      <input type="text" maxlength="50" class="form-control" placeholder="First Name" name="firstname" value="{{ old('firstname') }}" required="">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Last Name" name="lastname" autocomplete="off" value="{{ old('lastname') }}">
+                      <input type="text" maxlength="50" class="form-control" placeholder="Last Name" name="lastname" autocomplete="off" value="{{ old('lastname') }}" required="">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="text" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Email" name="email" autocomplete="off" value="{{ old('email') }}">
+                      <input type="text" maxlength="50" class="form-control" placeholder="Email" name="email" autocomplete="off" value="{{ old('email') }}" required="">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input maxlength="50" class="form-control datepicker" id="exampleFormControlInput1" placeholder="Date Of Birth" name="date_of_birth" autocomplete="off" value="{{ old('date_of_birth') }}">
+                      <input maxlength="50" class="form-control datepicker" placeholder="Date Of Birth" name="date_of_birth" autocomplete="off" value="{{ old('date_of_birth') }}" required="">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="password" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Password" name="password" autocomplete="off" >
+                      <input type="password" id="password" maxlength="50" class="form-control" placeholder="Password" name="password" autocomplete="off" required="">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="password" maxlength="50" class="form-control" id="exampleFormControlInput1" placeholder="Confirm Password" name="password_confirmation" autocomplete="off" >
+                      <input type="password" id="password_confirmation" maxlength="50" class="form-control" placeholder="Confirm Password" name="password_confirmation" autocomplete="off" required="">
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -80,4 +89,23 @@
     <!-- End Footer Section Include -->
   </div>
 </div>
+@endsection
+
+@section('pageScript')
+  <script>
+    $('#addAdmin').validate({
+        rules: {
+            password: {
+              "required" : true,
+              "minlength": 6,
+            },
+            password_confirmation: {
+                equalTo: "#password"
+            }
+        }
+        messages: {
+            password_confirmation: "Enter Confirm Password Same as Password"
+        }
+    });
+  </script>
 @endsection

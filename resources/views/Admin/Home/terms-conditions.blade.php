@@ -31,17 +31,18 @@
                 
                 <div class="col-lg-12">
                 @include('flash-message')
-                  <form action="{{ url('/admin/terms-conditions') }}" method="post" enctype="multipart/form-data">
+                  <form action="{{ url('/admin/terms-conditions') }}" method="post" enctype="multipart/form-data" id="termsCondition">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea class="from-control text_editor" id="first-test" name="terms_condition">{{$setting->terms_and_conditions}}</textarea>
+                                <textarea required="" class="from-control text_editor" id="first-test" name="terms_condition">{{$setting->terms_and_conditions}}</textarea>
+                                <span class="error error-terms d-none">Terms and condition are mandatory.</span>
                             </div>
                         </div>  
                       <div class="col-md-12">
                         <div class="form-group">
-                          <button class="btn btn-primary" type="submit">Save</button>
+                          <button class="btn btn-primary submitTerms" type="button">Save</button>
                         </div>
                       </div>
                     </div>
@@ -55,4 +56,25 @@
     <!-- End Footer Section Include -->
   </div>
 </div>
+@endsection
+@section('pageStyle')
+  <style>
+    .error{
+      color:#f00;
+    }
+  </style>
+@endsection
+@section('pageScript')
+  <script>
+    $(document).on('click','.submitTerms',function(e){
+      e.preventDefault();
+      if(tinymce.get('first-test').getContent() != ""){
+        $('.error-terms').addClass('d-none');
+        $("#termsCondition").submit();
+      }else{
+        $('.error-terms').removeClass('d-none');
+      }
+      
+    });
+  </script>
 @endsection

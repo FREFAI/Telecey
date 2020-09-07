@@ -86,6 +86,9 @@ class HomeController extends Controller
             $data = $this->getAllPlans();
         }
         $serviceData = $data['serviceData'];
+        // echo "<pre>";
+        // print_r($serviceData->toArray());
+        // exit;
         $customer = $data['customer'];
         return view('FrontEnd.profile',['serviceData'=>$serviceData,'customer'=>$customer]);
     }

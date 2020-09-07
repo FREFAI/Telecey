@@ -10,20 +10,20 @@
 
 @php
   if(count($request)>0){
-    if($request['search_status'] == ''){
+    if(isset($request['search_status']) == ''){
       $request['search_status'] = '3';
     }else{
       $request['search_status'] = $request['search_status'];
     }
-    $request['search_by_subject'] = $request['search_by_subject'];
-    $request['search_by_name'] = $request['search_by_name'];
-    $request['search_by_email'] = $request['search_by_email'];
-    if($request['start_date'] != ''){
+    $request['search_by_subject'] = &$request['search_by_subject'];
+    $request['search_by_name'] = &$request['search_by_name'];
+    $request['search_by_email'] = &$request['search_by_email'];
+    if(isset($request['start_date']) != ''){
       $request['start_date'] = date('m/d/Y',strtotime($request['start_date']));
     }else{
       $request['start_date'] = "";
     }
-    if($request['end_date'] != ''){
+    if(isset($request['end_date']) != ''){
       $request['end_date'] = date('m/d/Y',strtotime($request['end_date']));
     }else{
       $request['end_date'] = "";
@@ -87,6 +87,7 @@
                      <tr>
                        <th scope="col" style="width: 10px;">Sr.No</th>
                        <th scope="col">User Name</th>
+                       <th scope="col">Email</th>
                        <th scope="col">Subject</th>
                        <th scope="col" style="width: 10px;">Status</th>
                        <th scope="col" style="width: 10px;">Date</th>
@@ -106,6 +107,11 @@
                              <td class="text-left">
                                 <div class="media-body">
                                     <span class="mb-0 text-sm">@if($case->user) {{$case->user->firstname}} @endif</span>
+                                </div>
+                              </td>
+                             <td class="text-left">
+                                <div class="media-body">
+                                    <span class="mb-0 text-sm">@if($case->user) {{$case->user->email}} @endif</span>
                                 </div>
                               </td>
                               <td class="text-left">
@@ -143,7 +149,7 @@
                        @endforeach
                     @else
                        <tr>
-                         <th colspan="6">
+                         <th colspan="7">
                            <div class="media-body text-center">
                                <span class="mb-0 text-sm">No data found.</span>
                            </div>
@@ -154,7 +160,7 @@
                  </table>
                </div>
                <div class="ads_pagination mt-3 mb-0">
-                {{$allCase->links()}}
+                {{$allCase->appends(request()->except('page'))->links()}}
                </div>
             </div>
 		    	</div>

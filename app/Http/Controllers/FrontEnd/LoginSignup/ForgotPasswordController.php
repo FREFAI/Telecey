@@ -43,10 +43,10 @@ class ForgotPasswordController extends Controller
                     ];
                     Mail::to($input['email'])->send(new ResetPassword($emaildata));
                     $url = \Session::get('locale').'/signin';
-                    return redirect($url)->with('success','Check your email to reset your password!');
+                    return redirect($url)->with('success',__('index.Check your email to reset your password'));
                 }
             }else{
-                return redirect()->back()->withInput()->with('error', "This email account is not registered.");
+                return redirect()->back()->withInput()->with('error', __('index.This email account is not registered'));
             }
         }
     }
@@ -81,9 +81,9 @@ class ForgotPasswordController extends Controller
             $user->password_reset = NULL;
             if($user->save()){
                 $url = \Session::get('locale').'/signin';
-                return redirect($url)->with('success','Password reset successfully.');
+                return redirect($url)->with('success',__('index.Password reset successfully'));
             }else{
-                return redirect()->back()->withInput()->with('error', "Somthing went wrong!");
+                return redirect()->back()->withInput()->with('error', __('index.Somthing went wrong'));
             }
         }
     }
@@ -105,13 +105,13 @@ class ForgotPasswordController extends Controller
                 $user->password = bcrypt($input['new_password']);
                 if($user->save()){
                     $url = \Session::get('locale').'/profile';
-                    return redirect($url)->with('success','Password changed successfully.');
+                    return redirect($url)->with('success',__('index.Password changed successfully'));
                 }else{
-                    return redirect()->back()->withInput()->with('error', "Somthing went wrong!");
+                    return redirect()->back()->withInput()->with('error', __('index.Somthing went wrong'));
                 }
             }
             else{
-                return redirect()->back()->withInput()->with('error', "Invalid Old Password");
+                return redirect()->back()->withInput()->with('error', __("index.Invalid Old Password"));
             }
         }
     }

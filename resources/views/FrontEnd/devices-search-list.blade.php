@@ -31,25 +31,16 @@
 			<table class="table">
 				<thead class="bg-primary text-white">
 					<tr>
-						<th scope="col">Brand</th>
-						<th scope="col">Model</th>
-						<th scope="col">Price</th>
-						<th scope="col">Storage</th>
-						<th scope="col">Supplier</th>
+						<th scope="col">{{__('deviceresult.brand')}} </th>
+						<th scope="col">{{__('deviceresult.model')}} </th>
+						<th scope="col">{{__('deviceresult.price')}} </th>
+						<th scope="col">{{__('deviceresult.capacity')}} </th>
+						<th scope="col">{{__('deviceresult.supplier')}} </th>
 						@if($filterType == 1)
-						<th scope="col">Distance</th>
+						<th scope="col">{{__('deviceresult.distance')}} </th>
 						@endif
-						<th scope="col" colspan="2" style="text-align:center">
-							{{-- <form action="{{ url('/devices') }}" method="get" id="sortBy" onchange="sortingFunc()">
-								<div class="form-group">
-									<select class="form-control" name="filter">
-									<option value="1" @if($filterType == 1) selected="" @endif>Distance</option>
-									<option value="2" @if($filterType == 2) selected="" @endif>Price</option>
-									</select>
-								</div>
-							</form> --}}
-							Details
-						</th>
+						<th scope="col">{{ __('deviceresult.detail_btn') }}</th>
+						
 					</tr>
 				</thead>
 				<tbody>
@@ -65,9 +56,9 @@
 								@endif
 							<td>
 							@if(Auth::guard('customer')->check())
-								<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value['id'])}}">Details</td>
+								<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value['id'])}}">{{__('deviceresult.detail_btn')}}</td>
 							@else
-								<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
+								<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('deviceresult.signup_unlock')}}</td>
 							@endif
 							</td>
 						</tr>

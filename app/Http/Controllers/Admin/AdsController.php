@@ -61,7 +61,9 @@ class AdsController extends Controller
 	            'title' => 'required|unique:ads',
 	            'ads_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000|dimensions:min_width=1000,max_height=550',
 				'country' => $validationCiuntry
-	        ]);
+			],[
+				'ads_file.required' => 'Ads image is required'
+			]);
 	        if ( $validation->fails() ) {
 	            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
 	        }else{

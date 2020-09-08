@@ -46,7 +46,7 @@
 	                	<div class="col-12">
 	                		<div class="blog-post py-3">
 		                		<div class="not_found">
-		                			<h2 class="text-center">There are no posts.</h2>
+		                			<h2 class="text-center">{{__('blog.not_found')}}</h2>
 		                		</div>
 		                	</div>
 	                	</div>

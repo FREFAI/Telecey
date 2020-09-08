@@ -44,5 +44,15 @@ return [
     'color' => 'Color',
     'member_since'=>"Member since",
     'change_address'=>"Change Address",
-    
+    'location' => 'Location',
+    'Optional'=>'Optional',
+    'Country'=>'Country',
+    'City'=>'City',
+    'Postal code'=>'Postal code',
+    'Update'=>'Update',
+    'Cancel'=>'Cancel',
+    'Change Password' => 'Change Password',
+    'Old password' => 'Old password',
+    'New password' => 'New password',
+    'Confirm new password' => 'Confirm new password',
 ];

@@ -61,9 +61,9 @@ class LoginController extends Controller
                     ];
                     CreateLogs::createLog($logData);
                     $url = \Session::get('locale').'/profile';
-                    return redirect($url)->with('success','Logged in successfully!');
+                    return redirect($url)->with('success',__('index.Logged in successfully'));
                 }else{
-                    return redirect()->back()->with('error','Please enter valid credentials!');
+                    return redirect()->back()->with('error',__('index.Please enter valid credentials'));
                 }
             }else{
                 return redirect()->back()->with('error','Account not found!');

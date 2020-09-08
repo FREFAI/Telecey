@@ -65,7 +65,7 @@ class SupportCaseController extends Controller
         if(isset($parameters['search_status']) != ""){
             $caseQuery->where('status',$parameters['search_status']);
         }
-        $casesList = $caseQuery->paginate(10);
+        $casesList = $caseQuery->orderBy('status','ASC')->paginate(10);
     	foreach ($casesList as $case) {
     		$case->user;
     	}

@@ -93,7 +93,7 @@
 	               		</div>
                         <div class="row starrating_error d-none">
                             <div class="error">
-                                All rating rows are required.
+                                {{__("index.All rating rows are required")}}
                             </div>
                         </div>
                         @if(count($questions)>0)
@@ -156,8 +156,8 @@
                                     <input type="hidden" name="service_id" class="service_id" value="{{$device_id}}">
                                     <input type="hidden" name="type" class="plan-type" value="2">
                                     @endif
-                                    <button type="submit" class="btn  btn-lg btn-primary service-rating-submit-btn-add">Submit</button>
-                                    <button type="submit" class="btn  btn-lg btn-primary service-rating-submit-btn d-none">Submit</button>
+                                    <button type="submit" class="btn  btn-lg btn-primary service-rating-submit-btn-add">{{__("index.Submit")}}</button>
+                                    <button type="submit" class="btn  btn-lg btn-primary service-rating-submit-btn d-none">{{__("index.Submit")}}</button>
                                 </div>
 	               		    </div>
 	               		</div>
@@ -170,14 +170,14 @@
                             <div class="col-lg-12">
                                 <div class="heading-speedtest">
                                     <div class="heading detail-div">
-                                        <h1 class="section-title">Do you want to check your internet speed?</h1>
+                                        <h1 class="section-title">{{__("index.Do you want to check your internet speed?")}}</h1>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12 mt-3">
                                 <div class="button_section">
                                     <a class="btn learn-more speedtest continue-btn">{{__('review.continue')}}</a>
-                                    <a href="{{url('/profile')}}"  class="btn learn-more speedtest">Skip</a>
+                                    <a href="{{url('/profile')}}"  class="btn learn-more speedtest">{{__("index.Skip")}}</a>
                                 </div>
                             </div>
                         </div>
@@ -243,7 +243,7 @@
                                 <input type="hidden" data-id="{{$userAddress->id}}" value="{{$userAddress->id}}" id="user_address_id">
                                 <input type="hidden" value="1" id="is_primary">
                                 @else
-                                    <div class="address">No address found.</div>
+                                    <div class="address">{{__(common.notfound)}}.</div>
                                 @endif
                             </div>
                         </div>
@@ -286,15 +286,15 @@
                             <input type="hidden" name="latitude" id="lat" value="{{$lat}}">
                             <input type="hidden" name="longitude" id="long" value="{{$long}}">
                             <div class="col-lg-12 text-center">
-                                <button type="submit" class="btn btn-primary save_address">Save</button>
-                                <button type="button" class="btn btn-primary cancel">Cancel</button>
+                                <button type="submit" class="btn btn-primary save_address">{{__("index.Save")}}</button>
+                                <button type="button" class="btn btn-primary cancel">{{__("index.Cancel")}}</button>
                             </div>
                                 
                         </div>
                     </form>
                 </div>
                 <div class="d-none continue-btn-section text-center mt-3">
-                    <button class="btn btn-primary">Continue</button>
+                    <button class="btn btn-primary">{{__("index.Continue")}}</button>
                 </div>
                 
           </div>
@@ -355,7 +355,7 @@
             $('#country').addClass('error');
             // $('#country').val('');
             if($("#country_div #country-error").length == 0){
-                $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
+                $("#country_div").append('<label id="country-error" class="error" for="country">{{__("index.Pleace select country from a list")}}</label>');
             }
             return false;
         }else{
@@ -366,7 +366,7 @@
             $('#city').addClass('error');
             // $('#city').val('');
             if($("#city_div #city-error").length == 0){
-                $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
+                $("#city_div").append('<label id="city-error" class="error" for="city">{{__("index.Pleace select city from a list")}}</label>');
             }
             return false;
         }else{
@@ -380,7 +380,7 @@
             if(!postal['status']){
                 if(!$("#address_form #user_postal_code").hasClass('error')){
                   $('#address_form #user_postal_code').addClass('error');
-                  $('#address_form #user_postal_code').after('<label id="postal_code-error" class="error" for="postal_code">Postal code is invalid, Please select valid postal code</label>');
+                  $('#address_form #user_postal_code').after('<label id="postal_code-error" class="error" for="postal_code">{{__("index.Postal code is invalid, Please select valid postal code")}}</label>');
                 }
                 return false;
             }

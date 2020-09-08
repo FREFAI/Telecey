@@ -138,9 +138,7 @@ class DevicesController extends Controller
                 }
                 
                 CreateLogs::createLog($logData);
-                // echo "<pre>";print_r($searchResult);exit;
                 return view('FrontEnd.devices',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
-                // return view('FrontEnd.devices-search-list',['brands' => $brands,'suppliers' => $suppliers,'data'=>$searchResult,'filtersetting' => $filtersetting,'filterType' => $filter]);
             }
             
         }else{
@@ -150,8 +148,7 @@ class DevicesController extends Controller
                     ->orderBy('distance','ASC')
                     ->orderBy('price','ASC')
                     ->get()
-                    ->toArray();
-            // echo "<pre>";print_r($searchResult);exit;       
+                    ->toArray();   
             return view('FrontEnd.devices',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data' => $searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
         }
     }
@@ -176,18 +173,15 @@ class DevicesController extends Controller
         $current_country_code = $newresponse->country_code2;        
         $brands = Brands::all();
         $colors = DeviceColor::all();
-        $suppliers = Supplier::where('status',1)->get();
-        // echo "<pre>";print_r($current_country_code);exit;        
+        $suppliers = Supplier::where('status',1)->get();      
         $searchResult = DeviceReview::select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
                 ->where('country_code',$current_country_code)
                 ->with('brand','supplier','device_color_info','user','device_rating')
                 ->orderBy('distance','ASC')
-                // ->orderBy('price','ASC')
                 ->offset(0)
                 ->limit(3)
                 ->get()
-                ->toArray();
-        // echo "<pre>";print_r($searchResult);exit;       
+                ->toArray();     
         return view('FrontEnd.devicesNew',['ip_location'=>$current_location,'brands' => $brands,'suppliers' => $suppliers,'data' => $searchResult,'filtersetting' => $filtersetting,'colors'=>$colors]);
         
     }
@@ -228,7 +222,6 @@ class DevicesController extends Controller
         $brands = Brands::all();
         $colors = DeviceColor::all();
         $suppliers = Supplier::where('status',1)->get();
-        // echo "<pre>";print_r($current_country_code);exit;
         $country = CountriesModel::select('id')->where('name',$newresponse->country_name)->first();
         $ads = AdsModel::with('countries')
                             ->where('is_active',1)
@@ -364,7 +357,6 @@ class DevicesController extends Controller
                 
             });
             
-            // $mainQuery->orderBy($params['name'],$params['sort']);
             $searchResultCount = $mainQuery->count();
             
             if($params['name'] == 'brand_name'){
@@ -445,7 +437,6 @@ class DevicesController extends Controller
                 $address = UserAddress::find($plan_device['user_address_id']);
                 if($address['formatted_address'] != NULL && $address['formatted_address'] != ''){
                     $blankArray[$plan_device['rating_id']]['formatted_address']=$address['city'].' '.$address['country'].' '.$address['postal_code'];
-                    // $blankArray[$plan_device['rating_id']]['formatted_address']=$address['formatted_address'];
                 }else{
                     $blankArray[$plan_device['rating_id']]['formatted_address']='N/A';
                 }
@@ -456,7 +447,6 @@ class DevicesController extends Controller
             }
         }
         $planDetailData->ratings = $blankArray;
-            // echo "<pre>";print_r($planDetailData->toArray());die;
         return view('FrontEnd.deviceDetail',['service' => $planDetailData]);
     }
 

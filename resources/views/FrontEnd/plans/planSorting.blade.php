@@ -17,7 +17,7 @@
             @if($filtersetting->disable_price_for_logged_out_users == 1)
                 {{$value['price']}}
             @else
-                <a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</a>
+                <a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('deviceresult.signup_unlock')}}</a>
             @endif
         @else
         {{$value['price']}}
@@ -32,12 +32,12 @@
             <td>N/A</td>
         @endif
         @if(Auth::guard('customer')->check())
-            <td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</a></td>
+            <td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">{{ __('deviceresult.detail_btn') }}</a></td>
         @else
             @if($filtersetting->disable_details_for_logged_out_users == 1)
-                <td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">Details</a></td>
+                <td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">{{ __('deviceresult.detail_btn') }}</a></td>
             @else
-                <td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</a></td>
+                <td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('deviceresult.signup_unlock')}}</a></td>
             @endif
         @endif
     </tr>

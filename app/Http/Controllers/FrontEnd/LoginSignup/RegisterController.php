@@ -89,7 +89,7 @@ class RegisterController extends Controller
         ]);
         if ( $validation->fails() ) {
             if($validation->messages('email')){
-                return redirect()->back()->withInput()->with('error',"Email already in use by another account. You can use log in or use the forgot password page to reset your password");
+                return redirect()->back()->withInput()->with('error',__("index.Email already in use by another account. You can use log in or use the forgot password page to reset your password"));
             }else{
                 return redirect()->back()->withInput()->with('error',$validation->messages()->first());
             }
@@ -131,14 +131,14 @@ class RegisterController extends Controller
                 ];
                 Mail::send('emailtemplates.frontend.email_verify', ['emaildata' => $emaildata] , function ($m) use ($emaildata)      {
                     $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
-                    $m->to($emaildata['email'], $emaildata['name'])->subject("Email verification.");
+                    $m->to($emaildata['email'], $emaildata['name'])->subject(__("index.Email verification"));
                 });
                 if (Auth::guard('customer')->attempt($request->only('email', 'password'))) {
                     $url = \Session::get('locale').'/reviews';
-                   return redirect($url)->with('success','Account registered successfully!');
+                   return redirect($url)->with('success',__('index.Account registered successfully'));
                 }
             }else{
-                return redirect()->back()->withInput()->with('error',"Somthing went wrong!");
+                return redirect()->back()->withInput()->with('error',__('index.Somthing went wrong'));
             }
         }
     }
@@ -153,7 +153,7 @@ class RegisterController extends Controller
         ];
         Mail::send('emailtemplates.frontend.email_verify', ['emaildata' => $emaildata] , function ($m) use ($emaildata)      {
             $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
-            $m->to($emaildata['email'], $emaildata['name'])->subject("Email verification.");
+            $m->to($emaildata['email'], $emaildata['name'])->subject(__('index.Email verification'));
         });
         return redirect()->back();
     }
@@ -176,10 +176,10 @@ class RegisterController extends Controller
         if($user->save()){
             if (Auth::guard('customer')->loginUsingId($user->id)) {
                 $url = \Session::get('locale').'/profile';
-                return redirect($url)->with('success','Thank you for confirming your email address');
+                return redirect($url)->with('success',__('index.Thank you for confirming your email address'));
             }
         }else{
-            return redirect()->back()->withInput()->with('error',"Somthing went wrong!");
+            return redirect()->back()->withInput()->with('error',__('index.Somthing went wrong'));
         }
     }
 }

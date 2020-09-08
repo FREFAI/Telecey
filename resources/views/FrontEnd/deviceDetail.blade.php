@@ -97,20 +97,20 @@
                 <div class="panel-heading mb-2" role="tab" id="heading" >
                     <div class="row align-items-center">
                         <div class="col-4">
-                                <b>Device Name</b> : &nbsp;@if(!is_null($service->device)) {{$service->device->device_name}}
+                                <b>{{__('profile.device_name')}}</b> : &nbsp;@if(!is_null($service->device)) {{$service->device->device_name}}
                                 @else
                                 -
                                 @endif
                         </div>
                         <div class="col-4">
-                                <b>Brand Name</b> : &nbsp;@if(!is_null($service->brand)) 
+                                <b>{{__('profile.brand_name')}}</b> : &nbsp;@if(!is_null($service->brand)) 
                                 {{$service->brand->brand_name}}
                                 @else
                                     -
                                 @endif
                         </div>
                         <div class="col-4">
-                            <b>Supplier Name</b> : @if(!is_null($service->supplier)) 
+                            <b>{{__('profile.supplier_name')}}</b> : @if(!is_null($service->supplier)) 
                             {{$service->supplier->supplier_name}}
                             @else
                             -
@@ -125,7 +125,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>Price : </div>
+                                        <div>{{__('profile.price')}} : </div>
                                         <div class="value_div">
                                             &nbsp;{{$service->price ?? 'N/A'}}
                                         </div>
@@ -137,7 +137,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>Review Date : </div>
+                                        <div>{{__('profile.review_date')}} : </div>
                                         <div class="value_div">
                                             &nbsp;{{ date("d/m/Y", strtotime($service->created_at)) }}
                                         </div>
@@ -149,7 +149,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>Storage : </div>
+                                        <div>{{__('profile.storage')}} : </div>
                                         <div class="value_div">
                                             &nbsp;{{$service->storage}}
                                         </div>
@@ -161,7 +161,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>Color : </div>
+                                        <div>{{__('profile.color')}} : </div>
                                         <div class="value_div">
                                             &nbsp;@if($service->device_color_info) 
                                                     {{$service->device_color_info->color_name}}
@@ -177,7 +177,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>Location : </div>
+                                        <div>{{__('profile.location')}} : </div>
                                         <div class="value_div">
                                         &nbsp;
                                             {{$service->user_address ?? 'N/A'}}
@@ -191,7 +191,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="heading detail-div">
-                                    <h1 class="section-title">Ratings</h1>
+                                    <h1 class="section-title">{{__('profile.rating')}}</h1>
                                 </div>
                                 <!-- <div class="add_new_rating_btn">
                                     <a href="{{url('/reviews')}}/{{base64_encode($service->id)}}" class="btn btn-info pull-right add_service">Add rating</a>
@@ -206,7 +206,7 @@
                                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#ratingcollapse{{$service->id}}{{$key}}" aria-expanded="true" aria-controls="ratingcollapse{{$service->id}}{{$key}}" class="accordion_btn rating_btn">
                                                             <i class="more-less glyphicon glyphicon-plus"></i>
                                                             <ul class="inline_list">
-                                                                <li><b>Average</b> : &nbsp;{{$rating['average']}}
+                                                                <li><b>{{__('profile.average')}}</b> : &nbsp;{{$rating['average']}}
                                                                 </li>
                                                             </ul>
                                                         </a>
@@ -220,7 +220,7 @@
                                                                 <div class="card_sm">
                                                                     <div class="row">
                                                                         <div class="col-lg-4 rating-sec">
-                                                                            <b>Address</b>
+                                                                            <b>{{__('profile.address')}}</b>
                                                                         </div>
                                                                         <div class="col-lg-8 rating-sec">
                                                                             <div class="pull-right" >{{$rating['formatted_address']}}</div>
@@ -253,7 +253,7 @@
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <h6 class="text-center section-title">
-                                                                    Comment
+                                                                    {{__('profile.comment')}}
                                                                 </h6>
                                                                 <p class="comment">{{$rating['comment']}}</p>
                                                             </div>

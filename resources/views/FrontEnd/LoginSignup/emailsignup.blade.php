@@ -25,7 +25,6 @@
 			width: 100%;
 		}
 		label#checkboxTerms-error {
-			position: absolute;
 			top: 20px;
 		}
 	</style>
@@ -59,11 +58,11 @@
 				</div>
 				<small id="password_error"></small>
 			</div>
-			<div class="form-check form-check-inline mb-4">
+			<div class="form-check  my-4">
 				<input class="form-check-input" type="checkbox" name="checkboxTerms" value="check" id="agree" required="required">
 				<label class="form-check-label" for="inlineCheckbox1">{{__('emailsignup.agree_text')}} 
 					<a style="color: blue;" href="javascript:void(0)" data-toggle="modal" data-target="#termAndCondition"> {{__('emailsignup.agree_text_link')}}</a>
-				</label>
+				</label><br/>
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary btn-lg btn-block login-btn register-btn">{{__('emailsignup.signup_button')}}</button>
@@ -95,7 +94,15 @@
 	</div>
 	@section('pageScript')
 	<script>
-		$("#registerForm").validate();
+		$("#registerForm").validate({
+			errorPlacement: function( label, element ) {
+				if( element.attr( "name" ) === "checkboxTerms" ) {
+					element.parent().append( label ); // this would append the label after all your checkboxes/labels (so the error-label will be the last element in <div class="controls"> )
+				} else {
+					label.insertAfter( element ); // standard behaviour
+				}
+			}
+		});
 		function passwordValidate(e) {
 			var email = document.getElementById("user_email").value;
 			document.getElementById("password_error").innerHTML = "";

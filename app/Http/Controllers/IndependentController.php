@@ -296,11 +296,11 @@ class IndependentController extends Controller
                   $message = array('success'=>true,'message'=>'Successfully submited.');
                   return json_encode($message);
               }else{
-                  $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                  $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
                   return json_encode($message);
               }
           }else{
-              $message = array('success'=>false,'message'=>"Somthing went wrong!");
+              $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
               return json_encode($message);
           }
       }
@@ -400,11 +400,11 @@ class IndependentController extends Controller
                         $message = array('success'=>true,'message'=>'Successfully submited.');
                         return json_encode($message);
                     }else{
-                        $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                        $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
                         return json_encode($message);
                     }
                 }else{
-                    $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                    $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
                     return json_encode($message);
                 }
             }
@@ -483,11 +483,11 @@ class IndependentController extends Controller
                         $message = array('success'=>true,'message'=>'Successfully submited.');
                         return json_encode($message);
                     }else{
-                        $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                        $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
                         return json_encode($message);
                     }
                 }else{
-                    $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                    $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
                     return json_encode($message);
                 }
             }

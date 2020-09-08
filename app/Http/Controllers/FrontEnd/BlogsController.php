@@ -112,9 +112,9 @@ class BlogsController extends Controller
             
         	if($blogs){
                 $url = \Session::get('locale').'/blog-list';
-        		return redirect($url)->withInput()->with('success','Blog added successfully.');
+        		return redirect($url)->withInput()->with('success',__('Blog added successfully'));
         	}else{
-        		return redirect()->back()->withInput()->with('error','Somthing went wrong!');
+        		return redirect()->back()->withInput()->with('error',__('index.Somthing went wrong'));
         	}
 		}
     }
@@ -183,9 +183,9 @@ class BlogsController extends Controller
 	        	$blogs = BlogsModel::where('id',$id)->update($perameters);
 	        	if($blogs){
                     $url = \Session::get('locale').'/blog-list';
-	        		return redirect($url)->withInput()->with('success','Blog updated successfully.');
+	        		return redirect($url)->withInput()->with('success',__('index.Blog updated successfully'));
 	        	}else{
-	        		return redirect()->back()->withInput()->with('error','Somthing went wrong!');
+	        		return redirect()->back()->withInput()->with('error',__('index.Somthing went wrong'));
 	        	}
             }
            
@@ -210,10 +210,10 @@ class BlogsController extends Controller
         }else{
             $deleteType = BlogsModel::where('id',$perameter['id'])->delete();
             if($deleteType){
-                $message = array('success'=>true,'message'=>'Delete successfully.');
+                $message = array('success'=>true,'message'=>__('index.Delete successfully'));
                 return json_encode($message);
             }else{
-                $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
                 return json_encode($message);
             }
         }

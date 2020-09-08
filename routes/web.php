@@ -17,6 +17,9 @@ ini_set('max_input_time', '900');
 Route::get('/', function(){ 
     return redirect('/en', 301); 
 });
+Route::get('/inbox/{caseID}', function($param){
+	   return redirect(\Session::get('locale').'/inbox/'.$param);
+});
 Route::get('/googlecallback', 'FrontEnd\LoginSignup\SocialAuthGoogleController@callback');
 Route::get('/facebookcallback', 'FrontEnd\LoginSignup\SocialAuthFacebookController@callback');
 
@@ -89,6 +92,7 @@ Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], fun
 		// End Brand Section
 		
 		Route::get('/single-blog/{id}', 'FrontEnd\BlogsController@blogDetail');
+		Route::get('/planDetails/{id}', 'FrontEnd\PlansController@planDetails');
 		Route::group(['middleware' => ['CustomerAuth','PreventBackHistory']], function(){
 			Route::group(['middleware' => 'IpLocation'], function(){
 				// Change password
@@ -115,7 +119,6 @@ Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], fun
 				Route::post('/deleteBlog', 'FrontEnd\BlogsController@deleteBlog');
 				Route::get('/blog-list', 'FrontEnd\BlogsController@blogList');
 				Route::get('/logout', 'FrontEnd\LoginSignup\LoginController@logout');
-				Route::get('/planDetails/{id}', 'FrontEnd\PlansController@planDetails');
 				Route::get('/deviceDetails/{id}', 'FrontEnd\DevicesController@deviceDetails');
 				
 

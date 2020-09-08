@@ -86,9 +86,6 @@ class HomeController extends Controller
             $data = $this->getAllPlans();
         }
         $serviceData = $data['serviceData'];
-        // echo "<pre>";
-        // print_r($serviceData->toArray());
-        // exit;
         $customer = $data['customer'];
         return view('FrontEnd.profile',['serviceData'=>$serviceData,'customer'=>$customer]);
     }
@@ -191,12 +188,12 @@ class HomeController extends Controller
         $key = [];
         foreach ($deviceData as $device) {
             $blankArray = [];
-            $device->device_name = $device->device->device_name;
-            $device->device_status = $device->device->status;
-            $device->brand_name = $device->brand->brand_name;
-            $device->brand_status = $device->brand->status;
-            $device->model_name = $device->brand->model_name;
-            $device->model_status = $device->brand->status;
+            $device->device_name = $device->device ? $device->device->device_name : '';
+            $device->device_status = $device->device ? $device->device->status : '';
+            $device->brand_name = $device->brand ? $device->brand->brand_name : '';
+            $device->brand_status = $device->brand ? $device->brand->status : '';
+            $device->model_name = $device->brand ? $device->brand->model_name : '';
+            $device->model_status = $device->brand ? $device->brand->status : '';
             $device->supplier_name = $device->supplier['supplier_name'];
             $allratings = $device->get_ratings($device->id);  // Get all ratings of this plan questions
             $plan_device_rating = $device->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
@@ -241,10 +238,6 @@ class HomeController extends Controller
             unset($device->supplier);
             unset($device->plan_device_rating);
         }              
-        
-        // echo "<pre>";
-        // print_r($deviceData->toArray());
-        // exit;
         return $data = [
             'customer'    => $customer,
             'serviceData' => $deviceData
@@ -295,13 +288,9 @@ class HomeController extends Controller
             $addressUpdate->postal_code = $input['postal_code'];
             $addressUpdate->formatted_address = $formatted;
             if($addressUpdate->save()){
-                return redirect()->back()->withInput()->with('success','Address update successfully');
-                // $ret = array('success'=>1, 'message'=>"Address update successfully.",'address'=>$formatted);
-                // return json_encode($ret);
+                return redirect()->back()->withInput()->with('success',__('index.Address update successfully'));
             }else{
-                return redirect()->back()->withInput()->with('error','Somthing went wrong!');
-                // $ret = array('success'=>0, 'message'=>"Somthing went wrong!",'address'=>"");
-                // return json_encode($ret);
+                return redirect()->back()->withInput()->with('error',__('index.Somthing went wrong'));
             }
         }
     }

@@ -22,7 +22,7 @@ class BrandsController extends Controller
     }
     public function addBrandForm(Request $request)
     {
-        $colors = DeviceColor::get();
+        $colors = DeviceColor::orderBy('id','DESC')->get();
     	return view('Admin.Brands.add-brand',['colors'=>$colors]);
     }
     public function addBrand(Request $request)

@@ -20,6 +20,9 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="{{URL::asset('frontend/jsplugins/jsvalidation/jquery.form.js')}}"></script>
 <script src="{{URL::asset('frontend/jsplugins/jsvalidation/jquery.validate.js')}}"></script>
+@if(\Session::has('locale') && \Session::get('locale') == 'fr')
+<script src="{{URL::asset('frontend/jsplugins/jsvalidation/messages_fr.js')}}"></script>
+@endIf
 <!-- <script src="{{URL::asset('frontend/jsplugins/jquery.city-autocomplete.js')}}"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script src="https://cdn.tiny.cloud/1/r33fht357sb48uzaif4s424d91smk1zo3s41jfq0gkx580ee/tinymce/5/tinymce.min.js"></script>
@@ -121,13 +124,13 @@
         if (valid) {
             if (pwd == res[0]) {
                 valid = false;
-                $("#password_error").text("Your password and email are same.");
+                $("#password_error").text("{{__('Your password and email are same')}}");
             } else {
                 valid = true;
             }
         } else {
             valid = false;
-            $("#password_error").text("Password must be alphanumeric.");
+            $("#password_error").text("{{__('index.Password must be alphanumeric')}}");
         }
         return valid;
     }
@@ -185,7 +188,7 @@
         if (country_regex[country].test(value)) {
             return "";
         } else {
-            return '<label id="postal_code-error" class="errorcustom" for="postal_code">Postal code is invalid, Please select valid postal code</label>';
+            return '<label id="postal_code-error" class="errorcustom" for="postal_code">{{__("index.Postal code is invalid, Please select valid postal code")}}</label>';
         }
     }
 
@@ -606,7 +609,7 @@
             $("#country").addClass("error");
             // $('#country').val('');
             if ($("#country_div #country-error").length == 0) {
-                $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
+                $("#country_div").append('<label id="country-error" class="error" for="country">{{__("index.Pleace select country from a list")}}</label>');
             }
             return false;
         }
@@ -615,7 +618,7 @@
             $("#city").addClass("error");
             // $('#city').val('');
             if ($("#city_div #city-error").length == 0) {
-                $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
+                $("#city_div").append('<label id="city-error" class="error" for="city">{{__("index.Pleace select city from a list")}}</label>');
             }
             return false;
         }
@@ -625,7 +628,7 @@
         if (!postal["status"]) {
             if (!$("#firstform #postal_code").hasClass("error")) {
                 $("#firstform #postal_code").addClass("error");
-                $("#firstform #postal_code").after('<label id="postal_code-error" class="error" for="postal_code">Postal code is invalid, Please select valid postal code</label>');
+                $("#firstform #postal_code").after('<label id="postal_code-error" class="error" for="postal_code">{{__("index.Postal code is invalid, Please select valid postal code")}}</label>');
             }
             return false;
         }
@@ -1211,7 +1214,7 @@
                             $("#device_color").append('<option value="' + colors[i].id + '">' + colors[i].color_name + "</option>");
                         }
                     } else {
-                        $("#device_color").append('<option value="">Color not found</option>');
+                        $("#device_color").append('<option value="">{{__("index.Color not found")}}</option>');
                     }
                 } else {
                 }
@@ -1232,7 +1235,7 @@
             // $('#country').val('');
 
             if ($("#country_div #country-error").length == 0) {
-                $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
+                $("#country_div").append('<label id="country-error" class="error" for="country">{{__("index.Pleace select country from a list")}}</label>');
             }
             return false;
         }
@@ -1241,7 +1244,7 @@
             $("#city").addClass("error");
             // $('#city').val('');
             if ($("#city_div #city-error").length == 0) {
-                $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
+                $("#city_div").append('<label id="city-error" class="error" for="city">{{__("index.Pleace select city from a list")}}</label>');
             }
 
             return false;
@@ -1250,7 +1253,7 @@
         if (!postal["status"]) {
             if (!$("#change_address_form #postal_code").hasClass("error")) {
                 $("#postal_code").addClass("error");
-                $("#postal_code").after('<label id="postal_code-error" class="error" for="postal_code">Postal code is invalid, Please select valid postal code</label>');
+                $("#postal_code").after('<label id="postal_code-error" class="error" for="postal_code">{{__("index.Postal code is invalid, Please select valid postal code")}}</label>');
             }
 
             return false;
@@ -1283,9 +1286,9 @@
                     success: function (data) {
                         if (data.success) {
                             delete_row.closest("tr").remove();
-                            toastr.success("Delete", data.message, { displayDuration: 3000, position: "top-right" });
+                            toastr.success("Success", data.message, { displayDuration: 3000, position: "top-right" });
                         } else {
-                            toastr.error("Delete", data.message, { displayDuration: 3000, position: "top-right" });
+                            toastr.error("Error", data.message, { displayDuration: 3000, position: "top-right" });
                         }
                     },
                 });

@@ -36,7 +36,7 @@ class BrandsController extends Controller
 			$colors = DeviceColor::whereIn('id',$ids)->get();
 			return json_encode(array('success'=>true,'message'=>'','data'=>$colors));
 		}else{
-			return json_encode(array('success'=>false,'message'=>'Brand is not found','data'=>'{}'));
+			return json_encode(array('success'=>false,'message'=>__('index.Brand is not found'),'data'=>'{}'));
 		}
 	}
 

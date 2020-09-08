@@ -10,7 +10,7 @@
           <div class="row justify-content-center">
             <div class="col-lg-5 col-md-6">
               <h1 class="text-white">Welcome to Telco Tales!</h1>
-              <p class="text-lead text-light">Use these awesome forms to login or create new account in your project for free.</p>
+              <p class="text-lead text-light">Use these awesome forms to reset password in your project for free.</p>
             </div>
           </div>
         </div>
@@ -31,14 +31,14 @@
               <div class="text-center text-muted mb-4">
                 <div class="text-muted text-center mt-2 mb-3"><small>Set your password.</small></div>
               </div>
-              <form role="form" method="post" action="{{url('/admin/resetPassword')}}">
+              <form role="form" method="post" action="{{url('/admin/resetPassword')}}" id="resetPasseordForm">
                 <div class="form-group mb-3">
                   @csrf
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input class="form-control" placeholder="New Password" type="password" name="password">
+                    <input class="form-control" placeholder="New Password" type="password" name="password" id="password">
                   </div>
                 </div>
                 <div class="form-group">
@@ -46,7 +46,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Confirm Password" type="password" name="password_confirmation">
+                    <input class="form-control" placeholder="Confirm Password" type="password" name="password_confirmation" id="password_confirmation">
                   </div>
                 </div>
                 <input type="hidden" name="token" value="{{$token}}"> 
@@ -85,4 +85,35 @@
       </div>
     </div>
   </footer>
+@endsection
+
+@section('pageStyle')
+<style>
+  label#password-error,label#password_confirmation-error{
+    width:100%;
+    color:#f00;
+    margin-bottom:0px;
+    background: transparent;
+  }
+</style>
+@endsection
+@section('pageScript')
+<script>
+  $('#resetPasseordForm').validate({
+      rules: {
+          password: "required",
+          password_confirmation: {
+            required: true,
+            equalTo: "#password",
+          }
+      },
+      errorPlacement: function( label, element ) {
+				if( element.attr( "name" ) === "password" || element.attr( "name" ) === "password_confirmation" ) {
+					element.parent().append( label ); // this would append the label after all your checkboxes/labels (so the error-label will be the last element in <div class="controls"> )
+				} else {
+					label.insertAfter( element ); // standard behaviour
+				}
+			}
+  });
+</script>
 @endsection

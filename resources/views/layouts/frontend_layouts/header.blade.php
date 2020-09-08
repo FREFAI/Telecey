@@ -41,7 +41,7 @@
                             <li class="nav-item">
                                 <form action="{{url('/setLocal')}}" method="post" class="mt-4">
                                 @csrf
-                                <input type="hidden" name="current_url" value="{{Request::url()}}">
+                                <input type="hidden" name="current_url" value="{{\Request::fullUrl()}}">
                                     <select name="lang" class="language">
                                         <option @if(!\Session::get('locale') || (\Session::get('locale') && \Session::get('locale') == "en")) selected="" @endif value="en">English</option>
                                         <option @if(\Session::get('locale') && \Session::get('locale') == "fr") selected="" @endif value="fr">French</option>

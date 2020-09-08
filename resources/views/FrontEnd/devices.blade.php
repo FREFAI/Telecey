@@ -390,171 +390,6 @@
 		        </div>
 		    </div>
 		</div>
-		{{-- <div class="main-container section-padding py-3">
-		    <div class="container mt-0 mt-lg-5">
-		        <div class="table-responsive">
-		            <table class="at-intenet-package" id="pack">
-		                <thead>
-		                    <tr>
-		                        <th class="at-int-intro">
-		                            <h2>Iphone XS  <span class="span-text-col">black/512 GB</span> </h2></th>
-		                        <th>1 movie (2GB) would take...</th>
-		                        <th>50 photos (300MB) would take...</th>
-		                        <th>1 album (60MB) would take...</th>
-		                        <th></th>
-		                    </tr>
-		                </thead>
-		                <tbody>
-		                    <tr>
-		                        <td class="at-int-speedname">
-		                            <h2 class="at-IntHdr">Company Name</h2>
-		                            <ul>
-		                                <li><b>768Kbps</b> Download</li>
-		                                <li><b>384Kbps</b> Upload</li>
-		                            </ul>
-		                        </td>
-		                        <td class="at-int-dl1">
-		                            <h2 class="at-IntHdr">6.2<span class="time-sep"> hrs</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-dl2">
-		                            <h2 class="at-IntHdr">55<span class="time-sep"> min</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-dl3">
-		                            <h2 class="at-IntHdr">11<span class="time-sep"> min</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-price">
-		                            <h2 class="at-IntHdr">
-		                                        <span>$</span>11.95<span class="per-month">/mo</span>
-		                                    </h2>
-		                            <span class="check-info">12 Month Pricing</span> No Contract Required
-		                        </td>
-		                        <td class="at-int-check"><a href="#" class="btn white">Check Availability</a></td>
-		                    </tr>
-		                    <tr>
-		                        <td class="at-int-speedname">
-		                            <h2 class="at-IntHdr">Company Name</h2>
-		                            <ul>
-		                                <li><b>768Kbps</b> Download</li>
-		                                <li><b>384Kbps</b> Upload</li>
-		                            </ul>
-		                        </td>
-		                        <td class="at-int-dl1">
-		                            <h2 class="at-IntHdr">6.2<span class="time-sep"> hrs</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-dl2">
-		                            <h2 class="at-IntHdr">55<span class="time-sep"> min</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-dl3">
-		                            <h2 class="at-IntHdr">11<span class="time-sep"> min</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-price">
-		                            <h2 class="at-IntHdr">
-		                                        <span>$</span>11.95<span class="per-month">/mo</span>
-		                                    </h2>
-		                            <span class="check-info">12 Month Pricing</span> No Contract Required
-		                        </td>
-		                        <td class="at-int-check"><a href="#" class="btn white">Check Availability</a></td>
-		                    </tr>
-		                    <tr>
-		                        <td class="at-int-speedname">
-		                            <h2 class="at-IntHdr">Company Name</h2>
-		                            <ul>
-		                                <li><b>768Kbps</b> Download</li>
-		                                <li><b>384Kbps</b> Upload</li>
-		                            </ul>
-		                        </td>
-		                        <td class="at-int-dl1">
-		                            <h2 class="at-IntHdr">6.2<span class="time-sep"> hrs</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-dl2">
-		                            <h2 class="at-IntHdr">55<span class="time-sep"> min</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-dl3">
-		                            <h2 class="at-IntHdr">11<span class="time-sep"> min</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-price">
-		                            <h2 class="at-IntHdr">
-		                                        <span>$</span>11.95<span class="per-month">/mo</span>
-		                                    </h2>
-		                            <span class="check-info">12 Month Pricing</span> No Contract Required
-		                        </td>
-		                        <td class="at-int-check"><a href="#" class="btn white">Check Availability</a></td>
-		                    </tr>
-		                    <tr>
-		                        <td class="at-int-speedname">
-		                            <h2 class="at-IntHdr">Company Name</h2>
-		                            <ul>
-		                                <li><b>768Kbps</b> Download</li>
-		                                <li><b>384Kbps</b> Upload</li>
-		                            </ul>
-		                        </td>
-		                        <td class="at-int-dl1">
-		                            <h2 class="at-IntHdr">6.2<span class="time-sep"> hrs</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-dl2">
-		                            <h2 class="at-IntHdr">55<span class="time-sep"> min</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-dl3">
-		                            <h2 class="at-IntHdr">11<span class="time-sep"> min</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-price">
-		                            <h2 class="at-IntHdr">
-		                                        <span>$</span>11.95<span class="per-month">/mo</span>
-		                                    </h2>
-		                            <span class="check-info">12 Month Pricing</span> No Contract Required
-		                        </td>
-		                        <td class="at-int-check"><a href="#" class="btn white">Check Availability</a></td>
-		                    </tr>
-		                    <tr>
-		                        <td class="at-int-speedname">
-		                            <h2 class="at-IntHdr">Company Name</h2>
-		                            <ul>
-		                                <li><b>768Kbps</b> Download</li>
-		                                <li><b>384Kbps</b> Upload</li>
-		                            </ul>
-		                        </td>
-		                        <td class="at-int-dl1">
-		                            <h2 class="at-IntHdr">6.2<span class="time-sep"> hrs</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-dl2">
-		                            <h2 class="at-IntHdr">55<span class="time-sep"> min</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-dl3">
-		                            <h2 class="at-IntHdr">11<span class="time-sep"> min</span></h2>
-		                            <span class="todownload">to download*</span>
-		                        </td>
-		                        <td class="at-int-price">
-		                            <h2 class="at-IntHdr">
-		                                    <span>$</span>11.95<span class="per-month">/mo</span>
-		                                </h2>
-		                            <span class="check-info">12 Month Pricing</span> No Contract Required
-		                        </td>
-		                        <td class="at-int-check"><a href="#" class="btn white">Check Availability</a></td>
-		                    </tr>
-		                </tbody>
-		            </table>
-		        </div>
-		    </div>
-		    <div class="row">
-		        <div class="col text-center mt-5 mb-5">
-		            <a href="sign-in.html" class="btn btn-common btn-find plan ">Register to Unlock Telco Tales</a>
-		        </div>
-		    </div>
-		</div> --}}
 		<div id="searchResult">
 			@if(count($data)>0)
 				<div class="container mb-5 mt-5">
@@ -562,15 +397,13 @@
 						<table id="example" class="table table-striped table-bordered" style="width:100%">
 							<thead>
 								<tr>
-									<th>Brand</th>
-									<th>Model</th>
-									<th>Supplier</th>
-									<th>Price</th>
-									<th>Capacity</th>
-									{{-- @if($filterType == 1) --}}
-									<th>Distance</th>
-									{{-- @endif --}}
-									<th>Details</th>
+									<th scope="col">{{__('deviceresult.brand')}} </th>
+									<th scope="col">{{__('deviceresult.model')}} </th>
+									<th scope="col">{{__('deviceresult.price')}} </th>
+									<th scope="col">{{__('deviceresult.capacity')}} </th>
+									<th scope="col">{{__('deviceresult.supplier')}} </th>
+									<th scope="col">{{__('deviceresult.distance')}} </th>
+									<th scope="col">{{ __('deviceresult.detail_btn') }}</th>
 								</tr>
 							</thead>
 							<tbody>

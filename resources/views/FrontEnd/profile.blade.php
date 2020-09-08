@@ -687,7 +687,7 @@
 
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Change Password</h4>
+            <h4 class="modal-title">{{__('profile.Change Password')}}</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
 
@@ -697,25 +697,25 @@
                 <div class="row">
                     <div class="col-lg-12">
                     	@csrf
-                        <h5>Old password</h5>
+                        <h5>{{__('profile.Old password')}}</h5>
                         <div class="form-group">
-                            <input type="password" maxlength="20" id="old_password" name="old_password" class="form-control" placeholder="Old password" required="">
+                            <input type="password" maxlength="20" id="old_password" name="old_password" class="form-control" placeholder="{{__('profile.Old password')}}" required="">
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <h5>New password</h5>
+                        <h5>{{__('profile.New password')}}</h5>
                         <div class="form-group">
-                            <input type="password" maxlength="20" id="new_password" name="new_password" class="form-control" placeholder="New password" required="">
+                            <input type="password" maxlength="20" id="new_password" name="new_password" class="form-control" placeholder="{{__('profile.New password')}}" required="">
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <h5>Confirm new password</h5>
+                        <h5>{{__('profile.Confirm new password')}}</h5>
                         <div class="form-group">
-                            <input type="password" maxlength="20" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirm new password" required="">
+                            <input type="password" maxlength="20" id="confirm_password" name="confirm_password" class="form-control" placeholder="{{__('profile.Confirm new password')}}" required="">
                         </div>
                     </div>
                     <div class="col-lg-12 text-center">
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-primary">{{__('profile.Update')}}</button>
                     </div>
                 </div>
             </form>
@@ -740,34 +740,34 @@
 					<div class="row">
 						@csrf
 						<div class="col-lg-12">
-							<h5>Address <span class="text-mute">Optional</span></h5>
+							<h5>{{__('profile.address')}} <span class="text-mute">{{__("profile.Optional")}}</span></h5>
 							<div class="form-group">
-								<input type="text" maxlength="70" id="address" name="address" class="form-control" placeholder="Address" value="" autocomplete="no">
+								<input type="text" maxlength="70" id="address" name="address" class="form-control" placeholder="{{__('profile.address')}}" value="" autocomplete="no">
 							</div>
 						</div>
 						<div class="col-lg-12">
-							<h5>Country</h5>
+							<h5>{{__('profile.Country')}}</h5>
 							<div class="form-group country_div" id="country_div">
-								<input type="text" maxlength="50" id="country" name="country" class="form-control js-input" placeholder="Country" required=""  autocomplete="no">
+								<input type="text" maxlength="50" id="country" name="country" class="form-control js-input" placeholder="{{__('profile.Country')}}" required=""  autocomplete="no">
 							</div>
 						</div>
 						<div class="col-lg-12">
-							<h5>City</h5>
+							<h5>{{__('profile.City')}}</h5>
 							<div class="form-group city_div" id="city_div">
-								<input type="text" maxlength="50" id="city" name="city" class="form-control city_input" placeholder="City" autocomplete="no" required="" data-country="IN" value="">
+								<input type="text" maxlength="50" id="city" name="city" class="form-control city_input" placeholder="{{__('profile.City')}}" autocomplete="no" required="" data-country="IN" value="">
 								<input type="hidden" maxlength="50" id="country_code" name="country_code" class="form-control" value="">
 							</div>
 						</div>
 						<div class="col-lg-12">
-							<h5>Postal code</h5>
+							<h5>{{__('profile.Postal code')}}</h5>
 							<div class="form-group">
-								<input type="text" maxlength="20" id="postal_code" name="postal_code" class="form-control" placeholder="Postal code" required="" value="">
+								<input type="text" maxlength="20" id="postal_code" name="postal_code" class="form-control" placeholder="{{__('profile.Postal code')}}" required="" value="">
 							</div>
 						</div>
 						<input type="hidden" name="id" value="" id="address_id">
 						<div class="col-lg-12 text-center">
-							<button type="button" class="btn btn-primary address_update_btn">Update</button>
-							<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+							<button type="button" class="btn btn-primary address_update_btn">{{__('profile.Update')}}</button>
+							<button type="button" class="btn btn-primary" data-dismiss="modal">{{__('profile.Cancel')}}</button>
 						</div>
 					</div>
 				</form>

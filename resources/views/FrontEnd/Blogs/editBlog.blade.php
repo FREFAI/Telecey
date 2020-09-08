@@ -68,7 +68,7 @@
             <div class="row second-step align-items-center text-center">
                 <div class="col-lg-12">
                     <div class="add-blog-title">
-                        <h1>Edit Blog</h1>
+                        <h1>{{__('index.Edit Blog')}}</h1>
                         <hr>
                     </div>
                 </div>
@@ -77,13 +77,13 @@
                 <div class="col-lg-12">
                     @if($blog)
                         @include('flash-message')
-                        <form class="" action="{{url('/edit-blog')}}" method="post" enctype="multipart/form-data">
+                        <form action="{{url('/edit-blog')}}" method="post" enctype="multipart/form-data" id="blogForm">
                             @csrf
                             <div class="row mt-1">
                                 <div class="col-lg-6 ">
-                                    <h5>Title</h5>
+                                    <h5>{{__('index.Title')}}</h5>
                                     <div class="form-group">
-                                        <input value="{{$blog->title}}" type="text" class="form-control input-css" name="title" placeholder="Title" required id="title">    
+                                        <input value="{{$blog->title}}" type="text" class="form-control input-css" name="title" placeholder="{{__('index.Title')}}" required id="title">    
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -95,7 +95,7 @@
                                                 <option value="{{$category->id}}" @if($category->id == $blog->category_id) selected @endif>{{$category->category_name}}</option>
                                                 @endforeach
                                             @else
-                                            <option value="" disabled>Not found</option>
+                                            <option value="" disabled>{{__('common.notfound')}}</option>
                                             @endif
                                         </select>
                                     </div>
@@ -128,7 +128,7 @@
                                 <div class="col-md-12 text-right">
                                     <div class="form-group">
                                     <input type="hidden" name="id" value="{{base64_encode($blog->id)}}">
-                                    <button class="btn btn-primary" type="submit">Update</button>
+                                    <button class="btn btn-primary" type="submit">{{__('index.Update')}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -139,4 +139,9 @@
         </section>
 		
 
+@endsection
+@section('pageScript')
+        <script>
+            $("#blogForm").validate();
+        </script>
 @endsection

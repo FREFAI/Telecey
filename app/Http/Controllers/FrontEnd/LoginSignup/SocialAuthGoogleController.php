@@ -58,7 +58,7 @@ class SocialAuthGoogleController extends Controller
 	        		return redirect()->to($url);
 	        	}else{
                     $url = \Session::get('locale').'/signup';
-	        		return redirect($url)->withInput()->with('error','Somthing went wrong!');
+	        		return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
 	        	}
         	}
             if($validation->messages()->first('email')){
@@ -69,7 +69,7 @@ class SocialAuthGoogleController extends Controller
 		        		return redirect()->to($url);
 		        	}else{
                         $url = \Session::get('locale').'/signup';
-		        		return redirect($url)->withInput()->with('error','Somthing went wrong!');
+		        		return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
 		        	}	
                 }else{
                 	$user->social_login_type = 1;
@@ -80,11 +80,11 @@ class SocialAuthGoogleController extends Controller
 			        		return redirect()->to($url);
 			        	}else{
                             $url = \Session::get('locale').'/signup';
-			        		return redirect($url)->withInput()->with('error','Somthing went wrong!');
+			        		return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
 			        	}
 			        }else{
                         $url = \Session::get('locale').'/signup';
-			        	return redirect($url)->withInput()->with('error','Somthing went wrong!');
+			        	return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
 			        }
                 }
             }
@@ -110,11 +110,11 @@ class SocialAuthGoogleController extends Controller
 	        		return redirect()->to($url);
 	        	}else{
                     $url = \Session::get('locale').'/signup';
-	        		return redirect($url)->withInput()->with('error','Somthing went wrong!');
+	        		return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
 	        	}	
 	        }else{
                 $url = \Session::get('locale').'/signup';
-	        	return redirect($url)->withInput()->with('error','Somthing went wrong!');
+	        	return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
 	        }
 	    }
     }

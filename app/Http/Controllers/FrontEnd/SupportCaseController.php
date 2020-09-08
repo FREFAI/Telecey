@@ -75,12 +75,12 @@ class SupportCaseController extends Controller
                         'email'                         => $user->email
 					];
 					CreateLogs::createLog($logData);
-					return redirect()->back()->with('success','Case generate successfully.');
+					return redirect()->back()->with('success',__('index.Case generate successfully'));
         		}else{
-        			return redirect()->back()->withInput()->with('error',"Somthing went wrong!");
+        			return redirect()->back()->withInput()->with('error',__('index.Somthing went wrong'));
         		}
         	}else{
-				return redirect()->back()->withInput()->with('error',"Somthing went wrong!");
+				return redirect()->back()->withInput()->with('error',__('index.Somthing went wrong'));
         	}
         }
     }

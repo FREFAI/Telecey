@@ -12,9 +12,9 @@
         <td>{{$value->storage}}</td>
         <td>{{round($value->distance)}} KM</td>
         @if(Auth::guard('customer')->check())
-            <td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value->id)}}">Details</td>
+            <td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value->id)}}">{{ __('deviceresult.detail_btn') }}</td>
         @else
-            <td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
+            <td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('deviceresult.signup_unlock')}}</td>
         @endif
     </tr>
     @if($i%10 == 0)

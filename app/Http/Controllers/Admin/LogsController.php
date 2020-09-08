@@ -15,15 +15,15 @@ class LogsController extends Controller
             $query = \DB::table('logs');
             $query->where('type',1);
             $query->orderBy('id','DESC');
-            if($params['email'] != ""){
+            if(isset($params['email']) != ""){
                 $query->where('email','LIKE',"%{$params['email']}%");
             }
-            if($params['start_date'] != "" && $params['end_date'] != ""){
+            if(isset($params['start_date']) != "" && isset($params['end_date']) != ""){
                 $date['start_date'] = date('Y-m-d', strtotime($params['start_date']));
                 $date['end_date'] = date('Y-m-d', strtotime($params['end_date']));
                 $query->whereBetween('created_at',[$date['start_date'],$date['end_date']]);
             }
-            if($params['type'] != "" && $params['type'] != -1){
+            if(isset($params['type']) != "" && isset($params['type']) != -1){
                 $query->where('log_type',$params['type']);
             }
             $adminLogs = $query->paginate(10);
@@ -42,15 +42,15 @@ class LogsController extends Controller
             $query = \DB::table('logs');
             $query->where('type',2);
             $query->orderBy('id','DESC');
-            if($params['email'] != ""){
+            if(isset($params['email']) != ""){
                 $query->where('email','LIKE',"%{$params['email']}%");
             }
-            if($params['start_date'] != "" && $params['end_date'] != ""){
+            if(isset($params['start_date']) != "" && isset($params['end_date']) != ""){
                 $date['start_date'] = date('Y-m-d', strtotime($params['start_date']));
                 $date['end_date'] = date('Y-m-d', strtotime($params['end_date']));
                 $query->whereBetween('created_at',[$date['start_date'],$date['end_date']]);
             }
-            if($params['type'] != "" && $params['type'] != -1){
+            if(isset($params['type']) != "" && isset($params['type']) != -1){
                 $query->where('log_type',$params['type']);
             }
             $userLogs = $query->paginate(10);

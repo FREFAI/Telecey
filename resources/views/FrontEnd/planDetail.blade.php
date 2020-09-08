@@ -11,23 +11,12 @@
 	    padding: 25px 24px 30px;
 	    margin-bottom: 10px;
 	}
-	/*.service_list_design{
-		width: 100%;
-		box-shadow: 0 0 10px rgba(175, 175, 175, 0.65);
-	    padding: 25px 30px 30px;
-	    margin-bottom: 10px;
-	}*/
 	ul.first_row_service {
 		font-size: 14px;
 	}
 	.question, .comment {
 	    font-size: 16px;
 	}
-	/*.card_sm{
-		box-shadow: 0 0 5px rgba(175, 175, 175, 0.78);
-	    margin-bottom: 10px;
-	    padding: 5px;
-	}*/
 	.value_div{
 		font-weight: bold;
 	}
@@ -97,27 +86,27 @@
                 <div class="panel-heading mb-2" role="tab" id="heading" >
                     <div class="row align-items-center">
                         <div class="col-3 ">
-                                <b>Provider Name</b> : &nbsp;@if(!is_null($service->provider)) {{$service->provider->provider_name}}
+                                <b>{{__('profile.provider_name')}}</b> : &nbsp;@if(!is_null($service->provider)) {{$service->provider->provider_name}}
                                 @else
                                 -
                                 @endif
                         </div>
                         <div class="col-3 ">
-                                <b>Service Type</b> : &nbsp;@if(!is_null($service->typeOfService)) 
+                                <b>{{__('profile.service_type')}}</b> : &nbsp;@if(!is_null($service->typeOfService)) 
                                 {{$service->typeOfService['service_type_name']}}
                                 @else
                                     -
                                 @endif
                         </div>
                         <div class="col-3 ">
-                                <b>Price</b> : &nbsp;&nbsp;{{$service->c_code}}&nbsp;{{$service->price}}
+                                <b>{{__('profile.price')}}</b> : &nbsp;&nbsp;{{$service->c_code}}&nbsp;{{$service->price}}
                         </div>
                         <div class="col-3 ">
                             @if(!is_null($service->provider)) 
                                 @if($service->provider->status == 1)
-                                    <span class="font-weight-bold">Approved</span>
+                                    <span class="font-weight-bold">{{__('profile.approved')}}</span>
                                 @else
-                                    <span class="font-weight-bold text-danger">Not approved</span>
+                                    <span class="font-weight-bold text-danger">{{__('profile.notapproved')}}</span>
                                 @endif
                             @else
                             -
@@ -132,7 +121,7 @@
                                 <div class="card_sm">
                                     <ul class="first_row_service">
                                         <li>
-                                            <div>Contract type : </div>
+                                            <div>{{__('profile.contract_type')}} : </div>
                                             <div class="value_div">&nbsp;
                                                 @if($service->contract_type == 1) 
                                                     Personal
@@ -148,7 +137,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>Payment type : </div>
+                                        <div>{{__('profile.payment_type')}} : </div>
                                         <div class="value_div">
                                             &nbsp;{{$service->payment_type ?? 'N/A'}}
                                         </div>
@@ -160,7 +149,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>Review Date : </div>
+                                        <div>{{__('profile.review_date')}} : </div>
                                         <div class="value_div">
                                             &nbsp;{{ date("d/m/Y", strtotime($service->created_at)) }}
                                         </div>
@@ -172,7 +161,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>Service type : </div>
+                                        <div>{{__('profile.service_type')}} : </div>
                                         <div class="value_div">
                                             
                                         &nbsp;
@@ -190,7 +179,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>Local Min : </div>
+                                        <div>{{__('profile.localmin')}} : </div>
                                         <div class="value_div">&nbsp;{{$service->local_min ?? 'N/A'}}
                                         </div>
                                     </li>
@@ -201,7 +190,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>DataVolume : </div>
+                                        <div>{{__('profile.datavol')}} : </div>
                                         <div class="value_div">&nbsp;{{$service->datavolume ?? 'N/A'}}</div>
                                     </li>
                                 </ul>
@@ -211,7 +200,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>Long distance Min : </div>
+                                        <div>{{__('profile.long_dis')}} : </div>
                                         <div class="value_div">&nbsp;{{$service->long_distance_min ?? 'N/A'}}</div>
                                     </li>
                                 </ul>
@@ -221,7 +210,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>International Min : </div>
+                                        <div>{{__('profile.internantionalmin')}} : </div>
                                         <div class="value_div">&nbsp;{{$service->international_min ?? 'N/A'}}</div>
                                     </li>
                                 </ul>
@@ -231,7 +220,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>Roaming Min : </div>
+                                        <div>{{__('profile.romingmin')}} : </div>
                                         <div class="value_div">&nbsp;{{$service->roaming_min ?? 'N/A'}}</div>
                                     </li>
                                 </ul>
@@ -241,7 +230,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>Downloading speed : </div>
+                                        <div>{{__('profile.downloading')}} : </div>
                                         <div class="value_div">&nbsp;{{$service->downloading_speed ?? 0}} Mbps @if($service->speedtest_type == 1) <i class="fa fa-tachometer"></i> @endif</div>
                                     </li>
                                 </ul>
@@ -251,7 +240,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>Uploading speed : </div>
+                                        <div>{{__('profile.uploading')}} : </div>
                                         <div class="value_div">&nbsp;{{$service->uploading_speed ?? 0}} Mbps @if($service->speedtest_type == 1) <i class="fa fa-tachometer"></i> @endif
                                         </div>
                                     </li>
@@ -262,7 +251,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>SMS : </div>
+                                        <div>{{__('profile.sms')}} : </div>
                                         <div class="value_div">&nbsp;{{$service->sms ?? 'N/A'}}</div>
                                     </li>
                                 </ul>
@@ -272,7 +261,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>How much are you paying monthly multi currencies should be supported : </div>
+                                        <div>{{__('profile.price_str')}} : </div>
                                         <div class="value_div">&nbsp;@if(!is_null($service->currency))
                                             {{$service->currency->currency_code}}@else-
                                             @endif&nbsp;{{$service->price}}</div>
@@ -284,7 +273,7 @@
                                 <div class="card_sm">
                                 <ul class="first_row_service">
                                     <li>
-                                        <div>Location : </div>
+                                        <div>{{__('profile.location')}} : </div>
                                         <div class="value_div">&nbsp;{{$service->user_address ?? 'N/A'}}</div>
                                     </li>
                                 </ul>
@@ -294,7 +283,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="heading detail-div">
-                                    <h1 class="section-title">Ratings</h1>
+                                    <h1 class="section-title">{{__('profile.rating')}}</h1>
                                 </div>
                                 <!-- <div class="add_new_rating_btn">
                                     <a href="{{url('/reviews')}}/{{base64_encode($service->id)}}" class="btn btn-info pull-right add_service">Add rating</a>
@@ -309,7 +298,7 @@
                                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#ratingcollapse{{$service->id}}{{$key}}" aria-expanded="true" aria-controls="ratingcollapse{{$service->id}}{{$key}}" class="accordion_btn rating_btn">
                                                             <i class="more-less glyphicon glyphicon-plus"></i>
                                                             <ul class="inline_list">
-                                                                <li><b>Average</b> : &nbsp;{{$rating['average']}}
+                                                                <li><b>{{__('profile.average')}}</b> : &nbsp;{{$rating['average']}}
                                                                 </li>
                                                             </ul>
                                                         </a>
@@ -323,7 +312,7 @@
                                                                 <div class="card_sm">
                                                                     <div class="row">
                                                                         <div class="col-lg-4 rating-sec">
-                                                                            <b>Address</b>
+                                                                            <b>{{__('profile.address')}}</b>
                                                                         </div>
                                                                         <div class="col-lg-8 rating-sec">
                                                                             <div class="pull-right" >{{$rating['formatted_address']}}</div>
@@ -356,7 +345,7 @@
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <h6 class="text-center section-title">
-                                                                    Comment
+                                                                    {{__('profile.comment')}}
                                                                 </h6>
                                                                 <p class="comment">{{$rating['comment']}}</p>
                                                             </div>

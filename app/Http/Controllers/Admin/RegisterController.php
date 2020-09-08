@@ -85,7 +85,7 @@ class RegisterController extends Controller
                     'log_type'          => 1,
                     'login_signup_type' => 1,
                     'type'              => 1,
-                    'user_status'       => $admin->is_active,
+                    'user_status'       => 1,
                     'user_name'         => $admin->firstname.' '.$admin->lastname,
                     'email'             => $admin->email,
                 ];

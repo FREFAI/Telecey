@@ -1,5 +1,5 @@
 @extends('layouts.frontend_layouts.frontend')
-@section('title', 'Edit Blog')
+@section('title', 'View Blog')
 @section('content')
     <style>
         /*Image preview*/
@@ -75,7 +75,7 @@
                                 </div>
                                 <div class="col-lg-12 mt-3">
                                     <h2><i>{{$blog->title}}</i></h2>
-                                    <small>Updated: {{date("M d, Y", strtotime($blog->updated_at))}}</small>
+                                    <small>{{__('index.Updated')}}: {{date("M d, Y", strtotime($blog->updated_at))}}</small>
                                 </div>
                                 <div class="col-lg-12 mt-2">
                                 <div class="post_image_single text-center">

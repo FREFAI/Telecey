@@ -28,7 +28,7 @@
 						<form action="{{url('/plans/result')}}" method="get" class="w-75 mt-4">
 							<div class="row">
 								<div class="col-md-12 ml-md-auto">
-									<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
+									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
 								</div>
 								
 								<input type="hidden" name="rows" value="20">
@@ -54,13 +54,13 @@
 								<div class="col-6 text-center mt-4 pay_as_usage_type">
 									<div class="form-group">
 										<select class="service-type-select service_type" name="service_type">
-											<option value="">Service type</option>
+											<option value="">{{__('profile.service_type')}}</option>
 											@if(count($service_types) > 0)
 												@foreach($service_types as $type)
 													<option value="{{$type->id}}" @if( request()->get('service_type') ) @if( request()->get('service_type') == $type->id) selected @endif @endif>{{$type->service_type_name}}</option>
 												@endforeach
 											@else
-												<option disabled="">Not found</option>
+												<option disabled="">{{__('common.notfound')}}</option>
 											@endif
 										</select>
 									</div>
@@ -81,7 +81,7 @@
 								</div>
 								<div class="col-6 mt-4 devicenew">
 									<select class="service-type-select service_type" name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">
-										<option value="">Brand</option>
+										<option value="">{{__('deviceresult.brand')}}</option>
 										@foreach($brands as $v)
 											<option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
 										@endforeach
@@ -91,7 +91,7 @@
 									<div class="form-group plan_page inputwithicon">
 										<div class="select">
 											<select name="storage" id="storage" class="service-type-select  service_type">
-												<option value="">Capacity</option>
+												<option value="">{__('deviceresult.capacity')}}</option>
 												<option value="64" @if( request()->get('storage') ) @if( request()->get('storage') == '64') selected @endif @endif>64</option>
 												<option value="128" @if( request()->get('storage') ) @if( request()->get('storage') == '128') selected @endif @endif>128</option>
 												<option value="256" @if( request()->get('storage') ) @if( request()->get('storage') == '256') selected @endif @endif>256</option>
@@ -605,7 +605,7 @@
 						$('#device_color').append('<option value="'+colors[i].id+'">'+colors[i].color_name+'</option>');
 					}
 					}else{
-					$('#device_color').append('<option value="">Color</option>');
+					$('#device_color').append('<option value="">{{__("index.Color")}}</option>');
 					}
 				}else{
 

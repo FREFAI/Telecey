@@ -33,10 +33,10 @@
                                     <input class="form-control" type="text" placeholder="Search by email" name="email" @if(isset($params['email'])) value="{{$params['email']}}" @endif>
                                 </div>
                                 <div class="3 mr-1">
-                                    <input class="form-control datepicker-one" type="text" placeholder="Created" name="start_date"  @if(isset($params['start_date'])) value="{{$params['start_date']}}" @endif>
+                                    <input class="form-control datepicker-one" type="text" placeholder="Start Date" name="start_date"  @if(isset($params['start_date'])) value="{{$params['start_date']}}" @endif>
                                 </div>
                                 <div class="3 mr-1">
-                                    <input class="form-control datepicker-two" type="text" placeholder="Update" name="end_date"  @if(isset($params['end_date'])) value="{{$params['end_date']}}" @endif>
+                                    <input class="form-control datepicker-two" type="text" placeholder="End Date" name="end_date"  @if(isset($params['end_date'])) value="{{$params['end_date']}}" @endif>
                                 </div>
                                 <div class="3 mr-1">
                                     <select class="form-control" name="type" id="log_type">
@@ -61,7 +61,7 @@
                      <tr>
                        <th scope="col" style="width: 10px;">Sr.No</th>
                        <th scope="col" style="width: 10px;">Ip</th>
-                       <th scope="col" style="width: 10px;">User name</th>
+                       <th scope="col" style="width: 10px;">User Name</th>
                        <th scope="col" class="text-center">User email</th>
                        <th scope="col" class="text-center">Status</th>
                        <th scope="col" class="text-center">Filter Params.</th>
@@ -149,7 +149,7 @@
                  </table>
                </div>
                <div class="ads_pagination mt-3 mb-0">
-                 {{$userLogs->links()}}
+                  {{$userLogs->appends(request()->except('page'))->links()}}
                </div>
             </div>
 		    	</div>

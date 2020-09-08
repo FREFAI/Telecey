@@ -237,7 +237,7 @@
                                     <label class="label" for="email">{{ __('review.email') }}</label>
                                 </div>
                                 <div class="form-field col-lg-12">
-                                    <input id="postal_code" class="input-text js-input" type="text" value="{{$usersDetail->postal_code}}" name="postal_code" autocomplete="no" />
+                                    <input id="postal_code" class="input-text js-input" type="text" value="{{$usersDetail->postal_code}}" name="postal_code" autocomplete="no" required/>
                                     <label class="label" for="number">{{ __('review.postal_code') }}</label>
                                 </div>
                                 <div class="form-field col-lg-12">
@@ -765,7 +765,7 @@
                     </div>
                     <div class="row starrating_error d-none">
                         <div class="error">
-                            All rating rows are required.
+                            {{__("index.All rating rows are required")}}
                         </div>
                     </div>
                     @if(count($questions)>0) @foreach($questions as $question) @if($question->type == 1)
@@ -794,7 +794,7 @@
                     <div class="row mt-3">
                         <div class="col-lg-6">
                             <div class="">
-                                <h5>Comment</h5>
+                                <h5>{{ __('profile.comment') }}</h5>
                             </div>
                         </div>
                         <div class="col-lg-6 text-right">
@@ -806,7 +806,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="">
-                                <h5 class="font-weight-bold">Average</h5>
+                                <h5 class="font-weight-bold">{{ __('profile.average') }}</h5>
                             </div>
                         </div>
                         <div class="col-lg-6 text-right">
@@ -927,7 +927,7 @@
                                     <input type="hidden" data-id="{{$userAddress->id}}" value="{{$userAddress->id}}" id="user_address_id" />
                                     <input type="hidden" value="1" id="is_primary" />
                                     @else
-                                    <div class="address">No address found.</div>
+                                    <div class="address">{{__("common.notfound")}}</div>
                                     @endif
                                 </div>
                             </div>
@@ -1258,7 +1258,7 @@
                     $("#country").addClass("error");
                     // $('#country').val('');
                     if ($("#country_div #country-error").length == 0) {
-                        $("#country_div").append('<label id="country-error" class="error" for="country">Pleace select country from a list.</label>');
+                        $("#country_div").append('<label id="country-error" class="error" for="country">{{__("index.Pleace select country from a list")}}</label>');
                     }
                     return false;
                 }
@@ -1267,7 +1267,7 @@
                     $("#city").addClass("error");
                     // $('#city').val('');
                     if ($("#city_div #city-error").length == 0) {
-                        $("#city_div").append('<label id="city-error" class="error" for="city">Pleace select city from a list.</label>');
+                        $("#city_div").append('<label id="city-error" class="error" for="city">{{__("index.Pleace select city from a list")}}</label>');
                     }
                     return false;
                 }
@@ -1568,7 +1568,7 @@
                                     $("#device_color").append('<option value="' + colors[i].id + '">' + colors[i].color_name + "</option>");
                                 }
                             } else {
-                                $("#device_color").append('<option value="">Color</option>');
+                                $("#device_color").append('<option value="">{{__("index.Color")}}</option>');
                             }
                         } else {
                         }

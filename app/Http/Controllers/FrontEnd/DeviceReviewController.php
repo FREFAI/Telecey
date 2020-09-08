@@ -60,7 +60,7 @@ class DeviceReviewController extends Controller
                         if($brands = Brands::create($brandData)){
                             $perameter['brand_id'] = $brands->id;
                         }else{
-                            $message = array('success'=>false,'message'=>'Add new brands error!');
+                            $message = array('success'=>false,'message'=>__('index.Add new brands error'));
                             return json_encode($message);
                         }
                     }
@@ -84,7 +84,7 @@ class DeviceReviewController extends Controller
                     if($supplier = Supplier::create($supplierData)){
                         $perameter['supplier_id'] = $supplier->id;
                     }else{
-                        $message = array('success'=>false,'message'=>'Add new brands error!');
+                        $message = array('success'=>false,'message'=>__('index.Add new brands error'));
                         return json_encode($message);
                     }
                 }
@@ -102,7 +102,7 @@ class DeviceReviewController extends Controller
             $perameter['country_code'] = $newresponse->country_code2;
             if($perameter['device_review_id'] == ""){
                 if($deviceReview = DeviceReview::create($perameter)){
-                    $message = array('success'=>true,'message'=>'Device review add successfully.','device_id'=>$deviceReview->id);
+                    $message = array('success'=>true,'message'=>__('index.Device review add successfully'),'device_id'=>$deviceReview->id);
                     return json_encode($message);
                 }
             }else{
@@ -112,7 +112,7 @@ class DeviceReviewController extends Controller
                 unset($perameter['brand_status']);
                 unset($perameter['device_review_id']);
                 if($deviceReview = DeviceReview::where('id',$id_device)->update($perameter)){
-                    $message = array('success'=>true,'message'=>'Device review add successfully.','device_id'=>$id_device);
+                    $message = array('success'=>true,'message'=>__('index.Device review add successfully'),'device_id'=>$id_device);
                     return json_encode($message);
                 }
             }
@@ -242,14 +242,14 @@ class DeviceReviewController extends Controller
                 }
                 DeviceReview::where('id',$plandevicerating->device_id)->update(['average_review' => $average]);
                 if($serviceRating){
-                    $message = array('success'=>true,'message'=>'Successfully submited.');
+                    $message = array('success'=>true,'message'=>__('index.Successfully submited'));
                     return json_encode($message);
                 }else{
-                    $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                    $message = array('success'=>false,'message'=>__("index.Somthing went wrong"));
                     return json_encode($message);
                 }
             }else{
-                $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                $message = array('success'=>false,'message'=>__("index.Somthing went wrong"));
                 return json_encode($message);
             }
         }

@@ -12,7 +12,7 @@ class DevicesController extends Controller
 {
     public function devicesList(Request $request)
     {
-        $devices = Devices::paginate(10);
+        $devices = Devices::orderBy('id','DESC')->paginate(10);
     	return view('Admin.Devices.device-list',['devices'=>$devices]);
     }
     public function addDevicesForm(Request $request)

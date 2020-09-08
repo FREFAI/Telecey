@@ -68,12 +68,12 @@
             <div class="row second-step align-items-center">
                 <div class="col-lg-6">
                     <div class="add-blog-title">
-                        <h1>Blog List</h1>
+                        <h1>{{__('index.Blog List')}}</h1>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="add-blog-title text-right">
-                       <a href="{{url('/add-blog')}}" class="common-btn"><i class="fa fa-plus"></i> Add Blog</a>
+                       <a href="{{url('/add-blog')}}" class="common-btn"><i class="fa fa-plus"></i> {{__('index.Add Blog')}}</a>
                     </div>
                 </div>
 
@@ -86,12 +86,12 @@
                         <table class="table align-items-center">
                             <thead class="thead-light">
                                 <tr>
-                                <th scope="col" style="width: 10px;">Sr.No</th>
+                                <th scope="col" style="width: 10px;">{{__('index.Sr.No')}}</th>
                                 <th scope="col" class="text-center" style="width: 130px;"><i class="ni ni-image"></i></th>
-                                <th scope="col" class="text-center">Title</th>
-                                <th scope="col" class="text-center">Date</th>
-                                <th scope="col" class="text-center">Status</th>
-                                <th scope="col" class="text-right" style="width: 200px;">Action</th>
+                                <th scope="col" class="text-center">{{__('index.Title')}}</th>
+                                <th scope="col" class="text-center">{{__('index.Date')}}</th>
+                                <th scope="col" class="text-center">{{__('index.Status')}}</th>
+                                <th scope="col" class="text-right" style="width: 200px;">{{__('index.Action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -128,22 +128,22 @@
                                             <td  class="text-center">
                                             <span class="badge badge-dot mr-4">
                                                 @if($blog->status == 1)
-                                                <span class="d-none not_ap_ms"><i class="bg-danger"></i> Not approved</span>
-                                                <span class="approved_ms"><i class="bg-success"></i> Approved</span>
+                                                <span class="d-none not_ap_ms"><i class="bg-danger"></i> {{__('index.Not approved')}}</span>
+                                                <span class="approved_ms"><i class="bg-success"></i> {{__('index.Approved')}}</span>
                                                 @else
-                                                <span class="not_ap_ms"><i class="bg-danger"></i> Not approved</span>
-                                                <span class="d-none approved_ms"><i class="bg-success"></i> Approved</span>
+                                                <span class="not_ap_ms"><i class="bg-danger"></i> {{__('index.Not approved')}}</span>
+                                                <span class="d-none approved_ms"><i class="bg-success"></i> {{__('index.Approved')}}</span>
                                                 @endif
                                             </span>
                                             </td>
                                         <td class="text-right">
-                                            <a class="common-btn text-center mr-2" href="{{url('/single-blog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="View">
+                                            <a class="common-btn text-center mr-2" href="{{url('/single-blog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="{{__('index.View')}}">
                                             <i class="fas fa-eye"></i>
                                             </a>
-                                            <a class="common-btn text-center mr-2" href="{{url('/edit-blog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <a class="common-btn text-center mr-2" href="{{url('/edit-blog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="{{__('index.Edit')}}">
                                             <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="javascript:void(0)" class="common-btn text-center delete_blog" type="button" data-blog_id="{{$blog->id}}" data-toggle="tooltip" data-placement="top" title="Delete">
+                                            <a href="javascript:void(0)" class="common-btn text-center delete_blog" type="button" data-blog_id="{{$blog->id}}" data-toggle="tooltip" data-placement="top" title="{{__('index.Delete')}}">
                                             <i class="fas fa-trash"></i>
                                             </a>
                                         </td>
@@ -153,7 +153,7 @@
                                     <tr>
                                     <th colspan="5">
                                         <div class="media-body text-center">
-                                            <span class="mb-0 text-sm">No data found.</span>
+                                            <span class="mb-0 text-sm">{{__('common.notfound')}}</span>
                                         </div>
                                     </th>
                                     </tr>

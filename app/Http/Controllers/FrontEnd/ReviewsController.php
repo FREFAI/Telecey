@@ -175,10 +175,10 @@ class ReviewsController extends Controller
                     $user_address->latitude = $input['latitude'];
                     $user_address->longitude = $input['longitude'];
                     if($user_address->save()){
-                        $message = array('success'=>true,'message'=>'Updated successfully.','address' => $formatted);
+                        $message = array('success'=>true,'message'=>__('index.Updated successfully'),'address' => $formatted);
                         return json_encode($message);
                     }else{
-                        $message = array('success'=>false,'message'=>"Somthing went wrong in user address!");
+                        $message = array('success'=>false,'message'=>__("index.Somthing went wrong"));
                         return json_encode($message);
                     }
                     
@@ -196,11 +196,11 @@ class ReviewsController extends Controller
                         'is_primary'=>1
                     ];
                     UserAddress::create($address);
-                    $message = array('success'=>true,'message'=>'Add new address successfully.','address' => $formatted);
+                    $message = array('success'=>true,'message'=>__('index.Add new address successfully'),'address' => $formatted);
                     return json_encode($message);
                 }
             }else{
-                    $message = array('success'=>false,'message'=>"User not update successfully.");
+                    $message = array('success'=>false,'message'=>__("index.User not update successfully"));
                     return json_encode($message);
             }
         }
@@ -256,7 +256,7 @@ class ReviewsController extends Controller
                     if($provider = Provider::create($providerData)){
                         $input['provider_id'] = $provider->id;
                     }else{
-                        $message = array('success'=>false,'message'=>'Add new provider error!');
+                        $message = array('success'=>false,'message'=>__('index.Add new provider error'));
                         return json_encode($message);
                     }
                 }
@@ -299,10 +299,10 @@ class ReviewsController extends Controller
                 $serviceReview = ServiceReview::where('id',$plan_id)->update($input);
             }
             if($serviceReview){
-                $message = array('success'=>true,'message'=>'Add successfully.','service_id'=>$plan_id);
+                $message = array('success'=>true,'message'=>__('index.Add successfully'),'service_id'=>$plan_id);
                 return json_encode($message);
             }else{
-                $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
                 return json_encode($message);
             }
         }
@@ -327,14 +327,14 @@ class ReviewsController extends Controller
                 $review->uploading_speed = $input['uploading_speed'];
                 $review->speedtest_type = $input['speedtest_type'];
                 if($review->save()){
-                    $message = array('success'=>true,'message'=>'Speed testing saved.');
+                    $message = array('success'=>true,'message'=>__('index.Speed testing saved'));
                     return json_encode($message);
                 }else{
-                    $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                    $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
                     return json_encode($message);
                 }
             }else{
-                $message = array('success'=>false,'message'=>'Service review not found!');
+                $message = array('success'=>false,'message'=>__('index.Service review not found'));
                 return json_encode($message);
             }
         }
@@ -459,14 +459,14 @@ class ReviewsController extends Controller
                     }
                     ServiceReview::where('id',$plandevicerating->plan_id)->update(['average_review' => $average]);
                     if($serviceRating){
-                        $message = array('success'=>true,'message'=>'Successfully submited.');
+                        $message = array('success'=>true,'message'=>__('index.Successfully submited'));
                         return json_encode($message);
                     }else{
-                        $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                        $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
                         return json_encode($message);
                     }
                 }else{
-                    $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                    $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
                     return json_encode($message);
                 }
             }
@@ -585,14 +585,14 @@ class ReviewsController extends Controller
                     }
                     DeviceReview::where('id',$plandevicerating->device_id)->update(['average_review' => $average]);
                     if($serviceRating){
-                        $message = array('success'=>true,'message'=>'Successfully submited.');
+                        $message = array('success'=>true,'message'=>__('index.Successfully submited'));
                         return json_encode($message);
                     }else{
-                        $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                        $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
                         return json_encode($message);
                     }
                 }else{
-                    $message = array('success'=>false,'message'=>"Somthing went wrong!");
+                    $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
                     return json_encode($message);
                 }
             }
@@ -608,7 +608,7 @@ class ReviewsController extends Controller
             $message = array('success'=>true,'data'=>$countries);
             return json_encode($message);
         }else{
-            $message = array('success'=>false,'message'=>"Somthing went wrong!");
+            $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
             return json_encode($message);
         }
     }

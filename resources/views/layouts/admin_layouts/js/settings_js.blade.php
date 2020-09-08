@@ -550,9 +550,9 @@
 							    success: function (data) {
 							        if(data.success){
 							        	delete_row.closest('tr').remove();
-							        	toastr.success('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+							        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
 							        }else{
-							        	toastr.error('Delete', data.message , {displayDuration:3000,position: 'top-right'});
+							        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 							        }
 							    }         
 							});
@@ -1904,7 +1904,7 @@
 					if(data.success){
 						toastr.success('Email Send to user.', data.message , {displayDuration:3000,position: 'top-right'});
 					}else{
-						toastr.error('Email Send to user.', 'Somthing went wrong!' , {displayDuration:3000,position: 'top-right'});
+						toastr.error('Email Send to user.', __('index.Somthing went wrong') , {displayDuration:3000,position: 'top-right'});
 					}
 				}
 			});

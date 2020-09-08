@@ -22,7 +22,7 @@
 			<div class="row custom_width align-items-center">
 				<div class="col-lg-7 record_section">
 					<div class="location">
-						<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
+						<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
 					</div>
 				</div>
 				<input type="hidden" name="rows" id="paginate_input" value="{{request()->get('rows')}}"/>
@@ -30,7 +30,7 @@
 					<div class="service_type">
 						@if($filtersetting->mobile_home_setting == 1)
 							<select class="service-type-select service_type" name="service_type">
-								<option value="">Select service type</option>
+								<option value="">{{__('profile.service_type')}}</option>
 								@if(count($service_types) > 0)
 									@foreach($service_types as $type)
 										<option value="{{$type->id}}" @if( request()->get('service_type') ) @if( request()->get('service_type') == $type->id) selected @endif @endif>{{$type->service_type_name}}</option>
@@ -56,30 +56,30 @@
 				<div class="col-lg-4 expendedFilter">
 					@if($filtersetting->personal_business_setting == 1)
 					<div class="form-group plan_page mb-0">
-						<span class="toggle_label active">Personal</span>
+						<span class="toggle_label active">{{__('index.Personal')}}</span>
 						<label class="switch">
 							<input type="checkbox" id="personal" value="2" onClick="personalToggle()" name="contract_type" @if( request()->get('contract_type') ) @if( request()->get('contract_type') == 2) checked @endif @endif>
 							<span class="slider"></span>
 						</label>
-						<span class="toggle_label">Business</span>
+						<span class="toggle_label">{{__('index.Business')}}</span>
 					</div>
 					@endif
 				</div>
 				<div class="col-lg-4 expendedFilter">
 					@if($filtersetting->postpaid_prepaid_setting == 1)
 					<div class="form-group plan_page mb-0">
-						<span class="toggle_label active">Postpaid</span>
+						<span class="toggle_label active">{{__('index.Postpaid')}}</span>
 						<label class="switch">
 							<input type="checkbox" id="paymentTypeId" name="payment_type" value="prepaid" onClick=paymentType()  @if( request()->get('payment_type') ) @if( request()->get('payment_type') == 'prepaid') checked @endif @endif>
 							<span class="slider"></span>
 						</label>
-						<span class="toggle_label">Prepaid</span>
+						<span class="toggle_label">{{__('index.Prepaid')}}</span>
 					</div>
 					@endif
 				</div>
 				<div class="col-lg-4 expendedFilter">
 					<div class="form-group plan_page mb-0">
-						<span class="toggle_label active">Pay as usage</span>
+						<span class="toggle_label active">{{__('index.Pay as usage')}}</span>
 						<label class="switch">
 							<input type="checkbox" onclick="payAsUsage()" value="0" id="pay_as_usage_id" name="pay_as_usage_type" @if( request()->get('pay_as_usage_type') ) @if( request()->get('pay_as_usage_type') == 1) checked @endif @endif>
 							<span class="slider"></span>
@@ -90,7 +90,7 @@
 				@if($filtersetting->unlimited_calls_setting == 1)
 				<div class="col-lg-4 pay_as_usage_type expendedFilter">
 					<div class="form-group plan_page">
-						<span class="toggle_label">Unlimited Calls</span>
+						<span class="toggle_label">{{__("index.Unlimited Calls")}}</span>
 						<label class="switch">
 							<input type="checkbox" checked="" onclick="myFunction()" id="unlimited">
 							<span class="slider"></span>

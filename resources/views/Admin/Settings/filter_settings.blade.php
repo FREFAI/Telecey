@@ -76,7 +76,7 @@
 			  			</div>
 		  			<!-- End Prepaid And Postpaid Section -->
 		  			<!-- Mobile And Home Section -->
-			  			<!-- <div class="col-lg-6 pl-lg-4">
+			  			<div class="col-lg-6 pl-lg-4">
 			  				<h6 class="heading-small text-muted mb-4">Mobile Plan <b>/</b> Home Internet <b>Hide</b></h6>
 			  			</div>
 			  			<div class="col-lg-6 text-right">
@@ -98,7 +98,7 @@
 				  				<span class="clearfix"></span>
 				  			</div>
 				  			@endif
-			  			</div> -->
+			  			</div>
 		  			<!-- End Mobile And Home Section -->
 		  			<!-- Unlimited calls Section -->
 			  			<div class="col-lg-6 pl-lg-4">

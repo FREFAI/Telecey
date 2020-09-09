@@ -200,42 +200,41 @@ class PlansController extends Controller
     public function plansResult(Request $request)
     {
         $data=$request->all();
-       // Current location section
-       $ip = env('ip_address','live'); 
-       if($ip == 'live'){
-           $ip = $_SERVER['REMOTE_ADDR'];
-       }else{
-           $ip = '96.46.34.142';
-       }
-       $client = new \GuzzleHttp\Client();
-       $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
-       $newresponse = json_decode($newresponse->getBody());
-       
-       $current_location = $newresponse->country_name.','.$newresponse->state_prov.','.$newresponse->city.','.$newresponse->zipcode;
-       $current_lat = $newresponse->latitude;
-       $current_long = $newresponse->longitude;
-       $current_country_code = $newresponse->country_code2;
-       $filtersetting = SettingsModel::first();
-       if(!Auth::guard('customer')->check()){
-            $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 20;
-       }else{
-            if(array_key_exists("rows",$data)){
-                $limit = $data['rows'];
-            }else{
-                $limit = 20;
-            } 
-       }
-       $country = CountriesModel::select('id')->where('name',$newresponse->country_name)->first();
-       $ads = AdsModel::with('countries')
-                        ->where('is_active',1)
-                        ->where(function ($query) use ($country) {
-                            $query->where('is_global',1)
-                            ->orWhere('country',$country->id);
-                        })->get()->toArray();
-       $googleads = AdsModel::where('type',1)->first();
-       $user = Auth::guard('customer')->user();
-       $user_id = Auth::guard('customer')->id();
-       $service_types = ServiceType::get();
+        // Current location section
+        $ip = env('ip_address','live'); 
+        if($ip == 'live'){
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }else{
+            $ip = '96.46.34.142';
+        }
+        $client = new \GuzzleHttp\Client();
+        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+        $newresponse = json_decode($newresponse->getBody());
+        $current_location = $newresponse->country_name.','.$newresponse->state_prov.','.$newresponse->city.','.$newresponse->zipcode;
+        $current_lat = $newresponse->latitude;
+        $current_long = $newresponse->longitude;
+        $current_country_code = $newresponse->country_code2;
+        $filtersetting = SettingsModel::first();
+        if(!Auth::guard('customer')->check()){
+                $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 20;
+        }else{
+                if(array_key_exists("rows",$data)){
+                    $limit = $data['rows'];
+                }else{
+                    $limit = 20;
+                } 
+        }
+        $country = CountriesModel::select('id')->where('name',$newresponse->country_name)->first();
+        $ads = AdsModel::with('countries')
+                            ->where('is_active',1)
+                            ->where(function ($query) use ($country) {
+                                $query->where('is_global',1)
+                                ->orWhere('country',$country->id);
+                            })->get()->toArray();
+        $googleads = AdsModel::where('type',1)->first();
+        $user = Auth::guard('customer')->user();
+        $user_id = Auth::guard('customer')->id();
+        $service_types = ServiceType::get();
         if(count($data)>1){
             $filter = 1;
             if(array_key_exists("filter",$data)){
@@ -249,6 +248,12 @@ class PlansController extends Controller
                 if(array_key_exists("service_type",$data) && $data['service_type'] != ""){
                     $query->orWhere('service_type',$data['service_type']);
                 }
+                if(!array_key_exists("min_type",$data)){
+                    $query->orWhere('local_min',$data['local_min']);
+                }
+                if(array_key_exists("datavolume",$data) && $data['datavolume'] != ""){
+                    $query->orWhere('datavolume',$data['datavolume']);
+                }
                 if(array_key_exists("contract_type",$data) && $data['contract_type'] != ""){
                     $query->orWhere('contract_type',$data['contract_type']);
                 }else{
@@ -259,7 +264,7 @@ class PlansController extends Controller
                 }else{
                     $query->orWhere('payment_type','postpaid');
                 }
-                if(array_key_exists("pay_as_usage_type",$data) && $data['pay_as_usage_type'] != ""){
+                if(array_key_exists("pay_as_usage_type",$data)){
                     $query->orWhere('pay_as_usage_type',$data['pay_as_usage_type']);
                 }
             });

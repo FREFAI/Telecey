@@ -547,3 +547,11 @@
 	});
 </script>
 @endsection
+@section('pageScript')
+	<script>
+		$('body, html').on('scroll',function(){
+			$('input#searchMapInput').blur();
+			
+		});
+	</script>
+@endsection

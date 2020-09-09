@@ -60,7 +60,7 @@
 								<div class="form-group plan_page mb-0">
 									<span class="toggle_label active">{{__('index.Pay as usage')}}</span>
 									<label class="switch">
-										<input type="checkbox" onclick="payAsUsage()" value="0" id="pay_as_usage_id" name="pay_as_usage_type" @if( request()->get('pay_as_usage_type') ) @if( request()->get('pay_as_usage_type') == 1) checked @endif @endif>
+										<input type="checkbox" onclick="payAsUsage()" value="1" id="pay_as_usage_id" name="pay_as_usage_type" @if( request()->get('pay_as_usage_type') ) @if( request()->get('pay_as_usage_type') == 1) checked @endif @endif>
 										<span class="slider"></span>
 									</label>
 									<!-- <span class="toggle_label">On</span> -->
@@ -71,10 +71,10 @@
 								<div class="form-group plan_page">
 									<span class="toggle_label">{{__("index.Unlimited Calls")}}</span>
 									<label class="switch">
-										<input type="checkbox" checked="" onclick="myFunction()" id="unlimited">
+										<input type="checkbox" checked="" onclick="myFunction()" id="unlimited" name="min_type">
 										<span class="slider"></span>
 									</label>
-									<select id="unlimited_calls" class="mbps-select d-none w-40">
+									<select id="unlimited_calls" class="mbps-select d-none w-40" name="local_min">
 										<option value="100" selected>100 mins</option>
 										<option value="200">200 mins</option>
 										<option value="300">300 mins</option>
@@ -86,7 +86,7 @@
 							@if($filtersetting->gb_setting == 1)
 							<div class="col-3 text-center mt-4 pay_as_usage_type">
 								<div class="form-group">
-									<select id="inputState" class="mbps-select">
+									<select id="inputState" class="mbps-select" name="datavolume">
 										<option value="0.5">0.5 GB</option>
 										<option value="1">1 GB</option>
 										<option value="2" selected>2 GB</option>
@@ -329,4 +329,12 @@
 	</script>
 	
 
+	@section('pageScript')
+		<script>
+			$('body, html').on('scroll',function(){
+				$('input#searchMapInput').blur();
+				
+			});
+		</script>
+	@endsection
 @endsection

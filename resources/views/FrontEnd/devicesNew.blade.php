@@ -97,15 +97,13 @@
 									<div class="row">
 										<div class="col-lg-12 comment_section">
 										@if($value['device_rating'])
-											<p>
 											@if(strlen(strip_tags($value['device_rating']['comment'])) > 80) 
-												{{substr(strip_tags($value['device_rating']['comment']),0,80)}}...
+												<p>{{substr(strip_tags($value['device_rating']['comment']),0,80)}}...</p>
 											@elseif(strlen(strip_tags($value['device_rating']['comment'])) == 0) 
 											<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>
 											@else
 												{{substr(strip_tags($value['device_rating']['comment']),0,80)}}
 											@endif
-											</p>
 										@else
 										<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>	
 										@endif
@@ -426,4 +424,12 @@
 	}
 
 </script>
+@endsection
+@section('pageScript')
+	<script>
+		$('body, html').on('scroll',function(){
+			$('input#searchMapInput').blur();
+			
+		});
+	</script>
 @endsection

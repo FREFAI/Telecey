@@ -92,10 +92,10 @@
 					<div class="form-group plan_page">
 						<span class="toggle_label">{{__("index.Unlimited Calls")}}</span>
 						<label class="switch">
-							<input type="checkbox" checked="" onclick="myFunction()" id="unlimited">
+							<input type="checkbox" checked="" onclick="myFunction()" id="unlimited" name="min_type">
 							<span class="slider"></span>
 						</label>
-						<select id="unlimited_calls" class="mbps-select d-none w-40">
+						<select id="unlimited_calls" class="mbps-select d-none w-40" name="local_min">
 							<option value="100" selected>100 mins</option>
 							<option value="200">200 mins</option>
 							<option value="300">300 mins</option>
@@ -107,17 +107,17 @@
 				@if($filtersetting->gb_setting == 1)
 				<div class="col-lg-3 text-center pay_as_usage_type expendedFilter">
 					<div class="form-group">
-						<select id="inputState" class="mbps-select">
-							<option value="0.5">0.5 GB</option>
-							<option value="1">1 GB</option>
-							<option value="2" selected>2 GB</option>
-							<option value="3">3 GB</option>
-							<option value="5">5 GB</option>
-							<option value="7">7 GB</option>
-							<option value="10">10 GB</option>
-							<option value="12">12 GB</option>
-							<option value="15">15 GB</option>
-							<option value="20">20 GB</option>
+						<select id="inputState" class="mbps-select" name="datavolume">
+							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '0.5') selected @endif @endif value="0.5">0.5 GB</option>
+							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '1') selected @endif @endif value="1">1 GB</option>
+							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '2') selected @endif @endif value="2" selected>2 GB</option>
+							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '3') selected @endif @endif value="3">3 GB</option>
+							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '5') selected @endif @endif value="5">5 GB</option>
+							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '7') selected @endif @endif value="7">7 GB</option>
+							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '10') selected @endif @endif value="10">10 GB</option>
+							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '12') selected @endif @endif value="12">12 GB</option>
+							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '15') selected @endif @endif value="15">15 GB</option>
+							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '20') selected @endif @endif value="20">20 GB</option>
 						</select>
 					</div>
 				</div>
@@ -491,6 +491,13 @@
 		$('#planSearch').submit();
 	});
 </script>
-	
+	@section('pageScript')
+		<script>
+			$('body, html').on('scroll',function(){
+				$('input#searchMapInput').blur();
+				
+			});
+		</script>
+	@endsection
 
 @endsection

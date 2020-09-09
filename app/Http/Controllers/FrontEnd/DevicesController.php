@@ -187,7 +187,6 @@ class DevicesController extends Controller
     }
     public function devicesResult(Request $request)
     {
-        $data = array();
         $data = $request->all();
         $filtersetting = SettingsModel::first();
         if(!Auth::guard('customer')->check()){

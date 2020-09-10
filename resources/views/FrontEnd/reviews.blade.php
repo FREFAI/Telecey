@@ -216,33 +216,33 @@
                             <p class="title pt-3">{{ __('review.form_title') }}</p>
                             <p class="pt-2 pb-3 text-black text-left">{{ __('review.form_sub_title') }}</p>
                             <form class="contact-form row" id="firstform">
-                                <div class="form-field col-lg-6">
-                                    <input id="firstname" class="input-text js-input" type="text" required value="{{$usersDetail->firstname}}" name="firstname" />
-                                    <label class="label" for="name">{{ __('review.first_name') }}</label>
+                                <div class="form-group text-left col-lg-6">
+                                    <label for="name">{{ __('review.first_name') }}</label>
+                                    <input id="firstname" class="input-text" type="text" required value="{{$usersDetail->firstname}}" name="firstname" />
                                 </div>
-                                <div class="form-field col-lg-6">
-                                    <input id="lastname" class="input-text js-input" type="text" required value="{{$usersDetail->lastname}}" name="lastname" />
-                                    <label class="label" for="name">{{ __('review.last_name') }}</label>
+                                <div class="form-group text-left col-lg-6">
+                                    <label for="name">{{ __('review.last_name') }}</label>
+                                    <input id="lastname" class="input-text" type="text" required value="{{$usersDetail->lastname}}" name="lastname" />
                                 </div>
-                                <div class="form-field col-lg-6 country_div" id="country_div">
-                                    <input id="country" class="input-text js-input" type="text" required value="{{$usersDetail->country}}" name="country" autocomplete="no" />
-                                    <label class="label" for="country">{{ __('review.country') }}</label>
+                                <div class="form-group text-left col-lg-6 country_div" id="country_div">
+                                    <label for="country">{{ __('review.country') }}</label>
+                                    <input id="country" class="input-text" type="text" required value="{{$usersDetail->country}}" name="country" autocomplete="no" />
                                 </div>
-                                <div class="form-field col-lg-6 city_div" id="city_div">
-                                    <input id="city" class="input-text js-input city_input" type="text" required value="{{$usersDetail->city}}" name="city" autocomplete="no" data-country="{{$usersDetail->country_code}}" />
-                                    <label class="label" for="city">{{ __('review.city') }}</label>
+                                <div class="form-group text-left col-lg-6 city_div" id="city_div">
+                                    <label for="city">{{ __('review.city') }}</label>
+                                    <input id="city" class="input-text city_input" type="text" required value="{{$usersDetail->city}}" name="city" autocomplete="no" data-country="{{$usersDetail->country_code}}" />
                                 </div>
-                                <div class="form-field col-lg-12">
-                                    <input id="email" class="input-text js-input" type="email" value="{{$usersDetail->email}}" disabled="" />
-                                    <label class="label" for="email">{{ __('review.email') }}</label>
+                                <div class="form-group text-left col-lg-12">
+                                    <label for="email">{{ __('review.email') }}</label>
+                                    <input id="email" class="input-text" type="email" value="{{$usersDetail->email}}" disabled="" />
                                 </div>
-                                <div class="form-field col-lg-12">
-                                    <input id="postal_code" class="input-text js-input" type="text" value="{{$usersDetail->postal_code}}" name="postal_code" autocomplete="no" required/>
-                                    <label class="label" for="number">{{ __('review.postal_code') }}</label>
+                                <div class="form-group text-left col-lg-12">
+                                    <label for="number">{{ __('review.postal_code') }}</label>
+                                    <input id="postal_code" class="input-text" type="text" value="{{$usersDetail->postal_code}}" name="postal_code" autocomplete="no" required/>
                                 </div>
-                                <div class="form-field col-lg-12">
-                                    <input id="mobile_number" class="input-text js-input" type="text" value="{{$usersDetail->mobile_number}}" name="mobile_number" autocomplete="no" />
-                                    <label class="label" for="phone">{{ __('review.phone') }}</label>
+                                <div class="form-group text-left col-lg-12">
+                                    <label for="phone">{{ __('review.phone') }}</label>
+                                    <input id="mobile_number" class="input-text" type="text" value="{{$usersDetail->mobile_number}}" name="mobile_number" autocomplete="no" />
                                 </div>
                                 <input type="hidden" name="latitude" id="lat" value="{{$lat}}" />
                                 <input type="hidden" name="longitude" id="long" value="{{$long}}" />

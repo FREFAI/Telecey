@@ -249,7 +249,9 @@ class PlansController extends Controller
                     $query->orWhere('service_type',$data['service_type']);
                 }
                 if(!array_key_exists("min_type",$data)){
-                    $query->orWhere('local_min',$data['local_min']);
+                    if(array_key_exists("local_min",$data)){
+                        $query->orWhere('local_min',$data['local_min']);
+                    }
                 }
                 if(array_key_exists("datavolume",$data) && $data['datavolume'] != ""){
                     $query->orWhere('datavolume',$data['datavolume']);

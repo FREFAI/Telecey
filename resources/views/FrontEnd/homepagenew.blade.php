@@ -91,7 +91,7 @@
 									<div class="form-group plan_page inputwithicon">
 										<div class="select">
 											<select name="storage" id="storage" class="service-type-select  service_type">
-												<option value="">{__('deviceresult.capacity')}}</option>
+												<option value="">{{__('deviceresult.capacity')}}</option>
 												<option value="64" @if( request()->get('storage') ) @if( request()->get('storage') == '64') selected @endif @endif>64</option>
 												<option value="128" @if( request()->get('storage') ) @if( request()->get('storage') == '128') selected @endif @endif>128</option>
 												<option value="256" @if( request()->get('storage') ) @if( request()->get('storage') == '256') selected @endif @endif>256</option>
@@ -105,7 +105,7 @@
 							<div class="row">
 								<input type="hidden" value="20" name="rows"/>
 								<div class="col-md-12 text-center">
-									<button type="submit" class="searchnow-button">{{__('home.desearch_now_btn')}}</button>
+									<button type="submit" class="searchnow-button">{{__('home.search_now_btn')}}</button>
 								</div>
 							</div>
 						</form>

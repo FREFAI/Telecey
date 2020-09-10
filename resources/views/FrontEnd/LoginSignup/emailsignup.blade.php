@@ -49,7 +49,6 @@
 				<input type="email" class="form-control" name="email" placeholder="{{__('emailsignup.email')}}" required="required" autocomplete="off" maxlength="50" id="user_email" />
 			</div>
 			<div class="form-group password-form-group mb-2">
-				<label>Password</label>
 				<div class="input-group" id="show_hide_password">
 					<input class="form-control password-field" type="password" name="password" placeholder="{{__('emailsignup.password')}}" required="required" maxlength="50" onkeyup="passwordValidate(event)">
 					<div class="input-group-addon">
@@ -81,7 +80,7 @@
 			<div class="modal-content">
 				<!-- Modal Header -->
 				<div class="modal-header px-3 py-2">
-					<h4 class="modal-title">Terms and conditions</h4>
+					<h4 class="modal-title">{{__('index.Terms and conditions')}}</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 
@@ -117,13 +116,13 @@
 			if (valid) {
 				if (pwd == res[0]) {
 					valid = false;
-					document.getElementById("password_error").innerHTML = "Your password and email are same.";
+					document.getElementById("password_error").innerHTML = "{{__('index.Your password and email are same')}}";
 				} else {
 					valid = true;
 				}
 			} else {
 				valid = false;
-				document.getElementById("password_error").innerHTML = "Password must be alphanumeric";
+				document.getElementById("password_error").innerHTML = "{{__('index.Password must be alphanumeric')}}";
 			}
 			return valid;
 		}

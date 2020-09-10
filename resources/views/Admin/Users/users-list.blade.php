@@ -125,7 +125,7 @@
                           </td>
                           <td class="text-center">
                             <div class="media-body">
-                                <span class="mb-0 text-sm">{{$user->firstname}} {{$user->lastname}}</span>
+                                <span class="mb-0 text-sm">{{$user->firstname}}</span>
                             </div>
                           </td>
                           <td class="text-center">

@@ -67,6 +67,10 @@
         'Pay as usage'=>'Pay as usage',
         'Unlimited Calls'=>'Unlimited Calls',
         "The service is excellent and I'm enjoying the unlimited data on my mobile plan" => "The service is excellent and I'm enjoying the unlimited data on my mobile plan",
-        "Updated"=> "Updated"
+        "Updated"=> "Updated",
+        "Account not found" => "Account not found",
+        "Your password and email are same" => "Your password and email are same",
+        "Password must be alphanumeric" => "Password must be alphanumeric",
+        "Terms and conditions" => "Terms and conditions"
     ];
 ?>

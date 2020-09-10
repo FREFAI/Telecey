@@ -13,7 +13,7 @@ return [
     'phone' => "Contact Number",
     'submit_btn' => "Submit",
     'footer_text' => "Top Rated Carriers in your Area",
-    "step_2_title" => "What About Sharing You Service with others?",
+    "step_2_title" => "What About Sharing Your Service with others?",
     'provider_name' => "Provider Name",
     'contract' => "Contract type",
     'payment' => "Payment type",

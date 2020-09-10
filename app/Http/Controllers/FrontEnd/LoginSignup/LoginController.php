@@ -66,7 +66,7 @@ class LoginController extends Controller
                     return redirect()->back()->with('error',__('index.Please enter valid credentials'));
                 }
             }else{
-                return redirect()->back()->with('error','Account not found!');
+                return redirect()->back()->with('error',__('index.Account not found'));
             }
         }
     }

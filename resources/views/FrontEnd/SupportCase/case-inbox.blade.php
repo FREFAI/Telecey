@@ -14,7 +14,7 @@
 
 </style>
 <!-- Content Start Here -->
-	<div class="page-header inner-page h-100">
+	<div class="page-header inner-page">
 	    <div class="container">
 	    	<div class="row align-items-center">
 	    	    <div class="col-12">

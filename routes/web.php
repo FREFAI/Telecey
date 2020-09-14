@@ -45,6 +45,7 @@ Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], fun
 		Route::get('/home', 'FrontEnd\HomeController@homepage');
 		// New Design Route
 		Route::get('/', 'FrontEnd\HomeController@homePageNew');
+		Route::get('/homenn', 'FrontEnd\HomeController@homePageNew');
 		Route::get('/plans', 'FrontEnd\PlansController@plansNew');
 		Route::get('/plans/result', 'FrontEnd\PlansController@plansResult');
 		Route::post('/plans/resultSorting', 'FrontEnd\PlansController@plansResultSorting');
@@ -151,6 +152,7 @@ Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], fun
 // Admin Section
 	Auth::routes();
 	Route::group(['prefix' => 'admin'], function(){
+		\App::setLocale('en');
 		Route::get('/', 'Admin\LoginController@showLoginForm');
 		Route::get('/login', 'Admin\LoginController@showLoginForm')->name('admin.login');
 

@@ -64,7 +64,7 @@ class AdsController extends Controller
 			],[
 				'ads_file.required' => 'Ads image is required'
 			]);
-	        if ( $validation->fails() ) {
+	        if ( $validation->fails() ) {	
 	            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
 	        }else{
 	        	if (!File::exists(public_path()."/ads_banner/ads_banner_original")) {
@@ -94,7 +94,7 @@ class AdsController extends Controller
         	 	// End Original Image section 
 	        	$addAds = AdsModel::create($input);
 	        	if($addAds){
-	        		return redirect()->back()->withInput()->with('success','Custom ad added successfully.');
+	        		return redirect()->back()->with('success','Custom ad added successfully.');
 	        	}else{
 	        		return redirect()->back()->withInput()->with('error','Somthing went wrong!');
 	        	}

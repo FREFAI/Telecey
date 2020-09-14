@@ -169,7 +169,7 @@
 					return false;
 				}
 				img.onload = function () {
-					if(this.width >= 1000 && this.height < 550 ){
+					if(this.width >= 1000 && this.height <= 550 ){
 						var reader = new FileReader();
 						reader.onload = function(e) {
 							$('#imagePreview').css('background-image', 'url('+e.target.result +')');

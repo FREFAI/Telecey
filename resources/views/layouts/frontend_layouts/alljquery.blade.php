@@ -1287,9 +1287,9 @@
                     success: function (data) {
                         if (data.success) {
                             delete_row.closest("tr").remove();
-                            toastr.success("Success", data.message, { displayDuration: 3000, position: "top-right" });
+                            toastr.success("{{__('index.Success')}}", data.message, { displayDuration: 3000, position: "top-right" });
                         } else {
-                            toastr.error("Error", data.message, { displayDuration: 3000, position: "top-right" });
+                            toastr.error("{{__('index.Error')}}", data.message, { displayDuration: 3000, position: "top-right" });
                         }
                     },
                 });

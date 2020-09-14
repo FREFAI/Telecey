@@ -32,12 +32,7 @@ class SendEmailsController extends Controller
             $params['file'] = public_path('/sendEmailToUser/'.$params['attached_file']);
         }
         foreach(explode(',',$params['ids']) as $email){
-            // echo "<pre>";
-            // print_r($params);
             dispatch(new SendEmailToUserJob($email,$params));
-        }
-        if (File::exists($params['file'])) {
-            unlink($params['file']);
         }
         return json_encode(array('success'=>true, 'message'=>'Emails are send.'));
         

@@ -192,6 +192,9 @@
         .tg-select.form-control {
             border: none;
         }
+        .fr-font-10 {
+            font-size: 10px;
+        }
     </style>
     @endsection
     <!-- Content Start Here -->
@@ -402,7 +405,7 @@
                         <div class="col-lg-6">
                             @if(!Request::get('type'))
                             <div class="back-button">
-                                <button type="button" class="back-btn-device mt-3 common-btn"><i class="fas fa-angle-left"></i> Back</button>
+                                <button type="button" class="back-btn-device mt-3 common-btn"><i class="fas fa-angle-left"></i> {{__('index.Back')}}</button>
                             </div>
                             @endif
                         </div>
@@ -491,7 +494,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="back-button">
-                                <button type="button" class="common-btn back-btn-3 mt-2"><i class="fas fa-angle-left"></i> Back</button>
+                                <button type="button" class="common-btn back-btn-3 mt-2"><i class="fas fa-angle-left"></i> {{__('index.Back')}}</button>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -601,7 +604,7 @@
                                 <div class="form-group inputwithicon">
                                     <div class="selectreview">
                                         <select class="brand_select_brand_device device_select" name="device" data-url="{{url('/searchBrand')}}">
-                                            <option value="0">None</option>
+                                            <option value="0">{{__('index.None')}}</option>
                                             @foreach($brands as $v)
                                             <option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
                                             @endforeach
@@ -615,7 +618,7 @@
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control local_min mint_input" name="local_min" placeholder="Local Minutes" required="required" maxlength="20" value="100" />
                                     <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">Minute</span>
+                                        <span class="input-group-text @if(\Session::get('locale') == 'fr') fr-font-10 @endif" id="basic-addon2">Minute</span>
                                     </div>
                                 </div>
                             </div>
@@ -624,7 +627,7 @@
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control datavolume" name="datavolume" placeholder="Data Volume" required="required" maxlength="20" value="2" />
                                     <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">{{ __('review.datavolume') }}</span>
+                                        <span class="input-group-text @if(\Session::get('locale') == 'fr') fr-font-10 @endif" id="basic-addon2">{{ __('review.datavolume') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -655,7 +658,7 @@
                                         <option @if($curr->code == $usersDetail->country_code) selected @elseif($curr->country_code == 'US') selected @endif value="{{$curr->id}}">{{$curr->currency_code}}</option>
                                         @endif @endforeach
                                     </select>
-                                    <input type="text" class="form-control price-box price" name="price" placeholder="Price" required />
+                                    <input type="text" class="form-control price-box price" name="price" placeholder="{{__('index.Price')}}" required />
                                     <div class="text-right text-10"><small>{{ __('review.include') }}</small></div>
                                 </div>
                             </div>
@@ -725,7 +728,7 @@
                             <div class="col-lg-6">
                                 @if(!Request::get('type'))
                                 <div class="back-button">
-                                    <button type="button" class="btn btn-sm btn-default back-btn mt-3"><i class="fas fa-angle-left"></i> Back</button>
+                                    <button type="button" class="btn btn-sm btn-default back-btn mt-3"><i class="fas fa-angle-left"></i> {{__('index.Back')}}</button>
                                 </div>
                                 @endif
                             </div>
@@ -817,7 +820,7 @@
                     <div class="row mb-3">
                         <div class="col-lg-6">
                             <div class="back-button">
-                                <button type="button" class="btn btn-sm btn-default back-btn-2 mt-2"><i class="fas fa-angle-left"></i> Back</button>
+                                <button type="button" class="btn btn-sm btn-default back-btn-2 mt-2"><i class="fas fa-angle-left"></i> {{__('index.Back')}}</button>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -1051,19 +1054,6 @@
             </div>
         </div>
     </div>
-    @section('footer')
-        <section class="plan-device-sec">
-            <div class="container">
-                <div class="row pt-5 pb-5">
-                    <div class="col text-center">
-                        <div class="heading">
-                            <h1>{{ __('review.footer_text') }}</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    @endsection 
     @section('script')
         <script>
             if (navigator.userAgent.indexOf("MSIE") != -1 || !!document.documentMode == true) {

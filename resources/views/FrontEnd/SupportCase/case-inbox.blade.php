@@ -50,7 +50,7 @@
 	        	            <div class="input_msg_write">
 	        	            	<form id="chatForm" action="{{url('/sendMessage')}}" method="post">
 	        	            		@csrf
-		        	              	<input name="message" type="text" class="write_msg" placeholder="Type a message" required="" />
+		        	              	<input name="message" type="text" class="write_msg" placeholder="{{__('index.Type a message')}}" required="" />
 		        	              	<input name="case_id" type="hidden" value="{{base64_encode($case->id)}}" />
 			        	            <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
 		        	            </form>

@@ -11,23 +11,12 @@
 	    padding: 25px 24px 30px;
 	    margin-bottom: 10px;
 	}
-	/*.service_list_design{
-		width: 100%;
-		box-shadow: 0 0 10px rgba(175, 175, 175, 0.65);
-	    padding: 25px 30px 30px;
-	    margin-bottom: 10px;
-	}*/
 	ul.first_row_service {
-		font-size: 14px;
+		font-size: 13px;
 	}
 	.question, .comment {
 	    font-size: 16px;
 	}
-	/*.card_sm{
-		box-shadow: 0 0 5px rgba(175, 175, 175, 0.78);
-	    margin-bottom: 10px;
-	    padding: 5px;
-	}*/
 	.value_div{
 		font-weight: bold;
 	}
@@ -421,7 +410,7 @@
 								  					  	                				  			</div>
 								  					  	                				  		</div>
 											  					  	                		@foreach($rating['ratingList'] as $rate)
-											  					  	                		@if($rate['entity_id'] == $service->id)
+											  					  	                		@if($rate['entity_id'] == $service->id && $rate['question_name'] != "")
 								  					  	                	  				<div class="col-lg-12 mb-3">
 								  					  	                		  				<div class="card_sm">
 								  					  	                		  					<div class="row">

@@ -93,7 +93,7 @@
 										<div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div>
 									</div>
 								</div>
-								<div class="detail-section my-3 pb-4 border-bottom">
+								<div class="detail-section my-1 pb-1">
 									<div class="row">
 										<div class="col-lg-12 comment_section">
 										@if($value['device_rating'])
@@ -110,16 +110,6 @@
 															
 										</div>
 									</div>	
-								</div>
-								<div class="post-button">
-									<div class="row align-items-center">
-										<div class="col-lg-3">
-											<img src="{{URL::asset('frontend/assets/img/user_placeholder.png')}}"/>					
-										</div>
-										<div class="col-lg-9">
-											<p>{{$value['user']['firstname']}} {{$value['user']['lastname']}}</p>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>

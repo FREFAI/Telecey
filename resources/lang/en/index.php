@@ -71,6 +71,12 @@
         "Account not found" => "Account not found",
         "Your password and email are same" => "Your password and email are same",
         "Password must be alphanumeric" => "Password must be alphanumeric",
-        "Terms and conditions" => "Terms and conditions"
+        "Terms and conditions" => "Terms and conditions",
+        "Type a message" => "Type a message",
+        "Price" => "Price",
+        "None" => "None",
+        "Back" => "Back",
+        "Above price is including tax" => "Above price is including tax",
+        "Are you sure you want to delete this post" => "Are you sure you want to delete this post"
     ];
 ?>

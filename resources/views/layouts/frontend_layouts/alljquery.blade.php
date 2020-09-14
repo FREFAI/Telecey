@@ -627,6 +627,7 @@
         // let postal = valid_postal_code($('#firstform #postal_code').val(),$('#firstform .city_input').attr('data-country'));
         if (!postal["status"]) {
             if (!$("#firstform #postal_code").hasClass("error")) {
+                $("#firstform #postal_code + #postal_code-error").remove();
                 $("#firstform #postal_code").addClass("error");
                 $("#firstform #postal_code").after('<label id="postal_code-error" class="error" for="postal_code">{{__("index.Postal code is invalid, Please select valid postal code")}}</label>');
             }
@@ -738,7 +739,7 @@
 
         swal({
             title: currency_name + " " + price,
-            text: "Above price is including tax",
+            text: "{{__('index.Above price is including tax')}}",
             buttons: ["No", "Yes"],
         }).then(function (name) {
             if (name) {
@@ -1027,7 +1028,7 @@
 
         swal({
             title: currency_name + " " + price,
-            text: "Above price is including tax",
+            text: "{{__('index.Above price is including tax')}}",
             buttons: ["No", "Yes"],
         }).then(function (name) {
             if (name) {
@@ -1269,7 +1270,7 @@
         } else if (window.location.protocol == "https:") {
             resuesturl = "{{secure_url('/deleteBlog')}}";
         }
-        swal("Are you sure you want to delete this post?", {
+        swal("{{__('index.Are you sure you want to delete this post')}}?", {
             buttons: ["No", "Yes"],
         }).then(function (name) {
             if (name) {

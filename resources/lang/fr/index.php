@@ -70,6 +70,12 @@
         "Account not found" => "Compte non trouvé",
         "Your password and email are same" => "Votre mot de passe et votre email sont identiques",
         "Password must be alphanumeric" => "Le mot de passe doit être alphanumérique",
-        "Terms and conditions" => "Termes et conditions"
+        "Terms and conditions" => "Termes et conditions",
+        "Type a message" => "Tapez un message",
+        "Price" => "Prix",
+        "None" => "Aucune",
+        "Back" => "Arrière",
+        "Above price is including tax" => "Le prix ci-dessus comprend les taxes",
+        "Are you sure you want to delete this post" => "Es-tu sur de vouloir supprimer cette annonce"
     ];
 ?>

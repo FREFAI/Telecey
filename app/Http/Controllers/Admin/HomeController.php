@@ -213,6 +213,7 @@ class HomeController extends Controller
         $params = $request->all();
         $validation = Validator::make($params,[
             'section_five' => 'required',
+            'section_five_fr' => 'required'
         ]);
         if ($validation->fails()) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());
@@ -228,6 +229,7 @@ class HomeController extends Controller
                 }
             }else{
                 $homeContentData->section_five = $params['section_five'];
+                $homeContentData->section_five_fr = $params['section_five_fr'];
                 if($homeContentData->save()){
                     return redirect()->back()->withInput()->with('success','Content save successfully.');
                 }else{

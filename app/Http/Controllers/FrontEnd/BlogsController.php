@@ -112,7 +112,7 @@ class BlogsController extends Controller
             
         	if($blogs){
                 $url = \Session::get('locale').'/blog-list';
-        		return redirect($url)->withInput()->with('success',__('Blog added successfully'));
+        		return redirect($url)->withInput()->with('success',__('index.Blog added successfully'));
         	}else{
         		return redirect()->back()->withInput()->with('error',__('index.Somthing went wrong'));
         	}

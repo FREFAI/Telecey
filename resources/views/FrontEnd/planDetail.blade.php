@@ -321,7 +321,7 @@
                                                                 </div>
                                                             </div>
                                                         @foreach($rating['ratingList'] as $rate)
-                                                        @if($rate['entity_id'] == $service->id)
+                                                        @if($rate['entity_id'] == $service->id && $rate['question_name'] != "")
                                                         <div class="col-lg-12 mb-3">
                                                             <div class="card_sm">
                                                                 <div class="row">

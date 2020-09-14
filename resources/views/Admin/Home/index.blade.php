@@ -165,7 +165,12 @@
                                   <div class="row">
                                     <div class="col-md-12">
                                       <div class="form-group">
+                                        <label>English</label>
                                         <input type="url" class="form-control" name="section_five" required=""  placeholder="Video Url" value="{{$homeContent ? $homeContent->section_five : ''}}"/>
+                                      </div>
+                                      <div class="form-group">
+                                        <label>French</label>
+                                        <input type="url" class="form-control" name="section_five_fr" required=""  placeholder="Video Url" value="{{$homeContent ? $homeContent->section_five_fr : ''}}"/>
                                       </div>
                                       <div class="form-group">
                                         <button type="submit" class="btn btn-primary">Save</button>

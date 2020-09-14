@@ -1,6 +1,8 @@
 <?php
 
     return [
+        'Success' => "Succès",
+        'Error' => "Erreur",
         'Blog added successfully' => 'Blog ajouté avec succès',
         'Blog updated successfully' => 'Blog mis à jour avec succès',
         'Somthing went wrong' => "Quelque chose s'est mal passé",

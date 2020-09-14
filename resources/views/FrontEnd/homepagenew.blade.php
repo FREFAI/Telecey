@@ -306,7 +306,11 @@
 		<div class="row mt-5">
 			<div class="col-12 my-5">
 				<div class="find-service-section mx-auto text-center">
+					@if(\Session::get('locale') == "en")
 						<iframe style="width: 85%" height="500" src="{{$homeContent ? $homeContent->section_five : ''}}" frameborder="0" allow="accelerometer; autoplay;" allowfullscreen></iframe>
+					@else
+						<iframe style="width: 85%" height="500" src="{{$homeContent ? $homeContent->section_five_fr : ''}}" frameborder="0" allow="accelerometer; autoplay;" allowfullscreen></iframe>
+					@endif
 						<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/9xwazD5SyVg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 					<!-- <h2>Check and share your telco experience with every one</h2> -->
 				</div>

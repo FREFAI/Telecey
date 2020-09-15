@@ -26,6 +26,9 @@ Route::get('/facebookcallback', 'FrontEnd\LoginSignup\SocialAuthFacebookControll
 Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], function(){
 	// Testing Route 
 		Route::get('/country', 'TestController@index');
+		Route::get('/privacy-policy', function(){ 
+			return view('privacy-policy'); 
+		});
 		Route::get('/test', 'TestController@test');
 	
 	// Start Independent Routes

@@ -80,7 +80,7 @@
 	<div class="container">
         <div class="row">
             <div class="col-lg-12 my-2 text-right">
-                <button class="searchnow-button" onclick="goBack()"><i class="fas fa-angle-left"></i> Back</button>
+                <button class="searchnow-button" onclick="goBack()"><i class="fas fa-angle-left"></i> {{__('index.Back')}}</button>
             </div>
             <div class="col-lg-12 mb-3">
                 <div class="panel-heading mb-2" role="tab" id="heading" >

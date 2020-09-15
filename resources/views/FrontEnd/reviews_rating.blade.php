@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-lg-8">
                             <div class="title-step-1 w-100">
-                                <h1>STEP #3</h1>
+                                <h1>{{__('index.STEP')}} #3</h1>
                                 <h1>{{__('review.step_3_title')}}</h1>
                             </div>
                         </div>
@@ -126,19 +126,19 @@
                         <div class="row mt-3">
                             <div class="col-lg-6">
                                 <div class="">
-                                    <h5>{{__('review.comment')}}</h5>
+                                    <h5>{{__('index.Comment')}}</h5>
                                 </div>
                             </div>
                             <div class="col-lg-6 text-right">
                                 <div class="form-group">
-                                    <textarea class="form-control" id="comment" placeholder="Write comment here...." rows="3"></textarea>
+                                    <textarea class="form-control" id="comment" placeholder="{{__('index.Write comment here')}}...." rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="">
-                                    <h5 class="font-weight-bold">{{__('review.average')}}</h5>
+                                    <h5 class="font-weight-bold">{{__('index.Average')}}</h5>
                                 </div>
                             </div>
                             <div class="col-lg-6 text-right">
@@ -226,7 +226,7 @@
                                 </div>
                                 <div class="col-lg-4 text-right">
                                     <div class="text-green primary">{{__('review.primary')}}</div>
-                                    <button class="btn btn-primary d-none make_primary_btn" data-address_id="{{$userAddress->id}}">Make primary</button>
+                                    <button class="btn btn-primary d-none make_primary_btn" data-address_id="{{$userAddress->id}}">{{__('index.Make primary')}}</button>
                                 </div>
                                 <input type="hidden" data-id="{{$userAddress->id}}" value="{{$userAddress->id}}" id="user_address_id">
                                 <input type="hidden" value="1" id="is_primary">
@@ -250,7 +250,7 @@
                             <div class="col-lg-12">
                                 <h5>{{ __('review.address') }} <span class="text-mute">{{ __('review.optional') }}</span></h5>
                                 <div class="form-group">
-                                    <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="Address" autocomplete="no">
+                                    <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="{{ __('review.address') }} " autocomplete="no">
                                 </div>
                             </div>
                             <div class="col-lg-12">

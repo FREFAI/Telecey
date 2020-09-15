@@ -740,7 +740,7 @@
         swal({
             title: currency_name + " " + price,
             text: "{{__('index.Above price is including tax')}}",
-            buttons: ["No", "Yes"],
+            buttons: ["{{__('index.No')}}", "{{__('index.Yes')}}"],
         }).then(function (name) {
             if (name) {
                 $(".ajaxloader").show();
@@ -1029,7 +1029,7 @@
         swal({
             title: currency_name + " " + price,
             text: "{{__('index.Above price is including tax')}}",
-            buttons: ["No", "Yes"],
+            buttons: ["{{__('index.No')}}", "{{__('index.Yes')}}"],
         }).then(function (name) {
             if (name) {
                 $(".ajaxloader").show();
@@ -1271,7 +1271,7 @@
             resuesturl = "{{secure_url('/deleteBlog')}}";
         }
         swal("{{__('index.Are you sure you want to delete this post')}}?", {
-            buttons: ["No", "Yes"],
+            buttons: ["{{__('index.No')}}", "{{__('index.Yes')}}"],
         }).then(function (name) {
             if (name) {
                 $.ajax({

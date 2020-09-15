@@ -78,6 +78,16 @@
         "None" => "Aucune",
         "Back" => "Arrière",
         "Above price is including tax" => "Le prix ci-dessus comprend les taxes",
-        "Are you sure you want to delete this post" => "Es-tu sur de vouloir supprimer cette annonce"
+        "Are you sure you want to delete this post" => "Es-tu sur de vouloir supprimer cette annonce",
+        "STEP" => "ÉTAPE",
+        "Comment" => "Commentaire",
+        "Average" => "Moyenne",
+        "Write comment here" => "Écrivez un commentaire ici",
+        "Make primary" => "Rendre primaire",
+        "Address" => "Adresse",
+        "Choose Capacity" => "Choisissez la capacité",
+        "Local Minutes" => "Minutes locales",
+        "Yes" => "Oui",
+        "No" => "Non"
     ];
 ?>

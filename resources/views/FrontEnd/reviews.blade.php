@@ -93,7 +93,9 @@
             left: 0 !important;
             right: 0 !important;
         }
-
+        .fr-lang h1 {
+            font-size: 32px;
+        }
         .dropdown-select .list {
             box-sizing: border-box;
             transition: all 0.15s cubic-bezier(0.25, 0, 0.25, 1.75), opacity 0.1s linear;
@@ -271,11 +273,11 @@
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <div class="title-step-1 w-75">
+                    <div class="title-step-1 w-75 @if(\Session::get('locale') == 'fr') fr-lang @endif">
                         @if(Request::get('type'))
-                        <h1>STEP #1</h1>
+                        <h1>{{__('index.STEP')}} #1</h1>
                         @else
-                        <h1>STEP #2</h1>
+                        <h1>{{__('index.STEP')}} #2</h1>
                         @endif
                         <h1>{{ __('review.step_2_title') }}</h1>
                     </div>
@@ -302,7 +304,7 @@
             @endif
             <!-- Device section  -->
             <section class="product-section @if(Request::get('type') == 1) section-d-none @endif @if(!Request::get('type')) section-d-none @endif section-both">
-                <form id="device_rating_form" method="post" action="javascript:void(0);">
+                <form id="device_rating_form" method="post" action="javascript:void(0);" class="mt-3">
                     <div class="row mt-1">
                         <div class="col-lg-6">
                             <h5>{{ __('review.device_type') }}</h5>
@@ -367,7 +369,7 @@
                             </div>
                             <div class="form-group supplier_text mb-0">
                                 <input type="text" class="form-control supplier_name text_supplier_name" name="supplier_name" placeholder="{{__('review.supplier_name')}}" maxlength="30" />
-                                <input type="hidden" class="form-control supplier_status" name="supplier_status" placeholder="Supplier status" value="1" />
+                                <input type="hidden" class="form-control supplier_status" name="supplier_status"  value="1" />
                             </div>
                             <small>
                                 <a href="javascript:void(0)" class="supplier_text_show" onclick="supplier_text_show()">{{ __('review.couldnot_find_supplier') }}</a>
@@ -379,7 +381,7 @@
                             <h5>{{ __('review.capacity') }}</h5>
                             <div class="tg-select form-control mb-0">
                                 <select required="required" name="storage" id="storage">
-                                    <option value="">Choose Capacity</option>
+                                    <option value="">{{__('index.Choose Capacity')}}</option>
                                     <option value="64">64</option>
                                     <option value="128">128</option>
                                     <option value="256">256</option>
@@ -425,11 +427,11 @@
                             </div>
                         </div>
                         <div class="col-lg-8">
-                            <div class="title-step-1 w-75">
+                            <div class="title-step-1 w-75 @if(\Session::get('locale') == 'fr') fr-lang @endif">
                                 @if(Request::get('type'))
-                                <h1>STEP #2</h1>
+                                <h1>{{__('index.STEP')}} #2</h1>
                                 @else
-                                <h1>STEP #3</h1>
+                                <h1>{{__('index.STEP')}} #3</h1>
                                 @endif
                                 <h1>{{ __('review.step_3_title') }}</h1>
                             </div>
@@ -442,7 +444,7 @@
                     </div>
                     <div class="row device_starrating_error d-none">
                         <div class="error">
-                            All rating rows are required.
+                            {{__("index.All rating rows are required")}}
                         </div>
                     </div>
                     @if(count($questions)>0) @foreach($questions as $question) @if($question->type == 2)
@@ -471,19 +473,19 @@
                     <div class="row mt-3">
                         <div class="col-lg-6">
                             <div class="">
-                                <h5>Comment</h5>
+                                <h5>{{__('index.Comment')}}</h5>
                             </div>
                         </div>
                         <div class="col-lg-6 text-right">
                             <div class="form-group">
-                                <textarea class="form-control" id="device_comment" placeholder="Write comment here...." rows="3"></textarea>
+                                <textarea class="form-control" id="device_comment" placeholder="{{__('index.Write comment here')}}...." rows="3"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="">
-                                <h5 class="font-weight-bold">Average</h5>
+                                <h5 class="font-weight-bold">{{__('index.Average')}}</h5>
                             </div>
                         </div>
                         <div class="col-lg-6 text-right">
@@ -529,7 +531,7 @@
                                 </div>
                                 <div class="form-group provider_text mb-2">
                                     <input type="text" class="form-control provider_name text_provider_name" name="provider_name" placeholder="{{ __('review.provider_name') }}" maxlength="30" />
-                                    <input type="hidden" class="form-control provider_status" name="provider_status" placeholder="Provider status" />
+                                    <input type="hidden" class="form-control provider_status" name="provider_status"  />
                                 </div>
                                 <small>
                                     <a href="javascript:void(0)" class="provider_text_show" onclick="provider_text_show()">{{__('review.couldnot_find_provider')}}</a>
@@ -616,7 +618,7 @@
                                 <h5>{{ __('review.loc_min') }}</h5>
 
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control local_min mint_input" name="local_min" placeholder="Local Minutes" required="required" maxlength="20" value="100" />
+                                    <input type="text" class="form-control local_min mint_input" name="local_min" placeholder="{{__('index.Local Minutes')}}" required="required" maxlength="20" value="100" />
                                     <div class="input-group-append">
                                         <span class="input-group-text @if(\Session::get('locale') == 'fr') fr-font-10 @endif" id="basic-addon2">Minute</span>
                                     </div>
@@ -625,7 +627,7 @@
                             <div class="col-lg-3 pay_as_usage_class">
                                 <h5>{{ __('review.datavolume') }}</h5>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control datavolume" name="datavolume" placeholder="Data Volume" required="required" maxlength="20" value="2" />
+                                    <input type="text" class="form-control datavolume" name="datavolume" placeholder="{{ __('review.datavolume') }}" required="required" maxlength="20" value="2" />
                                     <div class="input-group-append">
                                         <span class="input-group-text @if(\Session::get('locale') == 'fr') fr-font-10 @endif" id="basic-addon2">{{ __('review.datavolume') }}</span>
                                     </div>
@@ -665,7 +667,7 @@
                             <div class="col-lg-6">
                                 <h5>{{ __('review.upfront') }}</h5>
                                 <div class="form-group mb-1">
-                                    <input type="number" class="form-control upfront_price" name="upfront_price" placeholder="Upfront price" maxlength="20" value="0" />
+                                    <input type="number" class="form-control upfront_price" name="upfront_price" placeholder="{{ __('review.upfront') }}" maxlength="20" value="0" />
                                     <div class="text-right text-10"><small>{{ __('review.include') }}</small></div>
                                 </div>
                             </div>
@@ -751,11 +753,11 @@
                             </div>
                         </div>
                         <div class="col-lg-8">
-                            <div class="title-step-1 w-75">
+                            <div class="title-step-1 w-75 @if(\Session::get('locale') == 'fr') fr-lang @endif">
                                 @if(Request::get('type'))
-                                <h1>STEP #2</h1>
+                                <h1>{{__('index.STEP')}} #2</h1>
                                 @else
-                                <h1>STEP #3</h1>
+                                <h1>{{__('index.STEP')}} #3</h1>
                                 @endif
                                 <h1>{{ __('review.step_3_title') }}</h1>
                             </div>

@@ -113,12 +113,12 @@ class RegisterController extends Controller
                 $formatted = $usersDetailSession['city'].' '.$usersDetailSession['country'].' '.$usersDetailSession['postal_code'];
                 $userAddress = [
                     'user_id' => $user->id,
-                    'city' => '',
+                    'city' => $usersDetailSession['city'],
                     'latitude' => $usersDetailSession['latitude'],
                     'longitude' => $usersDetailSession['longitude'],
                     'country' => $usersDetailSession['country'],
                     'country_code' => $usersDetailSession['country_code'],
-                    'postal_code' => '',
+                    'postal_code' => $usersDetailSession['postal_code'],
                     'formatted_address' => $formatted,
                     'is_primary' => 1
                 ];

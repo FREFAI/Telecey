@@ -78,6 +78,7 @@ class ReviewsController extends Controller
         $usersDetail = User::find($user_id); 
         $usersAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first(); 
         if(!$usersAddress){
+            $usersDetail->is_address = 0;
             if(array_key_exists('country', $usersDetailSession)){
                 $usersDetail->country = $usersDetailSession['country'];
                 $usersDetail->country_code = $usersDetailSession['country_code'];
@@ -100,6 +101,7 @@ class ReviewsController extends Controller
                 $usersDetail->user_postal_code = null;
             }
         }else{
+            $usersDetail->is_address = 1;
             $countrycode = CountriesModel::where('name',$usersAddress->country)->first();
             if($countrycode){
                 $usersDetail->country = $usersAddress->country;

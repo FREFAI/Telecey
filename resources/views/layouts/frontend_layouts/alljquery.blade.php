@@ -44,7 +44,7 @@
             var place = autocomplete.getPlace();
         });
     }
-    if ($("#firstform #city").val() == "") {
+    if ($(".is_address").val()!=1) {
         getLocation();
     }
     function getLocation() {

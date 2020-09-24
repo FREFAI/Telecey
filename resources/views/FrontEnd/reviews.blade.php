@@ -221,6 +221,7 @@
                             <p class="title pt-3">{{ __('review.form_title') }}</p>
                             <p class="pt-2 pb-3 text-black text-left">{{ __('review.form_sub_title') }}</p>
                             <form class="contact-form row" id="firstform">
+                            <input type="hidden" value="{{$usersDetail->is_address}}" class="is_address">
                                 <div class="form-group text-left col-lg-6">
                                     <label for="name">{{ __('review.first_name') }}</label>
                                     <input id="firstname" class="input-text" type="text" required value="{{$usersDetail->firstname}}" name="firstname" />

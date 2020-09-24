@@ -123,8 +123,11 @@ class HomeController extends Controller
             $plan_device_rating = $data->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
             unset($data->plan_device_rating);
             foreach ($allratings as $ratings) {
-                if(RatingQuestion::find($ratings->question_id)){
+                if(RatingQuestion::withTrashed()->where('id',$ratings->question_id)->first()){
+
                     if($ratings->entity_id == $data->id && $ratings->entity_type==1){    //Check entity id is equal to plan id
+                        // RatingQuestion::withTrashed()->where('id',$ratings->question_id)->first();
+                        $ratings->question= $ratings->question()->withTrashed()->first()->toArray();
                         $ratings->question_name = $ratings->question['question'];
                         $ratings->question_type = $ratings->question['type'];
                         unset( $ratings->question);
@@ -198,8 +201,9 @@ class HomeController extends Controller
             $allratings = $device->get_ratings($device->id);  // Get all ratings of this plan questions
             $plan_device_rating = $device->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
             foreach ($allratings as $ratings) {
-                if(RatingQuestion::find($ratings->question_id)){
+                if(RatingQuestion::withTrashed()->where('id',$ratings->question_id)->first()){
                     if($ratings->entity_id == $device->id && $ratings->entity_type==2){    //Check entity id is equal to plan id
+                        $ratings->question= $ratings->question()->withTrashed()->first()->toArray();
                         $ratings->question_name = $ratings->question['question'];
                         $ratings->question_type = $ratings->question['type'];
                         unset( $ratings->question);

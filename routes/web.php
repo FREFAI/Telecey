@@ -287,8 +287,8 @@ Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], fun
 				Route::get('/rating-question','Admin\RatingQuestionController@questionList');
 				Route::get('/add-question','Admin\RatingQuestionController@addRatingQuestionForm');
 				Route::post('/add-question','Admin\RatingQuestionController@addRatingQuestion');
-				Route::get('/edit-question/{questionId}','Admin\RatingQuestionController@editRatingQuestionForm');
-				Route::post('/edit-question','Admin\RatingQuestionController@editRatingQuestion');
+				// Route::get('/edit-question/{questionId}','Admin\RatingQuestionController@editRatingQuestionForm');
+				// Route::post('/edit-question','Admin\RatingQuestionController@editRatingQuestion');
 				Route::post('/delete-question', 'Admin\RatingQuestionController@deleteRatingQuestion');
 			// End Rating question section 
 

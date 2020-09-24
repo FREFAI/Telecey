@@ -21,13 +21,23 @@
     	<div class="col-xl-12 mb-5 mb-xl-0">
 	        <div class="card shadow">
 	          <div class="card-header bg-transparent">
-		    	<div class="row">
+		    	<div class="row align-items-center">
 
             <div class="col-md-6">
                <h5 class="heading-small text-muted mb-4">Rating Question List</h5>
              </div>
-             <div class="col-md-6 text-right">
-               <a href="{{url('admin/add-question')}}" class="btn btn-sm btn-primary"><i class="ni ni-fat-add"></i> &nbsp;Add rating question</a>
+             <div class="col-md-6 text-right  mb-4">
+             <form action="" method="get" class="form-inline float-right orderByFrom">
+               <select name="orderby" class="form-control mr-3 orderBy">
+                <option value="">Select order by</option>
+                <option value="created_asc" @if(request()->orderby == "created_asc") selected="" @endif>Created At Asc</option>
+                <option value="created_desc" @if(request()->orderby == "created_desc") selected="" @endif>Created At Desc</option>
+                <option value="deleted_asc" @if(request()->orderby == "deleted_asc") selected="" @endif>Deleted At Asc</option>
+                <option value="deleted_desc" @if(request()->orderby == "deleted_desc") selected="" @endif>Deleted At Desc</option>
+              </select>
+              <a href="{{url('admin/add-question')}}" class="btn  btn-primary"><i class="ni ni-fat-add"></i> &nbsp;Add rating question</a>
+             </form>
+              
              </div>
 		  			<div class="col-lg-12">
             @include('flash-message')
@@ -38,6 +48,8 @@
                        <th scope="col" style="width: 10px;">Sr.No</th>
                        <th scope="col" style="width: 10px;">Question</th>
                        <th scope="col" style="width: 10px;">Type</th>
+                       <th scope="col" style="width: 10px;">Created At</th>
+                       <th scope="col" style="width: 10px;">Deleted At</th>
                        <th scope="col" class="text-right">Action</th>
                      </tr>
                    </thead>
@@ -63,11 +75,13 @@
                                 Device
                                @endif
                              </td>
+                             <td>
+                              {{ date("m/d/Y", strtotime($question->created_at)) }}
+                             </td>
+                             <td>
+                              {{ date("m/d/Y", strtotime($question->deleted_at)) }} 
+                             </td>
                              <td class="text-right">
-                              
-                               <a class="btn btn-icon btn-2 btn-info btn-sm" href="{{url('admin/edit-question')}}/{{base64_encode($question->id)}}" data-toggle="tooltip" data-placement="top" title="Edit">
-                                 <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
-                               </a>
                                <button class="btn btn-icon btn-2 btn-danger btn-sm delete_question" type="button" data-question_id="{{base64_encode($question->id)}}" data-toggle="tooltip" data-placement="top" title="Delete">
                                  <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
                                </button>
@@ -87,7 +101,7 @@
                  </table>
                </div>
                <div class="ads_pagination mt-3 mb-0">
-                {{$questions->links()}}
+                {{$questions->appends(request()->except('page'))->links()}}
                </div>
             </div>
 		    	</div>
@@ -98,4 +112,11 @@
     <!-- End Footer Section Include -->
   </div>
 </div>
+@endsection
+@section('pageScript')
+  <script>
+    $('.orderBy').on('change',function(){
+      $('.orderByFrom').submit();
+    });   
+  </script>
 @endsection

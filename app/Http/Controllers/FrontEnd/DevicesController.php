@@ -235,15 +235,19 @@ class DevicesController extends Controller
             ->where('country_code',$current_country_code)
             ->with('brand','supplier','device_color_info')
             ->orderBy('distance','ASC');
+            $mainQuery->leftJoin('users', 'users.id','=','device_reviews.user_id');
+            if($filtersetting && $filtersetting->reviews_for_unverified == 0){
+                $mainQuery->where('users.is_active', 1);
+            }
             $mainQuery->where(function ($query) use ($data) {
                 if(array_key_exists("brand_name",$data) && $data['brand_name'] != ""){
-                    $query->orWhere('brand_id',$data['brand_name']);
+                    $query->orWhere('device_reviews.brand_id',$data['brand_name']);
                 }
                 if(array_key_exists("storage",$data) && $data['storage'] != ""){
-                    $query->orWhere('storage',$data['storage']);
+                    $query->orWhere('device_reviews.storage',$data['storage']);
                 }
                 if(array_key_exists("device_color",$data) && $data['device_color'] != ""){
-                    $query->orWhere('device_color',$data['device_color']);
+                    $query->orWhere('device_reviews.device_color',$data['device_color']);
                 }
                 
             });

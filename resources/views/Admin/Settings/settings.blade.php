@@ -25,6 +25,54 @@
 		  			<div class="col-lg-12">
 		  				<h5 class="heading-small text-muted mb-4">Settings</h5>
 		  			</div>
+					<!-- Review premission section -->
+					<div class="col-lg-6 pl-lg-4">
+						<h6 class="heading-small text-muted mb-4">Hide reviews for unverified users </h6>
+					</div>
+					<div class="col-lg-6 text-right">
+						@if($settings)
+						<div class="pl-lg-4">
+							<label class="custom-toggle" >
+								<input type="checkbox" data-setting_key="reviews_for_unverified" value="1" id="device_setting" class="settings" 
+								@if($settings->reviews_for_unverified == 0)checked="" @endif>
+								<span class="custom-toggle-slider rounded-circle"></span>
+							</label>
+							<span class="clearfix"></span>
+						</div>
+						@else
+						<div class="pl-lg-4">
+							<label class="custom-toggle" >
+								<input type="checkbox" data-setting_key="reviews_for_unverified" value="1" id="device_setting" class="settings">
+								<span class="custom-toggle-slider rounded-circle"></span>
+							</label>
+							<span class="clearfix"></span>
+						</div>
+						@endif
+					</div>
+					<!-- Review Detail premission section -->
+					<div class="col-lg-6 pl-lg-4">
+						<h6 class="heading-small text-muted mb-4">Hide reviews detail button for unverified users </h6>
+					</div>
+					<div class="col-lg-6 text-right">
+						@if($settings)
+						<div class="pl-lg-4">
+							<label class="custom-toggle" >
+								<input type="checkbox" data-setting_key="review_detail_for_unverified" value="1" id="device_setting" class="settings" 
+								@if($settings->review_detail_for_unverified == 0)checked="" @endif>
+								<span class="custom-toggle-slider rounded-circle"></span>
+							</label>
+							<span class="clearfix"></span>
+						</div>
+						@else
+						<div class="pl-lg-4">
+							<label class="custom-toggle" >
+								<input type="checkbox" data-setting_key="review_detail_for_unverified" value="1" id="device_setting" class="settings">
+								<span class="custom-toggle-slider rounded-circle"></span>
+							</label>
+							<span class="clearfix"></span>
+						</div>
+						@endif
+					</div>
 		  			<!-- Device Filter section -->
 					<div class="col-lg-6 pl-lg-4">
 						<h6 class="heading-small text-muted mb-4">Device <b>Hide</b></h6>

@@ -61,6 +61,8 @@
         codeLatLng(lat, lng);
     }
     function geoError() {
+        $('.getcity').val($('.getcity').attr('data-city'));
+        $('.getpostalcode').val($('.getpostalcode').attr('data-postal_code'));
         console.log("Geocoder failed");
     }
     var geocoder;

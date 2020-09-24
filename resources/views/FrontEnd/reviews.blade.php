@@ -235,7 +235,7 @@
                                 </div>
                                 <div class="form-group text-left col-lg-6 city_div" id="city_div">
                                     <label for="city">{{ __('review.city') }}</label>
-                                    <input id="city" class="input-text city_input" type="text" required value="{{$usersDetail->city}}" name="city" autocomplete="no" data-country="{{$usersDetail->country_code}}" />
+                                    <input id="city" class="input-text city_input getcity" type="text" required value="{{$usersDetail->user_city}}" data-city="{{$usersDetail->city}}" name="city" autocomplete="no" data-country="{{$usersDetail->country_code}}" />
                                 </div>
                                 <div class="form-group text-left col-lg-12">
                                     <label for="email">{{ __('review.email') }}</label>
@@ -243,7 +243,7 @@
                                 </div>
                                 <div class="form-group text-left col-lg-12">
                                     <label for="number">{{ __('review.postal_code') }}</label>
-                                    <input id="postal_code" class="input-text" type="text" value="{{$usersDetail->postal_code}}" name="postal_code" autocomplete="no" required/>
+                                    <input id="postal_code" class="input-text getpostalcode" type="text" value="{{$usersDetail->user_postal_code}}" data-postal_code="{{$usersDetail->postal_code}}" name="postal_code" autocomplete="no" required/>
                                 </div>
                                 <div class="form-group text-left col-lg-12">
                                     <label for="phone">{{ __('review.phone') }}</label>

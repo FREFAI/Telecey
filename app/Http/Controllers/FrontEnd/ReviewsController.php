@@ -59,15 +59,18 @@ class ReviewsController extends Controller
         $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
         $newresponse = json_decode($newresponse->getBody());
         
+        // echo "<pre>";
+        // print_r($newresponse);
+        // exit;
         if (!$request->session()->has('usersDetail')) {
             // $ip = '96.46.34.142';
             $current_lat = $newresponse->latitude;
             $current_long = $newresponse->longitude;
-            $storableLocation['city'] = "";
-            $storableLocation['state'] = "";
+            $storableLocation['city'] = $newresponse->city;
+            $storableLocation['state'] = $newresponse->state_prov;
             $storableLocation['country'] = $newresponse->country_name;
             $storableLocation['country_code'] = $newresponse->country_code2;
-            $storableLocation['postal_code'] = "";
+            $storableLocation['postal_code'] = $newresponse->zipcode;
             
             $request->session()->put('usersDetail', $storableLocation); 
         }
@@ -84,13 +87,17 @@ class ReviewsController extends Controller
             }
             if(array_key_exists('city', $usersDetailSession)){
                 $usersDetail->city = $usersDetailSession['city'];
+                $usersDetail->user_city = null;
             }else{
                 $usersDetail->city = null;
+                $usersDetail->user_city = null;
             }
             if(array_key_exists('postal_code', $usersDetailSession)){
                 $usersDetail->postal_code = $usersDetailSession['postal_code'];
+                $usersDetail->user_postal_code = null;
             }else{
                 $usersDetail->postal_code = null;
+                $usersDetail->user_postal_code = null;
             }
         }else{
             $countrycode = CountriesModel::where('name',$usersAddress->country)->first();
@@ -102,6 +109,8 @@ class ReviewsController extends Controller
                 $usersDetail->country_code = $usersAddress->country_code;
             }
             $usersDetail->city = $usersAddress->city;
+            $usersDetail->user_city = $usersAddress->user_city;
+            $usersDetail->user_postal_code = $usersAddress->user_postal_code;
             $usersDetail->postal_code = $usersAddress->postal_code;
 
         }
@@ -118,7 +127,6 @@ class ReviewsController extends Controller
         $service_types = ServiceType::get();
         $questions = RatingQuestion::get();
         $colors = DeviceColor::get();
-
         return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions,'userAddress'=>$usersAddress,'brandModels'=>$brandModels,'brands'=>$brands,'devices'=>$devices,'suppliers'=>$suppliers,'lat' =>  $current_lat,'long'=>$current_long,'colors'=>$colors]);
     }
     public function reviewsRating(Request $request, $lang,$plan_id)

@@ -349,7 +349,7 @@
 				geocoder = new google.maps.Geocoder();
 			}
 			function codeLatLngSearch(lat, lng) {
-				var searchAddr = '';
+				var searchAddr = {};
 				var latlng = new google.maps.LatLng(lat, lng);
 				geocoder.geocode({ latLng: latlng }, function (results, status) {
 					if (status == google.maps.GeocoderStatus.OK) {
@@ -357,9 +357,29 @@
 							for (let ii = 0; ii < results[0].address_components.length; ii++) {
 								var street_number = (route = street = city = state = zipcode = country = formatted_address = "");
 								var types = results[0].address_components[ii].types.join(",");
-								searchAddr = results[0].formatted_address;
+								if (types == "street_number") {
+									searchAddr.street_number = results[0].address_components[ii].long_name;
+								}
+								if (types == "route" || types == "point_of_interest,establishment") {
+									searchAddr.route = results[0].address_components[ii].long_name;
+								}
+								if (types == "sublocality,political" || types == "locality,political" || types == "neighborhood,political" || types == "administrative_area_level_3,political") {
+									searchAddr.city = city == "" || types == "locality,political" ? results[0].address_components[ii].long_name : city;
+								}
+								if (types == "administrative_area_level_1,political") {
+									searchAddr.state = results[0].address_components[ii].short_name;
+								}
+								if (types == "postal_code" || types == "postal_code_prefix,postal_code") {
+									searchAddr.zipcode = results[0].address_components[ii].long_name;
+								}
+								if (types == "country,political") {
+									searchAddr.country = results[0].address_components[ii].long_name;
+									searchAddr.countryCode = results[0].address_components[ii].short_name;
+								}
+
 							}
-							$(".location-input").val(searchAddr);
+							let address = `${searchAddr.country}, ${searchAddr.state}, ${searchAddr.city}, ${searchAddr.zipcode}`
+							$(".location-input").val(address);
 						}
 					}
 				});

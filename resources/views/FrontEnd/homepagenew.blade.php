@@ -765,5 +765,63 @@
 			$('input#searchMapInput').blur();
 			
 		});
+		getCurrentLocation();
+		function getCurrentLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(geoSearchSuccess, geoSearchError);
+			} else {
+				console.log("Geolocation is not supported by this browser.");
+			}
+		}
+		function geoSearchSuccess(position) {
+			var lat = position.coords.latitude;
+			var lng = position.coords.longitude;
+
+			codeLatLngSearch(lat, lng);
+		}
+		function geoSearchError(error) {
+			$('.location-input').val($('.location-input-hidden').val());
+			console.log("Geocoder failed",error);
+		}
+		var geocoder;
+		function initialize() {
+			geocoder = new google.maps.Geocoder();
+		}
+		function codeLatLngSearch(lat, lng) {
+			var searchAddr = {};
+			var latlng = new google.maps.LatLng(lat, lng);
+			geocoder.geocode({ latLng: latlng }, function (results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					if (results[1]) {
+						for (let ii = 0; ii < results[0].address_components.length; ii++) {
+							var street_number = (route = street = city = state = zipcode = country = formatted_address = "");
+							var types = results[0].address_components[ii].types.join(",");
+							if (types == "street_number") {
+								searchAddr.street_number = results[0].address_components[ii].long_name;
+							}
+							if (types == "route" || types == "point_of_interest,establishment") {
+								searchAddr.route = results[0].address_components[ii].long_name;
+							}
+							if (types == "sublocality,political" || types == "locality,political" || types == "neighborhood,political" || types == "administrative_area_level_3,political") {
+								searchAddr.city = city == "" || types == "locality,political" ? results[0].address_components[ii].long_name : city;
+							}
+							if (types == "administrative_area_level_1,political") {
+								searchAddr.state = results[0].address_components[ii].short_name;
+							}
+							if (types == "postal_code" || types == "postal_code_prefix,postal_code") {
+								searchAddr.zipcode = results[0].address_components[ii].long_name;
+							}
+							if (types == "country,political") {
+								searchAddr.country = results[0].address_components[ii].long_name;
+								searchAddr.countryCode = results[0].address_components[ii].short_name;
+							}
+
+						}
+						let address = `${searchAddr.country}, ${searchAddr.state}, ${searchAddr.city}, ${searchAddr.zipcode}`
+						$(".location-input").val(address);
+					}
+				}
+			});
+		}
 	</script>
 @endsection

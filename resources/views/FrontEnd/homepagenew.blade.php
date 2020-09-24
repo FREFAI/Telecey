@@ -28,7 +28,8 @@
 						<form action="{{url('/plans/result')}}" method="get" class="w-75 mt-4">
 							<div class="row">
 								<div class="col-md-12 ml-md-auto">
-									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
+									<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
+									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
 								</div>
 								
 								<input type="hidden" name="rows" value="20">
@@ -77,7 +78,7 @@
 						<form action="{{url('/devices/result')}}" method="get" class="w-75 mt-4">
 							<div class="row">
 								<div class="col-12">
-									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
+									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
 								</div>
 								<div class="col-6 mt-4 devicenew">
 									<select class="service-type-select service_type" name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">

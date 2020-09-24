@@ -31,7 +31,6 @@
 
 <script src="{{URL::asset('frontend/jsplugins/speedtest/speedtest.js')}}"></script>
 @yield('script')
-@yield('pageScript')
 <script>
     $(".language").on("change", function () {
         $(this).closest("form").submit();
@@ -1297,3 +1296,4 @@
         });
     });
 </script>
+@yield('pageScript')

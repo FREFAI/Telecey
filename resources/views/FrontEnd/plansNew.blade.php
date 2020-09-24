@@ -15,7 +15,8 @@
 					<form action="{{url('/plans/result')}}" method="get" class="w-100">
 						<div class="row">
 							<div class="col-9">
-								<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
+								<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
+								<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
 							</div>
 							<div class="col-3">
 							@if($filtersetting->mobile_home_setting == 1)
@@ -267,7 +268,7 @@
 	</style>
 	<!-- Content End Here -->
 	<script>
-
+		
 		function initMap() {
 			var input = document.getElementById('searchMapInput');
 		
@@ -324,8 +325,45 @@
 		<script>
 			$('body, html').on('scroll',function(){
 				$('input#searchMapInput').blur();
-				
 			});
+			getCurrentLocation();
+			function getCurrentLocation() {
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(geoSearchSuccess, geoSearchError);
+				} else {
+					console.log("Geolocation is not supported by this browser.");
+				}
+			}
+			function geoSearchSuccess(position) {
+				var lat = position.coords.latitude;
+				var lng = position.coords.longitude;
+
+				codeLatLngSearch(lat, lng);
+			}
+			function geoSearchError(error) {
+				$('.location-input').val($('.location-input-hidden').val());
+				console.log("Geocoder failed",error);
+			}
+			var geocoder;
+			function initialize() {
+				geocoder = new google.maps.Geocoder();
+			}
+			function codeLatLngSearch(lat, lng) {
+				var searchAddr = '';
+				var latlng = new google.maps.LatLng(lat, lng);
+				geocoder.geocode({ latLng: latlng }, function (results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+						if (results[1]) {
+							for (let ii = 0; ii < results[0].address_components.length; ii++) {
+								var street_number = (route = street = city = state = zipcode = country = formatted_address = "");
+								var types = results[0].address_components[ii].types.join(",");
+								searchAddr = results[0].formatted_address;
+							}
+							$(".location-input").val(searchAddr);
+						}
+					}
+				});
+			}
 		</script>
 	@endsection
 @endsection

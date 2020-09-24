@@ -62,7 +62,7 @@ class ReviewsController extends Controller
         // echo "<pre>";
         // print_r($newresponse);
         // exit;
-        if (!$request->session()->has('usersDetail')) {
+        // if (!$request->session()->has('usersDetail')) {
             // $ip = '96.46.34.142';
             $current_lat = $newresponse->latitude;
             $current_long = $newresponse->longitude;
@@ -73,7 +73,7 @@ class ReviewsController extends Controller
             $storableLocation['postal_code'] = $newresponse->zipcode;
             
             $request->session()->put('usersDetail', $storableLocation); 
-        }
+        // }
         $usersDetailSession = $request->session()->get('usersDetail');
         $usersDetail = User::find($user_id); 
         $usersAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first(); 

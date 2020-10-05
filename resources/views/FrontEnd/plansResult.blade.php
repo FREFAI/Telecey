@@ -2,6 +2,7 @@
 @section('title', 'Plans Result')
 @section('content')
 
+
 <!-- Content Start Here -->
 <section id="main-top-section" >
 	<div class="container">
@@ -210,7 +211,7 @@
 									@endif
 									@if(Auth::guard('customer')->check())
 										@if(!$filtersetting->review_detail_for_unverified)
-											@if(Auth::guard('customer')->check()['is_active'])
+											@if(Auth::guard('customer')->user()['is_active'])
 												<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">{{__('planresult.detail_btn')}}</a></td>
 											@else
 												<td data-order="-1"><a href="{{url('/resendVerifyEmail')}}" class="btn table-row-btn">Verify your email</a></td>

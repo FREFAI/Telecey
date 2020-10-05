@@ -114,7 +114,7 @@
 								<td>{{round($value->distance)}} KM</td>
 								@if(Auth::guard('customer')->check())
 									@if(!$filtersetting->review_detail_for_unverified)
-										@if(Auth::guard('customer')->check()['is_active'])
+										@if(Auth::guard('customer')->user()['is_active'])
 											<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value->id)}}">{{__('deviceresult.detail_btn')}}</td>
 										@else
 											<td data-order="-1"><a href="{{url('/resendVerifyEmail')}}" class="btn table-row-btn">Verify your email</a></td>

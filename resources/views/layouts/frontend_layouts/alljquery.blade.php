@@ -35,6 +35,9 @@
     $(".language").on("change", function () {
         $(this).closest("form").submit();
     });
+    setTimeout(() => {
+        $('.autoHide').hide("slow");
+    }, 5000);
     function initMap() {
         var input = document.getElementById("searchMapInput");
 

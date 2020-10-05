@@ -24,11 +24,12 @@
 		</div>
 		<form action="{{url('/devices/result')}}" method="get" class="w-100" id="deviceForm">
 			<div class="row custom_width align-items-center">
+				@include('flash-message')
 				@if(!$filtersetting->review_detail_for_unverified)
 					@if(Auth::guard('customer')->user() && Auth::guard('customer')->user()['is_active'] == 0)
-					<div class="alert alert-danger alert-block record_section">
+					<div class="alert alert-danger alert-block record_section w-100">
 						<button type="button" class="close" data-dismiss="alert">×</button>
-						We have sent an email with a confirmation link to your email address. Please verify your email <strong><a href="{{url('/resendVerifyEmail')}}">Click here</a></strong> to resend verification email.
+						{{__('index.Please verify your email')}} <strong><a href="{{url('/resendVerifyEmail')}}">{{__('index.Click here')}}</a></strong> {{__('index.to resend verification email')}}.
 					</div>
 					@endif
 				@endif
@@ -116,7 +117,7 @@
 										@if(Auth::guard('customer')->check()['is_active'])
 											<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value->id)}}">{{__('deviceresult.detail_btn')}}</td>
 										@else
-											<td data-order="-1"><a class="btn table-row-btn">Verify your email</a></td>
+											<td data-order="-1"><a href="{{url('/resendVerifyEmail')}}" class="btn table-row-btn">Verify your email</a></td>
 										@endif
 									@else
 										<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value->id)}}">{{__('deviceresult.detail_btn')}}</td>
@@ -337,6 +338,9 @@
 	.pagination {
 		width: 970px;
 		margin: 10px auto;
+	}
+	.table-row-btn{
+		color:#000;
 	}
 	/* .searchnow-button:hover {
 		border: 2px solid #2e75b5;

@@ -1,5 +1,5 @@
 @if ($message = Session::get('success'))
-<div class="alert alert-success alert-block autoHide">
+<div class="alert alert-success alert-block autoHide w-100">
 <button type="button" class="close" data-dismiss="alert">×</button>
         <strong>{{ $message }}</strong>
 </div>
@@ -7,7 +7,7 @@
 
 
 @if ($message = Session::get('error'))
-<div class="alert alert-danger alert-block autoHide">
+<div class="alert alert-danger alert-block autoHide w-100">
 <button type="button" class="close" data-dismiss="alert">×</button>
         <strong class="error_msg_more">{!! str_limit($message, 150) !!}
             @if (strlen($message) > 150)
@@ -24,7 +24,7 @@
 
 
 @if ($message = Session::get('warning'))
-<div class="alert alert-warning alert-block autoHide">
+<div class="alert alert-warning alert-block autoHide w-100">
 <button type="button" class="close" data-dismiss="alert">×</button>
 <strong>{{ $message }}</strong>
 </div>
@@ -32,7 +32,7 @@
 
 
 @if ($message = Session::get('info'))
-<div class="alert alert-info alert-block autoHide">
+<div class="alert alert-info alert-block autoHide w-100">
 <button type="button" class="close" data-dismiss="alert">×</button>
 <strong>{{ $message }}</strong>
 </div>

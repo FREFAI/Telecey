@@ -79,6 +79,12 @@
         "None" => "None",
         "Back" => "Back",
         "Above price is including tax" => "Above price is including tax",
-        "Are you sure you want to delete this post" => "Are you sure you want to delete this post"
+        "Are you sure you want to delete this post" => "Are you sure you want to delete this post",
+        "Yes" => "Yes",
+        "No" => "No",
+        "Please verify your email" => "Please verify your email",
+        "to resend verification email" => "to resend verification email",
+        "Click here" => "Click here",
+        "We have sent an email with a confirmation link to your email address. Please verify your email" => "We have sent an email with a confirmation link to your email address. Please verify your email"
     ];
 ?>

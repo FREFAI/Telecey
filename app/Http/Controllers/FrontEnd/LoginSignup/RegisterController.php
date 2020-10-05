@@ -155,7 +155,7 @@ class RegisterController extends Controller
             $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
             $m->to($emaildata['email'], $emaildata['name'])->subject(__('index.Email verification'));
         });
-        return redirect()->back();
+        return redirect()->back()->with('success',__('Please check your email to verify your email, if you not getting email please check in spam'));
     }
     public function confirmEmail($lan,$id)
     {

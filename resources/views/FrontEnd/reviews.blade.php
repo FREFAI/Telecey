@@ -1067,6 +1067,9 @@
                 $(".more_info_section").toggle();
                 $(".long_distance_min").focus();
             });
+            $('.contract_type').on('change',function(){
+                $('select.service_type').prop('selectedIndex',0);
+            }); 
             function provider_text_show() {
                 if ($(".provider_select select").attr("disabled")) {
                     $(".provider_status").val(1);

@@ -88,6 +88,10 @@
         "Choose Capacity" => "Choisissez la capacité",
         "Local Minutes" => "Minutes locales",
         "Yes" => "Oui",
-        "No" => "Non"
+        "No" => "Non",
+        "Please verify your email" => "Veuillez vérifier votre email",
+        "to resend verification email" => "pour renvoyer l'e-mail de vérification",
+        "Click here" => "Cliquez ici",
+        "We have sent an email with a confirmation link to your email address. Please verify your email" => "Nous avons envoyé un e-mail avec un lien de confirmation à votre adresse e-mail. Veuillez vérifier votre email"
     ];
 ?>

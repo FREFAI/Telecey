@@ -64,6 +64,7 @@
         'Cancel' => 'Cancel',
         'Personal' => 'Personal',
         'Business' => 'Business',
+        'STEP' => 'STEP',
         'Postpaid' => 'Postpaid',
         'Prepaid' => 'Prepaid',
         'Pay as usage'=>'Pay as usage',

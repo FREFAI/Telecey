@@ -590,7 +590,6 @@
                             }
                         }
                         data["formatted_address"] = results[0].formatted_address;
-
                         if (countryExist == country && cities.indexOf(city) != -1) {
                             data["status"] = true;
                         } else {
@@ -627,7 +626,11 @@
             return false;
         }
         let postal = await valid_postal_code_with_google_api($("#firstform #postal_code").val(), $("#firstform #country").val(), $("#firstform .city_input").val());
-
+        if($("#firstform #postal_code").val().length == 6){
+            if(!postal["status"]){
+                postal = await valid_postal_code_with_google_api($("#firstform #postal_code").val().substring(0, 3), $("#firstform #country").val(), $("#firstform .city_input").val())
+            }
+        }
         // let postal = valid_postal_code($('#firstform #postal_code').val(),$('#firstform .city_input').attr('data-country'));
         if (!postal["status"]) {
             if (!$("#firstform #postal_code").hasClass("error")) {
@@ -1247,7 +1250,6 @@
         if (citySelection === false) {
             $(".city_list").css("display", "none");
             $("#city").addClass("error");
-            // $('#city').val('');
             if ($("#city_div #city-error").length == 0) {
                 $("#city_div").append('<label id="city-error" class="error" for="city">{{__("index.Pleace select city from a list")}}</label>');
             }
@@ -1255,6 +1257,11 @@
             return false;
         }
         let postal = await valid_postal_code_with_google_api($("#postal_code").val(), $("#country").val(), $(".city_input").val());
+        if($("#postal_code").val().length == 6){
+            if(!postal["status"]){
+                postal = await valid_postal_code_with_google_api($("#postal_code").val().substring(0, 3), $("#country").val(), $(".city_input").val());
+            }
+        }
         if (!postal["status"]) {
             if (!$("#change_address_form #postal_code").hasClass("error")) {
                 $("#postal_code").addClass("error");

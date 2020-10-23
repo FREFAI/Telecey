@@ -49,7 +49,9 @@ return [
     'yes' => "Yes",
     'no' => "No",
     'save_btn' => "Save",
+    'save' => "Save",
     'cancel_btn' => "Cancel",
+    'cancel' => "Cancel",
     'address' => 'Address',
     'optional' =>"Optional",
     'continue' => "Continue",
@@ -86,6 +88,7 @@ return [
     'plan_insted' => "Do you want to rate a plan instead?",
     'supplier_name' => "Supplier name",
     'brand_name'=> "Brand name",
-    'model_name' => "Model name"
+    'model_name' => "Model name",
+    'plan' => "Plan"
 
 ];

@@ -4,6 +4,8 @@
 /public/providers
 /public/ads_banner
 /public/home
+/public/sendEmailToUser
+/public/blogs
 /storage/*.key
 /vendor
 .env

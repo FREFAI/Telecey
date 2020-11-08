@@ -50,9 +50,10 @@
                             </li>
                             <li class="nav-item">
                                 <div class="social">
-                                    <a href="" class="link facebook"><span class="fa fa-facebook-square"></span></a>
-                                    <a href="" class="link twitter"><span class="fa fa-twitter"></span></a>
-                                    <a href="" class="link google-plus"><span class="fa fa-linkedin-in"></span></a>
+                                    <a href="https://www.facebook.com/telecey" class="link facebook"><span class="fa fa-facebook-square"></span></a>
+                                    <a href="https://twitter.com/telecey" class="link twitter"><span class="fa fa-twitter"></span></a>
+                                    <a href="https://www.linkedin.com/company/telecey" class="link google-plus"><span class="fa fa-linkedin-in"></span></a>
+                                    <a href="https://www.instagram.com/teleceye" class="link instagram"><span class="fa fa-instagram"></span></a>
                                 </div>
                             </li>
                             @if(Auth::guard('customer')->user()['id'] != "")

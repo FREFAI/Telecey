@@ -67,7 +67,7 @@ class DevicesController extends Controller
         if($data){
             if($data['brand_name'] == "" && $data['storage'] == "" && $data['device_color'] == ""){
             
-                $searchResult = DeviceReview::select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                $searchResult = DeviceReview::select(DB::raw('*, ( 111.045 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
                     ->where('country_code',$current_country_code)
                     ->with('brand','supplier','device_color_info')
                     ->orderBy('distance','ASC')
@@ -91,7 +91,7 @@ class DevicesController extends Controller
                 if(array_key_exists("device_color",$data)){
                     $device_color = $data['device_color'];
                 }
-                $searchResultCount = DeviceReview::select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                $searchResultCount = DeviceReview::select(DB::raw('*, ( 111.045 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
                 ->where('country_code',$current_country_code)->where(function ($query) use ($brand_name,$storage,$device_color) {
                          $query->orWhere('brand_id',$brand_name)
                                ->orWhere('device_color',$device_color)
@@ -100,7 +100,7 @@ class DevicesController extends Controller
                                 ->orderBy('distance','ASC')
                                 ->orderBy('price','ASC')
                                 ->count();
-                $searchResult = DeviceReview::select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+                $searchResult = DeviceReview::select(DB::raw('*, ( 111.045 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
                         ->where('country_code',$current_country_code)->where(function ($query) use ($brand_name,$storage,$device_color) {
                                  $query->orWhere('brand_id',$brand_name)
                                        ->orWhere('device_color',$device_color)
@@ -142,7 +142,7 @@ class DevicesController extends Controller
             }
             
         }else{
-            $searchResult = DeviceReview::select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+            $searchResult = DeviceReview::select(DB::raw('*, ( 111.045 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
                     ->where('country_code',$current_country_code)
                     ->with('brand','supplier','device_color_info')
                     ->orderBy('distance','ASC')
@@ -174,7 +174,7 @@ class DevicesController extends Controller
         $brands = Brands::all();
         $colors = DeviceColor::all();
         $suppliers = Supplier::where('status',1)->get();      
-        $searchResult = DeviceReview::select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+        $searchResult = DeviceReview::select(DB::raw('*, ( 111.045 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
                 ->where('country_code',$current_country_code)
                 ->with('brand','supplier','device_color_info','user','device_rating')
                 ->orderBy('distance','ASC')
@@ -231,7 +231,7 @@ class DevicesController extends Controller
         $googleads = AdsModel::where('type',1)->first();
         $mainQuery = DeviceReview::query();
         if($data){
-            $mainQuery->select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'),'device_reviews.id as id')
+            $mainQuery->select(DB::raw('*, ( 111.045 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'),'device_reviews.id as id')
             ->where('country_code',$current_country_code)
             ->with('brand','supplier','device_color_info')
             ->orderBy('distance','ASC');
@@ -344,7 +344,7 @@ class DevicesController extends Controller
                         })->get()->toArray();
         $googleads = AdsModel::where('type',1)->first();
         $mainQuery = DeviceReview::query();
-        $mainQuery->select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+        $mainQuery->select(DB::raw('*, ( 111.045 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
             ->where('country_code',$current_country_code);
             $mainQuery->with('brand','supplier','device_color_info');
             $mainQuery->where(function ($query) use ($data) {

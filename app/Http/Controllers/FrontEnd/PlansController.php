@@ -56,7 +56,7 @@ class PlansController extends Controller
         $country = CountriesModel::select('id')->where('name',$newresponse->country_name)->first();
         // $ads = AdsModel::with('countries')->where('is_global',1)->orWhere('country',$country->id)->get();
         $data=$request->all();
-        $searchResult = ServiceReview::select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+        $searchResult = ServiceReview::select(DB::raw('*, ( 111.045 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
         ->where('country_code',$current_country_code)
         ->with('provider','currency','typeOfService','user','ratings','plan_rating')
         ->orderBy('distance','ASC')
@@ -109,7 +109,7 @@ class PlansController extends Controller
                 $filter = $data['filter'];
             }
             $mainQuery = ServiceReview::query();
-            $mainQuery->select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'),'service_reviews.id as id')
+            $mainQuery->select(DB::raw('*, ( 111.045 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'),'service_reviews.id as id')
             ->where('country_code',$current_country_code)
             ->with('provider','currency','typeOfService');
             $mainQuery->leftJoin('users', 'users.id','=','service_reviews.user_id');
@@ -228,7 +228,7 @@ class PlansController extends Controller
                             })->get()->toArray();
         $googleads = AdsModel::where('type',1)->first();
         $mainQuery = ServiceReview::query();
-        $mainQuery->select(DB::raw('*, ( 6371 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
+        $mainQuery->select(DB::raw('*, ( 111.045 * acos( cos( radians('.$current_lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$current_long.') ) + sin( radians('.$current_lat.') ) * sin( radians( latitude ) ) ) ) AS distance'))
         ->where('country_code',$current_country_code)
         ->with('provider','currency','typeOfService');
         $mainQuery->where(function ($query) use ($data) {

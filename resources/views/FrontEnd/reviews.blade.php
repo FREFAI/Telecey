@@ -1026,6 +1026,7 @@
                                 </div>
                             </div>
                             <div id="ipArea" class="col-lg-12">{{__('review.ip_address')}}: <span id="ip"></span></div>
+                            <div class='col-lg-12 text-center message-speed-test'></div>
                         </div>
                     </div>
                     <form id="speedtestForm">
@@ -1355,8 +1356,10 @@
                 var optionSelected = $("option:selected", this);
                 var valueSelected = this.value;
                 if (valueSelected == 5) {
+                    $('.message-speed-test').text('Please make sure that you are using your mobile date (Disconnect WiFi)')
                     $(".technology").removeClass("d-none");
                 } else {
+                    $('.message-speed-test').text('Please make sure that you are using you WiFi (Disconnect mobile date )')
                     $(".technology option:selected").removeAttr("selected");
                     $(".technology option:nth-child(1)").attr("selected");
                     $(".technology").addClass("d-none");

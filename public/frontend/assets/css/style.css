@@ -727,6 +727,16 @@ a.link.google-plus:hover{
     padding: 8px 0 0 0;
     margin-top: -1rem;
 }
+a.link.instagram:hover{
+  background-color: #0077b5;
+  display: inline-block;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+    padding: 8px 0 0 0;
+    margin-top: -1rem;
+}
 span.fa.fa-facebook-square {
   padding: 1px 8px 0 11px;
   color: #333;
@@ -742,9 +752,19 @@ span.fa.fa-linkedin-in {
   color: #333;
   font-size: 20px;
 }
+span.fa.fa-instagram {
+  padding: 1px 8px 0 11px;
+  color: #333;
+  font-size: 20px;
+}
+.link .fa {
+  padding: 1px 8px 0 11px;
+  color: #333;
+  font-size: 20px;
+}
 .social {
   margin-top: 1.7rem;
-  width: 125px;
+  width: 170px;
 }
 ul.dropdown-menu.top.show{
   border: medium none;

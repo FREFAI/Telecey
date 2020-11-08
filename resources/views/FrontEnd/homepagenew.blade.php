@@ -318,7 +318,7 @@
 			</div>
 		</div>
 		@endif
-		<div class="row">
+		<div class="row" id='how-does-it-work'>
 			<div class="col-12 text-center">
 				<div class="heading detail-div mb-5">
 					<h1 class="device-heading-title">{{__('home.how_it_work')}}</h1>
@@ -396,10 +396,12 @@
 		<div class="row mt-5 py-4">
 			<div class="col-10 offset-md-1">
 				<div class="sign-up-email">
-					<div class="form-group fields">
-						<input type="text" class="form-control" placeholder="{{__('home.your_email')}}">
-						<button class="register-button">{{__('home.email_btn')}}</button>
-					</div>
+					<form action='{{url("/emailsignup")}}'>
+						<div class="form-group fields">
+							<input type="text" class="form-control" name="email" placeholder="{{__('home.your_email')}}">
+							<button class="register-button" type="submit">{{__('home.email_btn')}}</button>
+						</div>
+					</from>
 				</div>
 			</div>
 		</div>
@@ -463,7 +465,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row bg-green col-10 offset-md-1">
+		<div class="row bg-green col-10 offset-md-1" id='our-information'>
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
 					@if(\Session::get('locale') == "en")

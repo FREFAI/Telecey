@@ -46,7 +46,7 @@
 				<input type="text" class="form-control" name="lastname" placeholder="{{__('emailsignup.last_name')}}" required="required" autocomplete="off" maxlength="50" />
 			</div>
 			<div class="form-group">
-				<input type="email" class="form-control" name="email" placeholder="{{__('emailsignup.email')}}" required="required" autocomplete="off" maxlength="50" id="user_email" />
+				<input type="email" value="{{request()->email}}" class="form-control" name="email" placeholder="{{__('emailsignup.email')}}" required="required" autocomplete="off" maxlength="50" id="user_email" />
 			</div>
 			<div class="form-group password-form-group mb-2">
 				<div class="input-group" id="show_hide_password">

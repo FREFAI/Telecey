@@ -1359,7 +1359,7 @@
                     $('.message-speed-test').text('Please make sure that you are using your mobile date (Disconnect WiFi)')
                     $(".technology").removeClass("d-none");
                 } else {
-                    $('.message-speed-test').text('Please make sure that you are using you WiFi (Disconnect mobile date )')
+                    $('.message-speed-test').text('Please make sure that you are using you WiFi (Disconnect mobile data )')
                     $(".technology option:selected").removeAttr("selected");
                     $(".technology option:nth-child(1)").attr("selected");
                     $(".technology").addClass("d-none");

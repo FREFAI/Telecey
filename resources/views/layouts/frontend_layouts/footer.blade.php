@@ -14,8 +14,8 @@
                     <div class="widget">
                         <ul class="menu">
                             <li><a href="{{url('/')}}">{{__('footer.home')}}</a></li>
-                            <li><a href="{{\request()->path() != 'en/' ? '/' : '' }}#how-does-it-work">{{__('footer.how_dose')}}</a></li>
-                            <li><a href="{{\request()->path() != 'en/' ? '/' : '' }}#our-information">{{__('footer.how_do')}}</a></li>
+                            <li><a href="{{\request()->path() != 'en' ? '/' : '' }}#how-does-it-work">{{__('footer.how_dose')}}</a></li>
+                            <li><a href="{{\request()->path() != 'en' ? '/' : '' }}#our-information">{{__('footer.how_do')}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -51,11 +51,11 @@
                 <div class="col-md-6">
                     <div class="site-info text-right footer-res">
                         <div class="footer-social mt-2">
-                            <a target='_blank' href="https://www.facebook.com/telecey" class="link facebook"><span class="fa fa-facebook-square"></span></a>
-                            <a target='_blank' href="https://twitter.com/telecey" class="link twitter"><span class="fa fa-twitter"></span></a>
-                            <a target='_blank' href="https://www.linkedin.com/company/telecey" class="link google-plus"><span class="fa fa-linkedin-in"></span></a>
-                            <a target='_blank' href="https://www.reddit.com/user/Telecey" class="link twitter"><span class="fa fa-reddit-alien"></span></a>
-                            <a target='_blank' href="https://www.pinterest.ca/telecey" class="link twitter"><span class="fa fa fa-pinterest"></span></a>
+                            <a target='_blanck' href="https://www.facebook.com/telecey" class="link facebook"><span class="fa fa-facebook-square"></span></a>
+                            <a target='_blanck' href="https://twitter.com/telecey" class="link twitter"><span class="fa fa-twitter"></span></a>
+                            <a target='_blanck' href="https://www.linkedin.com/company/telecey" class="link google-plus"><span class="fa fa-linkedin-in"></span></a>
+                            <a target='_blanck' href="https://www.reddit.com/user/Telecey" class="link twitter"><span class="fa fa-reddit-alien"></span></a>
+                            <a target='_blanck' href="https://www.pinterest.ca/telecey" class="link twitter"><span class="fa fa fa-pinterest"></span></a>
                         </div>
                     </div>
                 </div>

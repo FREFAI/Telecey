@@ -18,11 +18,11 @@
   <!-- Page content -->
   <div class="container-fluid mt--5">
     <div class="row">
-    	<div class="col-xl-12 mb-5 mb-xl-0">
-	        <div class="card shadow">
-	          <div class="card-header bg-transparent">
-    		    	<div class="row">
-    		  			<div class="col-lg-12">
+      <div class="col-xl-12 mb-5 mb-xl-0">
+          <div class="card shadow">
+            <div class="card-header bg-transparent">
+              <div class="row">
+                <div class="col-lg-12">
                 @include('flash-message')
                  <div class="nav-wrapper">
                      <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="section" role="tablist">
@@ -547,9 +547,9 @@
                      </div>
                  </div> 
                 </div>
-    		    	</div>
-		    </div>
-		</div>
+              </div>
+        </div>
+    </div>
     <!-- Footer Section Include -->
         @include('layouts.admin_layouts.footer')
     <!-- End Footer Section Include -->
@@ -578,9 +578,9 @@
     </div>
 </div>
 <style type="text/css">
-	h6.heading-small{
-		text-transform: capitalize;
-	}
+  h6.heading-small{
+    text-transform: capitalize;
+  }
   .custom-toggle-slider:before{
     background-color: #5e72e4;
   }

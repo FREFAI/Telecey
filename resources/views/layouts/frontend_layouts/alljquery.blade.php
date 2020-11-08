@@ -717,16 +717,18 @@
         var data_usage_age = $("#data_usage_age").val();
         var latitude = $("#lat").val();
         var longitude = $("#long").val();
-        var local_min = $(".local_min").val();
-        var datavolume = $(".datavolume").val();
+        var local_min = $("input.local_min").val();
+        var datavolume = $("input.datavolume").val();
         var long_distance_min = $(".long_distance_min").val();
         var international_min = $(".international_min").val();
         var roaming_min = $(".roaming_min").val();
         var device_id_plan = $(".device_select").val();
-        var upfront_price = $(".upfront_price").val();
-        var sms = $(".sms").val();
+        var upfront_price = $("input.upfront_price").val();
+        var sms = $("input.sms").val();
+        var speed = $("input.speed").val();
         var plan_id = $("#plan_id").val();
         if (pay_as_usage != 1) {
+            
             if (local_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(local_min) != true) {
                 return;
             }
@@ -737,9 +739,6 @@
                 return;
             }
             if (roaming_min != "Unlimited" && roaming_min != "unlimited" && $.isNumeric(roaming_min) != true) {
-                return;
-            }
-            if (sms != "Unlimited" && sms != "unlimited" && $.isNumeric(sms) != true) {
                 return;
             }
         }
@@ -776,6 +775,7 @@
                         international_min: international_min,
                         roaming_min: roaming_min,
                         sms: sms,
+                        speed: speed,
                         technology: technology_type,
                         currency_id: currency_id,
                         overage_price: overage_price,

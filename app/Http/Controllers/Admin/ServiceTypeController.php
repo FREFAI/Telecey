@@ -18,11 +18,14 @@ class ServiceTypeController extends Controller
         	$perameter = $request->all();
         	$validation = Validator::make($perameter,[
     			'service_type_name' => 'required|unique:service_types',
-                'type'=>'required'
+                'type'=>'required',
+                'category'=>'required',
+                'filter_types'=>'required'
     		]);
     		if($validation->fails()){
     			return redirect()->back()->withInput()->with('error',$validation->messages()->first());
     		}else{
+				$perameter['filter_types'] = implode(',',$perameter['filter_types']);
         		$serviceTypes = ServiceType::create($perameter);
         		if($serviceTypes){
         			return redirect('/admin/servicetype-list')->with('success','Service Type added successfully.');
@@ -47,15 +50,19 @@ class ServiceTypeController extends Controller
         	$perameter = $request->all();
         	$validation = Validator::make($perameter,[
         		'service_type_name' => 'required|unique:service_types,service_type_name,'.$perameter['id'],
-                'type' => 'required'
+				'type' => 'required',
+				'category'=>'required',
+                'filter_types'=>'required'
         	]);
         	if($validation->fails()){
     			return redirect()->back()->with('error',$validation->messages()->first());
     		}else{
 	        	$provider = ServiceType::find($perameter['id']);
 	        	if($provider){
+					$perameter['filter_types'] = implode(',',$perameter['filter_types']);
 	        		$provider->service_type_name = $perameter['service_type_name'];
                     $provider->type = $perameter['type'];
+                    $provider->filter_types = $perameter['filter_types'];
 	        		if($provider->save()){
 	        			return redirect('/admin/servicetype-list')->with('success','Service Type updated successfully.');
 	        		}else{

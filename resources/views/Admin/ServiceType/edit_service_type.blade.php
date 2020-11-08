@@ -51,6 +51,27 @@
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
+                      <select class="form-control" name="category">
+                        <option value="">Select category</option>
+                        <option @if($servicetype->category == 1) selected="" @endif value="1">Mobile</option>
+                        <option @if($servicetype->category == 2) selected="" @endif value="2">Fixed Data</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <select class="form-control select2Category" name="filter_types[]" multiple>
+                        <option value="device" @if(in_array('device',explode(',',$servicetype->filter_types))) selected="" @endif>Device</option>
+                        <option value="local_minutes" @if(in_array('local_minutes',explode(',',$servicetype->filter_types))) selected="" @endif>Local Minutes</option>
+                        <option value="data_volum" @if(in_array('data_volum',explode(',',$servicetype->filter_types))) selected="" @endif>Data Volum</option>
+                        <option value="sms" @if(in_array('sms',explode(',',$servicetype->filter_types))) selected="" @endif>SMS</option>
+                        <option value="speed" @if(in_array('speed',explode(',',$servicetype->filter_types))) selected="" @endif>Speed</option>
+                        <option value="upfront_price" @if(in_array('upfront_price',explode(',',$servicetype->filter_types))) selected="" @endif>Upfront price</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
                       <input type="hidden" name="id" value="{{$servicetype->id}}">
                       <button class="btn btn-primary" type="submit">Update</button>
                     </div>

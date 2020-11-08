@@ -250,7 +250,7 @@
 													  					<ul class="first_row_service">
 													  						<li>
 													  							<div>{{__('profile.datavol')}} : </div>
-													  							<div class="value_div">&nbsp;{{number_format($service->datavolume,0) ?? 'N/A'}}</div>
+													  							<div class="value_div">&nbsp;{{$service->datavolume ?? 'N/A'}}</div>
 													  						</li>
 													  					</ul>
 													  					</div>

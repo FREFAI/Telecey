@@ -72,7 +72,7 @@ return [
     'average' => "Average",
     'comment' => "Comment",
     'minute' => 'Minute',
-    'datavolume' => "DataVolum",
+    'datavolume' => "Data Volum",
     'device_rate' => "Do you want to rate a device instead?",
     'select_service' => "Select Service Type",
     'select_provider' => "Please select provider",

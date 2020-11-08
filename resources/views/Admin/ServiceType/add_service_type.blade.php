@@ -50,6 +50,27 @@
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
+                      <select class="form-control" name="category">
+                        <option value="">Select category</option>
+                        <option @if(old('category') == 1) selected="" @endif value="1">Mobile</option>
+                        <option @if(old('category') == 2) selected="" @endif value="2">Fixed Data</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <select class="form-control select2Category" name="filter_types[]" multiple>
+                        <option value="device">Device</option>
+                        <option value="local_minutes">Local Minutes</option>
+                        <option value="data_volum">Data Volum</option>
+                        <option value="sms">SMS</option>
+                        <option value="speed">Speed</option>
+                        <option value="upfront_price">Upfront price</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
                       <button class="btn btn-primary" type="submit">Save</button>
                     </div>
                   </div>
@@ -64,4 +85,11 @@
     <!-- End Footer Section Include -->
   </div>
 </div>
+@section('pageStyle')
+<style>
+  .select2Category{
+    padding: 15px
+  }
+</style>
+@endsection
 @endsection

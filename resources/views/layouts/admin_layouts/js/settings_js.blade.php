@@ -139,6 +139,12 @@
 			toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | preview fullpage | forecolor backcolor emoticons | image'
 		});
 		$('.select2').select2();
+		$('.select2Category').select2({
+			placeholder: {
+				id: '-1', // the value of the option
+				text: 'Select Filter'
+			}
+		});
 		$('.select2color').select2({
 			placeholder: {
 				id: '-1', // the value of the option

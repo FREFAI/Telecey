@@ -3,6 +3,9 @@
 @section('content') 
     @section('pageStyle')
     <style type="text/css">
+        /* .device, .local_minutes, .data_volum, .sms, .speed, .upfront_price{
+            display: none;
+        } */
         .overage_price {
             background-color: #ffffff;
         }
@@ -572,7 +575,7 @@
                                     <select class="service_type" required>
                                         <option value="">{{__('review.select_service')}}</option>
                                         @if(count($service_types) > 0) @foreach($service_types as $type)
-                                        <option class="@if($type->type == 1) personal @else buisness @endif" value="{{$type->id}}">{{$type->service_type_name}}</option>
+                                        <option class="@if($type->type == 1) personal @else buisness @endif" value="{{$type->id}}" data-filter="{{$type->filter_types}}">{{$type->service_type_name}}</option>
                                         @endforeach @else
                                         <option disabled="">{{__('common.notfound')}}</option>
                                         @endif
@@ -602,7 +605,7 @@
                         </div>
                         <h6>{{ __('review.plan_title') }}</h6>
                         <div class="row mt-1">
-                            <div class="col-lg-3">
+                            <div class="col-lg-4 device">
                                 <h5>{{ __('review.device') }}</h5>
                                 <div class="form-group inputwithicon">
                                     <div class="selectreview">
@@ -615,7 +618,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 pay_as_usage_class">
+                            <div class="col-lg-4 pay_as_usage_class local_minutes">
                                 <h5>{{ __('review.loc_min') }}</h5>
 
                                 <div class="input-group mb-3">
@@ -625,19 +628,25 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 pay_as_usage_class">
+                            <div class="col-lg-4 pay_as_usage_class data_volum">
                                 <h5>{{ __('review.datavolume') }}</h5>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control datavolume" name="datavolume" placeholder="{{ __('review.datavolume') }}" required="required" maxlength="20" value="2" />
+                                    <input type="text" class="form-control datavolume" name="datavolume" placeholder="{{ __('review.datavolume') }}" required="required" maxlength="20" value="unlimited" />
                                     <div class="input-group-append">
                                         <span class="input-group-text @if(\Session::get('locale') == 'fr') fr-font-10 @endif" id="basic-addon2">{{ __('review.datavolume') }}</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 pay_as_usage_class">
+                            <div class="col-lg-6 pay_as_usage_class sms">
                                 <h5>SMS</h5>
                                 <div class="form-group">
-                                    <input type="text" class="form-control sms mint_input" name="sms" placeholder="SMS" required="required" value="Unlimited" maxlength="20" />
+                                    <input type="text" class="form-control pay_as_usage_class sms mint_input" name="sms" placeholder="SMS" required="required" value="Unlimited" maxlength="20" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 pay_as_usage_class speed">
+                                <h5>Speed</h5>
+                                <div class="form-group">
+                                    <input type="text" class="form-control pay_as_usage_class speed mint_input" name="speed" placeholder="Speed"  id='speed' value="25" maxlength="20" />
                                 </div>
                             </div>
                         </div>
@@ -645,7 +654,7 @@
                             <div class="col-lg-6">
                                 <h6>{{ __('review.paying_title') }}</h6>
                             </div>
-                            <div class="col-lg-6 text-right">
+                            <div class="col-lg-6 text-right pay_as_filter">
                                 <a href="javascript:void(0)" class="pay_as_model link" onclick="resetUsageButton()">
                                     <h5><u>{{ __('review.pay_us') }}</u></h5>
                                 </a>
@@ -665,7 +674,7 @@
                                     <div class="text-right text-10"><small>{{ __('review.include') }}</small></div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 upfront_price">
                                 <h5>{{ __('review.upfront') }}</h5>
                                 <div class="form-group mb-1">
                                     <input type="number" class="form-control upfront_price" name="upfront_price" placeholder="{{ __('review.upfront') }}" maxlength="20" value="0" />
@@ -1355,10 +1364,21 @@
             $(".service_type").on("change", function (e) {
                 var optionSelected = $("option:selected", this);
                 var valueSelected = this.value;
+                var filter = optionSelected.attr('data-filter').split(',');
+                $('.local_minutes, .device, .data_volum, .sms, .speed, .upfront_price').hide()
+                if(filter){
+                    for(let className of filter){
+                        if(className != ""){
+                            $('.'+className).show();
+                        }
+                    }
+                }
                 if (valueSelected == 5) {
+                    $('.pay_as_filter').show()
                     $('.message-speed-test').text('Please make sure that you are using your mobile date (Disconnect WiFi)')
                     $(".technology").removeClass("d-none");
                 } else {
+                    $('.pay_as_filter').hide()
                     $('.message-speed-test').text('Please make sure that you are using you WiFi (Disconnect mobile data )')
                     $(".technology option:selected").removeAttr("selected");
                     $(".technology option:nth-child(1)").attr("selected");

@@ -3,9 +3,6 @@
 @section('content') 
     @section('pageStyle')
     <style type="text/css">
-        /* .device, .local_minutes, .data_volum, .sms, .speed, .upfront_price{
-            display: none;
-        } */
         .overage_price {
             background-color: #ffffff;
         }
@@ -603,8 +600,8 @@
                                 </div>
                             </div>
                         </div>
-                        <h6>{{ __('review.plan_title') }}</h6>
-                        <div class="row mt-1">
+                        <div class="row mt-1 filter_fields d-none">
+                            <div class="col-lg-12"><h6>{{ __('review.plan_title') }}</h6></div>
                             <div class="col-lg-4 device">
                                 <h5>{{ __('review.device') }}</h5>
                                 <div class="form-group inputwithicon">
@@ -637,13 +634,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 pay_as_usage_class sms">
+                            <div class="col-lg-4 pay_as_usage_class sms">
                                 <h5>SMS</h5>
                                 <div class="form-group">
                                     <input type="text" class="form-control pay_as_usage_class sms mint_input" name="sms" placeholder="SMS" required="required" value="Unlimited" maxlength="20" />
                                 </div>
                             </div>
-                            <div class="col-lg-6 pay_as_usage_class speed">
+                            <div class="col-lg-4 pay_as_usage_class speed">
                                 <h5>Speed</h5>
                                 <div class="form-group">
                                     <input type="text" class="form-control pay_as_usage_class speed mint_input" name="speed" placeholder="Speed"  id='speed' value="25" maxlength="20" />
@@ -654,7 +651,7 @@
                             <div class="col-lg-6">
                                 <h6>{{ __('review.paying_title') }}</h6>
                             </div>
-                            <div class="col-lg-6 text-right pay_as_filter">
+                            <div class="col-lg-6 text-right pay_as_filter filter_fields d-none">
                                 <a href="javascript:void(0)" class="pay_as_model link" onclick="resetUsageButton()">
                                     <h5><u>{{ __('review.pay_us') }}</u></h5>
                                 </a>
@@ -1362,6 +1359,7 @@
                 }
             });
             $(".service_type").on("change", function (e) {
+                $('.filter_fields').removeClass('d-none')
                 var optionSelected = $("option:selected", this);
                 var valueSelected = this.value;
                 var filter = optionSelected.attr('data-filter').split(',');

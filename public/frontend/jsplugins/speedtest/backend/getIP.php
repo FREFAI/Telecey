@@ -130,12 +130,12 @@ if (isset($_GET["isp"])) {
                             $dist = round($dist, -1);
                             if ($dist < 15)
                                 $dist = "<15";
-                            $isp .= " (" . $dist . " mi)";
+                            // $isp .= " (" . $dist . " mi)";
                         }else if ($_GET["distance"] == "km") {
                             $dist = round($dist, -1);
                             if ($dist < 20)
                                 $dist = "<20";
-                            $isp .= " (" . $dist . " km)";
+                            // $isp .= " (" . $dist . " km)";
                         }
                     } catch (Exception $e) {
                         
@@ -146,7 +146,6 @@ if (isset($_GET["isp"])) {
     } catch (Exception $ex) {
         $isp = "Unknown ISP";
     }
-    $isp = "";
     echo json_encode(['processedString' => $ip . " - " . $isp, 'rawIspInfo' => $rawIspInfo]);
 } else {
     echo json_encode(['processedString' => $ip, 'rawIspInfo' => ""]);

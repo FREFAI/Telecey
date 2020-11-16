@@ -17,8 +17,8 @@ return [
     'plan' => "Plan",
     'device' => "Dispositifs",
     'blog' => "Blog",
-    'login_button' => "S'identifier",
-    'signup_button' => "S'inscrire",
+    'login_button' => "se connecter",
+    'signup_button' => "Adhérer maintenant",
     'personal_menu' => "Renseignements personnels",
     'logout' => "Se déconnecter"
 ];

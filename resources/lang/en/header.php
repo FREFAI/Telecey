@@ -17,8 +17,8 @@ return [
     'plan' => "Plan",
     'device' => "Devices",
     'blog' => "Blog",
-    'login_button' => "Login",
-    'signup_button' => "Sign Up",
+    'login_button' => "Sign in",
+    'signup_button' => "Join now",
     'personal_menu' => "Personal Information",
     'logout' => "Logout"
 ];

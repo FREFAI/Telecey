@@ -693,7 +693,14 @@
             },
         });
     });
-
+    $("input.datavolume").focusin(function(){
+        $(this).val("");
+    });
+    $("input.datavolume").focusout(function(){
+        if($(this).val() == ""){
+            $(this).val("unlimited");
+        }
+    });
     $(".reveiewing_form_service").on("submit", function (e) {
         e.preventDefault();
         if (!$(".reveiewing_form_service").valid()) {
@@ -727,6 +734,7 @@
         var sms = $("input.sms").val();
         var speed = $("input.speed").val();
         var plan_id = $("#plan_id").val();
+        
         if (pay_as_usage != 1) {
             
             if (local_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(local_min) != true) {
@@ -740,6 +748,11 @@
             }
             if (roaming_min != "Unlimited" && roaming_min != "unlimited" && $.isNumeric(roaming_min) != true) {
                 return;
+            }
+            if($(".pay_as_usage_class.data_volum").css('display') !== "none"){
+                if (datavolume != "Unlimited" && datavolume != "unlimited" && $.isNumeric(datavolume) != true) {
+                    return;
+                }
             }
         }
 

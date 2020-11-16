@@ -839,8 +839,16 @@ footer .footer-Content {
   margin-left: 10rem;
 }
 a#signup-btn {
-  background: #fff !important;
-  color: #000 !important;
+  background: #0077B5 !important;
+  color: #FFFFFF !important;
+  font: normal normal normal 20px 'Playfair Display';
+  font-size: 20px;
+}
+a.login-link{
+  background: #FFFFFF !important;
+  color: #0077B5 !important;
+  font: normal normal normal 20px 'Playfair Display';
+  font-size: 20px;
 }
 .learn-more{
   color:#68717B;

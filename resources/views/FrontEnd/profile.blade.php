@@ -73,6 +73,9 @@
 									<a data-user_id="{{Auth::guard('customer')->user()['id']}}" class="edit_address" href="javascript:void(0);"><i class="fa fa-edit"></i></a>
 								</div>
 							@endif
+							<div class="profile_address mt-2">
+								<p>{{Auth::guard('customer')->user()['email']}}</p>
+							</div>
 							<div class="reset_password_button mt-4">
 								<button data-toggle="modal" data-target="#change_password_model" class="btn btn-info rounded change_password_button">{{__('profile.changes_password')}}</button>
 							</div>

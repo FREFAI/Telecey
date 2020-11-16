@@ -65,6 +65,7 @@
         'Personal' => 'Personal',
         'Business' => 'Business',
         'STEP' => 'STEP',
+        'Choose Capacity'=>'Choose Capacity',
         'Postpaid' => 'Postpaid',
         'Prepaid' => 'Prepaid',
         'Pay as usage'=>'Pay as usage',
@@ -86,6 +87,7 @@
         "Please verify your email" => "Please verify your email",
         "to resend verification email" => "to resend verification email",
         "Click here" => "Click here",
-        "We have sent an email with a confirmation link to your email address. Please verify your email" => "We have sent an email with a confirmation link to your email address. Please verify your email"
+        "We have sent an email with a confirmation link to your email address. Please verify your email" => "We have sent an email with a confirmation link to your email address. Please verify your email",
+        'Speed' => 'Speed'
     ];
 ?>

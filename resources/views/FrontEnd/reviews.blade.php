@@ -314,7 +314,7 @@
                                     @if(count($devices) > 0)
                                     <option value="">{{ __('review.choos_device') }}</option>
                                     @foreach($devices as $device)
-                                    <option value="{{$device->id}}">{{$device->device_name}}</option>
+                                    <option @if($device->default === 1 ) selected="" @endif value="{{$device->id}}">{{$device->device_name}}</option>
                                     @endforeach @else
                                     <option value="">{{__('common.notfound')}}</option>
                                     @endif
@@ -641,9 +641,12 @@
                                 </div>
                             </div>
                             <div class="col-lg-4 pay_as_usage_class speed">
-                                <h5>Speed</h5>
-                                <div class="form-group">
-                                    <input type="text" class="form-control pay_as_usage_class speed mint_input" name="speed" placeholder="Speed"  id='speed' value="25" maxlength="20" />
+                                <h5>{{__('index.Speed')}}</h5>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control pay_as_usage_class speed mint_input" name="speed" placeholder="{{__('index.Speed')}}"  id='speed' value="25" maxlength="20" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text @if(\Session::get('locale') == 'fr') fr-font-10 @endif" id="basic-addon2">Mbps</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1377,7 +1380,7 @@
                     $(".technology").removeClass("d-none");
                 } else {
                     $('.pay_as_filter').hide()
-                    $('.message-speed-test').text('Please make sure that you are using you WiFi (Disconnect mobile data )')
+                    $('.message-speed-test').text('Please make sure that you are using your WiFi (Disconnect mobile data )')
                     $(".technology option:selected").removeAttr("selected");
                     $(".technology option:nth-child(1)").attr("selected");
                     $(".technology").addClass("d-none");

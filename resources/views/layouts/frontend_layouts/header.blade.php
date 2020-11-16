@@ -48,14 +48,6 @@
                                     </select>
                                 </form>
                             </li>
-                            <li class="nav-item">
-                                <div class="social">
-                                    <a target='_blank' href="https://www.facebook.com/telecey" class="link facebook"><span class="fa fa-facebook-square"></span></a>
-                                    <a target='_blank' href="https://twitter.com/telecey" class="link twitter"><span class="fa fa-twitter"></span></a>
-                                    <a target='_blank' href="https://www.linkedin.com/company/telecey" class="link google-plus"><span class="fa fa-linkedin-in"></span></a>
-                                    <a target='_blank' href="https://www.instagram.com/teleceye" class="link instagram"><span class="fa fa-instagram"></span></a>
-                                </div>
-                            </li>
                             @if(Auth::guard('customer')->user()['id'] != "")
                             <li class="dropdown top">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{URL::asset('frontend/assets/img/user_placeholder.png')}}" alt="" width="40"></a>
@@ -79,10 +71,16 @@
                             </li>
                             @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/signin')}}">{{__('header.login_button')}}</a>
+                                <a class="nav-link login-link" href="{{url('/signin')}}">{{__('header.login_button')}}</a>
                             </li>
                             <li class="nav-item">
-                                <a id="signup-btn" class="nav-link btn-signup" href="{{url('/signup')}}">{{__('header.signup_button')}}</a>
+                                <a id="signup-btn" class="nav-link btn-signup text-center" href="{{url('/signup')}}">{{__('header.signup_button')}}</a>
+                                <div class="social">
+                                    <a target='_blank' href="https://www.facebook.com/telecey" class="link facebook"><span class="fa fa-facebook-square"></span></a>
+                                    <a target='_blank' href="https://twitter.com/telecey" class="link twitter"><span class="fa fa-twitter"></span></a>
+                                    <a target='_blank' href="https://www.linkedin.com/company/telecey" class="link google-plus"><span class="fa fa-linkedin-in"></span></a>
+                                    <a target='_blank' href="https://www.instagram.com/teleceye" class="link instagram"><span class="fa fa-instagram"></span></a>
+                                </div>
                             </li>
                             @endif
                         </ul>

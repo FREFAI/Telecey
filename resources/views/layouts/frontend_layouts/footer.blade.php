@@ -56,6 +56,7 @@
                             <a target='_blanck' href="https://www.linkedin.com/company/telecey" class="link google-plus"><span class="fa fa-linkedin-in"></span></a>
                             <a target='_blanck' href="https://www.reddit.com/user/Telecey" class="link twitter"><span class="fa fa-reddit-alien"></span></a>
                             <a target='_blanck' href="https://www.pinterest.ca/telecey" class="link twitter"><span class="fa fa fa-pinterest"></span></a>
+                            <a target='_blanck' href="https://www.instagram.com/teleceye" class="link twitter"><span class="fa fa fa-instagram"></span></a>
                         </div>
                     </div>
                 </div>

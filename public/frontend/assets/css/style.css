@@ -694,49 +694,6 @@ nav.navbar.navbar-expand-lg.fixed-top.scrolling-navbar.top-nav-collapse{
 /* .top-nav-collapse ul.navbar-nav .nav-item a,.top-nav-collapse li.dropdown .dropdown-toggle{
   color: #fff !important;
 } */
-a.link.facebook:hover {
-  background: #355496;
-  display: inline-block;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    font-size: 20px;
-    padding: 8px 0 0 0;
-    margin-top: -1rem;
-    color: #fff !important;
-}
-a.link.twitter:hover {
-  background-color: #00ACEE;
-  display: inline-block;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  font-size: 20px;
-  padding: 8px 0 0 0;
-  margin-top: -1rem;
-  color: #fff !important;
-
-}
-a.link.google-plus:hover{
-  background-color: #0077b5;
-  display: inline-block;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    font-size: 20px;
-    padding: 8px 0 0 0;
-    margin-top: -1rem;
-}
-a.link.instagram:hover{
-  background-color: #0077b5;
-  display: inline-block;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    font-size: 20px;
-    padding: 8px 0 0 0;
-    margin-top: -1rem;
-}
 span.fa.fa-facebook-square {
   padding: 1px 8px 0 11px;
   color: #333;
@@ -757,14 +714,17 @@ span.fa.fa-instagram {
   color: #333;
   font-size: 20px;
 }
-.link .fa {
-  padding: 1px 8px 0 11px;
+a.link:hover span.fa {
+  color: #333;
+}
+a.link span.fa {
+  padding: 1px 5px 0 5px;
   color: #333;
   font-size: 20px;
 }
 .social {
   margin-top: 1.7rem;
-  width: 170px;
+  width: 125px;
 }
 ul.dropdown-menu.top.show{
   border: medium none;

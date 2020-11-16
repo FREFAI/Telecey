@@ -314,7 +314,7 @@
                                     @if(count($devices) > 0)
                                     <option value="">{{ __('review.choos_device') }}</option>
                                     @foreach($devices as $device)
-                                    <option @if($device->default === 1 ) selected="" @endif value="{{$device->id}}">{{$device->device_name}}</option>
+                                    <option @if($device->default == 1 ) selected="" @endif value="{{$device->id}}">{{$device->device_name}}</option>
                                     @endforeach @else
                                     <option value="">{{__('common.notfound')}}</option>
                                     @endif

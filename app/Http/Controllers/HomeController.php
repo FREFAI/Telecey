@@ -26,7 +26,11 @@ class HomeController extends Controller
     public function getCityByCountry(Request $request)
     {
         $perameters = $request->all();
-        $cities =  \DB::table('cities')->orderBy('name','DESC')->where('country_code',$perameters['country_code'])->where('name', 'LIKE', '%'. $perameters['search']. '%')->select('name','id')->groupBy('name')->get();
+        if($perameters['search'] != ''){
+            $cities =  \DB::table('cities')->orderBy('name','ASC')->where('country_code',$perameters['country_code'])->where('name', 'LIKE', $perameters['search'].'%')->select('name','id')->groupBy('name')->get();
+        }else{
+            $cities = [];
+        }
         if(count($cities)>0){
             $message = array('success'=>true,'data'=>$cities);
             return json_encode($message);

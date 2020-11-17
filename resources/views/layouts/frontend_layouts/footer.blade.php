@@ -14,8 +14,8 @@
                     <div class="widget">
                         <ul class="menu">
                             <li><a href="{{url('/')}}">{{__('footer.home')}}</a></li>
-                            <li><a href="{{\request()->path() != 'en' ? '/' : '' }}#how-does-it-work">{{__('footer.how_dose')}}</a></li>
-                            <li><a href="{{\request()->path() != 'en' ? '/' : '' }}#our-information">{{__('footer.how_do')}}</a></li>
+                            <li><a href="{{\request()->path() != 'en' || \request()->path() != 'fr' ? url('/') : '' }}#how-does-it-work">{{__('footer.how_dose')}}</a></li>
+                            <li><a href="{{\request()->path() != 'en' || \request()->path() != 'fr' ? url('/') : '' }}#our-information">{{__('footer.how_do')}}</a></li>
                         </ul>
                     </div>
                 </div>

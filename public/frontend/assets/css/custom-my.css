@@ -858,9 +858,14 @@ a.login-link{
 .work-section {
   min-height: 560px;
 }
-.suggmes, 
+.suggmes{
+  color: #f00;
+  float: left;
+  text-transform: capitalize;
+  font-size: 12px;
+}
 .suggcity{
-  color: red;
+  color: #2e75b5;
   float: left;
   text-transform: capitalize;
   font-size: 12px;

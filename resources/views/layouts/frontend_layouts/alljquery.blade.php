@@ -592,21 +592,31 @@
                         data["formatted_address"] = results[0].formatted_address;
                         if (countryExist == country && cities.indexOf(city) != -1) {
                             data["status"] = true;
+                            data["cities"] = cities;
                         } else {
                             data["status"] = false;
+                            data["cities"] = cities;
                         }
                         resolve(data);
                     } else {
                         var data = [];
                         data["status"] = false;
+                        data["cities"] = cities;
                         resolve(data);
                     }
                 },
             });
         });
     }
+    $(document).on('click','.suggcity',function(){
+        $(this).closest('.form-group').find('input').val($(this).attr('data-city'))
+        $('.suggmes').remove()
+        $('.suggcity').remove()
+    })
     $("#firstform").on("submit", async function (e) {
         e.preventDefault();
+        $('.suggmes').remove()
+        $('.suggcity').remove()
         if (countrySelection === false) {
             $(".country_list").css("display", "none");
             $("#country").addClass("error");
@@ -626,6 +636,13 @@
             return false;
         }
         let postal = await valid_postal_code_with_google_api($("#firstform #postal_code").val(), $("#firstform #country").val(), $("#firstform .city_input").val());
+        if(!postal["status"]){
+            if(postal['cities'].length > 0){
+                var suggestedCities = '<span class="suggmes">City should be one from the following :- </span>';
+                postal['cities'].forEach(city => suggestedCities += '<span class="suggcity" data-city="'+city+'">&nbsp;'+ city + ',</span>'); 
+                $("#firstform .city_input").after(suggestedCities)
+            }
+        }
         if($("#firstform #postal_code").val().length == 6){
             if(!postal["status"]){
                 postal = await valid_postal_code_with_google_api($("#firstform #postal_code").val().substring(0, 3), $("#firstform #country").val(), $("#firstform .city_input").val())
@@ -1282,6 +1299,8 @@
         if(!$("#change_address_form").valid()){
             return false;
         }
+        $('.suggmes').remove()
+        $('.suggcity').remove()
         if (countrySelection === false) {
             $(".country_list").css("display", "none");
             $("#country").addClass("error");
@@ -1302,6 +1321,14 @@
             return false;
         }
         let postal = await valid_postal_code_with_google_api($("#postal_code").val(), $("#country").val(), $(".city_input").val());
+        if(!postal["status"]){
+            if(postal['cities'].length > 0){
+                var suggestedCities = '<span class="suggmes">City should be one from the following :- </span>';
+                postal['cities'].forEach(city => suggestedCities += '<span class="suggcity" data-city="'+city+'">&nbsp;'+ city + ',</span>'); 
+                $(".city_input").after(suggestedCities)
+            }
+        }
+        
         if($("#postal_code").val().length == 6){
             if(!postal["status"]){
                 postal = await valid_postal_code_with_google_api($("#postal_code").val().substring(0, 3), $("#country").val(), $(".city_input").val());

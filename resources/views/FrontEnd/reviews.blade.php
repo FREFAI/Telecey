@@ -1282,6 +1282,13 @@
                     return false;
                 } else {
                     let postal = await valid_postal_code_with_google_api($("#address_form #user_postal_code").val(), $("#address_form #user_country").val(), $("#address_form .city_input").val());
+                    if(!postal["status"]){
+                        if(postal['cities'].length > 0){
+                            var suggestedCities = '<span class="suggmes">City should be one from the following :- </span>';
+                            postal['cities'].forEach(city => suggestedCities += '<span class="suggcity" data-city="'+city+'">&nbsp;'+ city + ',</span>'); 
+                            $("#address_form .city_input").after(suggestedCities)
+                        }
+                    }
                     if($("#address_form #user_postal_code").val().length == 6){
                         if(!postal["status"]){
                             postal = await valid_postal_code_with_google_api($("#address_form #user_postal_code").val().substring(0, 3), $("#address_form #user_country").val(), $("#address_form .city_input").val());

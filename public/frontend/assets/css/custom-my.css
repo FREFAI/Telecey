@@ -858,6 +858,16 @@ a.login-link{
 .work-section {
   min-height: 560px;
 }
+.suggmes, 
+.suggcity{
+  color: red;
+  float: left;
+  text-transform: capitalize;
+  font-size: 12px;
+}
+.suggcity{
+  cursor: pointer;
+}
 /* .last-widget .widget {
   margin-top: 13px;
 } */

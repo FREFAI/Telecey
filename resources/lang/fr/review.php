@@ -13,7 +13,7 @@ return [
     'phone' => "Numéro de contact",
     'submit_btn' => "Soumettre",
     'footer_text' => "Les transporteurs les mieux notés dans votre région",
-    "step_2_title" => "Qu'en est-il du partage de votre service avec d'autres?",
+    "step_2_title" => "Qu'en est-il du partage de votre expérience avec les autres?",
     'provider_name' => "Nom du fournisseur",
     'contract' => "Type de contrat",
     'payment' => "Type de paiement",

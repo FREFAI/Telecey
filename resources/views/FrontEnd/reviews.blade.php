@@ -619,7 +619,7 @@
                                 <h5>{{ __('review.loc_min') }}</h5>
 
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control local_min mint_input" name="local_min" placeholder="{{__('index.Local Minutes')}}" required="required" maxlength="20" value="100" />
+                                    <input type="text" class="form-control local_min mint_input planfield" name="local_min" placeholder="{{__('index.Local Minutes')}}" maxlength="20" data-default="Unlimited" value="Unlimited" />
                                     <div class="input-group-append">
                                         <span class="input-group-text @if(\Session::get('locale') == 'fr') fr-font-10 @endif" id="basic-addon2">Minute</span>
                                     </div>
@@ -628,7 +628,7 @@
                             <div class="col-lg-4 pay_as_usage_class data_volum">
                                 <h5>{{ __('review.datavolume') }}</h5>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control datavolume" name="datavolume" placeholder="{{ __('review.datavolume') }}" required="required" maxlength="20" value="unlimited" />
+                                    <input type="text" class="form-control datavolume planfield" data-default="Unlimited" name="datavolume" placeholder="{{ __('review.datavolume') }}" required="required" maxlength="20" value="Unlimited" />
                                     <div class="input-group-append">
                                         <span class="input-group-text @if(\Session::get('locale') == 'fr') fr-font-10 @endif" id="basic-addon2">{{ __('review.datavolume') }}</span>
                                     </div>
@@ -637,13 +637,13 @@
                             <div class="col-lg-4 pay_as_usage_class sms">
                                 <h5>SMS</h5>
                                 <div class="form-group">
-                                    <input type="text" class="form-control pay_as_usage_class sms mint_input" name="sms" placeholder="SMS" required="required" value="Unlimited" maxlength="20" />
+                                    <input type="text" class="form-control pay_as_usage_class sms mint_input planfield" name="sms" placeholder="SMS" required="required" value="Unlimited" data-default="Unlimited" maxlength="20" />
                                 </div>
                             </div>
                             <div class="col-lg-4 pay_as_usage_class speed">
                                 <h5>{{__('index.Speed')}}</h5>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control pay_as_usage_class speed mint_input" name="speed" placeholder="{{__('index.Speed')}}"  id='speed' value="25" maxlength="20" />
+                                    <input type="number" class="form-control pay_as_usage_class speed mint_input planfield" name="speed" placeholder="{{__('index.Speed')}}"  id='speed' value="25" data-default="25" maxlength="20" />
                                     <div class="input-group-append">
                                         <span class="input-group-text @if(\Session::get('locale') == 'fr') fr-font-10 @endif" id="basic-addon2">Mbps</span>
                                     </div>
@@ -677,7 +677,7 @@
                             <div class="col-lg-6 upfront_price">
                                 <h5>{{ __('review.upfront') }}</h5>
                                 <div class="form-group mb-1">
-                                    <input type="number" class="form-control upfront_price" name="upfront_price" placeholder="{{ __('review.upfront') }}" maxlength="20" value="0" />
+                                    <input type="number" data-default="0" class="form-control upfront_price planfield" name="upfront_price" placeholder="{{ __('review.upfront') }}" maxlength="20" value="0" />
                                     <div class="text-right text-10"><small>{{ __('review.include') }}</small></div>
                                 </div>
                             </div>

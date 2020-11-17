@@ -38,7 +38,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('/blogs-list')}}">{{__('header.blog')}}</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item mr-3">
                                 <form action="{{url('/setLocal')}}" method="post" class="mt-4">
                                 @csrf
                                 <input type="hidden" name="current_url" value="{{\Request::fullUrl()}}">
@@ -49,7 +49,7 @@
                                 </form>
                             </li>
                             @if(Auth::guard('customer')->user()['id'] != "")
-                            <li class="dropdown top">
+                            <li class="dropdown top text-right ml-5">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{URL::asset('frontend/assets/img/user_placeholder.png')}}" alt="" width="40"></a>
                                 <b class="caret"></b>
                                 <ul class="dropdown-menu top">
@@ -68,13 +68,19 @@
                                         </div>
                                     </li>
                                 </ul>
+                                <div class="social">
+                                    <a target='_blank' href="https://www.facebook.com/telecey" class="link facebook"><span class="fa fa-facebook-square"></span></a>
+                                    <a target='_blank' href="https://twitter.com/telecey" class="link twitter"><span class="fa fa-twitter"></span></a>
+                                    <a target='_blank' href="https://www.linkedin.com/company/telecey" class="link google-plus"><span class="fa fa-linkedin-in"></span></a>
+                                    <a target='_blank' href="https://www.instagram.com/teleceye" class="link instagram"><span class="fa fa-instagram"></span></a>
+                                </div>
                             </li>
                             @else
-                            <li class="nav-item">
-                                <a class="nav-link login-link" href="{{url('/signin')}}">{{__('header.login_button')}}</a>
+                            <li class="nav-item ml-5">
+                                <a class="nav-link login-link" href="{{url('/signup')}}">{{__('header.signup_button')}}</a>
                             </li>
                             <li class="nav-item">
-                                <a id="signup-btn" class="nav-link btn-signup text-center" href="{{url('/signup')}}">{{__('header.signup_button')}}</a>
+                                <a id="signup-btn" class="nav-link btn-signup text-center" href="{{url('/signin')}}">{{__('header.login_button')}}</a>
                                 <div class="social">
                                     <a target='_blank' href="https://www.facebook.com/telecey" class="link facebook"><span class="fa fa-facebook-square"></span></a>
                                     <a target='_blank' href="https://twitter.com/telecey" class="link twitter"><span class="fa fa-twitter"></span></a>

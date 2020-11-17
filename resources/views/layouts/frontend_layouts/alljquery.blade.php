@@ -351,12 +351,12 @@
         },
     });
     $(".rating").rate();
-    $(".mint_input").focusout(function () {
-        var mintval = $(this).val();
-        if (mintval != "Unlimited" && mintval != "unlimited" && $.isNumeric(mintval) != true) {
-            $(this).val("");
-        }
-    });
+    // $(".mint_input").focusout(function () {
+    //     var mintval = $(this).val();
+    //     if (mintval != "Unlimited" && mintval != "unlimited" && $.isNumeric(mintval) != true) {
+    //         $(this).val("");
+    //     }
+    // });
     $(".rating").on("change", function (ev, data) {
         var rateTotal = 0;
         var count = 0;
@@ -693,12 +693,12 @@
             },
         });
     });
-    $("input.datavolume").focusin(function(){
+    $("input.planfield").focusin(function(){
         $(this).val("");
     });
-    $("input.datavolume").focusout(function(){
+    $("input.planfield").focusout(function(){
         if($(this).val() == ""){
-            $(this).val("unlimited");
+            $(this).val($(this).attr('data-default'));
         }
     });
     $(".reveiewing_form_service").on("submit", function (e) {
@@ -736,22 +736,54 @@
         var plan_id = $("#plan_id").val();
         
         if (pay_as_usage != 1) {
-            
-            if (local_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(local_min) != true) {
-                return;
+            if($(".pay_as_usage_class.local_min").css('display') !== "none"){
+                if (local_min != "Unlimited" && local_min != "unlimited" && $.isNumeric(local_min) != true) {
+                    $("input.form-control.local_min").css({'border':'1px solid #f00'})
+                    $("input.form-control.local_min + .input-group-append").after('<label id="local_min-error" class="error" for="local_min">{{__("index.Please enter a valid value")}}</label>');
+                    return;
+                }else{
+                    $("input.form-control.local_min").css({'border':'1px solid #2e75b5'})
+                    $('#local_min-error').remove()
+                }
             }
-            if (long_distance_min != "Unlimited" && long_distance_min != "unlimited" && $.isNumeric(long_distance_min) != true) {
-                return;
+            if($(".long_distance_min").css('display') !== "none"){
+                if (long_distance_min != "Unlimited" && long_distance_min != "unlimited" && $.isNumeric(long_distance_min) != true) {
+                    $("input.form-control.long_distance_min").css({'border':'1px solid #f00'})
+                    $("input.form-control.long_distance_min").after('<label id="long_distance_min-error" class="error" for="long_distance_min">{{__("index.Please enter a valid value")}}</label>');
+                    return;
+                }else{
+                    $("input.form-control.long_distance_min").css({'border':'1px solid #2e75b5'})
+                    $('#long_distance_min-error').remove()
+                }
             }
-            if (international_min != "Unlimited" && international_min != "unlimited" && $.isNumeric(international_min) != true) {
-                return;
+            if($(".international_min").css('display') !== "none"){
+                if (international_min != "Unlimited" && international_min != "unlimited" && $.isNumeric(international_min) != true) {
+                    $("input.form-control.international_min").css({'border':'1px solid #f00'})
+                    $("input.form-control.international_min").after('<label id="international_min-error" class="error" for="international_min">{{__("index.Please enter a valid value")}}</label>');
+                    return;
+                }else{
+                    $("input.form-control.international_min").css({'border':'1px solid #2e75b5'})
+                    $('#international_min-error').remove()
+                }
             }
-            if (roaming_min != "Unlimited" && roaming_min != "unlimited" && $.isNumeric(roaming_min) != true) {
-                return;
+            if($(".roaming_min").css('display') !== "none"){
+                if (roaming_min != "Unlimited" && roaming_min != "unlimited" && $.isNumeric(roaming_min) != true) {
+                    $("input.form-control.roaming_min").css({'border':'1px solid #f00'})
+                    $("input.form-control.roaming_min").after('<label id="roaming_min-error" class="error" for="roaming_min">{{__("index.Please enter a valid value")}}</label>');
+                    return;
+                }else{
+                    $("input.form-control.roaming_min").css({'border':'1px solid #2e75b5'})
+                    $('#roaming_min-error').remove()
+                }
             }
             if($(".pay_as_usage_class.data_volum").css('display') !== "none"){
                 if (datavolume != "Unlimited" && datavolume != "unlimited" && $.isNumeric(datavolume) != true) {
+                    $("input.form-control.datavolume").css({'border':'1px solid #f00'})
+                    $("input.form-control.datavolume + .input-group-append").after('<label id="datavolume-error" class="error" for="datavolume">{{__("index.Please enter a valid value")}}</label>');
                     return;
+                }else{
+                    $("input.form-control.datavolume").css({'border':'1px solid #2e75b5'})
+                    $('#datavolume-error').remove()
                 }
             }
         }

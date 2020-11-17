@@ -843,6 +843,8 @@ a#signup-btn {
   color: #FFFFFF !important;
   font: normal normal normal 20px 'Playfair Display';
   font-size: 20px;
+  padding: 5px;
+  border-radius: 8px;
 }
 a.login-link{
   background: #FFFFFF !important;

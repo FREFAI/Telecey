@@ -93,6 +93,7 @@
         "to resend verification email" => "pour renvoyer l'e-mail de vérification",
         "Click here" => "Cliquez ici",
         "We have sent an email with a confirmation link to your email address. Please verify your email" => "Nous avons envoyé un e-mail avec un lien de confirmation à votre adresse e-mail. Veuillez vérifier votre email",
-        'Speed'=>'La vitesse'
+        'Speed'=>'La vitesse',
+        'Please enter a valid value'=>'Veuillez entrer une valeur valide'
     ];
 ?>

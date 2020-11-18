@@ -378,69 +378,157 @@
     $(".rating_disable").rate({
         readonly: true,
     });
-    $(".country_div input").keyup(function () {
-        countrySelection = false;
-        var search = $(this).val();
-        if (window.location.protocol == "http:") {
-            resuesturl = "{{url('/getCountry')}}";
-        } else if (window.location.protocol == "https:") {
-            resuesturl = "{{secure_url('/getCountry')}}";
+    $(".country_div input").keyup(function (e) {
+        if (e.keyCode != 38 && e.keyCode != 40 && e.keyCode != 13) { 
+            countrySelection = false;
+            var search = $(this).val();
+            if (window.location.protocol == "http:") {
+                resuesturl = "{{url('/getCountry')}}";
+            } else if (window.location.protocol == "https:") {
+                resuesturl = "{{secure_url('/getCountry')}}";
+            }
+            $.ajax({
+                type: "post",
+                url: resuesturl,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                dataType: "json",
+                data: {
+                    search: search,
+                },
+                success: function (data) {
+                    if (data.success) {
+                        $(".country_list").css("display", "block");
+                        $(".country-autocomplete").html("");
+                        var resp = $.map(data.data, function (obj) {
+                            $(".country-autocomplete").append('<li><a href="javascript:void(0);" data-name="' + obj.name + '" data-code="' + obj.code + '">' + obj.name + "</a></li>");
+                        });
+                        $(".country-autocomplete li:first-child").addClass('selected')
+                    }
+                },
+            });
         }
-        $.ajax({
-            type: "post",
-            url: resuesturl,
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-            dataType: "json",
-            data: {
-                search: search,
-            },
-            success: function (data) {
-                if (data.success) {
-                    $(".country_list").css("display", "block");
-                    $(".country-autocomplete").html("");
-                    var resp = $.map(data.data, function (obj) {
-                        $(".country-autocomplete").append('<li><a href="javascript:void(0);" data-name="' + obj.name + '" data-code="' + obj.code + '">' + obj.name + "</a></li>");
-                    });
-                }
-            },
-        });
     });
-    $(".city_div input").keyup(function () {
-        citySelection = false;
+    $(".city_div input").keyup(function (e) {
         var country_code = $(this).attr("data-country");
-        var search = $(this).val();
-        if (window.location.protocol == "http:") {
-            resuesturl = "{{url('/getCityByCountry')}}";
-        } else if (window.location.protocol == "https:") {
-            resuesturl = "{{secure_url('/getCityByCountry')}}";
+        if (e.keyCode != 38 && e.keyCode != 40 && e.keyCode != 13) { 
+            citySelection = false;
+            var search = $(this).val();
+            if (window.location.protocol == "http:") {
+                resuesturl = "{{url('/getCityByCountry')}}";
+            } else if (window.location.protocol == "https:") {
+                resuesturl = "{{secure_url('/getCityByCountry')}}";
+            }
+            $.ajax({
+                type: "post",
+                url: resuesturl,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                dataType: "json",
+                data: {
+                    search: search,
+                    country_code: country_code,
+                },
+                success: function (data) {
+                    $(".city-autocomplete").html("");
+                    $(".city_list").css("display", "none");
+                    if (data.success) {
+                        $(".city_list").css("display", "block");
+                        $(".city-autocomplete").css("display", "block");
+                        var resp = $.map(data.data, function (obj) {
+                            $(".city-autocomplete").append('<li><a href="javascript:void(0);" data-name="' + obj.name + '">' + obj.name + "</a></li>");
+                        });
+                        $(".city-autocomplete li:first-child").addClass('selected')
+                    }
+                },
+            });
         }
-        $.ajax({
-            type: "post",
-            url: resuesturl,
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-            dataType: "json",
-            data: {
-                search: search,
-                country_code: country_code,
-            },
-            success: function (data) {
-                $(".city-autocomplete").html("");
-                $(".city_list").css("display", "none");
-                if (data.success) {
-                    $(".city_list").css("display", "block");
-                    $(".city-autocomplete").css("display", "block");
-                    var resp = $.map(data.data, function (obj) {
-                        $(".city-autocomplete").append('<li><a href="javascript:void(0);" data-name="' + obj.name + '">' + obj.name + "</a></li>");
-                    });
-                }
-            },
-        });
     });
-
+    $(".country_div input").keydown(function(e) {
+        if (e.keyCode == 13) { // enter
+            if ($(".country-autocomplete").is(":visible")) {
+                countrySelection = true;
+                $("#country").val($(".country-autocomplete li.selected a").attr("data-name"));
+                $("#city").attr("data-country", $(".country-autocomplete li.selected a").attr("data-code"));
+                $("#country_code").val($(".country-autocomplete li.selected a").attr("data-code"));
+                $(".country_list").css("display", "none");
+                $("#user_country").val($(".country-autocomplete li.selected a").attr("data-name"));
+                $("#user_city").attr("data-country", $(".country-autocomplete li.selected a").attr("data-code"));
+                $(".country_list").css("display", "none");
+            }
+            return false;
+        }
+        if (e.keyCode == 38) { // up
+            var selected = $(".country-autocomplete .selected");
+            $(".country-autocomplete li").removeClass("selected");
+            if(selected){
+                if (selected.prev().length == 0) {
+                    selected.siblings().last().addClass("selected");
+                } else {
+                    selected.prev().addClass("selected");
+                }
+            }else{
+                $(".country-autocomplete li:last-child").addClass('selected')
+            }
+        }
+        if (e.keyCode == 40) { // down
+            var selected = $(".country-autocomplete .selected");
+            $(".country-autocomplete li").removeClass("selected");
+            if(selected){
+                if (selected.next().length == 0) {
+                    selected.siblings().first().addClass("selected");
+                } else {
+                    selected.next().addClass("selected");
+                }
+            }else{
+                $(".country-autocomplete li:first-child").addClass('selected')
+            }
+        }
+    });
+    $(".city_div input").keydown(function(e) {
+        if (e.keyCode == 13) { // enter
+            if ($(".city-autocomplete").is(":visible")) {
+                citySelection = true;
+                $("#city").val($(".city-autocomplete li.selected a").attr("data-name"));
+                $("#city").attr("data-city", $(".city-autocomplete li.selected a").attr("data-code"));
+                $("#city_code").val($(".city-autocomplete li.selected a").attr("data-code"));
+                $(".city_list").css("display", "none");
+                citySelection = true;
+                $("#user_city").val($(".city-autocomplete li.selected a").attr("data-name"));
+                $("#user_city").attr("data-city", $(".city-autocomplete li.selected a").attr("data-code"));
+                $(".city_list").css("display", "none");
+            }
+            return false;
+        }
+        if (e.keyCode == 38) { // up
+            var selected = $(".city-autocomplete .selected");
+            $(".city-autocomplete li").removeClass("selected");
+            if(selected){
+                if (selected.prev().length == 0) {
+                    selected.siblings().last().addClass("selected");
+                } else {
+                    selected.prev().addClass("selected");
+                }
+            }else{
+                $(".city-autocomplete li:last-child").addClass('selected')
+            }
+        }
+        if (e.keyCode == 40) { // down
+            var selected = $(".city-autocomplete .selected");
+            $(".city-autocomplete li").removeClass("selected");
+            if(selected){
+                if (selected.next().length == 0) {
+                    selected.siblings().first().addClass("selected");
+                } else {
+                    selected.next().addClass("selected");
+                }
+            }else{
+                $(".city-autocomplete li:first-child").addClass('selected')
+            }
+        }
+    });
     var sections = $("section");
     var nav = $("nav");
     var nav_height = nav.outerHeight();

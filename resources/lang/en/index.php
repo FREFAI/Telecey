@@ -90,6 +90,7 @@
         "We have sent an email with a confirmation link to your email address. Please verify your email" => "We have sent an email with a confirmation link to your email address. Please verify your email",
         'Speed' => 'Speed',
         'Local Minutes' => 'Local Minutes',
-        'Please enter a valid value'=>'Please enter a valid value'
+        'Please enter a valid value'=>'Please enter a valid value',
+        'Write comment here' =>  'Write comment here'
     ];
 ?>

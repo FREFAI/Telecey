@@ -6,6 +6,7 @@
         .overage_price {
             background-color: #ffffff;
         }
+        
         #overage_price_model {
             z-index: 999999;
             background-color: #00000052;

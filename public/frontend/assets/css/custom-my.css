@@ -843,7 +843,7 @@ a#signup-btn {
   color: #FFFFFF !important;
   font: normal normal normal 20px 'Playfair Display';
   font-size: 20px;
-  padding: 5px;
+  padding: 5px 5px 7px 5px;
   border-radius: 8px;
 }
 a.login-link{
@@ -872,6 +872,9 @@ a.login-link{
 }
 .suggcity{
   cursor: pointer;
+}
+ul li.selected{
+  background-color:#e2e2e2d9;
 }
 /* .last-widget .widget {
   margin-top: 13px;

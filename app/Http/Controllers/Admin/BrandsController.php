@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Admin\Brands;
+use App\Models\Admin\Devices;
 use App\Models\Admin\BrandModels;
 use App\Models\Admin\DeviceColor;
 use App\Helpers\CreateLogs;
@@ -17,13 +18,14 @@ class BrandsController extends Controller
 
     public function brandsList(Request $request)
     {
-    	$brands = Brands::orderBy('id','DESC')->paginate(10);
+        $brands = Brands::with(['device'])->orderBy('id','DESC')->paginate(10);
     	return view('Admin.Brands.brand-list',['brands'=>$brands]);
     }
     public function addBrandForm(Request $request)
     {
         $colors = DeviceColor::orderBy('id','DESC')->get();
-    	return view('Admin.Brands.add-brand',['colors'=>$colors]);
+        $devices = Devices::orderBy('id','DESC')->get();
+    	return view('Admin.Brands.add-brand',['colors'=>$colors,'devices'=>$devices]);
     }
     public function addBrand(Request $request)
     {
@@ -31,7 +33,8 @@ class BrandsController extends Controller
     	$validation = Validator::make($perameters, [
     	    'brand_name' => 'required',
             'model_name' => 'required',
-            'color' => 'required'
+            'color' => 'required',
+            'device_type'=>'required'
     	]);
     	if ( $validation->fails() ) {
     	    return redirect()->back()->withInput()->with('error',$validation->messages()->first());
@@ -52,7 +55,8 @@ class BrandsController extends Controller
     	$brandId = base64_decode($brandId);
         $brand = Brands::find($brandId);
         $colors = DeviceColor::get();
-    	return view('Admin.Brands.edit-brand',['brand'=>$brand,'colors'=>$colors]);
+        $devices = Devices::orderBy('id','DESC')->get();
+    	return view('Admin.Brands.edit-brand',['brand'=>$brand,'colors'=>$colors,'devices'=>$devices]);
     }
     public function editBrand(Request $request)
     {
@@ -62,7 +66,8 @@ class BrandsController extends Controller
     	    'id' => 'required',
     	    'brand_name' => 'required',
             'model_name' => 'required',
-            'color' => 'required'
+            'color' => 'required',
+            'device_type'=>'required'
     	]);
     	if ( $validation->fails() ) {
     	    return redirect()->back()->withInput()->with('error',$validation->messages()->first());
@@ -70,6 +75,7 @@ class BrandsController extends Controller
     	    $editDevice = Brands::find($perameters['id']);
     	    $editDevice->brand_name = $perameters['brand_name'];
             $editDevice->model_name = $perameters['model_name'];
+            $editDevice->device_type = $perameters['device_type'];
             $editDevice->colors_id = implode(',',$perameters['color']);
     	    if($editDevice->save()){
     	        return redirect('admin/brands-list')->withInput()->with('success','Brand and model updated successfully.');

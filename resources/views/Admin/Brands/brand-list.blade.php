@@ -38,6 +38,7 @@
                                <th scope="col" style="width: 10px;">Sr.No</th>
                                <th scope="col">Brands name</th>
                                <th scope="col">Status</th>
+                               <th scope="col">Type</th>
                                <th scope="col">Default</th>
                                <th scope="col" style="width: 10px;" class="text-right">Action</th>
                              </tr>
@@ -65,6 +66,11 @@
                                        <span class="d-none approved_ms"><i class="bg-success"></i> Approved</span>
                                        @endif
                                     </span>
+                                  </td>
+                                  <td>
+                                  @if($brand->device)
+                                    {{$brand->device->device_name}}
+                                  @endif
                                   </td>
                                   <td>
                                     <div class="custom-control custom-checkbox mb-3">

@@ -48,19 +48,34 @@
                         </div>
                         <div class="col-md-12">
                           <div class="form-group">
-                              <select class="form-control select2color" name="color[]" multiple >
-                                @php
-                                  $colors_ids = explode(',',$brand->colors_id)
-                                @endphp
-                                @if($colors)
-                                    @foreach($colors as $color)
-                                      <option value="{{$color->id}}" {{in_array($color->id,$colors_ids) ? 'selected' : '' }}>{{$color->color_name}}</option>
-                                    @endforeach
+                            <select class="form-control select2color" name="color[]" multiple >
+                              @php
+                                $colors_ids = explode(',',$brand->colors_id)
+                              @endphp
+                              @if($colors)
+                                  @foreach($colors as $color)
+                                    <option value="{{$color->id}}" {{in_array($color->id,$colors_ids) ? 'selected' : '' }}>{{$color->color_name}}</option>
+                                  @endforeach
+                              @else
+                                <option value="">Colors not found</option>
+                              @endif
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                              <select class="form-control" name="device_type" required="">
+                                <option value=''>Select device type</option>
+                                @if($devices)
+                                  @foreach($devices as $device)
+                                    <option @if($device->id == $brand->device_type) selected @endif value="{{$device->id}}">{{$device->device_name}}</option>
+                                  @endforeach
                                 @else
-                                  <option value="">Colors not found</option>
+                                  <option value="">Device type not found</option>
                                 @endif
                               </select>
                           </div>
+                        </div>
                         <div class="col-md-12">
                           <div class="form-group">
                             <button class="btn btn-primary" type="submit">Update</button>

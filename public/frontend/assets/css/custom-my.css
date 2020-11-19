@@ -864,7 +864,19 @@ a.login-link{
   text-transform: capitalize;
   font-size: 12px;
 }
+.suggmescountry{
+  color: #f00;
+  float: left;
+  text-transform: capitalize;
+  font-size: 12px;
+}
 .suggcity{
+  color: #2e75b5;
+  float: left;
+  text-transform: capitalize;
+  font-size: 12px;
+}
+.suggcountry{
   color: #2e75b5;
   float: left;
   text-transform: capitalize;

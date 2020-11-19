@@ -668,9 +668,7 @@
                         for (var ac = 0; ac < results[0].address_components.length; ac++) {
                             var component = results[0].address_components[ac];
                             if (component.types.indexOf("country") != -1) {
-                                if (country == component.long_name) {
-                                    countryExist = component.long_name;
-                                }
+                                countryExist = component.long_name;
                             } else if (component.types.indexOf("postal_code") != -1) {
                                 postalCode = component.long_name;
                             } else {
@@ -681,15 +679,18 @@
                         if (countryExist == country && cities.indexOf(city) != -1) {
                             data["status"] = true;
                             data["cities"] = cities;
+                            data["country"] = countryExist;
                         } else {
                             data["status"] = false;
                             data["cities"] = cities;
+                            data["country"] = countryExist;
                         }
                         resolve(data);
                     } else {
                         var data = [];
                         data["status"] = false;
                         data["cities"] = cities;
+                        data["country"] = countryExist;
                         resolve(data);
                     }
                 },
@@ -700,6 +701,11 @@
         $(this).closest('.form-group').find('input').val($(this).attr('data-city'))
         $('.suggmes').remove()
         $('.suggcity').remove()
+    })
+    $(document).on('click','.suggcountry',function(){
+        $(this).closest('.form-group').find('input').val($(this).attr('data-city'))
+        $('.suggmescountry').remove()
+        $('.suggcountry').remove()
     })
     $("#firstform").on("submit", async function (e) {
         e.preventDefault();
@@ -729,6 +735,10 @@
                 var suggestedCities = '<span class="suggmes">City should be one from the following :- </span>';
                 postal['cities'].forEach(city => suggestedCities += '<span class="suggcity" data-city="'+city+'">&nbsp;'+ city + ',</span>'); 
                 $("#firstform .city_input").after(suggestedCities)
+            }
+            if(postal['country'] != $("#firstform #country").val()){
+                var suggestedCities = '<span class="suggmescountry">Country should be one from the following :- </span><span class="suggcountry" data-city="'+postal['country']+'">'+postal['country']+'</span>';
+                $("#firstform #country").after(suggestedCities)
             }
         }
         if($("#firstform #postal_code").val().length == 6){
@@ -1171,6 +1181,7 @@
         var longitude = $("#long").val();
         var brand_name = $(".brand_name.active").val();
         var model_name = $(".model_name.active").val();
+        var device_type = $("#device_type.active").val();
         var supplier_name = $(".supplier_name.active").val();
         var brand_status = $(".brand_status").val();
         var supplier_status = $(".supplier_status").val();
@@ -1206,6 +1217,7 @@
                         latitude: latitude,
                         longitude: longitude,
                         brand_id: brand_name,
+                        device_type:device_type,
                         model_name: model_name,
                         supplier_id: supplier_name,
                         brand_status: brand_status,
@@ -1414,6 +1426,10 @@
                 var suggestedCities = '<span class="suggmes">City should be one from the following :- </span>';
                 postal['cities'].forEach(city => suggestedCities += '<span class="suggcity" data-city="'+city+'">&nbsp;'+ city + ',</span>'); 
                 $(".city_input").after(suggestedCities)
+            }
+            if(postal['country'] != $("#country").val()){
+                var suggestedCities = '<span class="suggmescountry">Country should be one from the following :- </span><span class="suggcountry" data-city="'+postal['country']+'">'+postal['country']+'</span>';
+                $("#country").after(suggestedCities)
             }
         }
         

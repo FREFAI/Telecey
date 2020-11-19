@@ -42,6 +42,7 @@ class DeviceReviewController extends Controller
                 $brandData = [
                     'brand_name' => $perameter['brand_id'],
                     'model_name' => $perameter['model_name'],
+                    'device_type' => $perameter['device_type'],
                     'status' => 0,
                     'user_id' => $user_id
                 ];

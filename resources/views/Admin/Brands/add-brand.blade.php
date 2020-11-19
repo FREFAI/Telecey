@@ -59,6 +59,20 @@
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
+                            <select class="form-control" name="device_type" required="">
+                              <option value=''>Select device type</option>
+                              @if($devices)
+                                @foreach($devices as $device)
+                                  <option value="{{$device->id}}">{{$device->device_name}}</option>
+                                @endforeach
+                              @else
+                                <option value="">Device type not found</option>
+                              @endif
+                            </select>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
                           <button class="btn btn-primary" type="submit">Save</button>
                         </div>
                       </div>

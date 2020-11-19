@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Admin\Brands;
 
 class HomeController extends Controller
 {
@@ -33,6 +34,22 @@ class HomeController extends Controller
         }
         if(count($cities)>0){
             $message = array('success'=>true,'data'=>$cities);
+            return json_encode($message);
+        }else{
+            $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));
+            return json_encode($message);
+        }
+    }
+    public function getBrandByType(Request $request)
+    {
+        $perameters = $request->all();
+        if($perameters['device_type'] != ''){
+            $brands = Brands::where('device_type',$perameters['device_type'])->orderBy('id','ASC')->get();
+        }else{
+            $brands = [];
+        }
+        if(count($brands)>0){
+            $message = array('success'=>true,'data'=>$brands);
             return json_encode($message);
         }else{
             $message = array('success'=>false,'message'=>__('index.Somthing went wrong'));

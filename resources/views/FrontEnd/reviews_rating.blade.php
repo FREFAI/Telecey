@@ -371,6 +371,10 @@
                     postal['cities'].forEach(city => suggestedCities += '<span class="suggcity" data-city="'+city+'">&nbsp;'+ city + ',</span>'); 
                     $("#address_form .city_input").after(suggestedCities)
                 }
+                if(postal['country'] != $('#address_form #user_country').val()){
+                    var suggestedCities = '<span class="suggmescountry">Country should be one from the following :- </span><span class="suggcountry" data-city="'+postal['country']+'">'+postal['country']+'</span>';
+                    $('#address_form #user_country').after(suggestedCities)
+                }
             }
             if($('#address_form #user_postal_code').val().length == 6){
                 if(!postal["status"]){

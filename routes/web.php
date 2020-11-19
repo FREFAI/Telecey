@@ -108,6 +108,7 @@ Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], fun
 				// Change address
 				Route::post('/getCountry', 'FrontEnd\ReviewsController@getCountry');
 				Route::post('/getCityByCountry', 'HomeController@getCityByCountry');
+				Route::get('/getBrandByType', 'HomeController@getBrandByType');
 				Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
 				Route::get('/reviews/{planId}', 'FrontEnd\ReviewsController@reviewsRating');
 				Route::post('/getModels', 'FrontEnd\BrandsController@getModels');

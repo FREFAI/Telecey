@@ -6,7 +6,15 @@
         .overage_price {
             background-color: #ffffff;
         }
-        
+        span.select2.select2-container.select2-container--default{
+            width:100% !important;
+        }
+        .select2-container--default .select2-selection--single{
+            border: 1px solid #2e75b5 !important;
+            height: 32px !important;
+            margin-top:0px !important;
+            border-radius: 5px !important;
+        }
         #overage_price_model {
             z-index: 999999;
             background-color: #00000052;
@@ -311,22 +319,23 @@
                         <div class="col-lg-6">
                             <h5>{{ __('review.device_type') }}</h5>
                             <div class="tg-select form-control">
-                                <select required="required" name="device_name" id="device_id">
+                                <select required="required" name="device_name" id="device_id" data-url="{{url('/getBrandByType')}}">
                                     @if(count($devices) > 0)
-                                    <option value="">{{ __('review.choos_device') }}</option>
-                                    @foreach($devices as $device)
-                                    <option @if($device->default == 1 ) selected="" @endif value="{{$device->id}}">{{$device->device_name}}</option>
-                                    @endforeach @else
-                                    <option value="">{{__('common.notfound')}}</option>
+                                        <option value="">{{ __('review.choos_device') }}</option>
+                                        @foreach($devices as $device)
+                                            <option @if($device->default == 1 ) selected="" @endif value="{{$device->id}}">{{$device->device_name}}</option>
+                                        @endforeach 
+                                    @else
+                                        <option value="">{{__('common.notfound')}}</option>
                                     @endif
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <h5>{{ __('review.brand') }}</h5>
-                            <div class="form-group inputwithicon">
+                            <div class="form-group inputwithicon mb-0">
                                 <div class="selectreview">
-                                    <select class="brand_name active brand_select_brand_device" required="required" name="brand_name" data-url="{{url('/searchBrand')}}">
+                                    <select class="brand_name active w-100 brand_select_brand_device" required="required" name="brand_name" data-url="{{url('/searchBrand')}}" id='device_brand'>
                                         @foreach($brands as $v)
                                         <option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
                                         @endforeach
@@ -336,6 +345,16 @@
                             <div class="form-group brand_text ped-3 mb-0">
                                 <input type="text" class="form-control brand_name text_brand_name mt-1" name="brand_name" placeholder="{{ __('review.brand_name') }}" maxlength="30" />
                                 <input type="text" class="form-control model_name text_model_name mt-1" name="model_name" placeholder="{{ __('review.model_name') }}" maxlength="30" />
+                                <select class="form-control mt-1" name="device_type" required="" id='device_type'>
+                                    <option value=''>Select device type</option>
+                                    @if($devices)
+                                        @foreach($devices as $device)
+                                        <option value="{{$device->id}}">{{$device->device_name}}</option>
+                                        @endforeach
+                                    @else
+                                        <option value="">Device type not found</option>
+                                    @endif
+                                </select>
                                 <input type="hidden" class="form-control brand_status" name="brand_status" placeholder="Brand status" value="1" />
                             </div>
                             <small>
@@ -1111,6 +1130,7 @@
                     $("select.brand_select_brand_device").attr("required", true);
                     $(".brand_select_brand_device").addClass("active");
                     $(".brand_text input").removeClass("active");
+                    $(".brand_text select").removeClass("active");
                     $(".brand_text input").attr("required", false);
                 } else {
                     $(".brand_status").val(2);
@@ -1120,6 +1140,7 @@
                     $("select.brand_select_brand_device option:nth-child(1)").prop("selected", true);
                     $(".brand_select_brand_device").removeClass("active");
                     $(".brand_text input").addClass("active");
+                    $(".brand_text select").addClass("active");
                     $(".brand_text input").attr("required", true);
                 }
             }
@@ -1571,7 +1592,30 @@
                 }
             });
             // End Device section
-
+            $('#device_id').change(function(){
+                let actionurl = $(this).attr('data-url')
+                let deviceType = $(this).val();
+                $.ajax({
+                    url: actionurl,
+                    type: "GET",
+                    dataType: "json",
+                    data: {
+                        device_type: deviceType,
+                    },
+                    success: function (response) {
+                        $("#device_brand").find("option").remove();
+                        if(response.success){
+                            var allData = response.data;
+                            for (let index = 0; index < allData.length; index++) {
+                                const text = allData[index];
+                                $("#device_brand").append('<option value="' + text.id + '">' + text.brand_name + " " + text.model_name + "</li>");
+                            }
+                        }
+                        
+                    },
+                });
+            })
+            $('#device_brand').select2();
             // Device search Section
             // Select Box of model
             $(document).on("click", ".dropdown-select ul li", function () {

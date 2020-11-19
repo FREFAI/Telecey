@@ -55,8 +55,9 @@
                             <a target='_blank' href="https://twitter.com/telecey" class="link twitter"><span class="fa fa-twitter"></span></a>
                             <a target='_blank' href="https://www.linkedin.com/company/telecey" class="link google-plus"><span class="fa fa-linkedin-in"></span></a>
                             <a target='_blank' href="https://www.reddit.com/user/Telecey" class="link twitter"><span class="fa fa-reddit-alien"></span></a>
-                            <a target='_blank' href="https://www.pinterest.ca/telecey" class="link twitter"><span class="fa fa fa-pinterest"></span></a>
-                            <a target='_blank' href="https://www.instagram.com/teleceye" class="link twitter"><span class="fa fa fa-instagram"></span></a>
+                            <a target='_blank' href="https://www.pinterest.ca/telecey" class="link twitter"><span class="fa fa-pinterest"></span></a>
+                            <a target='_blank' href="https://www.instagram.com/teleceye" class="link twitter"><span class="fa fa-instagram"></span></a>
+                            <a target='_blank' href="https://www.youtube.com/channel/UCBl2DbvEzWi2QFeJqwKUjNA/featured" class="link twitter"><span class="fa fa-youtube"></span></a>
                         </div>
                     </div>
                 </div>

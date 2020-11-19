@@ -91,6 +91,8 @@
         'Speed' => 'Speed',
         'Local Minutes' => 'Local Minutes',
         'Please enter a valid value'=>'Please enter a valid value',
-        'Write comment here' =>  'Write comment here'
+        'Write comment here' =>  'Write comment here',
+        'Comment' => 'Comment',
+        'Average'=> 'Average'
     ];
 ?>

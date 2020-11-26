@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Models\Admin\BlogsModel;
 use App\Models\Admin\AdminModel;
+use App\Models\FrontEnd\ServiceReview;
+use App\Models\FrontEnd\DeviceReview;
 
 class DashboardController extends Controller
 {
@@ -27,6 +29,8 @@ class DashboardController extends Controller
      */
     public function dashboard()
     {
+        $data['plansReviews'] = ServiceReview::count();
+        $data['deviceReviews'] = DeviceReview::count();
         $data['admins'] = AdminModel::Where('type',2)->count();
         $data['users'] = User::count();
         $data['blogs'] = BlogsModel::count();

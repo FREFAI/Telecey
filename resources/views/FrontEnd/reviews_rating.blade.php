@@ -250,25 +250,25 @@
                             <div class="col-lg-12">
                                 <h5>{{ __('review.address') }} <span class="text-mute">{{ __('review.optional') }}</span></h5>
                                 <div class="form-group">
-                                    <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="{{ __('review.address') }} " autocomplete="no">
+                                    <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="{{ __('review.address') }} " autocompleted=chrome-off >
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h5>{{ __('review.country') }}</h5>
                                 <div class="form-group country_div" id="country_div">
-                                    <input type="text" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" autocomplete="no">
+                                    <input type="text" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" autocompleted=chrome-off >
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h5>{{ __('review.city') }}</h5>
                                 <div class="form-group city_div" id="city_div">
-                                    <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="{{ __('review.city') }}" autocomplete="no" required="" data-country="IN">
+                                    <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="{{ __('review.city') }}" autocompleted=chrome-off  required="" data-country="IN">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h5>{{ __('review.postal_code') }}</h5>
                                 <div class="form-group">
-                                    <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="{{ __('review.postal_code') }}" required="" autocomplete="no">
+                                    <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="{{ __('review.postal_code') }}" required="" autocompleted=chrome-off >
                                 </div>
                             </div>
                             <input type="hidden" name="latitude" id="lat" value="{{$lat}}">
@@ -371,7 +371,7 @@
                     postal['cities'].forEach(city => suggestedCities += '<span class="suggcity" data-city="'+city+'">&nbsp;'+ city + ',</span>'); 
                     $("#address_form .city_input").after(suggestedCities)
                 }
-                if(postal['country'] != $('#address_form #user_country').val()){
+                if(postal['country'] != "" && postal['country'] != $('#address_form #user_country').val()){
                     var suggestedCities = '<span class="suggmescountry">Country should be one from the following :- </span><span class="suggcountry" data-city="'+postal['country']+'">'+postal['country']+'</span>';
                     $('#address_form #user_country').after(suggestedCities)
                 }

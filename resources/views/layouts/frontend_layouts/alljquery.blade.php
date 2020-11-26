@@ -709,6 +709,8 @@
     })
     $("#firstform").on("submit", async function (e) {
         e.preventDefault();
+        $('.suggmescountry').remove()
+        $('.suggcountry').remove()
         $('.suggmes').remove()
         $('.suggcity').remove()
         if (countrySelection === false) {
@@ -736,7 +738,7 @@
                 postal['cities'].forEach(city => suggestedCities += '<span class="suggcity" data-city="'+city+'">&nbsp;'+ city + ',</span>'); 
                 $("#firstform .city_input").after(suggestedCities)
             }
-            if(postal['country'] != $("#firstform #country").val()){
+            if(postal['country'] != "" && postal['country'] != $("#firstform #country").val()){
                 var suggestedCities = '<span class="suggmescountry">Country should be one from the following :- </span><span class="suggcountry" data-city="'+postal['country']+'">'+postal['country']+'</span>';
                 $("#firstform #country").after(suggestedCities)
             }
@@ -1399,6 +1401,8 @@
         if(!$("#change_address_form").valid()){
             return false;
         }
+        $('.suggmescountry').remove()
+        $('.suggcountry').remove()
         $('.suggmes').remove()
         $('.suggcity').remove()
         if (countrySelection === false) {
@@ -1427,7 +1431,7 @@
                 postal['cities'].forEach(city => suggestedCities += '<span class="suggcity" data-city="'+city+'">&nbsp;'+ city + ',</span>'); 
                 $(".city_input").after(suggestedCities)
             }
-            if(postal['country'] != $("#country").val()){
+            if(postal['country'] != "" && postal['country'] != $("#country").val()){
                 var suggestedCities = '<span class="suggmescountry">Country should be one from the following :- </span><span class="suggcountry" data-city="'+postal['country']+'">'+postal['country']+'</span>';
                 $("#country").after(suggestedCities)
             }

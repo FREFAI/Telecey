@@ -241,11 +241,11 @@
                                 </div>
                                 <div class="form-group text-left col-lg-6 country_div" id="country_div">
                                     <label for="country">{{ __('review.country') }}</label>
-                                    <input id="country" class="input-text" type="text" required value="{{$usersDetail->country}}" name="country" autocomplete="off" />
+                                    <input id="country" class="input-text" type="text" required value="{{$usersDetail->country}}" name="country" autocompleted=chrome-off />
                                 </div>
                                 <div class="form-group text-left col-lg-6 city_div" id="city_div">
                                     <label for="city">{{ __('review.city') }}</label>
-                                    <input id="city" class="input-text city_input getcity" type="text" required value="{{$usersDetail->city}}" data-city="{{$usersDetail->user_city}}" name="city" autocomplete="off" data-country="{{$usersDetail->country_code}}" />
+                                    <input id="city" class="input-text city_input getcity" type="text" required value="{{$usersDetail->city}}" data-city="{{$usersDetail->user_city}}" name="city" autocompleted=chrome-off data-country="{{$usersDetail->country_code}}" />
                                 </div>
                                 <div class="form-group text-left col-lg-12">
                                     <label for="email">{{ __('review.email') }}</label>
@@ -253,11 +253,11 @@
                                 </div>
                                 <div class="form-group text-left col-lg-12">
                                     <label for="number">{{ __('review.postal_code') }}</label>
-                                    <input id="postal_code" class="input-text getpostalcode" type="text" value="{{$usersDetail->postal_code}}" data-postal_code="{{$usersDetail->user_postal_code}}" name="postal_code" autocomplete="off" required/>
+                                    <input id="postal_code" class="input-text getpostalcode" type="text" value="{{$usersDetail->postal_code}}" data-postal_code="{{$usersDetail->user_postal_code}}" name="postal_code" autocompleted=chrome-off required/>
                                 </div>
                                 <div class="form-group text-left col-lg-12">
                                     <label for="phone">{{ __('review.phone') }}</label>
-                                    <input id="mobile_number" class="input-text" type="text" value="{{$usersDetail->mobile_number}}" name="mobile_number" autocomplete="off" />
+                                    <input id="mobile_number" class="input-text" type="text" value="{{$usersDetail->mobile_number}}" name="mobile_number" autocompleted=chrome-off />
                                 </div>
                                 <input type="hidden" name="latitude" id="lat" value="{{$lat}}" />
                                 <input type="hidden" name="longitude" id="long" value="{{$long}}" />
@@ -981,25 +981,25 @@
                                 <div class="col-lg-12">
                                     <h5>{{ __('review.address') }} <span class="text-mute">{{ __('review.optional') }}</span></h5>
                                     <div class="form-group">
-                                        <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="{{ __('review.address') }}" autocomplete="off" />
+                                        <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="{{ __('review.address') }}" autocompleted=chrome-off />
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <h5>{{ __('review.country') }}</h5>
                                     <div class="form-group country_div" id="country_div">
-                                        <input type="text" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" autocomplete="off" />
+                                        <input type="text" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" autocompleted=chrome-off />
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <h5>{{ __('review.city') }}</h5>
                                     <div class="form-group user_city_add city_div" id="city_div">
-                                        <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="{{ __('review.city') }}" autocomplete="off" required="" data-country="IN" />
+                                        <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="{{ __('review.city') }}" autocompleted=chrome-off required="" data-country="IN" />
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <h5>{{ __('review.postal_code') }}</h5>
                                     <div class="form-group">
-                                        <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="{{ __('review.postal_code') }}" required="" autocomplete="off" />
+                                        <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="{{ __('review.postal_code') }}" required="" autocompleted=chrome-off />
                                     </div>
                                 </div>
                                 <div class="col-lg-12 text-center">
@@ -1305,10 +1305,15 @@
                 } else {
                     let postal = await valid_postal_code_with_google_api($("#address_form #user_postal_code").val(), $("#address_form #user_country").val(), $("#address_form .city_input").val());
                     if(!postal["status"]){
+                        var suggestedCities = ""
                         if(postal['cities'].length > 0){
-                            var suggestedCities = '<span class="suggmes">City should be one from the following :- </span>';
+                            suggestedCities = '<span class="suggmes">City should be one from the following :- </span>';
                             postal['cities'].forEach(city => suggestedCities += '<span class="suggcity" data-city="'+city+'">&nbsp;'+ city + ',</span>'); 
                             $("#address_form .city_input").after(suggestedCities)
+                        }
+                        if(postal['country'] != "" && postal['country'] != $("#address_form #user_country").val()){
+                            var suggestedCities = '<span class="suggmescountry">Country should be one from the following :- </span><span class="suggcountry" data-city="'+postal['country']+'">'+postal['country']+'</span>';
+                            $("#address_form #user_country").after(suggestedCities)
                         }
                     }
                     if($("#address_form #user_postal_code").val().length == 6){
@@ -1667,7 +1672,7 @@
                     }
                 });
 
-                $(".dropdown-select ul").before('<div class="dd-search"><input autocomplete="off" onkeyup="filter(event)" class="dd-searchbox txtSearchValue" type="text"></div>');
+                $(".dropdown-select ul").before('<div class="dd-search"><input autocompleted=chrome-off onkeyup="filter(event)" class="dd-searchbox txtSearchValue" type="text"></div>');
             }
 
             // Event listeners

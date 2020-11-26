@@ -337,7 +337,10 @@
 
     $('.save_address').on('click',async function(e){
         e.preventDefault();
-        
+        $('.suggmescountry').remove()
+        $('.suggcountry').remove()
+        $('.suggmes').remove()
+        $('.suggcity').remove()
         if(countrySelection === false){
             $('.country_list').css('display','none');
             $('#country').addClass('error');

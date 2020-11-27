@@ -1306,7 +1306,9 @@
                 if (!$("#address_form").valid()) {
                     return false;
                 } else {
-                    let postal = await valid_postal_code_with_google_api($("#address_form #user_postal_code").val(), $("#address_form #user_country").val(), $("#address_form .city_input").val());
+                    let address = [$("#address_form #user_postal_code").val(),$("#address_form #user_country").val(),$("#address_form .city_input").val()]
+                    let postal = await valid_postal_code_with_google_api(address.join(','), $("#address_form #user_country").val(), $("#address_form .city_input").val());
+                    
                     if(!postal["status"]){
                         var suggestedCities = ""
                         if(postal['cities'].length > 0){
@@ -1321,7 +1323,8 @@
                     }
                     if($("#address_form #user_postal_code").val().length == 6){
                         if(!postal["status"]){
-                            postal = await valid_postal_code_with_google_api($("#address_form #user_postal_code").val().substring(0, 3), $("#address_form #user_country").val(), $("#address_form .city_input").val());
+                            address = [$("#address_form #user_postal_code").val().substring(0, 3),$("#address_form #user_country").val(),$("#address_form .city_input").val()]
+                            postal = await valid_postal_code_with_google_api(address.join(','), $("#address_form #user_country").val(), $("#address_form .city_input").val());
                         }
                     }
                     if (!postal["status"]) {

@@ -672,11 +672,15 @@
                             } else if (component.types.indexOf("postal_code") != -1) {
                                 postalCode = component.long_name;
                             } else {
-                                cities.push(component.long_name);
+                                cities.push(component.long_name.toLocaleLowerCase('tr'));
                             }
                         }
                         data["formatted_address"] = results[0].formatted_address;
-                        if (countryExist == country && cities.indexOf(city) != -1) {
+                        if(value.split(',').indexOf(postalCode) == -1){
+                            data["status"] = false;
+                            data["cities"] = [];
+                            data["country"] = "";
+                        }else if (countryExist == country && cities.indexOf(city.toLowerCase()) != -1) {
                             data["status"] = true;
                             data["cities"] = cities;
                             data["country"] = countryExist;
@@ -685,6 +689,8 @@
                             data["cities"] = cities;
                             data["country"] = countryExist;
                         }
+                        console.log(data);
+                        
                         resolve(data);
                     } else {
                         var data = [];
@@ -731,7 +737,8 @@
             }
             return false;
         }
-        let postal = await valid_postal_code_with_google_api($("#firstform #postal_code").val(), $("#firstform #country").val(), $("#firstform .city_input").val());
+        let address = [$("#firstform #postal_code").val(), $("#firstform #country").val(), $("#firstform .city_input").val()]
+        let postal = await valid_postal_code_with_google_api(address.join(','), $("#firstform #country").val(), $("#firstform .city_input").val());
         if(!postal["status"]){
             if(postal['cities'].length > 0){
                 var suggestedCities = '<span class="suggmes">City should be one from the following :- </span>';
@@ -745,7 +752,8 @@
         }
         if($("#firstform #postal_code").val().length == 6){
             if(!postal["status"]){
-                postal = await valid_postal_code_with_google_api($("#firstform #postal_code").val().substring(0, 3), $("#firstform #country").val(), $("#firstform .city_input").val())
+                address = [$("#firstform #postal_code").val().substring(0, 3), $("#firstform #country").val(), $("#firstform .city_input").val()]
+                postal = await valid_postal_code_with_google_api(address.join(','), $("#firstform #country").val(), $("#firstform .city_input").val())
             }
         }
         // let postal = valid_postal_code($('#firstform #postal_code').val(),$('#firstform .city_input').attr('data-country'));
@@ -1424,7 +1432,8 @@
 
             return false;
         }
-        let postal = await valid_postal_code_with_google_api($("#postal_code").val(), $("#country").val(), $(".city_input").val());
+        let address = [$("#postal_code").val(), $("#country").val(), $(".city_input").val()]
+        let postal = await valid_postal_code_with_google_api(address.join(','), $("#country").val(), $(".city_input").val());
         if(!postal["status"]){
             if(postal['cities'].length > 0){
                 var suggestedCities = '<span class="suggmes">City should be one from the following :- </span>';
@@ -1439,7 +1448,8 @@
         
         if($("#postal_code").val().length == 6){
             if(!postal["status"]){
-                postal = await valid_postal_code_with_google_api($("#postal_code").val().substring(0, 3), $("#country").val(), $(".city_input").val());
+                address = [$("#postal_code").val().substring(0, 3), $("#country").val(), $(".city_input").val()]
+                postal = await valid_postal_code_with_google_api(address.join(','), $("#country").val(), $(".city_input").val());
             }
         }
         if (!postal["status"]) {

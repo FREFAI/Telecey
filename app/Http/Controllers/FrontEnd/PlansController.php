@@ -79,8 +79,8 @@ class PlansController extends Controller
         $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
         $newresponse = json_decode($newresponse->getBody());
         $current_location = $newresponse->country_name.','.$newresponse->state_prov.','.$newresponse->city.','.$newresponse->zipcode;
-        $current_lat = $newresponse->latitude;
-        $current_long = $newresponse->longitude;
+        $current_lat = array_key_exists("lat",$data) && $data['lat'] != "" ? $data['lat']  : $newresponse->latitude;
+        $current_long = array_key_exists("lng",$data) && $data['lng'] != "" ? $data['lng']  : $newresponse->longitude;
         $current_country_code = $newresponse->country_code2;
         $filtersetting = SettingsModel::first();
         if(!Auth::guard('customer')->check()){
@@ -203,8 +203,9 @@ class PlansController extends Controller
         $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
         $newresponse = json_decode($newresponse->getBody());
         $current_location = $newresponse->country_name.','.$newresponse->state_prov.','.$newresponse->city.','.$newresponse->zipcode;
-        $current_lat = $newresponse->latitude;
-        $current_long = $newresponse->longitude;
+       
+        $current_lat = array_key_exists("lat",$data) && $data['lat'] != "" ? $data['lat']  : $newresponse->latitude;
+        $current_long = array_key_exists("lng",$data) && $data['lng'] != "" ? $data['lng']  : $newresponse->longitude;
         $current_country_code = $newresponse->country_code2;
         $filtersetting = SettingsModel::first();
         if(!Auth::guard('customer')->check()){

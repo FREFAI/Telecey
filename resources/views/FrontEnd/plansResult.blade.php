@@ -36,6 +36,8 @@
 						<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
 					</div>
 				</div>
+				<input type="hidden" name="lat" class="currentLat" value="{{request()->get('lat')}}">
+				<input type="hidden" name="lng" class="currentLng" value="{{request()->get('lng')}}">
 				<input type="hidden" name="rows" id="paginate_input" value="{{request()->get('rows')}}"/>
 				<div class="col-lg-3 record_section">
 					<div class="service_type">

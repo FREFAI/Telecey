@@ -15,6 +15,8 @@
 					<form action="{{url('/plans/result')}}" method="get" class="w-100">
 						<div class="row">
 							<div class="col-9">
+								<input type="hidden" name="lat" class="currentLat">
+								<input type="hidden" name="lng" class="currentLng">
 								<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
 								<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
 							</div>
@@ -337,7 +339,8 @@
 			function geoSearchSuccess(position) {
 				var lat = position.coords.latitude;
 				var lng = position.coords.longitude;
-
+				$('.currentLat').val(lat)
+				$('.currentLng').val(lng)
 				codeLatLngSearch(lat, lng);
 			}
 			function geoSearchError(error) {

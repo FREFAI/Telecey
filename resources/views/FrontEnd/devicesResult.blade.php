@@ -35,6 +35,8 @@
 				@endif
 				<div class="col-lg-7 record_section">
 					<div class="location">
+						<input type="hidden" name="lat" class="currentLat" value="{{request()->get('lat')}}">
+						<input type="hidden" name="lng" class="currentLng" value="{{request()->get('lng')}}">
 						<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
 					</div>
 				</div>

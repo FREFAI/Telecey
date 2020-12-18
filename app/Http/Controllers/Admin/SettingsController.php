@@ -165,6 +165,43 @@ class SettingsController extends Controller
             }
         }
     }
+    public function addFeedBackTitle(Request $request)
+    {
+        $input = $request->all();
+        $validation = Validator::make($input,[
+           'feedback_title'  => 'required'           
+		]);
+		if($validation->fails()){
+            $message = array('success'=>false,'message'=>$validation->messages()->first());
+            return json_encode($message);
+		}else{
+            $setting  = SettingsModel::first();
+            if($setting == null){
+                $setting = new \App\Models\Admin\SettingsModel;
+                $insertArray = [
+                    "feedback_title" => $input['feedback_title']
+                ];
+                $filtersettings = SettingsModel::create($insertArray);
+                if($filtersettings){
+                    $message = array('success'=>true,'message'=>'Successfull');
+                    return json_encode($message);
+                }else{
+                    $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                    return json_encode($message);
+                }
+            }
+            if(!empty($input)){
+                $filtersettings = SettingsModel::where('id',1)->update(["feedback_title"=>$input['feedback_title']]);
+                if($filtersettings){
+                    $message = array('success'=>true,'message'=>'Successfull');
+                    return json_encode($message);
+                }else{
+                    $message = array('success'=>false,'message'=>'Somthing went wrong!');
+                    return json_encode($message);
+                }
+            }
+        }
+    }
 
     public function addNoSearchMessage(Request $request){
         $data = $request->all();

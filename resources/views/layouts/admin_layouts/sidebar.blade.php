@@ -151,8 +151,18 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link { request()->is('admin/rating-question') ? 'active' : '' }}" href="{{url('admin/rating-question')}}">
+            <a class="nav-link {{ request()->is('admin/rating-question') ? 'active' : '' }}" href="{{url('admin/rating-question')}}">
               <i class="ni ni-paper-diploma text-info"></i> Rating Question
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/feedbackQuestion/list') ? 'active' : '' }}" href="{{url('admin/feedbackQuestion/list')}}">
+              <i class="ni ni-paper-diploma text-info"></i> Feedback Question
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/feedback/list') ? 'active' : '' }}" href="{{url('admin/feedback/list')}}">
+              <i class="ni ni-paper-diploma text-info"></i> Feedback
             </a>
           </li>
         </ul>

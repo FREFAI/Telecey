@@ -125,9 +125,44 @@
 							</div>
 						</div>
 					</div>
+					<div class="col-lg-6 pl-lg-4">
+						<h6 class="heading-small text-muted mb-4">Feedback <b>Feature Hide</b></h6>
+					</div>
+					<div class="col-lg-6 text-right">
+						@if($settings)
+						<div class="pl-lg-4">
+							<label class="custom-toggle" >
+								<input type="checkbox" data-setting_key="feedback_feature" value="1" id="device_setting" class="settings" 
+								@if($settings->feedback_feature == 0)checked="" @endif>
+								<span class="custom-toggle-slider rounded-circle"></span>
+							</label>
+							<span class="clearfix"></span>
+						</div>
+						@else
+						<div class="pl-lg-4">
+							<label class="custom-toggle" >
+								<input type="checkbox" data-setting_key="feedback_feature" value="1" id="device_setting" class="settings">
+								<span class="custom-toggle-slider rounded-circle"></span>
+							</label>
+							<span class="clearfix"></span>
+						</div>
+						@endif
+					</div>
+					<div class="col-lg-6 pl-lg-4">
+						<h6 class="heading-small text-muted mb-4">Feedback Title</h6>
+					</div>
+					<div class="col-lg-6 text-right">
+						<div class="pl-lg-4">
+							<div class="input-group mb-3 d-flex">
+								<input type="text" class="form-control search_number" value="{{$settings ? $settings->feedback_title : ''}}" id="feedback_title"/>
+								<button type="button" class="btn btn-sm btn-primary feedback_title_btn_record">
+									<i class="ni ni-check-bold"></i>
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
-					
-					
+				
 					  <!-- End Device filter section -->
 					<div class="row">
 		  			 <div class="col-lg-12">

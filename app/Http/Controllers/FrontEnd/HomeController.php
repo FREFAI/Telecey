@@ -11,6 +11,8 @@ use App\Models\FrontEnd\DeviceReview;
 use App\Models\Admin\Brands;
 use App\Models\FrontEnd\ServiceRating;
 use App\Models\Admin\SettingsModel;
+use App\Models\Admin\FeedbackQuestions;
+use App\Models\Admin\FeedBack;
 use App\Models\Admin\BlogsModel;
 use App\Models\Admin\HomeContent;
 use App\Models\FrontEnd\PlanDeviceRating;
@@ -296,6 +298,54 @@ class HomeController extends Controller
             }else{
                 return redirect()->back()->withInput()->with('error',__('index.Somthing went wrong'));
             }
+        }
+    }
+    public function getFeedBackFeatureStatus(Request $rquest)
+    {
+        $settings = SettingsModel::first();
+        if($settings){
+            if($settings->feedback_feature && !Auth::guard('customer')->user()['feedback_status']){
+                $ret = array('success'=>1,'data'=>$settings->toArray());
+            }else{
+                $ret = array('success'=>0,'data'=>[]);
+            }
+        }else{
+            $ret = array('success'=>0,'data'=>[]);
+        }
+        return json_encode($ret);
+    }
+    public function getFeedBackQuestion(Request $rquest)
+    {
+        $questions = FeedbackQuestions::get();
+        if($questions){
+            $ret = array('success'=>1, 'data'=>$questions->toArray());
+            return json_encode($ret);
+        }else{
+            $ret = array('success'=>0, 'data'=>[]);
+            return json_encode($ret);
+        }
+    }
+    public function addFeedBack(Request $rquest)
+    {
+        $params = $rquest->all();
+        if(count($params['feedBack']) > 0){
+            $feedBackData = [
+                'user_id' => Auth::guard('customer')->user()['id'],
+                'feedback_rating' => json_encode($params['feedBack'])
+            ];
+            if(FeedBack::create($feedBackData)){
+                $user = User::find(Auth::guard('customer')->user()['id']);
+                $user->feedback_status = 1;
+                $user->save();
+                $ret = array('success'=>1);
+                return json_encode($ret);
+            }else{
+                $ret = array('success'=>0);
+                return json_encode($ret);
+            }
+        }else{
+            $ret = array('success'=>1);
+            return json_encode($ret);
         }
     }
 }

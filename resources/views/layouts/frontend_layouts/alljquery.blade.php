@@ -1022,7 +1022,7 @@
             $("#speedTestModel").modal("hide");
         }
     });
-    $(".service-rating-submit-btn").on("click", function (e) {
+    $(".service-rating-submit-btn").on("click", async function (e) {
         e.preventDefault();
         var isset = 0;
         var latitude = $("#lat").val();
@@ -1075,7 +1075,7 @@
             }
 
             $(".ajaxloader").show();
-            $.ajax({
+            var ratingRes = await $.ajax({
                 type: "post",
                 url: resuesturl,
                 headers: {
@@ -1098,27 +1098,130 @@
                     user_postal_code: user_postal_code,
                     is_primary: is_primary,
                     formatted_address: formatted_address,
-                },
-                success: function (data) {
-                    $(".ajaxloader").hide();
-                    if (data.success) {
-                        toastr.success("Rating", data.message, { displayDuration: 3000, position: "top-right" });
-                        $(".detail-section").addClass("section-d-none");
-                        // ratingform.closest('.services-rating-section').addClass('section-d-none');
-                        // ratingform.closest('.services-rating-section').next('.speed-test-button-section').removeClass('section-d-none');
-                        if (type == 1) {
-                            window.location.href = "{{url('/profile')}}";
-                        } else {
-                            window.location.href = "{{url('/profile')}}?type=2";
-                        }
-                    } else {
-                        // toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
-                    }
-                },
+                }
             });
+            $(".ajaxloader").hide();
+            if (ratingRes.success) {
+                toastr.success("Rating", ratingRes.message, { displayDuration: 3000, position: "top-right" });
+                $(".detail-section").addClass("section-d-none");
+                var feedback = await getFeedBackFeatureStatus()
+                if(feedback.success){
+                    let data = feedback.data
+                    handleFeedbackModal(data, type)
+                }else{
+                    if (type == 1) {
+                        window.location.href = "{{url('/profile')}}";
+                    } else {
+                        window.location.href = "{{url('/profile')}}?type=2";
+                    }
+                }
+            }
         }
     });
-
+    async function handleFeedbackModal(data,reviewType){
+        let title = data.feedback_title
+        $('.feedbackTitle').text(title)
+        $('.fqLoader').removeClass('d-none')
+        $('#feedbackModal').modal({ show: true })
+        $('#feedbackModal').attr('data-reviewType',reviewType)
+        let questions = await getFeedBackQuestions();
+        if (questions.success) {
+            var resp = $.map(questions.data, function (obj) {
+                let html = `<div class="row mb-2">
+                    <div class="col-lg-6 col-6">
+                        <p>${obj.question_name}</p>
+                    </div>
+                    <div class="col-lg-6 col-6 text-right ratingDiv"  data-question_name="${obj.question_name}" data-question_id="${obj.id}">
+                        ${obj.type == 2 ? `<input type="text" class="feedbackTextField-${obj.id} border p-0">` : `<div class="ratingFeedback float-right" data-question_name="${obj.question_name}" data-question_id="${obj.id}"></div>`}
+                    </div>
+                </div>`
+                $('.feedBackQuestions').append(html);
+            });
+            $(".ratingFeedback").rate();
+            $('.fqLoader').addClass('d-none')
+        }
+    }
+    async function getFeedBackQuestions(){
+        if (window.location.protocol == "http:") {
+            resuesturl = "{{url('/getFeedBackQuestion')}}";
+        } else if (window.location.protocol == "https:") {
+            resuesturl = "{{secure_url('/getFeedBackQuestion')}}";
+        }
+        var questions = await $.ajax({
+            type: "post",
+            url: resuesturl,
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            dataType: "json",
+            data:{}
+        });
+        return questions
+    }
+    $(document).on('click','.submitFeedBack',async function(){
+        var perams = [];
+        let type = 1;
+        $(".ajaxloader").show();
+        $(".feedBackQuestions .ratingDiv").each(function (index, item) {
+            var rate = $(item).find('.ratingFeedback').rate("getValue");
+            var question_id = $(item).attr("data-question_id");
+            var question_name = $(item).attr("data-question_name");
+            var text_field = $(".feedbackTextField-" + question_id).val();
+            if(text_field != undefined){
+                rate = text_field
+                type = 2
+            }else{
+                type = 1
+            }
+            if (perams[index] === undefined) {
+                perams[index] = { question_name: question_name, value: rate, type: type };
+            } else {
+                perams[index].question_name = question_name;
+                perams[index].value = rate;
+                perams[index].type = type;
+            }
+        });
+        if (window.location.protocol == "http:") {
+            resuesturl = "{{url('/addFeedBack')}}";
+        } else if (window.location.protocol == "https:") {
+            resuesturl = "{{secure_url('/addFeedBack')}}";
+        }
+        var questions = await $.ajax({
+            type: "post",
+            url: resuesturl,
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            dataType: "json",
+            data:{
+                feedBack : perams
+            }
+        });
+        if(questions.success){
+            if ($('#feedbackModal').attr('data-reviewType') == 1) {
+                window.location.href = "{{url('/profile')}}";
+            } else {
+                window.location.href = "{{url('/profile')}}?type=2";
+            }
+        }
+    })
+    async function getFeedBackFeatureStatus(){
+        if (window.location.protocol == "http:") {
+            resuesturl = "{{url('/getFeedBackFeatureStatus')}}";
+        } else if (window.location.protocol == "https:") {
+            resuesturl = "{{secure_url('/getFeedBackFeatureStatus')}}";
+        }
+        var feedBack = await $.ajax({
+            type: "post",
+            url: resuesturl,
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            dataType: "json",
+            data:{}
+        });
+        return feedBack
+    }
     $(".continue-btn").on("click", function (e) {
         e.preventDefault();
         $(this).closest(".speed-test-button-section").addClass("section-d-none");
@@ -1273,7 +1376,7 @@
         $(".device_average_input").val(average);
     });
 
-    $(".device-rating-submit-btn").on("click", function (e) {
+    $(".device-rating-submit-btn").on("click", async function (e) {
         e.preventDefault();
         var isset = 0;
         var comment = $("#device_comment").val();
@@ -1325,7 +1428,7 @@
                 resuesturl = "{{secure_url('/ratingDevice')}}";
             }
             $(".ajaxloader").show();
-            $.ajax({
+            let deviceData = $.ajax({
                 type: "post",
                 url: resuesturl,
                 headers: {
@@ -1348,20 +1451,22 @@
                     user_postal_code: user_postal_code,
                     is_primary: is_primary,
                     formatted_address: formatted_address,
-                },
-                success: function (data) {
-                    $(".ajaxloader").hide();
-                    if (data.success) {
-                        toastr.success("Rating", data.message, { displayDuration: 3000, position: "top-right" });
-                        $(".detail-section").addClass("section-d-none");
-                        // ratingform.closest('.services-rating-section').addClass('section-d-none');
-                        // ratingform.closest('.services-rating-section').next('.speed-test-button-section').removeClass('section-d-none');
-                        window.location.href = "{{url('/profile')}}?type=2";
-                    } else {
-                        // toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
-                    }
-                },
+                }
             });
+            $(".ajaxloader").hide();
+            if (deviceData.success) {
+                toastr.success("Rating", deviceData.message, { displayDuration: 3000, position: "top-right" });
+                $(".detail-section").addClass("section-d-none");
+                var feedback = await getFeedBackFeatureStatus()
+                if(feedback.success){
+                    let data = feedback.data
+                    handleFeedbackModal(data, 2)
+                }else{
+                    window.location.href = "{{url('/profile')}}?type=2";
+                }
+            } else {
+                // toastr.error('Rating', data.message , {displayDuration:3000,position: 'top-right'});
+            }
         }
     });
     // End Device section

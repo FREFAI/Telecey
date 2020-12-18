@@ -104,6 +104,9 @@ Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], fun
 				// Change password
 				// Change address
 				Route::post('/getAddress', 'FrontEnd\HomeController@getAddress');
+				Route::post('/getFeedBackFeatureStatus', 'FrontEnd\HomeController@getFeedBackFeatureStatus');
+				Route::post('/getFeedBackQuestion', 'FrontEnd\HomeController@getFeedBackQuestion');
+				Route::post('/addFeedBack', 'FrontEnd\HomeController@addFeedBack');
 				Route::post('/changeAddress', 'FrontEnd\HomeController@changeAddress');
 				// Change address
 				Route::post('/getCountry', 'FrontEnd\ReviewsController@getCountry');
@@ -252,6 +255,7 @@ Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], fun
 				Route::post('/addSearchRecordLimit', 'Admin\SettingsController@addSearchRecordLimit');
 				Route::post('/addBlogImageLimit', 'Admin\SettingsController@addBlogImageLimit');
 				Route::post('/addHomeImageLimit', 'Admin\SettingsController@addHomeImageLimit');
+				Route::post('/addFeedBackTitle', 'Admin\SettingsController@addFeedBackTitle');
 				Route::get('/filetrsettings', 'Admin\FilterSettingsController@allFilterSetting');
 				Route::post('/filetrsettings', 'Admin\FilterSettingsController@changeFilterSetting');
 			// End Settings Section
@@ -348,8 +352,16 @@ Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], fun
 				Route::get('/exportUsers', 'Admin\UsersController@exportUsers');
 			// End Supplier section 
 
-
-
+			// Feedback Section
+				Route::get('/feedbackQuestion/list', 'Admin\FeedbackController@list');
+				Route::get('/feedbackQuestion/add', 'Admin\FeedbackController@add');
+				Route::post('/feedbackQuestion/add', 'Admin\FeedbackController@store');
+				Route::post('/feedbackQuestion/delete', 'Admin\FeedbackController@delete');
+			// End Feedback Section
+			// Feedback Section
+			Route::get('/feedback/list', 'Admin\FeedbackController@userFeedBackList');
+			Route::get('/feedback/exportFeedBack', 'Admin\FeedbackController@exportFeedBack');
+			// End Feedback Section
 			// Start Logs Section 
 				Route::get('/adminLogs', 'Admin\LogsController@adminLog');
 				Route::get('/userLogs', 'Admin\LogsController@userLog');

@@ -1087,6 +1087,37 @@
             </div>
         </div>
     </div>
+     <!-- User address Modal -->
+     <div class="modal fade" id="feedbackModal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="default_adderss">
+                        <div class="row">
+                            <div class="col-lg-12 border-bottom mb-3">
+                                <h5 class="feedbackTitle"></h5>
+                            </div>
+                            <div class="col-lg-12 feedBackQuestions">
+                                <h6 class="feedbackSubTitle mb-3">How was your experience with Telecey</h6>
+                                <div class="fqLoader text-center d-none">
+                                    <h4>
+                                        <i class='fa fa-spinner fa-spin'></i>
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mt-3">
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-primary submitFeedBack">Submit</button>
+                                    <button class="btn btn-primary">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     @section('script')
         <script>
             if (navigator.userAgent.indexOf("MSIE") != -1 || !!document.documentMode == true) {

@@ -411,6 +411,8 @@
 			});
 			$('.blog_image_limit_btn_record').on('click',function(){
 				var blog_image_limit = $('#blog_image_limit').val();
+				var _this = $(this);
+				_this.html('<i class="fa fa-spinner fa-spin"></i>');
 				if(window.location.protocol == "http:"){
 				    resuesturl = "{{url('/admin/addBlogImageLimit')}}"
 				}else if(window.location.protocol == "https:"){
@@ -427,6 +429,7 @@
 				        'blog_image_limit':blog_image_limit
 				    },
 				    success: function (data) {
+						_this.html('<i class="ni ni-check-bold"></i>');
 				        if(data.success){
 				        	toastr.success('Success', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
 				        }else{
@@ -437,6 +440,8 @@
 			});
 			$('.homepage_images_limit_btn_record').on('click',function(){
 				var homepage_images_limit = $('#homepage_images_limit').val();
+				var _this = $(this);
+				_this.html('<i class="fa fa-spinner fa-spin"></i>');
 				if(window.location.protocol == "http:"){
 				    resuesturl = "{{url('/admin/addHomeImageLimit')}}"
 				}else if(window.location.protocol == "https:"){
@@ -453,6 +458,36 @@
 				        'homepage_images_limit':homepage_images_limit
 				    },
 				    success: function (data) {
+						_this.html('<i class="ni ni-check-bold"></i>');
+				        if(data.success){
+				        	toastr.success('Success', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
+				        }else{
+				        	toastr.error('Error', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+				        }
+				    }         
+				});
+			});
+			$('.feedback_title_btn_record').on('click',function(){
+				var feedback_title = $('#feedback_title').val();
+				var _this = $(this);
+				_this.html('<i class="fa fa-spinner fa-spin"></i>');
+				if(window.location.protocol == "http:"){
+				    resuesturl = "{{url('/admin/addFeedBackTitle')}}"
+				}else if(window.location.protocol == "https:"){
+				    resuesturl = "{{secure_url('/admin/addFeedBackTitle')}}"
+				}
+				$.ajax({
+				    type: "post",
+				    url: resuesturl,
+				    headers: {
+				        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				    },
+				    dataType:'json',
+				    data: {
+				        'feedback_title':feedback_title
+				    },
+				    success: function (data) {
+						_this.html('<i class="ni ni-check-bold"></i>');
 				        if(data.success){
 				        	toastr.success('Success', 'Setting update successfully' , {displayDuration:3000,position: 'top-right'});
 				        }else{

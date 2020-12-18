@@ -36,7 +36,7 @@ class FeedbackController extends Controller
             $feedbackQuestion = FeedbackQuestions::create($perameters);
             if($feedbackQuestion){
                 User::where('feedback_status',1)->update(['feedback_status'=>0]);
-                return redirect('/admin/feedback/list')->with('success','Question added successfully.');
+                return redirect('/admin/feedbackQuestion/list')->with('success','Question added successfully.');
             }else{
                 return redirect()->back()->withInput()->with('error','Somthing went wrong!');
             }

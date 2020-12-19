@@ -1022,6 +1022,9 @@
             <div class="modal-content">
                 <!-- Modal body -->
                 <div class="modal-body">
+                    <!-- <h4 class="text-center w-100">Ookla SpeedTest</h4>
+                    <iframe width="100%" height="450px" frameborder="0" src="https://softradix.speedtestcustom.com"></iframe> -->
+
                     <h4 class="speedTestTitle">{!!__('review.internet_speed_title')!!}</h4>
                     <div id="testWrapper" class="text-center">
                         <div id="startStopBtn" onclick="startStop()"></div>

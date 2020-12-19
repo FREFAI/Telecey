@@ -15,12 +15,20 @@
         <td>
         @if(!Auth::guard('customer')->check())
             @if($filtersetting->disable_price_for_logged_out_users == 1)
-                {{$value['price']}}
+                @if($filtersetting->display_price == 1)
+                    {{$value['price']}}
+                @elseif($filtersetting->display_price == 2)
+                    {{roundUp($value['price'], -1)}}
+                @endif
             @else
                 <a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('deviceresult.signup_unlock')}}</a>
             @endif
         @else
-        {{$value['price']}}
+            @if($filtersetting->display_price == 1)
+                {{$value['price']}}
+            @elseif($filtersetting->display_price == 2)
+                {{roundUp($value['price'], -1)}}
+            @endif
         @endif
         </td>
         <td>{{$value['local_min']}}</td>

@@ -176,6 +176,23 @@
 			  			</div>
 					  <!-- End MB Section -->
 		  			<!-- Logged in user setting Section -->
+			  			<div class="col-lg-5 pl-lg-4">
+			  				<h6 class="heading-small text-muted mb-4">Display Price to Users</h6>
+			  			</div>
+			  			<div class="col-lg-7 text-right">
+							<div class="custom-control custom-radio custom-control-inline">
+								<input @if($settings->display_price == 1) checked="" @endif type="radio" id="display_price1" data-setting_key="display_price" value="1" name="display_price" class="custom-control-input filtersettings">
+								<label class="custom-control-label" for="display_price1">Display Real Price</label>
+							</div>
+							<div class="custom-control custom-radio custom-control-inline">
+								<input @if($settings->display_price == 2) checked="" @endif type="radio" id="display_price2" data-setting_key="display_price" value="2" name="display_price" class="custom-control-input filtersettings">
+								<label class="custom-control-label" for="display_price2">Display Rounded Price</label>
+							</div>
+							<div class="custom-control custom-radio custom-control-inline">
+								<input @if($settings->display_price == 3) checked="" @endif type="radio" id="display_price3" data-setting_key="display_price" value="3" name="display_price" class="custom-control-input filtersettings">
+								<label class="custom-control-label" for="display_price3">Don't Display Price</label>
+							</div>
+			  			</div>
 			  			<div class="col-lg-6 pl-lg-4">
 			  				<h6 class="heading-small text-muted mb-4">Disable Price for Logged Out Users</h6>
 			  			</div>

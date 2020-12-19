@@ -111,7 +111,13 @@
 								<td>{{$value->brand ? $value->brand->brand_name : ""}}</td>
 								<td>{{$value->brand ? $value->brand->model_name : ""}}</td>
 								<td>{{$value->supplier ? $value->supplier->supplier_name : ""}}</td>
-								<td>{{$value->price}}</td>
+								<td>
+									@if($filtersetting->display_price == 1)
+										{{$value->price}}
+									@elseif($filtersetting->display_price == 2)
+										{{roundUp($value->price, -1)}}
+									@endif
+								</td>
 								<td>{{$value->storage}}</td>
 								<td>{{round($value->distance)}} KM</td>
 								@if(Auth::guard('customer')->check())

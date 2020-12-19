@@ -326,7 +326,10 @@
 				var filterbutton = $(this);
 				if($(this).prop("checked") == true){
 					var type = $(this).attr("data-setting_key");
-
+					var value = 0;
+					if($(this).attr("data-setting_key") == 'display_price'){
+						value = $(this).val();
+					}
 					if(window.location.protocol == "http:"){
 						resuesturl = "{{url('/admin/filetrsettings')}}"
 					}else if(window.location.protocol == "https:"){
@@ -341,7 +344,7 @@
 						dataType:'json',
 						data: {
 							'type':type,
-							'status':0
+							'status':value
 						},
 						success: function (data) {
 							if(data.success){

@@ -36,3 +36,19 @@ if (! function_exists('str_start')) {
         return Str::start($value, $prefix);
     }
 }
+if (! function_exists('roundUp')) {
+    /**
+     * Round up the incoming value
+     *
+     * @param  string  $value
+     * @param  string  $places
+     * @return string
+     */
+    function roundUp($value, $places)
+    {
+        $mult = pow(10, abs($places));
+        return $places < 0 ?
+        ceil($value / $mult) * $mult :
+            ceil($value * $mult) / $mult;
+    }
+}

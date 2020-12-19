@@ -1,10 +1,9 @@
 <table>
     <thead>
         <tr>
-        <th></th>
-        <th>Sr.No</th>
-        <th>Email</th>
-        <th >Created At</th>
+            <th>Sr.No</th>
+            <th>Email</th>
+            <th style="text-align:right;">Created At</th>
         </tr>
     </thead>
     <tbody>
@@ -14,29 +13,17 @@
             @endphp
             @foreach($feedbacks as $feedback)
                 <tr> 
-                    <td>
-                        {{$i++}}
-                    </td>
-                    <td>{{$feedback->user ? $feedback->user->email  : '-'}}</td>
-                    <td>
-                    {{ date("m/d/Y", strtotime($feedback->created_at)) }} 
-                    </td>
+                    <th>{{$i++}}</th>
+                    <th>{{$feedback->user ? $feedback->user->email  : '-'}}</th>
+                    <th style="text-align:right;">{{ date("m/d/Y", strtotime($feedback->created_at)) }}</th>
                 </tr>
-                <tr>
+                @foreach(json_decode($feedback->feedback_rating) as $ratting) 
+                <tr> 
                     <td></td>
-                    <td colspan="3">
-                        <div>
-                        @foreach(json_decode($feedback->feedback_rating) as $ratting)  
-                        <div class="row mb-2">
-                            <div class="col-6">{{$ratting->question_name}}</div>
-                            <div class="col-6 text-right">
-                            {{$ratting->value}}
-                            </div>
-                        </div>
-                        @endforeach
-                        </div>
-                    </td>
+                    <td>{{$ratting->question_name}}</td>
+                    <td style="text-align:right;">{{$ratting->value}}</td>
                 </tr>
+                @endforeach
             @endforeach
         @else
         <tr>

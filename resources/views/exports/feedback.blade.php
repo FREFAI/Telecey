@@ -20,7 +20,13 @@
                     <td>{{$feedback['email']}}</td>
                     <td style="text-align:right;">{{ date("m/d/Y", strtotime($feedback['created_at'])) }}</td>
                     @foreach($feedBackQuestions as $question)
-                    <td>{{$feedback[$question]}}</td>
+                    <td>
+                    @if(isset($feedback[$question]))
+                        {{$feedback[$question]}}
+                    @else
+                    N/A
+                    @endif
+                    </td>
                     @endforeach
                 </tr>
             @endforeach

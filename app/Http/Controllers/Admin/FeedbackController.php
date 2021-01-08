@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Admin\FeedbackQuestions;
 use App\Models\Admin\FeedBack;
 use App\Exports\FeedBackExport;
+use Illuminate\Validation\Rule;
 use Excel;
 use App\User;
 
@@ -27,7 +28,7 @@ class FeedbackController extends Controller
     {
         $perameters = $request->all();
         $validation = Validator::make($perameters,[
-            'question_name' => 'required',
+            'question_name' => ['required',Rule::unique('feedback_questions')->whereNull('deleted_at')],
             'type' => 'required'
         ]);
         if($validation->fails()){
@@ -81,11 +82,25 @@ class FeedbackController extends Controller
     public function exportFeedBack(Request $request)
     {
         $feedbacks = FeedBack::with(['user'])->orderBy('id','DESC')->get();
+        $feedBackExportData = [];
+        $feedBackQuestions = [];
+        foreach ($feedbacks as $feedback) {
+            $data['email'] = $feedback->user->email;
+            $data['created_at'] = $feedback->created_at;
+            foreach (json_decode($feedback->feedback_rating) as $ratings) {
+                if(!in_array($ratings->question_name,$feedBackQuestions)){
+                    array_push($feedBackQuestions, $ratings->question_name);
+                }
+                $data[$ratings->question_name] = $ratings->value;
+            }
+            array_push($feedBackExportData,$data);
+        }
         $filename = "Feedback" . date('d-m-Y');
-        Excel::create($filename, function($excel) {
-            $excel->sheet('Users Feedbacks', function($sheet) {
+        Excel::create($filename, function($excel) use ($feedBackQuestions,$feedBackExportData) {
+            $excel->sheet('Users Feedbacks', function($sheet) use ($feedBackQuestions,$feedBackExportData)  {
                 $sheet->loadView( 'exports.feedback',[
-                    'feedbacks' => FeedBack::with(['user'])->orderBy('id','DESC')->get()
+                    'feedBackQuestions' => $feedBackQuestions,
+                    'feedbacks' => $feedBackExportData
                 ]);
             });
         })->export('xlsx');

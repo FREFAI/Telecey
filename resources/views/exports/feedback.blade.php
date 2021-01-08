@@ -4,6 +4,9 @@
             <th>Sr.No</th>
             <th>Email</th>
             <th style="text-align:right;">Created At</th>
+            @foreach($feedBackQuestions as $question)
+            <th>{{$question}}</th>
+            @endforeach
         </tr>
     </thead>
     <tbody>
@@ -14,16 +17,12 @@
             @foreach($feedbacks as $feedback)
                 <tr> 
                     <th>{{$i++}}</th>
-                    <th>{{$feedback->user ? $feedback->user->email  : '-'}}</th>
-                    <th style="text-align:right;">{{ date("m/d/Y", strtotime($feedback->created_at)) }}</th>
+                    <th>{{$feedback['email']}}</th>
+                    <th style="text-align:right;">{{ date("m/d/Y", strtotime($feedback['created_at'])) }}</th>
+                    @foreach($feedBackQuestions as $question)
+                    <th>{{$feedback[$question]}}</th>
+                    @endforeach
                 </tr>
-                @foreach(json_decode($feedback->feedback_rating) as $ratting) 
-                <tr> 
-                    <td></td>
-                    <td>{{$ratting->question_name}}</td>
-                    <td style="text-align:right;">{{$ratting->value}}</td>
-                </tr>
-                @endforeach
             @endforeach
         @else
         <tr>

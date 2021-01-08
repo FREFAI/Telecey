@@ -16,11 +16,11 @@
             @endphp
             @foreach($feedbacks as $feedback)
                 <tr> 
-                    <th>{{$i++}}</th>
-                    <th>{{$feedback['email']}}</th>
-                    <th style="text-align:right;">{{ date("m/d/Y", strtotime($feedback['created_at'])) }}</th>
+                    <td>{{$i++}}</td>
+                    <td>{{$feedback['email']}}</td>
+                    <td style="text-align:right;">{{ date("m/d/Y", strtotime($feedback['created_at'])) }}</td>
                     @foreach($feedBackQuestions as $question)
-                    <th>{{$feedback[$question]}}</th>
+                    <td>{{$feedback[$question]}}</td>
                     @endforeach
                 </tr>
             @endforeach

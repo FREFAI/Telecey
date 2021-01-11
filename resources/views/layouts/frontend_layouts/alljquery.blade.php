@@ -1109,6 +1109,7 @@
                     let data = feedback.data
                     handleFeedbackModal(data, type)
                 }else{
+                    
                     if (type == 1) {
                         window.location.href = "{{url('/profile')}}";
                     } else {
@@ -1125,6 +1126,7 @@
         $('#feedbackModal').modal({ show: true })
         $('#feedbackModal').attr('data-reviewType',reviewType)
         let questions = await getFeedBackQuestions();
+        console.log(questions);
         if (questions.success) {
             var resp = $.map(questions.data, function (obj) {
                 let html = `<div class="row mb-2">

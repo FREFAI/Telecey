@@ -85,6 +85,7 @@ class FeedbackController extends Controller
         $feedBackExportData = [];
         $feedBackQuestions = [];
         foreach ($feedbacks as $feedback) {
+            $data=[];
             $data['email'] = $feedback->user->email;
             $data['created_at'] = $feedback->created_at;
             foreach (json_decode($feedback->feedback_rating) as $ratings) {

@@ -246,16 +246,20 @@
                                     <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="{{ __('review.address') }} " autocompleted=chrome-off >
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                                <h5>{{ __('review.country') }}</h5>
-                                <div class="form-group country_div" id="country_div">
-                                    <input type="text" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" autocompleted=chrome-off >
+                            @if(!$plandevicerating)
+                                <div class="col-lg-12">
+                                    <h5>{{ __('review.country') }}</h5>
+                                    <div class="form-group country_div" id="country_div">
+                                        <input type="text" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" autocompleted=chrome-off >
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                <input type="hidden" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" value="{{$countries->name}}" autocompleted=chrome-off >
+                            @endif
                             <div class="col-lg-12">
                                 <h5>{{ __('review.city') }}</h5>
                                 <div class="form-group city_div" id="city_div">
-                                    <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="{{ __('review.city') }}" autocompleted=chrome-off  required="" data-country="IN">
+                                    <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="{{ __('review.city') }}" autocompleted=chrome-off  required="" data-country="{{$countries->code}}">
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -406,7 +410,7 @@
             if($('#address_form #user_postal_code').val().length == 6){
                 if(!postal["status"]){
                     address = [$('#address_form #user_postal_code').val().substring(0, 3),$('#address_form #user_country').val(),$('#address_form .city_input').val()]
-                    postal = await valid_postal_code_with_google_api(address.join(',').substring(0, 3), $('#address_form #user_country').val(),$('#address_form .city_input').val());
+                    postal = await valid_postal_code_with_google_api(address.join(','), $('#address_form #user_country').val(),$('#address_form .city_input').val());
                 }
             }
             if(!postal['status']){

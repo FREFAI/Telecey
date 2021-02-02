@@ -683,7 +683,8 @@
                             data["status"] = false;
                             data["cities"] = [];
                             data["country"] = "";
-                        }else if (countryExist == country && cities.indexOf(city.toLowerCase()) != -1) {
+                        } 
+                        if (countryExist == country && cities.indexOf(city.toLowerCase()) != -1) {
                             data["status"] = true;
                             data["cities"] = cities;
                             data["country"] = countryExist;

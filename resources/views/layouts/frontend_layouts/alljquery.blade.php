@@ -58,12 +58,14 @@
         }
     }
     function geoSuccess(position) {
+        console.log("123saga");
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
 
         codeLatLng(lat, lng);
     }
     function geoError() {
+        console.log("123saga_error");
         $('.getcity').val($('.getcity').attr('data-city'));
         $('.getpostalcode').val($('.getpostalcode').attr('data-postal_code'));
         console.log("Geocoder failed");
@@ -73,6 +75,7 @@
         geocoder = new google.maps.Geocoder();
     }
     function codeLatLng(lat, lng) {
+        console.log("PL");
         var addr = {};
         var latlng = new google.maps.LatLng(lat, lng);
         geocoder.geocode({ latLng: latlng }, function (results, status) {

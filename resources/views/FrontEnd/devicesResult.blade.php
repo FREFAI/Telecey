@@ -94,7 +94,7 @@
 							<th class="custom_sorting" data-name="brand_name" data-sort="asc">{{__('deviceresult.brand')}} <i class="fas fa-arrow-down"></i></th>
 							<th class="custom_sorting" data-name="model_name" data-sort="asc">{{__('deviceresult.model')}} <i class="fas fa-arrow-down"></i></th>
 							<th class="custom_sorting" data-name="supplier_name" data-sort="asc">{{__('deviceresult.supplier')}} <i class="fas fa-arrow-down"></i></th>
-							<th class="custom_sorting" data-name="price" data-sort="asc">{{__('deviceresult.price')}} <i class="fas fa-arrow-down"></i></th>
+							<th class="custom_sorting" data-name="price" data-sort="asc">@if($filtersetting->display_price == 2) Around @endif {{__('deviceresult.price')}} <i class="fas fa-arrow-down"></i></th>
 							<th class="custom_sorting" data-name="storage" data-sort="asc">{{__('deviceresult.capacity')}} <i class="fas fa-arrow-down"></i></th>
 							<th class="custom_sorting" data-name="distance" data-sort="asc">{{__('deviceresult.distance')}} <i class="fas fa-arrow-down"></i></th>
 							<th class="text-center">{{ __('deviceresult.detail_btn') }}</th>

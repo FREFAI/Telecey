@@ -1017,8 +1017,9 @@
 					    },
 					    success: function (data) {
 					        if(data.success){
-					        	delete_row.closest('tr').remove();
+					        	delete_row.closest('td').prev(".deleted_at").text(data.deleted_at);
 					        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
+								delete_row.remove();
 					        }else{
 					        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
 					        }

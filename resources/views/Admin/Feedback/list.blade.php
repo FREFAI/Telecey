@@ -38,7 +38,7 @@
                             <th scope="col">Question</th>
                             <th scope="col" style="width: 10px;">Type</th>
                             <th scope="col" >Created At</th>
-                            <th scope="col" >Deleted At</th>
+                            <th scope="col" class="text-center">Deleted At</th>
                             <th scope="col" class="text-right">Action</th>
                             </tr>
                         </thead>
@@ -67,13 +67,15 @@
                                     <td>
                                     {{ date("m/d/Y", strtotime($question->created_at)) }}
                                     </td>
-                                    <td>
-                                    {{ date("m/d/Y", strtotime($question->deleted_at)) }} 
+                                    <td class="text-center deleted_at">
+                                    {{ $question->deleted_at ? date("m/d/Y", strtotime($question->deleted_at)) : "-"}} 
                                     </td>
                                     <td class="text-right">
-                                    <button class="btn btn-icon btn-2 btn-danger btn-sm delete_feedbackquestion" type="button" data-question_id="{{base64_encode($question->id)}}" data-toggle="tooltip" data-placement="top" title="Delete">
-                                        <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
-                                    </button>
+                                        @if($question->deleted_at == null)
+                                        <button class="btn btn-icon btn-2 btn-danger btn-sm delete_feedbackquestion" type="button" data-question_id="{{base64_encode($question->id)}}" data-toggle="tooltip" data-placement="top" title="Delete">
+                                            <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
+                                        </button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -129,8 +131,9 @@
                     },
                     success: function (data) {
                         if(data.success){
-                            delete_row.closest('tr').remove();
+                            delete_row.closest('td').prev(".deleted_at").text(data.deleted_at);
                             toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
+                            delete_row.remove();
                         }else{
                             toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
                         }

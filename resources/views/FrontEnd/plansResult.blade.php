@@ -164,7 +164,7 @@
 											@endif
 										@else
 										class="custom_sorting"
-										@endif data-name="price" data-sort="asc" >{{__('planresult.price')}}
+										@endif data-name="price" data-sort="asc" >@if($filtersetting->display_price == 2) Around @endif {{__('planresult.price')}}
 										@if(!Auth::guard('customer')->check())
 											@if($filtersetting->disable_price_for_logged_out_users == 1)
 												<i class="fas fa-arrow-down"></i>

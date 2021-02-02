@@ -689,8 +689,6 @@
                             data["cities"] = cities;
                             data["country"] = countryExist;
                         }
-                        console.log(data);
-                        
                         resolve(data);
                     } else {
                         var data = [];

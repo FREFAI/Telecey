@@ -49,7 +49,7 @@
                        <th scope="col" style="width: 10px;">Question</th>
                        <th scope="col" style="width: 10px;">Type</th>
                        <th scope="col" style="width: 10px;">Created At</th>
-                       <th scope="col" style="width: 10px;">Deleted At</th>
+                       <th scope="col" class="text-center">Deleted At</th>
                        <th scope="col" class="text-right">Action</th>
                      </tr>
                    </thead>
@@ -78,13 +78,15 @@
                              <td>
                               {{ date("m/d/Y", strtotime($question->created_at)) }}
                              </td>
-                             <td>
-                              {{ date("m/d/Y", strtotime($question->deleted_at)) }} 
+                             <td class="text-center deleted_at">
+                              {{ $question->deleted_at ? date("m/d/Y", strtotime($question->deleted_at)) : "-" }} 
                              </td>
                              <td class="text-right">
+                              @if($question->deleted_at == null)
                                <button class="btn btn-icon btn-2 btn-danger btn-sm delete_question" type="button" data-question_id="{{base64_encode($question->id)}}" data-toggle="tooltip" data-placement="top" title="Delete">
                                  <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
                                </button>
+                              @endif
                              </td>
                           </tr>
                        @endforeach

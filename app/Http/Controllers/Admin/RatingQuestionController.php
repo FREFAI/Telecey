@@ -95,7 +95,7 @@ class RatingQuestionController extends Controller
             $deleteQuestion->delete();
             // ServiceRating::where('question_id',$perameter['id'])->delete();
             if($deleteQuestion){
-                $message = array('success'=>true,'message'=>'Delete successfully.');
+                $message = array('success'=>true,'message'=>'Delete successfully.','deleted_at' => date("m/d/Y", strtotime($deleteQuestion->deleted_at)));
                 return json_encode($message);
             }else{
                 $message = array('success'=>false,'message'=>'Somthing went wrong!');

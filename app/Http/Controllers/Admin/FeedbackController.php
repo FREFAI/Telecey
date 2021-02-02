@@ -16,7 +16,7 @@ class FeedbackController extends Controller
 {
     public function list(Request $request)
     {
-        $questions = FeedbackQuestions::orderBy('id','DESC')->paginate(10);
+        $questions = FeedbackQuestions::orderBy('id','DESC')->withTrashed()->paginate(10);
         return view('Admin.Feedback.list',['questions'=>$questions]);
     }
 
@@ -56,7 +56,11 @@ class FeedbackController extends Controller
             $deleteQuestion = FeedbackQuestions::findorfail($perameter['id']);
             $deleteQuestion->delete();
             if($deleteQuestion){
-                $message = array('success'=>true,'message'=>'Delete successfully.');
+                $message = array(
+                    'success'=>true,
+                    'message'=>'Delete successfully.',
+                    'deleted_at' => date("m/d/Y", strtotime($deleteQuestion->deleted_at))
+                );
                 return json_encode($message);
             }else{
                 $message = array('success'=>false,'message'=>'Somthing went wrong!');

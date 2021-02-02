@@ -59,21 +59,15 @@ class ReviewsController extends Controller
         $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
         $newresponse = json_decode($newresponse->getBody());
         
-        // echo "<pre>";
-        // print_r($newresponse);
-        // exit;
-        // if (!$request->session()->has('usersDetail')) {
-            // $ip = '96.46.34.142';
-            $current_lat = $newresponse->latitude;
-            $current_long = $newresponse->longitude;
-            $storableLocation['city'] = $newresponse->city;
-            $storableLocation['state'] = $newresponse->state_prov;
-            $storableLocation['country'] = $newresponse->country_name;
-            $storableLocation['country_code'] = $newresponse->country_code2;
-            $storableLocation['postal_code'] = $newresponse->zipcode;
-            
-            $request->session()->put('usersDetail', $storableLocation); 
-        // }
+        $current_lat = $newresponse->latitude;
+        $current_long = $newresponse->longitude;
+        $storableLocation['city'] = $newresponse->city;
+        $storableLocation['state'] = $newresponse->state_prov;
+        $storableLocation['country'] = $newresponse->country_name;
+        $storableLocation['country_code'] = $newresponse->country_code2;
+        $storableLocation['postal_code'] = $newresponse->zipcode;
+        
+        $request->session()->put('usersDetail', $storableLocation); 
         $usersDetailSession = $request->session()->get('usersDetail');
         $usersDetail = User::find($user_id); 
         $usersAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first(); 
@@ -148,12 +142,17 @@ class ReviewsController extends Controller
         $newresponse = json_decode($newresponse->getBody());
         $current_lat = $newresponse->latitude;
         $current_long = $newresponse->longitude;
-
         $plan_id = base64_decode($plan_id);
+        $plandevicerating = PlanDeviceRating::select('country')->where('plan_id',$plan_id)->where('rating_id',1)->first();
         $settings = SettingsModel::first();
         $questions = RatingQuestion::Where('type',1)->get();
         $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
-        return view('FrontEnd.reviews_rating',['settings'=> $settings,'plan_id'=>$plan_id,'questions'=>$questions,'userAddress'=>$userAddress,'type'=>1,'lat' =>  $current_lat,'long'=>$current_long]);
+        if($plandevicerating){
+            $countries = CountriesModel::where('name',$plandevicerating->country)->first();
+        }else{
+            $countries = "";
+        }
+        return view('FrontEnd.reviews_rating',['settings'=> $settings,'plan_id'=>$plan_id,'questions'=>$questions,'userAddress'=>$userAddress,'type'=>1,'lat' =>  $current_lat,'long'=>$current_long,'plandevicerating'=>$plandevicerating, 'countries'=>$countries]);
     }
     public function reviewsDetail(Request $request)
     {

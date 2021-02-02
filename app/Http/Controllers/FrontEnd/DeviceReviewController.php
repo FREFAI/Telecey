@@ -13,6 +13,7 @@ use App\Models\Admin\RatingQuestion;
 use App\Models\Admin\Supplier;
 use App\Models\Admin\Brands;
 use App\UserAddress;
+use App\CountriesModel;
 use Auth;
 
 class DeviceReviewController extends Controller
@@ -273,10 +274,15 @@ class DeviceReviewController extends Controller
         $newresponse = json_decode($newresponse->getBody());
         $current_lat = $newresponse->latitude;
         $current_long = $newresponse->longitude;
-
+        $plandevicerating = PlanDeviceRating::select('country')->where('device_id',$device_id)->where('rating_id',1)->first();
         $settings = SettingsModel::first();
         $questions = RatingQuestion::Where('type',2)->get();
         $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
-        return view('FrontEnd.reviews_rating',['settings'=> $settings,'device_id'=>$device_id,'questions'=>$questions,'userAddress'=>$userAddress,'type'=>2,'lat' =>  $current_lat,'long'=>$current_long]);
+        if($plandevicerating){
+            $countries = CountriesModel::where('name',$plandevicerating->country)->first();
+        }else{
+            $countries = "";
+        }
+        return view('FrontEnd.reviews_rating',['settings'=> $settings,'device_id'=>$device_id,'questions'=>$questions,'userAddress'=>$userAddress,'type'=>2,'lat' =>  $current_lat,'long'=>$current_long,'plandevicerating'=>$plandevicerating, 'countries'=>$countries]);
     }
 }

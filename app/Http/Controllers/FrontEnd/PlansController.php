@@ -86,11 +86,11 @@ class PlansController extends Controller
         if(!Auth::guard('customer')->check()){
                 $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 20;
         }else{
-                if(array_key_exists("rows",$data)){
-                    $limit = $data['rows'];
-                }else{
-                    $limit = 20;
-                } 
+            if(array_key_exists("rows",$data)){
+                $limit = $data['rows'];
+            }else{
+                $limit = 20;
+            } 
         }
         $country = CountriesModel::select('id')->where('name',$newresponse->country_name)->first();
         $ads = AdsModel::with('countries')
@@ -176,12 +176,11 @@ class PlansController extends Controller
                 ];
             }
             CreateLogs::createLog($logData);
-            return view('FrontEnd.plansResult',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'googleads'=>$googleads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
         }else{
             $searchResult = [];
             $filter = 1;
-            return view('FrontEnd.plansResult',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'googleads'=>$googleads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
         }
+        return view('FrontEnd.plansResult',['ip_location'=>$current_location,'filtersetting'=>$filtersetting,'ads'=>$ads,'googleads'=>$googleads,'service_types' => $service_types,'data' => $searchResult,'filterType' => $filter]);
 
     }
     public function plansResultSorting(Request $request)

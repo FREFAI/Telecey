@@ -397,16 +397,14 @@
             let address = [$('#address_form #user_postal_code').val(),$('#address_form #user_country').val(),$('#address_form .city_input').val()]
             let postal = await valid_postal_code_with_google_api(address.join(','),$('#address_form #user_country').val(),$('#address_form .city_input').val());
             if(!postal["status"]){
+                if(postal['country'] != "" && postal['country'] != $('#address_form #user_country').val()){
+                    var suggestedCities = '<span class="suggmescountry">Country should be one from the following :- </span><span class="suggcountry" data-city="'+postal['country']+'">'+postal['country']+'</span>';
+                    $('#address_form #user_country').after(suggestedCities)
+                }
                 if(postal['cities'].length > 0){
                     var suggestedCities = '<span class="suggmes">City should be one from the following :- </span>';
                     postal['cities'].forEach(city => suggestedCities += '<span class="suggcity" data-city="'+city+'">&nbsp;'+ city + ',</span>'); 
                     $("#address_form .city_input").after(suggestedCities)
-                }
-                if(!$('#address_form #user_country').is(":hidden")){
-                    if(postal['country'] != "" && postal['country'] != $('#address_form #user_country').val()){
-                        var suggestedCities = '<span class="suggmescountry">Country should be one from the following :- </span><span class="suggcountry" data-city="'+postal['country']+'">'+postal['country']+'</span>';
-                        $('#address_form #user_country').after(suggestedCities)
-                    }
                 }
             }
             if($('#address_form #user_postal_code').val().length == 6){

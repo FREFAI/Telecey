@@ -396,12 +396,6 @@
         }else{
             let address = [$('#address_form #user_postal_code').val(),$('#address_form #user_country').val(),$('#address_form .city_input').val()]
             let postal = await valid_postal_code_with_google_api(address.join(','),$('#address_form #user_country').val(),$('#address_form .city_input').val());
-            if($('#address_form #user_postal_code').val().length == 6){
-                if(!postal["status"]){
-                    address = [$('#address_form #user_postal_code').val().substring(0, 3),$('#address_form #user_country').val(),$('#address_form .city_input').val()]
-                    postal = await valid_postal_code_with_google_api(address.join(','), $('#address_form #user_country').val(),$('#address_form .city_input').val());
-                }
-            }
             if(!postal["status"]){
                 if(postal['cities'].length > 0){
                     var suggestedCities = '<span class="suggmes">City should be one from the following :- </span>';
@@ -412,6 +406,14 @@
                     var suggestedCities = '<span class="suggmescountry">Country should be one from the following :- </span><span class="suggcountry" data-city="'+postal['country']+'">'+postal['country']+'</span>';
                     $('#address_form #user_country').after(suggestedCities)
                 }
+            }
+            if($('#address_form #user_postal_code').val().length == 6){
+                if(!postal["status"]){
+                    address = [$('#address_form #user_postal_code').val().substring(0, 3),$('#address_form #user_country').val(),$('#address_form .city_input').val()]
+                    postal = await valid_postal_code_with_google_api(address.join(','), $('#address_form #user_country').val(),$('#address_form .city_input').val());
+                }
+            }
+            if(!postal['status']){
                 if(!$("#address_form #user_postal_code").hasClass('error')){
                   $('#address_form #user_postal_code').addClass('error');
                   $('#address_form #user_postal_code').after('<label id="postal_code-error" class="error" for="postal_code">{{__("index.Postal code is invalid, Please select valid postal code")}}</label>');

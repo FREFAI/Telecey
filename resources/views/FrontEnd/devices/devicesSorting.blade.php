@@ -12,7 +12,7 @@
             @if($filtersetting->display_price == 1)
                 {{$value->price}}
             @elseif($filtersetting->display_price == 2)
-            Around {{roundUp($value->price, -1)}}
+                {{roundUp($value->price, -1)}}
             @endif
         </td>
         <td>{{$value->storage}}</td>

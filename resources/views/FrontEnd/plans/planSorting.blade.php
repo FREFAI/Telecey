@@ -18,7 +18,7 @@
                 @if($filtersetting->display_price == 1)
                     {{$value['price']}}
                 @elseif($filtersetting->display_price == 2)
-                Around {{roundUp($value['price'], -1)}}
+                    {{roundUp($value['price'], -1)}}
                 @endif
             @else
                 <a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('deviceresult.signup_unlock')}}</a>
@@ -27,7 +27,7 @@
             @if($filtersetting->display_price == 1)
                 {{$value['price']}}
             @elseif($filtersetting->display_price == 2)
-            Around  {{roundUp($value['price'], -1)}}
+                 {{roundUp($value['price'], -1)}}
             @endif
         @endif
         </td>

@@ -16,4 +16,13 @@ class PlanDeviceRating extends Model
     {
     	return $this->hasOne('App\UserAddress', 'id', 'user_address_id');
     }
+
+    public function plan()
+    {
+        return $this->hasOne('App\Models\FrontEnd\ServiceReview','id','plan_id');
+    }
+    public function users()
+    {
+        return $this->hasOne('App\User','id','user_id');
+    }
 }

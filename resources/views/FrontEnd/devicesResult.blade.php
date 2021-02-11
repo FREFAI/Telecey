@@ -108,9 +108,9 @@
 						@endphp
 						@foreach($data as $key => $value)
 							<tr class="custom-row-cl">
-								<td>{{$value->brand ? $value->brand->brand_name : ""}}</td>
-								<td>{{$value->brand ? $value->brand->model_name : ""}}</td>
-								<td>{{$value->supplier ? $value->supplier->supplier_name : ""}}</td>
+								<td>{{$value->brand_name}}</td>
+								<td>{{$value->model_name}}</td>
+								<td>{{$value->supplier_name}}</td>
 								<td>
 									@if($filtersetting->display_price == 1)
 										{{$value->price}}

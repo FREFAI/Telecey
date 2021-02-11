@@ -1,13 +1,13 @@
 @php
-    $i = ($data->currentpage-1)* $data->perpage + 1;
+    $i = ($data->currentpage()-1)* $data->perpage() + 1;
     $custom_ads = 0;
     $j = 0; 
 @endphp
 @foreach($data as $key => $value)
     <tr class="custom-row-cl">
-        <td>{{$value->brand ? $value->brand->brand_name : ""}}</td>
-        <td>{{$value->brand ? $value->brand->model_name : ""}}</td>
-        <td>{{$value->supplier ? $value->supplier->supplier_name : ""}}</td>
+        <td>{{$value->brand_name}}</td>
+        <td>{{$value->model_name}}</td>
+        <td>{{$value->supplier_name}}</td>
         <td>
             @if($filtersetting->display_price == 1)
                 {{$value->price}}
@@ -18,9 +18,21 @@
         <td>{{$value->storage}}</td>
         <td>{{round($value->distance)}} KM</td>
         @if(Auth::guard('customer')->check())
-            <td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value->id)}}">{{ __('deviceresult.detail_btn') }}</td>
+            @if(!$filtersetting->review_detail_for_unverified)
+                @if(Auth::guard('customer')->user()['is_active'])
+                    <td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value->id)}}">{{__('deviceresult.detail_btn')}}</td>
+                @else
+                    <td data-order="-1"><a href="{{url('/resendVerifyEmail')}}" class="btn table-row-btn">Verify your email</a></td>
+                @endif
+            @else
+                <td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value->id)}}">{{__('deviceresult.detail_btn')}}</td>
+            @endif
         @else
-            <td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('deviceresult.signup_unlock')}}</td>
+            @if($filtersetting->disable_details_for_logged_out_users == 1)
+                <td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value->id)}}">{{__('deviceresult.detail_btn')}}</td>
+            @else
+                <td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('deviceresult.signup_unlock')}}</td>
+            @endif
         @endif
     </tr>
     @if(count($ads) > 0)

@@ -659,6 +659,8 @@
         let cities = [];
         let countryExist = "";
         let postalCode = "";
+        let lat = "";
+        let lng = "";
         return new Promise((resolve) => {
             $.ajax({
                 url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + value + "&key=AIzaSyBA8bx4gjNJX_EBkoqNDvaGN7QduUn6W68",
@@ -670,6 +672,8 @@
                         var results = res.results;
                         for (var ac = 0; ac < results[0].address_components.length; ac++) {
                             var component = results[0].address_components[ac];
+                            var lat = results[0].geometry.location.lat;
+                            var lng = results[0].geometry.location.lng;
                             if (component.types.indexOf("country") != -1) {
                                 countryExist = component.long_name;
                             } else if (component.types.indexOf("postal_code") != -1) {
@@ -683,15 +687,21 @@
                             data["status"] = false;
                             data["cities"] = [];
                             data["country"] = "";
+                            data["lat"] = "";
+                            data["lng"] = "";
                         } 
                         if (countryExist == country && cities.indexOf(city.toLowerCase()) != -1) {
                             data["status"] = true;
                             data["cities"] = cities;
                             data["country"] = countryExist;
+                            data["lat"] = lat;
+                            data["lng"] = lng;
                         } else {
                             data["status"] = false;
                             data["cities"] = cities;
                             data["country"] = countryExist;
+                            data["lat"] = lat;
+                            data["lng"] = lng;
                         }
                         resolve(data);
                     } else {
@@ -699,6 +709,8 @@
                         data["status"] = false;
                         data["cities"] = cities;
                         data["country"] = countryExist;
+                        data["lat"] = lat;
+                        data["lng"] = lng;
                         resolve(data);
                     }
                 },
@@ -766,6 +778,12 @@
                 $("#firstform #postal_code").after('<label id="postal_code-error" class="error" for="postal_code">{{__("index.Postal code is invalid, Please select valid postal code")}}</label>');
             }
             return false;
+        }
+        if(postal['lat'] && postal['lat'] != ""){
+            $('#lat').val(postal['lat']);
+        }
+        if(postal['lng'] && postal['lng'] != ""){
+            $('#long').val(postal['lng']);
         }
         var thisform = $(this);
 

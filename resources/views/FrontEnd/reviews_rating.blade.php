@@ -420,6 +420,12 @@
                 }
                 return false;
             }
+            if(postal['lat'] && postal['lat'] != ""){
+                $('#lat').val(postal['lat']);
+            }
+            if(postal['lng'] && postal['lng'] != ""){
+                $('#long').val(postal['lng']);
+            }
             var user_full_address = $('#user_full_address').val();
             var user_city = $('#user_city').val();
             var user_country = $('#user_country').val();

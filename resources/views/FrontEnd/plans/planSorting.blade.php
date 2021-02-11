@@ -4,51 +4,57 @@
     $j = 0; 
 @endphp
 @foreach($data as $key => $value)
-    <tr class="custom-row-cl">
-        <td>
-            @if($value['provider']['provider_image_original'] != "")
-                <img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" style="width:100px;height:50px;" />
-            @else
-                <img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" style="width:100px;height:50px;"/>
-            @endif
-        </td>
-        <td>
-        @if(!Auth::guard('customer')->check())
-            @if($filtersetting->disable_price_for_logged_out_users == 1)
-                @if($filtersetting->display_price == 1)
-                    {{$value['price']}}
-                @elseif($filtersetting->display_price == 2)
-                    {{roundUp($value['price'], -1)}}
-                @endif
-            @else
-                <a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('deviceresult.signup_unlock')}}</a>
-            @endif
-        @else
+<tr class="custom-row-cl">
+    <td>
+        @if($value['provider_image_original'] != "")
+            <img src="{{URL::asset('providers/provider_original')}}/{{$value['provider_image_original']}}" style="width:100px;height:50px; object-fit: contain;" />
+        @endif
+    </td>
+    <td>
+    @if(!Auth::guard('customer')->check())
+        @if($filtersetting->disable_price_for_logged_out_users == 1)
             @if($filtersetting->display_price == 1)
                 {{$value['price']}}
             @elseif($filtersetting->display_price == 2)
-                 {{roundUp($value['price'], -1)}}
+                {{roundUp($value['price'], -1)}}
             @endif
-        @endif
-        </td>
-        <td>{{$value['local_min']}}</td>
-        <td>{{$value['datavolume']}}</td>
-        <td data-order="{{$value['average_review']}}"><div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div></td>
-        @if(isset($value['distance']))
-            <td>{{round($value['distance'])}} KM</td>
         @else
-            <td>N/A</td>
+            <a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('planresult.signup_unlock')}}</a>
         @endif
-        @if(Auth::guard('customer')->check())
-            <td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">{{ __('deviceresult.detail_btn') }}</a></td>
-        @else
-            @if($filtersetting->disable_details_for_logged_out_users == 1)
-                <td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">{{ __('deviceresult.detail_btn') }}</a></td>
+    @else
+        @if($filtersetting->display_price == 1)
+            {{$value['price']}}
+        @elseif($filtersetting->display_price == 2)
+            {{roundUp($value['price'], -1)}}
+        @endif
+    @endif
+    </td>
+    <td>{{$value['local_min']}}</td>
+    <td>{{$value['datavolume']}}</td>
+    <td data-order="{{$value['average_review']}}"><div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div></td>
+    @if(isset($value['distance']))
+        <td>{{round($value['distance'])}} KM</td>
+    @else
+        <td>N/A</td>
+    @endif
+    @if(Auth::guard('customer')->check())
+        @if(!$filtersetting->review_detail_for_unverified)
+            @if(Auth::guard('customer')->user()['is_active'])
+                <td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">{{__('planresult.detail_btn')}}</a></td>
             @else
-                <td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('deviceresult.signup_unlock')}}</a></td>
+                <td data-order="-1"><a href="{{url('/resendVerifyEmail')}}" class="btn table-row-btn">Verify your email</a></td>
             @endif
+        @else
+            <td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">{{__('planresult.detail_btn')}}</a></td>
         @endif
-    </tr>
+    @else
+        @if($filtersetting->disable_details_for_logged_out_users == 1)
+            <td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">{{__('planresult.detail_btn')}}</a></td>
+        @else
+            <td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('planresult.signup_unlock')}}</a></td>
+        @endif
+    @endif
+</tr>
     @if(count($ads) > 0)
         @if($i%10 == 0)
             @if($custom_ads === 0)

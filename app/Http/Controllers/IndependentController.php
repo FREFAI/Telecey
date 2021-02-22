@@ -620,7 +620,7 @@ class IndependentController extends Controller
 
     public function updateLatLngBasisOnAddress(Request $request)
     {
-        $PlanDeviceRating = PlanDeviceRating::where('postal_code','!=','')->where('country','!=','')->whereDate('created_at',"<", "2021-01-01")->orderBy('created_at','DESC')->paginate($request->limit);
+        $PlanDeviceRating = PlanDeviceRating::where('postal_code','!=','')->where('country','!=','')->whereYear('created_at',"<", date('Y'))->orderBy('created_at','DESC')->paginate($request->limit);
         foreach($PlanDeviceRating as $review){
             DB::beginTransaction();
 			try {

@@ -617,4 +617,45 @@ class IndependentController extends Controller
             
         }
     }
+
+    public function updateLatLngBasisOnAddress(Request $request)
+    {
+        return $PlanDeviceRating = PlanDeviceRating::where('postal_code','!=','')->where('country','!=','')->whereDate('created_at',"<", "2021-01-01")->orderBy('created_at','DESC')->get();
+        foreach($PlanDeviceRating as $review){
+            DB::beginTransaction();
+			try {
+                if($review->postal_code != ""){
+                    $postal = $review->postal_code;
+                    $city = $review->city;
+                    $country = $review->country;
+                    if($city == ""){
+                        $address = $country.', '.$postal;
+                    }else{
+                        $address = $country.', '.$city .', '.$postal;
+                    }
+                    $client = new \GuzzleHttp\Client();
+                    $newresponse = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json?address='.$address.'&key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s');
+                    $newresponse = json_decode($newresponse->getBody());
+                    $newresponse  = $newresponse->results;
+                    if(count($newresponse)>0){
+                        $newresponse = $newresponse[0];
+                        $geometry = $newresponse->geometry;
+                        $location = $geometry->location;
+                        PlanDeviceRating::where('id',$review->id)->update(['longitude'=>$location->lng, 'latitude'=> $location->lat]);
+                        DB::commit();
+                        echo 'Success :- reviewId => '.$review->id.'<br>' ;
+                    }else{
+                        echo 'Not Complete :- reviewId => '.$review->id.'<br>' ;
+                    }
+                }
+                
+			    // all good
+			} catch (\Exception $e) {
+                echo 'Error :- reviewId => '.$review->id.'<br>';
+				
+			    DB::rollback();
+			    // something went wrong
+			}
+        }
+    }
 }

@@ -23,6 +23,7 @@ Route::get('/inbox/{caseID}', function($param){
 Route::get('/googlecallback', 'FrontEnd\LoginSignup\SocialAuthGoogleController@callback');
 Route::get('/facebookcallback', 'FrontEnd\LoginSignup\SocialAuthFacebookController@callback');
 
+Route::get('/updateLatLngBasisOnAddress', 'IndependentController@updateLatLngBasisOnAddress');
 Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], function(){
 	// Testing Route 
 		Route::get('/country', 'TestController@index');

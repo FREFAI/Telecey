@@ -620,7 +620,7 @@ class IndependentController extends Controller
 
     public function updateLatLngBasisOnAddress(Request $request)
     {
-        return $PlanDeviceRating = PlanDeviceRating::where('postal_code','!=','')->where('country','!=','')->whereDate('created_at',"<", "2021-01-01")->orderBy('created_at','DESC')->get();
+        $PlanDeviceRating = PlanDeviceRating::where('postal_code','!=','')->where('country','!=','')->whereDate('created_at',"<", "2021-01-01")->orderBy('created_at','DESC')->paginate($request->limit);
         foreach($PlanDeviceRating as $review){
             DB::beginTransaction();
 			try {
@@ -641,7 +641,10 @@ class IndependentController extends Controller
                         $newresponse = $newresponse[0];
                         $geometry = $newresponse->geometry;
                         $location = $geometry->location;
-                        PlanDeviceRating::where('id',$review->id)->update(['longitude'=>$location->lng, 'latitude'=> $location->lat]);
+                        $reviewDetail = PlanDeviceRating::find($review->id);
+                        $reviewDetail->longitude = $location->lng;
+                        $reviewDetail->latitude = $location->lat;
+                        $reviewDetail->save();
                         DB::commit();
                         echo 'Success :- reviewId => '.$review->id.'<br>' ;
                     }else{

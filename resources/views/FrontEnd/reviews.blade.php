@@ -993,7 +993,7 @@
                                 <div class="col-lg-12">
                                     <h5>{{ __('review.city') }}</h5>
                                     <div class="form-group user_city_add city_div" id="city_div">
-                                        <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="{{ __('review.city') }}" autocompleted=chrome-off required="" data-country="IN" />
+                                        <input type="text" id="user_cityname" name="user_cityname" class="form-control js-input city_input" placeholder="{{ __('review.city') }}" autocompleted=chrome-off required="" data-country="IN" />
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -1300,7 +1300,7 @@
             });
             $(".confirmation_button .no").on("click", function (e) {
                 $("#user_country").val("");
-                $("#user_city").val("");
+                $("#user_cityname").val("");
                 $(".confirm_message_section").addClass("d-none");
                 $(".make_new_address").removeClass("d-none");
                 $("#user_address_id").val(0);
@@ -1376,12 +1376,12 @@
                         $('#long').val(postal['lng']);
                     }
                     var user_full_address = $("#user_full_address").val();
-                    var user_city = $("#user_city").val();
+                    var user_cityname = $("#user_cityname").val();
                     var user_country = $("#user_country").val();
                     var user_postal_code = $("#user_postal_code").val();
                     var is_primary = $("#is_primary").val();
                     var user_address_id = $("#user_address_id").val();
-                    var formatted_address = user_full_address + " " + user_city + " " + user_country + " " + user_postal_code;
+                    var formatted_address = user_full_address + " " + user_cityname + " " + user_country + " " + user_postal_code;
                     // alert(formatted_address);
                     $(".address_list").append(
                         '<div class="row mt-2 border-top pt-2"><div class="col-lg-8"> <div class="address">' +

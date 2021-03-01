@@ -93,6 +93,7 @@
                        <th scope="col" style="width: 10px;">Sr.No</th>
                        <th scope="col" style="width: 10px;">Name</th>
                        <th scope="col" style="width: 10px;">Nick Name</th>
+                       <th scope="col" style="width: 10px;">Subscribe/Unsubscribe</th>
                        <th scope="col" style="width: 10px;">Email</th>
                        <th scope="col" style="width: 10px;">Phone Number</th>
                        <th scope="col" style="width: 10px;">City</th>
@@ -115,10 +116,12 @@
                        @foreach($users as $user)
                        <tr>
                           <td class="text-center" style="max-width: 10px;">
+                            @if($user->is_subscribed == 1)
                             <div class="custom-control custom-checkbox">
                               <input value="{{$user->email}}" class="custom-control-input default_check_user" id="customCheck{{$user->id}}" data-user_id="{{$user->id}}" name="default" type="checkbox">
                               <label class="custom-control-label" for="customCheck{{$user->id}}"></label>
                             </div>
+                            @endif
                           </td>
                           <td class="text-center" style="max-width: 10px;">
                             {{$i++}}
@@ -131,6 +134,15 @@
                           <td class="text-center">
                             <div class="media-body">
                                 <span class="mb-0 text-sm">{{$user->nickname}}</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                          <div class="media-body">
+                            @if($user->is_subscribed == 1)
+                            <span class="badge badge-primary">SUBSCRIBE</span>
+                            @else
+                            <span class="badge badge-danger">UNSUBSCRIBE</span>
+                            @endif
                             </div>
                           </td>
                           <td class="text-center">

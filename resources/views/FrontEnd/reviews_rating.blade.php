@@ -238,38 +238,38 @@
                     </div>
                 </div>
                 <div class="d-none make_new_address mt-3">
-                    <form id="address_form">
+                    <form id="address_form" autocomplete="off">
                         <div class="row">
                             <div class="col-lg-12">
                                 <h5>{{ __('review.address') }} <span class="text-mute">{{ __('review.optional') }}</span></h5>
                                 <div class="form-group">
-                                    <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="{{ __('review.address') }} " autocompleted=chrome-off >
+                                    <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="{{ __('review.address') }} " autocomplete="off"/>
                                 </div>
                             </div>
                             @if(!$plandevicerating)
                                 <div class="col-lg-12">
                                     <h5>{{ __('review.country') }}</h5>
                                     <div class="form-group country_div" id="country_div">
-                                        <input type="text" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" autocompleted=chrome-off >
+                                        <input type="text" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" autocomplete="off"/>
                                     </div>
                                 </div>
                             @else
-                                <input type="hidden" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" value="{{$countries->name}}" autocompleted=chrome-off >
+                                <input type="hidden" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" autocomplete="off" value="{{$countries->name}}" />
                             @endif
                             <div class="col-lg-12">
                                 <h5>{{ __('review.city') }}</h5>
                                 <div class="form-group city_div" id="city_div">
-                                    <input type="text" id="user_city" name="user_city" class="form-control js-input city_input" placeholder="{{ __('review.city') }}" autocompleted=chrome-off  required="" data-country="{{$countries->code}}">
+                                    <input type="text" id="user_cityname" name="user_cityname" class="form-control js-input city_input" placeholder="{{ __('review.city') }}" autocomplete="off" required="" data-country="{{$countries->code}}" />
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h5>{{ __('review.postal_code') }}</h5>
                                 <div class="form-group">
-                                    <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="{{ __('review.postal_code') }}" required="" autocompleted=chrome-off >
+                                    <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="{{ __('review.postal_code') }}" required="" autocomplete="off"/>
                                 </div>
                             </div>
-                            <input type="hidden" name="latitude" id="lat" value="{{$lat}}">
-                            <input type="hidden" name="longitude" id="long" value="{{$long}}">
+                            <input type="hidden" name="latitude" id="lat" value="{{$lat}}" />
+                            <input type="hidden" name="longitude" id="long" value="{{$long}}" />
                             <div class="col-lg-12 text-center">
                                 <button type="submit" class="btn btn-primary save_address">{{__("index.Save")}}</button>
                                 <button type="button" class="btn btn-primary cancel">{{__("index.Cancel")}}</button>
@@ -427,12 +427,12 @@
                 $('#long').val(postal['lng']);
             }
             var user_full_address = $('#user_full_address').val();
-            var user_city = $('#user_city').val();
+            var user_cityname = $('#user_cityname').val();
             var user_country = $('#user_country').val();
             var user_postal_code = $('#user_postal_code').val();
             var is_primary = $('#is_primary').val();
             var user_address_id = $('#user_address_id').val();
-            var formatted_address = user_full_address+' '+user_city+' '+user_country+' '+user_postal_code;
+            var formatted_address = user_full_address+' '+user_cityname+' '+user_country+' '+user_postal_code;
             // alert(formatted_address);
             $('.address_list').append('<div class="row mt-2 border-top pt-2"><div class="col-lg-8"> <div class="address">'+formatted_address+'</div></div><div class="col-lg-4 text-right"> <div class="text-green primary d-none">Primary</div><button class="btn btn-primary make_primary_btn" data-address_id="0">Make primary</button> </div></div>');
             $('.make_new_address').addClass('d-none');

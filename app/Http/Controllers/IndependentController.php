@@ -17,6 +17,7 @@ use App\UserAddress;
 use App\Currency;
 use App\User;
 use DB, Excel, Auth;
+use App\Models\Admin\SettingsModel;
 
 class IndependentController extends Controller
 {
@@ -660,5 +661,34 @@ class IndependentController extends Controller
 			    // something went wrong
 			}
         }
+    }
+
+    public function unsubscribed(Request $request, $token)
+    {
+        $token = base64_decode($token);
+        return view('FrontEnd/Unsubscribed/unsubscribed',['email'=> $token]);
+    }
+    public function unsubscribedUser(Request $request, $lang)
+    {
+        $perameter = $request->all();
+        $validation = Validator::make($perameter,[
+            'user_token' => 'required'
+        ]);
+        if($validation->fails()){
+            return redirect()->back()->withInput()->with('error',$validation->messages()->first());
+        }else{
+            $token = base64_decode($perameter['user_token']);
+            $reason = $perameter['unsubscribe_reason'] ? $perameter['unsubscribe_reason'] : '';
+            $user = User::where('email',$token)->update(['is_subscribed' => 0,'unsubscribe_reason'=>$reason]);
+            if($user){
+                return redirect("/thankyou/".base64_encode($token))->withInput();
+            }else{
+                return redirect()->back()->withInput()->with('error',"Somting went wrong, please try again later");
+            }
+        }
+    }
+    public function thankyou(Request $request, $token)
+    {
+        return view('FrontEnd/Unsubscribed/thankyou',['email'=> base64_decode($token)]);
     }
 }

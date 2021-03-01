@@ -230,7 +230,7 @@
         readURL(this, $(this).attr("data-size"));
     });
     // $('input.city_input').cityAutocomplete();
-    // $('.user_city_add input#user_city').cityAutocomplete();
+    // $('.user_city_add input#user_cityname').cityAutocomplete();
     $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo(".country_div");
     $('<div class="city_list"><ul class="city-autocomplete"></ul></div>').appendTo(".city_div");
     $(document).ready(function () {
@@ -265,7 +265,7 @@
     $(document).on("click", ".country-autocomplete li", function () {
         countrySelection = true;
         $("#user_country").val($(this).find("a").attr("data-name"));
-        $("#user_city").attr("data-country", $(this).find("a").attr("data-code"));
+        $("#user_cityname").attr("data-country", $(this).find("a").attr("data-code"));
         $(".country_list").css("display", "none");
     });
     $(document).on("click", ".city-autocomplete li", function () {
@@ -277,8 +277,8 @@
     });
     $(document).on("click", ".city-autocomplete li", function () {
         citySelection = true;
-        $("#user_city").val($(this).find("a").attr("data-name"));
-        $("#user_city").attr("data-city", $(this).find("a").attr("data-code"));
+        $("#user_cityname").val($(this).find("a").attr("data-name"));
+        $("#user_cityname").attr("data-city", $(this).find("a").attr("data-code"));
         $(".city_list").css("display", "none");
     });
     $("input.city_input").on("keypress", function () {
@@ -458,7 +458,7 @@
                 $("#country_code").val($(".country-autocomplete li.selected a").attr("data-code"));
                 $(".country_list").css("display", "none");
                 $("#user_country").val($(".country-autocomplete li.selected a").attr("data-name"));
-                $("#user_city").attr("data-country", $(".country-autocomplete li.selected a").attr("data-code"));
+                $("#user_cityname").attr("data-country", $(".country-autocomplete li.selected a").attr("data-code"));
                 $(".country_list").css("display", "none");
             }
             return false;
@@ -499,8 +499,8 @@
                 $("#city_code").val($(".city-autocomplete li.selected a").attr("data-code"));
                 $(".city_list").css("display", "none");
                 citySelection = true;
-                $("#user_city").val($(".city-autocomplete li.selected a").attr("data-name"));
-                $("#user_city").attr("data-city", $(".city-autocomplete li.selected a").attr("data-code"));
+                $("#user_cityname").val($(".city-autocomplete li.selected a").attr("data-name"));
+                $("#user_cityname").attr("data-city", $(".city-autocomplete li.selected a").attr("data-code"));
                 $(".city_list").css("display", "none");
             }
             return false;
@@ -1053,12 +1053,12 @@
         var type = $(".plan-type").val();
         var user_address_id = $("#user_address_id").val();
         var user_full_address = $("#user_full_address").val();
-        var user_city = $("#user_city").val();
-        var user_country_code = $("#user_city").attr("data-country");
+        var user_cityname = $("#user_cityname").val();
+        var user_country_code = $("#user_cityname").attr("data-country");
         var user_country = $("#user_country").val();
         var user_postal_code = $("#user_postal_code").val();
         var is_primary = $("#is_primary").val();
-        var formatted_address = user_full_address + " " + user_city + " " + user_country + " " + user_postal_code;
+        var formatted_address = user_full_address + " " + user_cityname + " " + user_country + " " + user_postal_code;
         var perams = [];
         $("#rating_section .rating").each(function (index, item) {
             var rate = $(item).rate("getValue");
@@ -1112,7 +1112,7 @@
                     type: type,
                     user_address_id: user_address_id,
                     user_full_address: user_full_address,
-                    user_city: user_city,
+                    user_city: user_cityname,
                     user_country_code: user_country_code,
                     user_country: user_country,
                     user_postal_code: user_postal_code,
@@ -1407,14 +1407,14 @@
         var type = $(".device-type").val();
         var user_address_id = $("#user_address_id").val();
         var user_full_address = $("#user_full_address").val();
-        var user_city = $("#user_city").val();
-        var user_country_code = $("#user_city").attr("data-country");
+        var user_cityname = $("#user_cityname").val();
+        var user_country_code = $("#user_cityname").attr("data-country");
         var user_country = $("#user_country").val();
         var user_postal_code = $("#user_postal_code").val();
         var is_primary = $("#is_primary").val();
         var latitude = $("#lat").val();
         var longitude = $("#long").val();
-        var formatted_address = user_full_address + " " + user_city + " " + user_country + " " + user_postal_code;
+        var formatted_address = user_full_address + " " + user_cityname + " " + user_country + " " + user_postal_code;
         var perams = [];
         $("#device_rating_section .device-rating").each(function (index, item) {
             var rate = $(item).rate("getValue");
@@ -1467,7 +1467,7 @@
                     device_id: device_id,
                     user_address_id: user_address_id,
                     user_full_address: user_full_address,
-                    user_city: user_city,
+                    user_city: user_cityname,
                     user_country_code: user_country_code,
                     user_country: user_country,
                     user_postal_code: user_postal_code,

@@ -22,9 +22,12 @@ Route::get('/inbox/{caseID}', function($param){
 });
 Route::get('/googlecallback', 'FrontEnd\LoginSignup\SocialAuthGoogleController@callback');
 Route::get('/facebookcallback', 'FrontEnd\LoginSignup\SocialAuthFacebookController@callback');
+Route::get('/unsubscribed/{token}', 'IndependentController@unsubscribed');
 
+Route::get('/thankyou/{token}', 'IndependentController@thankyou');
 Route::get('/updateLatLngBasisOnAddress', 'IndependentController@updateLatLngBasisOnAddress');
 Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], function(){
+	Route::post('/unsubscribed', 'IndependentController@unsubscribedUser');
 	// Testing Route 
 		Route::get('/country', 'TestController@index');
 		Route::get('/privacy-policy', function(){ 

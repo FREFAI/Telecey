@@ -101,7 +101,7 @@
           <tr>
             <td style="padding-top:0;padding-bottom:0;padding-right:30px;padding-left:30px;text-align:center;Margin-right:auto;Margin-left:auto;">
               <center>
-                <p style="font-family:'Muli',Arial,sans-serif;Margin:0;text-align:center;Margin-right:auto;Margin-left:auto;padding-top:10px;padding-bottom:0px;font-size:15px;color:#a1a8ad;line-height:23px;">© Telco Tales | <a href="{{url('unsubscribed')}}/{{$data['token']}}">Unsubscribe</a></p>
+                <p style="font-family:'Muli',Arial,sans-serif;Margin:0;text-align:center;Margin-right:auto;Margin-left:auto;padding-top:10px;padding-bottom:0px;font-size:15px;color:#a1a8ad;line-height:23px;">© Telco Tales | <a href="{{env('APP_URL')}}/unsubscribed/{{$data['token']}}">Unsubscribe</a></p>
               </center>
             </td>
           </tr>

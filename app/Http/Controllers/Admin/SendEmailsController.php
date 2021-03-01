@@ -32,7 +32,7 @@ class SendEmailsController extends Controller
             $params['file'] = public_path('/sendEmailToUser/'.$params['attached_file']);
         }
         foreach(explode(',',$params['ids']) as $email){
-            $params['token'] = base64_encode($email);
+            $params['token'] = env("APP_URL").'/unsubscribed/'.base64_encode($email);
             dispatch(new SendEmailToUserJob($email,$params));
         }
         return json_encode(array('success'=>true, 'message'=>'Emails are send.'));

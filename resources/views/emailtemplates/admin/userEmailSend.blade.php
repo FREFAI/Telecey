@@ -255,7 +255,7 @@
                                             <tr>
                                                 <td style="padding-top:0;padding-bottom:0;padding-right:30px;padding-left:30px;text-align:center;Margin-right:auto;Margin-left:auto;">
                                                 <center>
-                                                    <p style="font-family:'Muli',Arial,sans-serif;Margin:0;text-align:center;Margin-right:auto;Margin-left:auto;padding-top:10px;padding-bottom:10px;font-size:15px;color:#a1a8ad;line-height:23px;">© Telco Tales | <a href="{{$data['token']}}">Unsubscribe</a></p>
+                                                    <p style="font-family:'Muli',Arial,sans-serif;Margin:0;text-align:center;Margin-right:auto;Margin-left:auto;padding-top:10px;padding-bottom:10px;font-size:15px;color:#a1a8ad;line-height:23px;">© Telecey | <a href="{{$data['token']}}">Unsubscribe</a></p>
                                                 </center>
                                                 </td>
                                             </tr>

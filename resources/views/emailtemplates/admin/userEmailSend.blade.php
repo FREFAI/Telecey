@@ -1,120 +1,276 @@
+<!DOCTYPE html>
+<html>
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <!--[if !mso]><!-->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <!--<![endif]-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
-  <!--[if !mso]><!-->
-  <style type="text/css">
-    @font-face {
-      font-family: 'flama-condensed';
-      font-weight: 100;
-      src: url('http://assets.vervewine.com/fonts/FlamaCond-Medium.eot');
-      src: url('http://assets.vervewine.com/fonts/FlamaCond-Medium.eot?#iefix') format('embedded-opentype'),
-      url('http://assets.vervewine.com/fonts/FlamaCond-Medium.woff') format('woff'),
-      url('http://assets.vervewine.com/fonts/FlamaCond-Medium.ttf') format('truetype');
-    }
-
-    @font-face {
-      font-family: 'Muli';
-      font-weight: 100;
-      src: url('http://assets.vervewine.com/fonts/muli-regular.eot');
-      src: url('http://assets.vervewine.com/fonts/muli-regular.eot?#iefix') format('embedded-opentype'),
-      url('http://assets.vervewine.com/fonts/muli-regular.woff2') format('woff2'),
-      url('http://assets.vervewine.com/fonts/muli-regular.woff') format('woff'),
-      url('http://assets.vervewine.com/fonts/muli-regular.ttf') format('truetype');
-    }
-
-    .address-description a {
-      color: #000000;
-      text-decoration: none;
-    }
-
-    @media (max-device-width: 480px) {
-      .vervelogoplaceholder {
-        height: 83px;
-      }
-    }
-  </style>
-  <!--<![endif]-->
-  <!--[if (gte mso 9)|(IE)]>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revue</title>
     <style type="text/css">
-        .address-description a {color: #000000 ; text-decoration: none;}
-        table {border-collapse: collapse ;}
+        #outlook a {
+            padding: 0;
+        }
+        
+        body {
+            width: 100% !important;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .ExternalClass {
+            width: 100%;
+        }
+        
+        .ExternalClass,
+        .ExternalClass p,
+        .ExternalClass span,
+        .ExternalClass font,
+        .ExternalClass td,
+        .ExternalClass div,
+        .ExternalClass blockquote {
+            line-height: 100%;
+        }
+        
+        .ExternalClass p,
+        .ExternalClass blockquote {
+            margin-bottom: 0;
+            margin: 0;
+        }
+        
+        #backgroundTable {
+            margin: 0;
+            padding: 0;
+            width: 100% !important;
+            line-height: 100% !important;
+        }
+        
+        img {
+            outline: none;
+            text-decoration: none;
+            -ms-interpolation-mode: bicubic;
+        }
+        
+        a img {
+            border: none;
+        }
+        
+        .image_fix {
+            display: block;
+        }
+        
+        p {
+            margin: 1em 0;
+        }
+        
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: black !important;
+        }
+        
+        h1 a,
+        h2 a,
+        h3 a,
+        h4 a,
+        h5 a,
+        h6 a {
+            color: black;
+        }
+        
+        h1 a:active,
+        h2 a:active,
+        h3 a:active,
+        h4 a:active,
+        h5 a:active,
+        h6 a:active {
+            color: black;
+        }
+        
+        h1 a:visited,
+        h2 a:visited,
+        h3 a:visited,
+        h4 a:visited,
+        h5 a:visited,
+        h6 a:visited {
+            color: black;
+        }
+        
+        table td {
+            border-collapse: collapse;
+        }
+        
+        table {
+            border-collapse: collapse;
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+        
+        a {
+            color: #3498db;
+        }
+        
+        p.domain a {
+            color: black;
+        }
+        
+        hr {
+            border: 0;
+            background-color: #d8d8d8;
+            margin: 0;
+            margin-bottom: 0;
+            height: 1px;
+        }
+        
+        @media (max-device-width: 667px) {
+            a[href^="tel"],
+            a[href^="sms"] {
+                text-decoration: none;
+                color: blue;
+                pointer-events: none;
+                cursor: default;
+            }
+            .mobile_link a[href^="tel"],
+            .mobile_link a[href^="sms"] {
+                text-decoration: default;
+                color: orange !important;
+                pointer-events: auto;
+                cursor: default;
+            }
+            h1[class="profile-name"],
+            h1[class="profile-name"] a {
+                font-size: 32px !important;
+                line-height: 38px !important;
+                margin-bottom: 14px !important;
+            }
+            span[class="issue-date"],
+            span[class="issue-date"] a {
+                font-size: 14px !important;
+                line-height: 22px !important;
+            }
+            td[class="description-before"] {
+                padding-bottom: 28px !important;
+            }
+            td[class="description"] {
+                padding-bottom: 14px !important;
+            }
+            td[class="description"] span,
+            span[class="item-text"],
+            span[class="item-text"] span {
+                font-size: 16px !important;
+                line-height: 24px !important;
+            }
+            span[class="item-link-title"] {
+                font-size: 18px !important;
+                line-height: 24px !important;
+            }
+            span[class="item-header"] {
+                font-size: 22px !important;
+            }
+            span[class="item-link-description"],
+            span[class="item-link-description"] span {
+                font-size: 14px !important;
+                line-height: 22px !important;
+            }
+            .link-image {
+                width: 84px !important;
+                height: 84px !important;
+            }
+            .link-image img {
+                max-width: 100% !important;
+                max-height: 100% !important;
+            }
+        }
+        
+        @media (max-width: 500px) {
+            .column {
+                display: block !important;
+                width: 100% !important;
+                padding-bottom: 8px !important;
+            }
+        }
+        
+        @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+            a[href^="tel"],
+            a[href^="sms"] {
+                text-decoration: none;
+                color: blue;
+                pointer-events: none;
+                cursor: default;
+            }
+            .mobile_link a[href^="tel"],
+            .mobile_link a[href^="sms"] {
+                text-decoration: default;
+                color: orange !important;
+                pointer-events: auto;
+                cursor: default;
+            }
+        }
     </style>
-    <![endif]-->
 </head>
 
-<body bgcolor="#e1e5e8" style="margin-top:0 ;margin-bottom:0 ;margin-right:0 ;margin-left:0 ;padding-top:0px;padding-bottom:0px;padding-right:0px;padding-left:0px;background-color:#e1e5e8;">
-  <!--[if gte mso 9]>
-<center>
-<table width="600" cellpadding="0" cellspacing="0"><tr><td valign="top">
-<![endif]-->
-  <center style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#e1e5e8;">
-    <div style="max-width:600px;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;">
-      <table align="center" cellpadding="0" style="border-spacing:0;font-family:'Muli',Arial,sans-serif;color:#333333;Margin:0 auto;width:100%;max-width:600px;">
+<body style="width:100% !important;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;">
+    <table cellpadding="0" cellspacing="0" border="0" id="backgroundTable" style="margin:0; padding:0; width:100% !important; line-height: 100% !important; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;background-color: #F9FAFB;" width="100%">
         <tbody>
-          <tr>
-            <td align="center" class="vervelogoplaceholder" height="143" style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;height:143px;vertical-align:middle;" valign="middle"><span class="sg-image" data-imagelibrary="%7B%22width%22%3A%22160%22%2C%22height%22%3A34%2C%22alt_text%22%3A%22Verve%20Wine%22%2C%22alignment%22%3A%22%22%2C%22border%22%3A0%2C%22src%22%3A%22https%3A//marketing-image-production.s3.amazonaws.com/uploads/79d8f4f889362f0c7effb2c26e08814bb12f5eb31c053021ada3463c7b35de6fb261440fc89fa804edbd11242076a81c8f0a9daa443273da5cb09c1a4739499f.png%22%2C%22link%22%3A%22%23%22%2C%22classes%22%3A%7B%22sg-image%22%3A1%7D%7D"><a href="#" target="_blank" style="margin:0;text-align:center;font-family:'flama-condensed','Arial Narrow',Arial;font-weight:100;font-size:35px;margin-bottom:26px; color: #000; text-decoration: none;">Telco Tales </a></span></td>
-          </tr>
-          <!-- Start of Email Body-->
-          <tr>
-            <td class="one-column" style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;background-color:#ffffff;">
-              <!--[if gte mso 9]>
-                    <center>
-                    <table width="80%" cellpadding="20" cellspacing="30"><tr><td valign="top">
-                    <![endif]-->
-              <table style="border-spacing:0;" width="100%">
-                <tbody>
-                  <tr>
-                    <td class="inner contents center" style="padding-top:15px;padding-bottom:15px;padding-right:30px;padding-left:30px;text-align:left;">
-                      <center>
-                        <p class="h1 center" style="Margin:0;text-align:center;font-family:'flama-condensed','Arial Narrow',Arial;font-weight:100;font-size:30px;Margin-bottom:26px;">{{$data['subject']}}</p>
-                        <!--[if (gte mso 9)|(IE)]><![endif]-->
-
-                        <p class="description center" style="font-family:'Muli','Arial Narrow',Arial;Margin:0;text-align:center;max-width:320px;color:#a1a8ad;line-height:24px;font-size:15px;Margin-bottom:10px;margin-left: auto; margin-right: auto;">{!!$data['text_editor']!!}</p>
-                        <!--[if (gte mso 9)|(IE)]><br>&nbsp;<![endif]-->
-                        <!--[if (gte mso 9)|(IE)]><br>&nbsp;<![endif]--></center>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <!--[if (gte mso 9)|(IE)]>
-                    </td></tr></table>
-                    </center>
-                    <![endif]-->
-            </td>
-          </tr>
-          <!-- End of Email Body-->
-          <!-- whitespace -->
-          <tr>
-            <td height="40">
-              <p style="line-height: 40px; padding: 0 0 0 0; margin: 0 0 0 0;">&nbsp;</p>
-
-              <p>&nbsp;</p>
-            </td>
-          </tr>
-          
-          <!-- Footer -->
-          <tr>
-            <td style="padding-top:0;padding-bottom:0;padding-right:30px;padding-left:30px;text-align:center;Margin-right:auto;Margin-left:auto;">
-              <center>
-                <p style="font-family:'Muli',Arial,sans-serif;Margin:0;text-align:center;Margin-right:auto;Margin-left:auto;padding-top:10px;padding-bottom:0px;font-size:15px;color:#a1a8ad;line-height:23px;">© Telco Tales | <a href="{{$data['token']}}">Unsubscribe</a></p>
-              </center>
-            </td>
-          </tr>
-          <!-- whitespace -->
-          <tr>
-            <td height="40">
-              <p style="line-height: 40px; padding: 0 0 0 0; margin: 0 0 0 0;">&nbsp;</p>
-
-              <p>&nbsp;</p>
-            </td>
-          </tr>
+            <tr>
+                <td width="10" valign="top">&nbsp;</td>
+                <td valign="top" align="center">
+                    <table cellpadding="0" cellspacing="0" border="0" align="center" style="width: 100%; max-width: 600px; background-color: #FFF; border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;" id="contentTable">
+                        <tbody>
+                            <tr>
+                                <td width="600" valign="top" align="center" style="border-collapse:collapse;">
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" style="background: #F9FAFB;" width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td align="center" valign="top">
+                                                    <div style="font-family: &quot;lato&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 28px;"></div>
+                                                    <div style="display:none;">{{$data['subject']}}</div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #E0E4E8;" width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td align="center" style="padding: 30px 56px 28px 56px;" valign="top">
+                                                    <a style="color: #3498DB; text-decoration: none;"><!-- this ensures Gmail doesn't trim the email --><img style="width: 30%; border: 0;" src="{{URL::asset('frontend/assets/img/logo-new.png')}}">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 0 56px 15px 56px;" valign="top">
+                                                    <div style="font-family: &quot;lato&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 28px;font-size: 20px; color: #333; text-align: center"><strong> {{$data['subject']}}</strong> </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 0 56px 15px 56px;" valign="top">
+                                                    <div style="font-family: &quot;lato&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 28px;font-size: 17px; color: #333; font-weight:500;">{!!$data['text_editor']!!}</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-top:0;padding-bottom:0;padding-right:30px;padding-left:30px;text-align:center;Margin-right:auto;Margin-left:auto;">
+                                                <center>
+                                                    <p style="font-family:'Muli',Arial,sans-serif;Margin:0;text-align:center;Margin-right:auto;Margin-left:auto;padding-top:10px;padding-bottom:10px;font-size:15px;color:#a1a8ad;line-height:23px;">© Telco Tales | <a href="{{$data['token']}}">Unsubscribe</a></p>
+                                                </center>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td width="10" valign="top">&nbsp;</td>
+            </tr>
         </tbody>
-      </table>
-    </div>
-  </center>
+    </table>
+
 </body>
+
+</html>

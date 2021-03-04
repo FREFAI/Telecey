@@ -28,6 +28,10 @@ class SendEmailToUser extends Mailable
      */
     public function build()
     {
-        return $this->view('emailtemplates.admin.userEmailSend',['data'=> $this->params])->subject($this->params['subject'])->attach($this->params['file']);
+        if($this->params['file']){
+            return $this->view('emailtemplates.admin.userEmailSend',['data'=> $this->params])->subject($this->params['subject'])->attach($this->params['file']);
+        }else{
+            return $this->view('emailtemplates.admin.userEmailSend',['data'=> $this->params])->subject($this->params['subject']);
+        }
     }
 }

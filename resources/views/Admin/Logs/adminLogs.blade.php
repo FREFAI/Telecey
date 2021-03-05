@@ -45,6 +45,7 @@
                                         <option @if(isset($params['type']) && $params['type'] == 3) selected="" @endif value="3">Log in</option>
                                         <option @if(isset($params['type']) && $params['type'] == 6) selected="" @endif value="6">Message</option>
                                         <option @if(isset($params['type']) && $params['type'] == 7) selected="" @endif value="7">Approved/Disapproved</option>
+                                        <option @if(isset($params['type']) && $params['type'] == 8) selected="" @endif value="8">Send Email to user from admin</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-sm btn-primary">Search</button>
@@ -61,6 +62,8 @@
                        <th scope="col" style="width: 10px;">User name</th>
                        <th scope="col" class="text-center">User email</th>
                        <th scope="col" class="text-center">Status</th>
+                       <th scope="col" class="text-center">Email from admin to user</th>
+                       <th scope="col" class="text-center">Subject</th>
                        <th scope="col" class="text-center">Provider Name</th>
                        <th scope="col" class="text-center">Brand Name</th>
                        <th scope="col" class="text-center">Suppliers Name</th>
@@ -79,19 +82,29 @@
                                {{$i++}}
                            </td>
                            <td class="text-center">
-                                {{$log->user_name}}
+                                {{$log->user_name ? $log->user_name : '-'}}
                            </td>
                            <td class="text-center">
-                                {{$log->email}}
+                                {{$log->email ? $log->email : '-'}}
                            </td>
                            <td class="text-center">
-                                <span class="badge badge-dot mr-4">
-                                    @if($log->user_status == 1)
-                                    <span class="approved_ms"><i class="bg-success"></i> Approved</span>
-                                    @else
-                                    <span class="not_ap_ms"><i class="bg-danger"></i> Not approved</span>
-                                    @endif
-                                </span>
+                            @if($log->log_type != 8)
+                              <span class="badge badge-dot mr-4">
+                                  @if($log->user_status == 1)
+                                  <span class="approved_ms"><i class="bg-success"></i> Approved</span>
+                                  @else
+                                  <span class="not_ap_ms"><i class="bg-danger"></i> Not approved</span>
+                                  @endif
+                              </span>
+                              @else
+                                  -
+                              @endif
+                           </td>
+                           <td class="text-center">
+                              {{$log->user ? $log->user->email : '-'}}
+                           </td>
+                           <td class="text-center">
+                                {{$log->subject ? $log->subject : '-' }}
                            </td>
                            <td class="text-center">
                                 @if($log->request_type == 1)

@@ -33,6 +33,7 @@ class SendEmailsController extends Controller
         }
         foreach(explode(',',$params['ids']) as $email){
             $params['token'] = env("APP_URL").'/unsubscribed/'.base64_encode($email);
+            $params['admin_id'] = \Auth::guard('admin')->user()['id'];
             dispatch(new SendEmailToUserJob($email,$params));
         }
         return json_encode(array('success'=>true, 'message'=>'Emails are send.'));

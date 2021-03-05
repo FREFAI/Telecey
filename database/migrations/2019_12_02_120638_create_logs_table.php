@@ -16,7 +16,7 @@ class CreateLogsTable extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id')->nullable();
-            $table->tinyInteger('log_type')->nullable()->comment('1 for signup, 2 for email verification, 3 for login user,4 for search device, 5 for search plans, 6 for message');
+            $table->tinyInteger('log_type')->nullable()->comment('1 for signup, 2 for email verification, 3 for login user,4 for search device, 5 for search plans, 6 for message, 7 for Approved/Disapproved');
             $table->tinyInteger('login_signup_type')->nullable()->comment('1 for normal 2 for facebook and 3 for google');
             $table->tinyInteger('type')->nullable()->comment('1 for admin and 2 for user');
             $table->string('ip')->nullable();

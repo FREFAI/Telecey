@@ -27,6 +27,15 @@
             margin: 0 auto;
             padding: 10px;
         }
+        @media only screen and (max-width: 425px){
+            .card {
+                width: 95%;
+                padding: 10px;
+            }
+            .user_email h2{
+                word-break: break-word;
+            }
+        }
     </style>
 </head>
 
@@ -34,7 +43,7 @@
     <div class="text-center card">
         <div class="user_email">
             <h1>Done!</h1>
-            <hr width="500" />
+            <hr style="width: 50%;" />
             <h2>{{$email}}</h2>
             <p>has been successfully unsubscribed from our mailing list(s)
     </p>

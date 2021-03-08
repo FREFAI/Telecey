@@ -21,6 +21,8 @@
 
         .unsubscribe_reason textarea {
             padding: 10px;
+            width: 85%;
+            margin: 0 auto;
         }
 
         .unsubscribe_btn button {
@@ -38,6 +40,11 @@
             margin: 0 auto;
             padding: 10px;
         }
+        @media only screen and (max-width: 425px){
+            .card {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -46,7 +53,7 @@
         <div class="user_email">
             <h2>{{$email}}</h2>
             <h5>is subscribed to our mailing list(s).</h5>
-            <hr width="500" />
+            <hr style="width: 50%;" />
             <h1>Unsubscribe from our mailing list</h1>
             <p>To help us improve our services, we would be grateful if you could tell us why:
             </p>
@@ -56,7 +63,7 @@
             <form class="unsubscribe_form" method="POST" action="{{url('/unsubscribed')}}">
                 @csrf
                 <div class="unsubscribe_reason">
-                    <textarea name="unsubscribe_reason" rows="4" cols="70"
+                    <textarea name="unsubscribe_reason" rows="4"
                         placeholder="Enter unsubscribe reason here..."></textarea>
                     <input name="user_token" type="hidden" value="{{base64_encode($email)}}" />
                 </div>

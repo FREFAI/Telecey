@@ -34,7 +34,7 @@ return [
     'sms' => 'SMS',
     'price_str' => 'Combien payez-vous chaque mois en plusieurs devises devrait être pris en charge',
     'device' => 'Dispositif',
-    'upfront_price' => 'Prix initial',
+    'upfront_price' => 'Prix ​​initial',
     'average' => 'Moyenne',
     'address' => 'Adresse',
     'device_name' => "Nom de l'appareil",
@@ -56,4 +56,3 @@ return [
     'New password' => 'Nouveau mot de passe',
     'Confirm new password' => 'Confirmer le nouveau mot de passe',
 ];
-

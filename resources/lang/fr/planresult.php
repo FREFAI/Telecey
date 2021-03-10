@@ -18,4 +18,3 @@ return [
     'signup_more' => "Inscrivez-vous pour afficher plus d'avis",
     'signup_unlock' => "Inscrivez-vous pour déverrouiller les détails"
 ];
-

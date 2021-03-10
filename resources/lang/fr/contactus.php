@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Cas de support',
-    'subject' => 'le sujet',
+    'subject' => 'Matière',
     'message' => 'Message',
     'button' => 'Soumettre',
     'case_heading'=>'Liste des cas',

@@ -18,7 +18,7 @@ return [
     'device' => "Dispositifs",
     'blog' => "Blog",
     'login_button' => "se connecter",
-    'signup_button' => "S'inscrit maintenant",
-    'personal_menu' => "Information personnels",
-    'logout' => "Sortir"
+    'signup_button' => "Adhérer maintenant",
+    'personal_menu' => "Renseignements personnels",
+    'logout' => "Se déconnecter"
 ];

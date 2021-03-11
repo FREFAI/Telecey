@@ -18,7 +18,7 @@ return [
     'search_now_btn' => "Rechercher maintenant",
     'how_it_work' => "Comment ça marche",
     'title_one' => "CHERCHER",
-    'description_one' => "Recherchez le service que vous recherchez Internet personnel / professionnel, mobile / fixe?",
+    'description_one' => "Recherchez le service que vous recherchez  personnel / professionnel, internet mobile / fixe?",
     'btn_one' => "Commencez maintenant",
     'title_two' => "ENTREPRISES DE RECHERCHE",
     'description_two' => "Consultez les avis et commentaires d'autres utilisateurs, commencez avec vos voisins qui utilisent le service et voyez comment cela fonctionne pour eux",

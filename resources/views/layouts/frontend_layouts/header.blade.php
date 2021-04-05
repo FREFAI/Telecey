@@ -47,8 +47,8 @@
                                         <option @if(\Session::get('locale') && \Session::get('locale') == "fr") selected="" @endif value="fr">French</option>
                                     </select>
                                 </form>
-                            </li>
-                            @if(Auth::guard('customer')->user()['id'] != "")
+                            </li> 
+                            @if((Auth::guard('customer')->user() !== null) && Auth::guard('customer')->user()['id'] != "")
                             <li class="dropdown top text-right ml-5">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{URL::asset('frontend/assets/img/user_placeholder.png')}}" alt="" width="40"></a>
                                 <b class="caret"></b>

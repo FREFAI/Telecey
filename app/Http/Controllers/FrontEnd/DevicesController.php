@@ -260,7 +260,7 @@ class DevicesController extends Controller {
         foreach ($plan_device_rating as $plan_device) {
             if ($plan_device['device_id'] == $planDetailData->id) { //Check plan_id is equal to plan id
                 $address = UserAddress::find($plan_device['user_address_id']);
-                if ($address['formatted_address'] != NULL && $address['formatted_address'] != '') {
+                if (isset($address['formatted_address']) != NULL && $address['formatted_address'] != '') {
                     $blankArray[$plan_device['rating_id']]['formatted_address'] = $address['city'] . ' ' . $address['country'] . ' ' . $address['postal_code'];
                 } else {
                     $blankArray[$plan_device['rating_id']]['formatted_address'] = 'N/A';

@@ -18,7 +18,7 @@ class CustomerAuth
         if(Auth::guard('customer')->check()){
             return $next($request);
         }else{
-            $url = \Session::get('locale').'/signin';
+            $url = '/signin';
             return redirect($url);
         }
     }

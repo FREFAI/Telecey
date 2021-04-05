@@ -42,7 +42,7 @@ class ForgotPasswordController extends Controller
                         'user_name' => $user->firstname
                     ];
                     Mail::to($input['email'])->send(new ResetPassword($emaildata));
-                    $url = \Session::get('locale').'/signin';
+                    $url = '/signin';
                     return redirect($url)->with('success',__('index.Check your email to reset your password'));
                 }
             }else{
@@ -51,18 +51,18 @@ class ForgotPasswordController extends Controller
         }
     }
 
-    public function setPasswordForm($leng,$token)
+    public function setPasswordForm($token)
     {
         $ifexist = User::where('password_reset',$token)->first();
         if(!Auth::guard('customer')->check()){
             if($ifexist){
                 return view('FrontEnd.LoginSignup.resetpassword_form',['token'=>$token]);
             }else{
-                $url = \Session::get('locale').'/signin';
+                $url = '/signin';
                 return redirect($url);
             }
         }else{
-            $url = \Session::get('locale').'/profile';
+            $url = '/profile';
             return redirect($url);
         }
     }
@@ -80,7 +80,7 @@ class ForgotPasswordController extends Controller
             $user->password = bcrypt($input['password']);
             $user->password_reset = NULL;
             if($user->save()){
-                $url = \Session::get('locale').'/signin';
+                $url = '/signin';
                 return redirect($url)->with('success',__('index.Password reset successfully'));
             }else{
                 return redirect()->back()->withInput()->with('error', __('index.Somthing went wrong'));
@@ -104,7 +104,7 @@ class ForgotPasswordController extends Controller
                 $user = User::find($user_id);
                 $user->password = bcrypt($input['new_password']);
                 if($user->save()){
-                    $url = \Session::get('locale').'/profile';
+                    $url = '/profile';
                     return redirect($url)->with('success',__('index.Password changed successfully'));
                 }else{
                     return redirect()->back()->withInput()->with('error', __('index.Somthing went wrong'));

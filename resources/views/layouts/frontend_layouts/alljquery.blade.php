@@ -32,9 +32,10 @@
 <script src="{{URL::asset('frontend/jsplugins/speedtest/speedtest.js')}}"></script>
 @yield('script')
 <script>
-    $(".language").on("change", function () {
-        $(this).closest("form").submit();
-    });
+    var url = "{{ url('locale') }}";
+    $(".language").change(function(){
+        window.location.href = url + "/"+ $(this).val();
+    });  
     setTimeout(() => {
         $('.autoHide').hide("slow");
     }, 5000);

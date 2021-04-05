@@ -36,7 +36,7 @@ class RegisterController extends Controller
         if(!Auth::guard('customer')->check()){
             return view('FrontEnd.LoginSignup.emailsignup',['setting'=>$setting]);
         }else{
-            $url = \Session::get('locale').'/profile';
+            $url = '/profile';
             return redirect($url);
         }
         
@@ -46,7 +46,7 @@ class RegisterController extends Controller
         if(!Auth::guard('customer')->check()){
             return view('FrontEnd.LoginSignup.signup');
         }else{
-            $url = \Session::get('locale').'/profile';
+            $url = '/profile';
             return redirect($url);
         }
         
@@ -134,7 +134,7 @@ class RegisterController extends Controller
                     $m->to($emaildata['email'], $emaildata['name'])->subject(__("index.Email verification"));
                 });
                 if (Auth::guard('customer')->attempt($request->only('email', 'password'))) {
-                    $url = \Session::get('locale').'/reviews';
+                    $url = '/reviews';
                    return redirect($url)->with('success',__('index.Account registered successfully'));
                 }
             }else{
@@ -157,7 +157,7 @@ class RegisterController extends Controller
         });
         return redirect()->back()->with('success',__('Please check your email to verify your email, if you not getting email please check in spam'));
     }
-    public function confirmEmail($lan,$id)
+    public function confirmEmail($id)
     {
         $id = decrypt($id);
         $user = User::find($id);
@@ -175,7 +175,7 @@ class RegisterController extends Controller
         CreateLogs::createLog($logData);
         if($user->save()){
             if (Auth::guard('customer')->loginUsingId($user->id)) {
-                $url = \Session::get('locale').'/profile';
+                $url = '/profile';
                 return redirect($url)->with('success',__('index.Thank you for confirming your email address'));
             }
         }else{

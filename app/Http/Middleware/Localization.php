@@ -15,15 +15,20 @@ class Localization
      */
     public function handle($request, Closure $next)
     {
-        if($request->segment(1) == 'en'){
-            \Session::put('locale','en');
-        }else{
-            \Session::put('locale','fr');
-        }
         if(\Session::has('locale'))
         {
             \App::setlocale(\Session::get('locale'));
         }
         return $next($request);
+        // if($request->segment(1) == 'en'){
+        //     \Session::put('locale','en');
+        // }else{
+        //     \Session::put('locale','fr');
+        // }
+        // if(\Session::has('locale'))
+        // {
+        //     \App::setlocale(\Session::get('locale'));
+        // }
+        // return $next($request);
     }
 }

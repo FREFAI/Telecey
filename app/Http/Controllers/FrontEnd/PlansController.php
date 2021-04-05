@@ -233,7 +233,7 @@ class PlansController extends Controller {
         }
         return view('FrontEnd.plans.planSorting', ['data' => $searchResult, 'filtersetting' => $filtersetting, 'ads' => $ads, 'googleads' => $googleads]);
     }
-    public function planDetails($lang, $id) {
+    public function planDetails($id) {
         $planDetailData = ServiceReview::where('id', $id)->with('provider', 'currency', 'typeOfService')->first();
         if ($planDetailData) {
             $user_address = UserAddress::where('user_id', $planDetailData->user_id)->where('is_primary', 1)->value('formatted_address');

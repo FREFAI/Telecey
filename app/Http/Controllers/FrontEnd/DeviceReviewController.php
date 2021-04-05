@@ -257,7 +257,7 @@ class DeviceReviewController extends Controller
         }
     }
 
-    public function deviceReviewsRating(Request $request,$lang, $device_id)
+    public function deviceReviewsRating(Request $request, $device_id)
     {
         $user_id = Auth::guard('customer')->user()['id']; 
         $pageType = $device_id;

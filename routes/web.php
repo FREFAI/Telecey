@@ -14,11 +14,16 @@ ini_set('max_input_time', '900');
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function(){ 
-    return redirect('/en', 301); 
+// Route::get('/', function(){ 
+//     return redirect('/en', 301); 
+// });
+Route::get('locale/{locale}', function ($locale){
+    Session::put('locale', $locale);
+    return redirect()->back();
 });
+
 Route::get('/inbox/{caseID}', function($param){
-	   return redirect(\Session::get('locale').'/inbox/'.$param);
+	   return redirect('/inbox/'.$param);
 });
 Route::get('/googlecallback', 'FrontEnd\LoginSignup\SocialAuthGoogleController@callback');
 Route::get('/facebookcallback', 'FrontEnd\LoginSignup\SocialAuthFacebookController@callback');
@@ -26,7 +31,7 @@ Route::get('/unsubscribed/{token}', 'IndependentController@unsubscribed');
 
 Route::get('/thankyou/{token}', 'IndependentController@thankyou');
 Route::get('/updateLatLngBasisOnAddress', 'IndependentController@updateLatLngBasisOnAddress');
-Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], function(){
+// Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], function(){
 	Route::post('/unsubscribed', 'IndependentController@unsubscribedUser');
 	// Testing Route 
 		Route::get('/country', 'TestController@index');
@@ -36,7 +41,6 @@ Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], fun
 		Route::get('/test', 'TestController@test');
 	
 	// Start Independent Routes
-		Route::post('/setLocal', 'IndependentController@localSet');
 		Route::get('/addNikNameIfNotExist', 'IndependentController@addNikNameIfNotExist');
 		Route::get('/addressMigration', 'IndependentController@addressMigration');
 	// End Independent Routes
@@ -156,7 +160,7 @@ Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], fun
 
 	// End FrontEnd Section 
 
-});
+// });
 
 
 

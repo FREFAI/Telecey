@@ -15,11 +15,11 @@ if (! function_exists('url')) {
         if (is_null($path)) {
             return app(UrlGenerator::class);
         }
-        if(strpos(\URL::current(),'admin')){
-            return app(UrlGenerator::class)->to($path, $parameters, $secure);
-        }else{
-            return app(UrlGenerator::class)->to(\Session::get('locale').$path, $parameters, $secure);
-        }
+        return app(UrlGenerator::class)->to($path, $parameters, $secure);
+        // if(strpos(\URL::current(),'admin')){
+        // }else{
+        //     return app(UrlGenerator::class)->to(\Session::get('locale').$path, $parameters, $secure);
+        // }
         
     }
 }

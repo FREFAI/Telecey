@@ -111,14 +111,14 @@ class BlogsController extends Controller
             $blogs = BlogsModel::create($perameters);
             
         	if($blogs){
-                $url = \Session::get('locale').'/blog-list';
+                $url = '/blog-list';
         		return redirect($url)->withInput()->with('success',__('index.Blog added successfully'));
         	}else{
         		return redirect()->back()->withInput()->with('error',__('index.Somthing went wrong'));
         	}
 		}
     }
-    public function editBlogForm($lang,$id)
+    public function editBlogForm($id)
     {
         $id = base64_decode($id);
         $categories = Category::get();
@@ -182,7 +182,7 @@ class BlogsController extends Controller
 	            unset($perameters['_token']);
 	        	$blogs = BlogsModel::where('id',$id)->update($perameters);
 	        	if($blogs){
-                    $url = \Session::get('locale').'/blog-list';
+                    $url = '/blog-list';
 	        		return redirect($url)->withInput()->with('success',__('index.Blog updated successfully'));
 	        	}else{
 	        		return redirect()->back()->withInput()->with('error',__('index.Somthing went wrong'));
@@ -218,7 +218,7 @@ class BlogsController extends Controller
             }
         }
     }
-    public function blogDetail($lang,$id)
+    public function blogDetail($id)
     {
         $id = base64_decode($id);
         $blog = BlogsModel::with('category')->find($id);

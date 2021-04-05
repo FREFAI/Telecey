@@ -85,7 +85,7 @@ class SupportCaseController extends Controller
         }
     }
 
-    public function caseInbox(Request $request,$lang,$caseID)
+    public function caseInbox(Request $request,$caseID)
     {
     	$settings = SettingsModel::first();
     	$user_id = Auth::guard('customer')->user()['id'];

@@ -59,10 +59,10 @@ class SocialAuthFacebookController extends Controller
               if($validation->messages()->first('facebook_id')){
                   $user = User::Where('facebook_id',$input['facebook_id'])->first();
                   if(Auth::guard('customer')->loginUsingId($user->id)){
-                    $url = \Session::get('locale').'/profile';  
+                    $url = '/profile';  
                     return redirect()->to($url);
                   }else{
-                    $url = \Session::get('locale').'/signup';
+                    $url = '/signup';
                     return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
                   }
               }
@@ -70,10 +70,10 @@ class SocialAuthFacebookController extends Controller
                   $user = User::Where('email',$input['email'])->first();
                   if($user->social_login_type == 2){
                     if(Auth::guard('customer')->loginUsingId($user->id)){
-                      $url = \Session::get('locale').'/profile';
+                      $url = '/profile';
                       return redirect()->to($url);
                     }else{
-                      $url = \Session::get('locale').'/signup';
+                      $url = '/signup';
                       return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
                     } 
                   }else{
@@ -81,19 +81,19 @@ class SocialAuthFacebookController extends Controller
                     $user->facebook_id = $input['facebook_id'];
                     if($user->save()){
                       if(Auth::guard('customer')->loginUsingId($user->id)){
-                        $url = \Session::get('locale').'/profile';
+                        $url = '/profile';
                         return redirect()->to($url);
                       }else{
-                        $url = \Session::get('locale').'/signup';
+                        $url = '/signup';
                         return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
                       }
                     }else{
-                      $url = \Session::get('locale').'/signup';
+                      $url = '/signup';
                       return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
                     }
                   }
               }
-              $url = \Session::get('locale').'/signup';
+              $url = '/signup';
               return redirect($url)->withInput()->with('error',$validation->messages()->first());
                 
             }else{
@@ -111,14 +111,14 @@ class SocialAuthFacebookController extends Controller
                 ];
                 CreateLogs::createLog($logData);
                 if(Auth::guard('customer')->loginUsingId($add->id)){
-                  $url = \Session::get('locale').'/reviews';
+                  $url = '/reviews';
                   return redirect()->to($url);
                 }else{
-                  $url = \Session::get('locale').'/signup';
+                  $url = '/signup';
                   return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
                 } 
               }else{
-                $url = \Session::get('locale').'/signup';
+                $url = '/signup';
                 return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
               }
           }

@@ -88,6 +88,16 @@
               <i class="ni ni-support-16 text-pink"></i> Terms and Conditions
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/privacy-policy') ? 'active' : '' }}" href="{{url('/admin/privacy-policy')}}">
+              <i class="ni ni-support-16 text-pink"></i> Privacy Policy
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ request()->is('admin/cookie-policy') ? 'active' : '' }}" href="{{url('/admin/cookie-policy')}}">
+              <i class="ni ni-support-16 text-pink"></i> Cookie Policy
+            </a>
+          </li>
           <li class="nav-item dropdown  {{ request()->is('admin/blogs') ? 'show' : '' }} {{ request()->is('admin/addblog') ? 'show' : '' }} {{ request()->is('admin/blogs') ? 'show' : '' }}">
             <a class="nav-link dropdown-toggle text-nowrap" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-newspaper text-pink"></i>

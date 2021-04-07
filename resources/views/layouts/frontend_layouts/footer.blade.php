@@ -40,9 +40,9 @@
                     <div class="site-info text-left footer-lef">
                         <ul class="footer-menu">
                             <li><a href="{{url('/')}}">{{__('footer.about')}}</a></li>
-                            <li><a href="#">{{__('footer.term')}} </a></li>
-                            <li><a href="#">{{__('footer.privacy')}}</a></li>
-                            <li><a href="#">{{__('footer.cookie')}}</a></li>
+                            <li><a href="/terms-conditions">{{__('footer.term')}} </a></li>
+                            <li><a href="/privacy-policy">{{__('footer.privacy')}}</a></li>
+                            <li><a href="/cookie-policy">{{__('footer.cookie')}}</a></li>
                             <li><a href="#">{{__('footer.contact')}}</a></li>
                         </ul>
                         <p>Telecey © {{date('Y')}}. {{__('footer.copyright')}} </p>
@@ -80,7 +80,7 @@
         <p class="cookie_text">
         We use cookies to provide the services and features offered on our website, and to improve our user experience. <br><a class="learn-more" target="_blank" href="https://www.learn-about-cookies.com/">Learn more</a>
         </p>
-        <button class="btn btn-info" id="cookie_dismiss">Got it</button>
+        <button type="button" class="btn btn-info" id="cookie_dismiss">Got it</button>
     </div>
 </div>
 @endif

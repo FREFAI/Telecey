@@ -333,8 +333,38 @@ class HomeController extends Controller
         }else{
             return redirect()->back()->withInput()->with('error','Somthing went wrong!');
         }
-        
-        
-
+    }
+    public function privacyPolicyForm(Request $request)
+    {
+        $setting = SettingsModel::first();
+    	return view('Admin.Home.privacy-policy',['setting'=>$setting]);
+    }
+    public function privacyPolicy(Request $request)
+    {
+        $params = $request->all();
+        $setting = SettingsModel::first();
+        $setting->privacy_policy = $params['privacy_policy'];
+        if($setting->save()){
+            return redirect()->back()->withInput()->with('success','Privacy policy update successfully.');
+        }else{
+            return redirect()->back()->withInput()->with('error','Somthing went wrong!');
+        }
+    }
+    public function cookiePolicyForm(Request $request)
+    {
+        $setting = SettingsModel::first();
+    	return view('Admin.Home.cookie-policy',['setting'=>$setting]);
+    }
+    
+    public function cookiePolicy(Request $request)
+    {
+        $params = $request->all();
+        $setting = SettingsModel::first();
+        $setting->cookie_policy = $params['cookie_policy'];
+        if($setting->save()){
+            return redirect()->back()->withInput()->with('success','Cookie policy update successfully.');
+        }else{
+            return redirect()->back()->withInput()->with('error','Somthing went wrong!');
+        }
     }
 }

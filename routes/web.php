@@ -28,16 +28,15 @@ Route::get('/inbox/{caseID}', function($param){
 Route::get('/googlecallback', 'FrontEnd\LoginSignup\SocialAuthGoogleController@callback');
 Route::get('/facebookcallback', 'FrontEnd\LoginSignup\SocialAuthFacebookController@callback');
 Route::get('/unsubscribed/{token}', 'IndependentController@unsubscribed');
-
+Route::get('/terms-conditions', 'IndependentController@termsAndConditions');
+Route::get('/privacy-policy', 'IndependentController@privacyPolicy');
+Route::get('/cookie-policy', 'IndependentController@cookiePolicy');
 Route::get('/thankyou/{token}', 'IndependentController@thankyou');
 Route::get('/updateLatLngBasisOnAddress', 'IndependentController@updateLatLngBasisOnAddress');
 // Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], function(){
 	Route::post('/unsubscribed', 'IndependentController@unsubscribedUser');
 	// Testing Route 
 		Route::get('/country', 'TestController@index');
-		Route::get('/privacy-policy', function(){ 
-			return view('privacy-policy'); 
-		});
 		Route::get('/test', 'TestController@test');
 	
 	// Start Independent Routes
@@ -165,7 +164,10 @@ Route::get('/updateLatLngBasisOnAddress', 'IndependentController@updateLatLngBas
 
 
 // Admin Section
-	Auth::routes();
+
+	Route::get('/admin', function($param){
+		return redirect("/admin/login");
+	});
 	Route::group(['prefix' => 'admin'], function(){
 		\App::setLocale('en');
 		Route::get('/', 'Admin\LoginController@showLoginForm');
@@ -219,6 +221,10 @@ Route::get('/updateLatLngBasisOnAddress', 'IndependentController@updateLatLngBas
 
 				Route::get('/terms-conditions', 'Admin\HomeController@termsAndConditionsForm');
 				Route::post('/terms-conditions', 'Admin\HomeController@termsAndConditions');
+				Route::get('/privacy-policy', 'Admin\HomeController@privacyPolicyForm');
+				Route::post('/privacy-policy', 'Admin\HomeController@privacyPolicy');
+				Route::get('/cookie-policy', 'Admin\HomeController@cookiePolicyForm');
+				Route::post('/cookie-policy', 'Admin\HomeController@cookiePolicy');
 				
 			// End Terms Adn Conditions content section
 
@@ -375,8 +381,6 @@ Route::get('/updateLatLngBasisOnAddress', 'IndependentController@updateLatLngBas
 				Route::get('/userLogs', 'Admin\LogsController@userLog');
 			// End Logs Section 
 		});
-
-
-		
 	});
+	Auth::routes();
 // End Admin Section

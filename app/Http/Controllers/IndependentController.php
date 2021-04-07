@@ -21,6 +21,18 @@ use App\Models\Admin\SettingsModel;
 
 class IndependentController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $settings = SettingsModel::first();
+        view()->composer('layouts/frontend_layouts/header', function($view) use ($settings) {
+            $view->with('settings', $settings);
+        });
+    }
    public function localSet(Request $request)
    {
        if($request->lang == 'en'){
@@ -690,5 +702,21 @@ class IndependentController extends Controller
     public function thankyou(Request $request, $token)
     {
         return view('FrontEnd/Unsubscribed/thankyou',['email'=> base64_decode($token)]);
+    }
+
+    public function termsAndConditions()
+    {
+        $settings = SettingsModel::first();
+        return view('FrontEnd/Terms/TermsAndCondition',['settings'=>$settings]);
+    }
+    public function privacyPolicy()
+    {
+        $settings = SettingsModel::first();
+        return view('FrontEnd/Terms/Privacy',['settings'=>$settings]);
+    }
+    public function cookiePolicy()
+    {
+        $settings = SettingsModel::first();
+        return view('FrontEnd/Terms/Cookie',['settings'=>$settings]);
     }
 }

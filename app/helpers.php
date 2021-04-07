@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Contracts\Routing\UrlGenerator;
+use App\Models\Admin\SettingsModel;
+
 if (! function_exists('url')) {
     /**
      * Generate a url for the application.
@@ -50,5 +52,15 @@ if (! function_exists('roundUp')) {
         return $places < 0 ?
         ceil($value / $mult) * $mult :
             ceil($value * $mult) / $mult;
+    }
+}
+if (! function_exists('getSettings')) {
+    /**
+     * Get settings data
+     *
+     */
+    function getSettings()
+    {
+        return $settings = SettingsModel::first();
     }
 }

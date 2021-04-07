@@ -40,9 +40,9 @@
                     <div class="site-info text-left footer-lef">
                         <ul class="footer-menu">
                             <li><a href="{{url('/')}}">{{__('footer.about')}}</a></li>
-                            <li><a href="/terms-conditions">{{__('footer.term')}} </a></li>
-                            <li><a href="/privacy-policy">{{__('footer.privacy')}}</a></li>
-                            <li><a href="/cookie-policy">{{__('footer.cookie')}}</a></li>
+                            <li><a href="{{getSettings()->terms_and_conditions != '' ? url('/terms-conditions') : '#'}}">{{__('footer.term')}} </a></li>
+                            <li><a href="{{getSettings()->privacy_policy != '' ? url('/privacy-policy') : '#'}}">{{__('footer.privacy')}}</a></li>
+                            <li><a href="{{getSettings()->cookie_policy != '' ? url('/cookie-policy') : '#'}}">{{__('footer.cookie')}}</a></li>
                             <li><a href="#">{{__('footer.contact')}}</a></li>
                         </ul>
                         <p>Telecey © {{date('Y')}}. {{__('footer.copyright')}} </p>

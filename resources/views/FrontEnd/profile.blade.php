@@ -48,7 +48,7 @@
 </style>
 <div class="profile inner-page">
 	<div class="container">
-		@if(Auth::guard('customer')->user()['is_active'] == 0)
+		@if(Auth::guard('customer')->user()['is_active'] == 0 && Auth::guard('customer')->user()['social_login_type'] == 0)
 		<div class="alert alert-danger alert-block">
 			<button type="button" class="close" data-dismiss="alert">×</button>
 	        {{__('index.We have sent an email with a confirmation link to your email address. Please verify your email')}} <strong><a href="{{url('/resendVerifyEmail')}}">{{__('index.Click here')}}</a></strong> {{__('index.to resend verification email')}}.

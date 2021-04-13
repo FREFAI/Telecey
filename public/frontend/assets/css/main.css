@@ -40,19 +40,28 @@ p {
     font: normal normal normal 18px/1.2em baskervillemtw01-smbdit,serif;
     margin: 0;
 }
-
-ul,
-ol {
+ul, ol{
+    font-family: initial;
+}
+#copyright ul,
+#copyright ol {
     list-style: outside none none;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
-ul li,
-ol li {
+#copyright ul li,
+#copyright ol li {
     list-style: none
 }
-
+.inline_list, .first_row_service{
+    list-style: outside none none;
+    margin: 0;
+    padding: 0; 
+}
+.inline_list li, .first_row_service li{
+    list-style: none
+}
 .hero-heading {
     font-size: 40px;
     font-weight: 700;

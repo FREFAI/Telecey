@@ -1112,7 +1112,7 @@
                             <div class="col-lg-12 mt-3">
                                 <div class="text-center mt-3">
                                     <button class="btn btn-primary submitFeedBack">Submit</button>
-                                    <button class="btn btn-primary">Cancel</button>
+                                    <button class="btn btn-primary cancelFeedback">Cancel</button>
                                 </div>
                             </div>
                         </div>

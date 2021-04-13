@@ -3,7 +3,7 @@
 @section('content')
     <style>
         /*Image preview*/
-
+        
         .blog_image .avatar-upload {
             position: relative;
             max-width: 205px;

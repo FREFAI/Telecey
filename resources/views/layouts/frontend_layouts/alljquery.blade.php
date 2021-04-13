@@ -1147,7 +1147,6 @@
         $('#feedbackModal').modal({ show: true })
         $('#feedbackModal').attr('data-reviewType',reviewType)
         let questions = await getFeedBackQuestions();
-        console.log(questions);
         if (questions.success) {
             var resp = $.map(questions.data, function (obj) {
                 let html = `<div class="row mb-2">
@@ -1155,7 +1154,7 @@
                         <p>${obj.question_name}</p>
                     </div>
                     <div class="col-lg-6 col-6 text-right ratingDiv"  data-question_name="${obj.question_name}" data-question_id="${obj.id}">
-                        ${obj.type == 2 ? `<input type="text" class="feedbackTextField-${obj.id} border p-0">` : `<div class="ratingFeedback float-right" data-question_name="${obj.question_name}" data-question_id="${obj.id}"></div>`}
+                        ${obj.type == 2 ? `<textarea class="feedbackTextField-${obj.id} border p-0"></textarea>` : `<div class="ratingFeedback float-right" data-question_name="${obj.question_name}" data-question_id="${obj.id}"></div>`}
                     </div>
                 </div>`
                 $('.feedBackQuestions').append(html);
@@ -1181,6 +1180,13 @@
         });
         return questions
     }
+    $(document).on('click','.cancelFeedback',async function(){
+        if ($('#feedbackModal').attr('data-reviewType') == 1) {
+            window.location.href = "{{url('/profile')}}";
+        } else {
+            window.location.href = "{{url('/profile')}}?type=2";
+        }
+    })
     $(document).on('click','.submitFeedBack',async function(){
         var perams = [];
         let type = 1;

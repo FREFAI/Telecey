@@ -14,7 +14,7 @@ class AddFeildInUserTableFeedbackStatus extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('feedback_status')->default(0)->after('active');
+            $table->tinyInteger('feedback_status')->default(0);
         });
     }
 

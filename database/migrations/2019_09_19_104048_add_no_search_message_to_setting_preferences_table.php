@@ -14,7 +14,7 @@ class AddNoSearchMessageToSettingPreferencesTable extends Migration
     public function up()
     {
         Schema::table('setting_preferences', function (Blueprint $table) {
-            $table->string('no_search_message')->after('ads_setting');
+            $table->longText('no_search_message')->after('ads_setting');
         });
     }
 

@@ -146,7 +146,7 @@
 							<div class="col-sm-4 col-md-4 mb-4">
 								<div class="post">
 									<div class="post-img-content">
-										@if($value['provider']['provider_image_original'] != "")
+										@if(isset($value['provider']) && $value['provider']['provider_image_original'] != "")
 											<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" class="img-responsive"/>
 											@else
 											<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" class="img-responsive"/>

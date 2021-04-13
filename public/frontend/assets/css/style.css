@@ -1442,8 +1442,16 @@ span.fa.fa-star.rate {
 	}
 	.poster img{
 		height: 100%;
-		margin:0 auto;
-	}
+    margin:0 auto;    
+    object-fit: cover;
+  }
+  .ratingDiv textarea {
+    width: 100%;
+    font: normal normal normal 18px/1.2em baskervillemtw01-smbdit,serif;
+    color: #999;
+    font-size: 16px;
+    padding: 6px !important;
+}
 	.detail {
 		background: #0000007d;
 		position: absolute;

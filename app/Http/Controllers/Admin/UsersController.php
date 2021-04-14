@@ -168,6 +168,7 @@ class UsersController extends Controller
             foreach ($allratings as $ratings) {
                 if(RatingQuestion::withTrashed()->find($ratings->question_id)){
                     if($ratings->entity_id == $data->id && $ratings->entity_type==1){    //Check entity id is equal to plan id
+                        $ratings->question= $ratings->question()->withTrashed()->first()->toArray();
                         $ratings->question_name = $ratings->question['question'];
                         $ratings->question_type = $ratings->question['type'];
                         unset( $ratings->question);
@@ -242,6 +243,7 @@ class UsersController extends Controller
             foreach ($allratings as $ratings) {
                 if(RatingQuestion::withTrashed()->find($ratings->question_id)){
                     if($ratings->entity_id == $device->id && $ratings->entity_type==2){    //Check entity id is equal to plan id
+                        $ratings->question= $ratings->question()->withTrashed()->first()->toArray();
                         $ratings->question_name = $ratings->question['question'];
                         $ratings->question_type = $ratings->question['type'];
                         unset( $ratings->question);

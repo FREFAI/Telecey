@@ -27,11 +27,21 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script src="https://cdn.tiny.cloud/1/r33fht357sb48uzaif4s424d91smk1zo3s41jfq0gkx580ee/tinymce/5/tinymce.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&language=en&callback=initMap"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&language=en"></script>
 
 <script src="{{URL::asset('frontend/jsplugins/speedtest/speedtest.js')}}"></script>
 @yield('script')
 <script>
+    var geocoder;
+    $(document).ready(function(){
+        geocoder = new google.maps.Geocoder();
+        var input = document.getElementById("searchMapInput");
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.addListener("place_changed", function () {
+            var place = autocomplete.getPlace();
+            setSearchedLatLng(place)
+        });
+    })
     var url = "{{ url('locale') }}";
     $(".language").change(function(){
         window.location.href = url + "/"+ $(this).val();
@@ -39,17 +49,26 @@
     setTimeout(() => {
         $('.autoHide').hide("slow");
     }, 5000);
-    function initMap() {
-        var input = document.getElementById("searchMapInput");
-
-        var autocomplete = new google.maps.places.Autocomplete(input);
-
-        autocomplete.addListener("place_changed", function () {
-            var place = autocomplete.getPlace();
-        });
-    }
     if ($("#firstform #city").val() == "") {
         getLocation();
+    }
+    function setSearchedLatLng(place){
+        let placeDetail = {};
+        if (place.address_components.length) {
+            placeDetail.lat = place.geometry.location.lat();
+            placeDetail.lng = place.geometry.location.lng();
+            for (var ii = 0; ii < place.address_components.length; ii++) {
+                var street_number = (route = street = city = state = zipcode = country = formatted_address = "");
+                var types = place.address_components[ii].types.join(",");
+                if (types == "country,political") {
+                    placeDetail.country = place.address_components[ii].long_name;
+                    placeDetail.countryCode = place.address_components[ii].short_name;
+                }
+            }
+            $('.currentLat').val(placeDetail.lat);
+            $('.currentLng').val(placeDetail.lng);
+            $('.currentCountry').val(placeDetail.countryCode);
+        }
     }
     function getLocation() {
         if (navigator.geolocation) {
@@ -59,24 +78,17 @@
         }
     }
     function geoSuccess(position) {
-        console.log("123saga");
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
-
         codeLatLng(lat, lng);
     }
     function geoError() {
-        console.log("123saga_error");
         $('.getcity').val($('.getcity').attr('data-city'));
         $('.getpostalcode').val($('.getpostalcode').attr('data-postal_code'));
         console.log("Geocoder failed");
     }
-    var geocoder;
-    function initialize() {
-        geocoder = new google.maps.Geocoder();
-    }
+   
     function codeLatLng(lat, lng) {
-        console.log("PL");
         var addr = {};
         var latlng = new google.maps.LatLng(lat, lng);
         geocoder.geocode({ latLng: latlng }, function (results, status) {
@@ -250,6 +262,7 @@
                 "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
                 "save table contextmenu directionality emoticons template paste textcolor",
             ],
+            fontsize_formats:"8pt 10pt 12pt 14pt 16pt 18pt 20pt 22pt 24pt 26pt 28pt 30pt 32pt 34pt 36pt 38pt 40pt 42pt 44pt 46pt 48pt 50pt",
             content_css: "css/content.css",
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | preview fullpage | forecolor backcolor emoticons | image",
         });

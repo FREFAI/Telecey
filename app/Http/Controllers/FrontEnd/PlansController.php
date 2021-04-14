@@ -48,7 +48,7 @@ class PlansController extends Controller {
         $country = CountriesModel::select('id')->where('name', $newresponse->country_name)->first();
         $data = $request->all();
         $searchResult = ServiceReview::select(DB::raw('*, ( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( latitude ) ) ) ) AS distance'))->where('country_code', $current_country_code)->with('provider', 'currency', 'typeOfService', 'user', 'ratings', 'plan_rating')->orderBy('distance', 'ASC')->paginate($limit);
-        return view('FrontEnd.plansNew', ['ip_location' => $current_location, 'filtersetting' => $filtersetting, 'data' => $searchResult, 'service_types' => $service_types, ]);
+        return view('FrontEnd.plansNew', ['ip_location' => $current_location, 'filtersetting' => $filtersetting, 'data' => $searchResult, 'service_types' => $service_types,'current_country_code'=> $current_country_code,'current_lat'=> $current_lat,'current_long'=> $current_long ]);
     }
     public function plansResult(Request $request) {
         $data = $request->all();
@@ -65,7 +65,7 @@ class PlansController extends Controller {
         $current_location = $newresponse->country_name . ',' . $newresponse->state_prov . ',' . $newresponse->city . ',' . $newresponse->zipcode;
         $current_lat = array_key_exists("lat", $data) && $data['lat'] != "" ? $data['lat'] : $newresponse->latitude;
         $current_long = array_key_exists("lng", $data) && $data['lng'] != "" ? $data['lng'] : $newresponse->longitude;
-        $current_country_code = $newresponse->country_code2;
+        $current_country_code = array_key_exists("country", $data) && $data['country'] != "" ? $data['country'] : $newresponse->country_code2;
         $filtersetting = SettingsModel::first();
         if (!Auth::guard('customer')->check()) {
             $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 20;
@@ -97,6 +97,9 @@ class PlansController extends Controller {
             $mainQuery->where('plan_device_rating.plan_id', '!=', 0);
             $mainQuery->whereNotNull('plan_device_rating.longitude')->whereNotNull('plan_device_rating.latitude');
             $mainQuery->where('service_reviews.country_code', $current_country_code);
+            if ($filtersetting && $filtersetting->reviews_for_unverified == 0) {
+                $mainQuery->where('users.is_active', 1);
+            }
             $mainQuery->where(function ($query) use ($data) {
                 if (array_key_exists("service_type", $data) && $data['service_type'] != "") {
                     $query->orWhere('service_reviews.service_type', $data['service_type']);
@@ -164,7 +167,7 @@ class PlansController extends Controller {
         $current_location = $newresponse->country_name . ',' . $newresponse->state_prov . ',' . $newresponse->city . ',' . $newresponse->zipcode;
         $current_lat = array_key_exists("lat", $data) && $data['lat'] != "" ? $data['lat'] : $newresponse->latitude;
         $current_long = array_key_exists("lng", $data) && $data['lng'] != "" ? $data['lng'] : $newresponse->longitude;
-        $current_country_code = $newresponse->country_code2;
+        $current_country_code = array_key_exists("country", $data) && $data['country'] != "" ? $data['country'] : $newresponse->country_code2;
         $filtersetting = SettingsModel::first();
         if (!Auth::guard('customer')->check()) {
             $limit = $filtersetting->no_of_search_record ? $filtersetting->no_of_search_record : 20;

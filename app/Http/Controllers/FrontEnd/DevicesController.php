@@ -55,7 +55,7 @@ class DevicesController extends Controller {
         ->limit(3)
         ->get()
         ->toArray();
-        return view('FrontEnd.devicesNew', ['ip_location' => $current_location, 'brands' => $brands, 'suppliers' => $suppliers, 'data' => $searchResult, 'filtersetting' => $filtersetting, 'colors' => $colors]);
+        return view('FrontEnd.devicesNew', ['ip_location' => $current_location, 'brands' => $brands, 'suppliers' => $suppliers, 'data' => $searchResult, 'filtersetting' => $filtersetting, 'colors' => $colors,'current_country_code'=> $current_country_code,'current_lat'=> $current_lat,'current_long'=> $current_long]);
     }
     public function devicesResult(Request $request) {
         $data = $request->all();
@@ -85,7 +85,7 @@ class DevicesController extends Controller {
         $current_location = $newresponse->country_name . ',' . $newresponse->state_prov . ',' . $newresponse->city . ',' . $newresponse->zipcode;
         $current_lat = array_key_exists("lat", $data) && $data['lat'] != "" ? $data['lat'] : $newresponse->latitude;
         $current_long = array_key_exists("lng", $data) && $data['lng'] != "" ? $data['lng'] : $newresponse->longitude;
-        $current_country_code = $newresponse->country_code2;
+        $current_country_code = array_key_exists("country", $data) && $data['country'] != "" ? $data['country'] : $newresponse->country_code2;
         $user_id = \Auth::guard('customer')->id();
         $brands = Brands::all();
         $colors = DeviceColor::all();
@@ -179,7 +179,7 @@ class DevicesController extends Controller {
         $current_location = $newresponse->country_name . ',' . $newresponse->state_prov . ',' . $newresponse->city . ',' . $newresponse->zipcode;
         $current_lat = array_key_exists("lat", $data) && $data['lat'] != "" ? $data['lat'] : $newresponse->latitude;
         $current_long = array_key_exists("lng", $data) && $data['lng'] != "" ? $data['lng'] : $newresponse->longitude;
-        $current_country_code = $newresponse->country_code2;
+        $current_country_code  = array_key_exists("country", $data) && $data['country'] != "" ? $data['country'] :  $newresponse->country_code2;
         $country = CountriesModel::select('id')->where('name', $newresponse->country_name)->first();
         $ads = AdsModel::with('countries')->where('is_active', 1)->where(function ($query) use ($country) {
             $query->where('is_global', 1)->orWhere('country', $country->id);

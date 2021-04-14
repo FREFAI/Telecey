@@ -38,6 +38,7 @@
 				</div>
 				<input type="hidden" name="lat" class="currentLat" value="{{request()->get('lat')}}">
 				<input type="hidden" name="lng" class="currentLng" value="{{request()->get('lng')}}">
+				<input type="hidden" name="country" class="currentCountry" value="{{request()->get('country')}}">
 				<input type="hidden" name="rows" id="paginate_input" value="{{request()->get('rows')}}"/>
 				<div class="col-lg-3 record_section">
 					<div class="service_type">

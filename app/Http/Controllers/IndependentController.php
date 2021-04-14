@@ -37,6 +37,10 @@ class IndependentController extends Controller
    {
         return redirect($url);
    }
+   public function sendEmail()
+   {
+        mail("jatinder.kumar@softradix.com","My subject","First line of text");
+   }
     public function addNikNameIfNotExist()
     {
       $users = User::get();

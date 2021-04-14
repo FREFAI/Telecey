@@ -15,8 +15,9 @@
 					<form action="{{url('/plans/result')}}" method="get" class="w-100">
 						<div class="row">
 							<div class="col-9">
-								<input type="hidden" name="lat" class="currentLat">
-								<input type="hidden" name="lng" class="currentLng">
+								<input type="hidden" name="lat" class="currentLat" value="{{$current_lat}}">
+								<input type="hidden" name="lng" class="currentLng" value="{{$current_long}}">
+								<input type="hidden" name="country" class="currentCountry" value="{{$current_country_code}}">
 								<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
 								<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
 							</div>

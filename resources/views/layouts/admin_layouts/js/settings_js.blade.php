@@ -137,7 +137,7 @@
 			    ],
 			content_css: ['css/content.css','https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i&display=swap','https://fonts.googleapis.com/css?family=Montserrat&display=swap'],
 			font_formats: "Arial Black=arial black,avant garde;Indie Flower=indie flower, cursive;Times New Roman=times new roman,times;Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n;Playfair Display=Playfair Display;Montserrat=Montserrat",
-			fontsize_formats:"8pt 9pt 10pt 11pt 12pt 14pt 18pt 24pt 25pt 26pt 27pt 28pt 30pt 36pt 48pt 60pt 72pt 96pt",
+			fontsize_formats:"8pt 10pt 12pt 14pt 16pt 18pt 20pt 22pt 24pt 26pt 28pt 30pt 32pt 34pt 36pt 38pt 40pt 42pt 44pt 46pt 48pt 50pt",
 			toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | preview fullpage | forecolor backcolor emoticons | image'
 		});
 		$('.select2').select2();

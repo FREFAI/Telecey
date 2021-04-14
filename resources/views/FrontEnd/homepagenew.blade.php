@@ -30,6 +30,7 @@
 								<div class="col-md-12 ml-md-auto">
 									<input type="hidden" name="lat" class="currentLat">
 									<input type="hidden" name="lng" class="currentLng">
+									<input type="hidden" name="country" class="currentCountry">
 									<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
 									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
 								</div>
@@ -82,6 +83,7 @@
 								<div class="col-12">
 									<input type="hidden" name="lat" class="currentLat">
 									<input type="hidden" name="lng" class="currentLng">
+									<input type="hidden" name="country" class="currentCountry">
 									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
 								</div>
 								<div class="col-6 mt-4 devicenew">
@@ -753,16 +755,6 @@
 			readonly: true,
 		});
 	});
-	function initMap() {
-	    var input = document.getElementById('searchMapInput');
-	  
-	    var autocomplete = new google.maps.places.Autocomplete(input);
-	   
-	    autocomplete.addListener('place_changed', function() {
-	        var place = autocomplete.getPlace();
-	    });
-	}
-
 </script>
 @endsection
 @section('pageScript')

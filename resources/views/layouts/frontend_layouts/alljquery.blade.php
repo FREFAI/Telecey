@@ -34,6 +34,7 @@
 <script>
     var geocoder;
     $(document).ready(function(){
+        $('form').disableAutoFill();
         geocoder = new google.maps.Geocoder();
         var input = document.getElementById("searchMapInput");
         var autocomplete = new google.maps.places.Autocomplete(input);

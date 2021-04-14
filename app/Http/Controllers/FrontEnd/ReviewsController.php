@@ -150,7 +150,7 @@ class ReviewsController extends Controller
         if($plandevicerating){
             $countries = CountriesModel::where('name',$plandevicerating->country)->first();
         }else{
-            $countries = "";
+            $countries = new CountriesModel();
         }
         return view('FrontEnd.reviews_rating',['settings'=> $settings,'plan_id'=>$plan_id,'questions'=>$questions,'userAddress'=>$userAddress,'type'=>1,'lat' =>  $current_lat,'long'=>$current_long,'plandevicerating'=>$plandevicerating, 'countries'=>$countries]);
     }

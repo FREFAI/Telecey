@@ -166,7 +166,7 @@ class UsersController extends Controller
             $plan_device_rating = $data->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
             unset($data->plan_device_rating);
             foreach ($allratings as $ratings) {
-                if(RatingQuestion::find($ratings->question_id)){
+                if(RatingQuestion::withTrashed()->find($ratings->question_id)){
                     if($ratings->entity_id == $data->id && $ratings->entity_type==1){    //Check entity id is equal to plan id
                         $ratings->question_name = $ratings->question['question'];
                         $ratings->question_type = $ratings->question['type'];
@@ -240,7 +240,7 @@ class UsersController extends Controller
             $allratings = $device->get_ratings($device->id);  // Get all ratings of this plan questions
             $plan_device_rating = $device->plan_device_rating->toArray();   // Get all subratings of this plan and get average, comment,created date and user_address_id
             foreach ($allratings as $ratings) {
-                if(RatingQuestion::find($ratings->question_id)){
+                if(RatingQuestion::withTrashed()->find($ratings->question_id)){
                     if($ratings->entity_id == $device->id && $ratings->entity_type==2){    //Check entity id is equal to plan id
                         $ratings->question_name = $ratings->question['question'];
                         $ratings->question_type = $ratings->question['type'];

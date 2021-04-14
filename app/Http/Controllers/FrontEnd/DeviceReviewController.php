@@ -281,7 +281,7 @@ class DeviceReviewController extends Controller
         if($plandevicerating){
             $countries = CountriesModel::where('name',$plandevicerating->country)->first();
         }else{
-            $countries = "";
+            $countries = new CountriesModel();
         }
         return view('FrontEnd.reviews_rating',['settings'=> $settings,'device_id'=>$device_id,'questions'=>$questions,'userAddress'=>$userAddress,'type'=>2,'lat' =>  $current_lat,'long'=>$current_long,'plandevicerating'=>$plandevicerating, 'countries'=>$countries]);
     }

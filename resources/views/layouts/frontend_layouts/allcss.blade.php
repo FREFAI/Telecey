@@ -55,5 +55,9 @@
         text-transform: capitalize;
         font-size: 15px;
     }
+    .country-autocomplete {
+        list-style: none;
+        padding: 0;
+    }
 </style>
 @yield('pageStyle')

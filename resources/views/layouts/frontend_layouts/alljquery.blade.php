@@ -27,20 +27,24 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script src="https://cdn.tiny.cloud/1/r33fht357sb48uzaif4s424d91smk1zo3s41jfq0gkx580ee/tinymce/5/tinymce.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&language=en"></script>
-
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&language=en&callback=initMap"></script>
 <script src="{{URL::asset('frontend/jsplugins/speedtest/speedtest.js')}}"></script>
+
 @yield('script')
 <script>
-    var geocoder;
-    $(document).ready(function(){
-        geocoder = new google.maps.Geocoder();
+    function initMap() {
         var input = document.getElementById("searchMapInput");
+
         var autocomplete = new google.maps.places.Autocomplete(input);
+
         autocomplete.addListener("place_changed", function () {
             var place = autocomplete.getPlace();
             setSearchedLatLng(place)
         });
+    }
+    var geocoder;
+    $(document).ready(function(){
+        geocoder = new google.maps.Geocoder();
     })
     var url = "{{ url('locale') }}";
     $(".language").change(function(){

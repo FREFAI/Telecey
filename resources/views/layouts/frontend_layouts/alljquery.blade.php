@@ -41,10 +41,7 @@
             setSearchedLatLng(place)
         });
     }
-    var geocoder;
-    $(document).ready(function(){
-        geocoder = new google.maps.Geocoder();
-    })
+    var geocoder = new google.maps.Geocoder();
     var url = "{{ url('locale') }}";
     $(".language").change(function(){
         window.location.href = url + "/"+ $(this).val();

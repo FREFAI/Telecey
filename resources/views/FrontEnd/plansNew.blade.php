@@ -329,7 +329,7 @@
 			console.log('Hello');
 			if (navigator.geolocation) {
 				console.log('Hello1');
-				navigator.geolocation.getCurrentPosition(geoSearchSuccess(), geoSearchError);
+				navigator.geolocation.getCurrentPosition(geoSearchSuccess, geoSearchError);
 			} else {
 				console.log('Hello2');
 				console.log("Geolocation is not supported by this browser.");

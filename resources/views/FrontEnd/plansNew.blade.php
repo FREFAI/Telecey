@@ -338,6 +338,7 @@
 				}
 			}
 			function geoSearchSuccess(position) {
+				console.log(position.coords,'latlng');
 				var lat = position.coords.latitude;
 				var lng = position.coords.longitude;
 				$('.currentLat').val(lat)

@@ -32,11 +32,10 @@
 
 @yield('script')
 <script>
+    google.maps.event.addDomListener(window, 'load', initMap);
     function initMap() {
         var input = document.getElementById("searchMapInput");
-
         var autocomplete = new google.maps.places.Autocomplete(input);
-
         autocomplete.addListener("place_changed", function () {
             var place = autocomplete.getPlace();
             setSearchedLatLng(place)

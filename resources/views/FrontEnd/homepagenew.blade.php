@@ -32,7 +32,7 @@
 									<input type="hidden" name="lng" class="currentLng">
 									<input type="hidden" name="country" class="currentCountry">
 									<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
-									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
+									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input search-input-field"/>
 								</div>
 								
 								<input type="hidden" name="rows" value="20">
@@ -84,7 +84,7 @@
 									<input type="hidden" name="lat" class="currentLat">
 									<input type="hidden" name="lng" class="currentLng">
 									<input type="hidden" name="country" class="currentCountry">
-									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
+									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input search-input-field"/>
 								</div>
 								<div class="col-6 mt-4 devicenew">
 									<select class="service-type-select service_type" name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">
@@ -760,7 +760,7 @@
 @section('pageScript')
 	<script>
 		$('body, html').on('scroll',function(){
-			$('input#searchMapInput').blur();
+			$('input.search-input-field').blur();
 			
 		});
 		getCurrentLocation();

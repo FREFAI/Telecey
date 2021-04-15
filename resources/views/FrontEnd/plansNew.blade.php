@@ -19,7 +19,7 @@
 								<input type="hidden" name="lng" class="currentLng" value="{{$current_long}}">
 								<input type="hidden" name="country" class="currentCountry" value="{{$current_country_code}}">
 								<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
-								<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
+								<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input search-input-field"/>
 							</div>
 							<div class="col-3">
 							@if($filtersetting->mobile_home_setting == 1)
@@ -272,15 +272,15 @@
 	<!-- Content End Here -->
 	<script>
 		
-		function initMap() {
-			var input = document.getElementById('searchMapInput');
+		// function initMap() {
+		// 	var input = document.getElementById('searchMapInput');
 		
-			var autocomplete = new google.maps.places.Autocomplete(input);
+		// 	var autocomplete = new google.maps.places.Autocomplete(input);
 		
-			autocomplete.addListener('place_changed', function() {
-				var place = autocomplete.getPlace();
-			});
-		}
+		// 	autocomplete.addListener('place_changed', function() {
+		// 		var place = autocomplete.getPlace();
+		// 	});
+		// }
 		function myFunction() {
 		var checkBox = document.getElementById("unlimited");
 		var text = document.getElementById("unlimited_calls");
@@ -327,7 +327,7 @@
 	@section('pageScript')
 		<script>
 			$('body, html').on('scroll',function(){
-				$('input#searchMapInput').blur();
+				$('input.search-input-field').blur();
 			});
 			getCurrentLocation();
 			function getCurrentLocation() {
@@ -345,6 +345,7 @@
 				codeLatLngSearch(lat, lng);
 			}
 			function geoSearchError(error) {
+				console.log($('.location-input-hidden').val(),'location');
 				$('.location-input').val($('.location-input-hidden').val());
 				console.log("Geocoder failed",error);
 			}

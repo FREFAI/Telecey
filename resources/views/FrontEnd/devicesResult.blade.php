@@ -38,7 +38,7 @@
 						<input type="hidden" name="lat" class="currentLat" value="{{request()->get('lat')}}">
 						<input type="hidden" name="lng" class="currentLng" value="{{request()->get('lng')}}">
 						<input type="hidden" name="country" class="currentCountry" value="{{request()->get('country')}}">
-						<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
+						<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input search-input-field"/>
 					</div>
 				</div>
 				<div class="col-lg-3 record_section">
@@ -531,15 +531,15 @@
 	$(document).ready(function () {
 		create_custom_dropdowns();
 	});
-	function initMap() {
-	    var input = document.getElementById('searchMapInput');
+	// function initMap() {
+	//     var input = document.getElementById('searchMapInput');
 	  
-	    var autocomplete = new google.maps.places.Autocomplete(input);
+	//     var autocomplete = new google.maps.places.Autocomplete(input);
 	   
-	    autocomplete.addListener('place_changed', function() {
-	        var place = autocomplete.getPlace();
-	    });
-	}
+	//     autocomplete.addListener('place_changed', function() {
+	//         var place = autocomplete.getPlace();
+	//     });
+	// }
 	function filterExpend(){
 		$('.expendedFilter').toggle();
 	}
@@ -585,7 +585,7 @@
 @section('pageScript')
 	<script>
 		$('body, html').on('scroll',function(){
-			$('input#searchMapInput').blur();
+			$('input.search-input-field').blur();
 			
 		});
 	</script>

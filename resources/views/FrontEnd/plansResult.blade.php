@@ -33,7 +33,7 @@
 				@endif
 				<div class="col-lg-7 record_section">
 					<div class="location">
-						<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input"/>
+						<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input search-input-field"/>
 					</div>
 				</div>
 				<input type="hidden" name="lat" class="currentLat" value="{{request()->get('lat')}}">
@@ -460,15 +460,15 @@
 </style>
 <!-- Content End Here -->
 <script>
-	function initMap() {
-		var input = document.getElementById('searchMapInput');
+	// function initMap() {
+	// 	var input = document.getElementById('searchMapInput');
 	
-		var autocomplete = new google.maps.places.Autocomplete(input);
+	// 	var autocomplete = new google.maps.places.Autocomplete(input);
 	
-		autocomplete.addListener('place_changed', function() {
-			var place = autocomplete.getPlace();
-		});
-	}	
+	// 	autocomplete.addListener('place_changed', function() {
+	// 		var place = autocomplete.getPlace();
+	// 	});
+	// }	
 	function myFunction() {
 		var checkBox = document.getElementById("unlimited");
 		var text = document.getElementById("unlimited_calls");
@@ -529,8 +529,7 @@
 	@section('pageScript')
 		<script>
 			$('body, html').on('scroll',function(){
-				$('input#searchMapInput').blur();
-				
+				$('input.search-input-field').blur();
 			});
 		</script>
 	@endsection

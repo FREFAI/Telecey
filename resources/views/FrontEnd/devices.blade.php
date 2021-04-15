@@ -213,7 +213,7 @@
 							<div class="heading find-div">
 								<h1 class="section-title">Find a Device</h1>
 								<div class="location_search mb-2">
-									<input type="text" class="form-control" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address">
+									<input type="text" class="form-control search-input-field" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address">
 								</div>
 								<h4 class="sub-title">Register and share your mobile or telecom experience to unlock Telco Tales</h4>
 								<div class="search-bar">
@@ -619,15 +619,15 @@
 function sortingFunc(){
 	$('#sortBy').submit();
 }
-function initMap() {
-	var input = document.getElementById('searchMapInput');
+// function initMap() {
+// 	var input = document.getElementById('searchMapInput');
 	
-	var autocomplete = new google.maps.places.Autocomplete(input);
+// 	var autocomplete = new google.maps.places.Autocomplete(input);
 	
-	autocomplete.addListener('place_changed', function() {
-		var place = autocomplete.getPlace();
-	});
-}
+// 	autocomplete.addListener('place_changed', function() {
+// 		var place = autocomplete.getPlace();
+// 	});
+// }
 // $('#searchForm').on('submit',function(e){
 // 	$('#loader').show();
 // 	e.preventDefault();
@@ -651,5 +651,5 @@ function initMap() {
 // });
 	
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&callback=initMap" async defer></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&callback=initMap" async defer></script> -->
 @endsection

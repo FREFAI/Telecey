@@ -19,7 +19,7 @@
 								<input type="hidden" name="lng" class="currentLng" value="{{$current_long}}">
 								<input type="hidden" name="country" class="currentCountry" value="{{$current_country_code}}">
 								<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
-								<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input search-input-field"/>
+								<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
 							</div>
 							<div class="col-3">
 							@if($filtersetting->mobile_home_setting == 1)
@@ -269,8 +269,6 @@
 			margin: 10px auto;
 		}
 	</style>
-
-	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<!-- Content End Here -->
 	<script>
 		
@@ -323,41 +321,16 @@
 		function sortingFunc(){
 			$('#sortBy').submit();
 		}
-
-		getCurrentLocation();
-		function getCurrentLocation() {
-			console.log('Hello');
-			if (navigator.geolocation) {
-				console.log('Hello1');
-				navigator.geolocation.getCurrentPosition(geoSearchSuccess, geoSearchError);
-			} else {
-				console.log('Hello2');
-				console.log("Geolocation is not supported by this browser.");
-			}
-		}
-		function geoSearchSuccess(position) {
-			console.log(position.coords,'latlng');
-			var lat = position.coords.latitude;
-			var lng = position.coords.longitude;
-			$('.currentLat').val(lat)
-			$('.currentLng').val(lng)
-			codeLatLngSearch(lat, lng);
-		}
-		function geoSearchError(error) {
-			console.log($('.location-input-hidden').val(),'location');
-			$('.location-input').val($('.location-input-hidden').val());
-			console.log("Geocoder failed",error);
-		}
 	</script>
 	
 
 	@section('pageScript')
 		<script>
+			var geocoder = new google.maps.Geocoder();;
 			
 			$('body, html').on('scroll',function(){
-				$('input.search-input-field').blur();
+				$('input#searchMapInput').blur();
 			});
-			var geocoder = new google.maps.Geocoder();
 			function codeLatLngSearch(lat, lng) {
 				var searchAddr = {};
 				var latlng = new google.maps.LatLng(lat, lng);
@@ -394,6 +367,30 @@
 					}
 				});
 			}
+			function geoSearchSuccess(position) {
+				var lat = position.coords.latitude;
+				var lng = position.coords.longitude;
+				$('.currentLat').val(lat)
+				$('.currentLng').val(lng)
+				codeLatLngSearch(lat, lng);
+			}
+			function geoSearchError(error) {
+				$('.location-input').val($('.location-input-hidden').val());
+				console.log("Geocoder failed",error);
+			}
+			function getCurrentLocation() {
+				var options = {
+					enableHighAccuracy: true,
+					timeout: 5000,
+					maximumAge: 0
+				};
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(geoSearchSuccess, geoSearchError,options);
+				} else {
+					console.log("Geolocation is not supported by this browser.");
+				}
+			}
+			getCurrentLocation();
 		</script>
 	@endsection
 @endsection

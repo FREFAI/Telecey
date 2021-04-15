@@ -379,13 +379,8 @@
 				console.log("Geocoder failed",error);
 			}
 			function getCurrentLocation() {
-				var options = {
-					enableHighAccuracy: true,
-					timeout: 5000,
-					maximumAge: 0
-				};
 				if (navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition(geoSearchSuccess, geoSearchError,options);
+					navigator.geolocation.getCurrentPosition(geoSearchSuccess, geoSearchError);
 				} else {
 					console.log("Geolocation is not supported by this browser.");
 				}

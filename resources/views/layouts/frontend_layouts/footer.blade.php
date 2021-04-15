@@ -43,7 +43,7 @@
                             <li><a href="{{getSettings()->terms_and_conditions != '' ? url('/terms-conditions') : '#'}}">{{__('footer.term')}} </a></li>
                             <li><a href="{{getSettings()->privacy_policy != '' ? url('/privacy-policy') : '#'}}">{{__('footer.privacy')}}</a></li>
                             <li><a href="{{getSettings()->cookie_policy != '' ? url('/cookie-policy') : '#'}}">{{__('footer.cookie')}}</a></li>
-                            <li><a href="#">{{__('footer.contact')}}</a></li>
+                            <li><a href="{{url('/contact-us')}}">{{__('footer.contact')}}</a></li>
                         </ul>
                         <p>Telecey © {{date('Y')}}. {{__('footer.copyright')}} </p>
                     </div>

@@ -59,7 +59,7 @@ class AdsController extends Controller
 			}
     		$validation = Validator::make($input, [
 	            'title' => 'required|unique:ads',
-	            'ads_file' => 'required|mimes:jpeg,png,jpg,gif,svg',
+	            'ads_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
 				'country' => $validationCiuntry
 			],[
 				'ads_file.required' => 'Ads image is required'
@@ -127,7 +127,7 @@ class AdsController extends Controller
 		}
 		$validation = Validator::make($input, [
 			'title' => 'required|unique:ads,title,'.$id,
-			'ads_file' => 'mimes:jpeg,png,jpg,gif,svg',
+			'ads_file' => 'image|mimes:jpeg,png,jpg,gif,svg',
 			'country' => $validationCiuntry
 		]);
 		if ( $validation->fails() ) {

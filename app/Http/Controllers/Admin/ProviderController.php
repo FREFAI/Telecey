@@ -33,26 +33,27 @@ class ProviderController extends Controller
             } 
             if (! File::exists(public_path()."/providers/provider_resized")) {
                 File::makeDirectory(public_path()."/providers/provider_resized", 0777, true);
-            }            
+            }   
             if($request->hasFile('provider_image')){
 		    	$image       = $request->file('provider_image');
-	            $fileext    = $image->getClientOriginalExtension();
-	            $destinationPath = public_path('/providers/provider_resized');
-	            $perameter['provider_image_resize'] = time().'_provider_resized.'.$fileext;                
+                $image_file = $request->provider_image_cropped;
+                list($type, $image_file) = explode(';', $image_file);
+                list(, $image_file)      = explode(',', $image_file);
+                $image_file = base64_decode($image_file);
+                $perameter['provider_image_resize'] = time().'_provider_resized.png';
+                $path = public_path('/providers/provider_resized/'.$perameter['provider_image_resize']);
+                file_put_contents($path, $image_file);
 
-	            $image_resize = Image::make($image->getRealPath())->fit(540, 252, function($constraint) {
-	                    $constraint->aspectRatio();
-	                    $constraint->upsize();
-	                    });              
-	            $image_resize->save(public_path('/providers/provider_resized/' .$perameter['provider_image_resize']));
-	            // End Resized Image section 
 	            // Original Image section 
+
 	            $perameter['provider_image_original'] = time().'_provider_original.'.$image->getClientOriginalExtension();
 	        	
 	        	$image->move(public_path()."/providers/provider_original", $perameter['provider_image_original']);
 
 	    	 	// End Original Image section
             }
+            unset($perameter['provider_image_cropped']);         
+            
     		$provider = Provider::create($perameter);
     		if($provider){
     			return redirect('/admin/provider-list')->with('success','Provider added successfully.');
@@ -92,22 +93,58 @@ class ProviderController extends Controller
             }
     	    $provider = Provider::find($perameter['id']);
             if($provider){
+
                 if($request->hasFile('provider_image')){
                     $image       = $request->file('provider_image');
-                    $fileext    = $image->getClientOriginalExtension();
-                    $destinationPath = public_path('/providers/provider_resized');
-                    $perameter['provider_image_resize'] = time().'_provider_resized.'.$fileext;
-                    $image_resize = Image::make($image->getRealPath())->fit(540, 252, function($constraint) {
-                            $constraint->aspectRatio();
-                            $constraint->upsize();
-                            });              
-                    $image_resize->save(public_path('/providers/provider_resized/' .$perameter['provider_image_resize']));
-                    // End Resized Image section 
+                    $image_file = $request->provider_image_cropped;
+                    list($type, $image_file) = explode(';', $image_file);
+                    list(, $image_file)      = explode(',', $image_file);
+                    $image_file = base64_decode($image_file);
+                    $perameter['provider_image_resize'] = time().'_provider_resized.png';
+                    $path = public_path('/providers/provider_resized/'.$perameter['provider_image_resize']);
+                    file_put_contents($path, $image_file);
+    
                     // Original Image section 
+    
                     $perameter['provider_image_original'] = time().'_provider_original.'.$image->getClientOriginalExtension();
+                    
                     $image->move(public_path()."/providers/provider_original", $perameter['provider_image_original']);
-                     // End Original Image section
+    
+                    if($perameter['provider_image_old'] != "" && $perameter['provider_image_original_old'] != ""){
+                        $oldFileOriginal = public_path()."/providers/provider_original/".$perameter['provider_image_original_old'];
+                        $oldFile = public_path()."/providers/provider_resized/".$perameter['provider_image_old'];
+                        if (File::exists($oldFileOriginal)) {
+                            File::delete($oldFileOriginal);
+                        }
+                        if (File::exists($oldFile)) {
+                            File::delete($oldFile);
+                        }
+                    }
+                    
                 }
+                unset($perameter['provider_image_original_old']);
+                unset($perameter['provider_image_old']);
+                unset($perameter['provider_image_cropped']);
+
+
+
+                
+                // if($request->hasFile('provider_image')){
+                //     $image       = $request->file('provider_image');
+                //     $fileext    = $image->getClientOriginalExtension();
+                //     $destinationPath = public_path('/providers/provider_resized');
+                //     $perameter['provider_image_resize'] = time().'_provider_resized.'.$fileext;
+                //     $image_resize = Image::make($image->getRealPath())->fit(540, 252, function($constraint) {
+                //             $constraint->aspectRatio();
+                //             $constraint->upsize();
+                //             });              
+                //     $image_resize->save(public_path('/providers/provider_resized/' .$perameter['provider_image_resize']));
+                //     // End Resized Image section 
+                //     // Original Image section 
+                //     $perameter['provider_image_original'] = time().'_provider_original.'.$image->getClientOriginalExtension();
+                //     $image->move(public_path()."/providers/provider_original", $perameter['provider_image_original']);
+                //      // End Original Image section
+                // }
                 $id = $perameter['id'];
                 unset($perameter['provider_image']);
                 unset($perameter['_token']);

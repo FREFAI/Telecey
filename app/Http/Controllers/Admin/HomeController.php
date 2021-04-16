@@ -163,25 +163,28 @@ class HomeController extends Controller
             if (!File::exists(public_path()."/home/images")) {
                 File::makeDirectory(public_path()."/home/images", 0777, true);
             } 
-            // Resized Image section 
+
             if($request->hasFile('section_four_image')){
                 $image       = $request->file('section_four_image');
-                $fileext    = $image->getClientOriginalExtension();
-                $destinationPath = public_path('/home/images');
-                $params['section_four_image'] = time().'_home_image_section_four.'.$fileext;                
+                $image_file = $request->sectionfour_image;
+                list($type, $image_file) = explode(';', $image_file);
+                list(, $image_file)      = explode(',', $image_file);
+                $image_file = base64_decode($image_file);
+                $params['section_four_image'] = time().'_home_image_section_four.png';
+                $path = public_path('/home/images/'.$params['section_four_image']);
+                file_put_contents($path, $image_file);
 
-                $image_resize = Image::make($image->getRealPath())->resize(361, 231, function($constraint) {
-                    $constraint->aspectRatio();
-                });              
-                $image_resize->save(public_path('/home/images/' .$params['section_four_image']));
                 if($params['section_four_image_old'] != ""){
                     $oldFile = public_path()."/home/images/".$params['section_four_image_old'];
                     if (File::exists($oldFile)) {
                         File::delete($oldFile);
                     }
                 }
-                unset($params['section_four_image_old']);
+                
             }
+            unset($params['section_four_image_old']);
+            unset($params['sectionfour_image']);
+
             $homeContentData = HomeContent::first();
             if($homeContentData == null){
                 $saveContent = HomeContent::create($params);

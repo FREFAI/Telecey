@@ -59,7 +59,7 @@ class AdsController extends Controller
 			}
     		$validation = Validator::make($input, [
 	            'title' => 'required|unique:ads',
-	            'ads_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000|dimensions:min_width=1000,max_height=550',
+	            'ads_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
 				'country' => $validationCiuntry
 			],[
 				'ads_file.required' => 'Ads image is required'
@@ -74,22 +74,25 @@ class AdsController extends Controller
 	                File::makeDirectory(public_path()."/ads_banner/resized", 0777, true);
 	            } 
 	            // Resized Image section 
-	            $image       = $request->file('ads_file');
-                $fileext    = $image->getClientOriginalExtension();
-                $destinationPath = public_path('/ads_banner/resized');
-                $input['ads_file'] = time().'_custom_ads_resized.'.$fileext;                
-				$input['ads_file_original'] = time().'_custom_ads_original.'.$fileext;
-				
-                $image_resize = Image::make($image->getRealPath())->resize(320, 240, function($constraint) {
-                        $constraint->aspectRatio();
-                        });              
-                $image_resize->save(public_path('/ads_banner/resized/' .$input['ads_file']));
-	            // End Resized Image section 
-
-	            // Original Image section 
-
-	        	
-	        	$image->move(public_path()."/ads_banner/ads_banner_original", $input['ads_file_original']);
+				if($request->hasFile('ads_file')){
+					$image       = $request->file('ads_file');
+					$image_file = $request->ads_image;
+					list($type, $image_file) = explode(';', $image_file);
+					list(, $image_file)      = explode(',', $image_file);
+					$image_file = base64_decode($image_file);
+					$input['ads_file'] = time().'_custom_ads_resized.png';
+					$path = public_path('/ads_banner/resized/'.$input['ads_file']);
+					file_put_contents($path, $image_file);
+	
+					// Original Image section 
+	
+					$input['ads_file_original'] = time().'_custom_ads_original.'.$image->getClientOriginalExtension();
+					
+					$image->move(public_path()."/ads_banner/ads_banner_original", $input['ads_file_original']);
+	
+					 // End Original Image section
+				}
+				unset($input['ads_image']);
 
         	 	// End Original Image section 
 	        	$addAds = AdsModel::create($input);
@@ -124,7 +127,7 @@ class AdsController extends Controller
 		}
 		$validation = Validator::make($input, [
 			'title' => 'required|unique:ads,title,'.$id,
-			'ads_file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000|dimensions:min_width=1000,max_height=550',
+			'ads_file' => 'image|mimes:jpeg,png,jpg,gif,svg',
 			'country' => $validationCiuntry
 		]);
 		if ( $validation->fails() ) {
@@ -137,17 +140,14 @@ class AdsController extends Controller
 				File::makeDirectory(public_path()."/ads_banner/resized", 0777, true);
 			} 
 			if($request->hasFile('ads_file')){
-				// Resized Image section 
 				$image       = $request->file('ads_file');
-				$fileext    = $image->getClientOriginalExtension();
-				$destinationPath = public_path('/ads_banner/resized');
-				$input['ads_file'] = time().'_custom_ads_resized.'.$fileext;                
-
-				$image_resize = Image::make($image->getRealPath())->resize(320, 240, function($constraint) {
-						$constraint->aspectRatio();
-						});              
-				$image_resize->save(public_path('/ads_banner/resized/' .$input['ads_file']));
-				// End Resized Image section 
+				$image_file = $request->ads_image;
+				list($type, $image_file) = explode(';', $image_file);
+				list(, $image_file)      = explode(',', $image_file);
+				$image_file = base64_decode($image_file);
+				$input['ads_file'] = time().'_custom_ads_resized.png';
+				$path = public_path('/ads_banner/resized/'.$input['ads_file']);
+				file_put_contents($path, $image_file);
 
 				// Original Image section 
 
@@ -155,8 +155,22 @@ class AdsController extends Controller
 				
 				$image->move(public_path()."/ads_banner/ads_banner_original", $input['ads_file_original']);
 
-				// End Original Image section 
+				if($input['ads_image_old'] != "" && $input['ads_image_original_old'] != ""){
+					$oldFileOriginal = public_path()."/ads_banner/ads_banner_original/".$input['ads_image_original_old'];
+					$oldFile = public_path()."/ads_banner/resized/".$input['ads_image_old'];
+					if (File::exists($oldFileOriginal)) {
+						File::delete($oldFileOriginal);
+					}
+					if (File::exists($oldFile)) {
+						File::delete($oldFile);
+					}
+				}
+				 // End Original Image section
 			}
+			unset($input['ads_image']);
+			unset($input['ads_image_old']);
+			unset($input['ads_image_original_old']);
+
 			$addAds = AdsModel::where('id',$id)->update($input);
 			if($addAds){
 				return redirect('admin/ads')->withInput()->with('success','Custom ads edited successfully.');

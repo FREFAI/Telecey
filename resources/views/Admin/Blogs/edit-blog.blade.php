@@ -63,11 +63,15 @@
                                       <label for="imageUpload"><i class="fas fa-edit"></i></label>
                                   </div>
                                   <div class="avatar-preview">
-                                    @if($blog->blog_picture_original != "")
-                                      <div class="mb-2" id="imagePreview" style="background-image: url({{URL::asset('blogs/blog_original')}}/{{$blog->blog_picture_original}});">
+                                      <input type="hidden" name="blog_image_old" value="{{URL::asset('blogs/resized')}}/{{$blog->blog_picture}}">
+                                      <input type="hidden" name="blog_image_original_old" value="{{URL::asset('blogs/blog_original')}}/{{$blog->blog_picture_original}}">
+                                    @if($blog->blog_picture != "")
+                                      <input type="hidden" name="blog_image" class="image-get" value="{{URL::asset('blogs/resized')}}/{{$blog->blog_picture}}">
+                                      <div class="mb-2 imagePreviewBlog" id="imagePreview" style="background-image: url({{URL::asset('blogs/resized')}}/{{$blog->blog_picture}});">
                                       </div>
                                     @else
-                                      <div class="mb-2" id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                                      <input type="hidden" name="blog_image" class="image-get" value="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}">
+                                      <div class="mb-2 imagePreviewBlog" id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
                                       </div>
                                     @endif
                                     <small><strong>Max. size {{$setting ? number_format($setting->blog_image_limit) : 10}}MB</strong></small>
@@ -98,4 +102,93 @@
     <!-- End Footer Section Include -->
   </div>
 </div>
+<div id="addBlogImage" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header pb-0">
+                <h2 class="text-center w-100">Crop Image</h2>
+            </div>
+            <div class="modal-body p-2">
+                <div class="row text-center">
+                <div id="blog-image-display"></div>
+                </div>
+            </div>
+            <div class="modal-footer pt-0">
+                <button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
+                <button id="useimg-blog" type="button" class="btn btn-primary">Use Image</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@endsection
+
+@section('pageScript')
+  <script>
+      $(document).ready(function(){
+        var image = $('.image-get').val();
+        var reader = new FileReader();
+        var resize = $('#blog-image-display').croppie({
+          url:image,
+          enableExif: true,
+          enableOrientation: true,    
+          viewport: { // Default { width: 100, height: 100, type: 'square' } 
+            width: 400,
+            height: 280,
+            type: 'square' //square
+          },
+          boundary: {
+            width: 420,
+            height: 300
+          }
+        });
+        function readURLBlog(input,size) {
+          if(size){
+            size = size;
+            var maxSize = size*1024;
+          }else{
+            size = 10;
+            var maxSize = 10240;
+          }
+          var file = input.files[0];//get file 
+          var img = new Image();
+          var sizeKB = file.size / 1024;
+          if(sizeKB > maxSize){
+            toastr.error('Image size', 'Image size should be less then '+size+'Mb.' , {displayDuration:100000,position: 'top-right'});
+            return false;
+          }
+          reader.onload = function (e) {
+            resize.croppie('bind',{
+              url: e.target.result
+            }).then(function(){
+              console.log('jQuery bind complete');
+            });
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
+        $('#useimg-blog').on('click', function () {
+          var imageSize = {
+              width: 1000,
+              height: 550,
+              type: 'square'
+          };
+          resize.croppie('result', {
+            type: 'canvas',
+            size: imageSize,
+            format: "png", 
+            quality: 1
+          }).then(function (img) {
+            $('#imagePreview').css('background-image', 'url('+img+')');
+            $('.image-get').val(img);
+            $('.modal-close').click();
+          });
+        });
+        $('#imageUpload').on('change', function(){
+          readURLBlog(this,$(this).attr('data-size'));
+          $("#addBlogImage").modal('show');
+        })
+      })
+      
+  </script>
 @endsection

@@ -145,9 +145,6 @@ class PlansController extends Controller {
             $searchResult = [];
             $filter = 1;
         }
-        if($searchResultCount <= 5){
-            $searchResult = [];
-        }
         return view('FrontEnd.plansResult', ['ip_location' => $current_location, 'filtersetting' => $filtersetting, 'ads' => $ads, 'googleads' => $googleads, 'service_types' => $service_types, 'data' => $searchResult, 'filterType' => $filter]);
     }
     public function plansResultSorting(Request $request) {
@@ -236,9 +233,6 @@ class PlansController extends Controller {
             $average = 0;
             $user_address = UserAddress::where('user_id', $searchResult[$key]['user_id'])->where('is_primary', 1)->value('formatted_address');
             $searchResult[$key]['user_address'] = $user_address;
-        }
-        if($searchResultCount <= 5){
-            $searchResult = [];
         }
         return view('FrontEnd.plans.planSorting', ['data' => $searchResult, 'filtersetting' => $filtersetting, 'ads' => $ads, 'googleads' => $googleads]);
     }

@@ -134,9 +134,6 @@ class DevicesController extends Controller {
                 $logData = ['log_type' => 4, 'type' => 2, 'filter_type' => 2, 'ip' => $ip, 'filter_params' => json_encode($data), 'filter_search_result_count' => $searchResultCount];
             }
             CreateLogs::createLog($logData);
-            if($searchResultCount <= 5){
-                $searchResult = [];
-            }
             return view('FrontEnd.devicesResult', ['ip_location' => $current_location, 'brands' => $brands, 'suppliers' => $suppliers, 'data' => $searchResult, 'filtersetting' => $filtersetting, 'colors' => $colors, 'ads' => $ads, 'googleads' => $googleads]);
         } else {
             $searchResult = [];
@@ -234,9 +231,6 @@ class DevicesController extends Controller {
                 $user_address = UserAddress::where('user_id', $searchResult[$key]['user_id'])->where('is_primary', 1)->value('formatted_address');
                 $searchResult[$key]['user_address'] = $user_address;
             }
-        }
-        if($searchResultCount <= 5){
-            $searchResult = [];
         }
         return view('FrontEnd.devices.devicesSorting', ['data' => $searchResult, 'filtersetting' => $filtersetting, 'ads' => $ads, 'googleads' => $googleads]);
     }

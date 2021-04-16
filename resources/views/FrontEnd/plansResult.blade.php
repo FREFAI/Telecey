@@ -31,7 +31,7 @@
 					</div>
 					@endif
 				@endif
-				<div class="col-lg-7 record_section">
+				<div class="col-lg-6 record_section">
 					<div class="location">
 						<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input search-input-field"/>
 					</div>
@@ -59,12 +59,12 @@
 				
 				<div class="col-lg-1 record_section">
 					<div class="text-center">
-						<a title="Expend Filter" href="javascript:void(0);" onClick="filterExpend()" class="expendFilterbtn"><i class="fa fa-filter"></i></a>
+						<a title="Expend Filter" href="javascript:void(0);" onClick="filterExpend()" class="expendFilterbtn"><img src="{{URL::asset('frontend/assets/img/filter.jpg')}}"/></a>
 					</div>
 				</div>
-				<div class="col-lg-1 text-right record_section">
+				<div class="col-lg-2 text-right record_section pr-0">
 					<div class="filter_button">
-						<button type="submit"><img src="{{URL::asset('frontend/assets/img/filter.jpg')}}"/></button>
+						<button class="searchnow-button p-1" type="submit">{{__('plan.search_now_btn')}}</button>
 					</div>
 				</div>
 				<div class="col-lg-4 expendedFilter">
@@ -290,6 +290,17 @@
 							@endforeach
 						</tbody>
 					</table>
+					@if(count($data) <= 5)
+						<div class="container">
+							<div class="row pt-5 pb-5 mt-5 mb-5">
+								<div class="col text-center">
+									<div class="heading noSearchMessage">
+										<p>{!!$filtersetting->no_search_message!!}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					@endif
 					@if(!Auth::guard('customer')->check())
 						@if($filtersetting->no_of_search_record > 0)
 						<div class="overlay_signup w-100 text-center text-white">

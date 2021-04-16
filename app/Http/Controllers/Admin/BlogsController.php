@@ -50,16 +50,13 @@ class BlogsController extends Controller
             } 
             if($request->hasFile('blog_picture')){
 		    	$image       = $request->file('blog_picture');
-	            $fileext    = $image->getClientOriginalExtension();
-	            $destinationPath = public_path('/blogs/resized');
-	            $perameters['blog_picture'] = time().'_blog_resized.'.$fileext;                
-
-	            $image_resize = Image::make($image->getRealPath())->fit(540, 252, function($constraint) {
-	                    $constraint->aspectRatio();
-	                    $constraint->upsize();
-	                    });              
-	            $image_resize->save(public_path('/blogs/resized/' .$perameters['blog_picture']));
-	            // End Resized Image section 
+                $image_file = $request->blog_image;
+                list($type, $image_file) = explode(';', $image_file);
+                list(, $image_file)      = explode(',', $image_file);
+                $image_file = base64_decode($image_file);
+                $perameters['blog_picture'] = time().'_blog_resized.png';
+                $path = public_path('/blogs/resized/'.$perameters['blog_picture']);
+                file_put_contents($path, $image_file);
 
 	            // Original Image section 
 
@@ -69,6 +66,7 @@ class BlogsController extends Controller
 
 	    	 	// End Original Image section
             }
+            unset($perameters['blog_image']);
 	    	 
 
         	$blogs = BlogsModel::create($perameters);
@@ -117,28 +115,39 @@ class BlogsController extends Controller
             $blog = BlogsModel::find($id);
        
             if($blog){
-	            if($request->hasFile('blog_picture')){
-			    	$image       = $request->file('blog_picture');
-		            $fileext    = $image->getClientOriginalExtension();
-		            $destinationPath = public_path('/blogs/resized');
-		            $perameters['blog_picture'] = time().'_blog_resized.'.$fileext;                
 
-		            $image_resize = Image::make($image->getRealPath())->fit(540, 252, function($constraint) {
-		                    $constraint->aspectRatio();
-		                    $constraint->upsize();
-		                    });              
-		            $image_resize->save(public_path('/blogs/resized/' .$perameters['blog_picture']));
-		            // End Resized Image section 
+                if($request->hasFile('blog_picture')){
+                    $image       = $request->file('blog_picture');
+                    $image_file = $request->blog_image;
+                    list($type, $image_file) = explode(';', $image_file);
+                    list(, $image_file)      = explode(',', $image_file);
+                    $image_file = base64_decode($image_file);
+                    $perameters['blog_picture'] = time().'_blog_resized.png';
+                    $path = public_path('/blogs/resized/'.$perameters['blog_picture']);
+                    file_put_contents($path, $image_file);
+    
+                    // Original Image section 
+    
+                    $perameters['blog_picture_original'] = time().'_blog_original.'.$image->getClientOriginalExtension();
+                    
+                    $image->move(public_path()."/blogs/blog_original", $perameters['blog_picture_original']);
+    
+                    if($perameters['blog_image_old'] != "" && $perameters['blog_image_original_old'] != ""){
+                        $oldFileOriginal = public_path()."/blogs/blog_original/".$perameters['blog_image_original_old'];
+                        $oldFile = public_path()."/blogs/resized/".$perameters['blog_image_old'];
+                        if (File::exists($oldFileOriginal)) {
+                            File::delete($oldFileOriginal);
+                        }
+                        if (File::exists($oldFile)) {
+                            File::delete($oldFile);
+                        }
+                    }
+                    
+                }
+                unset($perameters['blog_image_original_old']);
+                unset($perameters['blog_image_old']);
+                unset($perameters['blog_image']);
 
-		            // Original Image section 
-
-		            $perameters['blog_picture_original'] = time().'_blog_original.'.$image->getClientOriginalExtension();
-		        	
-		        	$image->move(public_path()."/blogs/blog_original", $perameters['blog_picture_original']);
-
-		    	 	// End Original Image section
-	            }
-		    	 
 	            unset($perameters['id']);
 	            unset($perameters['_token']);
 	        	$blogs = BlogsModel::where('id',$id)->update($perameters);

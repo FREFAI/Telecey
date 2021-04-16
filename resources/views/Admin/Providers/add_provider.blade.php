@@ -57,11 +57,12 @@
                     <div class="blog_image">
                       <div class="avatar-upload">
                         <div class="avatar-edit">
+                            <input type="hidden" name="provider_image_cropped" class="image-get" value="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}">
                             <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="provider_image" />
                             <label for="imageUpload"><i class="fas fa-edit"></i></label>
                         </div>
                         <div class="avatar-preview">
-                            <div id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
+                            <div class="imagePreviewProvider" id="imagePreview" style="background-image: url({{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}});">
                             </div>
                         </div>
                       </div>
@@ -83,4 +84,80 @@
     <!-- End Footer Section Include -->
   </div>
 </div>
+<div id="addProviderImage" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header pb-0">
+                <h2 class="text-center w-100">Crop Image</h2>
+            </div>
+            <div class="modal-body p-2">
+                <div class="row text-center">
+                <div id="provider-image-display"></div>
+                </div>
+            </div>
+            <div class="modal-footer pt-0">
+                <button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
+                <button id="useimg-provider" type="button" class="btn btn-primary">Use Image</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@endsection
+
+@section('pageScript')
+  <script>
+      $(document).ready(function(){
+        var image = $('.image-get').val();
+        var reader = new FileReader();
+        var resize = $('#provider-image-display').croppie({
+          url:image,
+          enableExif: true,
+          enableOrientation: true,    
+          viewport: { // Default { width: 100, height: 100, type: 'square' } 
+            width: 400,
+            height: 280,
+            type: 'square' //square
+          },
+          boundary: {
+            width: 420,
+            height: 300
+          }
+        });
+        function readURLProvider(input) {
+          var img = new Image();
+          reader.onload = function (e) {
+            resize.croppie('bind',{
+              url: e.target.result
+            }).then(function(){
+              console.log('jQuery bind complete');
+            });
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
+        $('#useimg-provider').on('click', function () {
+          var imageSize = {
+              width: 1000,
+              height: 550,
+              type: 'square'
+          };
+          resize.croppie('result', {
+            type: 'canvas',
+            size: imageSize,
+            format: "png", 
+            quality: 1
+          }).then(function (img) {
+            $('#imagePreview').css('background-image', 'url('+img+')');
+            $('.image-get').val(img);
+            $('.modal-close').click();
+          });
+        });
+        $('#imageUpload').on('change', function(){
+          readURLProvider(this);
+          $("#addProviderImage").modal('show');
+        })
+      })
+      
+  </script>
 @endsection

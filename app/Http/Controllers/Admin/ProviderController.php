@@ -23,7 +23,7 @@ class ProviderController extends Controller
     	$validation = Validator::make($perameter,[
             'provider_name' => 'required|unique:providers',
             'country' => 'required',
-			'provider_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'            
+			'provider_image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048'            
 		]);
 		if($validation->fails()){
 			return redirect()->back()->withInput()->with('error',$validation->messages()->first());
@@ -80,7 +80,7 @@ class ProviderController extends Controller
     	$validation = Validator::make($perameter,[
             'provider_name' => 'required|unique:providers,provider_name,'.$perameter['id'],
             'country'       => 'required',
-			'provider_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'                        
+			'provider_image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048'                        
         ]);
         if ($validation->fails()) {
 			return redirect()->back()->withInput()->with('error',$validation->messages()->first());

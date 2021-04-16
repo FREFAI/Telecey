@@ -30,7 +30,7 @@ class HomeController extends Controller
         $validation = Validator::make($params,[
             'section_one' => 'required',
             'section_one_fr' => 'required',
-            'section_one_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:'.$size
+            'section_one_image' => 'mimes:jpeg,png,jpg,gif,svg|max:'.$size
         ]);
         if ($validation->fails()) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());
@@ -155,7 +155,7 @@ class HomeController extends Controller
             'section_four_fr' => 'required',
             'section_four_description' => 'required',
             'section_four_description_fr' => 'required',
-            'section_four_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:'.$size
+            'section_four_image' => 'mimes:jpeg,png,jpg,gif,svg|max:'.$size
         ]);
         if ($validation->fails()) {
             return redirect()->back()->withInput()->with('error',$validation->messages()->first());

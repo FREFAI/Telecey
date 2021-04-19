@@ -41,7 +41,7 @@ Route::get('/updateLatLngBasisOnAddress', 'IndependentController@updateLatLngBas
 	Route::get('/addNikNameIfNotExist', 'IndependentController@addNikNameIfNotExist');
 	Route::get('/addressMigration', 'IndependentController@addressMigration');
 // End Independent Routes
-	Route::get('/testEmail', 'TestController@testEmail');
+	Route::get('/testEmail', 'IndependentController@testEmail');
 	Route::post('/updateUserAddressTable', 'IndependentController@updateUserAddressTable');
 	Route::get('/fixedOldPlanDataIssue', 'IndependentController@fixedOldPlanDataIssue');
 	Route::get('/fixedOldDeviceDataIssue', 'IndependentController@fixedOldDeviceDataIssue');

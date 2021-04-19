@@ -17,6 +17,10 @@
     .heading.detail-div {
         margin: -2rem auto 1rem;
     }
+    ul.city-autocomplete {
+        list-style: none;
+        padding: 0;
+    }
 </style>
 	<!-- Content Start Here -->
 		<div class="inner-page start-page">
@@ -354,6 +358,7 @@
         $('.make_new_address').removeClass('d-none');
         $('#user_address_id').val(0);
         $('#is_primary').val(0);
+        $('#user_address input').attr('autocomplete', 'no');
     });
     $('#address_form .cancel').on('click',function(e){
         $('.confirm_message_section').removeClass('d-none');

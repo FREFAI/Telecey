@@ -77,6 +77,11 @@ class HomeController extends Controller
 
     public function profile(Request $request)
     {
+        $user_id = Auth::guard('customer')->user()['id'];
+        $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
+        if($userAddress && $userAddress->city == ''){
+            return redirect('/reviews');
+        }
         $perameters = $request->all();
         if(array_key_exists('type', $perameters)){
             if($perameters['type'] == 1){

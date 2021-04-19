@@ -384,7 +384,7 @@
 													  				<!-- Rating -->
 													  				@if(!is_null($service->ratings)) 
 						  					  	                		@foreach($service->ratings as $key => $rating)
-								  					  	                		@if($rating['plan_id']==$service->id)
+								  					  	                		@if(isset($rating['plan_id'])==$service->id)
 												  					  	            <div class="panel-heading mt-2 inner-accordian" role="tab" id="rating{{$service->id}}{{$key}}">
 												  					  	                <h4 class="panel-title display-inline">
 												  					  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#ratingcollapse{{$service->id}}{{$key}}" aria-expanded="true" aria-controls="ratingcollapse{{$service->id}}{{$key}}" class="accordion_btn rating_btn">

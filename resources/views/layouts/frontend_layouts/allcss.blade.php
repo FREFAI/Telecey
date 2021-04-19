@@ -59,5 +59,9 @@
         list-style: none;
         padding: 0;
     }
+    ul.city-autocomplete {
+        list-style: none;
+        padding: 0;
+    }
 </style>
 @yield('pageStyle')

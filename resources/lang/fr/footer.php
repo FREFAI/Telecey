@@ -25,5 +25,5 @@ return [
     'term' => "Conditions d'utilisation",
     'cookie' => "Politique de cookies",
     'contact' => "Nous contacter",
-    'copyright' => "Telecey © 2020. Tous les droits sont réservés"
+    'copyright' => "Tous les droits sont réservés"
 ];

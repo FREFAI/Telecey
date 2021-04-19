@@ -25,5 +25,5 @@ return [
     'term' => "Terms of Service",
     'cookie' => "Cookie Policy",
     'contact' => "Contact US",
-    'copyright' => "Telecey © 2020. All rights Reserved"
+    'copyright' => "All rights Reserved"
 ];

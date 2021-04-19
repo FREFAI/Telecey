@@ -213,7 +213,7 @@
                               <div id="accordion{{$service->id}}" class="admin-profile">
                                 @if(!is_null($service->ratings)) 
                                   @foreach($service->ratings as $innerKey => $rating)
-                                    @if($rating['plan_id']==$service->id)
+                                    @if(isset($rating['plan_id'])==$service->id)
                                       <div class="panel-heading mt-2 inner-admin-accordians px-3" role="tab" id="rating{{$service->id}}{{$innerKey}}">
                                         <div class="row">
                                           <div class="col-8">

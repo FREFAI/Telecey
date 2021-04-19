@@ -16,7 +16,7 @@ use App\CountriesModel;
 use App\UserAddress;
 use App\Currency;
 use App\User;
-use DB, Excel, Auth;
+use DB, Excel, Auth,Mail;
 use App\Models\Admin\SettingsModel;
 
 class IndependentController extends Controller

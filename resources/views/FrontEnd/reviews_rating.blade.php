@@ -358,7 +358,8 @@
         $('.make_new_address').removeClass('d-none');
         $('#user_address_id').val(0);
         $('#is_primary').val(0);
-        $('#user_address input').attr('autocomplete', 'no');
+        $('#user_address input').attr('autocomplete', 'kbjbb');
+        $('#user_address form').attr('autocomplete', 'off');
     });
     $('#address_form .cancel').on('click',function(e){
         $('.confirm_message_section').removeClass('d-none');

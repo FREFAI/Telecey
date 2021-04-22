@@ -242,34 +242,34 @@
                     </div>
                 </div>
                 <div class="d-none make_new_address mt-3">
-                    <form id="address_form" autocomplete="off">
+                    <form id="address_form" action="" methode="post">
                         <div class="row">
                             <div class="col-lg-12">
                                 <h5>{{ __('review.address') }} <span class="text-mute">{{ __('review.optional') }}</span></h5>
                                 <div class="form-group">
-                                    <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="{{ __('review.address') }} " autocomplete="off"/>
+                                    <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="{{ __('review.address') }} " autocomplete="no"/>
                                 </div>
                             </div>
                             @if(!$plandevicerating)
                                 <div class="col-lg-12">
                                     <h5>{{ __('review.country') }}</h5>
                                     <div class="form-group country_div" id="country_div">
-                                        <input type="text" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" autocomplete="off"/>
+                                        <input type="text" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" autocomplete="no"/>
                                     </div>
                                 </div>
                             @else
-                                <input type="hidden" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" autocomplete="off" value="{{$countries->name}}" />
+                                <input type="hidden" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" autocomplete="no" value="{{$countries->name}}" />
                             @endif
                             <div class="col-lg-12">
                                 <h5>{{ __('review.city') }}</h5>
                                 <div class="form-group city_div" id="city_div">
-                                    <input type="text" id="user_cityname" name="user_cityname" class="form-control js-input city_input" placeholder="{{ __('review.city') }}" autocomplete="off" required="" data-country="{{$countries->code}}" />
+                                    <input type="text" id="user_cityname" name="user_cityname" class="form-control js-input city_input" placeholder="{{ __('review.city') }}" autocomplete="no" required="" data-country="{{$countries->code}}" />
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h5>{{ __('review.postal_code') }}</h5>
                                 <div class="form-group">
-                                    <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="{{ __('review.postal_code') }}" required="" autocomplete="off"/>
+                                    <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="{{ __('review.postal_code') }}" required="" autocomplete="no"/>
                                 </div>
                             </div>
                             <input type="hidden" name="latitude" id="lat" value="{{$lat}}" />
@@ -322,158 +322,156 @@
             </div>
         </div>
     </div>
-<script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script>
-<script>
-
-    $('.service-rating-submit-btn-add').on('click',function(e){
-        e.preventDefault();
-        var isset = 0;
-        var perams = [];
-        $('#rating_section .rating').each(function(index, item){
-            var rate = $(item).rate('getValue');
-            var question_id = $(item).attr('data-question_id');
-            if(rate==0){
-                $('.starrating_error').removeClass('d-none');
-                setTimeout(function(){
-                $('.starrating_error').addClass('d-none');
-                },3000);
-                isset = 0;
-                return false;
-            }else{
-                isset = 1;
-            }
-        });
-        if(isset == 1){
-            $('#user_address').modal({
-                show: true
+<!-- <script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script> -->
+    @section('script')
+        <script>
+            $('.service-rating-submit-btn-add').on('click',function(e){
+                e.preventDefault();
+                var isset = 0;
+                var perams = [];
+                $('#rating_section .rating').each(function(index, item){
+                    var rate = $(item).rate('getValue');
+                    var question_id = $(item).attr('data-question_id');
+                    if(rate==0){
+                        $('.starrating_error').removeClass('d-none');
+                        setTimeout(function(){
+                        $('.starrating_error').addClass('d-none');
+                        },3000);
+                        isset = 0;
+                        return false;
+                    }else{
+                        isset = 1;
+                    }
+                });
+                if(isset == 1){
+                    $('#user_address').modal({
+                        show: true
+                    });
+                }
             });
-        }
-    });
-    $('.confirmation_button .yes').on('click',function(e){
-        $('.service-rating-submit-btn').trigger('click');
-        $('#user_address').modal('toggle');
-    });
-    $('.confirmation_button .no').on('click',function(e){
-        $('.confirm_message_section').addClass('d-none');
-        $('.make_new_address').removeClass('d-none');
-        $('#user_address_id').val(0);
-        $('#is_primary').val(0);
-        $('#user_address input').attr('autocomplete', 'kbjbb');
-        $('#user_address form').attr('autocomplete', 'off');
-    });
-    $('#address_form .cancel').on('click',function(e){
-        $('.confirm_message_section').removeClass('d-none');
-        $('.make_new_address').addClass('d-none');
-        $('#user_address_id').val($('#user_address_id').attr('data-id'));
-        $('#is_primary').val(1);
-    });
+            $('.confirmation_button .yes').on('click',function(e){
+                $('.service-rating-submit-btn').trigger('click');
+                $('#user_address').modal('toggle');
+            });
+            $('.confirmation_button .no').on('click',function(e){
+                $('.confirm_message_section').addClass('d-none');
+                $('.make_new_address').removeClass('d-none');
+                $('#user_address_id').val(0);
+                $('#is_primary').val(0);
+            });
+            $('#address_form .cancel').on('click',function(e){
+                $('.confirm_message_section').removeClass('d-none');
+                $('.make_new_address').addClass('d-none');
+                $('#user_address_id').val($('#user_address_id').attr('data-id'));
+                $('#is_primary').val(1);
+            });
 
-    $('.save_address').on('click',async function(e){
-        e.preventDefault();
-        $('.suggmescountry').remove()
-        $('.suggcountry').remove()
-        $('.suggmes').remove()
-        $('.suggcity').remove()
-        if(countrySelection === false){
-            $('.country_list').css('display','none');
-            $('#country').addClass('error');
-            // $('#country').val('');
-            if($("#country_div #country-error").length == 0){
-                $("#country_div").append('<label id="country-error" class="error" for="country">{{__("index.Pleace select country from a list")}}</label>');
-            }
-            return false;
-        }else{
-            $("#country_div #country-error").remove();
-        }
-        if(citySelection === false){
-            $('.city_list').css('display','none');
-            $('#city').addClass('error');
-            // $('#city').val('');
-            if($("#city_div #city-error").length == 0){
-                $("#city_div").append('<label id="city-error" class="error" for="city">{{__("index.Pleace select city from a list")}}</label>');
-            }
-            return false;
-        }else{
-            $("#city_div #country-error").remove();
-        }
-        
-        if(!$("#address_form").valid()){
-            return false;
-        }else{
-            let address = [$('#address_form #user_postal_code').val(),$('#address_form #user_country').val(),$('#address_form .city_input').val()]
-            let postal = await valid_postal_code_with_google_api(address.join(','),$('#address_form #user_country').val(),$('#address_form .city_input').val());
-            if(!postal["status"]){
-                if(postal['cities'].length > 0){
-                    var suggestedCities = '<span class="suggmes">City should be one from the following :- </span>';
-                    postal['cities'].forEach(city => suggestedCities += '<span class="suggcity" data-city="'+city+'">&nbsp;'+ city + ',</span>'); 
-                    $("#address_form .city_input").after(suggestedCities)
+            $('.save_address').on('click',async function(e){
+                e.preventDefault();
+                $('.suggmescountry').remove()
+                $('.suggcountry').remove()
+                $('.suggmes').remove()
+                $('.suggcity').remove()
+                if(countrySelection === false){
+                    $('.country_list').css('display','none');
+                    $('#country').addClass('error');
+                    // $('#country').val('');
+                    if($("#country_div #country-error").length == 0){
+                        $("#country_div").append('<label id="country-error" class="error" for="country">{{__("index.Pleace select country from a list")}}</label>');
+                    }
+                    return false;
+                }else{
+                    $("#country_div #country-error").remove();
                 }
-                if(postal['country'] != "" && postal['country'] != $('#address_form #user_country').val()){
-                    var suggestedCities = '<span class="suggmescountry">Country should be one from the following :- </span><span class="suggcountry" data-city="'+postal['country']+'">'+postal['country']+'</span>';
-                    $('#address_form #user_country').after(suggestedCities)
+                if(citySelection === false){
+                    $('.city_list').css('display','none');
+                    $('#city').addClass('error');
+                    // $('#city').val('');
+                    if($("#city_div #city-error").length == 0){
+                        $("#city_div").append('<label id="city-error" class="error" for="city">{{__("index.Pleace select city from a list")}}</label>');
+                    }
+                    return false;
+                }else{
+                    $("#city_div #country-error").remove();
                 }
-            }
-            if($('#address_form #user_postal_code').val().length == 6){
-                if(!postal["status"]){
-                    address = [$('#address_form #user_postal_code').val().substring(0, 3),$('#address_form #user_country').val(),$('#address_form .city_input').val()]
-                    postal = await valid_postal_code_with_google_api(address.join(','), $('#address_form #user_country').val(),$('#address_form .city_input').val());
+                
+                if(!$("#address_form").valid()){
+                    return false;
+                }else{
+                    let address = [$('#address_form #user_postal_code').val(),$('#address_form #user_country').val(),$('#address_form .city_input').val()]
+                    let postal = await valid_postal_code_with_google_api(address.join(','),$('#address_form #user_country').val(),$('#address_form .city_input').val());
+                    if(!postal["status"]){
+                        if(postal['cities'].length > 0){
+                            var suggestedCities = '<span class="suggmes">City should be one from the following :- </span>';
+                            postal['cities'].forEach(city => suggestedCities += '<span class="suggcity" data-city="'+city+'">&nbsp;'+ city + ',</span>'); 
+                            $("#address_form .city_input").after(suggestedCities)
+                        }
+                        if(postal['country'] != "" && postal['country'] != $('#address_form #user_country').val()){
+                            var suggestedCities = '<span class="suggmescountry">Country should be one from the following :- </span><span class="suggcountry" data-city="'+postal['country']+'">'+postal['country']+'</span>';
+                            $('#address_form #user_country').after(suggestedCities)
+                        }
+                    }
+                    if($('#address_form #user_postal_code').val().length == 6){
+                        if(!postal["status"]){
+                            address = [$('#address_form #user_postal_code').val().substring(0, 3),$('#address_form #user_country').val(),$('#address_form .city_input').val()]
+                            postal = await valid_postal_code_with_google_api(address.join(','), $('#address_form #user_country').val(),$('#address_form .city_input').val());
+                        }
+                    }
+                    if(!postal['status']){
+                        if(!$("#address_form #user_postal_code").hasClass('error')){
+                        $('#address_form #user_postal_code').addClass('error');
+                        $('#address_form #user_postal_code').after('<label id="postal_code-error" class="error" for="postal_code">{{__("index.Postal code is invalid, Please select valid postal code")}}</label>');
+                        }
+                        return false;
+                    }
+                    if(postal['lat'] && postal['lat'] != ""){
+                        $('#lat').val(postal['lat']);
+                    }
+                    if(postal['lng'] && postal['lng'] != ""){
+                        $('#long').val(postal['lng']);
+                    }
+                    var user_full_address = $('#user_full_address').val();
+                    var user_cityname = $('#user_cityname').val();
+                    var user_country = $('#user_country').val();
+                    var user_postal_code = $('#user_postal_code').val();
+                    var is_primary = $('#is_primary').val();
+                    var user_address_id = $('#user_address_id').val();
+                    var formatted_address = user_full_address+' '+user_cityname+' '+user_country+' '+user_postal_code;
+                    // alert(formatted_address);
+                    $('.address_list').append('<div class="row mt-2 border-top pt-2"><div class="col-lg-8"> <div class="address">'+formatted_address+'</div></div><div class="col-lg-4 text-right"> <div class="text-green primary d-none">Primary</div><button class="btn btn-primary make_primary_btn" data-address_id="0">Make primary</button> </div></div>');
+                    $('.make_new_address').addClass('d-none');
+                    $('.continue-btn-section').removeClass('d-none');
                 }
-            }
-            if(!postal['status']){
-                if(!$("#address_form #user_postal_code").hasClass('error')){
-                  $('#address_form #user_postal_code').addClass('error');
-                  $('#address_form #user_postal_code').after('<label id="postal_code-error" class="error" for="postal_code">{{__("index.Postal code is invalid, Please select valid postal code")}}</label>');
-                }
-                return false;
-            }
-            if(postal['lat'] && postal['lat'] != ""){
-                $('#lat').val(postal['lat']);
-            }
-            if(postal['lng'] && postal['lng'] != ""){
-                $('#long').val(postal['lng']);
-            }
-            var user_full_address = $('#user_full_address').val();
-            var user_cityname = $('#user_cityname').val();
-            var user_country = $('#user_country').val();
-            var user_postal_code = $('#user_postal_code').val();
-            var is_primary = $('#is_primary').val();
-            var user_address_id = $('#user_address_id').val();
-            var formatted_address = user_full_address+' '+user_cityname+' '+user_country+' '+user_postal_code;
-            // alert(formatted_address);
-            $('.address_list').append('<div class="row mt-2 border-top pt-2"><div class="col-lg-8"> <div class="address">'+formatted_address+'</div></div><div class="col-lg-4 text-right"> <div class="text-green primary d-none">Primary</div><button class="btn btn-primary make_primary_btn" data-address_id="0">Make primary</button> </div></div>');
-            $('.make_new_address').addClass('d-none');
-            $('.continue-btn-section').removeClass('d-none');
-        }
-        
-    });
+                
+            });
 
-    $(document).on('click','.make_primary_btn',function(){
-        var address_id = $(this).attr('data-address_id');
-        if(address_id==0){
-            $('.primary').hide();
-            $('.make_primary_btn').removeClass('d-none');
-            $('.make_primary_btn').show();
-            $(this).hide();
-            $(this).prev('.primary').removeClass('d-none');
-            $(this).prev('.primary').show();
-            $('#user_address_id').val(address_id);
-            $('#is_primary').val(1);
-        }else{
-            $('.primary').hide();
-            $('.make_primary_btn').removeClass('d-none');
-            $('.make_primary_btn').show();
-            $(this).hide();
-            $(this).prev('.primary').removeClass('d-none');
-            $(this).prev('.primary').show();
-            $('#user_address_id').val(address_id);
-            $('#is_primary').val(1);
-        }
-        
-    });
-    $('.continue-btn-section button').on('click',function(){
-        $('.service-rating-submit-btn').trigger('click');
-        $('#user_address').modal('toggle');
-    });
-</script>
-
+            $(document).on('click','.make_primary_btn',function(){
+                var address_id = $(this).attr('data-address_id');
+                if(address_id==0){
+                    $('.primary').hide();
+                    $('.make_primary_btn').removeClass('d-none');
+                    $('.make_primary_btn').show();
+                    $(this).hide();
+                    $(this).prev('.primary').removeClass('d-none');
+                    $(this).prev('.primary').show();
+                    $('#user_address_id').val(address_id);
+                    $('#is_primary').val(1);
+                }else{
+                    $('.primary').hide();
+                    $('.make_primary_btn').removeClass('d-none');
+                    $('.make_primary_btn').show();
+                    $(this).hide();
+                    $(this).prev('.primary').removeClass('d-none');
+                    $(this).prev('.primary').show();
+                    $('#user_address_id').val(address_id);
+                    $('#is_primary').val(1);
+                }
+                
+            });
+            $('.continue-btn-section button').on('click',function(){
+                $('.service-rating-submit-btn').trigger('click');
+                $('#user_address').modal('toggle');
+            });
+        </script>
+    @endsection
 @endsection

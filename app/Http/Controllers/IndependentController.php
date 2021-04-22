@@ -718,10 +718,13 @@ class IndependentController extends Controller
         return view('FrontEnd/Terms/Cookie',['settings'=>$settings]);
     }
     public function testEmail(Request $request){
+      // echo env('MAIL_FROM_ADDRESS','support@telecey.com');
+      // echo env('MAIL_FROM_NAME','TELECEY');
+      // exit;
         $email = $request->email;
         $text = "Hi ". $email;
         Mail::raw($text, function($m) use($email){
-          $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+          $m->from(env('MAIL_FROM_ADDRESS','support@telecey.com'), env('MAIL_FROM_NAME','TELECEY'));
           $m->to($email);
           $m->subject('Testing Email');
         });

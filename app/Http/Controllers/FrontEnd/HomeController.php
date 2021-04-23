@@ -80,7 +80,7 @@ class HomeController extends Controller
         $user_id = Auth::guard('customer')->user()['id'];
         $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
         if($userAddress && $userAddress->city == ''){
-            return redirect('/reviews');
+            return redirect('/reviews')->with('warning',"It seems that you didn't fill in your address earlier. Please confirm your address below before heading to your profile");
         }
         $perameters = $request->all();
         if(array_key_exists('type', $perameters)){

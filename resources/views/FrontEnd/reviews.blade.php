@@ -226,6 +226,12 @@
             <div class="row step-row">
                 <div class="col-lg-12 text-center wow animated fadeInRight" data-wow-delay="0.2s">
                     <div class="step-section-one mt-5 mb-5">
+                        @if ($message = Session::get('warning'))
+                            <div class="alert alert-warning alert-block  w-100">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>{{ $message }}</strong>
+                            </div>
+                        @endif
                         <section class="get-in-touch">
                             <p class="title pt-3">{{ __('review.form_title') }}</p>
                             <p class="pt-2 pb-3 text-black text-left">{{ __('review.form_sub_title') }}</p>

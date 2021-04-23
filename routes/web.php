@@ -24,6 +24,8 @@ Route::get('locale/{locale}', function ($locale){
 
 Route::get('/inbox/{caseID}', function($param){
 	   return redirect('/inbox/'.$param);
+});Route::get('/test-location', function(){
+	   return view('test');
 });
 Route::get('/googlecallback', 'FrontEnd\LoginSignup\SocialAuthGoogleController@callback');
 Route::get('/facebookcallback', 'FrontEnd\LoginSignup\SocialAuthFacebookController@callback');
@@ -33,129 +35,133 @@ Route::get('/privacy-policy', 'IndependentController@privacyPolicy');
 Route::get('/cookie-policy', 'IndependentController@cookiePolicy');
 Route::get('/thankyou/{token}', 'IndependentController@thankyou');
 Route::get('/updateLatLngBasisOnAddress', 'IndependentController@updateLatLngBasisOnAddress');
+// Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], function(){
 	Route::post('/unsubscribed', 'IndependentController@unsubscribedUser');
-// Testing Route 
-	Route::get('/country', 'TestController@index');
-	Route::get('/test', 'TestController@test');
-// Start Independent Routes
-	Route::get('/addNikNameIfNotExist', 'IndependentController@addNikNameIfNotExist');
-	Route::get('/addressMigration', 'IndependentController@addressMigration');
-// End Independent Routes
-	Route::get('/testEmail', 'IndependentController@testEmail');
-	Route::post('/updateUserAddressTable', 'IndependentController@updateUserAddressTable');
-	Route::get('/fixedOldPlanDataIssue', 'IndependentController@fixedOldPlanDataIssue');
-	Route::get('/fixedOldDeviceDataIssue', 'IndependentController@fixedOldDeviceDataIssue');
-// End Testing Route 
-	Route::get('/cookieSet', 'IndependentController@cookieSet');
-// FrontEnd Section 
-	Route::get('/home', 'FrontEnd\HomeController@homepage');
-// New Design Route
-	Route::get('/', 'FrontEnd\HomeController@homePageNew');
-	Route::get('/homenn', 'FrontEnd\HomeController@homePageNew');
-	Route::get('/plans', 'FrontEnd\PlansController@plansNew');
-	Route::get('/plans/result', 'FrontEnd\PlansController@plansResult');
-	Route::post('/plans/resultSorting', 'FrontEnd\PlansController@plansResultSorting');
-	Route::get('/devices', 'FrontEnd\DevicesController@devicesNew');
-	Route::get('/devices/result', 'FrontEnd\DevicesController@devicesResult');
-	Route::post('/devices/resultSorting', 'FrontEnd\DevicesController@devicesResultSorting');
-	Route::get('/blogs-list', 'FrontEnd\BlogsController@blogsNew');
-// End New Design Route
-
-// Login and Sign Up section
-
-	Route::get('/signin', 'FrontEnd\LoginSignup\LoginController@showLoginForm');
-	Route::post('/signin', 'FrontEnd\LoginSignup\LoginController@authenticate');
-	Route::get('/signup', 'FrontEnd\LoginSignup\RegisterController@signupWithFbAndGoogleForm');
-
-	// Forgot password
-
-	Route::get('/forgot-password', 'FrontEnd\LoginSignup\ForgotPasswordController@forgotPasswordForm');
-	Route::post('/forgot-password', 'FrontEnd\LoginSignup\ForgotPasswordController@sendEmail');
-	Route::get('/resetPassword/{token}', 'FrontEnd\LoginSignup\ForgotPasswordController@setPasswordForm');
-	Route::post('/resetPassword', 'FrontEnd\LoginSignup\ForgotPasswordController@setPassword');
+	// Testing Route 
+		Route::get('/country', 'TestController@index');
+		Route::get('/test', 'TestController@test');
 	
-	
-	// End Forgot password
-	// Signup section
-	Route::get('/emailsignup', 'FrontEnd\LoginSignup\RegisterController@signupForm');
-	Route::post('/emailsignup', 'FrontEnd\LoginSignup\RegisterController@registerUser');
-	// Google login
-	Route::get('/googlelogin', 'FrontEnd\LoginSignup\SocialAuthGoogleController@redirect');
+	// Start Independent Routes
+		Route::get('/addNikNameIfNotExist', 'IndependentController@addNikNameIfNotExist');
+		Route::get('/addressMigration', 'IndependentController@addressMigration');
+	// End Independent Routes
+		Route::get('/testEmail', 'TestController@testEmail');
+		Route::post('/updateUserAddressTable', 'IndependentController@updateUserAddressTable');
+		Route::get('/fixedOldPlanDataIssue', 'IndependentController@fixedOldPlanDataIssue');
+		Route::get('/fixedOldDeviceDataIssue', 'IndependentController@fixedOldDeviceDataIssue');
+		// End Testing Route 
+		Route::get('/cookieSet', 'IndependentController@cookieSet');
 
-	// Facebook Login
-	Route::get('/facebooklogin', 'FrontEnd\LoginSignup\SocialAuthFacebookController@redirect');
-	// Confirm email
-	Route::get('/confirmEmail/{token}', 'FrontEnd\LoginSignup\RegisterController@confirmEmail');
-	
-// End Login and Sign Up section
 
-Route::get('/plans-new', 'FrontEnd\PlansController@plans');
-Route::get('/devices-new', 'FrontEnd\DevicesController@devices');
-Route::get('/blogs-list-new', 'FrontEnd\BlogsController@blogs');
-Route::get('/searchBrand', 'FrontEnd\DevicesController@searchBrand');
+	// FrontEnd Section 
+		Route::get('/home', 'FrontEnd\HomeController@homepage');
+		// New Design Route
+		Route::get('/', 'FrontEnd\HomeController@homePageNew');
+		Route::get('/homenn', 'FrontEnd\HomeController@homePageNew');
+		Route::get('/plans', 'FrontEnd\PlansController@plansNew');
+		Route::get('/plans/result', 'FrontEnd\PlansController@plansResult');
+		Route::post('/plans/resultSorting', 'FrontEnd\PlansController@plansResultSorting');
+		Route::get('/devices', 'FrontEnd\DevicesController@devicesNew');
+		Route::get('/devices/result', 'FrontEnd\DevicesController@devicesResult');
+		Route::post('/devices/resultSorting', 'FrontEnd\DevicesController@devicesResultSorting');
+		Route::get('/blogs-list', 'FrontEnd\BlogsController@blogsNew');
+		// End New Design Route
 
-// Brand Section
-Route::post('/getBrandColor', 'FrontEnd\BrandsController@getBrandColor');
-// End Brand Section
-
-Route::get('/single-blog/{id}', 'FrontEnd\BlogsController@blogDetail');
-Route::get('/planDetails/{id}', 'FrontEnd\PlansController@planDetails');
-Route::group(['middleware' => ['CustomerAuth','PreventBackHistory']], function(){
-	Route::group(['middleware' => 'IpLocation'], function(){
-		// Change password
-		Route::post('/changePassword', 'FrontEnd\LoginSignup\ForgotPasswordController@changePassword');
-		// Change password
-		// Change address
-		Route::post('/getAddress', 'FrontEnd\HomeController@getAddress');
-		Route::post('/getFeedBackFeatureStatus', 'FrontEnd\HomeController@getFeedBackFeatureStatus');
-		Route::post('/getFeedBackQuestion', 'FrontEnd\HomeController@getFeedBackQuestion');
-		Route::post('/addFeedBack', 'FrontEnd\HomeController@addFeedBack');
-		Route::post('/changeAddress', 'FrontEnd\HomeController@changeAddress');
-		// Change address
-		Route::post('/getCountry', 'FrontEnd\ReviewsController@getCountry');
-		Route::post('/getCityByCountry', 'HomeController@getCityByCountry');
-		Route::get('/getBrandByType', 'HomeController@getBrandByType');
-		Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
-		Route::get('/reviews/{planId}', 'FrontEnd\ReviewsController@reviewsRating');
-		Route::post('/getModels', 'FrontEnd\BrandsController@getModels');
-		Route::post('/reviewsDetail', 'FrontEnd\ReviewsController@reviewsDetail');
-		Route::post('/reviewService', 'FrontEnd\ReviewsController@reviewService');
-		Route::post('/saveSpeedTest', 'FrontEnd\ReviewsController@saveSpeedTest');
-		Route::post('/ratingService', 'FrontEnd\ReviewsController@ratingService');
-		Route::get('/profile', 'FrontEnd\HomeController@profile');
-		Route::get('/add-blog', 'FrontEnd\BlogsController@addBlogForm');
-		Route::post('/add-blog', 'FrontEnd\BlogsController@addBlog');
-		Route::get('/edit-blog/{id}', 'FrontEnd\BlogsController@editBlogForm');
-		Route::post('/edit-blog', 'FrontEnd\BlogsController@editBlog');
-		Route::post('/deleteBlog', 'FrontEnd\BlogsController@deleteBlog');
-		Route::get('/blog-list', 'FrontEnd\BlogsController@blogList');
-		Route::get('/logout', 'FrontEnd\LoginSignup\LoginController@logout');
-		Route::get('/deviceDetails/{id}', 'FrontEnd\DevicesController@deviceDetails');
+		// Login and Sign Up section
 		
+			Route::get('/signin', 'FrontEnd\LoginSignup\LoginController@showLoginForm');
+			Route::post('/signin', 'FrontEnd\LoginSignup\LoginController@authenticate');
+			Route::get('/signup', 'FrontEnd\LoginSignup\RegisterController@signupWithFbAndGoogleForm');
 
-		// Device Section 
-		Route::post('/reviewDevice', 'FrontEnd\DeviceReviewController@reviewDevice');
-		Route::post('/ratingDevice', 'FrontEnd\DeviceReviewController@ratingDevice');
-		Route::get('/device-review/{deviceId}', 'FrontEnd\DeviceReviewController@deviceReviewsRating');
-		// End Device Section 
+			// Forgot password
 
-		// Suport case section
-		Route::get('/contact-us', 'FrontEnd\SupportCaseController@index');
-		Route::post('/generateCase', 'FrontEnd\SupportCaseController@generateCase');
-		Route::get('/inbox/{caseID}', 'FrontEnd\SupportCaseController@caseInbox');
-		Route::post('/sendMessage', 'FrontEnd\SupportCaseController@sendMessage');
-		// End Suport case section
+			Route::get('/forgot-password', 'FrontEnd\LoginSignup\ForgotPasswordController@forgotPasswordForm');
+			Route::post('/forgot-password', 'FrontEnd\LoginSignup\ForgotPasswordController@sendEmail');
+			Route::get('/resetPassword/{token}', 'FrontEnd\LoginSignup\ForgotPasswordController@setPasswordForm');
+			Route::post('/resetPassword', 'FrontEnd\LoginSignup\ForgotPasswordController@setPassword');
+			
+			
+			// End Forgot password
+			// Signup section
+			Route::get('/emailsignup', 'FrontEnd\LoginSignup\RegisterController@signupForm');
+			Route::post('/emailsignup', 'FrontEnd\LoginSignup\RegisterController@registerUser');
+			// Google login
+			Route::get('/googlelogin', 'FrontEnd\LoginSignup\SocialAuthGoogleController@redirect');
+
+			// Facebook Login
+			Route::get('/facebooklogin', 'FrontEnd\LoginSignup\SocialAuthFacebookController@redirect');
+			// Confirm email
+			Route::get('/confirmEmail/{token}', 'FrontEnd\LoginSignup\RegisterController@confirmEmail');
+			
+		// End Login and Sign Up section
+
+		Route::get('/plans-new', 'FrontEnd\PlansController@plans');
+		Route::get('/devices-new', 'FrontEnd\DevicesController@devices');
+		Route::get('/blogs-list-new', 'FrontEnd\BlogsController@blogs');
+		Route::get('/searchBrand', 'FrontEnd\DevicesController@searchBrand');
+
+		// Brand Section
+		Route::post('/getBrandColor', 'FrontEnd\BrandsController@getBrandColor');
+		// End Brand Section
 		
-		// Email verify Section
-		Route::get('/resendVerifyEmail', 'FrontEnd\LoginSignup\RegisterController@resendVerifyEmail');
-		// End Email verify Section
-		
-	});
-});
+		Route::get('/single-blog/{id}', 'FrontEnd\BlogsController@blogDetail');
+		Route::get('/planDetails/{id}', 'FrontEnd\PlansController@planDetails');
+		Route::group(['middleware' => ['CustomerAuth','PreventBackHistory']], function(){
+			Route::group(['middleware' => 'IpLocation'], function(){
+				// Change password
+				Route::post('/changePassword', 'FrontEnd\LoginSignup\ForgotPasswordController@changePassword');
+				// Change password
+				// Change address
+				Route::post('/getAddress', 'FrontEnd\HomeController@getAddress');
+				Route::post('/getFeedBackFeatureStatus', 'FrontEnd\HomeController@getFeedBackFeatureStatus');
+				Route::post('/getFeedBackQuestion', 'FrontEnd\HomeController@getFeedBackQuestion');
+				Route::post('/addFeedBack', 'FrontEnd\HomeController@addFeedBack');
+				Route::post('/changeAddress', 'FrontEnd\HomeController@changeAddress');
+				// Change address
+				Route::post('/getCountry', 'FrontEnd\ReviewsController@getCountry');
+				Route::post('/getCityByCountry', 'HomeController@getCityByCountry');
+				Route::get('/getBrandByType', 'HomeController@getBrandByType');
+				Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
+				Route::get('/reviews/{planId}', 'FrontEnd\ReviewsController@reviewsRating');
+				Route::post('/getModels', 'FrontEnd\BrandsController@getModels');
+				Route::post('/reviewsDetail', 'FrontEnd\ReviewsController@reviewsDetail');
+				Route::post('/reviewService', 'FrontEnd\ReviewsController@reviewService');
+				Route::post('/saveSpeedTest', 'FrontEnd\ReviewsController@saveSpeedTest');
+				Route::post('/ratingService', 'FrontEnd\ReviewsController@ratingService');
+				Route::get('/profile', 'FrontEnd\HomeController@profile');
+				Route::get('/add-blog', 'FrontEnd\BlogsController@addBlogForm');
+				Route::post('/add-blog', 'FrontEnd\BlogsController@addBlog');
+				Route::get('/edit-blog/{id}', 'FrontEnd\BlogsController@editBlogForm');
+				Route::post('/edit-blog', 'FrontEnd\BlogsController@editBlog');
+				Route::post('/deleteBlog', 'FrontEnd\BlogsController@deleteBlog');
+				Route::get('/blog-list', 'FrontEnd\BlogsController@blogList');
+				Route::get('/logout', 'FrontEnd\LoginSignup\LoginController@logout');
+				Route::get('/deviceDetails/{id}', 'FrontEnd\DevicesController@deviceDetails');
+				
 
-// End FrontEnd Section 
+				// Device Section 
+				Route::post('/reviewDevice', 'FrontEnd\DeviceReviewController@reviewDevice');
+				Route::post('/ratingDevice', 'FrontEnd\DeviceReviewController@ratingDevice');
+				Route::get('/device-review/{deviceId}', 'FrontEnd\DeviceReviewController@deviceReviewsRating');
+				// End Device Section 
 
+				// Suport case section
+				Route::get('/contact-us', 'FrontEnd\SupportCaseController@index');
+				Route::post('/generateCase', 'FrontEnd\SupportCaseController@generateCase');
+				Route::get('/inbox/{caseID}', 'FrontEnd\SupportCaseController@caseInbox');
+				Route::post('/sendMessage', 'FrontEnd\SupportCaseController@sendMessage');
+				// End Suport case section
+				
+				// Email verify Section
+				Route::get('/resendVerifyEmail', 'FrontEnd\LoginSignup\RegisterController@resendVerifyEmail');
+				// End Email verify Section
+				
+			});
+		});
 
+	// End FrontEnd Section 
+
+// });
 
 
 

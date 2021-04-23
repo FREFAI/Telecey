@@ -28,99 +28,88 @@ class SocialAuthFacebookController extends Controller
          *
          * @return callback URL from facebook
          */
-        public function callback()
+        public function callback(Request $request)
         {
-            $user = Socialite::driver('facebook')->user();
-            $password = str_random(10);
-            $password = bcrypt($password);
-            $userDetail = $user->user;
-            if($user->email != ""){
-              $userDetail['email'] = $user->email;
-            }else{
-              $userDetail['email'] = $userDetail['id'].'@facebook.com';
-            }
-            $nickname = GenerateNickName::nickName($userDetail['name']);
-            $input = [
-              'email' => $userDetail['email'],
-              'firstname' => $userDetail['name'],
-              'facebook_id' => $userDetail['id'],
-              'social_login_type' => 2,
-              'password' => $password,
-              'nickname' => $nickname
 
-            ];
-            $validation = Validator::make($input, [
-                'firstname' => 'required',
-                'facebook_id' => 'required|unique:users',
-                'email' => 'required|email|unique:users',
-                'password' => 'required',
-            ]);
-            if ( $validation->fails() ) {
-              if($validation->messages()->first('facebook_id')){
-                  $user = User::Where('facebook_id',$input['facebook_id'])->first();
-                  if(Auth::guard('customer')->loginUsingId($user->id)){
-                    $url = '/profile';  
-                    return redirect()->to($url);
-                  }else{
-                    $url = '/signup';
-                    return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
-                  }
-              }
-              if($validation->messages()->first('email')){
-                  $user = User::Where('email',$input['email'])->first();
-                  if($user->social_login_type == 2){
-                    if(Auth::guard('customer')->loginUsingId($user->id)){
-                      $url = '/profile';
-                      return redirect()->to($url);
-                    }else{
-                      $url = '/signup';
-                      return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
-                    } 
-                  }else{
-                    $user->social_login_type = 2;
-                    $user->facebook_id = $input['facebook_id'];
-                    if($user->save()){
+            try {
+              if(isset($request->code)){
+                $user = Socialite::driver('facebook')->user();
+                $password = str_random(10);
+                $password = bcrypt($password);
+                $userDetail = $user->user;
+                if($user->email != ""){
+                  $userDetail['email'] = $user->email;
+                }else{
+                  $userDetail['email'] = $userDetail['id'].'@facebook.com';
+                }
+                $nickname = GenerateNickName::nickName($userDetail['name']);
+                $input = [
+                  'email' => $userDetail['email'],
+                  'firstname' => $userDetail['name'],
+                  'facebook_id' => $userDetail['id'],
+                  'social_login_type' => 2,
+                  'password' => $password,
+                  'nickname' => $nickname
+
+                ];
+                $validation = Validator::make($input, [
+                    'firstname' => 'required',
+                    'facebook_id' => 'required|unique:users',
+                    'email' => 'required|email|unique:users',
+                    'password' => 'required',
+                ]);
+                if ( $validation->fails() ) {
+                  if($validation->messages()->first('facebook_id')){
+                      $user = User::Where('facebook_id',$input['facebook_id'])->first();
                       if(Auth::guard('customer')->loginUsingId($user->id)){
-                        $url = '/profile';
+                        $url = '/profile';  
                         return redirect()->to($url);
-                      }else{
-                        $url = '/signup';
-                        return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
                       }
-                    }else{
-                      $url = '/signup';
-                      return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
+                  }
+                  if($validation->messages()->first('email')){
+                      $user = User::Where('email',$input['email'])->first();
+                      if($user->social_login_type == 2){
+                        if(Auth::guard('customer')->loginUsingId($user->id)){
+                          $url = '/profile';
+                          return redirect()->to($url);
+                        }
+                      }else{
+                        $user->social_login_type = 2;
+                        $user->facebook_id = $input['facebook_id'];
+                        if($user->save()){
+                          if(Auth::guard('customer')->loginUsingId($user->id)){
+                            $url = '/profile';
+                            return redirect()->to($url);
+                          }
+                        }
+                      }
+                  }
+                  
+                }else{
+                  $add = User::create($input);
+                  if($add){
+                    $logData = [
+                        'user_id'           => $add->id,
+                        'log_type'          => 1,
+                        'login_signup_type' => 2,
+                        'type'              => 2,
+                        'user_status'       => $add->is_active,
+                        'user_name'         => $add->firstname.' '.$add->lastname,
+                        'user_number'       => $add->mobile_number,
+                        'email'             => $add->email,
+                    ];
+                    CreateLogs::createLog($logData);
+                    if(Auth::guard('customer')->loginUsingId($add->id)){
+                      $url = '/reviews';
+                      return redirect()->to($url);
                     }
                   }
+                }
               }
-              $url = '/signup';
-              return redirect($url)->withInput()->with('error',$validation->messages()->first());
-                
-            }else{
-              $add = User::create($input);
-              if($add){
-                $logData = [
-                    'user_id'           => $add->id,
-                    'log_type'          => 1,
-                    'login_signup_type' => 2,
-                    'type'              => 2,
-                    'user_status'       => $add->is_active,
-                    'user_name'         => $add->firstname.' '.$add->lastname,
-                    'user_number'       => $add->mobile_number,
-                    'email'             => $add->email,
-                ];
-                CreateLogs::createLog($logData);
-                if(Auth::guard('customer')->loginUsingId($add->id)){
-                  $url = '/reviews';
-                  return redirect()->to($url);
-                }else{
-                  $url = '/signup';
-                  return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
-                } 
-              }else{
-                $url = '/signup';
-                return redirect($url)->withInput()->with('error',__('index.Somthing went wrong'));
-              }
-          }
+              
+            } catch (Exception $exception) {
+              dd($exception->getMessage());
+            }
+            
         }
 }

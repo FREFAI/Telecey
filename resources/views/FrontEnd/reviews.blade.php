@@ -656,7 +656,7 @@
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control datavolume planfield" data-default="Unlimited" name="datavolume" placeholder="{{ __('review.datavolume') }}" required="required" maxlength="20" value="Unlimited" />
                                     <div class="input-group-append">
-                                        <span class="input-group-text @if(\Session::get('locale') == 'fr') fr-font-10 @endif" id="basic-addon2">{{ __('review.datavolume') }}</span>
+                                        <span class="input-group-text @if(\Session::get('locale') == 'fr') fr-font-10 @endif" id="basic-addon2">Gbps</span>
                                     </div>
                                 </div>
                             </div>
@@ -968,7 +968,9 @@
                                     <input type="hidden" data-id="{{$userAddress->id}}" value="{{$userAddress->id}}" id="user_address_id" />
                                     <input type="hidden" value="1" id="is_primary" />
                                     @else
-                                    <div class="address">{{__("common.notfound")}}</div>
+                                    <input class="user_address_id_c" type="hidden" data-id="" value="" id="user_address_id" />
+                                    <input type="hidden" value="1" id="is_primary" />
+                                    <div class="address ratingAddressLable">{{__("common.notfound")}}</div>
                                     @endif
                                 </div>
                             </div>

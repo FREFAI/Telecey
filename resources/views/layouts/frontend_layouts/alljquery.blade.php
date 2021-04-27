@@ -844,6 +844,7 @@
                     thisform.closest(".intro-section").addClass("section-d-none");
                     $(".service-detail").removeClass("section-d-none");
                     $(".ratingAddressLable").text(data.address);
+                    $(".user_address_id_c").val(data.id);
                     document.body.scrollTop = 0;
                     document.documentElement.scrollTop = 0;
                 } else {

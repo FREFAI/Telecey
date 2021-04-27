@@ -114,7 +114,7 @@ class ReviewsController extends Controller
         $current_lat = $newresponse->latitude;
         $current_long = $newresponse->longitude;
         $settings = SettingsModel::first();
-        $providers = Provider::where('country',$usersDetail->country)->get();
+        $providers = Provider::where('country',$usersDetail->country)->orderBy('provider_name', 'ASC')->get();
        
         $countries = Currency::get();
         $brandModels = BrandModels::get();
@@ -184,8 +184,9 @@ class ReviewsController extends Controller
                     $user_address->formatted_address = $formatted;
                     $user_address->latitude = $input['latitude'];
                     $user_address->longitude = $input['longitude'];
+                    $id = $user_address->id;
                     if($user_address->save()){
-                        $message = array('success'=>true,'message'=>__('index.Updated successfully'),'address' => $formatted);
+                        $message = array('success'=>true,'message'=>__('index.Updated successfully'),'address' => $formatted, 'id'=> $id);
                         return json_encode($message);
                     }else{
                         $message = array('success'=>false,'message'=>__("index.Somthing went wrong"));
@@ -205,8 +206,9 @@ class ReviewsController extends Controller
                         'longitude'=> $input['longitude'],
                         'is_primary'=>1
                     ];
-                    UserAddress::create($address);
-                    $message = array('success'=>true,'message'=>__('index.Add new address successfully'),'address' => $formatted);
+                    $user_address = UserAddress::create($address);
+                    $id = $user_address->id;
+                    $message = array('success'=>true,'message'=>__('index.Add new address successfully'),'address' => $formatted, 'id'=> $id);
                     return json_encode($message);
                 }
             }else{

@@ -893,3 +893,10 @@ ul li.selected{
 } */
 
 /* /25-02-2020 */
+
+
+.clear-selection {
+  position: absolute;
+  right: 4px;
+  top: 0;
+}

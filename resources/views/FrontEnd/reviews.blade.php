@@ -1713,7 +1713,7 @@
             function create_custom_dropdowns() {
                 $(".brand_select_brand_device").each(function (i, select) {
                     if (!$(this).next().hasClass("dropdown-select")) {
-                        $(this).after('<div class="dropdown-select wide ' + ($(this).attr("class") || "") + '" tabindex="0"><span class="current"></span><div class="list"><ul></ul></div></div>');
+                        $(this).after('<div class="pr-3 dropdown-select wide ' + ($(this).attr("class") || "") + '" tabindex="0"><div class="dropdown-select-div current"></div><i class="fa fa-times float-right py-2 px-1 clear-selection d-none"></i><div class="list"><ul></ul></div></div>');
                         var dropdown = $(this).next();
                         var options = $(select).find("option");
                         var selected = $(this).find("option:selected");
@@ -1727,23 +1727,27 @@
 
                 $(".dropdown-select ul").before('<div class="dd-search"><input autocompleted=chrome-off onkeyup="filter(event)" class="dd-searchbox txtSearchValue" type="text"></div>');
             }
-
+            $(document).on('click', '.clear-selection', function(event){
+                event.preventDefault();
+                $(this).addClass('d-none');
+                $('.brand_select_brand_device.device_select ul li:first-child').click();
+            })
             // Event listeners
 
             // Open/close
-            $(document).on("click", ".dropdown-select", function (event) {
+            $(document).on("click", ".dropdown-select-div", function (event) {
                 if($("select.brand_select_brand_device").attr("disabled") == undefined){
                     if ($(event.target).hasClass("dd-searchbox")) {
                         return;
                     }
-                    $(".dropdown-select").not($(this)).removeClass("open");
-                    $(this).toggleClass("open");
-                    if ($(this).hasClass("open")) {
-                        $(this).find(".option").attr("tabindex", 0);
-                        $(this).find(".selected").focus();
+                    $(".dropdown-select").not($(this).closest('.dropdown-select')).removeClass("open");
+                    $(this).closest('.dropdown-select').toggleClass("open");
+                    if ($(this).closest('.dropdown-select').hasClass("open")) {
+                        $(this).closest('.dropdown-select').find(".option").attr("tabindex", 0);
+                        $(this).closest('.dropdown-select').find(".selected").focus();
                     } else {
-                        $(this).find(".option").removeAttr("tabindex");
-                        $(this).focus();
+                        $(this).closest('.dropdown-select').find(".option").removeAttr("tabindex");
+                        $(this).closest('.dropdown-select').focus();
                     }
                 }else{
                     return false;
@@ -1792,6 +1796,7 @@
 
             // Option click
             $(document).on("click", ".dropdown-select .option", function (event) {
+                $('.clear-selection').removeClass('d-none');
                 $(this).closest(".list").find(".selected").removeClass("selected");
                 $(this).addClass("selected");
                 var text = $(this).data("display-text") || $(this).text();

@@ -55,6 +55,15 @@ class DevicesController extends Controller {
         ->limit(3)
         ->get()
         ->toArray();
+        if(!$searchResult){
+            $searchResult = DeviceReview::inRandomOrder()->select(DB::raw('*, ( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( latitude ) ) ) ) AS distance'))
+            ->with('brand', 'supplier', 'device_color_info', 'user', 'device_rating')
+            ->orderBy('distance', 'ASC')
+            ->offset(0)
+            ->limit(3)
+            ->get()
+            ->toArray();
+        }
         return view('FrontEnd.devicesNew', ['ip_location' => $current_location, 'brands' => $brands, 'suppliers' => $suppliers, 'data' => $searchResult, 'filtersetting' => $filtersetting, 'colors' => $colors,'current_country_code'=> $current_country_code,'current_lat'=> $current_lat,'current_long'=> $current_long]);
     }
     public function devicesResult(Request $request) {

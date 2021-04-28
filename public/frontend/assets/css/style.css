@@ -2228,7 +2228,28 @@ table.table.custom-table tbody tr:hover {
   }
 }
 
+
 @media(max-width:768px){
+  footer .footer-Content .footer-logo img {
+      width: 25%;
+  }
+  .slicknav_menu, .slicknav_nav li, .slicknav_nav ul {
+    text-align: right;
+  }
+  .dropdown-menu.top{
+    margin-right: 20px;
+    padding-right: 20px;
+  }
+  .social {
+    width: 100%;
+    display: flex;
+    float: right;
+    justify-content: right;
+  }
+  .btn-signup.nav-link{
+    width: 20%;
+    float: right;
+  }
   div#typedtext {
     font-size: 35px;
     line-height: 47px;
@@ -2257,7 +2278,15 @@ table.table.custom-table tbody tr:hover {
   }
 
 }
+@media only screen and (max-width: 568px) {
+  footer .footer-Content .footer-logo img {
+    width: 20%;
+  }
+}
 @media(max-width:425px){
+  .btn-signup.nav-link{
+    width: 30%;
+  }
   div#typedtext {
     font-size: 20px;
     line-height: 39px;}

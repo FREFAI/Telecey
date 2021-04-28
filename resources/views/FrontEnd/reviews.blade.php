@@ -1729,7 +1729,7 @@
             }
             $(document).on('click', '.clear-selection', function(event){
                 event.preventDefault();
-                $(this).addClass('d-none');
+                $('.clear-selection').addClass('d-none');
                 $('.brand_select_brand_device.device_select ul li:first-child').click();
             })
             // Event listeners

@@ -1729,8 +1729,8 @@
             }
             $(document).on('click', '.clear-selection', function(event){
                 event.preventDefault();
-                $('.clear-selection').addClass('d-none');
                 $('.brand_select_brand_device.device_select ul li:first-child').click();
+                $(this).addClass('d-none');
             })
             // Event listeners
 

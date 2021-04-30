@@ -15,7 +15,7 @@
         background: #0000002e;
     }
     .heading.detail-div {
-        margin: -2rem auto 1rem;
+        margin: 2rem auto 4rem;
     }
     ul.city-autocomplete {
         list-style: none;

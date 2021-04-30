@@ -77,8 +77,11 @@ class HomeController extends Controller
 
     public function profile(Request $request)
     {
-        $user_id = Auth::guard('customer')->user()['id'];
-        $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
+        $user = Auth::guard('customer')->user();
+        $userAddress = UserAddress::where('user_id',$user['id'])->where('is_primary',1)->first();
+        if(strpos($user['email'], 'facebook.com') !== false){
+            return redirect('/reviews')->with('warning',"Please update your email");
+        }
         if($userAddress && $userAddress->city == ''){
             return redirect('/reviews')->with('warning',"It seems that you didn't fill in your address earlier. Please confirm your address below before heading to your profile");
         }

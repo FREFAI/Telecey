@@ -767,6 +767,7 @@
         }
         let address = [$("#firstform #postal_code").val(), $("#firstform #country").val(), $("#firstform .city_input").val()]
         let postal = await valid_postal_code_with_google_api(address.join(','), $("#firstform #country").val(), $("#firstform .city_input").val());
+        postal["status"] = true;
         if(!postal["status"]){
             if(postal['cities'].length > 0){
                 var suggestedCities = '<span class="suggmes">City should be one from the following :- </span>';
@@ -807,6 +808,7 @@
         var lastname = $("#lastname").val();
         var country = $("#country").val();
         var city = $("#city").val();
+        let email = $('#firstform .emailfb').val();
         var country_code = $("#city").attr("data-country");
         var postal_code = $("#postal_code").val();
         var mobile_number = $("#mobile_number").val();
@@ -818,7 +820,20 @@
         } else if (window.location.protocol == "https:") {
             resuesturl = "{{secure_url('/reviewsDetail')}}";
         }
-
+        let params = {
+            latitude: latitude,
+            longitude: longitude,
+            firstname: firstname,
+            lastname: lastname,
+            country: country,
+            city: city,
+            country_code: country_code,
+            postal_code: postal_code,
+            mobile_number: mobile_number,
+        }
+        if(email){
+            params.email = email
+        }
         $(".ajaxloader").show();
         $.ajax({
             type: "post",
@@ -827,17 +842,7 @@
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
             dataType: "json",
-            data: {
-                latitude: latitude,
-                longitude: longitude,
-                firstname: firstname,
-                lastname: lastname,
-                country: country,
-                city: city,
-                country_code: country_code,
-                postal_code: postal_code,
-                mobile_number: mobile_number,
-            },
+            data: params,
             success: function (data) {
                 $(".ajaxloader").hide();
                 if (data.success) {
@@ -848,7 +853,7 @@
                     document.body.scrollTop = 0;
                     document.documentElement.scrollTop = 0;
                 } else {
-                    // toastr.error('Add detail', 'Somthing went wrong' , {displayDuration:3000,position: 'top-right'});
+                    toastr.error('Add detail', data.message , {displayDuration:3000,position: 'top-right'});
                 }
             },
         });

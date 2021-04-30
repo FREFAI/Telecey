@@ -8,6 +8,10 @@
 	.contact-form .input-text {
 	    height: 100%;
 	}
+	.back-button{
+		max-width: 800px;
+    	margin: 10px auto;
+	}
 </style>
 <!-- Content Start Here -->
 	<div class="page-header inner-page h-100">
@@ -16,6 +20,9 @@
 	            <div class="col-12 text-center">
 	                <div class="support-case-form">
 	                	<div class="step-section-one">
+							<div class="back-button text-left mb-5" style="max-width: 800px; margin: 10px auto;">
+								<a onclick="window.history.back()" type="button" href="javascript:void(0);" class="back-btn-device mt-3 common-btn"><i class="fas fa-angle-left"></i> {{__('index.Back')}}</a>
+							</div>
 	                	    <!-- <img src="assets/img/step-1.png">
 	                	    <h2 class="pt-3 text-white">1</h2>
 	                	    <h3 class="pt-3 custom-height-cl">PLEASE INTRODUCE YOUR SELF</h3> -->

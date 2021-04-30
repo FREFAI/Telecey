@@ -63,5 +63,8 @@
         list-style: none;
         padding: 0;
     }
+    .profile_address p{
+        word-break: break-all;
+    }
 </style>
 @yield('pageStyle')

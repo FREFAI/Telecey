@@ -94,7 +94,9 @@ class RegisterController extends Controller
                 return redirect()->back()->withInput()->with('error',$validation->messages()->first());
             }
         }else{
-            $nickname = GenerateNickName::nickName($input['firstname']);
+            $firstname = mb_substr($input['firstname'], 0, 1);
+            $lastname = mb_substr($input['lastname'], 0, 1);
+            $nickname = GenerateNickName::nickName($firstname.''.$lastname);
             $input['nickname'] = $nickname;
             $input['password'] = bcrypt($input['password']);
             $user = User::create($input);

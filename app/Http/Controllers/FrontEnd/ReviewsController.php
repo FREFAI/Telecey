@@ -22,7 +22,7 @@ use App\User;
 use App\UserAddress;
 use App\Currency;
 use App\CountriesModel;
-use Auth;
+use Auth, Mail;
 
 class ReviewsController extends Controller
 {
@@ -157,11 +157,13 @@ class ReviewsController extends Controller
     public function reviewsDetail(Request $request)
     {
         $input = $request->all();
+        $email = Auth::guard('customer')->user()['email'];
         $user_id = Auth::guard('customer')->user()['id']; 
         $user_address_id = Auth::guard('customer')->user()['user_address_id'];
         $validation = Validator::make($input, [
             'firstname' => 'required',
             'lastname' => 'required',
+            'email' => 'unique:users,email,'.$user_id
         ]);
         if ( $validation->fails() ) {
              $message = array('success'=>false,'message'=>$validation->messages()->first());
@@ -172,8 +174,23 @@ class ReviewsController extends Controller
                 'lastname'=>$input['lastname'],
                 'mobile_number'=>$input['mobile_number'],
             ];
+            if(array_key_exists('email', $input)){
+                $userUpdate['email'] = $input['email'];
+            }
             $user = User::where('id',$user_id)->update($userUpdate);
             if($user){
+                if(strpos($email, 'facebook.com') !== false){
+                    $encryptedId = encrypt($user_id);
+                    $emaildata = [
+                        'id' => $encryptedId,
+                        'name' => $input['firstname'],
+                        'email' => $input['email']
+                    ];
+                    Mail::send('emailtemplates.frontend.email_verify', ['emaildata' => $emaildata] , function ($m) use ($emaildata)      {
+                        $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+                        $m->to($emaildata['email'], $emaildata['name'])->subject(__("index.Email verification"));
+                    });
+                }
                 $user_address = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
                 if($user_address){
                     $formatted = $user_address->address.''.$input['city'].' '.$input['country'].' '.$input['postal_code'];

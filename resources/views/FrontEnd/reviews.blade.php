@@ -198,7 +198,7 @@
             border: none;
         }
         .heading.detail-div {
-            margin: -2rem auto 1rem;
+            margin: 2rem auto 4rem;
         }
         .tg-select.form-control {
             border: none;
@@ -255,7 +255,11 @@
                                 </div>
                                 <div class="form-group text-left col-lg-12">
                                     <label for="email">{{ __('review.email') }}</label>
-                                    <input id="email" class="input-text" type="email" value="{{$usersDetail->email}}" disabled="" />
+                                    @if(strpos($usersDetail->email, 'facebook.com') !== false)
+                                        <input id="email" class="input-text emailfb" type="email" value="" required name="email"/>
+                                    @else
+                                        <input id="email" class="input-text" type="email" value="{{$usersDetail->email}}" disabled="" />
+                                    @endif
                                 </div>
                                 <div class="form-group text-left col-lg-12">
                                     <label for="number">{{ __('review.postal_code') }}</label>

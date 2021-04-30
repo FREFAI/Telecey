@@ -95,6 +95,6 @@
                 </div>
             </div>
         </div>
-        <div class="mobile-menu" data-logo="{{URL::asset('frontend/assets/img/logo-telco-tales.png')}}"></div>
+        <div class="mobile-menu" data-logo="{{URL::asset('frontend/assets/img/logo-new.png')}}"></div>
     </nav>
 </header>

@@ -32,7 +32,9 @@ class SocialAuthGoogleController extends Controller
         $password = str_random(10);
         $password = bcrypt($password);
         $userDetail = $user->user;
-        $nickname = GenerateNickName::nickName($userDetail['given_name']);
+        $firstname = mb_substr($userDetail['given_name'], 0, 1);
+        $lastname = mb_substr($userDetail['family_name'], 0, 1);
+        $nickname = GenerateNickName::nickName($firstname.''.$lastname);
 
         $input = [
         	'email' => $userDetail['email'],
@@ -92,6 +94,7 @@ class SocialAuthGoogleController extends Controller
             return redirect($url)->withInput()->with('error',$validation->messages()->first());
             
         }else{
+            $input['is_active'] = 1;
 	        $add = User::create($input);
 	        if($add){
                 $logData = [

@@ -285,7 +285,7 @@
 		font-size: 25px;
 	}
 	.overlay_signup.w-100.text-center {
-		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1a82f700), to(#141414));
+		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1a82f700), to(#b9b9b9));
 		height: 230px;    
 		margin: -40px auto 0;
 		width: 970px !important;

@@ -47,7 +47,7 @@ class PlansController extends Controller {
         $service_types = ServiceType::get();
         $country = CountriesModel::select('id')->where('name', $newresponse->country_name)->first();
         $data = $request->all();
-        $searchResult = ServiceReview::select(DB::raw('*, ( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( latitude ) ) ) ) AS distance'))->where('country_code', $current_country_code)->with('provider', 'currency', 'typeOfService', 'user', 'ratings', 'plan_rating')->orderBy('distance', 'ASC')->paginate($limit);
+        $searchResult = ServiceReview::select(DB::raw('*, ( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( latitude ) ) ) ) AS distance'))->where('country_code', $current_country_code)->with('provider', 'currency', 'typeOfService', 'user', 'ratings', 'plan_rating')->groupBy('provider_id')->orderBy('distance', 'ASC')->paginate($limit);
         if(!$searchResult){
             $searchResult = ServiceReview::inRandomOrder()->select(DB::raw('*, ( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( latitude ) ) ) ) AS distance'))->with('provider', 'currency', 'typeOfService', 'user', 'ratings', 'plan_rating')->orderBy('distance', 'ASC')->paginate($limit);
         }

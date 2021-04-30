@@ -717,7 +717,18 @@ a.back-to-top:focus {
     display: none;
     background: #fff;
     padding: 0 20px;
-    text-align: left
+    text-align: right
+}
+.slicknav_menu .social{
+    display: flex;
+    float: right;
+}
+.slicknav_menu .btn-signup{
+    width: 20%;
+    float: right;
+}
+.slicknav_menu .sign-up-btn{
+    display: flow-root;
 }
 
 .slicknav_brand {

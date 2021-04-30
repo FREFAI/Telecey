@@ -81,7 +81,7 @@
                                 <a class="nav-link login-link" href="{{url('/signup')}}">{{__('header.signup_button')}}</a>
                             </li>
                             <li class="nav-item">
-                                <div class="text-right"><a id="signup-btn" class="nav-link btn-signup text-center" href="{{url('/signin')}}">{{__('header.login_button')}}</a></div>
+                                <div class="text-right sign-up-btn"><a id="signup-btn" class="nav-link btn-signup text-center" href="{{url('/signin')}}">{{__('header.login_button')}}</a></div>
                                 <div class="social">
                                     <a target='_blank' href="https://www.facebook.com/telecey" class="link facebook"><span class="fa fa-facebook-square"></span></a>
                                     <a target='_blank' href="https://twitter.com/telecey" class="link twitter"><span class="fa fa-twitter"></span></a>

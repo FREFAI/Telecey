@@ -206,6 +206,9 @@
         .fr-font-10 {
             font-size: 10px;
         }
+        .services-rating-section h5 {
+            font-family: initial;
+        }
     </style>
     @endsection
     <!-- Content Start Here -->

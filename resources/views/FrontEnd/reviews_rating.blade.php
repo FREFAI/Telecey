@@ -21,6 +21,9 @@
         list-style: none;
         padding: 0;
     }
+    .services-rating-section h5 {
+        font-family: initial;
+    }
 </style>
 	<!-- Content Start Here -->
 		<div class="inner-page start-page">

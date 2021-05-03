@@ -66,5 +66,10 @@
     .profile_address p{
         word-break: break-all;
     }
+    @media only screen and (max-width: 768px) {
+        .slicknav_menu .slicknav_nav {
+            max-height: 100% !important;
+        }
+    }
 </style>
 @yield('pageStyle')

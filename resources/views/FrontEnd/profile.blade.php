@@ -390,7 +390,7 @@
 												  					  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#ratingcollapse{{$service->id}}{{$key}}" aria-expanded="true" aria-controls="ratingcollapse{{$service->id}}{{$key}}" class="accordion_btn rating_btn">
 												  					  	                        <i class="more-less glyphicon glyphicon-plus"></i>
 												  					  	                        <ul class="inline_list">
-												  					  	                        	<li><b>{{__('profile.average')}}</b> : &nbsp;{{$rating['average']}}
+												  					  	                        	<li class="d-flex"><b>{{__('profile.average')}}</b> : &nbsp;<div class="rating_disable" data-rate-value="{{$rating['average']}}"></div>
 												  					  	                        	</li>
 												  					  	                        </ul>
 												  					  	                    </a>
@@ -583,7 +583,8 @@
   											  					  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#ratingcollapse{{$device->id}}{{$key}}" aria-expanded="true" aria-controls="ratingcollapse{{$device->id}}{{$key}}" class="accordion_btn rating_btn">
   											  					  	                        <i class="more-less glyphicon glyphicon-plus"></i>
   											  					  	                        <ul class="inline_list">
-  											  					  	                        	<li><b>{{__('profile.average')}}</b> : &nbsp;{{$rating['average']}}
+  											  					  	                        	<li class="d-flex">
+																									  <b>{{__('profile.average')}}</b> : &nbsp;<div class="rating_disable" data-rate-value="{{$rating['average']}}"></div>
   											  					  	                        	</li>
   											  					  	                        </ul>
   											  					  	                    </a>

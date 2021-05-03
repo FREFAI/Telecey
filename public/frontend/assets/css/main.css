@@ -833,7 +833,11 @@ a.back-to-top:focus {
 .slicknav_menu .slicknav_icon-bar {
     background-color: #fff
 }
-
+@media only screen and (max-width: 768px) {
+    .slicknav_menu .slicknav_nav {
+        max-height: 100%;
+    }
+}
 @media(max-width:991px) {
     .post-btn {
         display: none

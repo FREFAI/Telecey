@@ -747,6 +747,9 @@
         $('.suggcountry').remove()
         $('.suggmes').remove()
         $('.suggcity').remove()
+        if ($('#firstform .emailfb').val() == '') {
+            return false;
+        }
         if (countrySelection === false) {
             $(".country_list").css("display", "none");
             $("#country").addClass("error");

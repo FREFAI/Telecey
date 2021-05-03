@@ -744,10 +744,6 @@ a.back-to-top:focus {
     padding: 8px 9px 7px
 }
 
-.slicknav_nav {
-    overflow: auto;
-    max-height: 350px
-}
 
 .slicknav_menu .slicknav_icon-bar {
     background: #fff
@@ -833,11 +829,7 @@ a.back-to-top:focus {
 .slicknav_menu .slicknav_icon-bar {
     background-color: #fff
 }
-@media only screen and (max-width: 768px) {
-    .slicknav_menu .slicknav_nav {
-        max-height: 100%;
-    }
-}
+
 @media(max-width:991px) {
     .post-btn {
         display: none

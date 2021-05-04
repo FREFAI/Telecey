@@ -15,7 +15,7 @@
 		font-size: 13px;
 	}
 	.question, .comment {
-	    font-size: 14px;
+	    font-size: 13px;
         font-family: montserrat,sans-serif;
 	}
 	.value_div{

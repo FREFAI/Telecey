@@ -17,6 +17,7 @@
 							<div class="col-9">
 								<input type="hidden" name="lat" class="currentLat" value="{{$current_lat}}">
 								<input type="hidden" name="lng" class="currentLng" value="{{$current_long}}">
+								<input type="hidden" name="isSelect" class="isselect" value="1">
 								<input type="hidden" name="country" class="currentCountry" value="{{$current_country_code}}">
 								<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
 								<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
@@ -271,7 +272,6 @@
 	</style>
 	<!-- Content End Here -->
 	<script>
-		
 		// function initMap() {
 		// 	var input = document.getElementById('searchMapInput');
 		

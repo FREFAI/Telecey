@@ -83,6 +83,7 @@
 								<div class="col-12">
 									<input type="hidden" name="lat" class="currentLat">
 									<input type="hidden" name="lng" class="currentLng">
+									<input type="hidden" name="isSelect" class="isselect" value="1">
 									<input type="hidden" name="country" class="currentCountry">
 									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input search-input-field"/>
 								</div>

@@ -32,6 +32,15 @@
 
 @yield('script')
 <script>
+    $('.location-input').on('keyup', function(){
+        geocoder.geocode({ address: $(this).val() }, function (results, status) {
+            if (status === "OK") {
+                if (results[0]) {
+                    setSearchedLatLng(results[0]);
+                }
+            }
+        });
+    })
     google.maps.event.addDomListener(window, 'load', initMap);
     function initMap() {
         var input = document.getElementById("searchMapInput");

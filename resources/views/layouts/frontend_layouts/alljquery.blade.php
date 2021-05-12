@@ -1531,7 +1531,7 @@
     });
     // End Device section
     // Start Brand Section
-    $("#brand").on("change", function () {
+    $(".brand_select_brand_device").on("change", function () {
         var brandId = $(this).val();
         if (window.location.protocol == "http:") {
             resuesturl = "{{url('/getBrandColor')}}";

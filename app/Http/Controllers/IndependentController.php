@@ -678,7 +678,7 @@ class IndependentController extends Controller
         $token = base64_decode($token);
         return view('FrontEnd/Unsubscribed/unsubscribed',['email'=> $token]);
     }
-    public function unsubscribedUser(Request $request, $lang)
+    public function unsubscribedUser(Request $request)
     {
         $perameter = $request->all();
         $validation = Validator::make($perameter,[

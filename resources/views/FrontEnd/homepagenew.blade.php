@@ -32,7 +32,7 @@
 									<input type="hidden" name="lng" class="currentLng">
 									<input type="hidden" name="country" class="currentCountry">
 									<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
-									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input search-input-field"/>
+									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="{{$ip_location}}" name="address" class="location-input search-input-field"/>
 								</div>
 								
 								<input type="hidden" name="rows" value="20">

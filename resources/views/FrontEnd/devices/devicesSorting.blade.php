@@ -10,9 +10,9 @@
         <td>{{$value->supplier_name}}</td>
         <td>
             @if($filtersetting->display_price == 1)
-                {{$value->price}}
+                {{number_format((float)$value->price, 2, '.', '') }}
             @elseif($filtersetting->display_price == 2)
-                {{roundUp($value->price, -1)}}
+                {{number_format((float)roundUp($value->price, -1), 2, '.', '') }}
             @endif
         </td>
         <td>{{$value->storage}}</td>

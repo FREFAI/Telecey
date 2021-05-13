@@ -18,7 +18,7 @@
 							<input type="hidden" name="lng" class="currentLng" value="{{$current_long}}">
 							<input type="hidden" name="country" class="currentCountry" value="{{$current_country_code}}">
 							<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
-							<input type="text" placeholder="Location" id="searchMapInput" value="" name="address" class="location-input search-input-field"/>
+							<input type="text" placeholder="Location" id="searchMapInput" value="{{$ip_location}}" name="address" class="location-input search-input-field"/>
 						</div>
 						<div class="col-4 mt-4 devicenew">
 							<select class="service-type-select service_type" name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">

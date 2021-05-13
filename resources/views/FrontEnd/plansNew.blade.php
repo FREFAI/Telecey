@@ -20,7 +20,7 @@
 								<input type="hidden" name="isSelect" class="isselect" value="1">
 								<input type="hidden" name="country" class="currentCountry" value="{{$current_country_code}}">
 								<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
-								<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
+								<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="{{$ip_location}}" name="address" class="location-input"/>
 							</div>
 							<div class="col-3">
 							@if($filtersetting->mobile_home_setting == 1)

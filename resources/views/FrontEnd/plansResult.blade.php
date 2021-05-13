@@ -197,18 +197,18 @@
 									@if(!Auth::guard('customer')->check())
 										@if($filtersetting->disable_price_for_logged_out_users == 1)
 											@if($filtersetting->display_price == 1)
-												{{$value['price']}}
+												{{number_format((float)$value['price'], 2, '.', '') }}
 											@elseif($filtersetting->display_price == 2)
-												{{roundUp($value['price'], -1)}}
+												{{number_format((float)roundUp($value['price'], -1), 2, '.', '') }}
 											@endif
 										@else
 											<a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('planresult.signup_unlock')}}</a>
 										@endif
 									@else
 										@if($filtersetting->display_price == 1)
-											{{$value['price']}}
+											{{number_format((float)$value['price'], 2, '.', '') }}
 										@elseif($filtersetting->display_price == 2)
-											{{roundUp($value['price'], -1)}}
+											{{number_format((float)roundUp($value['price'], -1), 2, '.', '') }}
 										@endif
 									@endif
 									</td>

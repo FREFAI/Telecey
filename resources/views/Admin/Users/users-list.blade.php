@@ -186,7 +186,7 @@
                               @if($user->is_active == 0)
                                 <span class="not_ap_ms"><i class="bg-danger"></i>Pending verification</span>
                               @else
-                                @if($user->unApprovedCount!=0)
+                                @if($user->unApprovedCount != 0)
                                   <span class="not_ap_ms"><i class="bg-danger"></i>Pending Product approval</span>
                                 @else
                                   <span class="approved_ms"><i class="bg-success"></i> Active</span>

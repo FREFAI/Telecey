@@ -381,7 +381,7 @@
                                     <option @if($curr->code == $usersDetail->country_code) selected @elseif($curr->country_code == 'US') selected @endif value="{{$curr->id}}">{{$curr->currency_code}}</option>
                                     @endif @endforeach
                                 </select>
-                                <input type="text" class="form-control price-box device-price" name="price" placeholder="{{ __('review.price') }}" required id="price" />
+                                <input type="text" class="form-control price-box device-price" name="price" placeholder="{{ __('review.price') }}" required id="price" maxlength="8"/>
                                 <small><input type="checkbox" checked /> {{ __('review.include') }}</small>
                             </div>
                         </div>
@@ -700,14 +700,14 @@
                                         <option @if($curr->code == $usersDetail->country_code) selected @elseif($curr->country_code == 'US') selected @endif value="{{$curr->id}}">{{$curr->currency_code}}</option>
                                         @endif @endforeach
                                     </select>
-                                    <input type="text" class="form-control price-box price" name="price" placeholder="{{__('index.Price')}}" required />
+                                    <input type="text" class="form-control price-box price" name="price" placeholder="{{__('index.Price')}}" required  maxlength="8"/>
                                     <div class="text-right text-10"><small>{{ __('review.include') }}</small></div>
                                 </div>
                             </div>
                             <div class="col-lg-6 upfront_price">
                                 <h5>{{ __('review.upfront') }}</h5>
                                 <div class="form-group mb-1">
-                                    <input type="number" data-default="0" class="form-control upfront_price planfield" name="upfront_price" placeholder="{{ __('review.upfront') }}" maxlength="20" value="0" />
+                                    <input type="number" data-default="0" class="form-control upfront_price planfield" name="upfront_price" placeholder="{{ __('review.upfront') }}" maxlength="8" value="0" />
                                     <div class="text-right text-10"><small>{{ __('review.include') }}</small></div>
                                 </div>
                             </div>
@@ -738,13 +738,13 @@
                             <div class="col-lg-3 pay_as_usage_class">
                                 <h5>{{ __('review.international') }}</h5>
                                 <div class="form-group">
-                                    <input type="text" class="form-control international_min mint_input" name="international_min" placeholder="{{ __('review.international') }}" required="required" maxlength="20" value="0" />
+                                    <input type="text" class="form-control international_min mint_input" name="international_min" placeholder="{{ __('review.international') }}" required="required" maxlength="8" value="0" />
                                 </div>
                             </div>
                             <div class="col-lg-3 pay_as_usage_class">
                                 <h5>{{ __('review.roaming') }}</h5>
                                 <div class="form-group">
-                                    <input type="text" class="form-control roaming_min mint_input" name="roaming_min" placeholder="{{ __('review.roaming') }}" required="required" maxlength="20" value="0" />
+                                    <input type="text" class="form-control roaming_min mint_input" name="roaming_min" placeholder="{{ __('review.roaming') }}" required="required" maxlength="8" value="0" />
                                 </div>
                             </div>
                             <div class="col-lg-3 pay_as_usage_class">

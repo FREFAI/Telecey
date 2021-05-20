@@ -16,16 +16,16 @@ class IndependentController extends Controller
         $rules = array(
             'file' => 'required'
         );
-    
+
         $validator = Validator::make(Input::all(), $rules);
         // process the form
-        if ($validator->fails()) 
+        if ($validator->fails())
         {
             return json_encode(['success'=> false, 'message'=> 'File is required.']);
         }
-        else 
+        else
         {
-            
+
             try {
                 $path = Input::file('file');
                 $data = Excel::load($path)->get();
@@ -52,10 +52,10 @@ class IndependentController extends Controller
                 }
                 Brands::insert($ModelsData);
                 return json_encode(['success'=> true, 'message'=> 'Data import', 'data'=> $data]);
-                
+
             } catch (\Exception $e) {
                 return json_encode(['success'=> false, 'message'=> 'Somthing went wrong', 'error'=> $e]);
             }
-        } 
+        }
     }
 }

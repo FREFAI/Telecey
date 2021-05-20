@@ -59,7 +59,7 @@
 					<div class="row">
 						<input type="hidden" value="20" name="rows"/>
 						<div class="col-md-12 text-center">
-							<button type="submit" class="searchnow-button">{{__('device.search_now_btn')}}</button>
+							<button type="submit" class="searchnow-button search-form-button">{{__('device.search_now_btn')}}</button>
 						</div>
 					</div>
 				</form>

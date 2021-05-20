@@ -57,7 +57,7 @@
 				</div>
 				<div class="col-lg-2 text-right record_section pr-0">
 					<div class="filter_button">
-						<button class="searchnow-button p-1" type="submit">{{__('plan.search_now_btn')}}</button>
+						<button class="searchnow-button p-1 search-form-button" type="submit">{{__('plan.search_now_btn')}}</button>
 					</div>
 				</div>
 				<div class="col-lg-4 expendedFilter">

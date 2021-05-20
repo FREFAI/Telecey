@@ -126,7 +126,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12 text-center">
-								<button type="submit" class="searchnow-button">{{__('plan.search_now_btn')}}</button>
+								<button type="submit" class="searchnow-button search-form-button">{{__('plan.search_now_btn')}}</button>
 							</div>
 						</div>
 					</form>

@@ -32,23 +32,67 @@
 
 @yield('script')
 <script>
-    $('.location-input').on('keyup', function(){
-        geocoder.geocode({ address: $(this).val() }, function (results, status) {
-            if (status === "OK") {
-                if (results[0]) {
-                    setSearchedLatLng(results[0]);
-                }
-            }
-        });
+    var isSelected = 1;
+    $('.location-input').on('keyup', function(event){
+        isSelected = 0;
+        event.preventDefault();
+        var code = event.keyCode || event.which;
+        if(code == 13) {
+            $(this).closest('form').find('.search-form-button').click();
+        }
     })
+    
     google.maps.event.addDomListener(window, 'load', initMap);
     function initMap() {
         var input = document.getElementById("searchMapInput");
         var autocomplete = new google.maps.places.Autocomplete(input);
         autocomplete.addListener("place_changed", function () {
             var place = autocomplete.getPlace();
+            isSelected = 1;
             setSearchedLatLng(place)
         });
+    }
+    $('.search-form-button').closest('form').on('submit',function(event){
+        if(isSelected != 1){
+            event.preventDefault();
+            getSearchedLatLng($(this).find('.location-input').val(),$(this));
+        }
+    })
+    function getSearchedLatLng(value, _this){
+        $.ajax({
+                url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + value + "&key=<?php echo env('google_api_key'); ?>",
+                type: "GET",
+                dataType: "json",
+                success: function (res) {
+                    if (res.status == "OK") {
+                        var data = [];
+                        var results = res.results;
+                        if (results[0]) {
+                            setCustomSearchedLatLng(results[0]);
+                            isSelected = 1;
+                            _this.submit();
+                        }
+                    }
+                }
+        })
+    }
+    function setCustomSearchedLatLng(place){
+        let placeDetail = {};
+        if (place.address_components.length) {
+            placeDetail.lat = place.geometry.location.lat;
+            placeDetail.lng = place.geometry.location.lng;
+            for (var ii = 0; ii < place.address_components.length; ii++) {
+                var street_number = (route = street = city = state = zipcode = country = formatted_address = "");
+                var types = place.address_components[ii].types.join(",");
+                if (types == "country,political") {
+                    placeDetail.country = place.address_components[ii].long_name;
+                    placeDetail.countryCode = place.address_components[ii].short_name;
+                }
+            }
+            $('.currentLat').val(placeDetail.lat);
+            $('.currentLng').val(placeDetail.lng);
+            $('.currentCountry').val(placeDetail.countryCode);
+        }
     }
     var geocoder = new google.maps.Geocoder();
     var url = "{{ url('locale') }}";

@@ -25,7 +25,7 @@
 				</ul>
 				<div class="tab-content">
 					<div class="tab-pane active" id="plan">
-						<form action="{{url('/plans/result')}}" method="get" class="w-75 mt-4">
+						<form action="{{url('/plans/result')}}" method="get" class="w-75 mt-4 search-plan-form">
 							<div class="row position-relative">
 								<div class="google-location-loader">
 									<i class="fa fa-spinner fa-spin"></i>
@@ -75,13 +75,13 @@
 							</div>
 							<div class="row">
 								<div class="col-md-12 text-center">
-									<button type="submit" class="searchnow-button">{{__('home.search_now_btn')}}</button>
+									<button type="submit" class="searchnow-button search-form-button">{{__('home.search_now_btn')}}</button>
 								</div>
 							</div>
 						</form>
 					</div>
 					<div class="tab-pane" id="device">
-						<form action="{{url('/devices/result')}}" method="get" class="w-75 mt-4">
+						<form action="{{url('/devices/result')}}" method="get" class="w-75 mt-4 search-plan-form">
 							<div class="row position-relative">
 								<div class="google-location-loader">
 									<i class="fa fa-spinner fa-spin"></i>
@@ -119,7 +119,7 @@
 							<div class="row">
 								<input type="hidden" value="20" name="rows"/>
 								<div class="col-md-12 text-center">
-									<button type="submit" class="searchnow-button">{{__('home.search_now_btn')}}</button>
+									<button type="submit" class="searchnow-button search-form-button">{{__('home.search_now_btn')}}</button>
 								</div>
 							</div>
 						</form>

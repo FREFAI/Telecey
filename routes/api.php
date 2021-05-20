@@ -18,6 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Start Independent Routes
-    Route::post('/importPlanRecordExcelFile', 'IndependentController@importPlanRecordExcelFile');
-    Route::post('/importBrandsExcelFile', 'Api\IndependentController@inportBrandFromCSV');
+    // Route::post('/importPlanRecordExcelFile', 'IndependentController@importPlanRecordExcelFile');
+    // Route::post('/importBrandsExcelFile', 'Api\IndependentController@inportBrandFromCSV');
 // End Independent Routes

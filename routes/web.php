@@ -34,21 +34,21 @@ Route::get('/terms-conditions', 'IndependentController@termsAndConditions');
 Route::get('/privacy-policy', 'IndependentController@privacyPolicy');
 Route::get('/cookie-policy', 'IndependentController@cookiePolicy');
 Route::get('/thankyou/{token}', 'IndependentController@thankyou');
-Route::get('/updateLatLngBasisOnAddress', 'IndependentController@updateLatLngBasisOnAddress');
+// Route::get('/updateLatLngBasisOnAddress', 'IndependentController@updateLatLngBasisOnAddress');
 // Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], function(){
 	Route::post('/unsubscribed', 'IndependentController@unsubscribedUser');
 	// Testing Route 
 		Route::get('/country', 'TestController@index');
-		Route::get('/test', 'TestController@test');
+		// Route::get('/test', 'TestController@test');
 	
 	// Start Independent Routes
-		Route::get('/addNikNameIfNotExist', 'IndependentController@addNikNameIfNotExist');
-		Route::get('/addressMigration', 'IndependentController@addressMigration');
+		// Route::get('/addNikNameIfNotExist', 'IndependentController@addNikNameIfNotExist');
+		// Route::get('/addressMigration', 'IndependentController@addressMigration');
 	// End Independent Routes
-		Route::get('/testEmail', 'IndependentController@testEmail');
-		Route::post('/updateUserAddressTable', 'IndependentController@updateUserAddressTable');
-		Route::get('/fixedOldPlanDataIssue', 'IndependentController@fixedOldPlanDataIssue');
-		Route::get('/fixedOldDeviceDataIssue', 'IndependentController@fixedOldDeviceDataIssue');
+		// Route::get('/testEmail', 'IndependentController@testEmail');
+		// Route::post('/updateUserAddressTable', 'IndependentController@updateUserAddressTable');
+		// Route::get('/fixedOldPlanDataIssue', 'IndependentController@fixedOldPlanDataIssue');
+		// Route::get('/fixedOldDeviceDataIssue', 'IndependentController@fixedOldDeviceDataIssue');
 		// End Testing Route 
 		Route::get('/cookieSet', 'IndependentController@cookieSet');
 
@@ -57,7 +57,7 @@ Route::get('/updateLatLngBasisOnAddress', 'IndependentController@updateLatLngBas
 		Route::get('/home', 'FrontEnd\HomeController@homepage');
 		// New Design Route
 		Route::get('/', 'FrontEnd\HomeController@homePageNew');
-		Route::get('/homenn', 'FrontEnd\HomeController@homePageNew');
+		// Route::get('/homenn', 'FrontEnd\HomeController@homePageNew');
 		Route::get('/plans', 'FrontEnd\PlansController@plansNew');
 		Route::get('/plans/result', 'FrontEnd\PlansController@plansResult');
 		Route::post('/plans/resultSorting', 'FrontEnd\PlansController@plansResultSorting');

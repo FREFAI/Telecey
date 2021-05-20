@@ -12,13 +12,16 @@
 			</div>
 			<div class="col-7 text-right">
 				<form action="{{url('/devices/result')}}" method="get" class="w-100">
-					<div class="row">
+					<div class="row position-relative">
+						<div class="google-location-loader">
+							<i class="fa fa-spinner fa-spin"></i>
+						</div>
 						<div class="col-12">
 							<input type="hidden" name="lat" class="currentLat" value="{{$current_lat}}">
 							<input type="hidden" name="lng" class="currentLng" value="{{$current_long}}">
 							<input type="hidden" name="country" class="currentCountry" value="{{$current_country_code}}">
 							<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
-							<input type="text" placeholder="Location" id="searchMapInput" value="{{$ip_location}}" name="address" class="location-input search-input-field"/>
+							<input type="text" placeholder="Location" id="searchMapInput" value="" name="address" class="location-input search-input-field"/>
 						</div>
 						<div class="col-4 mt-4 devicenew">
 							<select class="service-type-select service_type" name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">
@@ -426,6 +429,7 @@
 		});
 		getCurrentLocation();
 		function getCurrentLocation() {
+			$('.google-location-loader').css('display','flex');
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(geoSearchSuccess, geoSearchError);
 			} else {
@@ -441,6 +445,7 @@
 		}
 		function geoSearchError(error) {
 			$('.location-input').val($('.location-input-hidden').val());
+			$('.google-location-loader').css('display','none');
 			console.log("Geocoder failed",error);
 		}
 		var geocoder;
@@ -479,6 +484,7 @@
 						}
 						let address = `${searchAddr.country}, ${searchAddr.state}, ${searchAddr.city}, ${searchAddr.zipcode}`
 						$(".location-input").val(address);
+						$('.google-location-loader').css('display','none');
 					}
 				}
 			});

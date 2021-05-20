@@ -26,13 +26,16 @@
 				<div class="tab-content">
 					<div class="tab-pane active" id="plan">
 						<form action="{{url('/plans/result')}}" method="get" class="w-75 mt-4">
-							<div class="row">
+							<div class="row position-relative">
+								<div class="google-location-loader">
+									<i class="fa fa-spinner fa-spin"></i>
+								</div>
 								<div class="col-md-12 ml-md-auto">
 									<input type="hidden" name="lat" class="currentLat">
 									<input type="hidden" name="lng" class="currentLng">
 									<input type="hidden" name="country" class="currentCountry">
 									<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
-									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="{{$ip_location}}" name="address" class="location-input search-input-field"/>
+									<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input search-input-field"/>
 								</div>
 								
 								<input type="hidden" name="rows" value="20">
@@ -79,7 +82,10 @@
 					</div>
 					<div class="tab-pane" id="device">
 						<form action="{{url('/devices/result')}}" method="get" class="w-75 mt-4">
-							<div class="row">
+							<div class="row position-relative">
+								<div class="google-location-loader">
+									<i class="fa fa-spinner fa-spin"></i>
+								</div>
 								<div class="col-12">
 									<input type="hidden" name="lat" class="currentLat">
 									<input type="hidden" name="lng" class="currentLng">
@@ -766,6 +772,7 @@
 		});
 		getCurrentLocation();
 		function getCurrentLocation() {
+			$('.google-location-loader').css('display','flex');
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(geoSearchSuccess, geoSearchError);
 			} else {
@@ -781,6 +788,7 @@
 		}
 		function geoSearchError(error) {
 			$('.location-input').val($('.location-input-hidden').val());
+			$('.google-location-loader').css('display','none');
 			console.log("Geocoder failed",error);
 		}
 		var geocoder;
@@ -819,6 +827,7 @@
 						}
 						let address = `${searchAddr.country}, ${searchAddr.state}, ${searchAddr.city}, ${searchAddr.zipcode}`
 						$(".location-input").val(address);
+						$('.google-location-loader').css('display','none');
 					}
 				}
 			});

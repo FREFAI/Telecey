@@ -66,6 +66,17 @@
     .profile_address p{
         word-break: break-all;
     }
+    .google-location-loader{
+        text-align: center;
+        display:none;
+        position: absolute;
+        width: 100%;
+        z-index: 9;
+        background: #fffc;
+        height: 100%;
+        justify-content: center;
+        flex-direction: column;
+    }
     @media only screen and (max-width: 768px) {
         .slicknav_menu .slicknav_nav {
             max-height: 100% !important;

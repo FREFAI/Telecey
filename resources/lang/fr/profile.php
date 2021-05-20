@@ -37,7 +37,7 @@ return [
     'upfront_price' => 'Prix initial',
     'average' => 'Moyenne',
     'address' => 'Adresse',
-    'device_name' => "Nom de l'appareil",
+    'device_name' => "Type d'appareil",
     'brand_name' => 'Marque',
     'supplier_name' => 'Nom du fournisseur',
     'storage' => 'Espace de rangement',

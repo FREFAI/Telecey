@@ -299,7 +299,7 @@
                         <h5 class="mb-0">
                           <button class="btn btn-link @if($key!=0) collapsed @endif" data-toggle="collapse" data-target="#collapseMain{{$device->id}}" aria-expanded="false" aria-controls="collapseMain{{$device->id}}"> <i class="fa" aria-hidden="true"></i>
                             <ul class="inline_list">
-                              <li><b>Device Name</b> : &nbsp;{{$device->device_name}}
+                              <li><b>Device Type</b> : &nbsp;{{$device->device_name}}
                               </li> 
                               <li><b>Brand Name</b> : &nbsp;{{$device->brand_name}}</li>
                               <li><b>Model</b> : &nbsp;&nbsp;{{$device->model_name}}</li>

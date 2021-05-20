@@ -37,7 +37,7 @@ return [
     'upfront_price' => 'Upfront price',
     'average' => 'Average',
     'address' => 'Address',
-    'device_name' => 'Device Name',
+    'device_name' => 'Device Type',
     'brand_name' => 'Brand Name',
     'supplier_name' => 'Supplier Name',
     'storage' => 'Storage',

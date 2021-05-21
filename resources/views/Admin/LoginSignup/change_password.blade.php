@@ -1,5 +1,5 @@
-@extends('layouts.admin_layouts.admin_dashboard')
-@section('title', 'Admin | Change Password')
+@extends('layouts.admin_layouts.admin_dashboard') 
+@section('title', 'Admin | Change Password') 
 @section('content')
 
 <!-- Main content -->
@@ -22,40 +22,39 @@
 	        <div class="card shadow">
 	          <div class="card-header bg-transparent">
 		    	<div class="row">
+
                     <div class="col-md-6">
-                    <h5 class="heading-small text-muted mb-4">Change Password</h5>
+                        <h5 class="heading-small text-muted mb-4">Change Password</h5>
                     </div>
-            
                     <div class="col-lg-12">
-                    @include('flash-message')
-                    <form action="{{ url('/admin/change-password') }}" method="post" >
-                        @csrf
-                        <div class="row">
+                        @include('flash-message')
+                        <form action="{{ url('/admin/change-password') }}" method="post">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="password" maxlength="50" class="form-control" placeholder="Old password" name="old_password" required="required" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" maxlength="50" class="form-control" placeholder="New Password" name="password" required="required" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" maxlength="50" class="form-control" placeholder="Confirm Password" name="password_confirmation" required="required" />
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="password" maxlength="50" class="form-control" placeholder="Old password" name="old_password" required="required">
+                                    <button class="btn btn-primary" type="submit">Update</button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="password" maxlength="50" class="form-control" placeholder="New Password" name="password" required="required">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="password" maxlength="50" class="form-control" placeholder="Confirm Password" name="password_confirmation" required="required">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Update</button>
-                            </div>
-                        </div>
-                        </div>
-                    </form>
+                        </form>
                     </div>
 		    	</div>
 		    </div>
@@ -66,3 +65,4 @@
   </div>
 </div>
 @endsection
+

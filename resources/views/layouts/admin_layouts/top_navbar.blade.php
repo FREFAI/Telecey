@@ -48,6 +48,10 @@
               <span>Support</span>
             </a> -->
             <div class="dropdown-divider"></div>
+            <a href="{{url('/admin/change-password')}}" class="dropdown-item">
+              <i class="ni ni-settings-gear-65"></i>
+              <span>Change Password</span>
+            </a>
             <a href="{{url('/admin/logout')}}" class="dropdown-item">
               <i class="ni ni-user-run"></i>
               <span>Logout</span>

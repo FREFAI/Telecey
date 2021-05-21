@@ -98,4 +98,34 @@ class ForgotPasswordController extends Controller
             return redirect()->back()->withInput()->with('error', "This email account is not registered.");
         }
     }
+
+    public function showChangePasswordForm()
+    {
+        return view('Admin.LoginSignup.change_password');
+    }
+    public function changePassword(Request $request)
+    {
+        $admin_id = \Auth::guard('admin')->user()['id'];
+        $input = $request->all();
+        $validation = Validator::make($input, [
+            'old_password' => 'required',
+            'password' => 'min:6|required_with:password_confirmation|same:password_confirmation',          
+        ]);
+        if ( $validation->fails() ) {
+            return redirect()->back()->with('error', $validation->messages()->first());
+        }else{
+            if (\Auth::guard('admin')->attempt(['email' => \Auth::guard('admin')->user()['email'], 'password' => $input['old_password']])){
+                $admin = AdminModel::find($admin_id);
+                $admin->password = bcrypt($input['password']);
+                if($admin->save()){
+                    return redirect()->back()->with('success',__('index.Password changed successfully'));
+                }else{
+                    return redirect()->back()->withInput()->with('error', __('index.Somthing went wrong'));
+                }
+            }
+            else{
+                return redirect()->back()->withInput()->with('error', __("index.Invalid Old Password"));
+            }
+        }
+    }
 }

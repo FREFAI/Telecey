@@ -55,11 +55,11 @@
               </form>
             </div>
           </div>
-          <div class="row mt-3">
+          <!-- <div class="row mt-3">
             <div class="col-12">
               <a href="{{url('/admin/forgotpassword')}}" class="text-light"><small>Forgot password?</small></a>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

@@ -180,6 +180,8 @@ Route::get('/thankyou/{token}', 'IndependentController@thankyou');
 		Route::post('/signup', 'Admin\RegisterController@registerAdmin');
 		Route::get('/forgotpassword', 'Admin\ForgotPasswordController@showForgotPasswordForm');
 		Route::post('/forgotpassword', 'Admin\ForgotPasswordController@sendEmail');
+		Route::get('/change-password', 'Admin\ForgotPasswordController@showChangePasswordForm');
+		Route::post('/change-password', 'Admin\ForgotPasswordController@changePassword');
 		Route::get('/resetPassword/{token}', 'Admin\ForgotPasswordController@setPasswordForm');
 		Route::post('/resetPassword', 'Admin\ForgotPasswordController@setPassword');
 

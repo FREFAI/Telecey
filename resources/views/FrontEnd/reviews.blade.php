@@ -988,30 +988,30 @@
                         </div>
                     </div>
                     <div class="d-none make_new_address mt-3">
-                        <form id="address_form">
+                        <form id="address_form" action="" methode="post">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h5>{{ __('review.address') }} <span class="text-mute">{{ __('review.optional') }}</span></h5>
                                     <div class="form-group">
-                                        <input type="text" id="user_full_address" name="user_full_address" class="form-control" placeholder="{{ __('review.address') }}" autocompleted=chrome-off />
+                                        <input type="text" name="user_full_address" id="user_full_address" class="form-control" autocomplete="no" placeholder="{{ __('review.address') }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <h5>{{ __('review.country') }}</h5>
                                     <div class="form-group country_div" id="country_div">
-                                        <input type="text" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" required="" autocompleted=chrome-off />
+                                        <input type="text" id="user_country" name="user_country" class="form-control" placeholder="{{ __('review.country') }}" autocomplete="no" required="">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <h5>{{ __('review.city') }}</h5>
                                     <div class="form-group user_city_add city_div" id="city_div">
-                                        <input type="text" id="user_cityname" name="user_cityname" class="form-control js-input city_input" placeholder="{{ __('review.city') }}" autocompleted=chrome-off required="" data-country="IN" />
+                                        <input type="text"  id="user_cityname" name="user_cityname"  class="form-control js-input city_input" autocomplete="no" placeholder="{{ __('review.city') }}" required="" data-country="IN">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <h5>{{ __('review.postal_code') }}</h5>
                                     <div class="form-group">
-                                        <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="{{ __('review.postal_code') }}" required="" autocompleted=chrome-off />
+                                        <input type="text" id="user_postal_code" name="user_postal_code" class="form-control" placeholder="{{ __('review.postal_code') }}" required="" autocompleted="off" />
                                     </div>
                                 </div>
                                 <div class="col-lg-12 text-center">

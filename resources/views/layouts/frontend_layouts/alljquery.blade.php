@@ -53,7 +53,9 @@
         });
     }
     $('.search-form-button').closest('form').on('submit',function(event){
-        console.log(isSelected,'isSelected');
+        let search = $(this).find('.search-form-button').text();
+        $(this).find('.search-form-button').html(`<i class="fa fa-spinner fa-spin mr-2"></i> ${search}`);
+        $(this).find('.search-form-button').attr('disabled','disabled');
         if(isSelected != 1){
             event.preventDefault();
             getSearchedLatLng($(this).find('.location-input').val(),$(this));

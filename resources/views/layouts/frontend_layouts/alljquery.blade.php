@@ -38,10 +38,7 @@
         event.preventDefault();
         var code = event.keyCode || event.which;
         if(code == 13) {
-            let _this = $(this);
-            setTimeout(() => {
-                _this.closest('form').find('.search-form-button').click();
-            }, 1500);
+            $(this).closest('form').find('.search-form-button').click();
         }
     })
     

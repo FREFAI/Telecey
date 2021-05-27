@@ -32,7 +32,7 @@
 
 @yield('script')
 <script>
-    var isSelected = 1;
+    var isSelected = 0;
     $('.location-input').on('keyup', function(event){
         isSelected = 0;
         event.preventDefault();
@@ -48,8 +48,8 @@
         var autocomplete = new google.maps.places.Autocomplete(input);
         autocomplete.addListener("place_changed", function () {
             var place = autocomplete.getPlace();
-            isSelected = 1;
             setSearchedLatLng(place)
+            isSelected = 1;
         });
     }
     $('.search-form-button').closest('form').on('submit',function(event){

@@ -7,6 +7,7 @@ use App\Models\Admin\Supplier;
 use App\Models\Admin\Brands;
 use App\Models\Admin\DeviceColor;
 use App\Models\FrontEnd\DeviceReview;
+use App\Models\FrontEnd\ServiceReview;
 use App\Helpers\CreateLogs;
 use DB, Auth;
 use App\Models\FrontEnd\PlanDeviceRating;
@@ -37,6 +38,7 @@ class DevicesController extends Controller {
         } else {
             $ip = '96.46.34.142';
         }
+        $limit = 3;
         $client = new \GuzzleHttp\Client();
         $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey=' . env("ipgeoapikey") . '&ip=' . $ip);
         $newresponse = json_decode($newresponse->getBody());
@@ -47,22 +49,9 @@ class DevicesController extends Controller {
         $brands = Brands::all();
         $colors = DeviceColor::all();
         $suppliers = Supplier::where('status', 1)->get();
-        $searchResult = DeviceReview::select(DB::raw('*, ( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( latitude ) ) ) ) AS distance'))
-        ->where('country_code', $current_country_code)
-        ->with('brand', 'supplier', 'device_color_info', 'user', 'device_rating')
-        ->orderBy('distance', 'ASC')
-        ->offset(0)
-        ->limit(3)
-        ->get()
-        ->toArray();
+        $searchResult = ServiceReview::select(DB::raw('*, ( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( latitude ) ) ) ) AS distance'))->where('country_code', $current_country_code)->with('provider', 'currency', 'typeOfService', 'user', 'ratings', 'plan_rating')->groupBy('provider_id')->orderBy('distance', 'ASC')->paginate($limit);
         if(!$searchResult){
-            $searchResult = DeviceReview::inRandomOrder()->select(DB::raw('*, ( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( latitude ) ) ) ) AS distance'))
-            ->with('brand', 'supplier', 'device_color_info', 'user', 'device_rating')
-            ->orderBy('distance', 'ASC')
-            ->offset(0)
-            ->limit(3)
-            ->get()
-            ->toArray();
+            $searchResult = ServiceReview::inRandomOrder()->select(DB::raw('*, ( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( latitude ) ) ) ) AS distance'))->with('provider', 'currency', 'typeOfService', 'user', 'ratings', 'plan_rating')->orderBy('distance', 'ASC')->paginate($limit);
         }
         return view('FrontEnd.devicesNew', ['ip_location' => $current_location, 'brands' => $brands, 'suppliers' => $suppliers, 'data' => $searchResult, 'filtersetting' => $filtersetting, 'colors' => $colors,'current_country_code'=> $current_country_code,'current_lat'=> $current_lat,'current_long'=> $current_long]);
     }

@@ -78,60 +78,57 @@
 			</div>
 
 			<div class="col-md-10 m-auto">
-			@if(count($data)>0)
 				<div class="row">
-					@foreach($data as $key => $value)
-					<div class="col-sm-4 col-md-4 mb-4">
-						<div class="post">
-							<div class="post-img-content">
-								<img src="{{URL::asset('frontend/assets/img/Iphone_new.jpg')}}" class="img-responsive"/>
-							</div>
-							<div class="post-content">
-								<div class="row">
-									<div class="col-12">
-										<span class="date-post">{{ date('M d, Y',strtotime($value['created_at'])) }}</span>
-									</div>
-								</div>
-								<div class="row my-3">
-									<div class="col-lg-6">
-										<h4 class="text-orange">{{$value['brand']['brand_name']}}</h4>
-									</div>
-									<div class="col-lg-6 provider">
-										<div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div>
-									</div>
-								</div>
-								<div class="detail-section my-1 pb-1">
-									<div class="row">
-										<div class="col-lg-12 comment_section">
-										@if($value['device_rating'])
-											@if(strlen(strip_tags($value['device_rating']['comment'])) > 80) 
-												<p>{{substr(strip_tags($value['device_rating']['comment']),0,80)}}...</p>
-											@elseif(strlen(strip_tags($value['device_rating']['comment'])) == 0) 
-											<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>
+					@if(count($data)>0)
+						@foreach($data as $key => $value)
+							<div class="col-sm-4 col-md-4 mb-4">
+								<div class="post">
+									<div class="post-img-content">
+										@if(isset($value['provider']) && $value['provider']['provider_image_original'] != "")
+											<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" class="img-responsive"/>
 											@else
-												{{substr(strip_tags($value['device_rating']['comment']),0,80)}}
-											@endif
-										@else
-										<p>The service is excellent and I'm enjoying the unlimited data on my mobile plan </p>	
+											<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" class="img-responsive"/>
 										@endif
-															
+									</div>
+									<div class="post-content">
+										<div class="row">
+											<div class="col-12">
+												<span class="date-post">{{ date('M d, Y',strtotime($value['created_at'])) }}</span>
+												<!-- <h4 class="text-blue">Fido</h4> -->
+											</div>
 										</div>
-									</div>	
+										<div class="row my-3">
+											<div class="col-lg-12 provider">
+												<div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div>
+											</div>
+										</div>
+										<div class="detail-section my-1 pb-1">
+											<div class="row">
+												<div class="col-lg-12 comment_section">
+													@if($value['plan_rating'])
+														
+														@if(strlen(strip_tags($value['plan_rating']['comment'])) > 80) 
+														<p>{{substr(strip_tags($value['plan_rating']['comment']),0,80)}}...</p>
+														@elseif(strlen(strip_tags($value['plan_rating']['comment'])) == 0) 
+														<p>{{__("index.The service is excellent and I'm enjoying the unlimited data on my mobile plan")}} </p>
+														@else
+															<p>{{substr(strip_tags($value['plan_rating']['comment']),0,80)}}</p>
+														@endif
+														
+													@else
+													<p>{{__("index.The service is excellent and I'm enjoying the unlimited data on my mobile plan")}} </p>	
+													@endif
+																	
+												</div>
+											</div>	
+										</div>
+										
+									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-					@endforeach
+						@endforeach
+					@endif
 				</div>
-			@else
-				<div class="row pt-5 pb-5 mt-5 mb-5">
-					<div class="col text-center">
-						<div class="heading noSearchMessage">
-							<p>{!!$filtersetting->no_search_message!!}</p>
-						</div>
-					</div>
-				</div>
-			@endif 
 			</div>
 		</div>
 		

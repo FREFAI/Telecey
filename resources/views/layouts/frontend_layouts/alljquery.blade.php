@@ -53,6 +53,7 @@
         });
     }
     $('.search-form-button').closest('form').on('submit',function(event){
+        console.log(isSelected,'isSelected');
         if(isSelected != 1){
             event.preventDefault();
             getSearchedLatLng($(this).find('.location-input').val(),$(this));

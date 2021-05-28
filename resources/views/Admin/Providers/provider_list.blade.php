@@ -36,6 +36,7 @@
                    <thead class="thead-light">
                      <tr>
                        <th scope="col" style="width: 10px;">Sr.No</th>
+                       <th scope="col" class="text-center" style="width: 30px;"><i class="ni ni-image"></i></th>
                        <th scope="col" style="width: 10px;">Provider name</th>
                        <th scope="col" class="text-center">Country</th>
                        <th scope="col" class="text-center">Status</th>
@@ -52,6 +53,17 @@
                            <td class="text-center" style="max-width: 10px;">
                                {{$i++}}
                            </td>
+                           <th scope="row" class="text-center">
+                                <div class="media align-items-center">
+                                    <a href="#" class="avatar rounded-circle mr-3">
+                                      @if($provider->provider_image_original != "")
+                                      <img alt="{{$provider->provider_image_original}}" src="{{URL::asset('providers/provider_original')}}/{{$provider->provider_image_original}}" class="h-100">
+                                      @else
+                                      <img alt="{{$provider->provider_image_original}}" src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" class="h-100">
+                                      @endif
+                                    </a>
+                                </div>
+                            </th>
                             <td class="text-center">
                               <div class="media-body">
                                   <span class="mb-0 text-sm">{{$provider->provider_name}}</span>

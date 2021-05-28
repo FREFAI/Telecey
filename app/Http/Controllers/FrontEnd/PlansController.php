@@ -98,6 +98,7 @@ class PlansController extends Controller {
             $mainQuery->leftJoin('users', 'users.id', '=', 'plan_device_rating.user_id');
             $mainQuery->select(DB::raw('( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( plan_device_rating.latitude ) ) * cos( radians( plan_device_rating.longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( plan_device_rating.latitude ) ) ) ) AS distance'), 'plan_device_rating.plan_id as id', 'plan_device_rating.longitude', 'plan_device_rating.latitude', 'service_reviews.price', 'service_reviews.local_min', 'providers.provider_image_original', 'providers.provider_name', 'providers.provider_image_resize', 'providers.status', 'service_reviews.provider_id', 'plan_device_rating.average', 'users.is_active', 'service_reviews.datavolume', 'service_reviews.average_review');
             $mainQuery->where('plan_device_rating.plan_id', '!=', 0);
+            $mainQuery->where('providers.provider_name', '!=','');
             $mainQuery->whereNotNull('plan_device_rating.longitude')->whereNotNull('plan_device_rating.latitude');
             $mainQuery->where('service_reviews.country_code', $current_country_code);
             if ($filtersetting && $filtersetting->reviews_for_unverified == 0) {
@@ -194,6 +195,7 @@ class PlansController extends Controller {
         $mainQuery->leftJoin('providers', 'providers.id', '=', 'service_reviews.provider_id');
         $mainQuery->leftJoin('users', 'users.id', '=', 'plan_device_rating.user_id');
         $mainQuery->select(DB::raw('( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( plan_device_rating.latitude ) ) * cos( radians( plan_device_rating.longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( plan_device_rating.latitude ) ) ) ) AS distance'), 'plan_device_rating.plan_id as id', 'plan_device_rating.longitude', 'plan_device_rating.latitude', 'service_reviews.price', 'service_reviews.local_min', 'providers.provider_image_original', 'providers.provider_name', 'providers.provider_image_resize', 'providers.status', 'service_reviews.provider_id', 'plan_device_rating.average', 'users.is_active', 'service_reviews.datavolume', 'service_reviews.average_review');
+        $mainQuery->where('providers.provider_name', '!=','');
         $mainQuery->where('plan_device_rating.plan_id', '!=', 0);
         $mainQuery->whereNotNull('plan_device_rating.longitude')->whereNotNull('plan_device_rating.latitude');
         $mainQuery->where('service_reviews.country_code', $current_country_code);

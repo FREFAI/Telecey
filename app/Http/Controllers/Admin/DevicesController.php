@@ -10,15 +10,34 @@ use App\Models\Admin\DeviceColor;
 
 class DevicesController extends Controller
 {
+
+	/**
+     * Get all devices from database 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function devicesList(Request $request)
     {
         $devices = Devices::orderBy('id','DESC')->paginate(10);
     	return view('Admin.Devices.device-list',['devices'=>$devices]);
     }
+
+
+    /**
+     * Display Add device form
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function addDevicesForm(Request $request)
     {
     	return view('Admin.Devices.add-device');
     }
+
+    /**
+     * Submit Add device form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addDevices(Request $request)
     {
         $perameters = $request->all();
@@ -38,12 +57,25 @@ class DevicesController extends Controller
             }
         }
     }
+
+	/**
+     * Display Edit device form 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $deviceId
+     * @return \Illuminate\View\View
+     */
     public function editDevicesForm(Request $request,$deviceId)
     {
         $deviceId = base64_decode($deviceId);
         $device = Devices::find($deviceId);
         return view('Admin.Devices.edit-device',['device' => $device]);
     }
+
+	/**
+     * Submit edit device form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function editDevices(Request $request)
     {
         $perameters = $request->all();
@@ -64,6 +96,12 @@ class DevicesController extends Controller
             }
         }
     }
+
+	/**
+     * Delete device 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function deleteDevices(Request $request)
     {
         $perameters = $request->all();
@@ -86,6 +124,11 @@ class DevicesController extends Controller
         }
     }
 
+	/**
+     * Set default device 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function setDefaultDevice(Request $request)
     {
         $perameters = $request->all();
@@ -133,16 +176,33 @@ class DevicesController extends Controller
 
 
     // Device Color Section 
-
+    
+	/**
+     * Get all devices color from database 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function deviceColorList(Request $request)
     {
         $colors = DeviceColor::orderBy('id','DESC')->paginate(10);
         return view('Admin.Devices.color.color-list',['colors'=>$colors]);
     }
+
+    /**
+     * Display Add device color form
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function addColorForm(Request $request)
     {
         return view('Admin.Devices.color.add-device-color');
     }
+
+    /**
+     * Submit Add device color form
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function addColor(Request $request)
     {
         $perameters = $request->all();
@@ -161,12 +221,26 @@ class DevicesController extends Controller
             }
         }
     }
+
+    /**
+     * Display Edit device color form 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id
+     * @return \Illuminate\View\View
+     */
     public function editColorForm(Request $request,$id)
     {
         $id = base64_decode($id);
         $color = DeviceColor::find($id);
         return view('Admin.Devices.color.edit-device-color',['color'=>$color]);
     }
+
+    
+	/**
+     * Submit edit device color form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function editColor(Request $request)
     {
         $perameters = $request->all();
@@ -187,6 +261,12 @@ class DevicesController extends Controller
             }
         }
     }
+
+	/**
+     * Delete device color 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function deleteColor(Request $request)
     {
         $perameters = $request->all();

@@ -20,10 +20,11 @@ class SettingsController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+    
+	/**
+     * Get all settings of website which are handle some functions  
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function allSetting()
     {
@@ -31,6 +32,12 @@ class SettingsController extends Controller
         return view('Admin.Settings.settings',['settings'=>$settings]);
     }
 
+
+	/**
+     * Update website settings according to admin or sub admin 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function changeSetting(Request $request)
     {
         $input = $request->all();
@@ -62,6 +69,11 @@ class SettingsController extends Controller
         
     }
     
+	/**
+     * In this function we are handle or update search record limit which are displaying on website 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addSearchRecordLimit(Request $request)
     {
         $input = $request->all();
@@ -91,6 +103,12 @@ class SettingsController extends Controller
             }
         }
     }
+
+	/**
+     * In this function we are handle or update blog images uploading size limit in MB 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addBlogImageLimit(Request $request)
     {
         $input = $request->all();
@@ -128,6 +146,12 @@ class SettingsController extends Controller
             }
         }
     }
+
+	/**
+     * In this function we are handle or update home images uploading size limit in MB 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addHomeImageLimit(Request $request)
     {
         $input = $request->all();
@@ -165,6 +189,13 @@ class SettingsController extends Controller
             }
         }
     }
+
+    /**
+     * In this function we are handle or update feedback title which we are displaying
+     * on feedback modal  
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addFeedBackTitle(Request $request)
     {
         $input = $request->all();
@@ -202,7 +233,11 @@ class SettingsController extends Controller
             }
         }
     }
-
+    /**
+     * In this function we are handle or update message of "No search record found"
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addNoSearchMessage(Request $request){
         $data = $request->all();
     	$validation = Validator::make($data,[

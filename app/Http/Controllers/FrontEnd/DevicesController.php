@@ -27,7 +27,11 @@ class DevicesController extends Controller {
             $view->with('settings', $settings);
         });
     }
-    public function devicesNew(Request $request) {
+
+    /**
+     * Get latest 3 plan reviews
+     */
+    public function devices(Request $request) {
         $filtersetting = SettingsModel::first();
         if ($filtersetting->device == 0) {
             return redirect('/');
@@ -53,8 +57,13 @@ class DevicesController extends Controller {
         if(!$searchResult){
             $searchResult = ServiceReview::inRandomOrder()->select(DB::raw('*, ( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( latitude ) ) ) ) AS distance'))->with('provider', 'currency', 'typeOfService', 'user', 'ratings', 'plan_rating')->orderBy('distance', 'ASC')->paginate($limit);
         }
-        return view('FrontEnd.devicesNew', ['ip_location' => $current_location, 'brands' => $brands, 'suppliers' => $suppliers, 'data' => $searchResult, 'filtersetting' => $filtersetting, 'colors' => $colors,'current_country_code'=> $current_country_code,'current_lat'=> $current_lat,'current_long'=> $current_long]);
+        return view('FrontEnd.devices', ['ip_location' => $current_location, 'brands' => $brands, 'suppliers' => $suppliers, 'data' => $searchResult, 'filtersetting' => $filtersetting, 'colors' => $colors,'current_country_code'=> $current_country_code,'current_lat'=> $current_lat,'current_long'=> $current_long]);
     }
+
+    /**
+     * Get filted Device reviews from db with distance logic
+     * 
+     */
     public function devicesResult(Request $request) {
         $data = $request->all();
         $filtersetting = SettingsModel::first();
@@ -138,6 +147,10 @@ class DevicesController extends Controller {
             return view('FrontEnd.devicesResult', ['ip_location' => $current_location, 'brands' => $brands, 'suppliers' => $suppliers, 'data' => $searchResult, 'filtersetting' => $filtersetting, 'colors' => $colors, 'ads' => $ads, 'googleads' => $googleads]);
         }
     }
+
+    /**
+     * Device review list sorting function which triggers through ajax call
+     */
     public function devicesResultSorting(Request $request) {
         $params = $request->all();
         $requestData = explode('&', $params['requestParams']);
@@ -232,6 +245,9 @@ class DevicesController extends Controller {
         }
         return view('FrontEnd.devices.devicesSorting', ['data' => $searchResult, 'filtersetting' => $filtersetting, 'ads' => $ads, 'googleads' => $googleads]);
     }
+    /**
+     * Get detail of device review
+     */
     public function deviceDetails($id) {
         $planDetailData = DeviceReview::where('id', $id)->with('device', 'brand', 'supplier', 'currency', 'device_color_info')->first();
         $allratings = $planDetailData->get_ratings($id);
@@ -276,6 +292,9 @@ class DevicesController extends Controller {
         $planDetailData->ratings = $blankArray;
         return view('FrontEnd.deviceDetail', ['service' => $planDetailData]);
     }
+    /**
+     * Get Brands listing 
+     */
     public function searchBrand(Request $request) {
         $params = $request->all();
         $brands = Brands::where('brand_name', 'LIKE', '%' . $params['search'] . '%')->get()->toArray();

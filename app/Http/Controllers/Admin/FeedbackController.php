@@ -14,16 +14,33 @@ use App\User;
 
 class FeedbackController extends Controller
 {
+
+	/**
+     * Get all feedback questions from database 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function list(Request $request)
     {
         $questions = FeedbackQuestions::orderBy('id','DESC')->withTrashed()->paginate(10);
         return view('Admin.Feedback.list',['questions'=>$questions]);
     }
 
+    /**
+     * Display Add feedback question form
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function add(Request $request)
     {
         return view('Admin.Feedback.add');
     }
+    
+    /**
+     * Submit Add feedback question form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $perameters = $request->all();
@@ -43,6 +60,12 @@ class FeedbackController extends Controller
             }
         }
     }
+
+	/**
+     * Delete feedback question 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function delete(Request $request)
     {
         $perameter = $request->all();
@@ -69,6 +92,11 @@ class FeedbackController extends Controller
         }
     }
 
+	/**
+     * Get all feedback list  which given by users
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function userFeedBackList(Request $request)
     {
         $parameter = $request->all();
@@ -83,6 +111,11 @@ class FeedbackController extends Controller
         return view('Admin.Feedback.userFeedBack',['feedbacks'=>$feedbacks,'request'=>$parameter]);
     }
 
+	/**
+     * Export feedback list 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function exportFeedBack(Request $request)
     {
         $feedbacks = FeedBack::with(['user'])->orderBy('id','DESC')->get();

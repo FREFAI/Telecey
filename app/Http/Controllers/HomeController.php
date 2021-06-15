@@ -8,22 +8,9 @@ use App\Models\Admin\Brands;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * Request $request
+     * Get cities list using country code
      */
-   
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        return view('home');
-    }
-
     public function getCityByCountry(Request $request)
     {
         $perameters = $request->all();
@@ -40,6 +27,11 @@ class HomeController extends Controller
             return json_encode($message);
         }
     }
+
+    /**
+     * Request $request
+     * Get brand list by device type and display on review page
+     */
     public function getBrandByType(Request $request)
     {
         $perameters = $request->all();

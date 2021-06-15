@@ -40,9 +40,9 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * Render plan and device review form view
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function reviews(Request $request)
     {
@@ -114,18 +114,25 @@ class ReviewsController extends Controller
         $current_lat = $newresponse->latitude;
         $current_long = $newresponse->longitude;
         $settings = SettingsModel::first();
-        $providers = Provider::where('country',$usersDetail->country)->orderBy('provider_name', 'ASC')->get();
+        $providers = Provider::where('country',$newresponse->country_name)->orderBy('provider_name', 'ASC')->get();
        
         $countries = Currency::get();
         $brandModels = BrandModels::get();
         $devices = Devices::get();
         $brands = Brands::get();
-        $suppliers = Supplier::where('country',$usersDetail->country)->get();
+        $suppliers = Supplier::where('country',$newresponse->country_name)->get();
         $service_types = ServiceType::get();
         $questions = RatingQuestion::get();
         $colors = DeviceColor::get();
         return view('FrontEnd.reviews',['settings'=> $settings,'usersDetail'=>$usersDetail,'providers'=>$providers,'service_types'=>$service_types,'countries'=>$countries,'questions'=>$questions,'userAddress'=>$usersAddress,'brandModels'=>$brandModels,'brands'=>$brands,'devices'=>$devices,'suppliers'=>$suppliers,'lat' =>  $current_lat,'long'=>$current_long,'colors'=>$colors]);
     }
+
+    /**
+     * Render plan star rating form view
+     * @param  \Illuminate\Http\Request $request
+     * @param  $plan_id 
+     * @return \Illuminate\Http\Response
+     */
     public function reviewsRating(Request $request,$plan_id)
     {
         $user_id = Auth::guard('customer')->user()['id']; 
@@ -154,6 +161,12 @@ class ReviewsController extends Controller
         }
         return view('FrontEnd.reviews_rating',['settings'=> $settings,'plan_id'=>$plan_id,'questions'=>$questions,'userAddress'=>$userAddress,'type'=>1,'lat' =>  $current_lat,'long'=>$current_long,'plandevicerating'=>$plandevicerating, 'countries'=>$countries]);
     }
+
+    /**
+     * Submit first step (Address form) of reviews page 
+     * @param  \Illuminate\Http\Request $request 
+     * @return \Illuminate\Http\Response
+     */
     public function reviewsDetail(Request $request)
     {
         $input = $request->all();
@@ -234,6 +247,12 @@ class ReviewsController extends Controller
             }
         }
     }
+
+    /**
+     * Submit second step (Plan review form) of reviews page 
+     * @param  \Illuminate\Http\Request $request 
+     * @return \Illuminate\Http\Response
+     */
     public function reviewService(Request $request)
     {
         $user_id = Auth::guard('customer')->user()['id'];
@@ -337,6 +356,11 @@ class ReviewsController extends Controller
         }
     }
 
+    /**
+     * Save speed test of reviews 
+     * @param  \Illuminate\Http\Request $request 
+     * @return \Illuminate\Http\Response
+     */
     public function saveSpeedTest(Request $request)
     {
         $input = $request->all();
@@ -368,6 +392,12 @@ class ReviewsController extends Controller
             }
         }
     }
+
+    /**
+     * Submit third step (Star rating form) of reviews page 
+     * @param  \Illuminate\Http\Request $request 
+     * @return \Illuminate\Http\Response
+     */
     public function ratingService(Request $request)
     {
         $input = $request->all();
@@ -586,6 +616,12 @@ class ReviewsController extends Controller
         }
         
     }
+
+    /**
+     * Get country list which users are searching from address modal 
+     * @param  \Illuminate\Http\Request $request 
+     * @return \Illuminate\Http\Response
+     */
     public function getCountry(Request $request)
     {
 

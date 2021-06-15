@@ -1035,7 +1035,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <!-- <h4 class="text-center w-100">Ookla SpeedTest</h4>
-                    <iframe width="100%" height="450px" frameborder="0" src="https://softradix.speedtestcustom.com"></iframe> -->
+                    <iframe width="100%" height="450px" frameborder="0" src="https://telecey.speedtestcustom.com"></iframe> -->
 
                     <h4 class="speedTestTitle">{!!__('review.internet_speed_title')!!}</h4>
                     <div id="testWrapper" class="text-center">
@@ -1477,7 +1477,7 @@
                     $(".technology").addClass("d-none");
                 }
             });
-
+            // Custom speed testing function start
             function speedTestFunction() {
                 $("#speedTestModel").modal({
                     show: true,
@@ -1626,7 +1626,7 @@
                     I("ip").textContent = "";
                 }
             // End Speed Test Sections
-
+            // Custom speed testing function end
             // Device Section
             $(".device-rating-submit-btn-add").on("click", function (e) {
                 e.preventDefault();
@@ -1714,6 +1714,8 @@
                     },
                 });
             });
+
+            // Custom select box for brand selecting
             function create_custom_dropdowns() {
                 $(".brand_select_brand_device").each(function (i, select) {
                     if (!$(this).next().hasClass("dropdown-select")) {

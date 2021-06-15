@@ -25,7 +25,13 @@ class PlansController extends Controller {
             $view->with('settings', $settings);
         });
     }
-    public function plansNew(Request $request) {
+
+    /**
+     * Get latest 3 plan reviews
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
+    public function plans(Request $request) {
         // Current location section
         $ip = env('ip_address', 'live');
         if ($ip == 'live') {
@@ -51,8 +57,14 @@ class PlansController extends Controller {
         if(!$searchResult){
             $searchResult = ServiceReview::inRandomOrder()->select(DB::raw('*, ( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( latitude ) ) ) ) AS distance'))->with('provider', 'currency', 'typeOfService', 'user', 'ratings', 'plan_rating')->orderBy('distance', 'ASC')->paginate($limit);
         }
-        return view('FrontEnd.plansNew', ['ip_location' => $current_location, 'filtersetting' => $filtersetting, 'data' => $searchResult, 'service_types' => $service_types,'current_country_code'=> $current_country_code,'current_lat'=> $current_lat,'current_long'=> $current_long ]);
+        return view('FrontEnd.plans', ['ip_location' => $current_location, 'filtersetting' => $filtersetting, 'data' => $searchResult, 'service_types' => $service_types,'current_country_code'=> $current_country_code,'current_lat'=> $current_lat,'current_long'=> $current_long ]);
     }
+
+    /**
+     * Get filted plan reviews from db with distance logic
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function plansResult(Request $request) {
         $data = $request->all();
         // Current location section
@@ -99,6 +111,7 @@ class PlansController extends Controller {
             $mainQuery->select(DB::raw('( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( plan_device_rating.latitude ) ) * cos( radians( plan_device_rating.longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( plan_device_rating.latitude ) ) ) ) AS distance'), 'plan_device_rating.plan_id as id', 'plan_device_rating.longitude', 'plan_device_rating.latitude', 'service_reviews.price', 'service_reviews.local_min', 'providers.provider_image_original', 'providers.provider_name', 'providers.provider_image_resize', 'providers.status', 'service_reviews.provider_id', 'plan_device_rating.average', 'users.is_active', 'service_reviews.datavolume', 'service_reviews.average_review');
             $mainQuery->where('plan_device_rating.plan_id', '!=', 0);
             $mainQuery->where('providers.provider_name', '!=','');
+            $mainQuery->where('providers.status',1);
             $mainQuery->whereNotNull('plan_device_rating.longitude')->whereNotNull('plan_device_rating.latitude');
             $mainQuery->where('service_reviews.country_code', $current_country_code);
             if ($filtersetting && $filtersetting->reviews_for_unverified == 0) {
@@ -151,6 +164,12 @@ class PlansController extends Controller {
         }
         return view('FrontEnd.plansResult', ['ip_location' => $current_location, 'filtersetting' => $filtersetting, 'ads' => $ads, 'googleads' => $googleads, 'service_types' => $service_types, 'data' => $searchResult, 'filterType' => $filter]);
     }
+
+    /**
+     * Plan review list sorting function which triggers through ajax call
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function plansResultSorting(Request $request) {
         $params = $request->all();
         $requestData = explode('&', $params['requestParams']);
@@ -196,6 +215,7 @@ class PlansController extends Controller {
         $mainQuery->leftJoin('users', 'users.id', '=', 'plan_device_rating.user_id');
         $mainQuery->select(DB::raw('( 6371 * acos( cos( radians(' . $current_lat . ') ) * cos( radians( plan_device_rating.latitude ) ) * cos( radians( plan_device_rating.longitude ) - radians(' . $current_long . ') ) + sin( radians(' . $current_lat . ') ) * sin( radians( plan_device_rating.latitude ) ) ) ) AS distance'), 'plan_device_rating.plan_id as id', 'plan_device_rating.longitude', 'plan_device_rating.latitude', 'service_reviews.price', 'service_reviews.local_min', 'providers.provider_image_original', 'providers.provider_name', 'providers.provider_image_resize', 'providers.status', 'service_reviews.provider_id', 'plan_device_rating.average', 'users.is_active', 'service_reviews.datavolume', 'service_reviews.average_review');
         $mainQuery->where('providers.provider_name', '!=','');
+        $mainQuery->where('providers.status',1);
         $mainQuery->where('plan_device_rating.plan_id', '!=', 0);
         $mainQuery->whereNotNull('plan_device_rating.longitude')->whereNotNull('plan_device_rating.latitude');
         $mainQuery->where('service_reviews.country_code', $current_country_code);
@@ -241,6 +261,12 @@ class PlansController extends Controller {
         }
         return view('FrontEnd.plans.planSorting', ['data' => $searchResult, 'filtersetting' => $filtersetting, 'ads' => $ads, 'googleads' => $googleads]);
     }
+
+    /**
+     * Get detail of plan review
+     * @param $id - plan review id
+     * @return \Illuminate\View\View
+     */
     public function planDetails($id) {
         $planDetailData = ServiceReview::where('id', $id)->with('provider', 'currency', 'typeOfService')->first();
         if ($planDetailData) {

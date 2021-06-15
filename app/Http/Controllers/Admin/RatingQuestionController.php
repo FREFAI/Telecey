@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Validator;
 class RatingQuestionController extends Controller
 {
     
+	/**
+     * Get all rating questions list
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function questionList(Request $request)
     {
         $perameters = $request->all();
@@ -26,10 +31,21 @@ class RatingQuestionController extends Controller
     	return view('Admin.RatingQuestion.question-list',['questions'=>$questions]);
     }
 
+	/**
+     * Display Add rating questions form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function addRatingQuestionForm(Request $request)
     {
     	return view('Admin.RatingQuestion.add-question');
     }
+
+	/**
+     * Submit add rating questions form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addRatingQuestion(Request $request)
     {
         $perameters = $request->all();
@@ -50,37 +66,12 @@ class RatingQuestionController extends Controller
             }
         }
     }
-    // public function editRatingQuestionForm(Request $request,$question_id)
-    // {
-    //     $question_id = base64_decode($question_id);
-    //     $question = RatingQuestion::find($question_id);
-    //     return view('Admin.RatingQuestion.edit-question',['question'=>$question]);
-    // }
-    // public function editRatingQuestion(Request $request)
-    // {
-    //     $perameter = $request->all();
-    //     $validation = Validator::make($perameter,[
-    //         'question' => 'required|unique:rating_questions,question,'.$perameter['id'],
-    //         'type' => 'required'
-    //     ]);
-    //     if($validation->fails()){
-    //         return redirect()->back()->with('error',$validation->messages()->first());
-    //     }else{
-    //         $question = RatingQuestion::find($perameter['id']);
-    //         $perameter['text_field'] = isset($perameter['text_field']) ? 1 : 0;
-    //         if($question){
-    //             $question->question = $perameter['question'];
-    //             $question->type = $perameter['type'];
-    //             $question->text_field = $perameter['text_field'];
-    //             if($question->save()){
-    //                 return redirect('/admin/rating-question')->with('success','Question updated successfully.');
-    //             }else{
-    //                 return redirect()->back()->with('error','Somthing went wrong!');
-    //             }
-    //         }
-    //     }
-    // }
 
+	/**
+     * Delete Question
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function deleteRatingQuestion(Request $request)
     {
         $perameter = $request->all();

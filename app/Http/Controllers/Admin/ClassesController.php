@@ -9,15 +9,32 @@ use Illuminate\Support\Facades\Validator;
 
 class ClassesController extends Controller
 {
+    /**
+     * Get all classes from database 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $classes = ClassesModel::orderBy('id','DESC')->paginate(10);
     	return view('Admin.Classes.classes',['classes' => $classes]);
     }
+    
+    /**
+     * Display Add classes form
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function addClassForm(Request $request)
     {
     	return view('Admin.Classes.addClassForm');
     }
+
+    /**
+     * Submit Add classes form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addClass(Request $request)
     {
         $input = $request->all();
@@ -49,6 +66,13 @@ class ClassesController extends Controller
 
         }
     }
+
+	/**
+     * Display Edit classes form 
+     * @param  $id
+     * @param  $page
+     * @return \Illuminate\View\View
+     */
     public function editClass($id,$page)
     {
         $data = ClassesModel::find($id);
@@ -60,9 +84,14 @@ class ClassesController extends Controller
             $data->end_range = $data->data_volume_end; 
         }
         $data->page = $page; 
-        // echo "<pre>";print_r($data);die;
     	return view('Admin.Classes.editClassForm',['data' => $data]);
     }
+
+	/**
+     * Submit edit classes form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function editClassMethod(Request $request)
     {
         $input = $request->all();
@@ -100,6 +129,12 @@ class ClassesController extends Controller
         	}
         }
     }
+    
+	/**
+     * Delete classes 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function deleteClass(Request $request)
     {
         $perameter = $request->all();

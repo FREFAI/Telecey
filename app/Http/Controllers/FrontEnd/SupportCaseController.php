@@ -14,6 +14,12 @@ use App\Models\Admin\AdminModel;
 
 class SupportCaseController extends Controller
 {
+	
+    /**
+     * Get current user support cases list  
+     * @param  \Illuminate\Http\Request $request 
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
     	$settings = SettingsModel::first();
@@ -22,6 +28,11 @@ class SupportCaseController extends Controller
     	return view('FrontEnd.SupportCase.index',['settings'=> $settings,'allCases'=>$allCases]);
     }
 
+	/**
+     * Generate new support cases  
+     * @param  \Illuminate\Http\Request $request 
+     * @return \Illuminate\Http\Response
+     */
     public function generateCase(Request $request)
     {
     	$perameters = $request->all();
@@ -85,6 +96,11 @@ class SupportCaseController extends Controller
         }
     }
 
+	/**
+     * Chat view of support case
+     * @param  \Illuminate\Http\Request $request 
+     * @return \Illuminate\Http\Response
+     */
     public function caseInbox(Request $request,$caseID)
     {
     	$settings = SettingsModel::first();
@@ -100,6 +116,12 @@ class SupportCaseController extends Controller
 		}
 		return view('FrontEnd.SupportCase.case-inbox',['settings' => $settings,'case' => $case,'caseMessages' => $caseMessages]);
     }
+
+	/**
+     * Send message of support case
+     * @param  \Illuminate\Http\Request $request 
+     * @return \Illuminate\Http\Response
+     */
     public function sendMessage(Request $request)
     {
 		$perameters = $request->all();

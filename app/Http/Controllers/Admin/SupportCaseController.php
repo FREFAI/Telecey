@@ -12,6 +12,11 @@ use App\User;
 use Auth,Mail;
 class SupportCaseController extends Controller
 {
+    /**
+     * Get all support case list with search functionlity 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $current_url = \Request::getRequestUri();
@@ -72,6 +77,12 @@ class SupportCaseController extends Controller
         return $casesList;
     	// return view('Admin.CaseChat.index',['allCase'=>$casesList,'request'=>$parameters]);
     }
+    /**
+     * Display Chat view
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $caseID
+     * @return \Illuminate\Http\Response
+     */
     public function caseInbox(Request $request, $caseID)
     {
     	$caseID = base64_decode($caseID);
@@ -85,6 +96,11 @@ class SupportCaseController extends Controller
     	return view('Admin.CaseChat.case-inbox',['case'=>$case,'caseMessages'=>$caseMessages]);
     }
 
+    /**
+     * Send message 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function sendMessage(Request $request)
     {
     	$perameters = $request->all();
@@ -132,6 +148,12 @@ class SupportCaseController extends Controller
 			return redirect()->back();
 		}
     }
+
+    /**
+     * Close chat 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function closeCaseRequest(Request $request)
     {
     	$perameters = $request->all();

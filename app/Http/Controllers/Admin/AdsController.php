@@ -12,6 +12,12 @@ use File,Image;
 
 class AdsController extends Controller
 {
+	
+    /**
+     * Display Add Ads form and listing of ads
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function addAdsForm(Request $request)
     {  
 		$countries = CountriesModel::get();
@@ -20,7 +26,12 @@ class AdsController extends Controller
 		$googleads = AdsModel::where('type',1)->first();
     	return view('Admin.Ads.add_ads',['countries'=>$countries,'settings'=>$settings,'customads'=>$customads,'googleads'=>$googleads]);
     }
-    
+	
+    /**
+     * Submit Add Ads form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addAds(Request $request)
     {
 		$input = $request->all();
@@ -104,6 +115,13 @@ class AdsController extends Controller
 	        }
     	}
     }
+
+	/**
+     * Display Edit Ads form 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id
+     * @return \Illuminate\View\View
+     */
 	public function editAdsForm(Request $request,$id)
     {  
 		$id = base64_decode($id);
@@ -111,6 +129,12 @@ class AdsController extends Controller
 		$ads = AdsModel::find($id);
     	return view('Admin.Ads.edit_ads',['countries'=>$countries,'ads'=>$ads]);
 	}
+
+	/**
+     * Submit edit Ads form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
 	public function editAds(Request $request)
     {
 		$input = $request->all();
@@ -179,6 +203,12 @@ class AdsController extends Controller
 			}
 		}
     }
+
+	/**
+     * Delete Ads 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function deleteAds(Request $request)
     {
     	$input = $request->all();
@@ -198,6 +228,12 @@ class AdsController extends Controller
     		}
     	}
 	}
+
+	/**
+     * Approved and Un-approved Ads 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
 	public function approveAds(Request $request)
 	{
 		$perameter = $request->all();

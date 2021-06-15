@@ -11,22 +11,10 @@ use App\Models\Admin\DeviceColor;
 
 class BrandsController extends Controller
 {
-    public function getModels(Request $request)
-    {
-    	$perameter = $request->all();
-    	$validation = Validator::make($perameter, [
-    	    'brand_id' => 'required'
-    	]);
-    	if ( $validation->fails() ) {
-    	     $message = array('success'=>false,'message'=>$validation->messages()->first(),'data'=>'{}');
-    	     return json_encode($message);
-    	}else{
-    		$models = BrandModels::where('brand_id',$perameter['brand_id'])->select('id','model_name','brand_id')->get()->toArray();
-    		// $models = json_encode($models);
-    		$message = array('success'=>true,'message'=>'','data'=>$models);
-	     	return json_encode($message);
-    	}
-	}
+
+	/**
+	 * Get brand colors of perticular brand 
+	 */
 	public function getBrandColor(Request $request)
 	{
 		$perameter = $request->all();

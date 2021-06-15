@@ -11,11 +11,21 @@ use App\Helpers\CreateLogs;
 
 class SupplierController extends Controller
 {
+    /**
+     * Display Add supplier form
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function addSupplierForm(Request $request)
     {
         $countries = CountriesModel::get();
     	return view('Admin.Supplier.add_supplier',['countries'=>$countries]);
     }
+    /**
+     * Submit Add supplier form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addSupplier(Request $request)
     {
         $perameters = $request->all();
@@ -35,6 +45,12 @@ class SupplierController extends Controller
 			}
     	}
     }
+    /**
+     * Display edit supplier form 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $supplierID
+     * @return \Illuminate\View\View
+     */
     public function editSupplierForm(Request $request, $supplierID)
     {
     	$supplierID = base64_decode($supplierID);
@@ -42,6 +58,11 @@ class SupplierController extends Controller
         $countries = CountriesModel::get();
     	return view('Admin.Supplier.edit_supplier',['supplier'=>$supplier,'countries'=>$countries]);
     }
+    /**
+     * Submit edit supplier form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function editSupplier(Request $request)
     {
     	$perameters = $request->all();
@@ -64,13 +85,21 @@ class SupplierController extends Controller
 			}
     	}
     }
-
+    /**
+     * Get all suppliers from database 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function supplierList(Request $request)
     {
     	$suppliers = Supplier::orderBy('id','DESC')->paginate(10);
     	return view('Admin.Supplier.suppliers-list',['suppliers'=>$suppliers]);
     }
-
+    /**
+     * Delete supplier 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function deleteSupplier(Request $request)
     {
     	$perameter = $request->all();
@@ -91,7 +120,11 @@ class SupplierController extends Controller
     	    }
     	}
     }
-
+    /**
+     * Approved and un approved supplier 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function approveSupplier(Request $request)
     {
         $perameter = $request->all();
@@ -151,6 +184,11 @@ class SupplierController extends Controller
             }
         }
     }
+    /**
+     * Set default supplier 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function setDefaultSupplies(Request $request)
     {
         $perameters = $request->all();

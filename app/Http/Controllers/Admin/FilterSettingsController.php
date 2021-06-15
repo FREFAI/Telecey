@@ -18,12 +18,23 @@ class FilterSettingsController extends Controller
         $this->middleware('auth');
     }
 
+	/**
+     * Get all filter settings 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function allFilterSetting(Request $request)
     {
     	$settings = SettingsModel::first();
     	return view('Admin.Settings.filter_settings',['settings'=>$settings]);
     }
 
+
+	/**
+     * Update filter settings 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function changeFilterSetting(Request $request)
     {
         $input = $request->all();

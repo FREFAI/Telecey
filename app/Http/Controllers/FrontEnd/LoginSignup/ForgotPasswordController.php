@@ -11,6 +11,9 @@ use Auth,Mail;
 
 class ForgotPasswordController extends Controller
 {
+    /**
+     * Forgot password form
+     */
     public function forgotPasswordForm(Request $request)
     {
         if(!Auth::guard('customer')->check()){
@@ -20,6 +23,10 @@ class ForgotPasswordController extends Controller
         }
         
     }
+
+    /**
+     * Send forgot password email to user width $resetToken
+     */
     public function sendEmail(Request $request)
     {
         $input = $request->all();
@@ -51,6 +58,9 @@ class ForgotPasswordController extends Controller
         }
     }
 
+    /**
+     * Set password form if token is valid
+     */
     public function setPasswordForm($token)
     {
         $ifexist = User::where('password_reset',$token)->first();
@@ -66,6 +76,9 @@ class ForgotPasswordController extends Controller
             return redirect($url);
         }
     }
+    /**
+     * Set password by token
+     */
     public function setPassword(Request $request)
     {
         $input = $request->all();
@@ -88,6 +101,9 @@ class ForgotPasswordController extends Controller
         }
     }
 
+    /**
+     * Changes password 
+     */
     public function changePassword(Request $request)
     {
         $user_id = Auth::guard('customer')->user()['id'];

@@ -13,10 +13,23 @@ use Mail;
 
 class ForgotPasswordController extends Controller
 {
+
+	/**
+     * Display Forgot password form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function showForgotPasswordForm()
     {
         return view('Admin.LoginSignup.forgotpassword_form');
     }
+
+
+	/**
+     * Send email to user 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function sendEmail(Request $request)
     {
     	$input = $request->all();
@@ -47,6 +60,11 @@ class ForgotPasswordController extends Controller
         }
     }
 
+	/**
+     * Display new password form  
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function setPasswordForm($token)
     {
     	$ifexist = AdminModel::where('reset_password',$token)->first();
@@ -56,6 +74,12 @@ class ForgotPasswordController extends Controller
     		return redirect('/admin/login');
     	}
     }
+
+	/**
+     * Set new password  
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function setPassword(Request $request)
     {
     	$input = $request->all();
@@ -77,6 +101,12 @@ class ForgotPasswordController extends Controller
         }
     }
 
+	/**
+     * Send Email manually to user for reset password  
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $user_id
+     * @return \Illuminate\Http\Response
+     */
     public function sendEmailManually(Request $request,$user_id)
     {
         $user_id = base64_decode($user_id);
@@ -99,10 +129,22 @@ class ForgotPasswordController extends Controller
         }
     }
 
+	/**
+     * Display Change password form  
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function showChangePasswordForm()
     {
         return view('Admin.LoginSignup.change_password');
     }
+
+    
+	/**
+     * Change password from admin panel
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function changePassword(Request $request)
     {
         $admin_id = \Auth::guard('admin')->user()['id'];

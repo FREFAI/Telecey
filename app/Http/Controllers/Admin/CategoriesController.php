@@ -9,15 +9,33 @@ use Illuminate\Support\Facades\Validator;
 
 class CategoriesController extends Controller
 {
+
+	/**
+     * Get all Blog category categories from database 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $categories = Category::orderBy('id','DESC')->paginate(10);
         return view('Admin.Category.index',['categories'=>$categories]);
     }
+
+    /**
+     * Display Add blog categories form
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function addCategoryForm(Request $request)
     {
         return view('Admin.Category.add');
     }
+
+    /**
+     * Submit Add blog category form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addCategory(Request $request)
     {
         $params = $request->all();
@@ -36,12 +54,25 @@ class CategoriesController extends Controller
     	    }
         }
     }
+
+	/**
+     * Display Edit blog category form 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id
+     * @return \Illuminate\View\View
+     */
     public function editCategoryForm(Request $request,$id)
     {
         $id = base64_decode($id);
         $category = Category::find($id);
         return view('Admin.Category.edit',['category'=>$category]);
     }
+
+	/**
+     * Submit edit blog category form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function editCategory(Request $request)
     {
         $params = $request->all();
@@ -63,6 +94,12 @@ class CategoriesController extends Controller
     	    }
     	}
     }
+    
+	/**
+     * Delete blog category 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function deleteCategory(Request $request)
     {
         $params = $request->all();

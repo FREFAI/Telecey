@@ -8,6 +8,13 @@ use App\Models\Admin\Logs;
 
 class LogsController extends Controller
 {
+
+	/**
+     * Get all logs of admin side which are generated from admin panel when superadmin or admin 
+     * perfrom any action from admin panel
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function adminLog(Request $request)
     {
         $params = $request->all();
@@ -27,6 +34,12 @@ class LogsController extends Controller
         return view('Admin.Logs.adminLogs',['adminLogs'=> $adminLogs,'params'=>$params]);
     }
 
+	/**
+     * Get all logs of website side which are generated from user site when user perfrom 
+     * any action from website
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function userLog(Request $request)
     {
         $params = $request->all();

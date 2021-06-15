@@ -15,18 +15,34 @@ class BrandsController extends Controller
 {
 	// Brands section 
 
-
+	/**
+     * Get all brands from database 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function brandsList(Request $request)
     {
         $brands = Brands::with(['device'])->orderBy('id','DESC')->paginate(10);
     	return view('Admin.Brands.brand-list',['brands'=>$brands]);
     }
+
+    /**
+     * Display Add brand form
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function addBrandForm(Request $request)
     {
         $colors = DeviceColor::orderBy('id','DESC')->get();
         $devices = Devices::orderBy('id','DESC')->get();
     	return view('Admin.Brands.add-brand',['colors'=>$colors,'devices'=>$devices]);
     }
+
+    /**
+     * Submit Add brand form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addBrand(Request $request)
     {
         $perameters = $request->all();
@@ -50,6 +66,13 @@ class BrandsController extends Controller
     	    }
     	}
     }
+
+	/**
+     * Display Edit brand form 
+     * @param  \Illuminate\Http\Request  $request
+	 * @param $brandId
+     * @return \Illuminate\View\View
+     */
     public function editBrandForm(Request $request,$brandId)
     {
     	$brandId = base64_decode($brandId);
@@ -58,6 +81,12 @@ class BrandsController extends Controller
         $devices = Devices::orderBy('id','DESC')->get();
     	return view('Admin.Brands.edit-brand',['brand'=>$brand,'colors'=>$colors,'devices'=>$devices]);
     }
+
+	/**
+     * Submit edit brand form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function editBrand(Request $request)
     {
     	$perameters = $request->all();
@@ -84,6 +113,12 @@ class BrandsController extends Controller
     	    }
     	}
     }
+
+	/**
+     * Delete brand 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function deleteBrand(Request $request)
     {
         $perameters = $request->all();
@@ -105,6 +140,13 @@ class BrandsController extends Controller
             }
         }
     }
+
+
+	/**
+     * Set default model of a brand 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function setDefaultModel(Request $request)
     {
         $perameters = $request->all();
@@ -150,8 +192,11 @@ class BrandsController extends Controller
         }
     }
 
-    // End brand section
-    
+	/**
+     * Approved and Un-approved brand 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function approveBrand(Request $request)
     {
         $perameter = $request->all();

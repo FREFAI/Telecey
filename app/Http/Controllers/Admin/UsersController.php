@@ -17,6 +17,11 @@ use Excel;
 
 class UsersController extends Controller
 {
+    /**
+     * Get all users list with search functionality 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $current_url = \Request::getRequestUri();
@@ -120,6 +125,12 @@ class UsersController extends Controller
         }
         return $users;
     }
+    /**
+     * Get single user detail 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $userId
+     * @return \Illuminate\Http\Response
+     */
     public function getSingleUserDetail(Request $request,$userId)
     {
         $parameter = $request->all();
@@ -142,6 +153,11 @@ class UsersController extends Controller
         $serviceData = $data;
         return view('Admin.Users.users-detail',['serviceData'=>$serviceData,'user'=>$user]);
     }
+    /**
+     * Get all plans review of perticular user 
+     * @param  $userId
+     * @return \Illuminate\Http\Response
+     */
     public function getAllPlans($userId)
     {
         $user_id = $userId;
@@ -209,6 +225,11 @@ class UsersController extends Controller
             'serviceData' => $serviceData
         ];
     }
+    /**
+     * Get all device review of perticular user 
+     * @param  $user_id
+     * @return \Illuminate\Http\Response
+     */
     public function getAllDevice($user_id)
     {
         $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
@@ -284,7 +305,11 @@ class UsersController extends Controller
         }              
         return $deviceData;
     }
-    
+    /**
+     * Export excel file of all users list 
+     * @param  $user_id
+     * @return \Illuminate\Http\Response
+     */
     public function exportUsers(){
         
         $users = User::orderBy('id','DESC')->get();

@@ -1,475 +1,290 @@
 @extends('layouts.frontend_layouts.frontend')
-@section('title', 'Plans Result')
+@section('title', 'Plans')
 @section('content')
 
-
 <!-- Content Start Here -->
-<section id="main-top-section" >
-	<div class="container">
-		<div class="row align-items-center mb-5 loading_section">
-			<div class="col-7 text-center">
-                <div class="loading">
-                    <h1>{{__('planresult.title')}}</h1><br>
-                    <h1>{{__('planresult.title2')}} </h1>
-                </div>
-			</div>
-			<div class="col-5 text-center">
-				<div class="right-banner autorotate">
-					<img src="{{URL::asset('frontend/assets/img/9367.jpg')}}"/>
-				</div>
-			</div>
-		</div>
-		<form action="{{url('/plans/result')}}" method="get" class="w-100" id="planSearch">
-			<div class="row custom_width align-items-center">
-				@include('flash-message')
-				@if(!$filtersetting->review_detail_for_unverified)
-					@if(Auth::guard('customer')->user() && Auth::guard('customer')->user()['is_active'] == 0)
-					
-					<div class="alert alert-danger alert-block record_section w-100">
-						<button type="button" class="close" data-dismiss="alert">×</button>
-						{{__('index.Please verify your email')}} <strong><a href="{{url('/resendVerifyEmail')}}">{{__('index.Click here')}}</a></strong> {{__('index.to resend verification email')}}.
-					</div>
-					@endif
-				@endif
-				<div class="col-lg-7 record_section">
-					<div class="location">
-						<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input search-input-field"/>
+	<section id="main-top-section" >
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-12 text-center">
+					<div class="heading detail-div">
+						<h1 class="device-heading-title">{{__('plan.title')}}</h1>
 					</div>
 				</div>
-				<input type="hidden" name="lat" class="currentLat" value="{{request()->get('lat')}}">
-				<input type="hidden" name="lng" class="currentLng" value="{{request()->get('lng')}}">
-				<input type="hidden" name="country" class="currentCountry" value="{{request()->get('country')}}">
-				<input type="hidden" name="rows" id="paginate_input" value="{{request()->get('rows')}}"/>
-				<div class="col-lg-3 record_section">
-					<div class="service_type">
-						@if($filtersetting->mobile_home_setting == 1)
-							<select class="service-type-select service_type" name="service_type">
-								<option value="">{{__('profile.service_type')}}</option>
-								@if(count($service_types) > 0)
-									@foreach($service_types as $type)
-										<option value="{{$type->id}}" @if( request()->get('service_type') ) @if( request()->get('service_type') == $type->id) selected @endif @endif>{{$type->service_type_name}}</option>
-									@endforeach
-								@else
-									<option disabled="">{{__('planresult.not_found')}}</option>
-								@endif
-							</select>
-						@endif
-					</div>
-				</div>
-				
-				<div class="col-lg-1 record_section">
-					<div class="text-center">
-						<a title="Expend Filter" href="javascript:void(0);" onClick="filterExpend()" class="expendFilterbtn"><i class="fa fa-filter"></i></a>
-					</div>
-				</div>
-				<div class="col-lg-1 text-right record_section">
-					<div class="filter_button">
-						<button type="submit"><img src="{{URL::asset('frontend/assets/img/filter.jpg')}}"/></button>
-					</div>
-				</div>
-				<div class="col-lg-4 expendedFilter">
-					@if($filtersetting->personal_business_setting == 1)
-					<div class="form-group plan_page mb-0">
-						<span class="toggle_label active">{{__('index.Personal')}}</span>
-						<label class="switch">
-							<input type="checkbox" id="personal" value="2" onClick="personalToggle()" name="contract_type" @if( request()->get('contract_type') ) @if( request()->get('contract_type') == 2) checked @endif @endif>
-							<span class="slider"></span>
-						</label>
-						<span class="toggle_label">{{__('index.Business')}}</span>
-					</div>
-					@endif
-				</div>
-				<div class="col-lg-4 expendedFilter">
-					@if($filtersetting->postpaid_prepaid_setting == 1)
-					<div class="form-group plan_page mb-0">
-						<span class="toggle_label active">{{__('index.Postpaid')}}</span>
-						<label class="switch">
-							<input type="checkbox" id="paymentTypeId" name="payment_type" value="prepaid" onClick=paymentType()  @if( request()->get('payment_type') ) @if( request()->get('payment_type') == 'prepaid') checked @endif @endif>
-							<span class="slider"></span>
-						</label>
-						<span class="toggle_label">{{__('index.Prepaid')}}</span>
-					</div>
-					@endif
-				</div>
-				<div class="col-lg-4 expendedFilter">
-					<div class="form-group plan_page mb-0">
-						<span class="toggle_label active">{{__('index.Pay as usage')}}</span>
-						<label class="switch">
-							<input type="checkbox" onclick="payAsUsage()" value="0" id="pay_as_usage_id" name="pay_as_usage_type" @if( request()->get('pay_as_usage_type') ) @if( request()->get('pay_as_usage_type') == 1) checked @endif @endif>
-							<span class="slider"></span>
-						</label>
-						<!-- <span class="toggle_label">On</span> -->
-					</div>
-				</div>
-				@if($filtersetting->unlimited_calls_setting == 1)
-				<div class="col-lg-4 pay_as_usage_type expendedFilter">
-					<div class="form-group plan_page">
-						<span class="toggle_label">{{__("index.Unlimited Calls")}}</span>
-						<label class="switch">
-							<input type="checkbox" checked="" onclick="myFunction()" id="unlimited" name="min_type">
-							<span class="slider"></span>
-						</label>
-						<select id="unlimited_calls" class="mbps-select d-none w-40" name="local_min">
-							<option value="100" selected>100 mins</option>
-							<option value="200">200 mins</option>
-							<option value="300">300 mins</option>
-							<option value="500">500 mins</option>
-						</select>
-					</div>
-				</div>
-				@endif
-				@if($filtersetting->gb_setting == 1)
-				<div class="col-lg-3 text-center pay_as_usage_type expendedFilter">
-					<div class="form-group">
-						<select id="inputState" class="mbps-select" name="datavolume">
-							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '0.5') selected @endif @endif value="0.5">0.5 GB</option>
-							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '1') selected @endif @endif value="1">1 GB</option>
-							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '2') selected @endif @endif value="2" selected>2 GB</option>
-							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '3') selected @endif @endif value="3">3 GB</option>
-							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '5') selected @endif @endif value="5">5 GB</option>
-							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '7') selected @endif @endif value="7">7 GB</option>
-							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '10') selected @endif @endif value="10">10 GB</option>
-							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '12') selected @endif @endif value="12">12 GB</option>
-							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '15') selected @endif @endif value="15">15 GB</option>
-							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '20') selected @endif @endif value="20">20 GB</option>
-						</select>
-					</div>
-				</div>
-				@endif
-				@if($filtersetting->mb_setting == 1)
-				<div class="col-lg-3 text-center pay_as_usage_type expendedFilter">
-					<div class="form-group">
-						<select id="inputState" class="mbps-select">
-							<option selected value="" disabled="">Mbps</option>
-							<option value="100">100 Mbps</option>
-							<option value="200">200 Mbps</option>
-							<option value="300">300 Mbps</option>
-							<option value="400">400 Mbps</option>
-							<option value="500">500 Mbps</option>
-						</select>
-					</div>
-				</div>
-				@endif
-			</div>
-		</form>
-		<div class="row record_section">
-			@if(count($data)>0)
-				<div class="col-lg-12 table-responsive">
-					<table id="example" class="table table-striped custom-table plan_sorting" style="width:100%" data-url="{{url('/plans/resultSorting')}}">
-						<thead>
-							<tr>
-								<th>{{__('planresult.provider')}}</th>
-								<th @if(!Auth::guard('customer')->check())
-											@if($filtersetting->disable_price_for_logged_out_users == 1)
-												class="custom_sorting"
-											@endif
-										@else
-										class="custom_sorting"
-										@endif data-name="price" data-sort="asc" >@if($filtersetting->display_price == 2) Around @endif {{__('planresult.price')}}
-										@if(!Auth::guard('customer')->check())
-											@if($filtersetting->disable_price_for_logged_out_users == 1)
-												<i class="fas fa-arrow-down"></i>
-											@endif
-										@else
-										<i class="fas fa-arrow-down"></i>
-										@endif</th>
-								<th class="custom_sorting" data-name="local_min" data-sort="asc" >{{__('planresult.localmin')}} <i class="fas fa-arrow-down"></i></th>
-								<th class="custom_sorting" data-name="datavolume" data-sort="asc" >{{__('planresult.volumegb')}} <i class="fas fa-arrow-down"></i></th>
-								<th class="custom_sorting" data-name="average_review" data-sort="asc" >{{__('planresult.review')}} <i class="fas fa-arrow-down"></i></th>
-								<th class="custom_sorting" data-name="distance" data-sort="asc" >{{__('planresult.distance')}} <i class="fas fa-arrow-down"></i></th>
-								<th class="text-right">{{__('planresult.detail_btn')}}</th>
-							</tr>
-						</thead>
-						<tbody class="table_body_sort">
-							@php
-								$i = ($data->currentpage()-1)* $data->perpage() + 1;
-								$custom_ads = 0;
-								$j = 0; 
-							@endphp
-							@foreach($data as $key => $value)
-								<tr class="custom-row-cl">
-									<td>
-										@if($value['provider_image_original'] != "")
-											<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider_image_original']}}" style="width:100px;height:50px; object-fit: contain;" />
-										@endif
-									</td>
-									<td>
-									@if(!Auth::guard('customer')->check())
-										@if($filtersetting->disable_price_for_logged_out_users == 1)
-											@if($filtersetting->display_price == 1)
-												{{$value['price']}}
-											@elseif($filtersetting->display_price == 2)
-												{{roundUp($value['price'], -1)}}
-											@endif
-										@else
-											<a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('planresult.signup_unlock')}}</a>
-										@endif
-									@else
-										@if($filtersetting->display_price == 1)
-											{{$value['price']}}
-										@elseif($filtersetting->display_price == 2)
-											{{roundUp($value['price'], -1)}}
-										@endif
-									@endif
-									</td>
-									<td>{{$value['local_min']}}</td>
-									<td>{{$value['datavolume']}}</td>
-									<td data-order="{{$value['average_review']}}"><div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div></td>
-									@if(isset($value['distance']))
-										<td>{{round($value['distance'])}} KM</td>
-									@else
-										<td>N/A</td>
-									@endif
-									@if(Auth::guard('customer')->check())
-										@if(!$filtersetting->review_detail_for_unverified)
-											@if(Auth::guard('customer')->user()['is_active'])
-												<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">{{__('planresult.detail_btn')}}</a></td>
-											@else
-												<td data-order="-1"><a href="{{url('/resendVerifyEmail')}}" class="btn table-row-btn">Verify your email</a></td>
-											@endif
-										@else
-											<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">{{__('planresult.detail_btn')}}</a></td>
-										@endif
-									@else
-										@if($filtersetting->disable_details_for_logged_out_users == 1)
-											<td data-order="-1"><a class="form-control btn table-row-btn" href="{{url('/planDetails/'.$value['id'])}}">{{__('planresult.detail_btn')}}</a></td>
-										@else
-											<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">{{__('planresult.signup_unlock')}}</a></td>
-										@endif
-									@endif
-								</tr>
-								@if(count($ads) > 0)
-									@if($i%10 == 0)
-										@if($custom_ads === 0)
-											@if($j < count($ads))
-												@php $custom_ads = 1; @endphp
-												<tr class="custom-row-cl @if($i%10 == 0) adds @endif">
-													<td colspan="7">
-														<div class="add text-center">
-															
-															<img src="{{URL::asset('ads_banner/ads_banner_original')}}/{{$ads[$j]['ads_file_original']}}"/>
-														</div>
-													</td>
-												</tr>
-												@php $j++; @endphp
-											@else
-												@php $custom_ads = 1; $j = 0;@endphp
-												<tr class="custom-row-cl @if($i%10 == 0) adds @endif">
-													<td colspan="7">
-														<div class="add text-center">
-															
-															<img src="{{URL::asset('ads_banner/ads_banner_original')}}/{{$ads[$j]['ads_file_original']}}"/>
-														</div>
-													</td>
-												</tr>
-												@php $j++; @endphp
-											@endif
-										@else
-											@php $custom_ads = 0; @endphp
-											@if($googleads)
-												@if($googleads->script != "")
-												<tr class="custom-row-cl adds">
-													<td colspan="7">
-														<div class="row align-items-center">
-															{!!$googleads->script!!}
-															<!-- <div class="col-lg-6 text-center">
-																<img src="{{URL::asset('frontend/assets/img/case.jpg')}}"/>
-															</div>
-															<div class="col-lg-6">
-																<h1 class="adds-text">The Ultimate cover</h1>
-															</div> -->
-														</div>
-													</td>
-												</tr> 
-												@endif
-											@endif
-										@endif
-									@endif
-								@endif
-								@php $i++;@endphp
-							@endforeach
-						</tbody>
-					</table>
-					@if(!Auth::guard('customer')->check())
-						@if($filtersetting->no_of_search_record > 0)
-						<div class="overlay_signup w-100 text-center text-white">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-							<div> 
-							<a class="btn table-row-btn signup_btn" href="{{url('/signup')}}">{{__('planresult.signup_more')}}</a>
+				<div class="col-7 text-right">
+					<form action="{{url('/plans/result')}}" method="get" class="w-100">
+						<div class="row position-relative">
+							<div class="google-location-loader">
+								<i class="fa fa-spinner fa-spin"></i>
 							</div>
-						</div>
-						@endif
-					@endif
-					@if(Auth::guard('customer')->check())
-					<div class="row align-items-center" style="width: 970px !important; margin: 0 auto;">
-						<div class="col-lg-9">
-							<div class="pagination">
-								{{$data->appends(request()->input())->links()}}
+							<div class="col-9">
+								<input type="hidden" name="lat" class="currentLat" value="{{$current_lat}}">
+								<input type="hidden" name="lng" class="currentLng" value="{{$current_long}}">
+								<input type="hidden" name="isSelect" class="isselect" value="1">
+								<input type="hidden" name="country" class="currentCountry" value="{{$current_country_code}}">
+								<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
+								<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
 							</div>
-						</div>
-						<div class="col-lg-3 rows_per_page">
-							<div class="inner_rows">
-								<label>{{__('planresult.item_per_page')}}</label>
-								<select class="service-type-select paginate_select_box" name="rows">
-									<option @if( request()->get('rows') == "20" ) selected @endif>20</option>
-									<option @if( request()->get('rows') == "50" ) selected @endif>50</option>
-									<option @if( request()->get('rows') == "70" ) selected @endif>70</option>
-									<option @if( request()->get('rows') == "100" ) selected @endif>100</option>
-									<option @if( request()->get('rows') == "200" ) selected @endif>200</option>
+							<div class="col-3">
+							@if($filtersetting->mobile_home_setting == 1)
+								<select class="service-type-select service_type" name="service_type">
+									<option value="">{{__('profile.service_type')}}</option>
+									@if(count($service_types) > 0)
+										@foreach($service_types as $type)
+											<option value="{{$type->id}}" @if( request()->get('service_type') ) @if( request()->get('service_type') == $type->id) selected @endif @endif>{{$type->service_type_name}}</option>
+										@endforeach
+									@else
+										<option disabled="">{{__('plan.not_found')}}</option>
+									@endif
 								</select>
+							@endif
+							</div>
+							@if($filtersetting->personal_business_setting == 1)
+							<div class="col-4 pr-0 text-right mt-4">
+								<div class="form-group plan_page mb-0">
+									<span class="toggle_label active">{{__('index.Personal')}}</span>
+									<label class="switch">
+										<input type="checkbox" id="personal" value="2" onClick="personalToggle()" name="contract_type" @if( request()->get('contract_type') ) @if( request()->get('contract_type') == 2) checked @endif @endif>
+										<span class="slider"></span>
+									</label>
+									<span class="toggle_label">{{__('index.Business')}}</span>
+								</div>
+							</div>
+							@endif
+							@if($filtersetting->postpaid_prepaid_setting == 1)
+							<div class="col-4 text-center pl-0 pr-0 mt-4">
+								<div class="form-group plan_page mb-0">
+									<span class="toggle_label active">{{__('index.Postpaid')}}</span>
+									<label class="switch">
+										<input type="checkbox" id="paymentTypeId" name="payment_type" value="prepaid" onClick=paymentType()  @if( request()->get('payment_type') ) @if( request()->get('payment_type') == 'prepaid') checked @endif @endif>
+										<span class="slider"></span>
+									</label>
+									<span class="toggle_label">{{__('index.Prepaid')}}</span>
+								</div>
+							</div>
+							@endif
+							<input type="hidden" name="rows" value="20">
+							<div class="col-4 pl-0 text-left mt-4">
+								<div class="form-group plan_page mb-0">
+									<span class="toggle_label active">{{__('index.Pay as usage')}}</span>
+									<label class="switch">
+										<input type="checkbox" onclick="payAsUsage()" value="1" id="pay_as_usage_id" name="pay_as_usage_type" @if( request()->get('pay_as_usage_type') ) @if( request()->get('pay_as_usage_type') == 1) checked @endif @endif>
+										<span class="slider"></span>
+									</label>
+									<!-- <span class="toggle_label">On</span> -->
+								</div>
+							</div>
+							@if($filtersetting->unlimited_calls_setting == 1)
+							<div class="col-6 text-center pl-0 pr-0 mt-4 pay_as_usage_type">
+								<div class="form-group plan_page">
+									<span class="toggle_label">{{__("index.Unlimited Calls")}}</span>
+									<label class="switch">
+										<input type="checkbox" checked="" onclick="myFunction()" id="unlimited" name="min_type">
+										<span class="slider"></span>
+									</label>
+									<select id="unlimited_calls" class="mbps-select d-none w-40" name="local_min">
+										<option value="100" selected>100 mins</option>
+										<option value="200">200 mins</option>
+										<option value="300">300 mins</option>
+										<option value="500">500 mins</option>
+									</select>
+								</div>
+							</div>
+							@endif
+							@if($filtersetting->gb_setting == 1)
+							<div class="col-3 text-center mt-4 pay_as_usage_type">
+								<div class="form-group">
+									<select id="inputState" class="mbps-select" name="datavolume">
+										<option value="0.5">0.5 GB</option>
+										<option value="1">1 GB</option>
+										<option value="2" selected>2 GB</option>
+										<option value="3">3 GB</option>
+										<option value="5">5 GB</option>
+										<option value="7">7 GB</option>
+										<option value="10">10 GB</option>
+										<option value="12">12 GB</option>
+										<option value="15">15 GB</option>
+										<option value="20">20 GB</option>
+									</select>
+								</div>
+							</div>
+							@endif
+							@if($filtersetting->mb_setting == 1)
+							<div class="col-3 text-center mt-4 pay_as_usage_type">
+								<div class="form-group">
+									<select id="inputState" class="mbps-select">
+										<option selected value="" disabled="">Mbps</option>
+										<option value="100">100 Mbps</option>
+										<option value="200">200 Mbps</option>
+										<option value="300">300 Mbps</option>
+										<option value="400">400 Mbps</option>
+										<option value="500">500 Mbps</option>
+									</select>
+								</div>
+							</div>
+							@endif
+						</div>
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<button type="submit" class="searchnow-button search-form-button">{{__('plan.search_now_btn')}}</button>
 							</div>
 						</div>
+					</form>
+				</div>
+				<div class="col-5 text-center">
+					<div class="right-banner">
+						<img src="{{URL::asset('frontend/assets/img/153981-OUOERJ-745.jpg')}}"/>
 					</div>
-					
-					@else
-						@if($filtersetting->no_of_search_record == 0)
-							<div class="pagination">
-								{{$data->appends(request()->input())->links()}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 text-center my-5">
+					<div class="heading detail-div">
+						<h1 class="device-heading-title">{{__('plan.provider_title')}}</h1>
+					</div>
+				</div>
+
+				<div class="col-md-10 m-auto">
+					<div class="row">
+					@if(count($data)>0)
+						@foreach($data as $key => $value)
+							<div class="col-sm-4 col-md-4 mb-4">
+								<div class="post">
+									<div class="post-img-content">
+										@if(isset($value['provider']) && $value['provider']['provider_image_original'] != "")
+											<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" class="img-responsive"/>
+											@else
+											<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" class="img-responsive"/>
+										@endif
+									</div>
+									<div class="post-content">
+										<div class="row">
+											<div class="col-12">
+												<span class="date-post">{{ date('M d, Y',strtotime($value['created_at'])) }}</span>
+												<!-- <h4 class="text-blue">Fido</h4> -->
+											</div>
+										</div>
+										<div class="row my-3">
+											<div class="col-lg-12 provider">
+												<div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div>
+											</div>
+										</div>
+										<div class="detail-section my-1 pb-1">
+											<div class="row">
+												<div class="col-lg-12 comment_section">
+													@if($value['plan_rating'])
+														
+														@if(strlen(strip_tags($value['plan_rating']['comment'])) > 80) 
+														<p>{{substr(strip_tags($value['plan_rating']['comment']),0,80)}}...</p>
+														@elseif(strlen(strip_tags($value['plan_rating']['comment'])) == 0) 
+														<p>{{__("index.The service is excellent and I'm enjoying the unlimited data on my mobile plan")}} </p>
+														@else
+															<p>{{substr(strip_tags($value['plan_rating']['comment']),0,80)}}</p>
+														@endif
+														
+													@else
+													<p>{{__("index.The service is excellent and I'm enjoying the unlimited data on my mobile plan")}} </p>	
+													@endif
+																	
+												</div>
+											</div>	
+										</div>
+										
+									</div>
+								</div>
 							</div>
-						@endif
+						@endforeach
 					@endif
-				</div>
-			@else
-				<div class="container">
-					<div class="row pt-5 pb-5 mt-5 mb-5">
-						<div class="col text-center">
-							<div class="heading noSearchMessage">
-								<p>{!!$filtersetting->no_search_message!!}</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			@endif
-		</div>
-	</div>
-	<!-- <div class="container-fluid">
-		<div class="row bg-blue">
-			<div class="col-12 text-center">
-				<div class="heading detail-div">
-					<h1 class="device-heading-title section-title text-white">Subscribe Form</h1>
-				</div>
-			</div>
-			<div class="col-md-8 offset-md-2">
-				<div class="sign-up-email">
-					<div class="form-group fields subscrib">
-						<input type="text" class="form-control" placeholder="Email Address">
-						<button class="btn btn-info">Submit</button>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div> -->
-</section>
-<script src="{{URL::asset('frontend/assets/js/jquery-min.js')}}"></script>
-<style>
-	.custom_sorting{
-		cursor: pointer;
-	}
-	.custom_sorting i {
-    	font-size: 13px;
-	}
-	th.custom_sorting {
-		font-size: 17px;
-	}
-	span.toggle_label{
-		color: #000;
-	}
-	span.toggle_label.active{
-		color: #000;
-		font-weight: bold;
-	}
-	.rating {
-		font-size: 25px;
-	}
-	.overlay_signup.w-100.text-center {
-		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1a82f700), to(#b9b9b9));
-		height: 230px;    
-		margin: -40px auto 0;
-		width: 970px !important;
-    	z-index: 0;
-		padding-top: 60px;
-	}
-	/* a.btn.table-row-btn.signup_btn {
-		background: #2e75b5;
-		color: #fff;
-		border-color: #2e75b5;
-	} */
-	.overlay_signup i.fa.fa-lock {
-		border: 2px solid #96fdd4;
-		border-radius: 50px;
-		padding: 10px 14px;
-		color: #96fdd4;
-		margin-bottom: 10px;
-		margin-top: 40px;
-	}
-	.overlay_signup .signup_btn {
-		border-radius: 30px;
-		color: #333534;
-	}
-	.line-cl {
-		width: 100%;
-		height: 2px;
-		background-color: #2e76b5;
-		box-shadow: 1px 1px 9px 0px #2e76b5;
-	}
-	.searchnow-button {
-		border: 2px solid #2e75b5;
-		border-radius: 5px;
-		padding: 2px 10px;
-		color: #2e75b5;
-	}
-	.section-title:after {
-		position: absolute;
-		content: '';
-		height: 3px;
-		width: 70px;
-		margin-left: 20px;
-		bottom: 16px;
-		background-color: #2e75b5;
-	}
-	.section-title:before {
-		position: absolute;
-		content: '';
-		height: 3px;
-		width: 70px;
-		margin-left: -90px;
-		bottom: 16px;
-		background-color: #2e75b5;
-	}
-	.slider{
-		background-color: #2e75b5;
-    	border: 1px solid #2e75b5;
-	}
-	input:checked + .slider {
-		background-color: #2e75b5;
-	}
-	.pagination{
-		width: 970px;
-		margin: 10px auto;
-	}
-	.table-row-btn{
-		color:#000;
-	}
-	/* .searchnow-button:hover {
-		border: 2px solid #2e75b5;
-		background-color: #2e75b5;
-		border-radius: 5px;
-		padding: 2px 10px;
-		color: #fff;
-	} */
-</style>
-<!-- Content End Here -->
-<script>
-	// function initMap() {
-	// 	var input = document.getElementById('searchMapInput');
-	
-	// 	var autocomplete = new google.maps.places.Autocomplete(input);
-	
-	// 	autocomplete.addListener('place_changed', function() {
-	// 		var place = autocomplete.getPlace();
-	// 	});
-	// }	
-	function myFunction() {
+	</section>
+	<style>
+		span.toggle_label{
+			color: #000;
+		}
+		span.toggle_label.active{
+			color: #000;
+			font-weight: bold;
+		}
+		.rating {
+			font-size: 25px;
+		}
+		.overlay_signup.w-100.text-center {
+			background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1a82f700), to(#b9b9b9));
+			height: 230px;    
+			margin: -40px auto 0;
+			width: 970px !important;
+			z-index: 0;
+			padding-top: 60px;
+		}
+		.overlay_signup i.fa.fa-lock {
+			border: 2px solid #96fdd4;
+			border-radius: 50px;
+			padding: 10px 14px;
+			color: #96fdd4;
+			margin-bottom: 10px;
+			margin-top: 40px;
+		}
+		.overlay_signup .signup_btn {
+			border-radius: 30px;
+			color: #333534;
+		}
+		.line-cl {
+			width: 100%;
+			height: 2px;
+			background-color: #2e76b5;
+			box-shadow: 1px 1px 9px 0px #2e76b5;
+		}
+		.searchnow-button {
+			border: 2px solid #2e75b5;
+			border-radius: 5px;
+			padding: 2px 10px;
+			color: #2e75b5;
+		}
+		.section-title:after {
+			position: absolute;
+			content: '';
+			height: 3px;
+			width: 70px;
+			margin-left: 20px;
+			bottom: 16px;
+			background-color: #2e75b5;
+		}
+		.section-title:before {
+			position: absolute;
+			content: '';
+			height: 3px;
+			width: 70px;
+			margin-left: -90px;
+			bottom: 16px;
+			background-color: #2e75b5;
+		}
+		.slider{
+			background-color: #2e75b5;
+			border: 1px solid #2e75b5;
+		}
+		input:checked + .slider {
+			background-color: #2e75b5;
+		}
+		.pagination{
+			width: 970px;
+			margin: 10px auto;
+		}
+	</style>
+	<!-- Content End Here -->
+	<script>
+		// function initMap() {
+		// 	var input = document.getElementById('searchMapInput');
+		
+		// 	var autocomplete = new google.maps.places.Autocomplete(input);
+		
+		// 	autocomplete.addListener('place_changed', function() {
+		// 		var place = autocomplete.getPlace();
+		// 	});
+		// }
+		function myFunction() {
 		var checkBox = document.getElementById("unlimited");
 		var text = document.getElementById("unlimited_calls");
 		if (checkBox.checked == true){
@@ -477,62 +292,106 @@
 		} else {
 			$('#unlimited_calls').removeClass('d-none');
 		}
-	}
-	setTimeout(function(){
-		$('.loading_section').hide();
-		$('.record_section').show();
-	}, 3000);
-	function filterExpend(){
-		$('.expendedFilter').toggle();
-	}
-	$(document).on('click','.custom_sorting',function(){
-		$('#loader').show();
-		var requestParams = location.search;
-		var name = $(this).attr('data-name');
-		var sort = $(this).attr('data-sort');
-		var resuesturl = $('.plan_sorting').attr('data-url');
-		if(sort == 'asc'){
-			$(this).attr('data-sort','desc');
-			$(this).find('i').attr('class','fas fa-arrow-down');
-		}else{
-			$(this).attr('data-sort','asc');
-			$(this).find('i').attr('class','fas fa-arrow-up');
 		}
-		$.ajax({
-			type: "post",
-			url: resuesturl,
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			},
-			dataType:'html',
-			data: {
-				'requestParams': requestParams,
-				'name':name,
-				'sort':sort
-			},
-			success: function (data) {
-				$('.table_body_sort').html(data);
-
-				$(".rating_disable").rate({
-					readonly:true
-				});
-				$('#loader').hide();
-			}         
-		});
 		
-	});
-	$('.paginate_select_box').on('change',function(){
-		$('#paginate_input').val($(this).val());
-		$('#planSearch').submit();
-	});
-</script>
+		function payAsUsage() {
+		var checkBox = document.getElementById("pay_as_usage_id");
+		if (checkBox.checked == true){
+			$('.pay_as_usage_type').hide('slow');
+			$('#pay_as_usage_id').val(1);
+		} else {
+			$('.pay_as_usage_type').show('slow');
+			$('#pay_as_usage_id').val(0);
+		}
+		}
+		function personalToggle() {
+		var checkBox = document.getElementById("personal");
+		if (checkBox.checked == true){
+			$('#personal').val(2);
+		} else {
+			$('#personal').val(1);
+		}
+		}
+		function paymentType() {
+		var checkBox = document.getElementById("paymentTypeId");
+		if (checkBox.checked == true){
+			$('#paymentTypeId').val('prepaid');
+		} else {
+			$('#paymentTypeId').val('postpaid');
+		}
+		}
+
+		function sortingFunc(){
+			$('#sortBy').submit();
+		}
+	</script>
+	
+
 	@section('pageScript')
 		<script>
+			var geocoder = new google.maps.Geocoder();;
+			
 			$('body, html').on('scroll',function(){
-				$('input.search-input-field').blur();
-				
+				$('input#searchMapInput').blur();
 			});
+			function codeLatLngSearch(lat, lng) {
+				var searchAddr = {};
+				var latlng = new google.maps.LatLng(lat, lng);
+				geocoder.geocode({ latLng: latlng }, function (results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+						if (results[1]) {
+							for (let ii = 0; ii < results[0].address_components.length; ii++) {
+								var street_number = (route = street = city = state = zipcode = country = formatted_address = "");
+								var types = results[0].address_components[ii].types.join(",");
+								if (types == "street_number") {
+									searchAddr.street_number = results[0].address_components[ii].long_name;
+								}
+								if (types == "route" || types == "point_of_interest,establishment") {
+									searchAddr.route = results[0].address_components[ii].long_name;
+								}
+								if (types == "sublocality,political" || types == "locality,political" || types == "neighborhood,political" || types == "administrative_area_level_3,political") {
+									searchAddr.city = city == "" || types == "locality,political" ? results[0].address_components[ii].long_name : city;
+								}
+								if (types == "administrative_area_level_1,political") {
+									searchAddr.state = results[0].address_components[ii].short_name;
+								}
+								if (types == "postal_code" || types == "postal_code_prefix,postal_code") {
+									searchAddr.zipcode = results[0].address_components[ii].long_name;
+								}
+								if (types == "country,political") {
+									searchAddr.country = results[0].address_components[ii].long_name;
+									searchAddr.countryCode = results[0].address_components[ii].short_name;
+								}
+
+							}
+							let address = `${searchAddr.country}, ${searchAddr.state}, ${searchAddr.city}, ${searchAddr.zipcode}`
+							$(".location-input").val(address);
+							$('.google-location-loader').css('display','none');
+						}
+					}
+				});
+			}
+			function geoSearchSuccess(position) {
+				var lat = position.coords.latitude;
+				var lng = position.coords.longitude;
+				$('.currentLat').val(lat)
+				$('.currentLng').val(lng)
+				codeLatLngSearch(lat, lng);
+			}
+			function geoSearchError(error) {
+				$('.location-input').val($('.location-input-hidden').val());
+				$('.google-location-loader').css('display','none');
+				console.log("Geocoder failed",error);
+			}
+			function getCurrentLocation() {
+				$('.google-location-loader').css('display','flex');
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(geoSearchSuccess, geoSearchError,{ enableHighAccuracy: true, maximumAge: 10000 });
+				} else {
+					console.log("Geolocation is not supported by this browser.");
+				}
+			}
+			getCurrentLocation();
 		</script>
 	@endsection
-
 @endsection

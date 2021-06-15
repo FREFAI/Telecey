@@ -37,23 +37,10 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
+     * Home page
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function homepage()
-    {
-        $settings = SettingsModel::first();
-        $blogs = BlogsModel::orderBy('created_at','DESC')->take(3)->get();
-        return view('FrontEnd.homepage',['settings'=> $settings,'blogs'=>$blogs]);
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function homePageNew()
     {
         $ip = env('ip_address','live'); 
         if($ip == 'live'){
@@ -72,9 +59,14 @@ class HomeController extends Controller
         $brands = Brands::all();
         $homeContent->section_six = json_decode($homeContent->section_six);
         $blogs = BlogsModel::orderBy('created_at','DESC')->where('status',1)->take(4)->get();
-        return view('FrontEnd.homepagenew',['ip_location'=>$current_location,'brands' => $brands,'settings'=> $settings,'blogs'=>$blogs,'homeContent'=>$homeContent,'filtersetting'=>$filtersetting,'service_types' => $service_types]);
+        return view('FrontEnd.homepage',['ip_location'=>$current_location,'brands' => $brands,'settings'=> $settings,'blogs'=>$blogs,'homeContent'=>$homeContent,'filtersetting'=>$filtersetting,'service_types' => $service_types]);
     }
 
+    /**
+     * Get logged in user profile with plans and device reviews
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function profile(Request $request)
     {
         $user = Auth::guard('customer')->user();
@@ -100,6 +92,10 @@ class HomeController extends Controller
         return view('FrontEnd.profile',['serviceData'=>$serviceData,'customer'=>$customer]);
     }
 
+    /**
+     * Get all plans reviews of logged in user
+     * @return \Illuminate\Http\Response
+     */
     public function getAllPlans()
     {
         $user_id = Auth::guard('customer')->user()['id'];
@@ -178,6 +174,10 @@ class HomeController extends Controller
         ];
     }
 
+    /**
+     * Get all device reviews of logged in user
+     * @return \Illuminate\Http\Response
+     */
     public function getAllDevice()
     {
         $user_id = Auth::guard('customer')->user()['id'];
@@ -257,6 +257,12 @@ class HomeController extends Controller
             'serviceData' => $deviceData
         ];
     }
+
+    /**
+     * Get logged in user address
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function getAddress(Request $request)
     {
         $input = $request->all();
@@ -277,6 +283,12 @@ class HomeController extends Controller
             }
         }
     }
+    
+    /**
+     * Update logged in user address
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function changeAddress(Request $request)
     {
         $input = $request->all();
@@ -308,6 +320,12 @@ class HomeController extends Controller
             }
         }
     }
+    
+    /**
+     * Get FeedBack Feature Status For checking is site feedback feature is enable or disable
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function getFeedBackFeatureStatus(Request $rquest)
     {
         $settings = SettingsModel::first();
@@ -322,6 +340,12 @@ class HomeController extends Controller
         }
         return json_encode($ret);
     }
+
+    /**
+     * Get feedback feature questions
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function getFeedBackQuestion(Request $rquest)
     {
         $questions = FeedbackQuestions::get();
@@ -333,6 +357,12 @@ class HomeController extends Controller
             return json_encode($ret);
         }
     }
+
+     /**
+     * Add feed back for the site after adding plan and device review
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addFeedBack(Request $rquest)
     {
         $params = $rquest->all();

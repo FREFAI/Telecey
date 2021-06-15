@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * In this controller we are update home page information which we are display on Website home page 
+ */
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
@@ -11,6 +13,13 @@ use File,Image;
 
 class HomeController extends Controller
 {
+
+
+	/**
+     * Get data of all tabs which we are using for updating home page content in admin panel  
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $homeContent = HomeContent::first();
@@ -320,12 +329,22 @@ class HomeController extends Controller
         }
     }
     
+	/**
+     * Display edit Term and condition from   
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function termsAndConditionsForm(Request $request)
     {
         $setting = SettingsModel::first();
     	return view('Admin.Home.terms-conditions',['setting'=>$setting]);
     }
     
+	/**
+     * Update Term and conditions  
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function termsAndConditions(Request $request)
     {
         $params = $request->all();
@@ -337,11 +356,24 @@ class HomeController extends Controller
             return redirect()->back()->withInput()->with('error','Somthing went wrong!');
         }
     }
+
+
+	/**
+     * Display edit Privacy policy from   
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function privacyPolicyForm(Request $request)
     {
         $setting = SettingsModel::first();
     	return view('Admin.Home.privacy-policy',['setting'=>$setting]);
     }
+
+	/**
+     * Update Privacy policy  
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function privacyPolicy(Request $request)
     {
         $params = $request->all();
@@ -353,12 +385,23 @@ class HomeController extends Controller
             return redirect()->back()->withInput()->with('error','Somthing went wrong!');
         }
     }
+
+	/**
+     * Display edit Cookie policy from   
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function cookiePolicyForm(Request $request)
     {
         $setting = SettingsModel::first();
     	return view('Admin.Home.cookie-policy',['setting'=>$setting]);
     }
-    
+
+	/**
+     * Update Cookie policy   
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function cookiePolicy(Request $request)
     {
         $params = $request->all();

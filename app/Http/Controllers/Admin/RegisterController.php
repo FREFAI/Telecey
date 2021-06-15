@@ -29,6 +29,11 @@ class RegisterController extends Controller
         return view('Admin.LoginSignup.signup_form');
     }
 
+	/**
+     * Register Admins
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function registerAdmin(Request $request)
     {
         $input = $request->all();
@@ -58,10 +63,21 @@ class RegisterController extends Controller
         }
     }
 
+	/**
+     * Add new Sub Admin form
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function registerSubAdminForm(Request $request)
     {
         return view('Admin.SubAdmin.add-admin');
     }
+
+	/**
+     * Submit Sub Admin form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function registerSubAdmin(Request $request)
     {
         $perameters = $request->all();
@@ -96,12 +112,25 @@ class RegisterController extends Controller
             }
         }
     }
+
+	/**
+     * Edit Sub admin form  
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $adminID
+     * @return \Illuminate\View\View
+     */
     public function editSubAdminForm(Request $request,$adminID)
     {
         $adminID = base64_decode($adminID);
         $admin = AdminModel::find($adminID);
         return view('Admin.SubAdmin.edit-admin',['admin'=>$admin]);
     }
+
+	/**
+     * Submit edit sub admin form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function editSubAdmin(Request $request)
     {
         $perameters = $request->all();
@@ -125,6 +154,12 @@ class RegisterController extends Controller
             }
         }
     }
+
+	/**
+     * Delete sub admin
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function deleteSubAdmin(Request $request)
     {
         $perameters = $request->all();
@@ -146,6 +181,12 @@ class RegisterController extends Controller
             }
         }
     }
+
+	/**
+     * Get all sub admin list 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function subAdminList(Request $request)
     {
         $admins = AdminModel::Where('type',2)->orderBy('id','DESC')->paginate(10);
@@ -153,6 +194,11 @@ class RegisterController extends Controller
         return view('Admin.SubAdmin.admin-list',['admins'=>$admins]);
     }
 
+	/**
+     * Approved and Un approved Sub Admin 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function approveOrUnapproveAdmin(Request $request)
     {
         $perameters = $request->all();

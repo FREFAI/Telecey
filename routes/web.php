@@ -4,19 +4,6 @@ ini_set('post_max_size', '256M');
 ini_set('max_execution_time', '900');
 ini_set('memory_limit', '256M');
 ini_set('max_input_time', '900');
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-// Route::get('/', function(){ 
-//     return redirect('/en', 301); 
-// });
 Route::get('locale/{locale}', function ($locale){
     Session::put('locale', $locale);
     return redirect()->back();
@@ -35,7 +22,6 @@ Route::get('/privacy-policy', 'IndependentController@privacyPolicy');
 Route::get('/cookie-policy', 'IndependentController@cookiePolicy');
 Route::get('/thankyou/{token}', 'IndependentController@thankyou');
 // Route::get('/updateLatLngBasisOnAddress', 'IndependentController@updateLatLngBasisOnAddress');
-// Route::group(['prefix' =>'{locale}','where' => ['locale' => '[a-zA-Z]{2}']], function(){
 	Route::post('/unsubscribed', 'IndependentController@unsubscribedUser');
 	// Testing Route 
 		Route::get('/country', 'TestController@index');
@@ -54,17 +40,15 @@ Route::get('/thankyou/{token}', 'IndependentController@thankyou');
 
 
 	// FrontEnd Section 
-		Route::get('/home', 'FrontEnd\HomeController@homepage');
 		// New Design Route
-		Route::get('/', 'FrontEnd\HomeController@homePageNew');
-		// Route::get('/homenn', 'FrontEnd\HomeController@homePageNew');
-		Route::get('/plans', 'FrontEnd\PlansController@plansNew');
+		Route::get('/', 'FrontEnd\HomeController@homepage');
+		Route::get('/plans', 'FrontEnd\PlansController@plans');
 		Route::get('/plans/result', 'FrontEnd\PlansController@plansResult');
 		Route::post('/plans/resultSorting', 'FrontEnd\PlansController@plansResultSorting');
-		Route::get('/devices', 'FrontEnd\DevicesController@devicesNew');
+		Route::get('/devices', 'FrontEnd\DevicesController@devices');
 		Route::get('/devices/result', 'FrontEnd\DevicesController@devicesResult');
 		Route::post('/devices/resultSorting', 'FrontEnd\DevicesController@devicesResultSorting');
-		Route::get('/blogs-list', 'FrontEnd\BlogsController@blogsNew');
+		Route::get('/blogs-list', 'FrontEnd\BlogsController@blogs');
 		// End New Design Route
 
 		// Login and Sign Up section
@@ -97,7 +81,6 @@ Route::get('/thankyou/{token}', 'IndependentController@thankyou');
 
 		Route::get('/plans-new', 'FrontEnd\PlansController@plans');
 		Route::get('/devices-new', 'FrontEnd\DevicesController@devices');
-		Route::get('/blogs-list-new', 'FrontEnd\BlogsController@blogs');
 		Route::get('/searchBrand', 'FrontEnd\DevicesController@searchBrand');
 
 		// Brand Section
@@ -123,7 +106,6 @@ Route::get('/thankyou/{token}', 'IndependentController@thankyou');
 				Route::get('/getBrandByType', 'HomeController@getBrandByType');
 				Route::get('/reviews', 'FrontEnd\ReviewsController@reviews');
 				Route::get('/reviews/{planId}', 'FrontEnd\ReviewsController@reviewsRating');
-				Route::post('/getModels', 'FrontEnd\BrandsController@getModels');
 				Route::post('/reviewsDetail', 'FrontEnd\ReviewsController@reviewsDetail');
 				Route::post('/reviewService', 'FrontEnd\ReviewsController@reviewService');
 				Route::post('/saveSpeedTest', 'FrontEnd\ReviewsController@saveSpeedTest');
@@ -160,9 +142,6 @@ Route::get('/thankyou/{token}', 'IndependentController@thankyou');
 		});
 
 	// End FrontEnd Section 
-
-// });
-
 
 
 // Admin Section
@@ -341,15 +320,6 @@ Route::get('/thankyou/{token}', 'IndependentController@thankyou');
 				Route::post('/set-default-model', 'Admin\BrandsController@setDefaultModel');
 				Route::post('/approveBrand','Admin\BrandsController@approveBrand');
 			// End Brands Section  
-			// Brands Model Section  
-				// Route::get('/brand-models/{brandId}','Admin\BrandsModelController@brandModelsList');
-				// Route::get('/add-brand-models/{brandId}','Admin\BrandsModelController@addBrandModelsForm');
-				// Route::post('/add-brand-model','Admin\BrandsModelController@addBrandModels');
-				// Route::get('/edit-brand-model/{brandId}','Admin\BrandsModelController@editBrandModelsForm');
-				// Route::post('/edit-brand-model','Admin\BrandsModelController@editBrandModels');
-				// Route::post('/delete-model','Admin\BrandsModelController@deleteBrandModel');
-			// End Brands Model Section 
-
 			// Messages section  
 				Route::get('/messages','Admin\SupportCaseController@index');
 				// Route::post('/messages','Admin\SupportCaseController@searchCases');

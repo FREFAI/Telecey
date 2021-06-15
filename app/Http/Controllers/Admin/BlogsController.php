@@ -12,18 +12,35 @@ use File,Image,Mail;
 
 class BlogsController extends Controller
 {
+
+	/**
+     * Get all blogs from database 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
     	$blogs = BlogsModel::orderBy('id','DESC')->paginate(10);
     	return view('Admin.Blogs.blog-list',['blogs' => $blogs]);
     }
 
+    /**
+     * Display Add blogs form
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function addBlogForm(Request $request)
     {
         $categories = Category::get();
         $setting  = SettingsModel::first();
     	return view('Admin.Blogs.add-blog',['categories'=>$categories,'setting'=>$setting]);
     }
+
+    /**
+     * Submit Add blog form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addBlog(Request $request)
     {
         $perameters = $request->all();
@@ -78,6 +95,12 @@ class BlogsController extends Controller
 		}
     }
 
+	/**
+     * Display Edit blog form 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id
+     * @return \Illuminate\View\View
+     */
     public function editBlogForm(Request $request,$id)
     {
     	$id = base64_decode($id);
@@ -86,6 +109,12 @@ class BlogsController extends Controller
         $setting  = SettingsModel::first();
     	return view('Admin.Blogs.edit-blog',['blog'=>$blog,'categories'=>$categories,'setting'=>$setting]);
     }
+
+	/**
+     * Submit edit blog form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function editBlog(Request $request)
     {
     	$perameters = $request->all();
@@ -161,13 +190,24 @@ class BlogsController extends Controller
 		}
     }
 
-
+	/**
+     * Display detail of single blog
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
     public function viewBlog(Request $request,$id)
     {
         $id = base64_decode($id);
         $blog = BlogsModel::find($id);
         return view('Admin.Blogs.view-blog',['blog'=>$blog]);
     }
+
+	/**
+     * Delete blog 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function deleteBlog(Request $request)
     {
         $perameter = $request->all();
@@ -190,6 +230,11 @@ class BlogsController extends Controller
 	}
 	
 
+	/**
+     * Approved and Un-approved blogs 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function approveBlog(Request $request)
     {
         $perameter = $request->all();

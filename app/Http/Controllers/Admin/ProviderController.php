@@ -12,11 +12,24 @@ use File,Image;
 
 class ProviderController extends Controller
 {
+
+
+    /**
+     * Display Add provider form
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function addProviderForm(Request $request)
     {
         $countries = CountriesModel::get();
     	return view('Admin.Providers.add_provider',['countries'=>$countries]);
     }
+
+    /**
+     * Submit Add provider form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addProvider(Request $request)
     {
         $perameter = $request->all();
@@ -63,6 +76,12 @@ class ProviderController extends Controller
 		}
     }
 
+	/**
+     * Display Edit provider form 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $provider_id
+     * @return \Illuminate\View\View
+     */
     public function editProviderForm($provider_id)
     {
     	$provider_id = base64_decode($provider_id);
@@ -74,6 +93,12 @@ class ProviderController extends Controller
     		abort(404);
     	}
     }
+    
+	/**
+     * Submit edit provider form 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function editProvider(Request $request)
     {
         $perameter = $request->all();
@@ -126,25 +151,6 @@ class ProviderController extends Controller
                 unset($perameter['provider_image_old']);
                 unset($perameter['provider_image_cropped']);
 
-
-
-                
-                // if($request->hasFile('provider_image')){
-                //     $image       = $request->file('provider_image');
-                //     $fileext    = $image->getClientOriginalExtension();
-                //     $destinationPath = public_path('/providers/provider_resized');
-                //     $perameter['provider_image_resize'] = time().'_provider_resized.'.$fileext;
-                //     $image_resize = Image::make($image->getRealPath())->fit(540, 252, function($constraint) {
-                //             $constraint->aspectRatio();
-                //             $constraint->upsize();
-                //             });              
-                //     $image_resize->save(public_path('/providers/provider_resized/' .$perameter['provider_image_resize']));
-                //     // End Resized Image section 
-                //     // Original Image section 
-                //     $perameter['provider_image_original'] = time().'_provider_original.'.$image->getClientOriginalExtension();
-                //     $image->move(public_path()."/providers/provider_original", $perameter['provider_image_original']);
-                //      // End Original Image section
-                // }
                 $id = $perameter['id'];
                 unset($perameter['provider_image']);
                 unset($perameter['_token']);
@@ -158,12 +164,24 @@ class ProviderController extends Controller
             }
         }   
     }
+
+	/**
+     * Get all providers from database 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function providerList(Request $request)
     {
     	$providers = Provider::orderBy('id','DESC')->paginate(10);
 
     	return view('Admin.Providers.provider_list',['providers'=>$providers]);
     }
+
+	/**
+     * Delete provider 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function deleteProvider(Request $request)
     {
         $perameter = $request->all();
@@ -184,6 +202,11 @@ class ProviderController extends Controller
         }
     }
 
+	/**
+     * Approved and Un-approved provider which are adding from user end 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function approveProvider(Request $request)
     {
         $perameter = $request->all();

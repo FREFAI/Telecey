@@ -40,48 +40,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row second-step">
-                    <div class="col-lg-12">
-                        <div class="step_two_img">
-                            <img src="{{URL::asset('frontend/assets/img/Tube_Lights_(1).png')}}"/>
-                        </div>
-                    </div>
-                </div> -->
-		        <!-- <div class="row">
-		            <div class="col-lg-4 text-center">
-		                <div class="step-section-one">
-		                    <img src="{{URL::asset('frontend/assets/img/intro.png')}}">
-		                    <h2 class="pt-3 text-white">1</h2>
-		                    <h3 class="pt-3 custom-height-cl">PLEASE INTRODUCE YOUR SELF</h3>
-		                </div>
-		            </div>
-		            <div class="col-lg-4 text-center">
-		                <div class="step-section-one">
-		                    <img src="{{URL::asset('frontend/assets/img/share.png')}}">
-		                    <h2 class="pt-3 text-white">2</h2>
-		                    <h3 class="pt-3 custom-height-cl">CAN YOU ALSO SHARE YOUR SERVICE DETAILS</h3>
-		                </div>
-		            </div>
-		            <div class="col-lg-4 text-center">
-		                <div class="step-section-one">
-		                    <img src="{{URL::asset('frontend/assets/img/rating.png')}}">
-		                    <h2 class="pt-3 text-white">3</h2>
-		                    <h3 class="pt-3 custom-height-cl">ONE MORE THINGDO YOU RATE THIS SERVICE?</h3>
-		                </div>
-		            </div>
-		        </div> -->
-		        <!-- <div class="row">
-		                <div class="col text-center">
-		                        <a href="javascript:void(0);" data-class="intro-section" class="start_btn">
-		                        <button class="learn-more mt-5">
-		                            <div class="circle">
-		                            <span class="icon arrow"></span>
-		                            </div>
-		                            <p class="button-text">START</p>
-		                        </button>
-		                    </a>
-		                </div>
-		            </div> -->
 		    </div>
 		</div>
 		<!-- share-serv-detail -->

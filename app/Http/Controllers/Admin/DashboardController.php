@@ -23,8 +23,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
+     * Show the application dashboard with plans-review, device-review, admins, users, blogs count
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function dashboard()

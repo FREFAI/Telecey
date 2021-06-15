@@ -18,6 +18,10 @@ use Auth;
 
 class DeviceReviewController extends Controller
 {
+
+    /**
+     * Add review on devices
+     */
     public function reviewDevice(Request $request)
     {
         $user_id = Auth::guard('customer')->user()['id']; 
@@ -122,6 +126,40 @@ class DeviceReviewController extends Controller
     	}
     }
 
+    /**
+     * Start rating form of device review
+     */
+    public function deviceReviewsRating(Request $request, $device_id)
+    {
+        $user_id = Auth::guard('customer')->user()['id']; 
+        $pageType = $device_id;
+        $device_id = base64_decode($device_id);
+        $ip = env('ip_address','live');
+        if($ip == 'live'){
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }else{
+            $ip = '122.173.214.129';
+        }
+        $client = new \GuzzleHttp\Client();
+        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
+        $newresponse = json_decode($newresponse->getBody());
+        $current_lat = $newresponse->latitude;
+        $current_long = $newresponse->longitude;
+        $plandevicerating = PlanDeviceRating::select('country')->where('device_id',$device_id)->where('rating_id',1)->first();
+        $settings = SettingsModel::first();
+        $questions = RatingQuestion::Where('type',2)->get();
+        $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
+        if($plandevicerating){
+            $countries = CountriesModel::where('name',$plandevicerating->country)->first();
+        }else{
+            $countries = new CountriesModel();
+        }
+        return view('FrontEnd.reviews_rating',['settings'=> $settings,'device_id'=>$device_id,'questions'=>$questions,'userAddress'=>$userAddress,'type'=>2,'lat' =>  $current_lat,'long'=>$current_long,'plandevicerating'=>$plandevicerating, 'countries'=>$countries]);
+    }
+
+    /**
+     * Add start rating on device review
+     */
     public function ratingDevice(Request $request)
     {
         $input = $request->all();
@@ -257,32 +295,4 @@ class DeviceReviewController extends Controller
         }
     }
 
-    public function deviceReviewsRating(Request $request, $device_id)
-    {
-        $user_id = Auth::guard('customer')->user()['id']; 
-        $pageType = $device_id;
-        $device_id = base64_decode($device_id);
-        $ip = env('ip_address','live');
-        if($ip == 'live'){
-            $ip = $_SERVER['REMOTE_ADDR'];
-        }else{
-            // $ip = '2606:4580:2:0:a974:e358:829c:412e';
-            $ip = '122.173.214.129';
-        }
-        $client = new \GuzzleHttp\Client();
-        $newresponse = $client->request('GET', 'https://api.ipgeolocation.io/ipgeo?apiKey='.env("ipgeoapikey").'&ip='.$ip);
-        $newresponse = json_decode($newresponse->getBody());
-        $current_lat = $newresponse->latitude;
-        $current_long = $newresponse->longitude;
-        $plandevicerating = PlanDeviceRating::select('country')->where('device_id',$device_id)->where('rating_id',1)->first();
-        $settings = SettingsModel::first();
-        $questions = RatingQuestion::Where('type',2)->get();
-        $userAddress = UserAddress::where('user_id',$user_id)->where('is_primary',1)->first();
-        if($plandevicerating){
-            $countries = CountriesModel::where('name',$plandevicerating->country)->first();
-        }else{
-            $countries = new CountriesModel();
-        }
-        return view('FrontEnd.reviews_rating',['settings'=> $settings,'device_id'=>$device_id,'questions'=>$questions,'userAddress'=>$userAddress,'type'=>2,'lat' =>  $current_lat,'long'=>$current_long,'plandevicerating'=>$plandevicerating, 'countries'=>$countries]);
-    }
 }

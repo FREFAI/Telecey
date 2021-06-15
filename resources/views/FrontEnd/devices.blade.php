@@ -1,493 +1,283 @@
 @extends('layouts.frontend_layouts.frontend')
 @section('title', 'Devices')
 @section('content')
-
-<style>
-	tr.custom-row-cl {
-		background-color: #77fdc8;
-		color: #333;
-		border: 5px solid #fff;
-	}
-	tr.custom-row-cl:hover {
-		background-color: #dcdcdc;
-		color: #333;
-	}
-	tr.custom-row-cl td {
-		vertical-align: middle;
-	}
-	a.form-control.btn.table-row-btn {
-		background-color: #77fdc8;
-		border: 0;
-	}
-	a.form-control.btn.table-row-btn:hover {
-		background-color: #333;
-		color: #fff;
-	}
-	.noSearchMessage p{
-		font-size: 33px;
-		font-weight: bold;
-	}
-	div#example_wrapper {
-		width: 100%;
-	}
-	.paginate_button a {
-		padding: 5px 14px !important;
-		border-radius: 2px !important;
-	}
-	.location_search {
-		width: 50%;
-	}
-	.search-bar .search-inner{
-		overflow:unset;
-	}
-	select#brand_select {
-		display: none !important;
-	}
-
-	.dropdown-select {
-		background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 100%);
-		background-repeat: repeat-x;
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#40FFFFFF', endColorstr='#00FFFFFF', GradientType=0);
-		background-color: #fff;
-		border-radius: 6px;
-		/* border: solid 1px #eee; */
-		/* box-shadow: 0px 2px 5px 0px rgba(155, 155, 155, 0.5); */
-		box-sizing: border-box;
-		cursor: pointer;
-		display: block;
-		float: left;
-		font-size: 14px;
-		font-weight: normal;
-		height: 42px;
-		line-height: 50px;
-		outline: none;
-		padding-left: 18px;
-		padding-right: 30px;
-		position: relative;
-		text-align: left !important;
-		transition: all 0.2s ease-in-out;
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
-		white-space: nowrap;
-		width: auto;
-
-	}
-
-	.dropdown-select:focus {
-		background-color: #fff;
-	}
-
-	.dropdown-select:hover {
-		background-color: #fff;
-	}
-
-	/* .dropdown-select:active,
-	.dropdown-select.open {
-		background-color: #fff !important;
-		border-color: #bbb;
-		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) inset;
-	} */
-
-	.dropdown-select:after {
-		display:none;
-	}
-
-	.dropdown-select.open:after {
-		-webkit-transform: rotate(-180deg);
-		transform: rotate(-180deg);
-	}
-
-	.dropdown-select.open .list {
-		-webkit-transform: scale(1);
-		transform: scale(1);
-		opacity: 1;
-		pointer-events: auto;
-	}
-
-	.dropdown-select.open .option {
-		cursor: pointer;
-	}
-
-	.dropdown-select.wide {
-		width: 100%;
-	}
-
-	.dropdown-select.wide .list {
-		left: 0 !important;
-		right: 0 !important;
-	}
-
-	.dropdown-select .list {
-		box-sizing: border-box;
-		transition: all 0.15s cubic-bezier(0.25, 0, 0.25, 1.75), opacity 0.1s linear;
-		-webkit-transform: scale(0.75);
-		transform: scale(0.75);
-		-webkit-transform-origin: 50% 0;
-		transform-origin: 50% 0;
-		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.09);
-		background-color: #fff;
-		border-radius: 6px;
-		margin-top: 4px;
-		padding: 3px 0;
-		opacity: 0;
-		overflow: hidden;
-		pointer-events: none;
-		position: absolute;
-		top: 100%;
-		left: 0;
-		z-index: 999;
-		max-height: 250px;
-		overflow: auto;
-		border: 1px solid #ddd;
-	}
-
-	.dropdown-select .list:hover .option:not(:hover) {
-		background-color: transparent !important;
-	}
-	.dropdown-select .dd-search{
-	overflow:hidden;
-	display:flex;
-	align-items:center;
-	justify-content:center;
-	margin:0.5rem;
-	}
-
-	.dropdown-select .dd-searchbox:focus{
-	border-color:#12CBC4;
-	}
-
-	.dropdown-select .list ul {
-		padding: 0;
-	}
-	span.current {
-		color: #000;
-		text-transform: capitalize;
-	}
-	input#txtSearchValue{
-		height:30px;
-	}
-	.dropdown-select .option {
-		cursor: default;
-		font-weight: 400;
-		line-height: 40px;
-		outline: none;
-		padding-left: 18px;
-		padding-right: 29px;
-		text-align: left;
-		transition: all 0.2s;
-		list-style: none;
-	}
-
-	.dropdown-select .option:hover,
-	.dropdown-select .option:focus {
-		background-color: #f6f6f6 !important;
-	}
-
-	.dropdown-select .option.selected {
-		font-weight: 600;
-		color: #12cbc4;
-	}
-
-	.dropdown-select .option.selected:focus {
-		background: #f6f6f6;
-	}
-
-	.dropdown-select a {
-		color: #aaa;
-		text-decoration: none;
-		transition: all 0.2s ease-in-out;
-	}
-
-	.dropdown-select a:hover {
-		color: #666;
-	}
-</style>
 	<!-- Content Start Here -->
-		<div class="page-header inner-page" style="background: url(assets/img/background-img.png);">
-		    <div class="container">
-				<form id="searchForm" class="search-form" action="{{url('/devices')}}" method="get">
-					<div class="row">
-						<div class="col-12 text-center mt-5">
-							<div class="heading find-div">
-								<h1 class="section-title">Find a Device</h1>
-								<div class="location_search mb-2">
-									<input type="text" class="form-control search-input-field" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address">
-								</div>
-								<h4 class="sub-title">Register and share your mobile or telecom experience to unlock Telco Tales</h4>
-								<div class="search-bar">
-									<div class="search-inner">
-										<div class="form-group inputwithicon">
-											<div class="select">
-												<select name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">
-													<option value="">Brand</option>
-													@foreach($brands as $v)
-														<option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
-													@endforeach
-												</select>
-											</div>
-											<i class="lni-chevron-down"></i>
-										</div>
-										<div class="form-group inputwithicon">
-											<div class="select">
-												<select name="storage" id="storage">
-														<option value="">Capacity</option>
-														<option value="64" @if( request()->get('storage') ) @if( request()->get('storage') == '64') selected @endif @endif>64</option>
-														<option value="128" @if( request()->get('storage') ) @if( request()->get('storage') == '128') selected @endif @endif>128</option>
-														<option value="256" @if( request()->get('storage') ) @if( request()->get('storage') == '256') selected @endif @endif>256</option>
-														<option value="512" @if( request()->get('storage') ) @if( request()->get('storage') == '512') selected @endif @endif>512</option>
-														<option value="1GB" @if( request()->get('storage') ) @if( request()->get('storage') == '1GB') selected @endif @endif>1GB</option>
-													</select>
-											</div>
-											<i class="lni-chevron-down"></i>
-										</div>
-										<div class="form-group inputwithicon">
-											<div class="select">
-												<select name="device_color" id="device_color">
-													<option value="">Color</option>
-													
-												</select>
-											</div>
-											<i class="lni-chevron-down"></i>
-										</div>
-										<button class="btn btn-common search_btn" type="submit"><i class="lni-search"></i> Search Now</button>
-									</div>
+<section id="main-top-section" >
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-12 text-center">
+				<div class="heading detail-div">
+					<h1 class="device-heading-title">{{__('device.title')}}</h1>
+				</div>
+			</div>
+			<div class="col-7 text-right">
+				<form action="{{url('/devices/result')}}" method="get" class="w-100">
+					<div class="row position-relative">
+						<div class="google-location-loader">
+							<i class="fa fa-spinner fa-spin"></i>
+						</div>
+						<div class="col-12">
+							<input type="hidden" name="lat" class="currentLat" value="{{$current_lat}}">
+							<input type="hidden" name="lng" class="currentLng" value="{{$current_long}}">
+							<input type="hidden" name="country" class="currentCountry" value="{{$current_country_code}}">
+							<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
+							<input type="text" placeholder="Location" id="searchMapInput" value="" name="address" class="location-input search-input-field"/>
+						</div>
+						<div class="col-4 mt-4 devicenew">
+							<select class="service-type-select service_type" name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">
+								<option value="">{{__('deviceresult.brand')}}</option>
+								@foreach($brands as $v)
+									<option value="{{$v->id}}" @if( request()->get('brand_name') ) @if( request()->get('brand_name') == $v->id) selected @endif @endif>{{$v->brand_name}} {{$v->model_name}}</option>
+								@endforeach
+							</select>
+						</div>
+						<div class="col-4 mt-4">
+							<div class="form-group plan_page inputwithicon">
+								<div class="select">
+									<select name="storage" id="storage" class="service-type-select  service_type">
+										<option value="">{{__('deviceresult.capacity')}} </option>
+										<option value="64" @if( request()->get('storage') ) @if( request()->get('storage') == '64') selected @endif @endif>64</option>
+										<option value="128" @if( request()->get('storage') ) @if( request()->get('storage') == '128') selected @endif @endif>128</option>
+										<option value="256" @if( request()->get('storage') ) @if( request()->get('storage') == '256') selected @endif @endif>256</option>
+										<option value="512" @if( request()->get('storage') ) @if( request()->get('storage') == '512') selected @endif @endif>512</option>
+										<option value="1GB" @if( request()->get('storage') ) @if( request()->get('storage') == '1GB') selected @endif @endif>1GB</option>
+									</select>
 								</div>
 							</div>
+						</div>
+						<div class="col-4 mt-4">
+							<div class="form-group plan_page inputwithicon">
+								<div class="select">
+									<select name="device_color" id="device_color" class="service-type-select  service_type">
+										<option value="">{{__('index.Color')}}</option>
+										
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<input type="hidden" value="20" name="rows"/>
+						<div class="col-md-12 text-center">
+							<button type="submit" class="searchnow-button search-form-button">{{__('device.search_now_btn')}}</button>
 						</div>
 					</div>
 				</form>
-		        <div class="row mt-4">
-		            <div class="col-md-4 col-sm-4">
-		                <div class="service-post">
-		                    <div class="service-content">
-		                        <div class="service-icon">
-		                            <i class="fa fa-search"></i>
-		                        </div> <!-- service-icon -->
-		                        <h3 class="service-title">Find the Right Telecom Device</h3>
-		                        <p class="service-description">You are searching for, wither it’s a mobile phone, smart phone, Smart tables or even home modem</p>
-		                    </div> <!-- service-content -->
-		                    <div class="service-hover"></div>
-		                </div>
-		            </div>
-		            <div class="col-md-4 col-sm-4">
-		                <div class="service-post">
-		                    <div class="service-content">
-		                        <div class="service-icon">
-		                                <i class="fa fa-dollar-sign"></i>
-		                        </div> <!-- service-icon -->
-		                        <h3 class="service-title">Compare Device Price</h3>
-		                        <p class="service-description">Searching for wither it’s a mobile phone, smart phone, Smart tables or even home modem</p>
-		                    </div> <!-- service-content -->
-		                    <div class="service-hover"></div>
-		                </div>
-		            </div>
-		            <div class="col-md-4 col-sm-4">
-		                <div class="service-post">
-		                    <div class="service-content">
-		                        <div class="service-icon">
-		                                <i class="fa fa-thumbs-up"></i>
-		                        </div> <!-- service-icon -->
-		                        <p class="service-description">Find the right telecom device you searching for wither it’s a mobile phone, smart phone, Smart tables or even home modem</p>
-		                    </div> <!-- service-content -->
-		                    <div class="service-hover"></div>
-		                </div>
-		            </div>
-		        </div>
-		        <div class="row">
-		            <div class="col text-center">
-		                    <a href="sign-in.html" class="btn btn-common btn-find plan mt-4">Register for Free</a>
-		            </div>
-		        </div>
-		    </div>
-		</div>
-		<section class="plan-device-sec">
-		    <div class="container">
-		        <div class="row pt-5 pb-5">
-		            <div class="col text-center">
-		                <div class="heading">
-		                    <h1>Top Rated Devices in your Area</h1>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		</section>
-		<div class="row grid-container pt-5 pb-5">
-		    <div class="col-lg-4 grid-x grid-margin-x small-up-1 medium-up-2 large-up-4 grid-x-wrapper">
-		        <div class="product-box column">
-		            <a href="#" class="product-item">
-		                <div class="product-item-image">
-		                    <img src="frontend/assets/img/airpod.png" alt="Stadium Full Exterior">
-		                    <div class="product-item-image-hover">
-		                    </div>
-		                </div>
-		                <div class="product-item-content">
-		                    <div class="product-item-category">
-		                         Airpod
-		                    </div>
-		                    <div class="product-item-title">
-		                        By Fariscom
-		                    </div>
-		                    <div class="product-item-price">
-		                            Save 25% with you first purchase
-		                    </div>
-		                    <div class="button-pill">
-		                        <span>Shop Now</span>
-		                    </div>
-		                </div>
-		            </a>
-		        </div>
-		    </div>
-		    <div class="col-lg-4 grid-x grid-margin-x small-up-1 medium-up-2 large-up-4 grid-x-wrapper">
-		            <div class="product-box column">
-		                <a href="#" class="product-item">
-		                    <div class="product-item-image">
-		                            <img src="frontend/assets/img/phone-case.png" alt="Stadium Full Exterior">
-		                        <div class="product-item-image-hover">
-		                        </div>
-		                    </div>
-		                    <div class="product-item-content">
-		                        <div class="product-item-category">
-		                                i Phone Case
-		                        </div>
-		                        <div class="product-item-title">
-		                                By Fariscom
-		                        </div>
-		                        <div class="product-item-price">
-		                                Extra slim cover
-		                        </div>
-		                        <div class="button-pill">
-		                            <span>Shop Now</span>
-		                        </div>
-		                    </div>
-		                </a>
-		            </div>
-		    </div>
-		    <div class="col-lg-4 grid-x grid-margin-x small-up-1 medium-up-2 large-up-4 grid-x-wrapper">
-		        <div class="product-box column">
-		            <a href="#" class="product-item">
-		                <div class="product-item-image">
-		                        <img src="frontend/assets/img/sony.png" alt="Stadium Full Exterior">
-		                    <div class="product-item-image-hover">
-		                    </div>
-		                </div>
-		                <div class="product-item-content">
-		                    <div class="product-item-category">
-		                            By Best Buy
-		                    </div>
-		                    <div class="product-item-title">
-		                            Sony Wirless Headphones
-		                    </div>
-		                    <div class="product-item-price">
-		                            Powerful Bluetooth headphones
-		                    </div>
-		                    <div class="button-pill">
-		                        <span>Shop Now</span>
-		                    </div>
-		                </div>
-		            </a>
-		        </div>
-		    </div>
-		</div>
-		<div id="searchResult">
-			@if(count($data)>0)
-				<div class="container mb-5 mt-5">
-					<div class="row">
-						<table id="example" class="table table-striped table-bordered" style="width:100%">
-							<thead>
-								<tr>
-									<th scope="col">{{__('deviceresult.brand')}} </th>
-									<th scope="col">{{__('deviceresult.model')}} </th>
-									<th scope="col">{{__('deviceresult.price')}} </th>
-									<th scope="col">{{__('deviceresult.capacity')}} </th>
-									<th scope="col">{{__('deviceresult.supplier')}} </th>
-									<th scope="col">{{__('deviceresult.distance')}} </th>
-									<th scope="col">{{ __('deviceresult.detail_btn') }}</th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach($data as $value)
-								<tr class="custom-row-cl">
-									<td>{{$value['brand']['brand_name']}}</td>
-									<td>{{$value['brand']['model_name']}}</td>
-									<td>{{$value['supplier']['supplier_name']}}</td>
-									<td>{{$value['price']}}</td>
-									<td>{{$value['storage']}}</td>
-									<td>{{round($value['distance'])}} KM</td>
-									@if(Auth::guard('customer')->check())
-										<td><a class="form-control btn table-row-btn" href="{{url('/deviceDetails/'.$value['id'])}}">Details</td>
-									@else
-										<td><a class="form-control btn table-row-btn" href="{{url('/signup')}}">Sign up to unlock details</td>
-									@endif
-								</tr>
-								@endforeach
-							</tbody>
-						</table>
-					</div>
+			</div>
+			<div class="col-5 text-center">
+				<div class="right-banner">
+					<img src="{{URL::asset('frontend/assets/img/2801276.jpg')}}"/>
 				</div>
-			@else
-				<div class="container">
-					<div class="row pt-5 pb-5 mt-5 mb-5">
-						<div class="col text-center">
-							<div class="heading noSearchMessage">
-								<p>{!!$filtersetting->no_search_message!!}</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 text-center my-5">
+				<div class="heading detail-div">
+					<h1 class="device-heading-title">{{__('device.title_one')}}</h1>
+				</div>
+			</div>
+
+			<div class="col-md-10 m-auto">
+				<div class="row">
+					@if(count($data)>0)
+						@foreach($data as $key => $value)
+							<div class="col-sm-4 col-md-4 mb-4">
+								<div class="post">
+									<div class="post-img-content">
+										@if(isset($value['provider']) && $value['provider']['provider_image_original'] != "")
+											<img src="{{URL::asset('providers/provider_original')}}/{{$value['provider']['provider_image_original']}}" class="img-responsive"/>
+											@else
+											<img src="{{URL::asset('admin/assets/img/thumbnail-default_2.jpg')}}" class="img-responsive"/>
+										@endif
+									</div>
+									<div class="post-content">
+										<div class="row">
+											<div class="col-12">
+												<span class="date-post">{{ date('M d, Y',strtotime($value['created_at'])) }}</span>
+												<!-- <h4 class="text-blue">Fido</h4> -->
+											</div>
+										</div>
+										<div class="row my-3">
+											<div class="col-lg-12 provider">
+												<div class="rating_disable" data-rate-value="{{$value['average_review']}}"></div>
+											</div>
+										</div>
+										<div class="detail-section my-1 pb-1">
+											<div class="row">
+												<div class="col-lg-12 comment_section">
+													@if($value['plan_rating'])
+														
+														@if(strlen(strip_tags($value['plan_rating']['comment'])) > 80) 
+														<p>{{substr(strip_tags($value['plan_rating']['comment']),0,80)}}...</p>
+														@elseif(strlen(strip_tags($value['plan_rating']['comment'])) == 0) 
+														<p>{{__("index.The service is excellent and I'm enjoying the unlimited data on my mobile plan")}} </p>
+														@else
+															<p>{{substr(strip_tags($value['plan_rating']['comment']),0,80)}}</p>
+														@endif
+														
+													@else
+													<p>{{__("index.The service is excellent and I'm enjoying the unlimited data on my mobile plan")}} </p>	
+													@endif
+																	
+												</div>
+											</div>	
+										</div>
+										
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
+						@endforeach
+					@endif
 				</div>
-			@endif
-			{{-- <div class="container">
-				<div class="row pt-5 pb-5 mt-5 mb-5">
-					<div class="col text-center">
-						<div class="heading noSearchMessage">
-							<p>{!!$filtersetting->no_search_message!!}</p>
-						</div>
-					</div>
-				</div>
-			</div> --}}
+			</div>
 		</div>
 		
-	<!-- Content End Here -->
+	</div>
+	<!-- <div class="container-fluid">
+		<div class="row bg-blue">
+			<div class="col-12 text-center">
+				<div class="heading detail-div">
+					<h1 class="device-heading-title text-white">Subscribe Form</h1>
+				</div>
+			</div>
+			<div class="col-md-8 offset-md-2">
+				<div class="sign-up-email">
+					<div class="form-group fields subscrib">
+						<input type="text" class="form-control" placeholder="Email Address">
+						<button class="btn btn-info">Submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+</section>
+<style>
+	span.toggle_label{
+		color: #000;
+	}
+	span.toggle_label.active{
+		color: #000;
+		font-weight: bold;
+	}
+	.rating {
+		font-size: 25px;
+	}
+	/* .overlay_signup.w-100.text-center {
+		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1a82f700), to(#b9b9b9));
+		height: 230px;    
+		margin-top: -40px;
+    	z-index: 0;
+		padding-top: 60px;
+	} */
+	.overlay_signup.w-100.text-center {
+		height: 50px;
+		z-index: 0;
+	}
+	.overlay_signup i.fa.fa-lock {
+		border: 2px solid #2e76b5;
+		border-radius: 50px;
+		padding: 10px 14px;
+		color: #2e76b5;
+		margin-bottom: 10px;
+		margin-top: -20px;
+		background-color: #fff;
+		position: absolute;
+		box-shadow: 1px 1px 9px 0px #2e76b5;
+	}
+	.overlay_signup .signup_btn {
+		border-radius: 30px;
+		color: #333534;
+	}
+	.line-cl {
+		width: 100%;
+		height: 2px;
+		background-color: #2e76b5;
+		box-shadow: 1px 1px 9px 0px #2e76b5;
+	}
+	.searchnow-button {
+		border: 2px solid #2e75b5;
+		border-radius: 5px;
+		padding: 2px 10px;
+		color: #2e75b5;
+	}
+	.section-title:after {
+		position: absolute;
+		content: '';
+		height: 3px;
+		width: 70px;
+		margin-left: 20px;
+		bottom: 16px;
+		background-color: #2e75b5;
+	}
+	.section-title:before {
+		position: absolute;
+		content: '';
+		height: 3px;
+		width: 70px;
+		margin-left: -90px;
+		bottom: 16px;
+		background-color: #2e75b5;
+	}
+	.slider{
+		background-color: #2e75b5;
+    	border: 1px solid #2e75b5;
+	}
+	.dropdown-select.wide.service-type-select.service_type {
+		border: 1px solid #2e75b5;
+		height: 29px;
+		line-height: 30px;
+	}
+	input#txtSearchValue {
+		height: 30px;
+		width: 100%;
+		border-radius: 5px;
+	}
+	/* .searchnow-button:hover {
+		border: 2px solid #2e75b5;
+		background-color: #2e75b5;
+		border-radius: 5px;
+		padding: 2px 10px;
+		color: #fff;
+	} */
+</style>
+<!-- Content End Here -->
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-
 <script>
-// Select Box of model
-		$(document).on('click','.dropdown-select ul li',function(){
-			var brandId = $(this).attr('data-value');
-			if(window.location.protocol == "http:"){
-                resuesturl = "{{url('/getBrandColor')}}"
-            }else if(window.location.protocol == "https:"){
-                resuesturl = "{{secure_url('/getBrandColor')}}"
-            }
-            $.ajax({
-                type: "post",
-                url: resuesturl,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                dataType:'json',
-                data: {
-                  id:brandId
-                },
-                success: function (data) {
-                    $('#device_color').html('');
-                    if(data.success){
-                      var colors = data.data;
-                      
-                      if(colors != ''){
-                        for(var i=0; i <= colors.length;i++){
-                          $('#device_color').append('<option value="'+colors[i].id+'">'+colors[i].color_name+'</option>');
-                        }
-                      }else{
-                        $('#device_color').append('<option value="">Color</option>');
-                      }
-                    }else{
+	$(document).on('click','.dropdown-select ul li',function(){
+		var brandId = $(this).attr('data-value');
+		if(window.location.protocol == "http:"){
+			resuesturl = "{{url('/getBrandColor')}}"
+		}else if(window.location.protocol == "https:"){
+			resuesturl = "{{secure_url('/getBrandColor')}}"
+		}
+		$.ajax({
+			type: "post",
+			url: resuesturl,
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			dataType:'json',
+			data: {
+				id:brandId
+			},
+			success: function (data) {
+				$('#device_color').html('');
+				if(data.success){
+					var colors = data.data;
+					
+					if(colors != ''){
+					for(var i=0; i <= colors.length;i++){
+						$('#device_color').append('<option value="'+colors[i].id+'">'+colors[i].color_name+'</option>');
+					}
+					}else{
+					$('#device_color').append('<option value="">Color</option>');
+					}
+				}else{
 
-                    }
-                }         
-            });
+				}
+			}         
 		});
+	});
 	function create_custom_dropdowns() {
 		$('#brand_select').each(function (i, select) {
 			if (!$(this).next().hasClass('dropdown-select')) {
@@ -613,43 +403,88 @@
 
 	$(document).ready(function () {
 		create_custom_dropdowns();
+		$(".rating .rating_disable").rate({
+			readonly: true,
+		});
 	});
+	// function initMap() {
+	//     var input = document.getElementById('searchMapInput');
+	  
+	//     var autocomplete = new google.maps.places.Autocomplete(input);
+	   
+	//     autocomplete.addListener('place_changed', function() {
+	//         var place = autocomplete.getPlace();
+	//     });
+	// }
 
-// End Select Box of model
-function sortingFunc(){
-	$('#sortBy').submit();
-}
-// function initMap() {
-// 	var input = document.getElementById('searchMapInput');
-	
-// 	var autocomplete = new google.maps.places.Autocomplete(input);
-	
-// 	autocomplete.addListener('place_changed', function() {
-// 		var place = autocomplete.getPlace();
-// 	});
-// }
-// $('#searchForm').on('submit',function(e){
-// 	$('#loader').show();
-// 	e.preventDefault();
-// 	var actionurl = $(this).attr('action');
-// 	var form = $('#searchForm');
-// 	form = form.serialize();
-// 	$.ajax({
-// 		url:actionurl,
-// 		type: "GET",
-// 		data: form,
-// 		success: function(response){
-// 			$('#loader').hide();
-// 			$('#searchResult').html(response);
-// 			$('html, body').animate({
-// 				scrollTop: $("#searchResult").offset().top - 100
-// 			}, 1000);
-//             console.log(response);  
-//         }
-// 	});
-	
-// });
-	
 </script>
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF1pe8Sl7TDb-I7NBP-nviaZmDpnmNk_s&libraries=places&callback=initMap" async defer></script> -->
+@endsection
+@section('pageScript')
+	<script>
+		$('body, html').on('scroll',function(){
+			$('input.search-input-field').blur();
+		});
+		getCurrentLocation();
+		function getCurrentLocation() {
+			$('.google-location-loader').css('display','flex');
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(geoSearchSuccess, geoSearchError,{ enableHighAccuracy: true, maximumAge: 10000 });
+			} else {
+				console.log("Geolocation is not supported by this browser.");
+			}
+		}
+		function geoSearchSuccess(position) {
+			var lat = position.coords.latitude;
+			var lng = position.coords.longitude;
+			$('.currentLat').val(lat)
+			$('.currentLng').val(lng)
+			codeLatLngSearch(lat, lng);
+		}
+		function geoSearchError(error) {
+			$('.location-input').val($('.location-input-hidden').val());
+			$('.google-location-loader').css('display','none');
+			console.log("Geocoder failed",error);
+		}
+		var geocoder;
+		function initialize() {
+			geocoder = new google.maps.Geocoder();
+		}
+		function codeLatLngSearch(lat, lng) {
+			var searchAddr = {};
+			var latlng = new google.maps.LatLng(lat, lng);
+			geocoder.geocode({ latLng: latlng }, function (results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					if (results[1]) {
+						for (let ii = 0; ii < results[0].address_components.length; ii++) {
+							var street_number = (route = street = city = state = zipcode = country = formatted_address = "");
+							var types = results[0].address_components[ii].types.join(",");
+							if (types == "street_number") {
+								searchAddr.street_number = results[0].address_components[ii].long_name;
+							}
+							if (types == "route" || types == "point_of_interest,establishment") {
+								searchAddr.route = results[0].address_components[ii].long_name;
+							}
+							if (types == "sublocality,political" || types == "locality,political" || types == "neighborhood,political" || types == "administrative_area_level_3,political") {
+								searchAddr.city = city == "" || types == "locality,political" ? results[0].address_components[ii].long_name : city;
+							}
+							if (types == "administrative_area_level_1,political") {
+								searchAddr.state = results[0].address_components[ii].short_name;
+							}
+							if (types == "postal_code" || types == "postal_code_prefix,postal_code") {
+								searchAddr.zipcode = results[0].address_components[ii].long_name;
+							}
+							if (types == "country,political") {
+								searchAddr.country = results[0].address_components[ii].long_name;
+								searchAddr.countryCode = results[0].address_components[ii].short_name;
+							}
+
+						}
+						let address = `${searchAddr.country}, ${searchAddr.state}, ${searchAddr.city}, ${searchAddr.zipcode}`
+						$(".location-input").val(address);
+						$('.google-location-loader').css('display','none');
+					}
+				}
+			});
+		}
+	</script>
 @endsection

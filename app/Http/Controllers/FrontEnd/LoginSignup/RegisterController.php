@@ -41,6 +41,10 @@ class RegisterController extends Controller
         }
         
     }
+
+    /**
+     * Signup width Facebook and Google page 
+     */
     public function signupWithFbAndGoogleForm(Request $request)
     {
         if(!Auth::guard('customer')->check()){
@@ -51,6 +55,10 @@ class RegisterController extends Controller
         }
         
     }
+
+    /**
+     * Register new user
+     */
     public function registerUser(Request $request)
     {
         if (!$request->session()->has('usersDetail')) {
@@ -144,6 +152,10 @@ class RegisterController extends Controller
             }
         }
     }
+
+    /**
+     * Resend email verification email
+     */
     public function resendVerifyEmail($value='')
     {
         $user = Auth::guard('customer')->user();
@@ -159,6 +171,10 @@ class RegisterController extends Controller
         });
         return redirect()->back()->with('success',__('Please check your email to verify your email, if you not getting email please check in spam'));
     }
+
+    /**
+     * Verify email address
+     */
     public function confirmEmail($id)
     {
         $id = decrypt($id);

@@ -41,7 +41,7 @@
             $(this).closest('form').find('.search-form-button').click();
         }
     })
-    
+    // initialization of google autocomplete search box
     google.maps.event.addDomListener(window, 'load', initMap);
     function initMap() {
         var input = document.getElementById("searchMapInput");
@@ -52,6 +52,7 @@
             isSelected = 1;
         });
     }
+    // Submit search form of home, plan, and device page 
     $('.search-form-button').closest('form').on('submit',function(event){
         let search = $(this).find('.search-form-button').text();
         $(this).find('.search-form-button').html(`<i class="fa fa-spinner fa-spin mr-2"></i> ${search}`);
@@ -61,6 +62,7 @@
             getSearchedLatLng($(this).find('.location-input').val(),$(this));
         }
     })
+    // Get lat lng from address using google api
     function getSearchedLatLng(value, _this){
         $.ajax({
                 url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + value + "&key=<?php echo env('google_api_key'); ?>",
@@ -79,6 +81,7 @@
                 }
         })
     }
+    // Set searched location lat lng for searching plan and device review
     function setCustomSearchedLatLng(place){
         let placeDetail = {};
         if (place.address_components.length) {
@@ -108,6 +111,7 @@
     if ($("#firstform #city").val() == "") {
         getLocation();
     }
+    // Set searched location lat lng for searching plan and device review when select suggested location from auto complete search box
     function setSearchedLatLng(place){
         let placeDetail = {};
         if (place.address_components.length) {
@@ -126,9 +130,10 @@
             $('.currentCountry').val(placeDetail.countryCode);
         }
     }
+    // Get current lat lng from google
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+            navigator.geolocation.getCurrentPosition(geoSuccess, geoError, { enableHighAccuracy: true, maximumAge: 10000 });
         } else {
             console.log("Geolocation is not supported by this browser.");
         }
@@ -143,7 +148,7 @@
         $('.getpostalcode').val($('.getpostalcode').attr('data-postal_code'));
         console.log("Geocoder failed");
     }
-   
+    // Set current address in first step (Address form) form of reviews page 
     function codeLatLng(lat, lng) {
         var addr = {};
         var latlng = new google.maps.LatLng(lat, lng);
@@ -181,6 +186,7 @@
             }
         });
     }
+    // Trigger from validation of registrations form
     $(".register-btn").on("click", function (e) {
         e.preventDefault();
         var valid = passwordValidate();
@@ -188,6 +194,7 @@
             $("#registerForm").submit();
         }
     });
+    // Password validation 
     function passwordValidate(e) {
         var email = $("#user_email").val();
         var pwd = $(".password_user").val();
@@ -210,30 +217,7 @@
         }
         return valid;
     }
-
-    var geocoder = new google.maps.Geocoder();
-    var infowindow = new google.maps.InfoWindow();
-    geocodePlaceId(geocoder, infowindow);
-    function geocodePlaceId(geocoder, infowindow) {
-        geocoder.geocode({ address: "160055" }, function (results, status) {
-            if (status === "OK") {
-                if (results[0]) {
-                    // map.setZoom(11);
-                    // map.setCenter(results[0].geometry.location);
-                    // var marker = new google.maps.Marker({
-                    //   map: map,
-                    //   position: results[0].geometry.location
-                    // });
-                    // infowindow.setContent(results[0].formatted_address);
-                    // infowindow.open(map, marker);
-                } else {
-                    window.alert("No results found");
-                }
-            } else {
-                window.alert("Geocoder failed due to: " + status);
-            }
-        });
-    }
+    // Cookie submit button
     $(document).on("click", "#cookie_dismiss", function () {
         if (window.location.protocol == "http:") {
             resuesturl = "{{url('/cookieSet')}}";
@@ -248,6 +232,7 @@
             },
         });
     });
+    // Postal code validation
     function valid_postal_code(value, country = "default") {
         let country_regex = {
             uk: /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i,
@@ -267,7 +252,7 @@
             return '<label id="postal_code-error" class="errorcustom" for="postal_code">{{__("index.Postal code is invalid, Please select valid postal code")}}</label>';
         }
     }
-
+    // Images preview
     function readURL(input, size) {
         if (size) {
             size = size;
@@ -298,8 +283,6 @@
     $("#imageUpload").change(function () {
         readURL(this, $(this).attr("data-size"));
     });
-    // $('input.city_input').cityAutocomplete();
-    // $('.user_city_add input#user_cityname').cityAutocomplete();
     $('<div class="country_list"><ul class="country-autocomplete"></ul></div>').appendTo(".country_div");
     $('<div class="city_list"><ul class="city-autocomplete"></ul></div>').appendTo(".city_div");
     $(document).ready(function () {
@@ -325,6 +308,7 @@
     });
     var countrySelection = true;
     var citySelection = true;
+    // Select country from searched country list
     $(document).on("click", ".country-autocomplete li", function () {
         countrySelection = true;
         $("#country").val($(this).find("a").attr("data-name"));
@@ -332,12 +316,7 @@
         $("#country_code").val($(this).find("a").attr("data-code"));
         $(".country_list").css("display", "none");
     });
-    $(document).on("click", ".country-autocomplete li", function () {
-        countrySelection = true;
-        $("#user_country").val($(this).find("a").attr("data-name"));
-        $("#user_cityname").attr("data-country", $(this).find("a").attr("data-code"));
-        $(".country_list").css("display", "none");
-    });
+    // Select city from searched cities list
     $(document).on("click", ".city-autocomplete li", function () {
         citySelection = true;
         $("#city").val($(this).find("a").attr("data-name"));
@@ -358,6 +337,12 @@
         citySelection = true;
     });
 
+    $(document).on("click", ".country-autocomplete li", function () {
+        countrySelection = true;
+        $("#user_country").val($(this).find("a").attr("data-name"));
+        $("#user_cityname").attr("data-country", $(this).find("a").attr("data-code"));
+        $(".country_list").css("display", "none");
+    });
     $("#firstform").validate();
     $("#caseGenerateForm").validate();
     $("#device_rating_form").validate({
@@ -424,12 +409,6 @@
         },
     });
     $(".rating").rate();
-    // $(".mint_input").focusout(function () {
-    //     var mintval = $(this).val();
-    //     if (mintval != "Unlimited" && mintval != "unlimited" && $.isNumeric(mintval) != true) {
-    //         $(this).val("");
-    //     }
-    // });
     $(".rating").on("change", function (ev, data) {
         var rateTotal = 0;
         var count = 0;
@@ -451,6 +430,7 @@
     $(".rating_disable").rate({
         readonly: true,
     });
+    // Get country list 
     $(".country_div input").keyup(function (e) {
         if (e.keyCode != 38 && e.keyCode != 40 && e.keyCode != 13) { 
             countrySelection = false;
@@ -483,6 +463,7 @@
             });
         }
     });
+    // get city list
     $(".city_div input").keyup(function (e) {
         var country_code = $(this).attr("data-country");
         if (e.keyCode != 38 && e.keyCode != 40 && e.keyCode != 13) { 
@@ -635,11 +616,6 @@
         return false;
     });
     // Review Page Js
-    $(".start_btn").on("click", function () {
-        $(this).hide();
-        var class_hide_show = $(this).attr("data-class");
-        $("." + class_hide_show).removeClass("section-d-none");
-    });
     $(".select_one").on("click", function () {
         // $(this).closest('form.get-in-touch.detail-section').hide();
         var section_class = $(this).attr("data-value");
@@ -649,32 +625,7 @@
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     });
-    $(function () {
-        $(".btn-circle").on("click", function () {
-            $(".btn-circle.btn-info").removeClass("btn-info").addClass("btn-default");
-            $(this).addClass("btn-info").removeClass("btn-default").blur();
-        });
 
-        $(".next-step, .prev-step").on("click", function (e) {
-            var $activeTab = $(".tab-pane.active");
-
-            $(".btn-circle.btn-info").removeClass("btn-info").addClass("btn-default");
-
-            if ($(e.target).hasClass("next-step")) {
-                var nextTab = $activeTab.next(".tab-pane").attr("id");
-                $('[href="#' + nextTab + '"]')
-                    .addClass("btn-info")
-                    .removeClass("btn-default");
-                $('[href="#' + nextTab + '"]').tab("show");
-            } else {
-                var prevTab = $activeTab.prev(".tab-pane").attr("id");
-                $('[href="#' + prevTab + '"]')
-                    .addClass("btn-info")
-                    .removeClass("btn-default");
-                $('[href="#' + prevTab + '"]').tab("show");
-            }
-        });
-    });
     $(".contract_type").on("change", function () {
         var type = $(this).attr("data-type");
         if ($(this).prop("checked") == true) {
@@ -688,6 +639,7 @@
 
     // End Review page js
     // Review page ajax
+    // Back buttons of review page step from 
     $(document)
         .find(".back-btn")
         .on("click", function () {
@@ -724,7 +676,8 @@
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
         });
-
+        
+    // Validate postal code with google api
     function valid_postal_code_with_google_api(value, country, city) {
         let cities = [];
         let countryExist = "";
@@ -1218,6 +1171,7 @@
             }
         }
     });
+    // Handle feedback  modal
     async function handleFeedbackModal(data,reviewType){
         let title = data.feedback_title
         $('.feedbackTitle').text(title)
@@ -1241,6 +1195,7 @@
             $('.fqLoader').addClass('d-none')
         }
     }
+    // Get all feed back questiong for displaying in feedback modal
     async function getFeedBackQuestions(){
         if (window.location.protocol == "http:") {
             resuesturl = "{{url('/getFeedBackQuestion')}}";
@@ -1312,6 +1267,7 @@
             }
         }
     })
+    // Get feedback functionality status which we are set in admin panel
     async function getFeedBackFeatureStatus(){
         if (window.location.protocol == "http:") {
             resuesturl = "{{url('/getFeedBackFeatureStatus')}}";

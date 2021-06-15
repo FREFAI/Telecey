@@ -11,6 +11,11 @@ use Excel;
 
 class IndependentController extends Controller
 {
+    /**
+     * Independent script of importing brands from excel sheet 
+     * @param  $user_id
+     * @return \Illuminate\Http\Response
+     */
     public function inportBrandFromCSV(Request $request)
     {
         $rules = array(

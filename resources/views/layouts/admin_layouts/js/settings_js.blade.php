@@ -65,16 +65,6 @@
 			readURLHome(this,$(this).attr('data-size'));
 			$('.addHomeImageModal').click();
 		});
-		// $('.sectionOnebtn').on('click',function(event){
-		// 	event.preventDefault();
-		// 	resize.croppie('result', {
-		// 		type: 'canvas',
-		// 		size: 'viewport'
-		// 	}).then(function (img) {
-		// 		$('#sectiononeImage').val(img);
-		// 		$('#sectionformOne').submit();
-		// 	});
-		// });
 		
 		// Home section one Image resizer script
 		$(".colorpicker").asColorPicker();
@@ -192,38 +182,7 @@
 		$(".imageUpload").change(function() {
 		    readURLinde(this,$(this).attr('data-size'));
 		});
-		// function readURLFour(input,size) {
-			
-		// 	if(size){
-		// 		size = size;
-		// 		var maxSize = size*1024;
-		// 	}else{
-		// 		size = 10;
-		// 		var maxSize = 10240;
-		// 	}
-			
-		// 	var file = input.files[0];//get file   
-		// 	var img = new Image();
-		// 	var sizeKB = file.size / 1024;
-
-		// 	console.log(sizeKB);
-		// 	if(sizeKB > maxSize){
-		// 		toastr.error('Image size', 'Image size should be less then '+size+'Mb.' , {displayDuration:100000,position: 'top-right'});
-		// 		return false;
-		// 	}
-		//     if (input.files && input.files[0]) {
-		//         var reader = new FileReader();
-		//         reader.onload = function(e) {
-		//             $('#imagePreviewFour').css('background-image', 'url('+e.target.result +')');
-		//             $('#imagePreviewFour').hide();
-		//             $('#imagePreviewFour').fadeIn(650);
-		//         }
-		//         reader.readAsDataURL(input.files[0]);
-		//     }
-		// }
-		// $("#imageUploadFoursection").change(function() {
-		//     readURLFour(this,$(this).attr('data-size'));
-		// });
+		
 
 		$('.settings').on('change',function(e){
 			var settingbutton = $(this);
@@ -609,7 +568,6 @@
 		});
 
 		// Delete Provider
-
 		$('.delete_provider').on('click',function(){
 			var provider_id = $(this).attr('data-provider_id');
 			var delete_row = $(this);
@@ -647,7 +605,6 @@
 		});
 
 		// Approve or Not approved Provider
-
 		$(document).on('click','.approved_btn',function(){
 			var provider_id = $(this).attr('data-provider_id');
 			var status = $(this).attr('data-status');
@@ -712,7 +669,6 @@
 		});
 
 		// Approve or Not approved Blogs
-
 		$(document).on('click','.approved_btn_blog',function(){
 			var blog_id = $(this).attr('data-blog_id');
 			var status = $(this).attr('data-status');
@@ -775,8 +731,8 @@
 				}
 			});
 		});
-		// Active or In Active Ads
 
+		// Active or In Active Ads
 		$(document).on('click','.active_btn_ads',function(){
 			var ads_id = $(this).attr('data-ads_id');
 			var is_active = $(this).attr('data-is_active');
@@ -840,10 +796,7 @@
 			});
 		});
 
-
-
 		// Delete Blog
-
 		$('.delete_blog').on('click',function(){
 			var blog_id = $(this).attr('data-blog_id');
 			var delete_row = $(this);
@@ -879,7 +832,7 @@
 				}
 			});
 		});
-
+		// Delete Category
 		$('.delete_category').on('click',function(e){
 			var delete_row = $(this);
 			var id = $(this).attr("data-category_id");
@@ -917,8 +870,8 @@
 			});
 			
 		});
-		// Delete Class
 
+		// Delete Class
 		$('.delete_class').on('click',function(){
 			var class_id = $(this).attr('data-class_id');
 			var delete_row = $(this);
@@ -956,7 +909,6 @@
 		});
 
 		// Delete Question
-
 		$('.delete_question').on('click',function(){
 			var question_id = $(this).attr('data-question_id');
 			var delete_row = $(this);
@@ -993,8 +945,6 @@
 				}
 			});
 		});
-
-
 		// Device Delete 
 			$('.delete_device').on('click',function(){
 				var device_id = $(this).attr('data-device_id');
@@ -1348,7 +1298,6 @@
 			});
 
 			// User approved or not  
-
 				$(document).on('click','.forgot_email',function(e){
 					e.preventDefault();
 					var url = $(this).attr('data-url');
@@ -1546,7 +1495,6 @@
 				});
 			});
 			// Color Delete
-
 			$('.delete_color').on('click',function(){
 				var supplier_id = $(this).attr('data-color_id');
 				var delete_row = $(this);
@@ -1582,9 +1530,6 @@
 					}
 				});
 			});
-
-
-
 			$(document).on('click','.approved_supplier_btn',function(){
 				var supplier_id = $(this).attr('data-supplier_id');
 				var status = $(this).attr('data-status');
@@ -1647,85 +1592,84 @@
 					}
 				});
 			});
-
+			$('.default_check_suppliers').on('change',function(){
+				var supplier_id = $(this).attr('data-supplier_id');
+				var delete_row = $(this);
+				if(window.location.protocol == "http:"){
+					resuesturl = "{{url('/admin/set-default-supplies')}}"
+				}else if(window.location.protocol == "https:"){
+					resuesturl = "{{secure_url('/admin/set-default-supplies')}}"
+				}
+				if($(this).prop("checked") == true){
+					swal("Are you sure you want to choose as default this supplies?", {
+					buttons: ["No", "Yes"],
+					})
+					.then(res => {
+						if(res){
+							$.ajax({
+								type: "post",
+								url: resuesturl,
+								headers: {
+									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+								},
+								dataType:'json',
+								data: {
+									'id':supplier_id,
+									'status':1
+								},
+								success: function (data) {
+									if(data.success){
+										if(data.status == 1){
+											$('.default_check_brand').prop("checked", false); 
+											$('#customCheck'+supplier_id).prop("checked", true);
+										} 
+										toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
+									}else{
+										toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
+									}
+								}         
+							});
+						}else{
+							$(this).prop("checked", false); 
+						}
+					});
+				}else if($(this).prop("checked") == false){
+					swal("Are you sure you want to remove as default this supplies?", {
+					buttons: ["No", "Yes"],
+					})
+					.then(res => {
+						if(res){
+							$.ajax({
+								type: "post",
+								url: resuesturl,
+								headers: {
+									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+								},
+								dataType:'json',
+								data: {
+									'id':supplier_id,
+									'status':0
+								},
+								success: function (data) {
+									if(data.success){
+										if(data.status == 1){
+											$('.default_check_brand').prop("checked", false); 
+											$('#customCheck'+supplier_id).prop("checked", true);
+										}
+										toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
+									}else{
+										toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
+									}
+								}         
+							});
+						}else{
+							$(this).prop("checked", false); 
+						}
+					});
+				}
+			});
 		// End Supplier Section
-
-		$('.default_check_suppliers').on('change',function(){
-			var supplier_id = $(this).attr('data-supplier_id');
-			var delete_row = $(this);
-			if(window.location.protocol == "http:"){
-			    resuesturl = "{{url('/admin/set-default-supplies')}}"
-			}else if(window.location.protocol == "https:"){
-			    resuesturl = "{{secure_url('/admin/set-default-supplies')}}"
-			}
-			if($(this).prop("checked") == true){
-				swal("Are you sure you want to choose as default this supplies?", {
-		          buttons: ["No", "Yes"],
-		        })
-		        .then(res => {
-		          	if(res){
-		          		$.ajax({
-		          		    type: "post",
-		          		    url: resuesturl,
-		          		    headers: {
-		          		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		          		    },
-		          		    dataType:'json',
-		          		    data: {
-		          		        'id':supplier_id,
-		          		        'status':1
-		          		    },
-		          		    success: function (data) {
-		          		        if(data.success){
-		          		        	if(data.status == 1){
-		          		        		$('.default_check_brand').prop("checked", false); 
-		          		        		$('#customCheck'+supplier_id).prop("checked", true);
-		          		        	} 
-		          		        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
-		          		        }else{
-		          		        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
-		          		        }
-		          		    }         
-		          		});
-		          	}else{
-		          		$(this).prop("checked", false); 
-		          	}
-	          	});
-		    }else if($(this).prop("checked") == false){
-				swal("Are you sure you want to remove as default this supplies?", {
-		          buttons: ["No", "Yes"],
-		        })
-		        .then(res => {
-		          	if(res){
-		          		$.ajax({
-		          		    type: "post",
-		          		    url: resuesturl,
-		          		    headers: {
-		          		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		          		    },
-		          		    dataType:'json',
-		          		    data: {
-		          		        'id':supplier_id,
-		          		        'status':0
-		          		    },
-		          		    success: function (data) {
-		          		        if(data.success){
-		          		        	if(data.status == 1){
-		          		        		$('.default_check_brand').prop("checked", false); 
-		          		        		$('#customCheck'+supplier_id).prop("checked", true);
-		          		        	}
-		          		        	toastr.success('Success', data.message , {displayDuration:3000,position: 'top-right'});
-		          		        }else{
-		          		        	toastr.error('Error', data.message , {displayDuration:3000,position: 'top-right'});
-		          		        }
-		          		    }         
-		          		});
-		          	}else{
-		          		$(this).prop("checked", false); 
-		          	}
-	          	});
-		    }
-		});
+		
 		$('.default_check_device').on('change',function(){
 			var device_id = $(this).attr('data-device_id');
 			var delete_row = $(this);

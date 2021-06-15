@@ -24,19 +24,12 @@ class BlogsController extends Controller
             $view->with('settings', $settings);
         });
     }
-
+    
     /**
-     * Show the application dashboard.
-     *
+     * Get Blog list
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function blogs()
-    {
-        $blogs = BlogsModel::orderBy('created_at','DESC')->paginate(10);
-        return view('FrontEnd.blogs',['blogs'=>$blogs]);
-    }
-    
-    public function blogsNew(Request $request)
+    public function blogs(Request $request)
     {
         $params = $request->all();
         $query = BlogsModel::query();
@@ -47,14 +40,22 @@ class BlogsController extends Controller
             }
         }
         $blogs = $query->paginate(10);
-        return view('FrontEnd.blogsNew',['blogs'=>$blogs,'params'=>$params]);
+        return view('FrontEnd.blogs',['blogs'=>$blogs,'params'=>$params]);
     }
+
+    /**
+     * Add new blog form
+     */
     public function addBlogForm()
     {
 		$categories = Category::get();
         $setting  = SettingsModel::first();
         return view('FrontEnd.Blogs.addBlog',['categories'=>$categories,'setting'=>$setting]);
     }
+
+    /**
+     * Add new blog from user
+     */
     public function addBlog(Request $request)
     {
         $user_id = Auth::guard('customer')->user()['id']; 
@@ -118,6 +119,9 @@ class BlogsController extends Controller
         	}
 		}
     }
+    /**
+     * Edit blog form
+     */
     public function editBlogForm($id)
     {
         $id = base64_decode($id);
@@ -126,6 +130,10 @@ class BlogsController extends Controller
         $setting  = SettingsModel::first();
         return view('FrontEnd.Blogs.editBlog',['categories'=>$categories,'blog'=>$blog,'setting'=>$setting]);
     }
+
+    /**
+     * Edit blog from user
+     */
     public function editBlog(Request $request)
     {
         $user_id = Auth::guard('customer')->user()['id']; 
@@ -191,13 +199,19 @@ class BlogsController extends Controller
            
 		}
     }
+
+    /**
+     * Get blogs of current user
+     */
     public function blogList()
     {
         $user_id = Auth::guard('customer')->user()['id']; 
         $blogs = BlogsModel::orderBy('created_at','DESC')->where('user_id',$user_id)->paginate(10);
         return view('FrontEnd.Blogs.blogList',['blogs'=>$blogs]);
     }
-
+    /**
+     * Delete blog
+     */
     public function deleteBlog(Request $request)
     {
         $perameter = $request->all();
@@ -218,6 +232,10 @@ class BlogsController extends Controller
             }
         }
     }
+
+    /**
+     * Get Blog detail
+     */
     public function blogDetail($id)
     {
         $id = base64_decode($id);

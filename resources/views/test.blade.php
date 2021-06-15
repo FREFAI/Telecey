@@ -21,11 +21,11 @@
          }
 			
          function getLocation() {
-               navigator.geolocation.getCurrentPosition(showLocation, errorHandler);
+               navigator.geolocation.getCurrentPosition(showLocation, errorHandler, { enableHighAccuracy: true, maximumAge: 10000 });
             if(navigator.geolocation) {
                console.log('Hello Im in')
                // timeout at 60000 milliseconds (60 seconds)
-               navigator.geolocation.getCurrentPosition(showLocation, errorHandler);
+               navigator.geolocation.getCurrentPosition(showLocation, errorHandler, { enableHighAccuracy: true, maximumAge: 10000 });
             } else {
                alert("Sorry, browser does not support geolocation!");
             }

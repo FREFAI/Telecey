@@ -5,12 +5,12 @@
 <section id="main-top-section" >
 	<div class="container">
 		<div class="row align-items-center">
-			<div class="col-12 text-center">
+			<div class="col-12 text-center order-1">
 				<div class="heading detail-div">
 					<h1 class="device-heading-title">{{__('device.title')}}</h1>
 				</div>
 			</div>
-			<div class="col-7 text-right">
+			<div class="col-lg-7 text-right order-3 order-lg-2">
 				<form action="{{url('/devices/result')}}" method="get" class="w-100">
 					<div class="row position-relative">
 						<div class="google-location-loader">
@@ -64,7 +64,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="col-5 text-center">
+			<div class="col-lg-5 text-center plan-page-image order-2 mt-3 mt-lg-0 mb-5 mb-lg-0 order-lg-3">
 				<div class="right-banner">
 					<img src="{{URL::asset('frontend/assets/img/2801276.jpg')}}"/>
 				</div>
@@ -81,7 +81,7 @@
 				<div class="row">
 					@if(count($data)>0)
 						@foreach($data as $key => $value)
-							<div class="col-sm-4 col-md-4 mb-4">
+							<div class="col-lg-4 mb-4">
 								<div class="post">
 									<div class="post-img-content">
 										@if(isset($value['provider']) && $value['provider']['provider_image_original'] != "")

@@ -404,10 +404,10 @@
 								  					  	                		  				<div class="col-lg-12 mb-3 border-bottom">
 								  					  	                			  				<div class="card_sm">
 								  					  	                			  					<div class="row">
-								  					  	                				  					<div class="col-lg-4">
+								  					  	                				  					<div class="col-lg-4 col-4">
 								  					  	                					  					<b>{{__('profile.address')}}</b>
 								  					  	                					  				</div>
-								  					  	                					  				<div class="col-lg-8">
+								  					  	                					  				<div class="col-lg-8 col-8">
 								  					  	                					  					<div class="pull-right" >{{$rating['formatted_address']}}</div>
 								  					  	                					  				</div>
 								  					  	                					  			</div>
@@ -490,13 +490,13 @@
 	  						  	                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$device->id}}" aria-expanded="true" aria-controls="collapse{{$device->id}}" class="accordion_btn">
 	  						  	                        <i class="more-less glyphicon glyphicon-plus"></i>
 	  						  	                        <div class="row">
-	  						  	                        	<div class="col-4 text-center">
+	  						  	                        	<div class="col-lg-4 mb-lg-0 mb-2 text-lg-center title-device-content">
 	  						  	                        		<b>{{__('profile.device_name')}}</b> : &nbsp; {{$device->device_name}}
 	  						  	                        	</div>
-	  						  	                        	<div class="col-4 text-center">
+	  						  	                        	<div class="col-lg-4 mb-lg-0 mb-2 text-lg-center title-device-content">
 	  						  	                        		<b>{{__('profile.brand_name')}}</b> : &nbsp;{{$device->brand_name}} {{$device->model_name}}
 	  						  	                        	</div>
-	  						  	                        	<div class="col-4 text-center">
+	  						  	                        	<div class="col-lg-4 mb-lg-0 text-lg-center">
 	  						  	                        		<b>{{__('profile.supplier_name')}}</b> : &nbsp;&nbsp;{{$device->supplier_name}}
 	  						  	                        	</div>
 	  						  	                        </div>
@@ -510,7 +510,7 @@
 	  											  			<div class="service_list_design">
 								  				  				<div class="row">
 								  					  				
-								  					  				<div class="col-lg-4 text-left">
+								  					  				<div class="col-lg-4 text-md-left">
 								  					  					<div class="card_sm">
 								  						  					<ul class="first_row_service">
 								  						  						<li>
@@ -524,7 +524,7 @@
 								  						  					</ul>
 								  					  					</div>
 								  					  				</div>
-								  					  				<div class="col-lg-4 text-center">
+								  					  				<div class="col-lg-4 text-md-center">
 								  					  					<div class="card_sm">
 								  						  					<ul class="first_row_service">
 								  						  						<li>
@@ -536,7 +536,7 @@
 								  						  					</ul>
 								  					  					</div>
 								  					  				</div>
-								  					  				<div class="col-lg-4 text-right">
+								  					  				<div class="col-lg-4 text-md-right">
 								  					  					<div class="card_sm">
 								  						  					<ul class="first_row_service">
 								  						  						<li>
@@ -551,9 +551,9 @@
 								  						  						</li>
 								  						  					</ul>
 								  					  					</div>
-																		</div>
-																		@if(count($device->ratings) === 0 ) 
-																		<div class="col-lg-4 mt-2 text-left">
+																	</div>
+																	@if(count($device->ratings) === 0 ) 
+																		<div class="col-lg-4 mt-2 text-md-left">
 																			<div class="card_sm">
 																				<ul class="first_row_service">
 																					<li>
@@ -564,7 +564,7 @@
 																				</ul>
 																			</div>
 																		</div>
-																		@endif
+																	@endif
 								  					  			</div>
 	  												  			<div class="row">
 	  												  				<div class="col-lg-12">
@@ -598,10 +598,10 @@
   							  					  	                		  				<div class="col-lg-12 mb-3 border-bottom">
   							  					  	                			  				<div class="card_sm">
   							  					  	                			  					<div class="row">
-  							  					  	                				  					<div class="col-lg-4">
+  							  					  	                				  					<div class="col-lg-4 col-4">
   							  					  	                					  					<b>{{__('profile.address')}}</b>
   							  					  	                					  				</div>
-  							  					  	                					  				<div class="col-lg-8">
+  							  					  	                					  				<div class="col-lg-8 col-8">
   							  					  	                					  					<div class="pull-right" >{{$rating['formatted_address']}}</div>
   							  					  	                					  				</div>
   							  					  	                					  			</div>

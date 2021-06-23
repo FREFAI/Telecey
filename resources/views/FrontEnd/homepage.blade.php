@@ -5,13 +5,26 @@
 <section id="main-top-section" >
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 text-center pl-0 pr-0 video-height">
+			<div class="col-md-6 col-sm-12 text-center pl-0 pr-0 video-height">
 				<div class="first-section-text mt-5">
 				@if(!\Session::get('locale') || (\Session::get('locale') && \Session::get('locale') == "en"))
 					{!!$homeContent ? $homeContent->section_one : 'Welcome to the telco community'!!}
 				@else
 					{!!$homeContent ? $homeContent->section_one_fr : 'Welcome to the telco community'!!}
 				@endif
+				</div>
+				<div class="first-section-image first-mobile mt-4">
+					@if($homeContent)
+						<a @if($homeContent->section_one_image_link != '') target="_blank" href="{{$homeContent->section_one_image_link}}" @endif>
+							@if($homeContent->section_one_image != '')
+								<img style="border:8px solid {{$homeContent->section_one_image_border_color != '' ? $homeContent->section_one_image_border_color : '#1bfca3'}};" src="{{URL::asset('home/images')}}/{{$homeContent->section_one_image}}">
+							@else
+								<img src="{{URL::asset('frontend/assets/img/2427279.jpg')}}">
+							@endif
+						</a>
+					@else
+						<img src="{{URL::asset('frontend/assets/img/2427279.jpg')}}">
+					@endif
 				</div>
 				<ul class="nav nav-tabs tab-selection  mt-5">
 					<li class="nav-item">
@@ -126,7 +139,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-6 col-sm-12 first-image-section first-desktop">
 				<div class="first-section-image">
 					@if($homeContent)
 						<a @if($homeContent->section_one_image_link != '') target="_blank" href="{{$homeContent->section_one_image_link}}" @endif>
@@ -157,8 +170,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mt-5 py-5 col-10 offset-md-1">
-			<div class="col-2 p-0 text-center">
+		<div class="row mt-5 py-5 col-10 offset-md-1 section-six-content">
+			<div class="col-12 col-md-4 col-lg-2 margin-bottom p-0 text-center">
 				@if($homeContent)
 					<a @if($homeContent->section_six != '' && isset($homeContent->section_six->label_1_image_link) && $homeContent->section_six->label_1_image_link != '') target="_blank" href="{{$homeContent->section_six->label_1_image_link}}" @endif>
 						@if($homeContent->section_six != '' && $homeContent->section_six->icon_1 != '')
@@ -179,7 +192,7 @@
 				
 				</div>
 			</div>
-			<div class="col-2 p-0 text-center">
+			<div class="col-12 col-md-4 col-lg-2 margin-bottom p-0 text-center">
 				@if($homeContent)
 				<a @if($homeContent->section_six != '' && isset($homeContent->section_six->label_2_image_link) && $homeContent->section_six->label_2_image_link != '') target="_blank" href="{{$homeContent->section_six->label_2_image_link}}" @endif>
 					@if($homeContent->section_six != '' && $homeContent->section_six->icon_2 != '')
@@ -200,7 +213,7 @@
 				@endif
 				</div>
 			</div>
-			<div class="col-2 p-0 text-center">
+			<div class="col-12 col-md-4 col-lg-2 margin-bottom p-0 text-center">
 				@if($homeContent)
 				<a @if($homeContent->section_six != '' && isset($homeContent->section_six->label_3_image_link) && $homeContent->section_six->label_3_image_link != '') target="_blank" href="{{$homeContent->section_six->label_3_image_link}}" @endif>
 					@if($homeContent->section_six != '' && $homeContent->section_six->icon_3 != '')
@@ -222,7 +235,7 @@
 				
 				</div>
 			</div>
-			<div class="col-2 p-0 text-center">
+			<div class="col-12 col-md-4 col-lg-2 margin-bottom p-0 text-center">
 				@if($homeContent)
 				<a @if($homeContent->section_six != '' && isset($homeContent->section_six->label_4_image_link) && $homeContent->section_six->label_4_image_link != '') target="_blank" href="{{$homeContent->section_six->label_4_image_link}}" @endif>
 					@if($homeContent->section_six != '' && $homeContent->section_six->icon_4 != '')
@@ -244,7 +257,7 @@
 				
 				</div>
 			</div>
-			<div class="col-2 p-0 text-center">
+			<div class="col-12 col-md-4 col-lg-2 margin-bottom p-0 text-center">
 				@if($homeContent)
 				<a @if($homeContent->section_six != '' && isset($homeContent->section_six->label_5_image_link) && $homeContent->section_six->label_5_image_link != '') target="_blank" href="{{$homeContent->section_six->label_5_image_link}}" @endif>
 					@if($homeContent->section_six != '' && $homeContent->section_six->icon_5 != '')
@@ -264,7 +277,7 @@
 					@endif
 				</div>
 			</div>
-			<div class="col-2 p-0 text-center">
+			<div class="col-12 col-md-4 col-lg-2 margin-bottom p-0 text-center">
 				@if($homeContent)
 				<a @if($homeContent->section_six != '' && isset($homeContent->section_six->label_6_image_link) && $homeContent->section_six->label_6_image_link != '') target="_blank" href="{{$homeContent->section_six->label_6_image_link}}" @endif>
 					@if($homeContent->section_six != '' && $homeContent->section_six->icon_6 != '')
@@ -286,7 +299,7 @@
 			</div>
 		</div>
 		<div class="row my-5 align-items-center">
-			<div class="col-6">
+			<div class="col-md-6 col-lg-6 col-7">
 				<div class="service-inner text-right">
 					<a href="{{url('/plans')}}" class="service-section-plan">{{__('home.plan')}}</a>
 					@if($settings)
@@ -298,7 +311,7 @@
 					@endif
 				</div>
 			</div>
-			<div class="col-6">
+			<div class="col-md-6 col-lg-6 col-5">
 				<div class="service-section-image">
 					<img src="{{URL::asset('frontend/assets/img/filter.jpg')}}">
 				</div>
@@ -339,7 +352,7 @@
 			</div>
 			<div class="col-12">
 				<div class="row">
-					<div class="col-3 bg-blue">
+					<div class="col-12 col-md-3 col-lg-3 bg-blue">
 						<div class="work-section text-center">
 							<div class="work-icon">
 								<i class="fa fa-search"></i>
@@ -355,7 +368,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-3 bg-green">
+					<div class="col-12 col-md-3 col-lg-3 bg-green">
 						<div class="work-section text-center">
 							<div class="work-icon">
 								<i class="fa fa-bullhorn"></i>
@@ -371,7 +384,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-3 bg-blue">
+					<div class="col-12 col-md-3 col-lg-3 bg-blue">
 						<div class="work-section text-center">
 							<div class="work-icon">
 								<i class="fa fa-usd"></i>
@@ -387,7 +400,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-3 bg-green">
+					<div class="col-12 col-md-3 col-lg-3 bg-green">
 						<div class="work-section text-center">
 							<div class="work-icon">
 								<i class="fa fa-share-alt"></i>
@@ -406,8 +419,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mt-5 py-4">
-			<div class="col-10 offset-md-1">
+		<div class="row mt-5 py-4 sign-up-email-section">
+			<div class="col-md-10 col-lg-10 col-12 offset-md-1 email-signup-section">
 				<div class="sign-up-email">
 					<form action='{{url("/emailsignup")}}'>
 						<div class="form-group fields">
@@ -419,44 +432,44 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-8 offset-md-2">
-				<div class="row">
-					<div class="col-2 text-center mb-3">
+			<div class="col-lg-8 offset-lg-2">
+				<div class="row home-after-register">
+					<div class="col-md-2 col-lg-2 col-12 text-center mb-3">
 						<div class="image-section">
 							<img src="{{URL::asset('frontend/assets/img/House%20Sketch.jpg')}}"/>
 						</div>
 					</div>
-					<div class="col-10 mb-3">
+					<div class="col-md-10 col-lg-10 col-12 mb-3">
 						<div class="content-section">
 							{{__('home.list_one')}}
 						</div>
 					</div>
-					<div class="col-2 text-center mb-3">
+					<div class="col-md-2 col-lg-2 col-12 text-center mb-3">
 						<div class="image-section">
 							<img src="{{URL::asset('frontend/assets/img/Ringing%20Phone.jpg')}}"/>
 						</div>
 					</div>
-					<div class="col-10 mb-3">
+					<div class="col-md-10 col-lg-10 col-12 mb-3">
 						<div class="content-section">
 						{{__('home.list_two')}}
 						</div>
 					</div>
-					<div class="col-2 text-center mb-3">
+					<div class="col-md-2 col-lg-2 col-12 text-center mb-3">
 						<div class="image-section">
 							<img src="{{URL::asset('frontend/assets/img/Documents.jpg')}}"/>
 						</div>
 					</div>
-					<div class="col-10 mb-3">
+					<div class="col-md-10 col-lg-10 col-12 mb-3">
 						<div class="content-section">
 						{{__('home.list_three')}}
 						</div>
 					</div>
-					<div class="col-2 text-center mb-3">
+					<div class="col-md-2 col-lg-2 col-12 text-center mb-3">
 						<div class="image-section">
 							<img src="{{URL::asset('frontend/assets/img/454550-PGQH10-539.jpg')}}"/>
 						</div>
 					</div>
-					<div class="col-10 mb-3">
+					<div class="col-md-10 col-lg-10 col-12 mb-3">
 						<div class="content-section">
 						{{__('home.list_four')}}
 						</div>
@@ -478,7 +491,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row bg-green col-10 offset-md-1" id='our-information'>
+		<div class="row bg-green col-lg-10 offset-lg-1 our-information-section" id='our-information'>
 			<div class="col-12 text-center">
 				<div class="heading detail-div">
 					@if(!\Session::get('locale') || (\Session::get('locale') && \Session::get('locale') == "en"))
@@ -515,10 +528,10 @@
 			</div>
 			</div>
 		</div>
-		<div class="row my-5 col-10 offset-md-1">
+		<div class="row my-5 col-lg-10 offset-lg-1 blog-section">
 			@if(count($blogs) > 0)
 				@foreach($blogs as $blog)
-					<div class="col-6 mb-4">
+					<div class="col-12 col-md-6 col-lg-6 mb-4">
 						<div class="card-blog">
 							<a herf="{{url('/single-blog')}}/{{base64_encode($blog->id)}}">
 								<div class="poster">

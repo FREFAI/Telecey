@@ -86,23 +86,23 @@
             <div class="col-lg-12 mb-3">
                 <div class="panel-heading mb-2" role="tab" id="heading" >
                     <div class="row align-items-center">
-                        <div class="col-3 ">
+                        <div class="col-12 col-md-3 col-lg-3">
                                 <b>{{__('profile.provider_name')}}</b> : &nbsp;@if(!is_null($service->provider)) {{$service->provider->provider_name}}
                                 @else
                                 -
                                 @endif
                         </div>
-                        <div class="col-3 ">
+                        <div class="col-12 col-md-3 col-lg-3">
                                 <b>{{__('profile.service_type')}}</b> : &nbsp;@if(!is_null($service->typeOfService)) 
                                 {{$service->typeOfService['service_type_name']}}
                                 @else
                                     -
                                 @endif
                         </div>
-                        <div class="col-3 ">
+                        <div class="col-12 col-md-3 col-lg-3">
                                 <b>{{__('profile.price')}}</b> : &nbsp;&nbsp;{{$service->c_code}}&nbsp;{{$service->price}}
                         </div>
-                        <div class="col-3 ">
+                        <div class="col-12 col-md-3 col-lg-3">
                             @if(!is_null($service->provider)) 
                                 @if($service->provider->status == 1)
                                     <span class="font-weight-bold">{{__('profile.approved')}}</span>
@@ -312,10 +312,10 @@
                                                             <div class="col-lg-12 mb-3 border-bottom">
                                                                 <div class="card_sm">
                                                                     <div class="row">
-                                                                        <div class="col-lg-4 rating-sec">
+                                                                        <div class="col-4 col-lg-4 rating-sec">
                                                                             <b>{{__('profile.address')}}</b>
                                                                         </div>
-                                                                        <div class="col-lg-8 rating-sec">
+                                                                        <div class="col-8 col-lg-8 rating-sec">
                                                                             <div class="pull-right" >{{$rating['formatted_address']}}</div>
                                                                         </div>
                                                                     </div>

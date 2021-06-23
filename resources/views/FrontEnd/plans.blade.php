@@ -6,18 +6,18 @@
 	<section id="main-top-section" >
 		<div class="container">
 			<div class="row align-items-center">
-				<div class="col-12 text-center">
+				<div class="col-12 text-center order-1">
 					<div class="heading detail-div">
 						<h1 class="device-heading-title">{{__('plan.title')}}</h1>
 					</div>
 				</div>
-				<div class="col-7 text-right">
+				<div class="col-lg-7 text-right order-3 order-lg-2">
 					<form action="{{url('/plans/result')}}" method="get" class="w-100">
 						<div class="row position-relative">
 							<div class="google-location-loader">
 								<i class="fa fa-spinner fa-spin"></i>
 							</div>
-							<div class="col-9">
+							<div class="col-md-9 col-lg-9 col-12 location-col">
 								<input type="hidden" name="lat" class="currentLat" value="{{$current_lat}}">
 								<input type="hidden" name="lng" class="currentLng" value="{{$current_long}}">
 								<input type="hidden" name="isSelect" class="isselect" value="1">
@@ -25,7 +25,7 @@
 								<input type="hidden" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif"  class="location-input-hidden"/>
 								<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="" name="address" class="location-input"/>
 							</div>
-							<div class="col-3">
+							<div class="col-md-3 col-lg-3 col-12">
 							@if($filtersetting->mobile_home_setting == 1)
 								<select class="service-type-select service_type" name="service_type">
 									<option value="">{{__('profile.service_type')}}</option>
@@ -40,7 +40,7 @@
 							@endif
 							</div>
 							@if($filtersetting->personal_business_setting == 1)
-							<div class="col-4 pr-0 text-right mt-4">
+							<div class="col-md-4 col-lg-4 col-12 pr-0 text-md-right mt-4">
 								<div class="form-group plan_page mb-0">
 									<span class="toggle_label active">{{__('index.Personal')}}</span>
 									<label class="switch">
@@ -52,7 +52,7 @@
 							</div>
 							@endif
 							@if($filtersetting->postpaid_prepaid_setting == 1)
-							<div class="col-4 text-center pl-0 pr-0 mt-4">
+							<div class="col-md-4 col-lg-4 col-12 text-center pl-0 pr-0 mt-4">
 								<div class="form-group plan_page mb-0">
 									<span class="toggle_label active">{{__('index.Postpaid')}}</span>
 									<label class="switch">
@@ -64,7 +64,7 @@
 							</div>
 							@endif
 							<input type="hidden" name="rows" value="20">
-							<div class="col-4 pl-0 text-left mt-4">
+							<div class="col-md-4 col-lg-4 col-12 pl-0 text-center text-lg-left text-md-left mt-4">
 								<div class="form-group plan_page mb-0">
 									<span class="toggle_label active">{{__('index.Pay as usage')}}</span>
 									<label class="switch">
@@ -75,7 +75,7 @@
 								</div>
 							</div>
 							@if($filtersetting->unlimited_calls_setting == 1)
-							<div class="col-6 text-center pl-0 pr-0 mt-4 pay_as_usage_type">
+							<div class="col-12 col-md-6 col-lg-6 text-center pl-0 pr-0 mt-4 pay_as_usage_type">
 								<div class="form-group plan_page">
 									<span class="toggle_label">{{__("index.Unlimited Calls")}}</span>
 									<label class="switch">
@@ -92,7 +92,7 @@
 							</div>
 							@endif
 							@if($filtersetting->gb_setting == 1)
-							<div class="col-3 text-center mt-4 pay_as_usage_type">
+							<div class="col-md-3 col-lg-3 col-12 text-center mt-4 pay_as_usage_type gb-setting-section">
 								<div class="form-group">
 									<select id="inputState" class="mbps-select" name="datavolume">
 										<option value="0.5">0.5 GB</option>
@@ -110,7 +110,7 @@
 							</div>
 							@endif
 							@if($filtersetting->mb_setting == 1)
-							<div class="col-3 text-center mt-4 pay_as_usage_type">
+							<div class="col-md-3 col-lg-3 col-12 text-center mt-4 pay_as_usage_type mbps-setting-section">
 								<div class="form-group">
 									<select id="inputState" class="mbps-select">
 										<option selected value="" disabled="">Mbps</option>
@@ -131,7 +131,7 @@
 						</div>
 					</form>
 				</div>
-				<div class="col-5 text-center">
+				<div class="col-lg-5 text-center plan-page-image order-2 mt-3 mt-lg-0 mb-5 mb-lg-0 order-lg-3">
 					<div class="right-banner">
 						<img src="{{URL::asset('frontend/assets/img/153981-OUOERJ-745.jpg')}}"/>
 					</div>
@@ -148,7 +148,7 @@
 					<div class="row">
 					@if(count($data)>0)
 						@foreach($data as $key => $value)
-							<div class="col-sm-4 col-md-4 mb-4">
+							<div class="col-lg-4 mb-4">
 								<div class="post">
 									<div class="post-img-content">
 										@if(isset($value['provider']) && $value['provider']['provider_image_original'] != "")

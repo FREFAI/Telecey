@@ -10,11 +10,11 @@
 		<div id="content" class="section-padding blog">
 	        <div class="container mt-5">
                         <div class="row mt-4">
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-4">
                                 <h5>{{ __('blog.list_title') }}</h5>
                             </div>
-                            <div class="col-lg-6">
-                                <form class="form-inline float-right">
+                            <div class="col-lg-6 col-md-6 col-8">
+                                <form class="form-inline float-right blog-search-form">
                                         <input value="{{$params['search']}}" name="search" type="text" placeholder="{{ __('blog.search_input') }}" class="form-control input-css">
                                         <button type="submit" class="common-btn"> {{ __('blog.search_btn') }}</button>
                                 </form>
@@ -22,8 +22,8 @@
                         </div>
 	            	@if(count($blogs) > 0)
                         @foreach($blogs as $blog)
-                            <div class="row mt-4 border">
-                                <div class="col-6">
+                            <div class="row mt-4 border blog-border">
+                                <div class="col-lg-6">
                                     <a @if($blog->image_link != '') target="_blank" href="{{$blog->image_link}}" @endif>
                                         <div class="blog-banner">
                                             @if($blog->blog_picture != "")
@@ -34,7 +34,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="col-6 p-4">
+                                <div class="col-lg-6 p-4">
                                     <div class="blog-title">
                                         <h5 class="post-title"><a href="{{url('/single-blog')}}/{{base64_encode($blog->id)}}" class="text-blue">{{$blog->title}}</a></h5>
                                         <small class="meta-part"><i class="lni-alarm-clock text-blue"></i> <u>{{date("M d, Y", strtotime($blog->created_at))}}</u></small>

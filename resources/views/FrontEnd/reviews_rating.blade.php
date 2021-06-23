@@ -23,7 +23,7 @@
     }
 </style>
 	<!-- Content Start Here -->
-		<div class="inner-page start-page">
+		<div class="inner-page start-page rating-page">
 		    <div class="container-fluid">
                 <div class="custom">
                     <div class="row">

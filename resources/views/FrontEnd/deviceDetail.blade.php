@@ -97,20 +97,20 @@
             <div class="col-lg-12 mb-3">
                 <div class="panel-heading mb-2" role="tab" id="heading" >
                     <div class="row align-items-center">
-                        <div class="col-4">
+                        <div class="col-12 col-md-4 col-lg-4">
                                 <b>{{__('profile.device_name')}}</b> : &nbsp;@if(!is_null($service->device)) {{$service->device->device_name}}
                                 @else
                                 -
                                 @endif
                         </div>
-                        <div class="col-4">
+                        <div class="col-12 col-md-4 col-lg-4">
                                 <b>{{__('profile.brand_name')}}</b> : &nbsp;@if(!is_null($service->brand)) 
                                 {{$service->brand->brand_name}}
                                 @else
                                     -
                                 @endif
                         </div>
-                        <div class="col-4">
+                        <div class="col-12 col-md-4 col-lg-4">
                             <b>{{__('profile.supplier_name')}}</b> : @if(!is_null($service->supplier)) 
                             {{$service->supplier->supplier_name}}
                             @else
@@ -221,10 +221,10 @@
                                                             <div class="col-lg-12 mb-3 border-bottom">
                                                                 <div class="card_sm">
                                                                     <div class="row">
-                                                                        <div class="col-lg-4 rating-sec">
+                                                                        <div class="col-4 col-lg-4 rating-sec">
                                                                             <b>{{__('profile.address')}}</b>
                                                                         </div>
-                                                                        <div class="col-lg-8 rating-sec">
+                                                                        <div class="col-8 col-lg-8 rating-sec">
                                                                             <div class="pull-right" >{{$rating['formatted_address']}}</div>
                                                                         </div>
                                                                     </div>

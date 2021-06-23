@@ -4,16 +4,16 @@
 
 
 <!-- Content Start Here -->
-<section id="main-top-section" >
+<section id="main-top-section" class="results-page">
 	<div class="container">
 		<div class="row align-items-center mb-5 loading_section">
-			<div class="col-7 text-center">
+			<div class="col-lg-7 text-center">
                 <div class="loading">
                     <h1>{{__('planresult.title')}}</h1><br>
                     <h1>{{__('planresult.title2')}} </h1>
                 </div>
 			</div>
-			<div class="col-5 text-center">
+			<div class="col-lg-5 text-center result-image-loader">
 				<div class="right-banner autorotate">
 					<img src="{{URL::asset('frontend/assets/img/9367.jpg')}}"/>
 				</div>
@@ -31,7 +31,7 @@
 					</div>
 					@endif
 				@endif
-				<div class="col-lg-6 record_section">
+				<div class="col-lg-6 order-1 record_section mb-lg-0 mb-3">
 					<div class="location">
 						<input type="text" placeholder="{{__('profile.location')}}" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input search-input-field"/>
 					</div>
@@ -40,7 +40,7 @@
 				<input type="hidden" name="lng" class="currentLng" value="{{request()->get('lng')}}">
 				<input type="hidden" name="country" class="currentCountry" value="{{request()->get('country')}}">
 				<input type="hidden" name="rows" id="paginate_input" value="{{request()->get('rows')}}"/>
-				<div class="col-lg-3 record_section">
+				<div class="col-lg-3 order-2 order-lg-2 record_section">
 					<div class="service_type">
 						@if($filtersetting->mobile_home_setting == 1)
 							<select class="service-type-select service_type" name="service_type">
@@ -57,17 +57,17 @@
 					</div>
 				</div>
 				
-				<div class="col-lg-1 record_section">
+				<div class="col-lg-1 order-9 order-lg-3 record_section">
 					<div class="text-center">
 						<a title="Expend Filter" href="javascript:void(0);" onClick="filterExpend()" class="expendFilterbtn"><img src="{{URL::asset('frontend/assets/img/filter.jpg')}}"/></a>
 					</div>
 				</div>
-				<div class="col-lg-2 text-right record_section pr-0">
+				<div class="col-lg-2 order-10 order-lg-4 text-md-right text-center record_section pr-0">
 					<div class="filter_button">
 						<button class="searchnow-button p-1 search-form-button" type="submit">{{__('plan.search_now_btn')}}</button>
 					</div>
 				</div>
-				<div class="col-lg-4 expendedFilter">
+				<div class="col-lg-4 order-3 order-lg-5 expendedFilter">
 					@if($filtersetting->personal_business_setting == 1)
 					<div class="form-group plan_page mb-0">
 						<span class="toggle_label active">{{__('index.Personal')}}</span>
@@ -79,7 +79,7 @@
 					</div>
 					@endif
 				</div>
-				<div class="col-lg-4 expendedFilter">
+				<div class="col-lg-4 order-4 order-lg-6 expendedFilter">
 					@if($filtersetting->postpaid_prepaid_setting == 1)
 					<div class="form-group plan_page mb-0">
 						<span class="toggle_label active">{{__('index.Postpaid')}}</span>
@@ -91,7 +91,7 @@
 					</div>
 					@endif
 				</div>
-				<div class="col-lg-4 expendedFilter">
+				<div class="col-lg-4 order-5 order-lg-7 expendedFilter">
 					<div class="form-group plan_page mb-0">
 						<span class="toggle_label active">{{__('index.Pay as usage')}}</span>
 						<label class="switch">
@@ -102,7 +102,7 @@
 					</div>
 				</div>
 				@if($filtersetting->unlimited_calls_setting == 1)
-				<div class="col-lg-4 pay_as_usage_type expendedFilter">
+				<div class="col-lg-4 order-6 order-lg-8 pay_as_usage_type expendedFilter">
 					<div class="form-group plan_page">
 						<span class="toggle_label">{{__("index.Unlimited Calls")}}</span>
 						<label class="switch">
@@ -119,7 +119,7 @@
 				</div>
 				@endif
 				@if($filtersetting->gb_setting == 1)
-				<div class="col-lg-3 text-center pay_as_usage_type expendedFilter">
+				<div class="col-lg-3 order-7 order-lg-9 text-center pay_as_usage_type expendedFilter">
 					<div class="form-group">
 						<select id="inputState" class="mbps-select" name="datavolume">
 							<option @if( request()->get('datavolume') ) @if( request()->get('datavolume') == '0.5') selected @endif @endif value="0.5">0.5 GB</option>
@@ -137,7 +137,7 @@
 				</div>
 				@endif
 				@if($filtersetting->mb_setting == 1)
-				<div class="col-lg-3 text-center pay_as_usage_type expendedFilter">
+				<div class="col-lg-3 order-8 order-lg-10 text-center pay_as_usage_type expendedFilter">
 					<div class="form-group">
 						<select id="inputState" class="mbps-select">
 							<option selected value="" disabled="">Mbps</option>

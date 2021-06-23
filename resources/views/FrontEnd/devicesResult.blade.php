@@ -2,7 +2,7 @@
 @section('title', 'Devices Result')
 @section('content')
 	<!-- Content Start Here -->
-<section id="main-top-section" >
+<section id="main-top-section" class="results-page">
 	<div class="container">
         <div class="row align-items-center mb-5 loading_section">
 			<!-- <div class="col-12 text-center">
@@ -10,13 +10,13 @@
 					<h1 class="device-heading-title">Search for Plans</h1>
 				</div>
 			</div> -->
-			<div class="col-7 text-center">
+			<div class="col-lg-7 text-center">
                 <div class="loading">
 					<h1>{{__('planresult.title')}}</h1><br>
                     <h1>{{__('planresult.title2')}} </h1>
                 </div>
 			</div>
-			<div class="col-5 text-center">
+			<div class="col-lg-5 text-center result-image-loader">
 				<div class="right-banner autorotate">
 					<img src="{{URL::asset('frontend/assets/img/9367.jpg')}}"/>
 				</div>
@@ -33,7 +33,7 @@
 					</div>
 					@endif
 				@endif
-				<div class="col-lg-6 record_section">
+				<div class="col-lg-6 record_section order-lg-1 order-1">
 					<div class="location">
 						<input type="hidden" name="lat" class="currentLat" value="{{request()->get('lat')}}">
 						<input type="hidden" name="lng" class="currentLng" value="{{request()->get('lng')}}">
@@ -41,7 +41,7 @@
 						<input type="text" placeholder="Location" id="searchMapInput" value="@if( request()->get('address') ) {{request()->get('address')}} @else {{$ip_location}} @endif" name="address" class="location-input search-input-field"/>
 					</div>
 				</div>
-				<div class="col-lg-3 record_section">
+				<div class="col-lg-3 record_section order-lg-2 order-2 mt-lg-0 mt-3">
 					<select class="service-type-select service_type" name="brand_name" id="brand_select" data-url="{{url('/searchBrand')}}">
 						<option value="">Brand</option>
 						@foreach($brands as $v)
@@ -50,18 +50,18 @@
 					</select>
 				</div>
 				<input type="hidden" name="rows" id="paginate_input" value="{{request()->get('rows')}}"/>
-				<div class="col-lg-1 record_section">
+				<div class="col-lg-1 record_section order-lg-3 order-5">
 					<div class="text-center">
 						<a title="Expend Filter" href="javascript:void(0);" onClick="filterExpend()" class="expendFilterbtn"><img src="{{URL::asset('frontend/assets/img/filter.jpg')}}"/></a>
 					</div>
 				</div>
-				<div class="col-lg-2 text-right record_section pr-0">
+				<div class="col-lg-2 text-md-right text-center record_section pr-0 order-lg-4 order-6">
 					<div class="filter_button">
 						<button class="searchnow-button p-1 search-form-button" type="submit">{{__('plan.search_now_btn')}}</button>
 					</div>
 				</div>
-				<div class="col-lg-4 expendedFilter">
-					<div class="form-group plan_page inputwithicon">
+				<div class="col-lg-4 expendedFilter order-lg-5 order-3">
+					<div class="form-group plan_page inputwithicon mb-sm-0">
 						<div class="select">
 							<select name="storage" id="storage" class="service-type-select  service_type">
 								<option value="">Capacity</option>
@@ -74,8 +74,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4 expendedFilter">
-					<div class="form-group plan_page inputwithicon">
+				<div class="col-lg-4 expendedFilter order-lg-6 order-4">
+					<div class="form-group plan_page inputwithicon mb-sm-0">
 						<div class="select">
 							<select name="device_color" id="device_color" class="service-type-select  service_type">
 								<option value="">Color</option>

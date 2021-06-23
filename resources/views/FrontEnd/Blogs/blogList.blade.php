@@ -66,12 +66,12 @@
         </div>
         <section class="container review-container">
             <div class="row second-step align-items-center">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-6">
                     <div class="add-blog-title">
                         <h1>{{__('index.Blog List')}}</h1>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-6">
                     <div class="add-blog-title text-right">
                        <a href="{{url('/add-blog')}}" class="common-btn"><i class="fa fa-plus"></i> {{__('index.Add Blog')}}</a>
                     </div>
@@ -137,15 +137,17 @@
                                             </span>
                                             </td>
                                         <td class="text-right">
-                                            <a class="common-btn text-center mr-2" href="{{url('/single-blog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="{{__('index.View')}}">
-                                            <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a class="common-btn text-center mr-2" href="{{url('/edit-blog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="{{__('index.Edit')}}">
-                                            <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a href="javascript:void(0)" class="common-btn text-center delete_blog" type="button" data-blog_id="{{$blog->id}}" data-toggle="tooltip" data-placement="top" title="{{__('index.Delete')}}">
-                                            <i class="fas fa-trash"></i>
-                                            </a>
+                                            <div class="action-btns">
+                                                <a class="common-btn text-center mr-2" href="{{url('/single-blog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="{{__('index.View')}}">
+                                                <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a class="common-btn text-center mr-2" href="{{url('/edit-blog')}}/{{base64_encode($blog->id)}}" data-toggle="tooltip" data-placement="top" title="{{__('index.Edit')}}">
+                                                <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="javascript:void(0)" class="common-btn text-center delete_blog" type="button" data-blog_id="{{$blog->id}}" data-toggle="tooltip" data-placement="top" title="{{__('index.Delete')}}">
+                                                <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach

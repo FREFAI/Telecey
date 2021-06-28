@@ -299,7 +299,7 @@
 			</div>
 		</div>
 		<div class="row my-5 align-items-center">
-			<div class="col-md-6 col-lg-6 col-7">
+			<div class="col-md-6 col-lg-6 col-8">
 				<div class="service-inner text-right">
 					<a href="{{url('/plans')}}" class="service-section-plan">{{__('home.plan')}}</a>
 					@if($settings)
@@ -311,7 +311,7 @@
 					@endif
 				</div>
 			</div>
-			<div class="col-md-6 col-lg-6 col-5">
+			<div class="col-md-6 col-lg-6 col-4">
 				<div class="service-section-image">
 					<img src="{{URL::asset('frontend/assets/img/filter.jpg')}}">
 				</div>

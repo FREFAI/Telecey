@@ -2235,6 +2235,10 @@ table.table.custom-table tbody tr:hover {
     min-width: 100%;
     min-height: 100%;
   }
+  #cookie_dismiss{
+    margin-left: 0rem !important;
+  }
+ 
 }
 
 @media (max-width: 992px){
@@ -2343,6 +2347,16 @@ table.table.custom-table tbody tr:hover {
   }
 }
 @media(max-width:425px){
+  #cookie_dismiss{
+    margin-left: 0rem !important;
+    padding: 9px !important;
+  }
+  p.cookie_text{
+    font-size: 13px;
+  }
+  .cookies_popup{
+    padding: 10px !important;
+  }
   .panel-title ul{
     columns: 1;
   }
@@ -2611,6 +2625,12 @@ table.table.custom-table tbody tr:hover {
     font-size: 20px;
     margin-left: 6rem;
 }  
+a.service-section-plan{
+  margin-right: 8px;
+}
+.sign-up-email .fields button {
+  font-size: 11px;
+}
 }
 
 @media(max-width:320px){
@@ -2623,6 +2643,9 @@ table.table.custom-table tbody tr:hover {
 }
 a.btn.btn-common.btn-find {
   padding: 8px 2rem 8px 2rem;
+}
+a.service-section-plan{
+  margin-right: 0px;
 }
 }
 
